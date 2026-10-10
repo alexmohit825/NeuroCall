@@ -20,6 +20,8 @@ settings:
     INFOPLIST_FILE: Info.plist
     GENERATE_INFOPLIST_FILE: NO
     ENABLE_USER_SCRIPT_SANDBOXING: NO
+    TARGETED_DEVICE_FAMILY: "1,2"
+    SDKROOT: iphoneos
 
 targets:
   Radix:
@@ -33,3 +35,4 @@ targets:
         PRODUCT_BUNDLE_IDENTIFIER: com.AlexMohit.RadixNeuro
         PRODUCT_NAME: Radix
         INFOPLIST_FILE: Info.plist
+        TARGETED_DEVICE_FAMILY: "1,2"

@@ -7,7 +7,7 @@ public struct MainContainerView: View {
     
     public var body: some View {
         TabView(selection: $selectedTab) {
-            // Tab 1: 2 AM Acute Emergencies
+            // Tab 1: 2 AM Acute Emergencies Triage
             NavigationStack {
                 EmergencyProtocolsView()
                     .navigationTitle("Radix Crisis")
@@ -18,7 +18,29 @@ public struct MainContainerView: View {
             }
             .tag(0)
             
-            // Tab 2: 60-Second Systematic Neuroimaging
+            // Tab 2: Neurosurgical Emergencies ("Cannot Miss")
+            NavigationStack {
+                NeurosurgicalEmergenciesView()
+                    .navigationTitle("Emergencies")
+                    .navigationBarTitleDisplayMode(.inline)
+            }
+            .tabItem {
+                Label("Red Flags", systemImage: "exclamationmark.triangle.fill")
+            }
+            .tag(1)
+            
+            // Tab 3: Procedural Atlas (EVD, Lumbar Drain, Camino, ICP)
+            NavigationStack {
+                NeurosurgicalProceduresView()
+                    .navigationTitle("Procedures")
+                    .navigationBarTitleDisplayMode(.inline)
+            }
+            .tabItem {
+                Label("Procedures", systemImage: "syringe.fill")
+            }
+            .tag(2)
+            
+            // Tab 4: 60-Second Systematic Neuroimaging
             NavigationStack {
                 ScanNavigatorView()
                     .navigationTitle("Scan Navigator")
@@ -27,18 +49,18 @@ public struct MainContainerView: View {
             .tabItem {
                 Label("CT / MRI", systemImage: "brain.head.profile")
             }
-            .tag(1)
+            .tag(3)
             
-            // Tab 3: Decoupler (Root vs Peripheral Nerve)
+            // Tab 5: Decoupler (Root vs Peripheral Nerve)
             NavigationStack {
                 ConflictSolverView()
-                    .navigationTitle("Radix Arbitrator")
+                    .navigationTitle("Arbitrator")
                     .navigationBarTitleDisplayMode(.inline)
             }
             .tabItem {
                 Label("Root vs. Nerve", systemImage: "figure.walk")
             }
-            .tag(2)
+            .tag(4)
         }
         .tint(.indigo)
     }

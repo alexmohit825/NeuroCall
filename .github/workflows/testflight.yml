@@ -63,6 +63,7 @@ jobs:
             -project Radix.xcodeproj \
             -scheme Radix \
             -destination 'generic/platform=iOS' \
+            -sdk iphoneos \
             -configuration Release \
             -archivePath build/archive/Radix.xcarchive \
             CODE_SIGNING_ALLOWED=NO \
