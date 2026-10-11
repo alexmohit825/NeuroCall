@@ -1,9 +1,10 @@
 import SwiftUI
 
-// MARK: - 2 AM Acute Neurosurgical Crisis Protocols & Operative Checklists
+// MARK: - 2 AM Acute Neurosurgical Crisis Protocols & Operative Cockpit
 // Synthesized from Greenberg Handbook of Neurosurgery, Kaloostian Neurosurgery Outlines, and Ellenbogen Principles of Neurosurgery.
-// Provides rapid bedside decision trees for traumatic hematomas, herniation syndromes, anticoagulation reversal,
-// bedside trephination / EVD setup, and acute stroke / cauda equina emergent triage.
+// Featuring authentic high-contrast CT scan plates (EDH, SDH, Uncal Herniation with anterior uncus, Posterior Fossa cerebellar ICH)
+// with prominent [ANT] / [POST] orientation, dynamic real-time caliper overlays driven by sliders,
+// full anticoagulation reversal cockpit, and emergency bedside/OR operative checklists.
 
 public struct EmergencyProtocolsView: View {
     @State private var selectedEmergency = "EDH"
@@ -17,16 +18,50 @@ public struct EmergencyProtocolsView: View {
     
     public init() {}
     
+    // Dynamic Surgical Candidate Criteria
+    var isThicknessBreached: Bool {
+        if selectedEmergency == "EDH" { return clotThicknessMM > 15.0 }
+        if selectedEmergency == "SDH" { return clotThicknessMM > 10.0 }
+        if selectedEmergency == "Posterior Fossa" { return clotThicknessMM >= 30.0 }
+        return clotThicknessMM > 10.0
+    }
+    
+    var isShiftBreached: Bool {
+        if selectedEmergency == "Posterior Fossa" { return midlineShiftMM > 3.0 }
+        return midlineShiftMM > 5.0
+    }
+    
+    var isGCSBreached: Bool {
+        if selectedEmergency == "EDH" { return gcsScore < 9 }
+        if selectedEmergency == "SDH" { return gcsScore <= 8 }
+        if selectedEmergency == "Posterior Fossa" { return gcsScore <= 13 }
+        return gcsScore <= 8
+    }
+    
+    var isPupilBreached: Bool {
+        return pupilStatus.contains("Sluggish") || pupilStatus.contains("Blown") || pupilStatus.contains("Fixed")
+    }
+    
     var isSurgicalCandidate: Bool {
-        if selectedEmergency == "EDH" {
-            return clotThicknessMM > 15.0 || midlineShiftMM > 5.0 || gcsScore < 9
-        } else if selectedEmergency == "SDH" {
-            return clotThicknessMM > 10.0 || midlineShiftMM > 5.0 || (gcsScore <= 8)
-        } else if selectedEmergency == "Posterior Fossa" {
-            return clotThicknessMM >= 30.0 || midlineShiftMM > 3.0 || gcsScore <= 13
-        } else {
-            return midlineShiftMM > 5.0 || pupilStatus.contains("Blown") || pupilStatus.contains("Sluggish")
+        return isThicknessBreached || isShiftBreached || isGCSBreached || isPupilBreached
+    }
+    
+    var currentCTImageName: String {
+        switch selectedEmergency {
+        case "EDH": return "plate_ct_edh"
+        case "SDH": return "plate_ct_sdh"
+        case "Uncal": return "plate_ct_uncal"
+        case "Posterior Fossa": return "plate_ct_post_fossa"
+        default: return "plate_ct_edh"
         }
+    }
+    
+    var estimatedVolumeCc: Double {
+        // Approximate ellipsoid volume: (A * B * C) / 2
+        let a = clotThicknessMM / 10.0 // cm
+        let b = a * 2.5 // approximate length
+        let c = 5.0 // average craniocaudal extent
+        return (a * b * c) / 2.0
     }
     
     public var body: some View {
@@ -36,11 +71,11 @@ public struct EmergencyProtocolsView: View {
                 HStack {
                     VStack(alignment: .leading, spacing: 4) {
                         HStack(spacing: 6) {
-                            Circle().fill(Color.red).frame(width: 8, height: 8)
+                            Circle().fill(isSurgicalCandidate ? Color.red : Color.green).frame(width: 8, height: 8)
                             Text("2 AM CRISIS PROTOCOL & OPERATIVE SUITE")
                                 .font(.system(size: 11, weight: .black))
                                 .tracking(1.5)
-                                .foregroundColor(.red)
+                                .foregroundColor(isSurgicalCandidate ? .red : .green)
                         }
                         Text("Acute Herniation & Emergency Checklists")
                             .font(.system(size: 20, weight: .bold))
@@ -48,12 +83,12 @@ public struct EmergencyProtocolsView: View {
                     }
                     Spacer()
                     // Urgency Badge
-                    Text(isSurgicalCandidate ? "SURGICAL OR" : "ICU MONITOR")
+                    Text(isSurgicalCandidate ? "SURGICAL OR MANDATE" : "ICU MONITORING")
                         .font(.system(size: 11, weight: .heavy))
                         .padding(.horizontal, 10)
-                        .padding(.vertical, 5)
-                        .background(isSurgicalCandidate ? Color.red.opacity(0.12) : Color.blue.opacity(0.12))
-                        .foregroundColor(isSurgicalCandidate ? .red : .blue)
+                        .padding(.vertical, 6)
+                        .background(isSurgicalCandidate ? Color.red.opacity(0.12) : Color.green.opacity(0.12))
+                        .foregroundColor(isSurgicalCandidate ? .red : .green)
                         .clipShape(Capsule())
                 }
                 .padding(.horizontal)
@@ -116,8 +151,23 @@ public struct EmergencyProtocolsView: View {
                     ForEach(["EDH", "SDH", "Uncal", "Posterior Fossa"], id: \.self) { type in
                         Button(action: {
                             selectedEmergency = type
+                            // Set realistic defaults for selected pathology
+                            if type == "EDH" {
+                                clotThicknessMM = 16.0
+                                midlineShiftMM = 6.0
+                            } else if type == "SDH" {
+                                clotThicknessMM = 12.0
+                                midlineShiftMM = 7.0
+                            } else if type == "Uncal" {
+                                clotThicknessMM = 18.0
+                                midlineShiftMM = 9.0
+                                pupilStatus = "Unilateral Blown / Fixed (Uncal Herniation)"
+                            } else {
+                                clotThicknessMM = 32.0
+                                midlineShiftMM = 4.0
+                            }
                         }) {
-                            Text(type == "EDH" ? "Epidural (EDH)" : (type == "SDH" ? "Subdural (SDH)" : (type == "Uncal" ? "Uncal Herniation" : "Posterior Fossa")))
+                            Text(type == "EDH" ? "Epidural (EDH)" : (type == "SDH" ? "Subdural (SDH)" : (type == "Uncal" ? "Uncal Herniation" : "Posterior Fossa ICH")))
                                 .font(.system(size: 12, weight: .bold))
                                 .padding(.vertical, 8)
                                 .padding(.horizontal, 14)
@@ -131,61 +181,113 @@ public struct EmergencyProtocolsView: View {
                 .padding(.horizontal)
             }
             
-            // Interactive Anatomic Head CT Slice Diagram
-            VStack(spacing: 8) {
-                Text("Interactive CT Axial Slice Visualizer")
-                    .font(.system(size: 12, weight: .bold))
-                    .foregroundColor(Color(red: 0.4, green: 0.45, blue: 0.55))
+            // Photorealistic High-Definition CT Scan Viewport with Live Calipers
+            ZStack {
+                // Background authentic CT Image from Assets
+                Image(currentCTImageName)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(height: 320)
+                    .cornerRadius(16)
                 
-                BrainCTDiagramView(activeHerniation: $selectedEmergency)
-                    .padding(.vertical, 4)
-                
-                Text(selectedEmergency == "EDH"
-                     ? "Biconvex / Lenticular (Arterial MMA, limited by cranial sutures)"
-                     : (selectedEmergency == "SDH" ? "Crescentic / Concave (Bridging veins, crosses cranial sutures)" : (selectedEmergency == "Uncal" ? "Uncal transtentorial displacement with posterior cerebral artery / CN III compression" : "Cerebellar hematoma compressing 4th ventricle & brainstem; lumbar puncture strictly contraindicated")))
-                    .font(.system(size: 11, weight: .medium))
-                    .multilineTextAlignment(.center)
-                    .foregroundColor(Color(red: 0.4, green: 0.45, blue: 0.55))
-                    .padding(.horizontal, 24)
+                // Live Dynamic Caliper Overlay directly driven by Sliders
+                VStack {
+                    Spacer()
+                    HStack {
+                        // Dynamic Clot Caliper Box
+                        HStack(spacing: 6) {
+                            Image(systemName: "arrow.left.and.right")
+                                .font(.system(size: 11, weight: .bold))
+                            Text("CLOT: \(Int(clotThicknessMM)) mm")
+                                .font(.system(size: 12, weight: .black, design: .monospaced))
+                        }
+                        .padding(.horizontal, 10)
+                        .padding(.vertical, 5)
+                        .background(isThicknessBreached ? Color.red.opacity(0.85) : Color.black.opacity(0.75))
+                        .foregroundColor(.white)
+                        .cornerRadius(8)
+                        .overlay(RoundedRectangle(cornerRadius: 8).stroke(isThicknessBreached ? Color.red : Color.cyan, lineWidth: 1.5))
+                        
+                        Spacer()
+                        
+                        // Dynamic Midline Shift Caliper Box
+                        HStack(spacing: 6) {
+                            Image(systemName: "arrow.right.to.line")
+                                .font(.system(size: 11, weight: .bold))
+                            Text("SHIFT: \(String(format: "%.1f", midlineShiftMM)) mm")
+                                .font(.system(size: 12, weight: .black, design: .monospaced))
+                        }
+                        .padding(.horizontal, 10)
+                        .padding(.vertical, 5)
+                        .background(isShiftBreached ? Color.red.opacity(0.85) : Color.black.opacity(0.75))
+                        .foregroundColor(.white)
+                        .cornerRadius(8)
+                        .overlay(RoundedRectangle(cornerRadius: 8).stroke(isShiftBreached ? Color.red : Color.amber, lineWidth: 1.5))
+                    }
+                    .padding(12)
+                }
             }
-            .padding()
-            .background(Color.white)
-            .cornerRadius(20)
-            .shadow(color: Color.black.opacity(0.04), radius: 8)
+            .frame(height: 320)
+            .background(Color.black)
+            .cornerRadius(18)
+            .overlay(RoundedRectangle(cornerRadius: 18).stroke(isSurgicalCandidate ? Color.red.opacity(0.6) : Color.black.opacity(0.1), lineWidth: 2))
             .padding(.horizontal)
             
-            // Real-Time Surgical Criteria Inputs
+            // Anatomical Pearl Text
+            Text(selectedEmergency == "EDH"
+                 ? "Biconvex / Lenticular arterial MMA bleed. Suture-bound. High surgical urgency if >15mm thickness or >5mm shift."
+                 : (selectedEmergency == "SDH"
+                    ? "Crescentic bridging vein hematoma crossing suture lines. Decompress if thickness >10mm or shift >5mm."
+                    : (selectedEmergency == "Uncal"
+                       ? "ANTERIOR MEDIAL TEMPORAL UNCAL HERNIATION: Uncus (anterior) herniates medially over tentorial edge, directly compressing ipsilateral CN III and cerebral peduncle."
+                       : "POSTERIOR FOSSA CEREBELLAR ICH: Hematoma ≥3cm compressing 4th ventricle and dorsal brainstem. Lumbar puncture strictly contraindicated due to tonsillar coning risk.")))
+                .font(.system(size: 11, weight: .medium))
+                .multilineTextAlignment(.center)
+                .foregroundColor(Color(red: 0.35, green: 0.4, blue: 0.5))
+                .padding(.horizontal, 24)
+            
+            // Real-Time Surgical Criteria Cockpit & Sliders
             VStack(alignment: .leading, spacing: 16) {
-                Text("Acute Triage Parameters")
-                    .font(.system(size: 14, weight: .bold))
-                    .foregroundColor(Color(red: 0.1, green: 0.12, blue: 0.18))
+                HStack {
+                    Text("Interactive Bedside Decision Cockpit")
+                        .font(.system(size: 14, weight: .bold))
+                        .foregroundColor(Color(red: 0.1, green: 0.12, blue: 0.18))
+                    Spacer()
+                    Text("EST. VOL: \(String(format: "%.0f", estimatedVolumeCc)) cc")
+                        .font(.system(size: 11, weight: .black))
+                        .foregroundColor(estimatedVolumeCc >= 30 ? .red : .indigo)
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 3)
+                        .background((estimatedVolumeCc >= 30 ? Color.red : Color.indigo).opacity(0.1))
+                        .cornerRadius(6)
+                }
                 
-                // Clot Thickness Slider
+                // Clot Thickness Slider (Directly drives caliper & threshold)
                 VStack(alignment: .leading, spacing: 4) {
                     HStack {
                         Text("Clot Thickness / Diameter")
                             .font(.system(size: 12, weight: .semibold))
                         Spacer()
-                        Text("\(Int(clotThicknessMM)) mm")
-                            .font(.system(size: 13, weight: .black))
-                            .foregroundColor(clotThicknessMM > 10.0 ? .red : .primary)
+                        Text("\(Int(clotThicknessMM)) mm \(isThicknessBreached ? "• BREACHED (> \(selectedEmergency == "EDH" ? "15" : (selectedEmergency == "Posterior Fossa" ? "30" : "10")) mm)" : "• ACCEPTABLE")")
+                            .font(.system(size: 11, weight: .black))
+                            .foregroundColor(isThicknessBreached ? .red : .green)
                     }
                     Slider(value: $clotThicknessMM, in: 1...40, step: 1)
-                        .tint(clotThicknessMM > 10.0 ? .red : .indigo)
+                        .tint(isThicknessBreached ? .red : .indigo)
                 }
                 
-                // Midline Shift Slider
+                // Midline Shift Slider (Directly drives caliper & threshold)
                 VStack(alignment: .leading, spacing: 4) {
                     HStack {
                         Text("Midline Shift")
                             .font(.system(size: 12, weight: .semibold))
                         Spacer()
-                        Text("\(String(format: "%.1f", midlineShiftMM)) mm")
-                            .font(.system(size: 13, weight: .black))
-                            .foregroundColor(midlineShiftMM > 5.0 ? .red : .primary)
+                        Text("\(String(format: "%.1f", midlineShiftMM)) mm \(isShiftBreached ? "• BREACHED (> \(selectedEmergency == "Posterior Fossa" ? "3" : "5") mm)" : "• ACCEPTABLE")")
+                            .font(.system(size: 11, weight: .black))
+                            .foregroundColor(isShiftBreached ? .red : .green)
                     }
                     Slider(value: $midlineShiftMM, in: 0...20, step: 0.5)
-                        .tint(midlineShiftMM > 5.0 ? .red : .indigo)
+                        .tint(isShiftBreached ? .red : .indigo)
                 }
                 
                 // GCS Stepper
@@ -193,9 +295,9 @@ public struct EmergencyProtocolsView: View {
                     VStack(alignment: .leading, spacing: 2) {
                         Text("Glasgow Coma Scale (GCS)")
                             .font(.system(size: 12, weight: .semibold))
-                        Text("Motor + Verbal + Eye opening")
+                        Text(isGCSBreached ? "Critical Coma (GCS ≤ 8 / Intubation Indicated)" : "Conscious / Responsive")
                             .font(.system(size: 10))
-                            .foregroundColor(.secondary)
+                            .foregroundColor(isGCSBreached ? .red : .secondary)
                     }
                     Spacer()
                     Stepper("\(gcsScore)", value: $gcsScore, in: 3...15)
@@ -207,10 +309,10 @@ public struct EmergencyProtocolsView: View {
                     Text("Pupillary Examination")
                         .font(.system(size: 12, weight: .semibold))
                     Picker("Pupil Exam", selection: $pupilStatus) {
-                        Text("Bilateral Brisk & Reactive").tag("Normal")
-                        Text("Ipsilateral Sluggish (Early CN III)").tag("Ipsilateral Sluggish")
-                        Text("Unilateral Blown / Fixed (Uncal Herniation)").tag("Unilateral Blown")
-                        Text("Bilateral Fixed & Dilated (Terminal Brainstem)").tag("Bilateral Fixed")
+                        Text("Bilateral Brisk & Reactive (Normal)").tag("Normal")
+                        Text("Ipsilateral Sluggish (Early CN III Compression)").tag("Ipsilateral Sluggish")
+                        Text("Unilateral Blown / Fixed (Uncal Herniation)").tag("Unilateral Blown / Fixed (Uncal Herniation)")
+                        Text("Bilateral Fixed & Dilated (Terminal Brainstem)").tag("Bilateral Fixed & Dilated")
                     }
                     .pickerStyle(.menu)
                     .padding(6)
@@ -218,6 +320,28 @@ public struct EmergencyProtocolsView: View {
                     .background(Color(red: 0.96, green: 0.97, blue: 0.99))
                     .cornerRadius(8)
                 }
+                
+                // Real-Time Verdict Box
+                VStack(alignment: .leading, spacing: 6) {
+                    HStack {
+                        Image(systemName: isSurgicalCandidate ? "exclamationmark.triangle.fill" : "checkmark.shield.fill")
+                            .foregroundColor(isSurgicalCandidate ? .red : .green)
+                        Text(isSurgicalCandidate ? "EMERGENT SURGICAL OPERATIVE MANDATE" : "ICU CONSERVATIVE MONITORING PROTOCOL")
+                            .font(.system(size: 11, weight: .black))
+                            .foregroundColor(isSurgicalCandidate ? .red : .green)
+                    }
+                    
+                    Text(isSurgicalCandidate
+                         ? "Patient meets definitive Brain Trauma Foundation operative guidelines. Activate operating room, notify on-call attending, draw crossmatch, initiate hyperosmolar bolus, and administer anticoagulation reversal immediately."
+                         : "Parameters are currently sub-critical. Admit to Neuro-ICU for hourly neurological exams, maintain MAP >80 mmHg, strict head-of-bed 30°, and obtain mandatory repeat non-contrast head CT in 6 hours.")
+                        .font(.system(size: 11, weight: .regular))
+                        .foregroundColor(Color(red: 0.25, green: 0.3, blue: 0.38))
+                        .lineSpacing(2)
+                }
+                .padding(12)
+                .background((isSurgicalCandidate ? Color.red : Color.green).opacity(0.08))
+                .cornerRadius(12)
+                .overlay(RoundedRectangle(cornerRadius: 12).stroke((isSurgicalCandidate ? Color.red : Color.green).opacity(0.3), lineWidth: 1.5))
             }
             .padding()
             .background(Color.white)
@@ -225,7 +349,7 @@ public struct EmergencyProtocolsView: View {
             .shadow(color: Color.black.opacity(0.04), radius: 8)
             .padding(.horizontal)
             
-            // Hyperosmolar Dosing & Emergency Resuscitation Card
+            // Hyperosmolar Dosing Protocol
             VStack(alignment: .leading, spacing: 12) {
                 HStack {
                     Image(systemName: "cross.vial.fill")
@@ -311,7 +435,7 @@ public struct EmergencyProtocolsView: View {
             ChecklistCard(
                 title: "Emergency Bedside EVD Placement Kit",
                 steps: [
-                    "Kocher\'s Point: 11 cm posterior from nasion, 3 cm lateral from midline along pupillary line (anterior to coronal suture)",
+                    "Kocher's Point: 11 cm posterior from nasion, 3 cm lateral from midline along pupillary line (anterior to coronal suture)",
                     "Local anesthesia: 5-10 mL 1% Lidocaine with epinephrine to bone",
                     "Twist drill or hand trephine perpendicular to calvaria in all planes",
                     "Incise and cauterize dura to prevent epidural hematoma during passage",
@@ -340,7 +464,7 @@ public struct EmergencyProtocolsView: View {
                     "Question-mark trauma incision (reverse-question mark based on side)",
                     "Incision begins at zygoma (<1 cm anterior to tragus to preserve superficial temporal artery trunk)",
                     "Elevate scalp and temporalis flap together (interfascial / myocutaneous) to protect frontalis nerve",
-                    "Rapid craniectomy with footplate: ensure flap is AT LEAST 12 x 15 cm",
+                    "Rapid craniectomy with footplate: ensure flap is AT LEAST 12 x 15 cm and carries aggressively across frontal bone",
                     "Drill temporal bone flush with middle cranial fossa floor to relieve uncus completely",
                     "Stellate dural opening with expansile onlay collagen / pericranium duraplasty"
                 ]
@@ -387,7 +511,7 @@ struct ReversalCard: View {
                     .cornerRadius(6)
             }
             
-            Text("Mechanism: \(mechanism)")
+            Text("Mechanism: " + mechanism)
                 .font(.system(size: 11))
                 .foregroundColor(.secondary)
             

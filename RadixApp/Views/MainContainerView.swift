@@ -18,10 +18,10 @@ public struct MainContainerView: View {
             }
             .tag(0)
             
-            // Tab 2: 2 AM Crisis Triage & Red Flag Emergencies
+            // Tab 2: 2 AM Crisis Triage & Red Flag Emergencies (Photorealistic CT Atlas + Dynamic Calipers)
             NavigationStack {
                 EmergencyProtocolsView()
-                    .navigationTitle("Crisis & Triage")
+                    .navigationTitle("2 AM Crisis")
                     .navigationBarTitleDisplayMode(.inline)
             }
             .tabItem {
@@ -29,14 +29,14 @@ public struct MainContainerView: View {
             }
             .tag(1)
             
-            // Tab 3: Consult Intake & Auto-SBAR Triage Engine
+            // Tab 3: Resident Clinical Calculators & Decision Support Hub
             NavigationStack {
-                ConsultManagerView()
-                    .navigationTitle("Consults")
+                NeurosurgeryCalculatorsView()
+                    .navigationTitle("Calculators")
                     .navigationBarTitleDisplayMode(.inline)
             }
             .tabItem {
-                Label("Consults", systemImage: "doc.text.fill")
+                Label("Calculators", systemImage: "function")
             }
             .tag(2)
             

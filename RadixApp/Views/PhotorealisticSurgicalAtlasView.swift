@@ -1,7 +1,7 @@
 import SwiftUI
 
 // MARK: - Studio-Grade Photorealistic Surgical Atlas Suite (Option C)
-// Featuring Authentic High-Definition Medical Artwork Plates & Radiographic MRI Suite
+// Featuring Authentic High-Definition Medical Artwork Plates & Authentic Radiographic MRI Suite
 // Synthesized from Albert Rhoton Jr., Greenberg Handbook of Neurosurgery, and Kaloostian Neurosurgery Outlines.
 // Deep micro-zoom (1.0x to 4.0x), interactive pinned callouts, danger zone overlays, and tactical protocols.
 
@@ -75,10 +75,10 @@ public struct PhotorealisticSurgicalAtlasView: View {
                     .tracking(1.8)
                     .foregroundColor(ObsidianTheme.neonAmber)
             }
-            Text("High-Definition Microsurgical Plates")
+            Text("High-Definition Microsurgical & MRI Plates")
                 .font(.system(size: 20, weight: .bold))
                 .foregroundColor(ObsidianTheme.textPrimary)
-            Text("Authentic Rhoton-caliber anatomical artwork with deep-zoom tactile callouts.")
+            Text("Authentic Rhoton-caliber anatomical artwork and clinical MRI scans with deep-zoom tactile callouts.")
                 .font(.system(size: 12, weight: .medium))
                 .foregroundColor(ObsidianTheme.textSecondary)
         }
@@ -171,10 +171,6 @@ public struct PhotorealisticSurgicalAtlasView: View {
                     Image(assetName)
                         .resizable()
                         .scaledToFit()
-                        .frame(width: geo.size.width, height: geo.size.height)
-                } else {
-                    // Radiographic vector fallback for MRI
-                    RadiographicPlateCanvas(plate: selectedPlate)
                         .frame(width: geo.size.width, height: geo.size.height)
                 }
                 
@@ -273,7 +269,7 @@ public struct PhotorealisticSurgicalAtlasView: View {
                 Image(systemName: "bolt.shield.fill")
                     .font(.system(size: 10))
                     .foregroundColor(ObsidianTheme.neonAmber)
-                Text("SURGICAL PEARL: \(callout.surgicalPearl)")
+                Text("SURGICAL PEARL: " + callout.surgicalPearl)
                     .font(.system(size: 11, weight: .semibold))
                     .foregroundColor(ObsidianTheme.neonAmber)
             }
@@ -355,52 +351,6 @@ public struct PhotorealisticSurgicalAtlasView: View {
     }
 }
 
-// MARK: - Radiographic Plate Canvas (For MRI Cross Sections)
-public struct RadiographicPlateCanvas: View {
-    public let plate: SurgicalPlateType
-    
-    public var body: some View {
-        Canvas { context, size in
-            let w = size.width
-            let h = size.height
-            
-            context.fill(Path(CGRect(x: 0, y: 0, width: w, height: h)), with: .color(Color(hex: "080B10")))
-            
-            if plate == .radiographicBrainT2 {
-                let parenchyma = Path(ellipseIn: CGRect(x: w * 0.18, y: h * 0.12, width: w * 0.64, height: h * 0.76))
-                context.fill(parenchyma, with: .color(Color(hex: "2B303C")))
-                
-                let v1 = Path(ellipseIn: CGRect(x: w * 0.43, y: h * 0.35, width: w * 0.05, height: h * 0.24))
-                let v2 = Path(ellipseIn: CGRect(x: w * 0.52, y: h * 0.35, width: w * 0.05, height: h * 0.24))
-                context.fill(v1, with: .color(Color.white.opacity(0.95)))
-                context.fill(v2, with: .color(Color.white.opacity(0.95)))
-                
-                var falx = Path()
-                falx.move(to: CGPoint(x: w * 0.50, y: h * 0.12))
-                falx.addLine(to: CGPoint(x: w * 0.50, y: h * 0.88))
-                context.stroke(falx, with: .color(Color.black.opacity(0.8)), lineWidth: 2)
-            } else if plate == .radiographicCervicalT2 {
-                for i in 0..<5 {
-                    let y = h * 0.18 + CGFloat(i) * (h * 0.13)
-                    let vb = Path(roundedRect: CGRect(x: w * 0.32, y: y, width: w * 0.18, height: h * 0.10), cornerRadius: 4)
-                    context.fill(vb, with: .color(Color(hex: "2B303C")))
-                }
-                let cord = Path(roundedRect: CGRect(x: w * 0.53, y: h * 0.15, width: w * 0.14, height: h * 0.70), cornerRadius: 8)
-                context.fill(cord, with: .color(Color(hex: "4B5563")))
-                
-                let myelomalacia = Path(ellipseIn: CGRect(x: w * 0.56, y: h * 0.42, width: w * 0.08, height: h * 0.07))
-                context.fill(myelomalacia, with: .color(Color.white.opacity(0.95)))
-            } else if plate == .radiographicLumbarT2 {
-                let canal = Path(ellipseIn: CGRect(x: w * 0.25, y: h * 0.25, width: w * 0.50, height: h * 0.50))
-                context.fill(canal, with: .color(Color(hex: "2B303C")))
-                
-                let sac = Path(ellipseIn: CGRect(x: w * 0.40, y: h * 0.42, width: w * 0.20, height: h * 0.16))
-                context.fill(sac, with: .color(Color.white.opacity(0.95)))
-            }
-        }
-    }
-}
-
 // MARK: - Data Models
 public enum SurgicalPlateType: String, CaseIterable {
     case aneurysmClipping = "aneurysm_clipping"
@@ -417,7 +367,6 @@ public enum SurgicalPlateType: String, CaseIterable {
     case lumbarTLIF = "lumbar_tlif"
     case radiographicBrainT2 = "radiographic_brain_t2"
     case radiographicCervicalT2 = "radiographic_cervical_t2"
-    case radiographicLumbarT2 = "radiographic_lumbar_t2"
     
     public var assetImageName: String? {
         switch self {
@@ -433,7 +382,8 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .c1C2Harms: return "plate_c1_c2_harms"
         case .acdfCervical: return "plate_acdf"
         case .lumbarTLIF: return "plate_tlif"
-        default: return nil
+        case .radiographicBrainT2: return "plate_mri_axial_brain"
+        case .radiographicCervicalT2: return "plate_mri_sagittal_cervical"
         }
     }
     
@@ -451,29 +401,27 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .c1C2Harms: return "C1-C2 Harms"
         case .acdfCervical: return "ACDF C5-C6"
         case .lumbarTLIF: return "Lumbar TLIF"
-        case .radiographicBrainT2: return "Brain T2 MRI"
-        case .radiographicCervicalT2: return "Cervical T2 MRI"
-        case .radiographicLumbarT2: return "Lumbar T2 MRI"
+        case .radiographicBrainT2: return "Axial Brain T2 MRI"
+        case .radiographicCervicalT2: return "Sagittal Cervical T2"
         }
     }
     
     public var title: String {
         switch self {
         case .aneurysmClipping: return "Anterior Circulation Aneurysm Clipping"
-        case .pterional: return "Pterional Transsylvian Corridor"
+        case .pterional: return "Pterional Frontotemporosphenoidal Corridor"
         case .orbitozygomatic: return "Orbitozygomatic Skull Base Corridor"
         case .retrosigmoid: return "Retrosigmoid CPA Dissection"
         case .farLateral: return "Far-Lateral Suboccipital Transcondylar"
         case .endonasalSellar: return "Endoscopic Endonasal Sellar Corridor"
         case .suboccipitalChiari: return "Suboccipital Foramen Magnum"
-        case .traumaHemicraniectomy: return "Frontotemporoparietal Craniectomy"
+        case .traumaHemicraniectomy: return "Decompressive Hemicraniectomy (12x15 cm)"
         case .kocherEVD: return "Frontal Horn Ventriculostomy"
         case .c1C2Harms: return "C1 Lateral Mass & C2 Pedicle Fixation"
-        case .acdfCervical: return "Subaxial ACDF Smith-Robinson"
+        case .acdfCervical: return "Subaxial ACDF Smith-Robinson (C5-C6)"
         case .lumbarTLIF: return "Posterior TLIF & Facetectomy"
-        case .radiographicBrainT2: return "Axial T2 MRI Radiographic Map"
-        case .radiographicCervicalT2: return "Mid-Sagittal Cervical T2 Map"
-        case .radiographicLumbarT2: return "Axial L4-L5 Lumbar T2 Map"
+        case .radiographicBrainT2: return "Axial T2 MRI: Central Sulcus & Motor Strip"
+        case .radiographicCervicalT2: return "Mid-Sagittal Cervical T2 MRI Cord Map"
         }
     }
     
@@ -493,7 +441,6 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .lumbarTLIF: return "lines.measurement.horizontal"
         case .radiographicBrainT2: return "circle.grid.cross"
         case .radiographicCervicalT2: return "waveform.path"
-        case .radiographicLumbarT2: return "square.stack.3d.down.right"
         }
     }
     
@@ -545,6 +492,16 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .pterional:
             return [
                 SurgicalCallout(
+                    id: "pt_frontal_bone",
+                    title: "Frontal Bone Craniotomy Window",
+                    structureType: "OSTEOTOMY EXTENSION",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.65,
+                    normalizedY: 0.28,
+                    description: "Rhoton's frontotemporosphenoidal trephination: Extensive frontal bone removal across superior orbital rim provides an unobstructed subfrontal corridor.",
+                    surgicalPearl: "Carry the anterior bone cut to unroof the orbit and drill the sphenoid ridge down to the meningo-orbital band to minimize brain retraction."
+                ),
+                SurgicalCallout(
                     id: "pt_sylvian",
                     title: "Sylvian Fissure",
                     structureType: "DISSECTION CORRIDOR",
@@ -563,16 +520,6 @@ public enum SurgicalPlateType: String, CaseIterable {
                     normalizedY: 0.58,
                     description: "Exits carotid canal through cavernous roof medial to anterior clinoid process, bifurcating into ACA and MCA.",
                     surgicalPearl: "Identify opticocarotid triangle before any aneurysm dissection for early proximal vascular control."
-                ),
-                SurgicalCallout(
-                    id: "pt_cn2",
-                    title: "Optic Nerve (CN II)",
-                    structureType: "CRANIAL NERVE",
-                    color: ObsidianTheme.textPrimary,
-                    normalizedX: 0.62,
-                    normalizedY: 0.42,
-                    description: "Direct anatomical landmark for skull base orientation. Enters optic canal under falciform ligament.",
-                    surgicalPearl: "Unroofing optic canal relaxes optic nerve tethering and prevents ischemic visual field loss."
                 )
             ]
         case .orbitozygomatic:
@@ -596,16 +543,6 @@ public enum SurgicalPlateType: String, CaseIterable {
                     normalizedY: 0.40,
                     description: "Basilar artery bifurcation situated between cerebral peduncles, supplying posterior cerebral (P1) and superior cerebellar (SCA) arteries.",
                     surgicalPearl: "Preserve posterior thalamoperforating vessels springing from posterior wall of basilar tip; avulsion causes coma."
-                ),
-                SurgicalCallout(
-                    id: "oz_orbit",
-                    title: "Orbital Roof & Periorbita",
-                    structureType: "ANATOMICAL BOUNDARY",
-                    color: ObsidianTheme.neonCyan,
-                    normalizedX: 0.76,
-                    normalizedY: 0.58,
-                    description: "Orbital roof flattened flush with superior orbital fissure. Periorbita protected intact.",
-                    surgicalPearl: "Avoid tearing periorbita; intraorbital fat extrusion obscures the microsurgical view."
                 )
             ]
         case .retrosigmoid:
@@ -629,16 +566,6 @@ public enum SurgicalPlateType: String, CaseIterable {
                     normalizedY: 0.58,
                     description: "Originates from basilar artery, loops into the porus acusticus, and supplies internal auditory canal via labyrinthine artery.",
                     surgicalPearl: "Spasm or traction on labyrinthine artery causes instantaneous, irreversible sensorineural deafness."
-                ),
-                SurgicalCallout(
-                    id: "rs_sinus",
-                    title: "Transverse & Sigmoid Sinus",
-                    structureType: "VENOUS BOUNDARY",
-                    color: ObsidianTheme.neonBlue,
-                    normalizedX: 0.22,
-                    normalizedY: 0.32,
-                    description: "Superolateral boundaries of retrosigmoid trephination meeting at the asterion.",
-                    surgicalPearl: "Burr hole placed inferomedial to asterion prevents direct sinus laceration."
                 )
             ]
         case .farLateral:
@@ -662,26 +589,6 @@ public enum SurgicalPlateType: String, CaseIterable {
                     normalizedY: 0.64,
                     description: "Posterior inferior cerebellar artery emerging from V4, looping between hypoglossal rootlets.",
                     surgicalPearl: "Preserve PICA perforators to lateral medulla; occlusion precipitates Wallenberg lateral medullary syndrome."
-                ),
-                SurgicalCallout(
-                    id: "fl_condyle",
-                    title: "Occipital Condyle Resection",
-                    structureType: "SKULL BASE OSTEOTOMY",
-                    color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.38,
-                    normalizedY: 0.70,
-                    description: "Drilling the posterior third of the occipital condyle opens an unobstructed flat corridor across anterior medulla.",
-                    surgicalPearl: "Resection beyond 50% of the occipital condyle creates craniocervical instability requiring occipitocervical fusion."
-                ),
-                SurgicalCallout(
-                    id: "fl_cn12",
-                    title: "Hypoglossal (CN XII) & CN XI",
-                    structureType: "LOWER CRANIAL NERVES",
-                    color: ObsidianTheme.neonCyan,
-                    normalizedX: 0.54,
-                    normalizedY: 0.38,
-                    description: "CN XII rootlets in hypoglossal canal and spinal accessory (CN XI) nerve crossing corridor.",
-                    surgicalPearl: "Identify hypoglossal canal before aggressive condyle drilling to protect CN XII."
                 )
             ]
         case .endonasalSellar:
@@ -705,16 +612,6 @@ public enum SurgicalPlateType: String, CaseIterable {
                     normalizedY: 0.46,
                     description: "Cavernous/paraclival internal carotid artery impressions and medial optico-carotid recess (mOCR).",
                     surgicalPearl: "Never drill lateral to medial optico-carotid recess; cavernous ICA injury in endoscopic cavity is catastrophic."
-                ),
-                SurgicalCallout(
-                    id: "ee_chiasm",
-                    title: "Optic Chiasm & Diaphragma",
-                    structureType: "SUPRASELLAR ROOF",
-                    color: ObsidianTheme.textPrimary,
-                    normalizedX: 0.50,
-                    normalizedY: 0.34,
-                    description: "Optic chiasm resting above diaphragma sellae; relieved of compression as tumor is delivered.",
-                    surgicalPearl: "Respect diaphragma sellae arachnoid plane to avoid high-flow CSF fistula and meningitis."
                 )
             ]
         case .suboccipitalChiari:
@@ -743,24 +640,34 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .traumaHemicraniectomy:
             return [
                 SurgicalCallout(
-                    id: "tr_flap",
-                    title: "12x15 cm Decompressive Flap",
-                    structureType: "BONE RESECTION",
+                    id: "tr_frontal_bone",
+                    title: "Frontal Bone Decompressive Extension",
+                    structureType: "EXTENSIVE BONE REMOVAL",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.68,
+                    normalizedY: 0.22,
+                    description: "The anterior bone cut MUST carry aggressively across the frontal bone (frontal boss) to within 2-3 cm of midline, preventing frontal lobe mushrooming.",
+                    surgicalPearl: "A decompressive hemicraniectomy must measure at least 12x15 cm; inadequate frontal bone removal causes severe subfalcine and frontal contusional incarceration."
+                ),
+                SurgicalCallout(
+                    id: "tr_middle_fossa",
+                    title: "Middle Fossa Floor Flattening",
+                    structureType: "BONE DECOMPRESSION",
                     color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.56,
-                    normalizedY: 0.38,
-                    description: "Adequate bone decompression must measure at least 12x15 cm to prevent brain herniation over bone margins.",
-                    surgicalPearl: "Always carry bone cuts down flush with floor of middle cranial fossa to decompress uncus."
+                    normalizedX: 0.45,
+                    normalizedY: 0.65,
+                    description: "Squamous temporal bone rongeured completely flush with middle cranial fossa floor.",
+                    surgicalPearl: "Flush temporal floor decompression directly relieves uncal pressure on the brainstem and tentorial incisura."
                 ),
                 SurgicalCallout(
                     id: "tr_mma",
-                    title: "Middle Meningeal Artery",
-                    structureType: "ARTERIAL ARBORIZATION",
+                    title: "Middle Meningeal Artery & Dural Hitching",
+                    structureType: "HEMOSTASIS & RETENTION",
                     color: ObsidianTheme.neonRose,
-                    normalizedX: 0.60,
-                    normalizedY: 0.32,
+                    normalizedX: 0.58,
+                    normalizedY: 0.35,
                     description: "Arborizes on the outer dural surface across the frontoparietal vault.",
-                    surgicalPearl: "Bipolar coagulate bleeding branches and place peripheral dural hitching sutures to prevent epidural hematoma."
+                    surgicalPearl: "Place peripheral dural hitching sutures every 2 cm along the entire bone margin to prevent epidural hematoma accumulation."
                 )
             ]
         case .kocherEVD:
@@ -789,77 +696,67 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .c1C2Harms:
             return [
                 SurgicalCallout(
-                    id: "harms_c1",
+                    id: "harms_va_outside",
+                    title: "Vertebral Artery (Outside Neural Canal)",
+                    structureType: "VASCULAR ANATOMY",
+                    color: ObsidianTheme.neonRose,
+                    normalizedX: 0.44,
+                    normalizedY: 0.24,
+                    description: "The vertebral artery runs OUTSIDE the neural canal through the foramen transversarium and loops into the sulcus arteriosus on the superior surface of the C1 posterior arch.",
+                    surgicalPearl: "Never dissect laterally on superior surface of C1 arch beyond 12 mm from midline; stay on the inferior border to protect the vertebral artery."
+                ),
+                SurgicalCallout(
+                    id: "harms_c1_mass",
                     title: "C1 Lateral Mass Screws",
-                    structureType: "CERVICAL IMPLANT",
+                    structureType: "ATLANTOAXIAL IMPLANT",
                     color: ObsidianTheme.neonCyan,
                     normalizedX: 0.34,
                     normalizedY: 0.32,
-                    description: "Entry at junction of C1 posterior arch and lateral mass midpoint, trajectory 10-15° medial toward anterior tubercle.",
-                    surgicalPearl: "Avoid cephalad angulation to protect atlanto-occipital joint and hypoglossal canal."
+                    description: "Entry at junction of C1 posterior arch and lateral mass midpoint, angled 10-15° medial toward anterior tubercle.",
+                    surgicalPearl: "Avoid cephalad angulation which risks penetrating atlanto-occipital joint or occipital condyle."
                 ),
                 SurgicalCallout(
-                    id: "harms_c2",
+                    id: "harms_c2_pedicle",
                     title: "C2 Pedicle / Pars Screws",
                     structureType: "AXIS IMPLANT",
                     color: ObsidianTheme.neonAmber,
                     normalizedX: 0.66,
                     normalizedY: 0.62,
                     description: "Entry at superior-medial quadrant of C2 lamina, angled 20-30° medial and 20-30° cephalad.",
-                    surgicalPearl: "Preoperative CTA is mandatory to rule out high-riding vertebral artery or persistent proatlantal vessel."
-                ),
-                SurgicalCallout(
-                    id: "harms_va",
-                    title: "Vertebral Artery Groove",
-                    structureType: "CRITICAL VASCULAR DANGER",
-                    color: ObsidianTheme.neonRose,
-                    normalizedX: 0.44,
-                    normalizedY: 0.26,
-                    description: "Vertebral artery courses in sulcus arteriosus on superior aspect of C1 posterior arch.",
-                    surgicalPearl: "Never dissect laterally on superior aspect of C1 arch beyond 12 mm from midline to avoid catastrophic VA laceration."
-                ),
-                SurgicalCallout(
-                    id: "harms_c2_root",
-                    title: "C2 Nerve Root & Venous Plexus",
-                    structureType: "NEURAL CORRIDOR",
-                    color: ObsidianTheme.textPrimary,
-                    normalizedX: 0.24,
-                    normalizedY: 0.48,
-                    description: "Courses directly over C1-C2 joint capsule; mobilised inferiorly to access C1 lateral mass entry point.",
-                    surgicalPearl: "Venous plexus surrounding C2 ganglion causes vigorous bleeding; pack with hemostatic matrix before drilling."
+                    surgicalPearl: "Preoperative CTA is mandatory to rule out high-riding transverse foramen (vertebral artery high riding)."
                 )
             ]
         case .acdfCervical:
             return [
                 SurgicalCallout(
-                    id: "acdf_pins",
-                    title: "Caspar Distraction Pins",
-                    structureType: "DISTRACTION SYSTEM",
+                    id: "acdf_caspar_c5",
+                    title: "C5 Midline Caspar Distraction Pin",
+                    structureType: "MIDLINE PIN IN BONE",
                     color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.44,
-                    normalizedY: 0.35,
-                    description: "Pins placed strictly parallel in midline vertebral bodies to open collapsed disc space.",
-                    surgicalPearl: "Do not overtighten distractor; over-distraction strains posterior facet capsules and causes neck pain."
+                    normalizedX: 0.46,
+                    normalizedY: 0.32,
+                    description: "Exactly ONE Caspar pin placed strictly in C5 midline vertebral body. The pin is embedded entirely in bone; the tip MUST NEVER enter the disc space.",
+                    surgicalPearl: "Anchor pin bicortically in midline vertebral body strictly parallel to endplates."
+                ),
+                SurgicalCallout(
+                    id: "acdf_caspar_c6",
+                    title: "C6 Midline Caspar Distraction Pin",
+                    structureType: "MIDLINE PIN IN BONE",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.46,
+                    normalizedY: 0.68,
+                    description: "Exactly ONE Caspar pin placed strictly in C6 midline vertebral body, parallel to C5 pin. No pin tips visible in the disc space.",
+                    surgicalPearl: "Parallel pin insertion ensures symmetrical disc space distraction without facet subluxation."
                 ),
                 SurgicalCallout(
                     id: "acdf_disc",
                     title: "C5-C6 Intervertebral Disc Space",
-                    structureType: "SURGICAL TARGET",
+                    structureType: "SURGICAL CORRIDOR",
                     color: ObsidianTheme.neonCyan,
                     normalizedX: 0.50,
                     normalizedY: 0.49,
-                    description: "Target disc herniation causing C6 radiculopathy (biceps/brachioradialis weakness, thumb numbness).",
-                    surgicalPearl: "Stay strictly in midline. Confirm level with intraoperative fluoroscopy with needle in disc before scalpel incision."
-                ),
-                SurgicalCallout(
-                    id: "acdf_uncinate",
-                    title: "Uncinate Process (Lateral Limit)",
-                    structureType: "SAFETY BOUNDARY",
-                    color: ObsidianTheme.neonRose,
-                    normalizedX: 0.38,
-                    normalizedY: 0.49,
-                    description: "Bilateral bony ridges marking lateral extent of safe decompression.",
-                    surgicalPearl: "Never drill lateral to medial wall of uncinate process; vertebral artery is located immediately lateral."
+                    description: "Target disc space evacuated completely between Caspar pins down to posterior longitudinal ligament (PLL).",
+                    surgicalPearl: "Resect PLL to visualize dura and bilateral exiting nerve roots before interbody cage placement."
                 )
             ]
         case .lumbarTLIF:
@@ -888,40 +785,57 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .radiographicBrainT2:
             return [
                 SurgicalCallout(
-                    id: "rad_ventricles",
-                    title: "Lateral Ventricles & Foramen of Monro",
-                    structureType: "CSF COMPARTMENT",
+                    id: "mri_central_sulcus",
+                    title: "Central Sulcus (Rolandic Fissure)",
+                    structureType: "PRIMARY ANATOMICAL LANDMARK",
                     color: ObsidianTheme.neonCyan,
-                    normalizedX: 0.48,
+                    normalizedX: 0.52,
+                    normalizedY: 0.48,
+                    description: "Axial T2 MRI identifying the Central Sulcus dividing frontal motor cortex from parietal sensory cortex.",
+                    surgicalPearl: "Use the 'pars marginalis' sign (the ascending branch of cingulate sulcus immediately posterior to central sulcus) to confirm location with 100% fidelity."
+                ),
+                SurgicalCallout(
+                    id: "mri_motor_strip",
+                    title: "Precentral Gyrus (Motor Strip - BA 4)",
+                    structureType: "PRIMARY MOTOR CORTEX",
+                    color: ObsidianTheme.neonRose,
+                    normalizedX: 0.42,
                     normalizedY: 0.42,
-                    description: "Target for Kocher's point ventriculostomy cannulation.",
-                    surgicalPearl: "Ventricle depth is normally 5.5 to 6.5 cm from outer calvaria. Never advance catheter beyond 7.0 cm."
+                    description: "Primary motor strip lying anterior to the central sulcus, thicker than sensory cortex (up to 4.5 mm).",
+                    surgicalPearl: "Identify the 'Hand Knob' (inverted omega sign) in the motor strip, which localizes contralateral hand and finger motor control."
+                ),
+                SurgicalCallout(
+                    id: "mri_sensory_strip",
+                    title: "Postcentral Gyrus (Sensory Strip - BA 3,1,2)",
+                    structureType: "PRIMARY SOMATOSENSORY CORTEX",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.58,
+                    normalizedY: 0.56,
+                    description: "Primary somatosensory strip lying immediately posterior to central sulcus in parietal lobe.",
+                    surgicalPearl: "Intraoperative phase reversal somatosensory evoked potentials (SSEPs) across central sulcus identify boundary."
                 )
             ]
         case .radiographicCervicalT2:
             return [
                 SurgicalCallout(
-                    id: "rad_cord",
-                    title: "Cord Myelomalacia T2 Signal",
-                    structureType: "INTRINSIC CORD LESION",
+                    id: "mri_cord_myelo",
+                    title: "Cervical Spinal Cord & T2 CSF Sleeve",
+                    structureType: "NEURAL PARENCHYMA",
                     color: ObsidianTheme.neonRose,
-                    normalizedX: 0.60,
-                    normalizedY: 0.45,
-                    description: "Hyperintense signal on T2 indicates permanent myelomalacic parenchymal change or acute cord edema.",
-                    surgicalPearl: "Preoperative myelomalacia signals guarded long-term motor recovery."
-                )
-            ]
-        case .radiographicLumbarT2:
-            return [
+                    normalizedX: 0.54,
+                    normalizedY: 0.44,
+                    description: "Sagittal T2 MRI showing cord caliber, dorsal/ventral hyperintense CSF sleeves, and compression zones.",
+                    surgicalPearl: "Loss of hyperintense T2 CSF sleeve anterior and posterior to cord indicates critical stenosis (<7mm AP cord caliber)."
+                ),
                 SurgicalCallout(
-                    id: "rad_stenosis",
-                    title: "Severe Central Canal Stenosis",
-                    structureType: "THECAL SAC COMPRESSION",
-                    color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.50,
-                    normalizedY: 0.48,
-                    description: "Thecal sac cross-sectional area <75 mm² confirms critical surgical lumbar spinal stenosis.",
-                    surgicalPearl: "Pincer compression by disc anteriorly and hypertrophied ligamentum flavum posteriorly."
+                    id: "mri_c5c6_disc",
+                    title: "C5-C6 Intervertebral Disc Herniation",
+                    structureType: "SURGICAL PATHOLOGY",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.44,
+                    normalizedY: 0.54,
+                    description: "Subaxial disc protrusion causing thecal sac indentation and ventral cord compression.",
+                    surgicalPearl: "Correlation with dermatomal C6 radiculopathy dictates anterior cervical decompression."
                 )
             ]
         }
@@ -938,8 +852,8 @@ public enum SurgicalPlateType: String, CaseIterable {
             ]
         case .pterional:
             return [
-                ApproachSequentialStep(stepNumber: 1, title: "Scalp Flap & Interfascial Dissection", detail: "Reflect scalp flap anteriorly. Dissect through deep temporal fascia to preserve frontalis branch of CN VII."),
-                ApproachSequentialStep(stepNumber: 2, title: "Craniotomy & Sphenoid Flattening", detail: "Trephine at MacCarty keyhole. Elevate bone flap and drill sphenoid ridge down to meningo-orbital band."),
+                ApproachSequentialStep(stepNumber: 1, title: "Scalp Flap & Frontal Bone Exposure", detail: "Reflect scalp flap anteriorly. Dissect interfascial plane over temporalis to preserve frontalis branch of CN VII."),
+                ApproachSequentialStep(stepNumber: 2, title: "Frontotemporosphenoidal Craniotomy", detail: "Include extensive frontal bone across superior orbital rim and keyhole. Flatten sphenoid ridge down to meningo-orbital band."),
                 ApproachSequentialStep(stepNumber: 3, title: "Dural Opening & CSF Release", detail: "Open dura in curvilinear C-shape facing sphenoid ridge. Open optico-carotid cistern early to slacken brain."),
                 ApproachSequentialStep(stepNumber: 4, title: "Sylvian Fissure Dissection", detail: "Sharply open arachnoid from distal to proximal, mobilizing frontal lobe away from temporal lobe.")
             ]
@@ -980,10 +894,10 @@ public enum SurgicalPlateType: String, CaseIterable {
             ]
         case .traumaHemicraniectomy:
             return [
-                ApproachSequentialStep(stepNumber: 1, title: "Question-Mark Scalp Incision", detail: "Large trauma incision beginning at zygoma, passing over ear, and curving toward midline."),
-                ApproachSequentialStep(stepNumber: 2, title: "Rapid 12x15 cm Craniectomy", detail: "Burr holes at keyhole, root of zygoma, and parasagittal. Elevate large bone plate and store."),
-                ApproachSequentialStep(stepNumber: 3, title: "Middle Fossa & Sphenoid Flattening", detail: "Rongeur temporal bone flush with middle cranial fossa floor to relieve uncal herniation."),
-                ApproachSequentialStep(stepNumber: 4, title: "Stellate Dural Opening & Duraplasty", detail: "Incise dura in stellate fashion; lay expansile onlay graft to accommodate brain edema.")
+                ApproachSequentialStep(stepNumber: 1, title: "Large Question-Mark Incision", detail: "Begin 1 cm anterior to tragus at zygoma, arch superiorly and posteriorly around ear, curving across midline frontal boss."),
+                ApproachSequentialStep(stepNumber: 2, title: "12x15 cm Craniectomy with Extensive Frontal Cut", detail: "Elevate massive bone flap extending aggressively across frontal bone to within 2-3 cm of midline sagittal sinus."),
+                ApproachSequentialStep(stepNumber: 3, title: "Flush Temporal Fossa Decompression", detail: "Rongeur temporal bone flush with middle cranial fossa floor to relieve uncal brainstem herniation."),
+                ApproachSequentialStep(stepNumber: 4, title: "Expansile Duraplasty & Peripheral Hitching", detail: "Stellate dural incision with onlay duraplasty; place peripheral dural hitching sutures to prevent epidural hematoma.")
             ]
         case .kocherEVD:
             return [
@@ -994,17 +908,17 @@ public enum SurgicalPlateType: String, CaseIterable {
             ]
         case .c1C2Harms:
             return [
-                ApproachSequentialStep(stepNumber: 1, title: "Midline Cervical Exposure", detail: "Midline exposure from inion to C3. Expose C1 posterior arch and C2 lamina/spinous process subperiosteally."),
-                ApproachSequentialStep(stepNumber: 2, title: "C2 Nerve Root Mobilization", detail: "Mobilize C2 nerve root and coagulate surrounding venous plexus to expose C1 lateral mass entry point."),
-                ApproachSequentialStep(stepNumber: 3, title: "C1 Lateral Mass Screw Insertion", detail: "Drill entry point at inferior border of C1 arch, trajectory 10-15° medial toward anterior tubercle, place 3.5mm screw."),
-                ApproachSequentialStep(stepNumber: 4, title: "C2 Pedicle / Pars Screw & Rod Fixation", detail: "Place C2 pedicle screw angled 20-30° medial and cephalad, contour rods, apply crosslink, perform decortication/fusion.")
+                ApproachSequentialStep(stepNumber: 1, title: "Midline Exposure & Foramen Transversarium Awareness", detail: "Expose C1 posterior arch and C2 lamina. The vertebral artery runs outside the neural canal in foramen transversarium and loops into C1 superior sulcus."),
+                ApproachSequentialStep(stepNumber: 2, title: "C2 Nerve Root Mobilization", detail: "Mobilize C2 nerve root inferiorly; coagulate venous plexus to expose C1 lateral mass entry point below arch."),
+                ApproachSequentialStep(stepNumber: 3, title: "C1 Lateral Mass Screw Insertion", detail: "Entry point at inferior edge of C1 arch, trajectory 10-15° medial toward anterior arch tubercle; bicortical purchase."),
+                ApproachSequentialStep(stepNumber: 4, title: "C2 Pedicle Screw Insertion & Fixation", detail: "Angled 20-30° medial and cephalad through C2 pedicle axis; connect with titanium rods and crosslink.")
             ]
         case .acdfCervical:
             return [
-                ApproachSequentialStep(stepNumber: 1, title: "Smith-Robinson Fascial Plane", detail: "Incise skin crease. Dissect between SCM/carotid sheath laterally and trachea/esophagus medially."),
-                ApproachSequentialStep(stepNumber: 2, title: "Sub-Longus Colli Exposure", detail: "Mobilize longus colli muscles bilaterally off anterior vertebral body. Place retractor blades under muscles."),
-                ApproachSequentialStep(stepNumber: 3, title: "Discectomy & Endplate Preparation", detail: "Incise anterior longitudinal ligament and disc. Remove cartilaginous endplates down to bleeding subchondral bone."),
-                ApproachSequentialStep(stepNumber: 4, title: "Interbody Cage & Plate Insertion", detail: "Insert lordotic PEEK or titanium interbody cage filled with allograft. Secure anterior cervical plate.")
+                ApproachSequentialStep(stepNumber: 1, title: "Smith-Robinson Midline Exposure", detail: "Dissect plane between carotid sheath and trachea/esophagus; expose longus colli muscles and midline disc space."),
+                ApproachSequentialStep(stepNumber: 2, title: "Midline Caspar Pin Placement (1 in C5, 1 in C6)", detail: "Insert exactly ONE Caspar pin in C5 and ONE in C6, strictly in the midline vertebral body. Pin tips must remain entirely in bone and NEVER enter the disc space."),
+                ApproachSequentialStep(stepNumber: 3, title: "Complete Discectomy & PLL Resection", detail: "Evacuate disc between distraction pins; resect posterior longitudinal ligament to inspect thecal sac."),
+                ApproachSequentialStep(stepNumber: 4, title: "Interbody Cage & Anterior Plate", detail: "Insert lordotic interbody cage packed with autograft; secure anterior cervical plate flush with vertebral bodies.")
             ]
         case .lumbarTLIF:
             return [
@@ -1015,24 +929,17 @@ public enum SurgicalPlateType: String, CaseIterable {
             ]
         case .radiographicBrainT2:
             return [
-                ApproachSequentialStep(stepNumber: 1, title: "Ventricular Geometry Assessment", detail: "Measure Evans index (>0.30 indicates hydrocephalus). Assess frontal and temporal horn ballooning."),
-                ApproachSequentialStep(stepNumber: 2, title: "Midline Shift Measurement", detail: "Measure perpendicular distance from septum pellucidum to ideal midline (>5 mm warrants surgical decompression)."),
-                ApproachSequentialStep(stepNumber: 3, title: "Basal Cistern Patency", detail: "Inspect perimesencephalic and quadrigeminal cisterns (effacement signifies impending uncal/transtentorial herniation)."),
-                ApproachSequentialStep(stepNumber: 4, title: "Target Trajectory Planning", detail: "Verify Kocher's point entry coordinates to confirm catheter reaches ipsilateral frontal horn without crossing midline.")
+                ApproachSequentialStep(stepNumber: 1, title: "Locate Pars Marginalis & Bracket Sign", detail: "Identify ascending branch of cingulate sulcus; the sulcus immediately anterior is the Central Sulcus."),
+                ApproachSequentialStep(stepNumber: 2, title: "Identify Precentral Gyrus Motor Strip", detail: "Confirm motor strip thickness and evaluate inverted omega 'Hand Knob' in middle third of precentral gyrus."),
+                ApproachSequentialStep(stepNumber: 3, title: "Identify Postcentral Gyrus Sensory Strip", detail: "Confirm primary sensory strip running parallel and posterior to the central sulcus."),
+                ApproachSequentialStep(stepNumber: 4, title: "Surgical Corridor Planning", detail: "Ensure planned corticectomy or trans-sulcal approach avoids primary motor cortex (BA 4) and pyramidal tract.")
             ]
         case .radiographicCervicalT2:
             return [
-                ApproachSequentialStep(stepNumber: 1, title: "Cord Caliber Assessment", detail: "Measure AP diameter of spinal cord (<7 mm signifies severe compression)."),
-                ApproachSequentialStep(stepNumber: 2, title: "Myelomalacia Staging", detail: "Assess focal T2 hyperintensity inside cord parenchyma indicating chronic damage."),
-                ApproachSequentialStep(stepNumber: 3, title: "Cervical Alignment & Lordosis", detail: "Evaluate Cobb angle and presence of kyphotic deformity (kyphosis contraindicates laminectomy alone)."),
-                ApproachSequentialStep(stepNumber: 4, title: "Surgical Approach Selection", detail: "1-2 levels with anterior pathology favor ACDF; multilevel lordotic compression favors posterior laminoplasty.")
-            ]
-        case .radiographicLumbarT2:
-            return [
-                ApproachSequentialStep(stepNumber: 1, title: "Thecal Sac Area Measurement", detail: "Normal >100 mm²; Moderate 75-100 mm²; Severe <75 mm² requiring surgical decompression."),
-                ApproachSequentialStep(stepNumber: 2, title: "Lateral Recess Height", detail: "Depth <3 mm confirms entrapment of traversing nerve root under superior facet."),
-                ApproachSequentialStep(stepNumber: 3, title: "Foraminal Stenosis Grading", detail: "Lee classification: Grade 3 represents complete obliteration of perineural fat around exiting nerve."),
-                ApproachSequentialStep(stepNumber: 4, title: "Spondylolisthesis & Instability", detail: "Dynamic flexion/extension translation >4 mm warrants TLIF instrumentation rather than laminectomy alone.")
+                ApproachSequentialStep(stepNumber: 1, title: "Measure AP Spinal Cord Diameter", detail: "Normal >=10 mm; critical compression <7 mm with effacement of dorsal and ventral hyperintense T2 CSF sleeves."),
+                ApproachSequentialStep(stepNumber: 2, title: "Evaluate Parenchymal Myelomalacia", detail: "Inspect for focal T2 cord hyperintensity indicating chronic cord distress or acute contusion."),
+                ApproachSequentialStep(stepNumber: 3, title: "Disc Herniation Level Localization", detail: "Identify subaxial disc protrusions (C5-C6 / C6-C7) correlating with clinical radiculopathy."),
+                ApproachSequentialStep(stepNumber: 4, title: "Cervical Alignment & Lordosis", detail: "Assess cervical sagittal vertical axis (SVA) and lordotic curvature before surgical approach selection.")
             ]
         }
     }
@@ -1047,9 +954,9 @@ public enum SurgicalPlateType: String, CaseIterable {
             ]
         case .pterional:
             return [
+                "Inadequate frontal bone removal causing excessive brain retraction and contusion",
                 "Frontalis branch facial nerve transection if failing to execute interfascial temporalis dissection",
-                "Middle meningeal artery trunk avulsion with uncontrollable epidural bleeding under sphenoid ridge",
-                "Excessive temporal lobe retraction causing hemorrhagic contusion prior to Sylvian fissure release"
+                "Middle meningeal artery trunk avulsion with uncontrollable epidural bleeding under sphenoid ridge"
             ]
         case .orbitozygomatic:
             return [
@@ -1082,9 +989,9 @@ public enum SurgicalPlateType: String, CaseIterable {
             ]
         case .traumaHemicraniectomy:
             return [
+                "Inadequate frontal bone removal causing frontal lobe strangulation and mushrooming over bone edge",
                 "Superior sagittal sinus laceration while taking bone cut too close to midline (<2 cm)",
-                "External brain herniation over sharp bone edges causing cortical venous infarction (mushrooming)",
-                "Delayed syndrome of the trephined (sinking skin flap syndrome) requiring early cranioplasty"
+                "External brain herniation with cortical venous infarction over sharp temporal bone margins"
             ]
         case .kocherEVD:
             return [
@@ -1094,15 +1001,15 @@ public enum SurgicalPlateType: String, CaseIterable {
             ]
         case .c1C2Harms:
             return [
-                "Vertebral artery laceration during C2 pedicle screw placement in patient with high-riding transverse foramen",
-                "Penetration of spinal canal medially causing acute spinal cord injury or thecal sac CSF fistula",
-                "C2 ganglion neuralgia or occipital numbness from excessive nerve root traction"
+                "Vertebral artery injury during C2 screw placement in patient with high-riding transverse foramen",
+                "Dissecting >12 mm lateral on superior border of C1 arch where vertebral artery loops in sulcus arteriosus",
+                "Medial breach of spinal canal resulting in direct spinal cord injury or CSF leak"
             ]
         case .acdfCervical:
             return [
+                "Caspar pin penetration into disc space or spinal canal from non-midline or convergent trajectory",
                 "Esophageal perforation from aggressive medial retractor blade placement",
-                "Vertebral artery injury from drilling lateral to uncinate process",
-                "Recurrent laryngeal nerve traction injury causing postoperative vocal cord paralysis"
+                "Vertebral artery injury from drilling lateral to uncinate process"
             ]
         case .lumbarTLIF:
             return [
@@ -1111,18 +1018,13 @@ public enum SurgicalPlateType: String, CaseIterable {
             ]
         case .radiographicBrainT2:
             return [
-                "Misdiagnosing asymmetric ventricles or subdural hygroma as hydrocephalus",
-                "Failure to identify acute midline shift effacing brainstem cisterns"
+                "Confusing precentral sulcus with central sulcus resulting in iatrogenic primary motor cortex resection",
+                "Overlooking the hand knob inverted omega sign during parasagittal tumor resection"
             ]
         case .radiographicCervicalT2:
             return [
-                "Performing posterior laminectomy in a kyphotic spine, worsening neurological deficit",
-                "Overlooking tandem lumbar stenosis in patients presenting with lower extremity spasticity"
-            ]
-        case .radiographicLumbarT2:
-            return [
-                "Decompressing wrong lumbar level due to transitional lumbosacral vertebra (sacralized L5/lumbarized S1)",
-                "Over-resection of pars interarticularis (>50%) causing iatrogenic spinal instability"
+                "Performing posterior laminectomy in a kyphotic spine, worsening cord compression",
+                "Failing to recognize tandem lumbar stenosis in patient presenting with hyperreflexia and myelopathy"
             ]
         }
     }
