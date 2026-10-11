@@ -174,7 +174,15 @@ public struct EmergencyProtocolsView: View {
     private var acuteTriageSection: some View {
         VStack(spacing: 16) {
             emergencyTypeTabs
-            ctViewportWithCalipers
+            
+            CTViewportView(
+                imageName: currentCTImageName,
+                clotMM: clotThicknessMM,
+                shiftMM: midlineShiftMM,
+                isThicknessBreached: isThicknessBreached,
+                isShiftBreached: isShiftBreached,
+                isSurgical: isSurgicalCandidate
+            )
             
             Text(anatomicalPearlText)
                 .font(.system(size: 11, weight: .medium))
@@ -221,55 +229,6 @@ public struct EmergencyProtocolsView: View {
             }
             .padding(.horizontal)
         }
-    }
-    
-    private var ctViewportWithCalipers: some View {
-        ZStack {
-            Image(currentCTImageName)
-                .resizable()
-                .scaledToFit()
-                .frame(height: 320)
-                .cornerRadius(16)
-            
-            VStack {
-                Spacer()
-                HStack {
-                    HStack(spacing: 6) {
-                        Image(systemName: "arrow.left.and.right")
-                            .font(.system(size: 11, weight: .bold))
-                        Text("CLOT: \(Int(clotThicknessMM)) mm")
-                            .font(.system(size: 12, weight: .black, design: .monospaced))
-                    }
-                    .padding(.horizontal, 10)
-                    .padding(.vertical, 5)
-                    .background(isThicknessBreached ? Color.red.opacity(0.85) : Color.black.opacity(0.75))
-                    .foregroundColor(.white)
-                    .cornerRadius(8)
-                    .overlay(RoundedRectangle(cornerRadius: 8).stroke(isThicknessBreached ? Color.red : Color.cyan, lineWidth: 1.5))
-                    
-                    Spacer()
-                    
-                    HStack(spacing: 6) {
-                        Image(systemName: "arrow.right.to.line")
-                            .font(.system(size: 11, weight: .bold))
-                        Text("SHIFT: \(String(format: "%.1f", midlineShiftMM)) mm")
-                            .font(.system(size: 12, weight: .black, design: .monospaced))
-                    }
-                    .padding(.horizontal, 10)
-                    .padding(.vertical, 5)
-                    .background(isShiftBreached ? Color.red.opacity(0.85) : Color.black.opacity(0.75))
-                    .foregroundColor(.white)
-                    .cornerRadius(8)
-                    .overlay(RoundedRectangle(cornerRadius: 8).stroke(isShiftBreached ? Color.red : Color.orange, lineWidth: 1.5))
-                }
-                .padding(12)
-            }
-        }
-        .frame(height: 320)
-        .background(Color.black)
-        .cornerRadius(18)
-        .overlay(RoundedRectangle(cornerRadius: 18).stroke(isSurgicalCandidate ? Color.red.opacity(0.6) : Color.black.opacity(0.1), lineWidth: 2))
-        .padding(.horizontal)
     }
     
     private var decisionCockpitCard: some View {
@@ -348,36 +307,13 @@ public struct EmergencyProtocolsView: View {
             }
             
             // Real-Time Verdict Box
-            verdictBox
+            TriageVerdictBox(isSurgicalCandidate: isSurgicalCandidate)
         }
         .padding()
         .background(Color.white)
         .cornerRadius(20)
         .shadow(color: Color.black.opacity(0.04), radius: 8)
         .padding(.horizontal)
-    }
-    
-    private var verdictBox: some View {
-        VStack(alignment: .leading, spacing: 6) {
-            HStack {
-                Image(systemName: isSurgicalCandidate ? "exclamationmark.triangle.fill" : "checkmark.shield.fill")
-                    .foregroundColor(isSurgicalCandidate ? .red : .green)
-                Text(isSurgicalCandidate ? "EMERGENT SURGICAL OPERATIVE MANDATE" : "ICU CONSERVATIVE MONITORING PROTOCOL")
-                    .font(.system(size: 11, weight: .black))
-                    .foregroundColor(isSurgicalCandidate ? .red : .green)
-            }
-            
-            Text(isSurgicalCandidate
-                 ? "Patient meets definitive Brain Trauma Foundation operative guidelines. Activate operating room, notify on-call attending, draw crossmatch, initiate hyperosmolar bolus, and administer anticoagulation reversal immediately."
-                 : "Parameters are currently sub-critical. Admit to Neuro-ICU for hourly neurological exams, maintain MAP >80 mmHg, strict head-of-bed 30°, and obtain mandatory repeat non-contrast head CT in 6 hours.")
-                .font(.system(size: 11, weight: .regular))
-                .foregroundColor(Color(red: 0.25, green: 0.3, blue: 0.38))
-                .lineSpacing(2)
-        }
-        .padding(12)
-        .background((isSurgicalCandidate ? Color.red : Color.green).opacity(0.08))
-        .cornerRadius(12)
-        .overlay(RoundedRectangle(cornerRadius: 12).stroke((isSurgicalCandidate ? Color.red : Color.green).opacity(0.3), lineWidth: 1.5))
     }
     
     private var hyperosmolarProtocolCard: some View {
@@ -513,6 +449,224 @@ public struct EmergencyProtocolsView: View {
             )
         }
         .padding(.horizontal)
+    }
+}
+
+// MARK: - Dedicated Subviews for Fast Type-Checking & Tactile Dynamic Calipers
+struct DynamicCaliperLinesView: View {
+    let clotMM: Double
+    let shiftMM: Double
+    let isThicknessBreached: Bool
+    let isShiftBreached: Bool
+    
+    var body: some View {
+        GeometryReader { geo in
+            let w = geo.size.width
+            let h = geo.size.height
+            let centerX = w / 2.0
+            let centerY = h / 2.0
+            
+            let shiftPixels = CGFloat(min(shiftMM * 3.0, 55.0))
+            let clotPixels = CGFloat(min(max(clotMM * 2.6, 16.0), 85.0))
+            
+            ZStack {
+                // 1. Prominent Anatomical Orientation Markers
+                VStack {
+                    Text("[ANT]")
+                        .font(.system(size: 10, weight: .black, design: .monospaced))
+                        .padding(.horizontal, 6)
+                        .padding(.vertical, 2)
+                        .background(Color.black.opacity(0.85))
+                        .foregroundColor(Color.yellow)
+                        .cornerRadius(4)
+                        .padding(.top, 6)
+                    Spacer()
+                    Text("[POST]")
+                        .font(.system(size: 10, weight: .black, design: .monospaced))
+                        .padding(.horizontal, 6)
+                        .padding(.vertical, 2)
+                        .background(Color.black.opacity(0.85))
+                        .foregroundColor(Color.yellow)
+                        .cornerRadius(4)
+                        .padding(.bottom, 44)
+                }
+                
+                HStack {
+                    Text("[R]")
+                        .font(.system(size: 10, weight: .black, design: .monospaced))
+                        .padding(.horizontal, 5)
+                        .padding(.vertical, 2)
+                        .background(Color.black.opacity(0.85))
+                        .foregroundColor(Color.yellow)
+                        .cornerRadius(4)
+                        .padding(.leading, 6)
+                    Spacer()
+                    Text("[L]")
+                        .font(.system(size: 10, weight: .black, design: .monospaced))
+                        .padding(.horizontal, 5)
+                        .padding(.vertical, 2)
+                        .background(Color.black.opacity(0.85))
+                        .foregroundColor(Color.yellow)
+                        .cornerRadius(4)
+                        .padding(.trailing, 6)
+                }
+                
+                // 2. Midline Shift Dynamic Caliper
+                if shiftMM > 0.4 {
+                    Path { path in
+                        path.move(to: CGPoint(x: centerX, y: centerY - 65))
+                        path.addLine(to: CGPoint(x: centerX, y: centerY + 65))
+                    }
+                    .stroke(Color.cyan.opacity(0.55), style: StrokeStyle(lineWidth: 1.5, dash: [4, 3]))
+                    
+                    Path { path in
+                        path.move(to: CGPoint(x: centerX + shiftPixels, y: centerY - 50))
+                        path.addLine(to: CGPoint(x: centerX + shiftPixels, y: centerY + 50))
+                    }
+                    .stroke(isShiftBreached ? Color.red : Color.orange, style: StrokeStyle(lineWidth: 2))
+                    
+                    Path { path in
+                        path.move(to: CGPoint(x: centerX, y: centerY))
+                        path.addLine(to: CGPoint(x: centerX + shiftPixels, y: centerY))
+                    }
+                    .stroke(isShiftBreached ? Color.red : Color.orange, lineWidth: 2)
+                    
+                    Text(String(format: "%.1f mm SHIFT", shiftMM))
+                        .font(.system(size: 9, weight: .black, design: .monospaced))
+                        .padding(.horizontal, 4)
+                        .padding(.vertical, 1)
+                        .background(isShiftBreached ? Color.red : Color.orange)
+                        .foregroundColor(.white)
+                        .cornerRadius(3)
+                        .position(x: centerX + (shiftPixels / 2.0), y: centerY - 14)
+                }
+                
+                // 3. Clot Thickness Dynamic Caliper Bracket
+                let caliperX = w * 0.22
+                let caliperY = centerY
+                
+                Path { path in
+                    path.move(to: CGPoint(x: caliperX - (clotPixels / 2.0), y: caliperY - 22))
+                    path.addLine(to: CGPoint(x: caliperX - (clotPixels / 2.0), y: caliperY + 22))
+                    path.move(to: CGPoint(x: caliperX - (clotPixels / 2.0), y: caliperY))
+                    path.addLine(to: CGPoint(x: caliperX + (clotPixels / 2.0), y: caliperY))
+                    path.move(to: CGPoint(x: caliperX + (clotPixels / 2.0), y: caliperY - 22))
+                    path.addLine(to: CGPoint(x: caliperX + (clotPixels / 2.0), y: caliperY + 22))
+                }
+                .stroke(isThicknessBreached ? Color.red : Color.cyan, lineWidth: 2)
+                
+                Text("\(Int(clotMM)) mm CLOT")
+                    .font(.system(size: 9, weight: .black, design: .monospaced))
+                    .padding(.horizontal, 4)
+                    .padding(.vertical, 1)
+                    .background(isThicknessBreached ? Color.red : Color.cyan)
+                    .foregroundColor(isThicknessBreached ? .white : .black)
+                    .cornerRadius(3)
+                    .position(x: caliperX, y: caliperY - 30)
+            }
+        }
+    }
+}
+
+struct CTViewportView: View {
+    let imageName: String
+    let clotMM: Double
+    let shiftMM: Double
+    let isThicknessBreached: Bool
+    let isShiftBreached: Bool
+    let isSurgical: Bool
+    
+    var body: some View {
+        ZStack {
+            Image(imageName)
+                .resizable()
+                .scaledToFit()
+                .frame(height: 320)
+                .cornerRadius(16)
+            
+            DynamicCaliperLinesView(
+                clotMM: clotMM,
+                shiftMM: shiftMM,
+                isThicknessBreached: isThicknessBreached,
+                isShiftBreached: isShiftBreached
+            )
+            
+            VStack {
+                Spacer()
+                HStack {
+                    CaliperBadge(
+                        icon: "arrow.left.and.right",
+                        text: "CLOT: \(Int(clotMM)) mm",
+                        isBreached: isThicknessBreached,
+                        normalColor: Color.cyan
+                    )
+                    
+                    Spacer()
+                    
+                    CaliperBadge(
+                        icon: "arrow.right.to.line",
+                        text: "SHIFT: \(String(format: \"%.1f\", shiftMM)) mm",
+                        isBreached: isShiftBreached,
+                        normalColor: Color.orange
+                    )
+                }
+                .padding(12)
+            }
+        }
+        .frame(height: 320)
+        .background(Color.black)
+        .cornerRadius(18)
+        .overlay(RoundedRectangle(cornerRadius: 18).stroke(isSurgical ? Color.red.opacity(0.6) : Color.black.opacity(0.1), lineWidth: 2))
+        .padding(.horizontal)
+    }
+}
+
+struct CaliperBadge: View {
+    let icon: String
+    let text: String
+    let isBreached: Bool
+    let normalColor: Color
+    
+    var body: some View {
+        HStack(spacing: 6) {
+            Image(systemName: icon)
+                .font(.system(size: 11, weight: .bold))
+            Text(text)
+                .font(.system(size: 12, weight: .black, design: .monospaced))
+        }
+        .padding(.horizontal, 10)
+        .padding(.vertical, 5)
+        .background(isBreached ? Color.red.opacity(0.85) : Color.black.opacity(0.75))
+        .foregroundColor(.white)
+        .cornerRadius(8)
+        .overlay(RoundedRectangle(cornerRadius: 8).stroke(isBreached ? Color.red : normalColor, lineWidth: 1.5))
+    }
+}
+
+struct TriageVerdictBox: View {
+    let isSurgicalCandidate: Bool
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 6) {
+            HStack {
+                Image(systemName: isSurgicalCandidate ? "exclamationmark.triangle.fill" : "checkmark.shield.fill")
+                    .foregroundColor(isSurgicalCandidate ? .red : .green)
+                Text(isSurgicalCandidate ? "EMERGENT SURGICAL OPERATIVE MANDATE" : "ICU CONSERVATIVE MONITORING PROTOCOL")
+                    .font(.system(size: 11, weight: .black))
+                    .foregroundColor(isSurgicalCandidate ? .red : .green)
+            }
+            
+            Text(isSurgicalCandidate
+                 ? "Patient meets definitive Brain Trauma Foundation operative guidelines. Activate operating room, notify on-call attending, draw crossmatch, initiate hyperosmolar bolus, and administer anticoagulation reversal immediately."
+                 : "Parameters are currently sub-critical. Admit to Neuro-ICU for hourly neurological exams, maintain MAP >80 mmHg, strict head-of-bed 30°, and obtain mandatory repeat non-contrast head CT in 6 hours.")
+                .font(.system(size: 11, weight: .regular))
+                .foregroundColor(Color(red: 0.25, green: 0.3, blue: 0.38))
+                .lineSpacing(2)
+        }
+        .padding(12)
+        .background((isSurgicalCandidate ? Color.red : Color.green).opacity(0.08))
+        .cornerRadius(12)
+        .overlay(RoundedRectangle(cornerRadius: 12).stroke((isSurgicalCandidate ? Color.red : Color.green).opacity(0.3), lineWidth: 1.5))
     }
 }
 
