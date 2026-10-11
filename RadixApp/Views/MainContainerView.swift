@@ -29,7 +29,18 @@ public struct MainContainerView: View {
             }
             .tag(1)
             
-            // Tab 3: Resident Clinical Calculators & Decision Support Hub
+            // Tab 3: Frontline ER Neurosurgical Consults Suite (Cranial & Spinal)
+            NavigationStack {
+                ERConsultsView()
+                    .navigationTitle("ER Consults")
+                    .navigationBarTitleDisplayMode(.inline)
+            }
+            .tabItem {
+                Label("ER Consults", systemImage: "stethoscope.circle.fill")
+            }
+            .tag(2)
+            
+            // Tab 4: Resident Clinical Calculators & Decision Support Hub
             NavigationStack {
                 NeurosurgeryCalculatorsView()
                     .navigationTitle("Calculators")
@@ -38,9 +49,9 @@ public struct MainContainerView: View {
             .tabItem {
                 Label("Calculators", systemImage: "function")
             }
-            .tag(2)
+            .tag(3)
             
-            // Tab 4: Studio-Grade Photorealistic Surgical Atlas (Option C)
+            // Tab 5: Studio-Grade Photorealistic Surgical Atlas (Option C)
             NavigationStack {
                 PhotorealisticSurgicalAtlasView()
                     .navigationTitle("Surgical Atlas")
@@ -48,17 +59,6 @@ public struct MainContainerView: View {
             }
             .tabItem {
                 Label("Surgical Atlas", systemImage: "book.pages.fill")
-            }
-            .tag(3)
-            
-            // Tab 5: Frontline On-Call Field Manual
-            NavigationStack {
-                OnCallFieldManualView()
-                    .navigationTitle("On-Call Manual")
-                    .navigationBarTitleDisplayMode(.inline)
-            }
-            .tabItem {
-                Label("Field Manual", systemImage: "shield.lefthalf.filled")
             }
             .tag(4)
         }
