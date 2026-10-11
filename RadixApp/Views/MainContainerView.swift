@@ -40,14 +40,14 @@ public struct MainContainerView: View {
             }
             .tag(2)
             
-            // Tab 4: 3D Spatial Simulator & HD Microsurgical Atlas Amalgam
+            // Tab 4: Studio-Grade Photorealistic Surgical Atlas (Option C)
             NavigationStack {
-                AtlasAmalgamHubView()
-                    .navigationTitle("3D Spatial & Atlas")
+                PhotorealisticSurgicalAtlasView()
+                    .navigationTitle("Surgical Atlas")
                     .navigationBarTitleDisplayMode(.inline)
             }
             .tabItem {
-                Label("3D & Atlas", systemImage: "rotate.3d.fill")
+                Label("Surgical Atlas", systemImage: "book.pages.fill")
             }
             .tag(3)
             
