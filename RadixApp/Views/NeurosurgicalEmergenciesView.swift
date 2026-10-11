@@ -25,7 +25,12 @@ public struct NeurosurgicalEmergenciesView: View {
         ("cerebellar_stroke", "Acute Cerebellar Stroke / Bleed", "Posterior Fossa Compression", "brain.head.profile", Color.red,
          "PICA or AICA infarction or posterior fossa hypertensive hemorrhage.",
          "Acute vertigo, ataxia, vomiting, horizontal nystagmus, progressive drowsiness from 4th ventricle compression.",
-         "Posterior fossa has rigid non-compliant volume. High risk of 4th ventricle effacement and obstructive hydrocephalus. Evacuate hematoma / suboccipital decompressive craniectomy if diameter > 3 cm or brainstem compression.")
+         "Posterior fossa has rigid non-compliant volume. High risk of 4th ventricle effacement and obstructive hydrocephalus. Evacuate hematoma / suboccipital decompressive craniectomy if diameter > 3 cm or brainstem compression."),
+        
+        ("shunt_obstruction", "VP Shunt Obstruction & Malfunction", "Acute Intracranial Pressure Crisis", "waveform.path.ecg.rectangle", Color.teal,
+         "Mechanical occlusion (proximal choroid plexus vs distal peritoneal kinking/pseudocyst) or disconnection.",
+         "Classic signs: Morning nausea/vomiting, lethargy, sunsetting eyes (in pediatrics), headache worse recumbent, abducens (CN VI) palsy, fullness over reservoir.",
+         "STAT Shunt Series X-rays (skull, neck, chest, abdomen) to rule out fracture/disconnection. Non-contrast Head CT comparing to baseline (look for enlarged ventricles or effaced sulci). Shunt tap under sterile prep with 25G butterfly to measure opening pressure and send CSF for gram stain/culture. Urgent OR shunt revision.")
     ]
     
     public init() {}

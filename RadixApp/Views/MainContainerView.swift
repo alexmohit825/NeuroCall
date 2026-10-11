@@ -7,10 +7,10 @@ public struct MainContainerView: View {
     
     public var body: some View {
         TabView(selection: $selectedTab) {
-            // Tab 1: 2 AM Acute Emergencies Triage
+            // Tab 1: 2 AM Acute Crisis Triage (EDH, SDH, Uncal, SBAR Briefing)
             NavigationStack {
                 EmergencyProtocolsView()
-                    .navigationTitle("Radix Crisis")
+                    .navigationTitle("Trephine Crisis")
                     .navigationBarTitleDisplayMode(.inline)
             }
             .tabItem {
@@ -18,50 +18,50 @@ public struct MainContainerView: View {
             }
             .tag(0)
             
-            // Tab 2: Neurosurgical Emergencies ("Cannot Miss")
+            // Tab 2: Neurosurgical Emergencies ("Cannot Miss" + Shunt Obstruction)
             NavigationStack {
                 NeurosurgicalEmergenciesView()
                     .navigationTitle("Emergencies")
                     .navigationBarTitleDisplayMode(.inline)
             }
             .tabItem {
-                Label("Red Flags", systemImage: "exclamationmark.triangle.fill")
+                Label("Emergencies", systemImage: "exclamationmark.triangle.fill")
             }
             .tag(1)
             
-            // Tab 3: Procedural Atlas (EVD, Lumbar Drain, Camino, ICP)
+            // Tab 3: Essential Surgical Atlas (Laminectomy, Discectomy, Screws, Craniotomies, Shunt)
             NavigationStack {
-                NeurosurgicalProceduresView()
-                    .navigationTitle("Procedures")
+                SurgicalAtlasView()
+                    .navigationTitle("Surgical Atlas")
                     .navigationBarTitleDisplayMode(.inline)
             }
             .tabItem {
-                Label("Procedures", systemImage: "syringe.fill")
+                Label("Surgical Atlas", systemImage: "scalpel")
             }
             .tag(2)
             
-            // Tab 4: 60-Second Systematic Neuroimaging
+            // Tab 4: Normal Neuroradiology (Cranial & Spinal Anatomy)
             NavigationStack {
-                ScanNavigatorView()
-                    .navigationTitle("Scan Navigator")
+                NeuroradiologyAtlasView()
+                    .navigationTitle("Neuroradiology")
                     .navigationBarTitleDisplayMode(.inline)
             }
             .tabItem {
-                Label("CT / MRI", systemImage: "brain.head.profile")
+                Label("Neuroradiology", systemImage: "brain.head.profile")
             }
             .tag(3)
             
-            // Tab 5: Decoupler (Root vs Peripheral Nerve)
+            // Tab 5: Bedside Procedures & Hardware (EVD Kocher's, Lumbar Drain, Camino, ICP)
             NavigationStack {
-                ConflictSolverView()
-                    .navigationTitle("Arbitrator")
+                NeurosurgicalProceduresView()
+                    .navigationTitle("Bedside & ICP")
                     .navigationBarTitleDisplayMode(.inline)
             }
             .tabItem {
-                Label("Root vs. Nerve", systemImage: "figure.walk")
+                Label("Bedside ICP", systemImage: "syringe.fill")
             }
             .tag(4)
         }
-        .tint(.indigo)
+        .tint(.blue)
     }
 }
