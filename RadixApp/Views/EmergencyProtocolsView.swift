@@ -238,7 +238,7 @@ public struct EmergencyProtocolsView: View {
                     .font(.system(size: 14, weight: .bold))
                     .foregroundColor(Color(red: 0.1, green: 0.12, blue: 0.18))
                 Spacer()
-                Text("EST. VOL: \(String(format: "%.0f", estimatedVolumeCc)) cc")
+                Text("EST. VOL: " + String(format: "%.0f", estimatedVolumeCc) + " cc")
                     .font(.system(size: 11, weight: .black))
                     .foregroundColor(estimatedVolumeCc >= 30 ? .red : .indigo)
                     .padding(.horizontal, 8)
@@ -267,7 +267,7 @@ public struct EmergencyProtocolsView: View {
                     Text("Midline Shift")
                         .font(.system(size: 12, weight: .semibold))
                     Spacer()
-                    Text("\(String(format: "%.1f", midlineShiftMM)) mm \(isShiftBreached ? "• BREACHED" : "• ACCEPTABLE")")
+                    Text(String(format: "%.1f", midlineShiftMM) + " mm • " + (isShiftBreached ? "BREACHED" : "ACCEPTABLE"))
                         .font(.system(size: 11, weight: .black))
                         .foregroundColor(isShiftBreached ? .red : .green)
                 }
@@ -605,7 +605,7 @@ struct CTViewportView: View {
                     
                     CaliperBadge(
                         icon: "arrow.right.to.line",
-                        text: "SHIFT: \(String(format: \"%.1f\", shiftMM)) mm",
+                        text: "SHIFT: " + String(format: "%.1f", shiftMM) + " mm",
                         isBreached: isShiftBreached,
                         normalColor: Color.orange
                     )
