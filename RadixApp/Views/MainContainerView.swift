@@ -40,14 +40,14 @@ public struct MainContainerView: View {
             }
             .tag(2)
             
-            // Tab 4: Picturesque MRI & Vector Anatomy Suite
+            // Tab 4: 3D Spatial Simulator & HD Microsurgical Atlas Amalgam
             NavigationStack {
-                PicturesqueMRIAtlasView()
-                    .navigationTitle("MRI & Atlas")
+                AtlasAmalgamHubView()
+                    .navigationTitle("3D Spatial & Atlas")
                     .navigationBarTitleDisplayMode(.inline)
             }
             .tabItem {
-                Label("MRI Atlas", systemImage: "brain.head.profile")
+                Label("3D & Atlas", systemImage: "rotate.3d.fill")
             }
             .tag(3)
             
