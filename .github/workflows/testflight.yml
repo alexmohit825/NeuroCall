@@ -24,10 +24,10 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: 🛠️ Select Xcode & Warm Up Simulator Runtime
+      - name: 🛠️ Select Xcode 26.x (iOS 26+ SDK)
         run: |
-          echo "Selecting Xcode 16.4..."
-          sudo xcode-select -s /Applications/Xcode_16.4.app || sudo xcode-select -s /Applications/Xcode_16.2.app || sudo xcode-select -s /Applications/Xcode.app
+          echo "Selecting Xcode 26.x..."
+          sudo xcode-select -s /Applications/Xcode_26.3.0.app || sudo xcode-select -s /Applications/Xcode_26.3.app || sudo xcode-select -s /Applications/Xcode_26.app || sudo xcode-select -s /Applications/Xcode.app
           xcodebuild -version
           swift --version
           xcrun simctl list > /dev/null || true
