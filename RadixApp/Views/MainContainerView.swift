@@ -7,58 +7,58 @@ public struct MainContainerView: View {
     
     public var body: some View {
         TabView(selection: $selectedTab) {
-            // Tab 1: 2 AM Acute Crisis Triage (EDH, SDH, Uncal, SBAR Briefing)
+            // Tab 1: Call Command Center & Census (Acuity, Tasks, Sickest Patients)
             NavigationStack {
-                EmergencyProtocolsView()
-                    .navigationTitle("Trephine Crisis")
+                CallDashboardView()
+                    .navigationTitle("Census & Tasks")
                     .navigationBarTitleDisplayMode(.inline)
             }
             .tabItem {
-                Label("2 AM Triage", systemImage: "cross.case.fill")
+                Label("Dashboard", systemImage: "checklist")
             }
             .tag(0)
             
-            // Tab 2: Neurosurgical Emergencies ("Cannot Miss" + Shunt Obstruction)
+            // Tab 2: 2 AM Crisis Triage & Red Flag Emergencies (TBI, EDH, SDH, Uncal, Shunt, SEA, CES)
             NavigationStack {
-                NeurosurgicalEmergenciesView()
-                    .navigationTitle("Emergencies")
+                EmergencyProtocolsView()
+                    .navigationTitle("Crisis & Triage")
                     .navigationBarTitleDisplayMode(.inline)
             }
             .tabItem {
-                Label("Emergencies", systemImage: "exclamationmark.triangle.fill")
+                Label("2 AM Crisis", systemImage: "cross.case.fill")
             }
             .tag(1)
             
-            // Tab 3: Essential Surgical Atlas (Laminectomy, Discectomy, Screws, Craniotomies, Shunt)
+            // Tab 3: Consult Intake & Auto-SBAR Note Generator
             NavigationStack {
-                SurgicalAtlasView()
-                    .navigationTitle("Surgical Atlas")
+                ConsultManagerView()
+                    .navigationTitle("Consults")
                     .navigationBarTitleDisplayMode(.inline)
             }
             .tabItem {
-                Label("Surgical Atlas", systemImage: "scalpel")
+                Label("Consult Intake", systemImage: "doc.text.fill")
             }
             .tag(2)
             
-            // Tab 4: Normal Neuroradiology (Cranial & Spinal Anatomy)
+            // Tab 4: Calculators & Drug Reversals (ABC/2, CPP, WFNS, SINS + DOAC Reversals)
             NavigationStack {
-                NeuroradiologyAtlasView()
-                    .navigationTitle("Neuroradiology")
+                NeurosurgeryCalculatorsView()
+                    .navigationTitle("Calculators")
                     .navigationBarTitleDisplayMode(.inline)
             }
             .tabItem {
-                Label("Neuroradiology", systemImage: "brain.head.profile")
+                Label("Calculators", systemImage: "function")
             }
             .tag(3)
             
-            // Tab 5: Bedside Procedures & Hardware (EVD Kocher's, Lumbar Drain, Camino, ICP)
+            // Tab 5: Surgical & Neuroradiology Atlas (Procedures, Cranial/Spinal Normal Anatomy, EVD)
             NavigationStack {
-                NeurosurgicalProceduresView()
-                    .navigationTitle("Bedside & ICP")
+                SurgicalAtlasView()
+                    .navigationTitle("Atlas & Anatomy")
                     .navigationBarTitleDisplayMode(.inline)
             }
             .tabItem {
-                Label("Bedside ICP", systemImage: "syringe.fill")
+                Label("Atlas", systemImage: "brain.head.profile")
             }
             .tag(4)
         }
