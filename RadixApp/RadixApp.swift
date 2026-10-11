@@ -1,11 +1,11 @@
 import SwiftUI
 
 @main
-struct RadixApp: App {
+struct NeuroCallApp: App {
     var body: some Scene {
         WindowGroup {
             MainContainerView()
-                .preferredColorScheme(.light) // Elegant, light aesthetic standard
+                .preferredColorScheme(.light) // Crisp high-contrast light clinical aesthetic
         }
     }
 }

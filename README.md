@@ -1,36 +1,41 @@
-# [Radix] Neural & Dermatomal Conflict Solver
-## Spine Root vs. Peripheral Nerve & Plexopathy Diagnostic Engine
+# NeuroCall — Neurosurgery On-Call Navigator & Procedures
+## High-Acuity Decision Engine, Cannot-Miss Emergencies, Procedural Atlas & 60-Second Neuroimaging
 
 **Author & Copyright:** 2026 A. Alex Mohit  
-**Platform:** Progressive Web App (PWA) / Responsive Desktop, iPad Pro, and Mobile  
-**Tech Stack:** React 19, TypeScript, Tailwind CSS v4, Lucide Icons, Vite  
+**Platform:** Native iOS & iPadOS (100% Pure SwiftUI) + Universal PWA  
+**Target Bundle ID:** `com.AlexMohit.NeuroCall`  
 
 ---
 
 ### 1. Vision & Core Value
-Radix is a high-acuity diagnostic engine designed for neurosurgeons, spine specialists, and neurologists to decouple overlapping cervical and lumbosacral root dermatomes/myotomes from peripheral nerve entrapments and plexopathies.
+NeuroCall is the tactical on-call co-pilot for neurosurgery and neurology residents, spine fellows, and neuro-intensivists. It synthesizes acute surgical decision algorithms, procedural technical guidance, systematic CT/MRI reading checklists, and neuro-anatomical conflict solving into a light, high-contrast, visual clinical interface.
 
-### 2. Key Modules & Capabilities
-1. **Dynamic Conflict Resolver:**
-   - Evaluates multi-level motor power (0–5 MRC Scale), dermatomal vs. peripheral autonomous cutaneous loss, and monosynaptic deep tendon reflex changes.
-   - Calculates Bayesian likelihood distributions for **Root Radiculopathy**, **Peripheral Nerve Entrapment**, and **Tandem Double-Crush Syndrome**.
-2. **Decisive Anatomical Arbitrators:**
-   - **Pronator Teres & Palmar Cutaneous Branch:** Sparing in Carpal Tunnel vs. impairment in C6/C7 radiculopathy.
-   - **Latissimus Dorsi & Triceps:** Sparing in radial groove/PIN palsies vs. impairment in C7 radiculopathy.
-   - **Abductor Pollicis Brevis (APB) & FPL:** Sparing in ulnar neuropathy vs. impairment in C8/T1 root or Thoracic Outlet Syndrome.
-   - **Tibialis Posterior (Foot Inversion):** The gold standard arbitrator for foot drop. 100% normal in isolated Common Peroneal Neuropathy at the fibular head; weak in L5 radiculopathy or sciatic trunk compromise.
-   - **Adductor Longus (Obturator):** Sparing in isolated Femoral Neuropathy vs. weakness in L3/L4 root lesions.
-3. **Provocative Maneuver Switchboard:**
-   - Live integration of Spurling's test, Phalen's/Tinel's at wrist, Elbow Flexion test at cubital tunnel, Straight Leg Raise (SLR), Femoral Nerve Stretch, and Fibular Neck Tinel.
-4. **Tandem Double-Crush Matrix (Upton & McComas Principle):**
-   - Outlines the pathophysiology of serial axoplasmic transport failure across proximal and distal entrapment sites.
-5. **EMG & NCS Decision Tree:**
-   - Pre-ganglionic vs. post-ganglionic SNAP paradox and paraspinal needle EMG protocols.
-6. **EHR-Ready Consult Note Generator:**
-   - Instant export and formatted documentation for Epic, Cerner, or clinical records.
+### 2. The 5 Core Clinical Pillars
+1. **2 AM Crisis Triage (`EmergencyProtocolsView.swift`):**
+   * Real-time triage calculators for Epidural (EDH), Subdural (SDH), and Uncal Herniation.
+   * Dynamic surgical indication thresholds: Clot thickness $>10\text{ mm}$, Midline shift $>5\text{ mm}$, GCS drop.
+   * Emergency hyperosmolar therapy dosing (Mannitol 20%, 3% Saline, 23.4% Super-Saturated Saline push).
+   * **The 3 AM Attending Call Briefing (SBAR Generator):** Instant spoken script synthesis to brief the on-call attending over the phone in 30 seconds.
+2. **Neurosurgical Emergencies — "Cannot Miss" (`NeurosurgicalEmergenciesView.swift`):**
+   * Cauda Equina Syndrome (PVR $>200\text{ mL}$ threshold).
+   * Spinal Epidural Abscess (Severe back pain + fever + progressive weakness).
+   * Aneurysmal Subarachnoid Hemorrhage (Thunderclap headache, Nimodipine, BP targets).
+   * Pituitary Apoplexy (STAT stress-dose hydrocortisone before MRI).
+   * Acute Cerebellar Stroke / Posterior Fossa Mass (4th ventricle effacement risk).
+3. **Procedural Atlas & Hardware (`NeurosurgicalProceduresView.swift`):**
+   * **External Ventricular Drain (EVD) at Kocher's Point:** The 3 Golden Trajectory Rules (Medial canthus, Tragus/EAM, depth $\le 5.5\text{--}6.0\text{ cm}$), zeroing, and troubleshooting.
+   * **Lumbar Subarachnoid Drain:** L3-L4/L4-L5, Tuohy cephalad bevel technique, 8–10 cm catheter advancement, strict 5–10 mL/hr drainage limits.
+   * **Camino / Intraparenchymal Bolt:** Hand drill stop at 1.0 cm, sharp dural piercing, 1.5–2.0 cm parenchymal depth.
+   * **ICP Waveforms:** Compliance analysis ($P1 > P2 > P3$ vs. decompensated $P2 > P1$) and Lundberg A plateau waves.
+4. **Systematic 60-Second Scan Navigator (`ScanNavigatorView.swift`):**
+   * Head CT: *"Blood Can Be Very Bad"* (Blood, Cisterns, Brain, Ventricles, Bone).
+   * Spine MRI: Alignment, Bone & Disc, Cord T2 signal, Dura & Canal calipers ($<10\text{ mm}$ central stenosis, $<3\text{ mm}$ lateral recess).
+   * Standard Hounsfield Unit (HU) window presets (Brain, Subdural, Bone, Stroke).
+5. **Neuro-Anatomical Conflict Solver (`ConflictSolverView.swift`):**
+   * Decouples overlapping root radiculopathies from peripheral entrapments (Foot Drop: L5 vs Common Peroneal via Tibialis Posterior; Hand: C6 vs CTS via Pronator Teres & Palmar Cutaneous Branch).
 
 ---
 
-### 3. Verification & Build
-- Clean TypeScript compilation with `tsc -b && vite build`.
-- Live HTTP 200 response verified on local preview port `4173`.
+### 3. Native App Store & TestFlight Pipeline
+* Fully configured XcodeGen project: `project.yml` targeting `iphoneos` SDK.
+* Automated CI/CD delivery: `.github/workflows/testflight.yml` running on macOS 15.
