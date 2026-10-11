@@ -36,7 +36,7 @@ public class PlateAuditManager: ObservableObject {
     
     public func loadPlates() {
         if let data = UserDefaults.standard.data(forKey: storageKey),
-           let saved = try? JSONDecoder().decode([ReviewPlateItem].self, data) {
+           let saved = try? JSONDecoder().decode([ReviewPlateItem].self, from: data) {
             self.plates = saved
         } else {
             self.plates = PlateAuditManager.defaultPlates
