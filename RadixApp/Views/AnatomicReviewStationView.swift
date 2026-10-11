@@ -1043,48 +1043,50 @@ public struct AuditReportModalView: View {
             return
         }
         
-        // 1. Try local Wi-Fi ScreenDrop Server
-        guard let localUrl = URL(string: "http://192.168.6.120:7788/upload") else { return }
-        var request = URLRequest(url: localUrl)
-        request.httpMethod = "POST"
-        request.setValue("text/plain", forHTTPHeaderField: "Content-Type")
-        request.httpBody = data
-        request.timeoutInterval = 3
+        // Try candidate endpoints: current Wi-Fi IP, secondary IP, then Cloudflare Edge Relay
+        let endpoints = [
+            "http://192.168.4.42:7788/upload",
+            "http://192.168.6.120:7788/upload",
+            "https://screendrop-relay.mohalex.workers.dev/upload"
+        ]
         
-        URLSession.shared.dataTask(with: request) { _, response, error in
-            if let httpResp = response as? HTTPURLResponse, httpResp.statusCode == 200 {
+        func trySend(index: Int) {
+            guard index < endpoints.count else {
                 DispatchQueue.main.async {
                     self.isSyncing = false
-                    self.syncStatus = "✅ Transmitted to Antigravity PC (Wi-Fi 7788)!"
+                    self.syncStatus = "⚠️ Offline: Copied to Clipboard instead!"
+                    UIPasteboard.general.string = report
                 }
-            } else {
-                // 2. Fallback to Cloudflare Edge Relay
-                guard let edgeUrl = URL(string: "https://screendrop-relay.mohalex.workers.dev/upload") else {
-                    DispatchQueue.main.async {
-                        self.isSyncing = false
-                        self.syncStatus = "❌ Local upload failed (Offline)"
-                    }
-                    return
-                }
-                var edgeReq = URLRequest(url: edgeUrl)
-                edgeReq.httpMethod = "POST"
-                edgeReq.setValue("text/plain", forHTTPHeaderField: "Content-Type")
-                edgeReq.setValue("alex-screendrop-2026", forHTTPHeaderField: "X-Auth-Token")
-                edgeReq.httpBody = data
-                edgeReq.timeoutInterval = 5
-                
-                URLSession.shared.dataTask(with: edgeReq) { _, edgeResp, _ in
-                    DispatchQueue.main.async {
-                        self.isSyncing = false
-                        if let edgeHttp = edgeResp as? HTTPURLResponse, edgeHttp.statusCode == 200 {
-                            self.syncStatus = "✅ Transmitted to Antigravity PC (Cloudflare Relay)!"
-                        } else {
-                            self.syncStatus = "⚠️ Offline: Copied to Clipboard instead!"
-                            UIPasteboard.general.string = report
-                        }
-                    }
-                }.resume()
+                return
             }
-        }.resume()
+            
+            guard let url = URL(string: endpoints[index]) else {
+                trySend(index: index + 1)
+                return
+            }
+            
+            var req = URLRequest(url: url)
+            req.httpMethod = "POST"
+            req.setValue("text/plain", forHTTPHeaderField: "Content-Type")
+            if url.host?.contains("workers.dev") == true {
+                req.setValue("alex-screendrop-2026", forHTTPHeaderField: "X-Auth-Token")
+            }
+            req.httpBody = data
+            req.timeoutInterval = 3
+            
+            URLSession.shared.dataTask(with: req) { _, response, _ in
+                if let http = response as? HTTPURLResponse, http.statusCode == 200 {
+                    DispatchQueue.main.async {
+                        self.isSyncing = false
+                        let label = url.host?.contains("workers.dev") == true ? "Cloudflare Edge Relay" : "Wi-Fi (Port 7788)"
+                        self.syncStatus = "✅ Transmitted to Antigravity PC via \(label)!"
+                    }
+                } else {
+                    trySend(index: index + 1)
+                }
+            }.resume()
+        }
+        
+        trySend(index: 0)
     }
 }
