@@ -3,6 +3,44 @@ import SwiftUI
 // MARK: - Design-Award Vector Anatomical Schematics Suite
 // Rendered in pure SwiftUI with precision Bezier curves, ceramic slate lighting, and Apple Design Award polish.
 
+public struct AtlasInfoStrip: View {
+    public let color: Color
+    public let title: String
+    public let pearl: String
+    
+    public init(color: Color, title: String, pearl: String) {
+        self.color = color
+        self.title = title
+        self.pearl = pearl
+    }
+    
+    public var body: some View {
+        VStack(alignment: .leading, spacing: 6) {
+            HStack(spacing: 6) {
+                Circle().fill(color).frame(width: 8, height: 8)
+                Text(title)
+                    .font(.system(size: 11, weight: .black))
+                    .foregroundColor(color)
+            }
+            Text(pearl)
+                .font(.system(size: 11, weight: .medium))
+                .foregroundColor(Color(red: 0.25, green: 0.3, blue: 0.4))
+                .lineSpacing(2)
+        }
+        .padding(12)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(
+            RoundedRectangle(cornerRadius: 14)
+                .fill(Color.white)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 14)
+                        .stroke(color.opacity(0.2), lineWidth: 1)
+                )
+        )
+        .shadow(color: Color.black.opacity(0.03), radius: 4)
+    }
+}
+
 // =========================================================================
 // 1. CIRCLE OF WILLIS & ANEURYSM ATLAS (VASCULAR VECTOR SCHEMATIC)
 // =========================================================================
