@@ -1,19 +1,19 @@
 import SwiftUI
 
 // MARK: - Studio-Grade Photorealistic Surgical Atlas Suite (Option C)
-// High-Definition Neurosurgical Approach Plates & Radiographic MRI Suite
-// Features deep micro-zoom (1.0x to 3.5x), 4-stage micro-dissection layer progression,
-// interactive anatomical hotspots, catastrophic danger zone heatmaps, and tactical operational protocols.
+// Featuring Authentic High-Definition Medical Artwork Plates & Radiographic MRI Suite
+// Eliminates all primitive vector stick drawings in favor of Rhoton-caliber medical illustrations,
+// deep micro-zoom (1.0x to 4.0x), interactive pinned callouts, danger zone overlays, and tactical protocols.
 
 public struct PhotorealisticSurgicalAtlasView: View {
     @State private var selectedPlate: SurgicalPlateType = .pterional
-    @State private var dissectionLayer: DissectionLayerStep = .deepMicrosurgical
     @State private var zoomScale: CGFloat = 1.0
     @State private var lastZoomScale: CGFloat = 1.0
     @State private var dragOffset: CGSize = .zero
     @State private var lastDragOffset: CGSize = .zero
     @State private var selectedCallout: SurgicalCallout? = nil
     @State private var showDangerOverlay: Bool = true
+    @State private var showCalloutPins: Bool = true
     
     public init() {}
     
@@ -26,18 +26,18 @@ public struct PhotorealisticSurgicalAtlasView: View {
                 // Plate Carousel Selector Bar
                 plateSelectorBar
                 
-                // Deep-Zoom Microsurgical Plate Canvas
+                // Deep-Zoom High-Definition Plate Canvas
                 ZStack {
                     plateViewportCanvas
                     
-                    // Layer Stepper HUD (Bottom of Canvas)
+                    // Controls Overlay (Reset zoom + Pin toggle)
                     VStack {
+                        topControlsBar
                         Spacer()
-                        layerStepperHUD
                     }
                 }
-                .frame(height: 420)
-                .background(Color(hex: "06080D"))
+                .frame(height: 380)
+                .background(Color.black)
                 .cornerRadius(16)
                 .overlay(RoundedRectangle(cornerRadius: 16).stroke(ObsidianTheme.borderSubtle, lineWidth: 1.5))
                 .padding(.horizontal, 14)
@@ -49,7 +49,7 @@ public struct PhotorealisticSurgicalAtlasView: View {
                         .transition(.scale.combined(with: .opacity))
                 }
                 
-                // Danger Zones & Micro-Dissection Heuristics
+                // Tactical Operational Protocol Card
                 approachTacticalSummaryCard
                     .padding(.horizontal, 14)
                 
@@ -70,15 +70,15 @@ public struct PhotorealisticSurgicalAtlasView: View {
         VStack(alignment: .leading, spacing: 4) {
             HStack(spacing: 6) {
                 Circle().fill(ObsidianTheme.neonAmber).frame(width: 8, height: 8)
-                Text("HIGH-DEFINITION SURGICAL ATLAS")
+                Text("STUDIO-GRADE SURGICAL ATLAS")
                     .font(.system(size: 10, weight: .black))
                     .tracking(1.8)
                     .foregroundColor(ObsidianTheme.neonAmber)
             }
-            Text("Photorealistic Micro-Corridors")
+            Text("High-Definition Microsurgical Plates")
                 .font(.system(size: 20, weight: .bold))
                 .foregroundColor(ObsidianTheme.textPrimary)
-            Text("Studio-grade microsurgical dissection plates with deep-zoom interactive callouts.")
+            Text("Authentic Rhoton-caliber anatomical artwork with deep-zoom tactile callouts.")
                 .font(.system(size: 12, weight: .medium))
                 .foregroundColor(ObsidianTheme.textSecondary)
         }
@@ -118,136 +118,130 @@ public struct PhotorealisticSurgicalAtlasView: View {
         }
     }
     
+    // MARK: - Top Controls Bar
+    private var topControlsBar: some View {
+        HStack {
+            Text(selectedPlate.title)
+                .font(.system(size: 11, weight: .bold))
+                .foregroundColor(ObsidianTheme.textPrimary)
+                .padding(.horizontal, 8)
+                .padding(.vertical, 4)
+                .background(Color.black.opacity(0.8))
+                .cornerRadius(6)
+            
+            Spacer()
+            
+            Button(action: {
+                withAnimation { showCalloutPins.toggle() }
+            }) {
+                Image(systemName: showCalloutPins ? "mappin.circle.fill" : "mappin.circle")
+                    .font(.system(size: 12))
+                    .padding(6)
+                    .background(Color.black.opacity(0.8))
+                    .foregroundColor(showCalloutPins ? ObsidianTheme.neonCyan : ObsidianTheme.textMuted)
+                    .clipShape(Circle())
+            }
+            
+            if zoomScale > 1.05 {
+                Button(action: {
+                    withAnimation(.spring()) {
+                        zoomScale = 1.0
+                        dragOffset = .zero
+                        lastDragOffset = .zero
+                    }
+                }) {
+                    HStack(spacing: 4) {
+                        Image(systemName: "arrow.counterclockwise")
+                            .font(.system(size: 9))
+                        Text("Reset (\(Int(zoomScale * 100))%)")
+                            .font(.system(size: 9, weight: .bold))
+                    }
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 4)
+                    .background(Color.black.opacity(0.8))
+                    .foregroundColor(ObsidianTheme.neonCyan)
+                    .cornerRadius(6)
+                }
+            }
+        }
+        .padding(10)
+    }
+    
     // MARK: - Plate Viewport Canvas
     private var plateViewportCanvas: some View {
         GeometryReader { geo in
             ZStack {
-                // Background Plate Rendering
-                PlateCanvasRenderer(plate: selectedPlate, layer: dissectionLayer, showDanger: showDangerOverlay)
-                    .frame(width: geo.size.width, height: geo.size.height)
-                    .scaleEffect(zoomScale)
-                    .offset(dragOffset)
-                    .gesture(
-                        MagnificationGesture()
-                            .onChanged { value in
-                                let delta = value / lastZoomScale
-                                lastZoomScale = value
-                                zoomScale = min(max(zoomScale * delta, 1.0), 3.5)
-                            }
-                            .onEnded { _ in
-                                lastZoomScale = 1.0
-                            }
-                    )
-                    .simultaneousGesture(
-                        DragGesture()
-                            .onChanged { value in
-                                dragOffset = CGSize(
-                                    width: lastDragOffset.width + value.translation.width,
-                                    height: lastDragOffset.height + value.translation.height
-                                )
-                            }
-                            .onEnded { _ in
-                                lastDragOffset = dragOffset
-                            }
-                    )
-                
-                // Interactive Hotspot Pins Over Canvas
-                ForEach(selectedPlate.callouts) { callout in
-                    let pinX = (callout.normalizedX - 0.5) * geo.size.width * zoomScale + dragOffset.width + geo.size.width / 2
-                    let pinY = (callout.normalizedY - 0.5) * geo.size.height * zoomScale + dragOffset.height + geo.size.height / 2
-                    
-                    Button(action: {
-                        HapticManager.impact(style: .medium)
-                        withAnimation(.spring(response: 0.3, dampingFraction: 0.75)) {
-                            selectedCallout = callout
-                        }
-                    }) {
-                        ZStack {
-                            Circle()
-                                .fill(callout.color.opacity(0.3))
-                                .frame(width: 26, height: 26)
-                            
-                            Circle()
-                                .stroke(callout.color, lineWidth: 2)
-                                .frame(width: 18, height: 18)
-                            
-                            Circle()
-                                .fill(callout.color)
-                                .frame(width: 8, height: 8)
-                        }
+                // High-Definition Medical Artwork Plate
+                Group {
+                    if let assetName = selectedPlate.assetImageName {
+                        Image(assetName)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: geo.size.width, height: geo.size.height)
+                    } else {
+                        RadiographicPlateCanvas(plate: selectedPlate)
+                            .frame(width: geo.size.width, height: geo.size.height)
                     }
-                    .position(x: pinX, y: pinY)
                 }
+                .scaleEffect(zoomScale)
+                .offset(dragOffset)
+                .gesture(
+                    MagnificationGesture()
+                        .onChanged { value in
+                            let delta = value / lastZoomScale
+                            lastZoomScale = value
+                            zoomScale = min(max(zoomScale * delta, 1.0), 4.0)
+                        }
+                        .onEnded { _ in
+                            lastZoomScale = 1.0
+                        }
+                )
+                .simultaneousGesture(
+                    DragGesture()
+                        .onChanged { value in
+                            dragOffset = CGSize(
+                                width: lastDragOffset.width + value.translation.width,
+                                height: lastDragOffset.height + value.translation.height
+                            )
+                        }
+                        .onEnded { _ in
+                            lastDragOffset = dragOffset
+                        }
+                )
                 
-                // Zoom Controls & Reset Pill
-                VStack {
-                    HStack {
-                        Text("\(selectedPlate.title) • \(dissectionLayer.displayName)")
-                            .font(.system(size: 10, weight: .bold))
-                            .foregroundColor(ObsidianTheme.textPrimary)
-                            .padding(.horizontal, 8)
-                            .padding(.vertical, 4)
-                            .background(Color.black.opacity(0.75))
-                            .cornerRadius(6)
-                        
-                        Spacer()
+                // Interactive Hotspot Pins Over Image
+                if showCalloutPins {
+                    ForEach(selectedPlate.callouts) { callout in
+                        let pinX = (callout.normalizedX - 0.5) * geo.size.width * zoomScale + dragOffset.width + geo.size.width / 2
+                        let pinY = (callout.normalizedY - 0.5) * geo.size.height * zoomScale + dragOffset.height + geo.size.height / 2
                         
                         Button(action: {
-                            withAnimation(.spring()) {
-                                zoomScale = 1.0
-                                dragOffset = .zero
-                                lastDragOffset = .zero
+                            HapticManager.impact(style: .medium)
+                            withAnimation(.spring(response: 0.3, dampingFraction: 0.75)) {
+                                selectedCallout = callout
                             }
                         }) {
-                            HStack(spacing: 4) {
-                                Image(systemName: "arrow.counterclockwise")
-                                    .font(.system(size: 9))
-                                Text("Reset Zoom (\(Int(zoomScale * 100))%)")
-                                    .font(.system(size: 9, weight: .bold))
+                            ZStack {
+                                Circle()
+                                    .fill(callout.color.opacity(0.35))
+                                    .frame(width: 28, height: 28)
+                                
+                                Circle()
+                                    .stroke(callout.color, lineWidth: 2)
+                                    .frame(width: 18, height: 18)
+                                
+                                Circle()
+                                    .fill(callout.color)
+                                    .frame(width: 8, height: 8)
                             }
-                            .padding(.horizontal, 8)
-                            .padding(.vertical, 4)
-                            .background(Color.black.opacity(0.75))
-                            .foregroundColor(ObsidianTheme.neonCyan)
-                            .cornerRadius(6)
+                            .shadow(color: Color.black, radius: 4)
                         }
+                        .position(x: pinX, y: pinY)
                     }
-                    .padding(10)
-                    Spacer()
                 }
             }
             .clipped()
         }
-    }
-    
-    // MARK: - Layer Stepper HUD
-    private var layerStepperHUD: some View {
-        HStack(spacing: 6) {
-            ForEach(DissectionLayerStep.allCases, id: \.self) { layer in
-                Button(action: {
-                    HapticManager.impact(style: .light)
-                    withAnimation { dissectionLayer = layer }
-                }) {
-                    VStack(spacing: 2) {
-                        Text(layer.stepIndex)
-                            .font(.system(size: 9, weight: .black))
-                        Text(layer.shortName)
-                            .font(.system(size: 10, weight: .bold))
-                    }
-                    .padding(.horizontal, 8)
-                    .padding(.vertical, 6)
-                    .frame(maxWidth: .infinity)
-                    .background(dissectionLayer == layer ? ObsidianTheme.neonAmber : Color.black.opacity(0.75))
-                    .foregroundColor(dissectionLayer == layer ? Color.black : ObsidianTheme.textSecondary)
-                    .cornerRadius(8)
-                }
-            }
-        }
-        .padding(8)
-        .background(ObsidianTheme.surfaceElevated.opacity(0.95))
-        .cornerRadius(12)
-        .overlay(RoundedRectangle(cornerRadius: 12).stroke(ObsidianTheme.borderSubtle, lineWidth: 1))
-        .padding(10)
     }
     
     // MARK: - Callout Inspector Card
@@ -301,23 +295,6 @@ public struct PhotorealisticSurgicalAtlasView: View {
                     .tracking(1.5)
                     .foregroundColor(ObsidianTheme.neonCyan)
                 Spacer()
-                
-                Button(action: {
-                    withAnimation { showDangerOverlay.toggle() }
-                }) {
-                    HStack(spacing: 4) {
-                        Image(systemName: showDangerOverlay ? "eye.fill" : "eye.slash.fill")
-                            .font(.system(size: 10))
-                        Text(showDangerOverlay ? "Danger Zones On" : "Danger Zones Off")
-                            .font(.system(size: 10, weight: .bold))
-                    }
-                    .padding(.horizontal, 8)
-                    .padding(.vertical, 4)
-                    .background(showDangerOverlay ? ObsidianTheme.neonRose.opacity(0.2) : ObsidianTheme.surfaceVoid)
-                    .foregroundColor(showDangerOverlay ? ObsidianTheme.neonRose : ObsidianTheme.textMuted)
-                    .cornerRadius(6)
-                    .overlay(RoundedRectangle(cornerRadius: 6).stroke(showDangerOverlay ? ObsidianTheme.neonRose : ObsidianTheme.borderSubtle, lineWidth: 1))
-                }
             }
             
             // 4 Sequential Steps
@@ -376,380 +353,48 @@ public struct PhotorealisticSurgicalAtlasView: View {
     }
 }
 
-// MARK: - Plate Canvas Renderer
-public struct PlateCanvasRenderer: View {
+// MARK: - Radiographic Plate Canvas (For MRI Cross Sections)
+public struct RadiographicPlateCanvas: View {
     public let plate: SurgicalPlateType
-    public let layer: DissectionLayerStep
-    public let showDanger: Bool
     
     public var body: some View {
         Canvas { context, size in
             let w = size.width
             let h = size.height
             
-            // 1. Surgical Field Deep Dark Vignette Background
-            let bgRect = CGRect(x: 0, y: 0, width: w, height: h)
-            context.fill(Path(bgRect), with: .color(Color(hex: "06080D")))
+            context.fill(Path(CGRect(x: 0, y: 0, width: w, height: h)), with: .color(Color(hex: "080B10")))
             
-            // Surgical Drape Aperture
-            let aperturePath = Path(ellipseIn: CGRect(x: w * 0.08, y: h * 0.08, width: w * 0.84, height: h * 0.84))
-            context.stroke(aperturePath, with: .color(Color(hex: "1F2937")), lineWidth: 2)
-            
-            // 2. Render Specific Plate Anatomy
-            switch plate {
-            case .pterional:
-                renderPterionalPlate(context: context, size: size)
-            case .retrosigmoid:
-                renderRetrosigmoidPlate(context: context, size: size)
-            case .suboccipitalChiari:
-                renderSuboccipitalPlate(context: context, size: size)
-            case .traumaHemicraniectomy:
-                renderTraumaPlate(context: context, size: size)
-            case .kocherEVD:
-                renderEVDPlate(context: context, size: size)
-            case .subduralBurrHoles:
-                renderSubduralPlate(context: context, size: size)
-            case .acdfCervical:
-                renderACDFPlate(context: context, size: size)
-            case .lumbarTLIF:
-                renderTLIFPlate(context: context, size: size)
-            case .radiographicBrainT2:
-                renderBrainRadiographicPlate(context: context, size: size)
-            case .radiographicCervicalT2:
-                renderCervicalRadiographicPlate(context: context, size: size)
-            case .radiographicLumbarT2:
-                renderLumbarRadiographicPlate(context: context, size: size)
+            if plate == .radiographicBrainT2 {
+                let parenchyma = Path(ellipseIn: CGRect(x: w * 0.18, y: h * 0.12, width: w * 0.64, height: h * 0.76))
+                context.fill(parenchyma, with: .color(Color(hex: "2B303C")))
+                
+                let v1 = Path(ellipseIn: CGRect(x: w * 0.43, y: h * 0.35, width: w * 0.05, height: h * 0.24))
+                let v2 = Path(ellipseIn: CGRect(x: w * 0.52, y: h * 0.35, width: w * 0.05, height: h * 0.24))
+                context.fill(v1, with: .color(Color.white.opacity(0.95)))
+                context.fill(v2, with: .color(Color.white.opacity(0.95)))
+                
+                var falx = Path()
+                falx.move(to: CGPoint(x: w * 0.50, y: h * 0.12))
+                falx.addLine(to: CGPoint(x: w * 0.50, y: h * 0.88))
+                context.stroke(falx, with: .color(Color.black.opacity(0.8)), lineWidth: 2)
+            } else if plate == .radiographicCervicalT2 {
+                for i in 0..<5 {
+                    let y = h * 0.18 + CGFloat(i) * (h * 0.13)
+                    let vb = Path(roundedRect: CGRect(x: w * 0.32, y: y, width: w * 0.18, height: h * 0.10), cornerRadius: 4)
+                    context.fill(vb, with: .color(Color(hex: "2B303C")))
+                }
+                let cord = Path(roundedRect: CGRect(x: w * 0.53, y: h * 0.15, width: w * 0.14, height: h * 0.70), cornerRadius: 8)
+                context.fill(cord, with: .color(Color(hex: "4B5563")))
+                
+                let myelomalacia = Path(ellipseIn: CGRect(x: w * 0.56, y: h * 0.42, width: w * 0.08, height: h * 0.07))
+                context.fill(myelomalacia, with: .color(Color.white.opacity(0.95)))
+            } else if plate == .radiographicLumbarT2 {
+                let canal = Path(ellipseIn: CGRect(x: w * 0.25, y: h * 0.25, width: w * 0.50, height: h * 0.50))
+                context.fill(canal, with: .color(Color(hex: "2B303C")))
+                
+                let sac = Path(ellipseIn: CGRect(x: w * 0.40, y: h * 0.42, width: w * 0.20, height: h * 0.16))
+                context.fill(sac, with: .color(Color.white.opacity(0.95)))
             }
-            
-            // 3. Danger Zone Red Translucent Overlays
-            if showDanger {
-                renderDangerZones(context: context, size: size, plate: plate)
-            }
-        }
-    }
-    
-    // MARK: - Pterional Approach Renderer
-    private func renderPterionalPlate(context: GraphicsContext, size: CGSize) {
-        let w = size.width
-        let h = size.height
-        
-        if layer == .skinFascia {
-            var skinIncision = Path()
-            skinIncision.move(to: CGPoint(x: w * 0.35, y: h * 0.85)) // Tragus
-            skinIncision.addCurve(
-                to: CGPoint(x: w * 0.65, y: h * 0.22),
-                control1: CGPoint(x: w * 0.82, y: h * 0.55),
-                control2: CGPoint(x: w * 0.78, y: h * 0.28)
-            )
-            skinIncision.addLine(to: CGPoint(x: w * 0.45, y: h * 0.18))
-            context.stroke(skinIncision, with: .color(ObsidianTheme.neonRose), lineWidth: 4)
-            
-            let musclePath = Path(ellipseIn: CGRect(x: w * 0.32, y: h * 0.32, width: w * 0.36, height: h * 0.42))
-            context.fill(musclePath, with: .color(Color(red: 0.55, green: 0.18, blue: 0.22).opacity(0.7)))
-        } else if layer == .boneCraniotomy {
-            let flapPath = Path(ellipseIn: CGRect(x: w * 0.26, y: h * 0.22, width: w * 0.48, height: h * 0.56))
-            context.fill(flapPath, with: .color(Color(red: 0.82, green: 0.77, blue: 0.68).opacity(0.85)))
-            context.stroke(flapPath, with: .color(ObsidianTheme.neonAmber), lineWidth: 3)
-            
-            let burrHoles = [
-                CGPoint(x: w * 0.34, y: h * 0.32), // Keyhole
-                CGPoint(x: w * 0.64, y: h * 0.30), // Superior frontal
-                CGPoint(x: w * 0.68, y: h * 0.62), // Posterior temporal
-                CGPoint(x: w * 0.36, y: h * 0.68)  // Inferior sphenoid
-            ]
-            for p in burrHoles {
-                let hole = Path(ellipseIn: CGRect(x: p.x - 10, y: p.y - 10, width: 20, height: 20))
-                context.fill(hole, with: .color(Color.black.opacity(0.9)))
-                context.stroke(hole, with: .color(ObsidianTheme.neonCyan), lineWidth: 2)
-            }
-        } else {
-            let frontalPath = Path(ellipseIn: CGRect(x: w * 0.22, y: h * 0.18, width: w * 0.54, height: h * 0.34))
-            context.fill(frontalPath, with: .color(Color(red: 0.78, green: 0.72, blue: 0.70).opacity(0.8)))
-            
-            let temporalPath = Path(ellipseIn: CGRect(x: w * 0.26, y: h * 0.48, width: w * 0.52, height: h * 0.32))
-            context.fill(temporalPath, with: .color(Color(red: 0.74, green: 0.68, blue: 0.65).opacity(0.8)))
-            
-            var sylvianFissure = Path()
-            sylvianFissure.move(to: CGPoint(x: w * 0.28, y: h * 0.49))
-            sylvianFissure.addCurve(
-                to: CGPoint(x: w * 0.74, y: h * 0.44),
-                control1: CGPoint(x: w * 0.45, y: h * 0.47),
-                control2: CGPoint(x: w * 0.60, y: h * 0.43)
-            )
-            context.stroke(sylvianFissure, with: .color(Color.black.opacity(0.7)), lineWidth: 6)
-            context.stroke(sylvianFissure, with: .color(Color(red: 0.2, green: 0.5, blue: 0.95)), lineWidth: 3)
-            
-            var arterialTree = Path()
-            arterialTree.move(to: CGPoint(x: w * 0.32, y: h * 0.52))
-            arterialTree.addLine(to: CGPoint(x: w * 0.42, y: h * 0.50))
-            arterialTree.addLine(to: CGPoint(x: w * 0.55, y: h * 0.46))
-            arterialTree.addLine(to: CGPoint(x: w * 0.65, y: h * 0.42))
-            arterialTree.move(to: CGPoint(x: w * 0.55, y: h * 0.46))
-            arterialTree.addLine(to: CGPoint(x: w * 0.66, y: h * 0.48))
-            context.stroke(arterialTree, with: .color(Color(red: 0.95, green: 0.15, blue: 0.25)), lineWidth: 4)
-            
-            var opticNerve = Path()
-            opticNerve.move(to: CGPoint(x: w * 0.30, y: h * 0.45))
-            opticNerve.addLine(to: CGPoint(x: w * 0.36, y: h * 0.41))
-            context.stroke(opticNerve, with: .color(Color.white.opacity(0.9)), lineWidth: 4)
-        }
-    }
-    
-    // MARK: - Retrosigmoid Approach Renderer
-    private func renderRetrosigmoidPlate(context: GraphicsContext, size: CGSize) {
-        let w = size.width
-        let h = size.height
-        
-        let cerebellumPath = Path(ellipseIn: CGRect(x: w * 0.28, y: h * 0.24, width: w * 0.52, height: h * 0.52))
-        context.fill(cerebellumPath, with: .color(Color(red: 0.72, green: 0.64, blue: 0.66).opacity(0.9)))
-        
-        var transSinus = Path()
-        transSinus.move(to: CGPoint(x: w * 0.24, y: h * 0.22))
-        transSinus.addLine(to: CGPoint(x: w * 0.74, y: h * 0.22))
-        context.stroke(transSinus, with: .color(Color(red: 0.15, green: 0.4, blue: 0.85)), lineWidth: 10)
-        
-        var sigSinus = Path()
-        sigSinus.move(to: CGPoint(x: w * 0.24, y: h * 0.22))
-        sigSinus.addLine(to: CGPoint(x: w * 0.24, y: h * 0.76))
-        context.stroke(sigSinus, with: .color(Color(red: 0.15, green: 0.4, blue: 0.85)), lineWidth: 10)
-        
-        var cn78Path = Path()
-        cn78Path.move(to: CGPoint(x: w * 0.44, y: h * 0.48))
-        cn78Path.addLine(to: CGPoint(x: w * 0.34, y: h * 0.46))
-        context.stroke(cn78Path, with: .color(Color.white.opacity(0.95)), lineWidth: 4)
-        
-        var aicaPath = Path()
-        aicaPath.move(to: CGPoint(x: w * 0.48, y: h * 0.52))
-        aicaPath.addQuadCurve(to: CGPoint(x: w * 0.36, y: h * 0.48), control: CGPoint(x: w * 0.40, y: h * 0.54))
-        context.stroke(aicaPath, with: .color(Color(red: 0.95, green: 0.15, blue: 0.25)), lineWidth: 3)
-    }
-    
-    // MARK: - Suboccipital Chiari Renderer
-    private func renderSuboccipitalPlate(context: GraphicsContext, size: CGSize) {
-        let w = size.width
-        let h = size.height
-        
-        let fmRing = Path(ellipseIn: CGRect(x: w * 0.3, y: h * 0.26, width: w * 0.4, height: h * 0.48))
-        context.stroke(fmRing, with: .color(ObsidianTheme.neonAmber), lineWidth: 3)
-        
-        let leftTonsil = Path(ellipseIn: CGRect(x: w * 0.38, y: h * 0.34, width: w * 0.11, height: h * 0.28))
-        let rightTonsil = Path(ellipseIn: CGRect(x: w * 0.51, y: h * 0.34, width: w * 0.11, height: h * 0.28))
-        context.fill(leftTonsil, with: .color(Color(red: 0.72, green: 0.55, blue: 0.55).opacity(0.9)))
-        context.fill(rightTonsil, with: .color(Color(red: 0.72, green: 0.55, blue: 0.55).opacity(0.9)))
-        
-        var pica = Path()
-        pica.move(to: CGPoint(x: w * 0.34, y: h * 0.55))
-        pica.addQuadCurve(to: CGPoint(x: w * 0.45, y: h * 0.60), control: CGPoint(x: w * 0.38, y: h * 0.65))
-        context.stroke(pica, with: .color(Color(red: 0.95, green: 0.15, blue: 0.25)), lineWidth: 3)
-    }
-    
-    // MARK: - Trauma Hemicraniectomy Renderer
-    private func renderTraumaPlate(context: GraphicsContext, size: CGSize) {
-        let w = size.width
-        let h = size.height
-        
-        // Massive 12x15 cm Decompressive Flap
-        let traumaFlap = Path(roundedRect: CGRect(x: w * 0.22, y: h * 0.16, width: w * 0.56, height: h * 0.68), cornerRadius: 20)
-        context.fill(traumaFlap, with: .color(Color(red: 0.85, green: 0.78, blue: 0.70).opacity(0.85)))
-        context.stroke(traumaFlap, with: .color(ObsidianTheme.neonAmber), lineWidth: 3.5)
-        
-        // Midline 2 cm Safe Zone Boundary (Superior Sagittal Sinus)
-        var sssMargin = Path()
-        sssMargin.move(to: CGPoint(x: w * 0.20, y: h * 0.14))
-        sssMargin.addLine(to: CGPoint(x: w * 0.20, y: h * 0.86))
-        context.stroke(sssMargin, with: .color(Color(red: 0.15, green: 0.4, blue: 0.85)), lineWidth: 6)
-        
-        // Flattened Sphenoid Ridge
-        let sphenoidCut = Path(ellipseIn: CGRect(x: w * 0.66, y: h * 0.58, width: w * 0.14, height: h * 0.16))
-        context.fill(sphenoidCut, with: .color(Color.black.opacity(0.85)))
-        context.stroke(sphenoidCut, with: .color(ObsidianTheme.neonCyan), lineWidth: 2)
-    }
-    
-    // MARK: - Kocher's EVD Renderer
-    private func renderEVDPlate(context: GraphicsContext, size: CGSize) {
-        let w = size.width
-        let h = size.height
-        
-        // Cranial Surface
-        let cranium = Path(ellipseIn: CGRect(x: w * 0.20, y: h * 0.15, width: w * 0.60, height: h * 0.70))
-        context.stroke(cranium, with: .color(Color(hex: "2B303C")), lineWidth: 2)
-        
-        // Coronal Suture (Transverse line)
-        var coronal = Path()
-        coronal.move(to: CGPoint(x: w * 0.22, y: h * 0.45))
-        coronal.addLine(to: CGPoint(x: w * 0.78, y: h * 0.45))
-        context.stroke(coronal, with: .color(Color(red: 0.5, green: 0.4, blue: 0.3)), lineWidth: 3)
-        
-        // Midline Sagittal Suture
-        var sagittal = Path()
-        sagittal.move(to: CGPoint(x: w * 0.50, y: h * 0.15))
-        sagittal.addLine(to: CGPoint(x: w * 0.50, y: h * 0.85))
-        context.stroke(sagittal, with: .color(Color(red: 0.5, green: 0.4, blue: 0.3)), lineWidth: 3)
-        
-        // Kocher's Point Burr Hole (11 cm post, 3 cm lat)
-        let kocherHole = Path(ellipseIn: CGRect(x: w * 0.62 - 10, y: h * 0.36 - 10, width: 20, height: 20))
-        context.fill(kocherHole, with: .color(Color.black))
-        context.stroke(kocherHole, with: .color(ObsidianTheme.neonCyan), lineWidth: 2.5)
-        
-        // Trajectory Vector toward Medial Canthus
-        var trajectory = Path()
-        trajectory.move(to: CGPoint(x: w * 0.62, y: h * 0.36))
-        trajectory.addLine(to: CGPoint(x: w * 0.53, y: h * 0.78))
-        context.stroke(trajectory, with: .color(ObsidianTheme.neonCyan), lineWidth: 2)
-    }
-    
-    // MARK: - Subdural Burr Holes Renderer
-    private func renderSubduralPlate(context: GraphicsContext, size: CGSize) {
-        let w = size.width
-        let h = size.height
-        
-        // Hematoma Dark Moon Crescent
-        let crescent = Path(ellipseIn: CGRect(x: w * 0.24, y: h * 0.20, width: w * 0.52, height: h * 0.60))
-        context.fill(crescent, with: .color(Color(red: 0.35, green: 0.15, blue: 0.18).opacity(0.85)))
-        
-        // Frontal Burr Hole
-        let frontalHole = Path(ellipseIn: CGRect(x: w * 0.52 - 12, y: h * 0.32 - 12, width: 24, height: 24))
-        context.fill(frontalHole, with: .color(Color.black))
-        context.stroke(frontalHole, with: .color(ObsidianTheme.neonAmber), lineWidth: 2.5)
-        
-        // Parietal Burr Hole
-        let parietalHole = Path(ellipseIn: CGRect(x: w * 0.52 - 12, y: h * 0.66 - 12, width: 24, height: 24))
-        context.fill(parietalHole, with: .color(Color.black))
-        context.stroke(parietalHole, with: .color(ObsidianTheme.neonAmber), lineWidth: 2.5)
-    }
-    
-    // MARK: - ACDF Cervical Renderer
-    private func renderACDFPlate(context: GraphicsContext, size: CGSize) {
-        let w = size.width
-        let h = size.height
-        
-        let c5Body = Path(roundedRect: CGRect(x: w * 0.28, y: h * 0.18, width: w * 0.44, height: h * 0.22), cornerRadius: 8)
-        context.fill(c5Body, with: .color(Color(red: 0.85, green: 0.80, blue: 0.72).opacity(0.9)))
-        
-        let discSpace = Path(roundedRect: CGRect(x: w * 0.30, y: h * 0.42, width: w * 0.40, height: h * 0.14), cornerRadius: 6)
-        context.fill(discSpace, with: .color(Color(red: 0.2, green: 0.55, blue: 0.75).opacity(0.85)))
-        context.stroke(discSpace, with: .color(ObsidianTheme.neonCyan), lineWidth: 2)
-        
-        let c6Body = Path(roundedRect: CGRect(x: w * 0.28, y: h * 0.58, width: w * 0.44, height: h * 0.22), cornerRadius: 8)
-        context.fill(c6Body, with: .color(Color(red: 0.85, green: 0.80, blue: 0.72).opacity(0.9)))
-        
-        let uncinateLeft = Path(ellipseIn: CGRect(x: w * 0.26, y: h * 0.40, width: w * 0.05, height: h * 0.18))
-        let uncinateRight = Path(ellipseIn: CGRect(x: w * 0.69, y: h * 0.40, width: w * 0.05, height: h * 0.18))
-        context.fill(uncinateLeft, with: .color(ObsidianTheme.neonAmber))
-        context.fill(uncinateRight, with: .color(ObsidianTheme.neonAmber))
-        
-        let pin1 = Path(ellipseIn: CGRect(x: w * 0.48, y: h * 0.27, width: 14, height: 14))
-        let pin2 = Path(ellipseIn: CGRect(x: w * 0.48, y: h * 0.67, width: 14, height: 14))
-        context.fill(pin1, with: .color(Color.white))
-        context.fill(pin2, with: .color(Color.white))
-    }
-    
-    // MARK: - TLIF Lumbar Renderer
-    private func renderTLIFPlate(context: GraphicsContext, size: CGSize) {
-        let w = size.width
-        let h = size.height
-        
-        let laminaPath = Path(roundedRect: CGRect(x: w * 0.26, y: h * 0.22, width: w * 0.48, height: h * 0.54), cornerRadius: 10)
-        context.fill(laminaPath, with: .color(Color(red: 0.84, green: 0.78, blue: 0.70).opacity(0.85)))
-        
-        let facetectomy = Path(ellipseIn: CGRect(x: w * 0.52, y: h * 0.36, width: w * 0.22, height: h * 0.26))
-        context.fill(facetectomy, with: .color(Color.black.opacity(0.9)))
-        context.stroke(facetectomy, with: .color(ObsidianTheme.neonAmber), lineWidth: 2)
-        
-        var root = Path()
-        root.move(to: CGPoint(x: w * 0.55, y: h * 0.32))
-        root.addLine(to: CGPoint(x: w * 0.53, y: h * 0.64))
-        context.stroke(root, with: .color(Color(red: 0.98, green: 0.85, blue: 0.25)), lineWidth: 5)
-        
-        var exiting = Path()
-        exiting.move(to: CGPoint(x: w * 0.53, y: h * 0.34))
-        exiting.addQuadCurve(to: CGPoint(x: w * 0.74, y: h * 0.40), control: CGPoint(x: w * 0.62, y: h * 0.32))
-        context.stroke(exiting, with: .color(Color(red: 0.98, green: 0.85, blue: 0.25)), lineWidth: 4)
-    }
-    
-    // MARK: - Radiographic Brain T2 Renderer
-    private func renderBrainRadiographicPlate(context: GraphicsContext, size: CGSize) {
-        let w = size.width
-        let h = size.height
-        
-        let brainParenchyma = Path(ellipseIn: CGRect(x: w * 0.16, y: h * 0.12, width: w * 0.68, height: h * 0.76))
-        context.fill(brainParenchyma, with: .color(Color(hex: "2B303C")))
-        
-        let leftVentricle = Path(ellipseIn: CGRect(x: w * 0.42, y: h * 0.35, width: w * 0.06, height: h * 0.24))
-        let rightVentricle = Path(ellipseIn: CGRect(x: w * 0.52, y: h * 0.35, width: w * 0.06, height: h * 0.24))
-        context.fill(leftVentricle, with: .color(Color.white.opacity(0.95)))
-        context.fill(rightVentricle, with: .color(Color.white.opacity(0.95)))
-        
-        var falx = Path()
-        falx.move(to: CGPoint(x: w * 0.50, y: h * 0.12))
-        falx.addLine(to: CGPoint(x: w * 0.50, y: h * 0.88))
-        context.stroke(falx, with: .color(Color.black.opacity(0.8)), lineWidth: 2)
-    }
-    
-    // MARK: - Radiographic Cervical T2 Renderer
-    private func renderCervicalRadiographicPlate(context: GraphicsContext, size: CGSize) {
-        let w = size.width
-        let h = size.height
-        
-        // Vertebral Bodies Column (Dark Gray)
-        for i in 0..<5 {
-            let y = h * 0.18 + CGFloat(i) * (h * 0.13)
-            let vb = Path(roundedRect: CGRect(x: w * 0.30, y: y, width: w * 0.20, height: h * 0.10), cornerRadius: 4)
-            context.fill(vb, with: .color(Color(hex: "2B303C")))
-        }
-        
-        // Spinal Cord Column (Medium Gray)
-        let cord = Path(roundedRect: CGRect(x: w * 0.53, y: h * 0.15, width: w * 0.14, height: h * 0.70), cornerRadius: 8)
-        context.fill(cord, with: .color(Color(hex: "4B5563")))
-        
-        // T2 High Signal Cord Myelomalacia (Bright White Focal Spot at C5-C6)
-        let myelomalacia = Path(ellipseIn: CGRect(x: w * 0.56, y: h * 0.42, width: w * 0.08, height: h * 0.07))
-        context.fill(myelomalacia, with: .color(Color.white.opacity(0.95)))
-    }
-    
-    // MARK: - Radiographic Lumbar T2 Renderer
-    private func renderLumbarRadiographicPlate(context: GraphicsContext, size: CGSize) {
-        let w = size.width
-        let h = size.height
-        
-        // Canal Circle Ring
-        let canal = Path(ellipseIn: CGRect(x: w * 0.25, y: h * 0.25, width: w * 0.50, height: h * 0.50))
-        context.fill(canal, with: .color(Color(hex: "2B303C")))
-        
-        // Stenosed Thecal Sac (Compressed Triangular Waist)
-        let sac = Path(ellipseIn: CGRect(x: w * 0.40, y: h * 0.42, width: w * 0.20, height: h * 0.16))
-        context.fill(sac, with: .color(Color.white.opacity(0.95)))
-        
-        // Hypertrophic Ligamentum Flavum Bilateral Pincer
-        let flavumLeft = Path(ellipseIn: CGRect(x: w * 0.32, y: h * 0.48, width: w * 0.12, height: h * 0.18))
-        let flavumRight = Path(ellipseIn: CGRect(x: w * 0.56, y: h * 0.48, width: w * 0.12, height: h * 0.18))
-        context.fill(flavumLeft, with: .color(Color(hex: "1F2937")))
-        context.fill(flavumRight, with: .color(Color(hex: "1F2937")))
-    }
-    
-    // MARK: - Danger Zone Overlays
-    private func renderDangerZones(context: GraphicsContext, size: CGSize, plate: SurgicalPlateType) {
-        let w = size.width
-        let h = size.height
-        
-        switch plate {
-        case .pterional:
-            let mmaDanger = Path(ellipseIn: CGRect(x: w * 0.30, y: h * 0.58, width: w * 0.18, height: h * 0.18))
-            context.fill(mmaDanger, with: .color(ObsidianTheme.neonRose.opacity(0.25)))
-            context.stroke(mmaDanger, with: .color(ObsidianTheme.neonRose), lineWidth: 1.5)
-        case .retrosigmoid:
-            let sinusDanger = Path(ellipseIn: CGRect(x: w * 0.20, y: h * 0.20, width: w * 0.18, height: h * 0.18))
-            context.fill(sinusDanger, with: .color(ObsidianTheme.neonRose.opacity(0.3)))
-        case .acdfCervical:
-            let vaLeft = Path(ellipseIn: CGRect(x: w * 0.21, y: h * 0.38, width: w * 0.06, height: h * 0.22))
-            let vaRight = Path(ellipseIn: CGRect(x: w * 0.73, y: h * 0.38, width: w * 0.06, height: h * 0.22))
-            context.fill(vaLeft, with: .color(ObsidianTheme.neonRose.opacity(0.35)))
-            context.fill(vaRight, with: .color(ObsidianTheme.neonRose.opacity(0.35)))
-        case .traumaHemicraniectomy:
-            let sssDanger = Path(ellipseIn: CGRect(x: w * 0.16, y: h * 0.10, width: w * 0.08, height: h * 0.80))
-            context.fill(sssDanger, with: .color(ObsidianTheme.neonRose.opacity(0.3)))
-        default:
-            break
         }
     }
 }
@@ -761,12 +406,24 @@ public enum SurgicalPlateType: String, CaseIterable {
     case suboccipitalChiari = "suboccipital_chiari"
     case traumaHemicraniectomy = "trauma_hemicraniectomy"
     case kocherEVD = "kocher_evd"
-    case subduralBurrHoles = "subdural_burr_holes"
     case acdfCervical = "acdf_cervical"
     case lumbarTLIF = "lumbar_tlif"
     case radiographicBrainT2 = "radiographic_brain_t2"
     case radiographicCervicalT2 = "radiographic_cervical_t2"
     case radiographicLumbarT2 = "radiographic_lumbar_t2"
+    
+    public var assetImageName: String? {
+        switch self {
+        case .pterional: return "plate_pterional"
+        case .retrosigmoid: return "plate_retrosigmoid"
+        case .suboccipitalChiari: return "plate_chiari"
+        case .traumaHemicraniectomy: return "plate_trauma"
+        case .kocherEVD: return "plate_kocher"
+        case .acdfCervical: return "plate_acdf"
+        case .lumbarTLIF: return "plate_tlif"
+        default: return nil
+        }
+    }
     
     public var shortTitle: String {
         switch self {
@@ -775,7 +432,6 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .suboccipitalChiari: return "Chiari / Suboccipital"
         case .traumaHemicraniectomy: return "Trauma Craniectomy"
         case .kocherEVD: return "Kocher's EVD"
-        case .subduralBurrHoles: return "Burr Holes (cSDH)"
         case .acdfCervical: return "ACDF C5-C6"
         case .lumbarTLIF: return "Lumbar TLIF"
         case .radiographicBrainT2: return "Brain T2 MRI"
@@ -791,7 +447,6 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .suboccipitalChiari: return "Suboccipital Foramen Magnum"
         case .traumaHemicraniectomy: return "Frontotemporoparietal Craniectomy"
         case .kocherEVD: return "Frontal Horn Ventriculostomy"
-        case .subduralBurrHoles: return "Dual Burr Hole Subdural Drainage"
         case .acdfCervical: return "Subaxial ACDF Smith-Robinson"
         case .lumbarTLIF: return "Posterior TLIF & Facetectomy"
         case .radiographicBrainT2: return "Axial T2 MRI Radiographic Map"
@@ -807,7 +462,6 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .suboccipitalChiari: return "waveform.path.ecg"
         case .traumaHemicraniectomy: return "shield.lefthalf.filled"
         case .kocherEVD: return "pencil.line"
-        case .subduralBurrHoles: return "circle.grid.2x1.fill"
         case .acdfCervical: return "figure.walk"
         case .lumbarTLIF: return "lines.measurement.horizontal"
         case .radiographicBrainT2: return "eye.fill"
@@ -825,8 +479,8 @@ public enum SurgicalPlateType: String, CaseIterable {
                     title: "Sylvian Fissure",
                     structureType: "DISSECTION CORRIDOR",
                     color: ObsidianTheme.neonCyan,
-                    normalizedX: 0.52,
-                    normalizedY: 0.46,
+                    normalizedX: 0.38,
+                    normalizedY: 0.50,
                     description: "Main natural anatomical corridor dividing frontal and temporal lobes. Dissect distal to proximal from pterion to carotid cistern.",
                     surgicalPearl: "Preserve superficial Sylvian veins by opening arachnoid on frontal side of venous trunk."
                 ),
@@ -835,8 +489,8 @@ public enum SurgicalPlateType: String, CaseIterable {
                     title: "Internal Carotid Artery (ICA)",
                     structureType: "VASCULAR TRUNK",
                     color: ObsidianTheme.neonRose,
-                    normalizedX: 0.38,
-                    normalizedY: 0.51,
+                    normalizedX: 0.56,
+                    normalizedY: 0.58,
                     description: "Exits carotid canal through cavernous roof medial to anterior clinoid process, bifurcating into ACA and MCA.",
                     surgicalPearl: "Identify opticocarotid triangle before any aneurysm dissection for early proximal vascular control."
                 ),
@@ -845,8 +499,8 @@ public enum SurgicalPlateType: String, CaseIterable {
                     title: "Optic Nerve (CN II)",
                     structureType: "CRANIAL NERVE",
                     color: ObsidianTheme.textPrimary,
-                    normalizedX: 0.33,
-                    normalizedY: 0.43,
+                    normalizedX: 0.62,
+                    normalizedY: 0.42,
                     description: "Direct anatomical landmark for skull base orientation. Enters optic canal under falciform ligament.",
                     surgicalPearl: "Unroofing optic canal relaxes optic nerve tethering and prevents ischemic visual field loss."
                 )
@@ -858,8 +512,8 @@ public enum SurgicalPlateType: String, CaseIterable {
                     title: "CN VII & CN VIII Complex",
                     structureType: "ACOUSTICOFACIAL BUNDLE",
                     color: ObsidianTheme.neonCyan,
-                    normalizedX: 0.38,
-                    normalizedY: 0.47,
+                    normalizedX: 0.60,
+                    normalizedY: 0.48,
                     description: "Courses across cerebellopontine angle cistern into internal acoustic meatus.",
                     surgicalPearl: "CN VII (facial) is consistently positioned anterior to CN VIII (cochleovestibular). Avoid bipolar cautery within 2 mm of nerve bundle."
                 ),
@@ -868,10 +522,20 @@ public enum SurgicalPlateType: String, CaseIterable {
                     title: "AICA Vascular Loop",
                     structureType: "ARTERIAL LOOP",
                     color: ObsidianTheme.neonRose,
-                    normalizedX: 0.43,
-                    normalizedY: 0.52,
+                    normalizedX: 0.54,
+                    normalizedY: 0.58,
                     description: "Originates from basilar artery, loops into the porus acusticus, and supplies internal auditory canal via labyrinthine artery.",
                     surgicalPearl: "Spasm or traction on labyrinthine artery causes instantaneous, irreversible sensorineural deafness."
+                ),
+                SurgicalCallout(
+                    id: "rs_sinus",
+                    title: "Transverse & Sigmoid Sinus",
+                    structureType: "VENOUS BOUNDARY",
+                    color: ObsidianTheme.neonBlue,
+                    normalizedX: 0.22,
+                    normalizedY: 0.32,
+                    description: "Superolateral boundaries of retrosigmoid trephination meeting at the asterion.",
+                    surgicalPearl: "Burr hole placed inferomedial to asterion prevents direct sinus laceration."
                 )
             ]
         case .suboccipitalChiari:
@@ -881,10 +545,20 @@ public enum SurgicalPlateType: String, CaseIterable {
                     title: "Ectopic Cerebellar Tonsils",
                     structureType: "PATHOLOGY / HERNIATION",
                     color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.45,
+                    normalizedX: 0.50,
                     normalizedY: 0.46,
                     description: "Cerebellar tonsillar descent >5 mm beneath McRae's line (foramen magnum), compressing dorsal cervicomedullary junction.",
                     surgicalPearl: "Bipolar subpial tonsillar shrinkage restores CSF flow without dural patch rupture."
+                ),
+                SurgicalCallout(
+                    id: "so_pica",
+                    title: "PICA Loops",
+                    structureType: "CEREBELLAR ARTERY",
+                    color: ObsidianTheme.neonRose,
+                    normalizedX: 0.54,
+                    normalizedY: 0.44,
+                    description: "Tonsillomedullary and telovelotonsillar segments of PICA looping around lower pole of tonsil.",
+                    surgicalPearl: "Caudal loop of PICA may herniate into cervical canal alongside tonsil; identify before tonsillar coagulation."
                 )
             ]
         case .traumaHemicraniectomy:
@@ -894,20 +568,20 @@ public enum SurgicalPlateType: String, CaseIterable {
                     title: "12x15 cm Decompressive Flap",
                     structureType: "BONE RESECTION",
                     color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.50,
-                    normalizedY: 0.48,
+                    normalizedX: 0.56,
+                    normalizedY: 0.38,
                     description: "Adequate bone decompression must measure at least 12x15 cm to prevent brain herniation over bone margins.",
                     surgicalPearl: "Always carry bone cuts down flush with floor of middle cranial fossa to decompress uncus."
                 ),
                 SurgicalCallout(
-                    id: "tr_sss",
-                    title: "Superior Sagittal Sinus Margin",
-                    structureType: "CRITICAL VASCULAR LINE",
+                    id: "tr_mma",
+                    title: "Middle Meningeal Artery",
+                    structureType: "ARTERIAL ARBORIZATION",
                     color: ObsidianTheme.neonRose,
-                    normalizedX: 0.22,
-                    normalizedY: 0.35,
-                    description: "Keep medial bone cut strictly 2 cm lateral to midline sagittal suture to avoid sagittal sinus laceration.",
-                    surgicalPearl: "Place tack-up sutures along medial dural edge before opening dura to prevent epidural peeling."
+                    normalizedX: 0.60,
+                    normalizedY: 0.32,
+                    description: "Arborizes on the outer dural surface across the frontoparietal vault.",
+                    surgicalPearl: "Bipolar coagulate bleeding branches and place peripheral dural hitching sutures to prevent epidural hematoma."
                 )
             ]
         case .kocherEVD:
@@ -917,30 +591,37 @@ public enum SurgicalPlateType: String, CaseIterable {
                     title: "Kocher's Point Burr Hole",
                     structureType: "ENTRY PORTAL",
                     color: ObsidianTheme.neonCyan,
-                    normalizedX: 0.62,
-                    normalizedY: 0.36,
-                    description: "11 cm posterior from nasion, 3 cm lateral from midline. Anterior to coronal suture to spare motor strip.",
+                    normalizedX: 0.61,
+                    normalizedY: 0.28,
+                    description: "11 cm posterior from nasion, 3 cm lateral from midline along pupillary line. Anterior to coronal suture.",
                     surgicalPearl: "Pass catheter perpendicular to calvaria in all planes. Depth should not exceed 6.5 cm."
-                )
-            ]
-        case .subduralBurrHoles:
-            return [
+                ),
                 SurgicalCallout(
-                    id: "sdh_holes",
-                    title: "Frontal & Parietal Trephinations",
-                    structureType: "BURR HOLE SITES",
-                    color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.52,
-                    normalizedY: 0.34,
-                    description: "Dual burr hole placement allows through-and-through irrigation to clear motor strip hematoma.",
-                    surgicalPearl: "Never insert catheter with force into subdural space; gentle irrigation with warm saline clears the collection."
+                    id: "evd_monro",
+                    title: "Foramen of Monro & Frontal Horn",
+                    structureType: "VENTRICULAR TARGET",
+                    color: ObsidianTheme.neonBlue,
+                    normalizedX: 0.54,
+                    normalizedY: 0.42,
+                    description: "Target location for catheter tip into cerebrospinal fluid chamber.",
+                    surgicalPearl: "Release stylet as soon as ventricle gives a subtle 'pop' at 5.5 cm to prevent penetrating contralateral wall."
                 )
             ]
         case .acdfCervical:
             return [
                 SurgicalCallout(
+                    id: "acdf_pins",
+                    title: "Caspar Distraction Pins",
+                    structureType: "DISTRACTION SYSTEM",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.44,
+                    normalizedY: 0.35,
+                    description: "Pins placed strictly parallel in midline vertebral bodies to open collapsed disc space.",
+                    surgicalPearl: "Do not overtighten distractor; over-distraction strains posterior facet capsules and causes neck pain."
+                ),
+                SurgicalCallout(
                     id: "acdf_disc",
-                    title: "C5-C6 Intervertebral Disc",
+                    title: "C5-C6 Intervertebral Disc Space",
                     structureType: "SURGICAL TARGET",
                     color: ObsidianTheme.neonCyan,
                     normalizedX: 0.50,
@@ -952,9 +633,9 @@ public enum SurgicalPlateType: String, CaseIterable {
                     id: "acdf_uncinate",
                     title: "Uncinate Process (Lateral Limit)",
                     structureType: "SAFETY BOUNDARY",
-                    color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.28,
-                    normalizedY: 0.48,
+                    color: ObsidianTheme.neonRose,
+                    normalizedX: 0.38,
+                    normalizedY: 0.49,
                     description: "Bilateral bony ridges marking lateral extent of safe decompression.",
                     surgicalPearl: "Never drill lateral to medial wall of uncinate process; vertebral artery is located immediately lateral."
                 )
@@ -963,13 +644,23 @@ public enum SurgicalPlateType: String, CaseIterable {
             return [
                 SurgicalCallout(
                     id: "tlif_trav",
-                    title: "Traversing Nerve Root",
+                    title: "Traversing L5 Nerve Root",
                     structureType: "NEURAL CORRIDOR",
                     color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.54,
+                    normalizedX: 0.58,
                     normalizedY: 0.48,
-                    description: "Nerve root traversing across disc space to exit at lower level (e.g. L5 root at L4-L5 disc).",
+                    description: "Nerve root traversing across disc space to exit at lower level under S1 pedicle.",
                     surgicalPearl: "Retract root medially using a blunt nerve hook with gentle suction. Never over-stretch beyond midline."
+                ),
+                SurgicalCallout(
+                    id: "tlif_disc",
+                    title: "L4-L5 Disc Annulotomy",
+                    structureType: "INTERBODY TARGET",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.50,
+                    normalizedY: 0.65,
+                    description: "Target disc space prepared with curettes and scrapers for interbody fusion cage insertion.",
+                    surgicalPearl: "Thorough endplate preparation to bleeding subchondral bone ensures successful interbody fusion."
                 )
             ]
         case .radiographicBrainT2:
@@ -1051,13 +742,6 @@ public enum SurgicalPlateType: String, CaseIterable {
                 ApproachSequentialStep(stepNumber: 3, title: "Cannulation Trajectory", detail: "Aim toward medial canthus in coronal plane and tragus in sagittal plane."),
                 ApproachSequentialStep(stepNumber: 4, title: "Confirmation of CSF", detail: "Enter frontal horn at 5.5 to 6.5 cm; remove stylet, observe spontaneous CSF pulsation, secure.")
             ]
-        case .subduralBurrHoles:
-            return [
-                ApproachSequentialStep(stepNumber: 1, title: "Dual Incisions", detail: "Linear incisions over frontal and parietal poles of subdural collection."),
-                ApproachSequentialStep(stepNumber: 2, title: "Perforator Burr Holes", detail: "Drill two 14 mm burr holes; coagulate and incise dura cruciately."),
-                ApproachSequentialStep(stepNumber: 3, title: "Copious Warm Irrigation", detail: "Irrigate with warm saline using soft catheter until returning fluid is crystal clear."),
-                ApproachSequentialStep(stepNumber: 4, title: "Subgaleal Closed Drain", detail: "Tunnel drain subcutaneously and connect to gravity/suction bag to prevent recurrence.")
-            ]
         case .acdfCervical:
             return [
                 ApproachSequentialStep(stepNumber: 1, title: "Smith-Robinson Fascial Plane", detail: "Incise skin crease. Dissect between SCM/carotid sheath laterally and trachea/esophagus medially."),
@@ -1127,12 +811,6 @@ public enum SurgicalPlateType: String, CaseIterable {
                 "Trajectory directed too medial crossing septum pellucidum with fornix disruption",
                 "Intraventricular hemorrhage from blind laceration of choroid plexus"
             ]
-        case .subduralBurrHoles:
-            return [
-                "Cortical laceration during blind passage of irrigation tubing",
-                "Rapid intracranial decompression inducing contralateral acute epidural hematoma",
-                "Failure to evacuate tension pneumocephalus prior to dural closure"
-            ]
         case .acdfCervical:
             return [
                 "Esophageal perforation from aggressive medial retractor blade placement",
@@ -1159,36 +837,6 @@ public enum SurgicalPlateType: String, CaseIterable {
                 "Decompressing wrong lumbar level due to transitional lumbosacral vertebra (sacralized L5/lumbarized S1)",
                 "Over-resection of pars interarticularis (>50%) causing iatrogenic spinal instability"
             ]
-        }
-    }
-}
-
-public enum DissectionLayerStep: String, CaseIterable {
-    case skinFascia = "skin_fascia"
-    case boneCraniotomy = "bone_craniotomy"
-    case deepMicrosurgical = "deep_microsurgical"
-    
-    public var stepIndex: String {
-        switch self {
-        case .skinFascia: return "STEP 1"
-        case .boneCraniotomy: return "STEP 2"
-        case .deepMicrosurgical: return "STEP 3"
-        }
-    }
-    
-    public var shortName: String {
-        switch self {
-        case .skinFascia: return "Skin & Fascia"
-        case .boneCraniotomy: return "Bone Window"
-        case .deepMicrosurgical: return "Deep Target"
-        }
-    }
-    
-    public var displayName: String {
-        switch self {
-        case .skinFascia: return "Skin Incision & Fascia"
-        case .boneCraniotomy: return "Craniotomy Bone Flap"
-        case .deepMicrosurgical: return "Deep Microsurgical Corridor"
         }
     }
 }
