@@ -293,23 +293,28 @@ struct VPShuntPlacementCard: View {
 // MARK: - 9. Types of Craniotomies Overview Card
 struct CraniotomyTypesOverviewCard: View {
     var body: some View {
-        AtlasCardContainer(
-            badge: "CRANIAL APPROACH ANATOMY",
-            color: .cyan,
-            title: "Major Craniotomy Approaches Compendium",
-            indication: "Comparative anatomical guide to operative corridors used in cranial neurosurgery.",
-            steps: [
-                ("1. Pterional (Frontotemporal-Sphenoidal)", "Workhorse cranial approach. Exposure of Sylvian fissure, Circle of Willis, ACom/MCA/PCom aneurysms, and sellar/suprasellar pathology. Requires drilling the sphenoid ridge down to the meningo-orbital band."),
-                ("2. Suboccipital (Retrosigmoid)", "Corridor for cerebellopontine angle (CPA), vestibular schwannomas, microvascular decompression (trigeminal CN V, hemifacial CN VII). Craniectomy placed just posterior to the sigmoid sinus and inferior to the transverse sinus."),
-                ("3. Bifrontal (Subfrontal)", "Used for anterior skull base tumors (olfactory groove meningiomas, planum sphenoidale) and anterior communicating artery aneurysms. Dissects along the frontal skull base floor; requires sinus cranialization if frontal sinus breached."),
-                ("4. Interhemispheric Transcallosal", "Approach for intraventricular lesions (colloid cysts, third ventricle tumors). Midline parasagittal craniotomy taking care to preserve bridging cortical veins entering the superior sagittal sinus."),
-                ("5. Far Lateral (Transcondylar)", "Approach to anterior foramen magnum and lower clivus pathology. Involves drilling the posterior 1/3 of the occipital condyle and mobilizing the V3 segment of the vertebral artery.")
-            ],
-            pimpingPearls: [
-                "Pterion Anatomy: Junction of 4 bones: Frontal, Parietal, Temporal squama, and Greater wing of Sphenoid. Middle meningeal artery grooves the inner surface directly beneath it.",
-                "Frontal Sinus breach rule: If the frontal sinus is opened during craniotomy, all mucosa must be completely exenterated with a diamond burr, the ostia plugged with muscle/fat/bone wax, and a vascularized pericranial flap draped over the skull base to prevent fatal CSF leak and meningitis."
-            ]
-        )
+        VStack(spacing: 16) {
+            // Interactive Vector Schematic: Rhoton Pterional & Sphenoid Drill
+            PterionalApproachDiagramView()
+            
+            AtlasCardContainer(
+                badge: "CRANIAL APPROACH ANATOMY",
+                color: .cyan,
+                title: "Major Craniotomy Approaches Compendium",
+                indication: "Comparative anatomical guide to operative corridors used in cranial neurosurgery.",
+                steps: [
+                    ("1. Pterional (Frontotemporal-Sphenoidal)", "Workhorse cranial approach. Exposure of Sylvian fissure, Circle of Willis, ACom/MCA/PCom aneurysms, and sellar/suprasellar pathology. Requires drilling the sphenoid ridge down to the meningo-orbital band."),
+                    ("2. Suboccipital (Retrosigmoid)", "Corridor for cerebellopontine angle (CPA), vestibular schwannomas, microvascular decompression (trigeminal CN V, hemifacial CN VII). Craniectomy placed just posterior to the sigmoid sinus and inferior to the transverse sinus."),
+                    ("3. Bifrontal (Subfrontal)", "Used for anterior skull base tumors (olfactory groove meningiomas, planum sphenoidale) and anterior communicating artery aneurysms. Dissects along the frontal skull base floor; requires sinus cranialization if frontal sinus breached."),
+                    ("4. Interhemispheric Transcallosal", "Approach for intraventricular lesions (colloid cysts, third ventricle tumors). Midline parasagittal craniotomy taking care to preserve bridging cortical veins entering the superior sagittal sinus."),
+                    ("5. Far Lateral (Transcondylar)", "Approach to anterior foramen magnum and lower clivus pathology. Involves drilling the posterior 1/3 of the occipital condyle and mobilizing the V3 segment of the vertebral artery.")
+                ],
+                pimpingPearls: [
+                    "Pterion Anatomy: Junction of 4 bones: Frontal, Parietal, Temporal squama, and Greater wing of Sphenoid. Middle meningeal artery grooves the inner surface directly beneath it.",
+                    "Frontal Sinus breach rule: If the frontal sinus is opened during craniotomy, all mucosa must be completely exenterated with a diamond burr, the ostia plugged with muscle/fat/bone wax, and a vascularized pericranial flap draped over the skull base to prevent fatal CSF leak and meningitis."
+                ]
+            )
+        }
     }
 }
 

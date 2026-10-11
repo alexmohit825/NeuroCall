@@ -98,7 +98,10 @@ struct CranialNeuroradiologyView: View {
             // 3. Interactive Vector Schematic: Circle of Willis & Aneurysm Atlas
             CircleOfWillisDiagramView()
             
-            // 4. Vascular Territories
+            // 4. Interactive Vector Schematic: Axial Brain MRI Basal Ganglia & Capsule
+            AxialBrainMRIDiagramView()
+            
+            // 5. Vascular Territories
             NeuroAnatomyCard(
                 badge: "CEREBROVASCULAR TERRITORIES",
                 color: .purple,
@@ -138,7 +141,10 @@ struct SpinalNeuroradiologyView: View {
     var body: some View {
         VStack(spacing: 16) {
             
-            // 1. Normal Sagittal & Axial MRI Anatomy
+            // 1. Interactive Vector Schematic: Axial Cervical MRI & Radiculopathy
+            AxialCervicalMRIDiagramView()
+            
+            // 2. Normal Sagittal & Axial MRI Anatomy
             NeuroAnatomyCard(
                 badge: "SPINAL CANAL ARCHITECTURE",
                 color: .blue,

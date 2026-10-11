@@ -412,3 +412,540 @@ public struct LumbarVertebraTrajectoryView: View {
         }
     }
 }
+
+// =========================================================================
+// 4. RHOTON CRANIAL ANATOMY: PTERIONAL CRANIOTOMY & SPHENOID RIDGE DRILL
+// =========================================================================
+public struct PterionalApproachDiagramView: View {
+    @State private var activeLandmark = "maccarty"
+    
+    public init() {}
+    
+    public var body: some View {
+        VStack(spacing: 14) {
+            ZStack {
+                // Ceramic Dark Surface
+                RoundedRectangle(cornerRadius: 24)
+                    .fill(Color(red: 0.08, green: 0.10, blue: 0.15))
+                    .frame(height: 290)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 24)
+                            .stroke(Color.white.opacity(0.08), lineWidth: 1)
+                    )
+                
+                VStack(spacing: 0) {
+                    ZStack {
+                        // Lateral Calvarium Contour
+                        Path { path in
+                            path.move(to: CGPoint(x: 50, y: 150))
+                            path.addQuadCurve(to: CGPoint(x: 150, y: 35), control: CGPoint(x: 75, y: 55))
+                            path.addQuadCurve(to: CGPoint(x: 250, y: 140), control: CGPoint(x: 230, y: 65))
+                            path.addQuadCurve(to: CGPoint(x: 230, y: 220), control: CGPoint(x: 260, y: 190))
+                            path.addQuadCurve(to: CGPoint(x: 130, y: 220), control: CGPoint(x: 180, y: 235))
+                            path.addQuadCurve(to: CGPoint(x: 50, y: 150), control: CGPoint(x: 65, y: 200))
+                        }
+                        .stroke(Color.white.opacity(0.2), style: StrokeStyle(lineWidth: 2, dash: [4, 4]))
+                        
+                        // Pterional Bone Flap (Classic Yaşargil / Rhoton Window)
+                        Path { path in
+                            path.move(to: CGPoint(x: 85, y: 150)) // MacCarty keyhole
+                            path.addQuadCurve(to: CGPoint(x: 140, y: 75), control: CGPoint(x: 95, y: 95)) // Frontal sweep
+                            path.addQuadCurve(to: CGPoint(x: 195, y: 120), control: CGPoint(x: 180, y: 80)) // Parietal sweep
+                            path.addQuadCurve(to: CGPoint(x: 185, y: 180), control: CGPoint(x: 205, y: 160)) // Squamosal
+                            path.addQuadCurve(to: CGPoint(x: 120, y: 180), control: CGPoint(x: 150, y: 190)) // Sphenoid wing base
+                            path.addLine(to: CGPoint(x: 85, y: 150))
+                        }
+                        .fill(
+                            LinearGradient(
+                                colors: [Color.purple.opacity(0.25), Color.indigo.opacity(0.12)],
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            )
+                        )
+                        .overlay(
+                            Path { path in
+                                path.move(to: CGPoint(x: 85, y: 150))
+                                path.addQuadCurve(to: CGPoint(x: 140, y: 75), control: CGPoint(x: 95, y: 95))
+                                path.addQuadCurve(to: CGPoint(x: 195, y: 120), control: CGPoint(x: 180, y: 80))
+                                path.addQuadCurve(to: CGPoint(x: 185, y: 180), control: CGPoint(x: 205, y: 160))
+                                path.addQuadCurve(to: CGPoint(x: 120, y: 180), control: CGPoint(x: 150, y: 190))
+                                path.addLine(to: CGPoint(x: 85, y: 150))
+                            }
+                            .stroke(Color.cyan, style: StrokeStyle(lineWidth: 3, lineCap: .round))
+                        )
+                        
+                        // Sphenoid Ridge Drilling Zone (Flattening Greater Wing of Sphenoid)
+                        Path { path in
+                            path.move(to: CGPoint(x: 85, y: 150))
+                            path.addQuadCurve(to: CGPoint(x: 145, y: 165), control: CGPoint(x: 110, y: 162))
+                        }
+                        .stroke(Color.orange, style: StrokeStyle(lineWidth: 7, lineCap: .round))
+                        .shadow(color: .orange.opacity(0.8), radius: 6)
+                        
+                        // Sylvian Fissure Corridor (Trans-Sylvian Access Ray)
+                        Path { path in
+                            path.move(to: CGPoint(x: 140, y: 165))
+                            path.addQuadCurve(to: CGPoint(x: 185, y: 140), control: CGPoint(x: 165, y: 155))
+                        }
+                        .stroke(Color.pink, style: StrokeStyle(lineWidth: 4, lineCap: .round, dash: [5, 3]))
+                        
+                        // Keyhole Landmark: MacCarty Keyhole (Orbit + Frontal Cranium)
+                        Circle()
+                            .fill(Color.yellow)
+                            .frame(width: 14, height: 14)
+                            .overlay(Circle().stroke(Color.white, lineWidth: 2))
+                            .shadow(color: .yellow, radius: 8)
+                            .position(x: 85, y: 150)
+                        
+                        // Internal Carotid & Optic Nerve Target (Supraclinoid Target)
+                        Circle()
+                            .fill(Color.red)
+                            .frame(width: 10, height: 10)
+                            .shadow(color: .red, radius: 6)
+                            .position(x: 140, y: 168)
+                    }
+                    .frame(width: 300, height: 235)
+                }
+            }
+            .padding(.horizontal)
+            
+            // Interactive Landmark Selector
+            HStack(spacing: 8) {
+                Button(action: {
+                    HapticManager.impact(style: .medium)
+                    activeLandmark = "maccarty"
+                }) {
+                    Text("MacCarty Keyhole")
+                        .font(.system(size: 11, weight: .bold))
+                        .padding(.vertical, 7)
+                        .padding(.horizontal, 10)
+                        .background(activeLandmark == "maccarty" ? Color.yellow.opacity(0.25) : Color.white.opacity(0.06))
+                        .foregroundColor(activeLandmark == "maccarty" ? .yellow : .white.opacity(0.7))
+                        .cornerRadius(10)
+                }
+                
+                Button(action: {
+                    HapticManager.impact(style: .medium)
+                    activeLandmark = "sphenoid"
+                }) {
+                    Text("Sphenoid Ridge Drill")
+                        .font(.system(size: 11, weight: .bold))
+                        .padding(.vertical, 7)
+                        .padding(.horizontal, 10)
+                        .background(activeLandmark == "sphenoid" ? Color.orange.opacity(0.25) : Color.white.opacity(0.06))
+                        .foregroundColor(activeLandmark == "sphenoid" ? .orange : .white.opacity(0.7))
+                        .cornerRadius(10)
+                }
+                
+                Button(action: {
+                    HapticManager.impact(style: .medium)
+                    activeLandmark = "sylvian"
+                }) {
+                    Text("Sylvian Corridor")
+                        .font(.system(size: 11, weight: .bold))
+                        .padding(.vertical, 7)
+                        .padding(.horizontal, 10)
+                        .background(activeLandmark == "sylvian" ? Color.pink.opacity(0.25) : Color.white.opacity(0.06))
+                        .foregroundColor(activeLandmark == "sylvian" ? .pink : .white.opacity(0.7))
+                        .cornerRadius(10)
+                }
+            }
+            .padding(.horizontal)
+            
+            // Detail Callout Banner
+            Group {
+                if activeLandmark == "maccarty" {
+                    AtlasInfoStrip(
+                        color: .yellow,
+                        title: "MacCarty Keyhole Placement",
+                        pearl: "Placed 5 mm superior to frontozygomatic suture. Superior half enters anterior cranial fossa (dura), inferior half enters orbit (periorbita). Eliminates orbital roof ridge without blind plunge."
+                    )
+                } else if activeLandmark == "sphenoid" {
+                    AtlasInfoStrip(
+                        color: .orange,
+                        title: "Sphenoid Ridge Drilling (Rhoton Principle)",
+                        pearl: "Extensively drill the lesser wing of the sphenoid medially to the meningo-orbital band (superior orbital fissure). Flattening this bony prominence allows low-trajectory access to basal cisterns with ZERO frontal lobe retraction."
+                    )
+                } else {
+                    AtlasInfoStrip(
+                        color: .pink,
+                        title: "Trans-Sylvian Corridor (Yaşargil)",
+                        pearl: "Sharp arachnoid dissection from distal to proximal (or superficial to deep). Exposes M1 trunk, ICA bifurcation, A1, optic chiasm, and basilar apex without brain sacrifice."
+                    )
+                }
+            }
+            .padding(.horizontal)
+        }
+    }
+}
+
+// =========================================================================
+// 5. AXIAL BRAIN MRI: BASAL GANGLIA & INTERNAL CAPSULE SCHEMATIC
+// =========================================================================
+public struct AxialBrainMRIDiagramView: View {
+    @State private var activeStructure = "capsule"
+    
+    public init() {}
+    
+    public var body: some View {
+        VStack(spacing: 14) {
+            ZStack {
+                // High-Contrast Ceramic Dark Field
+                RoundedRectangle(cornerRadius: 24)
+                    .fill(Color(red: 0.08, green: 0.10, blue: 0.15))
+                    .frame(height: 290)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 24)
+                            .stroke(Color.white.opacity(0.08), lineWidth: 1)
+                    )
+                
+                VStack(spacing: 0) {
+                    ZStack {
+                        // Brain Calvarium Outer Oval
+                        Path { path in
+                            path.addEllipse(in: CGRect(x: 45, y: 25, width: 210, height: 210))
+                        }
+                        .stroke(Color.white.opacity(0.2), lineWidth: 2)
+                        
+                        // Lateral Ventricles (Frontal Horns & Septum Pellucidum)
+                        Path { path in
+                            // Left Frontal Horn
+                            path.move(to: CGPoint(x: 145, y: 70))
+                            path.addQuadCurve(to: CGPoint(x: 130, y: 105), control: CGPoint(x: 135, y: 85))
+                            path.addQuadCurve(to: CGPoint(x: 145, y: 110), control: CGPoint(x: 138, y: 110))
+                            path.addLine(to: CGPoint(x: 145, y: 70))
+                            // Right Frontal Horn
+                            path.move(to: CGPoint(x: 155, y: 70))
+                            path.addQuadCurve(to: CGPoint(x: 170, y: 105), control: CGPoint(x: 165, y: 85))
+                            path.addQuadCurve(to: CGPoint(x: 155, y: 110), control: CGPoint(x: 162, y: 110))
+                            path.addLine(to: CGPoint(x: 155, y: 70))
+                        }
+                        .fill(Color.cyan.opacity(0.35))
+                        
+                        // 3rd Ventricle
+                        Path { path in
+                            path.addRect(CGRect(x: 147, y: 115, width: 6, height: 40))
+                        }
+                        .fill(Color.cyan.opacity(0.35))
+                        
+                        // Caudate Nuclei (Head of Caudate - Medial to Anterior Limb)
+                        Path { path in
+                            // Left Caudate
+                            path.addEllipse(in: CGRect(x: 118, y: 80, width: 14, height: 22))
+                            // Right Caudate
+                            path.addEllipse(in: CGRect(x: 168, y: 80, width: 14, height: 22))
+                        }
+                        .fill(Color.indigo.opacity(0.8))
+                        
+                        // Lentiform Nucleus (Putamen & Globus Pallidus - Wedge lateral to capsule)
+                        Path { path in
+                            // Left Lentiform
+                            path.move(to: CGPoint(x: 95, y: 95))
+                            path.addLine(to: CGPoint(x: 115, y: 115))
+                            path.addLine(to: CGPoint(x: 100, y: 135))
+                            path.addLine(to: CGPoint(x: 82, y: 115))
+                            path.closeSubpath()
+                            // Right Lentiform
+                            path.move(to: CGPoint(x: 205, y: 95))
+                            path.addLine(to: CGPoint(x: 185, y: 115))
+                            path.addLine(to: CGPoint(x: 200, y: 135))
+                            path.addLine(to: CGPoint(x: 218, y: 115))
+                            path.closeSubpath()
+                        }
+                        .fill(Color.purple.opacity(0.75))
+                        
+                        // Thalami (Medial to Posterior Limb)
+                        Path { path in
+                            // Left Thalamus
+                            path.addEllipse(in: CGRect(x: 122, y: 120, width: 22, height: 32))
+                            // Right Thalamus
+                            path.addEllipse(in: CGRect(x: 156, y: 120, width: 22, height: 32))
+                        }
+                        .fill(Color.orange.opacity(0.75))
+                        
+                        // Internal Capsule "Boomerang" (Anterior Limb, Genu, Posterior Limb)
+                        Path { path in
+                            // Left Internal Capsule
+                            path.move(to: CGPoint(x: 112, y: 82)) // Anterior limb
+                            path.addLine(to: CGPoint(x: 120, y: 115)) // Genu
+                            path.addLine(to: CGPoint(x: 105, y: 155)) // Posterior limb
+                            // Right Internal Capsule
+                            path.move(to: CGPoint(x: 188, y: 82)) // Anterior limb
+                            path.addLine(to: CGPoint(x: 180, y: 115)) // Genu
+                            path.addLine(to: CGPoint(x: 195, y: 155)) // Posterior limb
+                        }
+                        .stroke(Color.yellow, style: StrokeStyle(lineWidth: 5, lineCap: .round, lineJoin: .round))
+                        .shadow(color: .yellow.opacity(0.8), radius: 6)
+                        
+                        // Insular Ribbon / Cortex (Lateral Sylvian boundary)
+                        Path { path in
+                            // Left Insula
+                            path.move(to: CGPoint(x: 72, y: 90))
+                            path.addQuadCurve(to: CGPoint(x: 72, y: 145), control: CGPoint(x: 65, y: 115))
+                            // Right Insula
+                            path.move(to: CGPoint(x: 228, y: 90))
+                            path.addQuadCurve(to: CGPoint(x: 228, y: 145), control: CGPoint(x: 235, y: 115))
+                        }
+                        .stroke(Color.green, style: StrokeStyle(lineWidth: 3, lineCap: .round))
+                    }
+                    .frame(width: 300, height: 235)
+                }
+            }
+            .padding(.horizontal)
+            
+            // Structure Selection Buttons
+            HStack(spacing: 8) {
+                Button(action: {
+                    HapticManager.impact(style: .medium)
+                    activeStructure = "capsule"
+                }) {
+                    Text("Internal Capsule")
+                        .font(.system(size: 11, weight: .bold))
+                        .padding(.vertical, 7)
+                        .padding(.horizontal, 10)
+                        .background(activeStructure == "capsule" ? Color.yellow.opacity(0.25) : Color.white.opacity(0.06))
+                        .foregroundColor(activeStructure == "capsule" ? .yellow : .white.opacity(0.7))
+                        .cornerRadius(10)
+                }
+                
+                Button(action: {
+                    HapticManager.impact(style: .medium)
+                    activeStructure = "lentiform"
+                }) {
+                    Text("Lentiform / Basal Ganglia")
+                        .font(.system(size: 11, weight: .bold))
+                        .padding(.vertical, 7)
+                        .padding(.horizontal, 10)
+                        .background(activeStructure == "lentiform" ? Color.purple.opacity(0.25) : Color.white.opacity(0.06))
+                        .foregroundColor(activeStructure == "lentiform" ? .purple : .white.opacity(0.7))
+                        .cornerRadius(10)
+                }
+                
+                Button(action: {
+                    HapticManager.impact(style: .medium)
+                    activeStructure = "insula"
+                }) {
+                    Text("Insular Ribbon")
+                        .font(.system(size: 11, weight: .bold))
+                        .padding(.vertical, 7)
+                        .padding(.horizontal, 10)
+                        .background(activeStructure == "insula" ? Color.green.opacity(0.25) : Color.white.opacity(0.06))
+                        .foregroundColor(activeStructure == "insula" ? .green : .white.opacity(0.7))
+                        .cornerRadius(10)
+                }
+            }
+            .padding(.horizontal)
+            
+            // Detail Callout Banner
+            Group {
+                if activeStructure == "capsule" {
+                    AtlasInfoStrip(
+                        color: .yellow,
+                        title: "Internal Capsule (Boomerang Architecture)",
+                        pearl: "Anterior Limb: Between caudate and lentiform (frontopontine/thalamic radiation). Genu: Corticobulbar fibers (face/speech). Posterior Limb: Between thalamus and lentiform (corticospinal tract / motor fibers for arm & leg). Highly vulnerable to hypertensive lacunar infarcts."
+                    )
+                } else if activeStructure == "lentiform" {
+                    AtlasInfoStrip(
+                        color: .purple,
+                        title: "Lentiform Nucleus & Thalamus",
+                        pearl: "Lentiform = Putamen (lateral) + Globus Pallidus (medial). Supplied by Lenticulostriate branches of M1 MCA. Common site of hypertensive intraparenchymal hemorrhage (Charcot-Bouchard microaneurysms)."
+                    )
+                } else {
+                    AtlasInfoStrip(
+                        color: .green,
+                        title: "Insular Ribbon & Extreme Capsule",
+                        pearl: "Loss of the insular ribbon is one of the earliest signs of hyperacute ischemic stroke on non-contrast CT, appearing within 6 hours due to early cytotoxic edema in the insular cortex (end-artery MCA supply)."
+                    )
+                }
+            }
+            .padding(.horizontal)
+        }
+    }
+}
+
+// =========================================================================
+// 6. AXIAL CERVICAL SPINE MRI: RADICULOPATHY & UNCOVERTEBRAL JOINT
+// =========================================================================
+public struct AxialCervicalMRIDiagramView: View {
+    @State private var activePathology = "uncinate"
+    
+    public init() {}
+    
+    public var body: some View {
+        VStack(spacing: 14) {
+            ZStack {
+                // High-Contrast Ceramic Dark Field
+                RoundedRectangle(cornerRadius: 24)
+                    .fill(Color(red: 0.08, green: 0.10, blue: 0.15))
+                    .frame(height: 290)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 24)
+                            .stroke(Color.white.opacity(0.08), lineWidth: 1)
+                    )
+                
+                VStack(spacing: 0) {
+                    ZStack {
+                        // Cervical Vertebral Body (Anterior Kidney/Oval shape)
+                        Path { path in
+                            path.move(to: CGPoint(x: 90, y: 70))
+                            path.addQuadCurve(to: CGPoint(x: 210, y: 70), control: CGPoint(x: 150, y: 55))
+                            path.addQuadCurve(to: CGPoint(x: 200, y: 120), control: CGPoint(x: 215, y: 95))
+                            path.addQuadCurve(to: CGPoint(x: 100, y: 120), control: CGPoint(x: 150, y: 110))
+                            path.addQuadCurve(to: CGPoint(x: 90, y: 70), control: CGPoint(x: 85, y: 95))
+                        }
+                        .fill(Color.white.opacity(0.12))
+                        .overlay(
+                            Path { path in
+                                path.move(to: CGPoint(x: 90, y: 70))
+                                path.addQuadCurve(to: CGPoint(x: 210, y: 70), control: CGPoint(x: 150, y: 55))
+                                path.addQuadCurve(to: CGPoint(x: 200, y: 120), control: CGPoint(x: 215, y: 95))
+                                path.addQuadCurve(to: CGPoint(x: 100, y: 120), control: CGPoint(x: 150, y: 110))
+                                path.addQuadCurve(to: CGPoint(x: 90, y: 70), control: CGPoint(x: 85, y: 95))
+                            }
+                            .stroke(Color.white.opacity(0.3), lineWidth: 2)
+                        )
+                        
+                        // Spinal Canal & Thecal Sac
+                        Path { path in
+                            path.addEllipse(in: CGRect(x: 115, y: 125, width: 70, height: 50))
+                        }
+                        .fill(Color.blue.opacity(0.3))
+                        .overlay(
+                            Path { path in
+                                path.addEllipse(in: CGRect(x: 115, y: 125, width: 70, height: 50))
+                            }
+                            .stroke(Color.cyan, lineWidth: 2)
+                        )
+                        
+                        // Cervical Spinal Cord (Center of Sac)
+                        Path { path in
+                            path.addEllipse(in: CGRect(x: 130, y: 135, width: 40, height: 30))
+                        }
+                        .fill(Color.indigo)
+                        .overlay(
+                            Path { path in
+                                path.addEllipse(in: CGRect(x: 130, y: 135, width: 40, height: 30))
+                            }
+                            .stroke(Color.white.opacity(0.5), lineWidth: 1.5)
+                        )
+                        
+                        // Uncinate Processes (Posterolateral Body Projections)
+                        Path { path in
+                            // Left Uncinate
+                            path.move(to: CGPoint(x: 95, y: 105))
+                            path.addLine(to: CGPoint(x: 92, y: 125))
+                            path.addLine(to: CGPoint(x: 105, y: 120))
+                            path.closeSubpath()
+                            // Right Uncinate (Hypertrophic spurring)
+                            path.move(to: CGPoint(x: 205, y: 105))
+                            path.addLine(to: CGPoint(x: 210, y: 128))
+                            path.addLine(to: CGPoint(x: 195, y: 122))
+                            path.closeSubpath()
+                        }
+                        .fill(Color.orange)
+                        
+                        // Foramen Transversarium (Vertebral Artery conduits)
+                        Circle().fill(Color.red.opacity(0.7)).frame(width: 14, height: 14).position(x: 75, y: 115)
+                        Circle().fill(Color.red.opacity(0.7)).frame(width: 14, height: 14).position(x: 225, y: 115)
+                        
+                        // Exiting Nerve Roots (Neural Foramina Corridors)
+                        Path { path in
+                            // Left Exiting Root (Patent)
+                            path.move(to: CGPoint(x: 120, y: 145))
+                            path.addLine(to: CGPoint(x: 80, y: 135))
+                            // Right Exiting Root (Pinched by Uncinate Spur)
+                            path.move(to: CGPoint(x: 180, y: 145))
+                            path.addLine(to: CGPoint(x: 215, y: 135))
+                        }
+                        .stroke(Color.yellow, style: StrokeStyle(lineWidth: 4, lineCap: .round))
+                        
+                        // Lamina & Spinous Process
+                        Path { path in
+                            path.move(to: CGPoint(x: 105, y: 165))
+                            path.addLine(to: CGPoint(x: 150, y: 220))
+                            path.addLine(to: CGPoint(x: 195, y: 165))
+                        }
+                        .stroke(Color.white.opacity(0.3), lineWidth: 2.5)
+                        
+                        // Red Alert Pinch Marker on Right Foramen
+                        Circle()
+                            .fill(Color.red)
+                            .frame(width: 10, height: 10)
+                            .shadow(color: .red, radius: 8)
+                            .position(x: 202, y: 130)
+                    }
+                    .frame(width: 300, height: 235)
+                }
+            }
+            .padding(.horizontal)
+            
+            // Pathology Toggle Buttons
+            HStack(spacing: 8) {
+                Button(action: {
+                    HapticManager.impact(style: .medium)
+                    activePathology = "uncinate"
+                }) {
+                    Text("Uncovertebral Joint")
+                        .font(.system(size: 11, weight: .bold))
+                        .padding(.vertical, 7)
+                        .padding(.horizontal, 10)
+                        .background(activePathology == "uncinate" ? Color.orange.opacity(0.25) : Color.white.opacity(0.06))
+                        .foregroundColor(activePathology == "uncinate" ? .orange : .white.opacity(0.7))
+                        .cornerRadius(10)
+                }
+                
+                Button(action: {
+                    HapticManager.impact(style: .medium)
+                    activePathology = "foramen"
+                }) {
+                    Text("Foraminal Stenosis")
+                        .font(.system(size: 11, weight: .bold))
+                        .padding(.vertical, 7)
+                        .padding(.horizontal, 10)
+                        .background(activePathology == "foramen" ? Color.red.opacity(0.25) : Color.white.opacity(0.06))
+                        .foregroundColor(activePathology == "foramen" ? .red : .white.opacity(0.7))
+                        .cornerRadius(10)
+                }
+                
+                Button(action: {
+                    HapticManager.impact(style: .medium)
+                    activePathology = "artery"
+                }) {
+                    Text("Vertebral Artery")
+                        .font(.system(size: 11, weight: .bold))
+                        .padding(.vertical, 7)
+                        .padding(.horizontal, 10)
+                        .background(activePathology == "artery" ? Color.cyan.opacity(0.25) : Color.white.opacity(0.06))
+                        .foregroundColor(activePathology == "artery" ? .cyan : .white.opacity(0.7))
+                        .cornerRadius(10)
+                }
+            }
+            .padding(.horizontal)
+            
+            // Detail Callout Banner
+            Group {
+                if activePathology == "uncinate" {
+                    AtlasInfoStrip(
+                        color: .orange,
+                        title: "Uncovertebral Joint (Luschka's Joint)",
+                        pearl: "Formed between the uncinate process of the inferior vertebra and the beveled lip of the superior vertebra. Hypertrophic uncinate spurs are the primary anterior cause of cervical radiculopathy."
+                    )
+                } else if activePathology == "foramen" {
+                    AtlasInfoStrip(
+                        color: .red,
+                        title: "Cervical Neuroforaminal Architecture",
+                        pearl: "Anterior wall: Uncinate process & disc margin. Posterior wall: Superior articular process (facet joint). The cervical root exits ABOVE its pedicle (e.g., C6 root exits between C5–C6)."
+                    )
+                } else {
+                    AtlasInfoStrip(
+                        color: .cyan,
+                        title: "Foramen Transversarium & Vertebral Artery",
+                        pearl: "Located immediately lateral to the uncinate process. When performing anterior cervical discectomy & fusion (ACDF), never drill lateral to the uncinate process to prevent catastrophic vertebral artery laceration."
+                    )
+                }
+            }
+            .padding(.horizontal)
+        }
+    }
+}
+
