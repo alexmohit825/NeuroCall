@@ -366,6 +366,7 @@ public struct AnatomicReviewStationView: View {
     @State private var selectedPlateId: String = "sa_aneurysm"
     @State private var copiedReport = false
     @State private var showingReportSheet = false
+    @State private var showingFullScreenZoom = false
     @State private var zoomScale: CGFloat = 1.0
     
     let categories = ["All", "Surgical Atlas", "2 AM Crisis CT", "Frontline ER Consults"]
@@ -477,6 +478,11 @@ public struct AnatomicReviewStationView: View {
             .sheet(isPresented: $showingReportSheet) {
                 AuditReportModalView(auditManager: auditManager)
             }
+            .fullScreenCover(isPresented: $showingFullScreenZoom) {
+                if let plate = currentPlate {
+                    FullScreenPlateZoomModal(plate: plate)
+                }
+            }
         }
     }
     
@@ -584,11 +590,13 @@ public struct AnatomicReviewStationView: View {
             .padding(.horizontal, 16)
             
             ZStack {
-                Image(plate.imageName)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(height: 280)
-                    .cornerRadius(12)
+                ZoomablePlateImageView(
+                    imageName: plate.imageName,
+                    contentHeight: 290,
+                    onExpand: {
+                        showingFullScreenZoom = true
+                    }
+                )
                 
                 // Status Ribbon
                 VStack {
@@ -605,6 +613,7 @@ public struct AnatomicReviewStationView: View {
                     }
                     Spacer()
                 }
+                .allowsHitTesting(false)
             }
             .frame(maxWidth: .infinity)
             .background(Color.black)
@@ -1088,5 +1097,291 @@ public struct AuditReportModalView: View {
         }
         
         trySend(index: 0)
+    }
+}
+
+// MARK: - Interactive Two-Finger Pinch-to-Zoom & Pan Component
+public struct ZoomablePlateImageView: View {
+    public let imageName: String
+    public var contentHeight: CGFloat = 290
+    public var onExpand: (() -> Void)? = nil
+    
+    @State private var scale: CGFloat = 1.0
+    @State private var lastScale: CGFloat = 1.0
+    @State private var offset: CGSize = .zero
+    @State private var lastOffset: CGSize = .zero
+    
+    public init(imageName: String, contentHeight: CGFloat = 290, onExpand: (() -> Void)? = nil) {
+        self.imageName = imageName
+        self.contentHeight = contentHeight
+        self.onExpand = onExpand
+    }
+    
+    public var body: some View {
+        GeometryReader { geo in
+            ZStack {
+                Color.black
+                
+                Image(imageName)
+                    .resizable()
+                    .scaledToFit()
+                    .scaleEffect(scale)
+                    .offset(offset)
+                    .gesture(
+                        SimultaneousGesture(
+                            MagnificationGesture()
+                                .onChanged { value in
+                                    let delta = value / lastScale
+                                    lastScale = value
+                                    let newScale = scale * delta
+                                    scale = min(max(newScale, 1.0), 5.0)
+                                }
+                                .onEnded { _ in
+                                    lastScale = 1.0
+                                    if scale < 1.05 {
+                                        withAnimation(.spring(response: 0.25, dampingFraction: 0.8)) {
+                                            scale = 1.0
+                                            offset = .zero
+                                            lastOffset = .zero
+                                        }
+                                    }
+                                },
+                            DragGesture()
+                                .onChanged { val in
+                                    if scale > 1.05 {
+                                        offset = CGSize(
+                                            width: lastOffset.width + val.translation.width,
+                                            height: lastOffset.height + val.translation.height
+                                        )
+                                    }
+                                }
+                                .onEnded { _ in
+                                    lastOffset = offset
+                                    if scale <= 1.05 {
+                                        withAnimation(.spring(response: 0.25, dampingFraction: 0.8)) {
+                                            offset = .zero
+                                            lastOffset = .zero
+                                        }
+                                    }
+                                }
+                        )
+                    )
+                    .onTapGesture(count: 2) {
+                        HapticManager.impact(style: .medium)
+                        withAnimation(.spring(response: 0.3, dampingFraction: 0.75)) {
+                            if scale > 1.1 {
+                                scale = 1.0
+                                offset = .zero
+                                lastOffset = .zero
+                            } else {
+                                scale = 2.5
+                            }
+                        }
+                    }
+                
+                // Overlay controls
+                VStack {
+                    HStack {
+                        if scale > 1.05 {
+                            HStack(spacing: 4) {
+                                Image(systemName: "arrow.up.left.and.down.right.magnifyingglass")
+                                    .font(.system(size: 9))
+                                Text(String(format: "%.1fx ZOOM", scale))
+                                    .font(.system(size: 9, weight: .heavy, design: .monospaced))
+                            }
+                            .padding(.horizontal, 6)
+                            .padding(.vertical, 3)
+                            .background(Color.black.opacity(0.85))
+                            .foregroundColor(ObsidianTheme.neonAmber)
+                            .cornerRadius(4)
+                        } else {
+                            HStack(spacing: 4) {
+                                Image(systemName: "hand.pinch")
+                                    .font(.system(size: 9))
+                                Text("PINCH TO ZOOM")
+                                    .font(.system(size: 8, weight: .bold, design: .monospaced))
+                            }
+                            .padding(.horizontal, 6)
+                            .padding(.vertical, 3)
+                            .background(Color.black.opacity(0.6))
+                            .foregroundColor(Color.white.opacity(0.7))
+                            .cornerRadius(4)
+                        }
+                        
+                        Spacer()
+                        
+                        HStack(spacing: 6) {
+                            if scale > 1.05 {
+                                Button(action: {
+                                    HapticManager.impact(style: .light)
+                                    withAnimation(.spring(response: 0.25, dampingFraction: 0.8)) {
+                                        scale = 1.0
+                                        lastScale = 1.0
+                                        offset = .zero
+                                        lastOffset = .zero
+                                    }
+                                }) {
+                                    Image(systemName: "arrow.counterclockwise")
+                                        .font(.system(size: 11, weight: .bold))
+                                        .padding(6)
+                                        .background(Color.black.opacity(0.85))
+                                        .foregroundColor(ObsidianTheme.neonCyan)
+                                        .clipShape(Circle())
+                                }
+                            }
+                            
+                            if let onExpand = onExpand {
+                                Button(action: {
+                                    HapticManager.impact(style: .medium)
+                                    onExpand()
+                                }) {
+                                    Image(systemName: "arrow.up.left.and.arrow.down.right")
+                                        .font(.system(size: 11, weight: .bold))
+                                        .padding(6)
+                                        .background(Color.black.opacity(0.85))
+                                        .foregroundColor(ObsidianTheme.neonCyan)
+                                        .clipShape(Circle())
+                                }
+                            }
+                        }
+                    }
+                    .padding(8)
+                    Spacer()
+                }
+            }
+            .clipShape(RoundedRectangle(cornerRadius: 12))
+        }
+        .frame(height: contentHeight)
+    }
+}
+
+// MARK: - Full Screen Plate Zoom Modal
+public struct FullScreenPlateZoomModal: View {
+    public let plate: ReviewPlateItem
+    @Environment(\.dismiss) var dismiss
+    
+    @State private var scale: CGFloat = 1.0
+    @State private var lastScale: CGFloat = 1.0
+    @State private var offset: CGSize = .zero
+    @State private var lastOffset: CGSize = .zero
+    
+    public init(plate: ReviewPlateItem) {
+        self.plate = plate
+    }
+    
+    public var body: some View {
+        ZStack {
+            Color.black.ignoresSafeArea()
+            
+            GeometryReader { geo in
+                Image(plate.imageName)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: geo.size.width, height: geo.size.height)
+                    .scaleEffect(scale)
+                    .offset(offset)
+                    .gesture(
+                        SimultaneousGesture(
+                            MagnificationGesture()
+                                .onChanged { val in
+                                    let delta = val / lastScale
+                                    lastScale = val
+                                    let newScale = scale * delta
+                                    scale = min(max(newScale, 1.0), 6.0)
+                                }
+                                .onEnded { _ in
+                                    lastScale = 1.0
+                                    if scale < 1.05 {
+                                        withAnimation(.spring(response: 0.25, dampingFraction: 0.8)) {
+                                            scale = 1.0
+                                            offset = .zero
+                                            lastOffset = .zero
+                                        }
+                                    }
+                                },
+                            DragGesture()
+                                .onChanged { val in
+                                    if scale > 1.05 {
+                                        offset = CGSize(
+                                            width: lastOffset.width + val.translation.width,
+                                            height: lastOffset.height + val.translation.height
+                                        )
+                                    }
+                                }
+                                .onEnded { _ in
+                                    lastOffset = offset
+                                    if scale <= 1.05 {
+                                        withAnimation(.spring(response: 0.25, dampingFraction: 0.8)) {
+                                            offset = .zero
+                                            lastOffset = .zero
+                                        }
+                                    }
+                                }
+                        )
+                    )
+                    .onTapGesture(count: 2) {
+                        HapticManager.impact(style: .medium)
+                        withAnimation(.spring(response: 0.3, dampingFraction: 0.75)) {
+                            if scale > 1.1 {
+                                scale = 1.0
+                                offset = .zero
+                                lastOffset = .zero
+                            } else {
+                                scale = 3.0
+                            }
+                        }
+                    }
+            }
+            
+            // Top Bar
+            VStack {
+                HStack {
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text(plate.title)
+                            .font(.system(size: 13, weight: .bold))
+                            .foregroundColor(.white)
+                        Text(scale > 1.05 ? String(format: "%.1fx Zoom • Two-Finger Pinch / Pan", scale) : "Two-finger pinch to zoom • Double-tap to expand")
+                            .font(.system(size: 10, weight: .medium, design: .monospaced))
+                            .foregroundColor(scale > 1.05 ? ObsidianTheme.neonAmber : Color.white.opacity(0.6))
+                    }
+                    
+                    Spacer()
+                    
+                    if scale > 1.05 {
+                        Button(action: {
+                            HapticManager.impact(style: .light)
+                            withAnimation(.spring(response: 0.25, dampingFraction: 0.8)) {
+                                scale = 1.0
+                                lastScale = 1.0
+                                offset = .zero
+                                lastOffset = .zero
+                            }
+                        }) {
+                            Image(systemName: "arrow.counterclockwise")
+                                .font(.system(size: 13, weight: .bold))
+                                .foregroundColor(ObsidianTheme.neonCyan)
+                                .padding(8)
+                                .background(Color.white.opacity(0.15))
+                                .clipShape(Circle())
+                        }
+                    }
+                    
+                    Button("Done") {
+                        dismiss()
+                    }
+                    .font(.system(size: 14, weight: .bold))
+                    .foregroundColor(ObsidianTheme.neonAmber)
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 6)
+                    .background(Color.white.opacity(0.15))
+                    .cornerRadius(8)
+                }
+                .padding(.horizontal, 16)
+                .padding(.top, 12)
+                .background(Color.black.opacity(0.75))
+                
+                Spacer()
+            }
+        }
     }
 }

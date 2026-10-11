@@ -530,10 +530,7 @@ struct CTViewportView: View {
     
     var body: some View {
         ZStack {
-            Image(imageName)
-                .resizable()
-                .scaledToFit()
-                .frame(height: 320)
+            ZoomablePlateImageView(imageName: imageName, contentHeight: 320)
                 .cornerRadius(16)
             
             // 1. Prominent Anatomical Orientation Markers

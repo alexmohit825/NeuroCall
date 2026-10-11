@@ -228,56 +228,11 @@ public struct ERConsultsView: View {
     
     // MARK: - Radiographic Viewport Canvas
     private var consultRadiographCanvas: some View {
-        ZStack {
-            Image(currentImageName)
-                .resizable()
-                .scaledToFit()
-                .frame(height: 340)
-                .scaleEffect(zoomScale)
-                .offset(dragOffset)
-                .gesture(
-                    MagnificationGesture()
-                        .onChanged { val in
-                            zoomScale = min(max(val, 1.0), 3.5)
-                        }
-                )
-                .clipped()
-            
-            // Viewport Controls Overlay
-            VStack {
-                HStack {
-                    Text("8K RADIOGRAPHIC PLATE")
-                        .font(.system(size: 9, weight: .black, design: .monospaced))
-                        .padding(.horizontal, 6)
-                        .padding(.vertical, 2)
-                        .background(Color.black.opacity(0.8))
-                        .foregroundColor(ObsidianTheme.neonAmber)
-                        .cornerRadius(4)
-                    Spacer()
-                    Button(action: {
-                        HapticManager.impact(style: .light)
-                        withAnimation {
-                            zoomScale = 1.0
-                            dragOffset = .zero
-                        }
-                    }) {
-                        Image(systemName: "arrow.counterclockwise")
-                            .font(.system(size: 11))
-                            .padding(6)
-                            .background(Color.black.opacity(0.8))
-                            .foregroundColor(ObsidianTheme.neonCyan)
-                            .clipShape(Circle())
-                    }
-                }
-                .padding(10)
-                Spacer()
-            }
-        }
-        .frame(height: 340)
-        .background(Color.black)
-        .cornerRadius(16)
-        .overlay(RoundedRectangle(cornerRadius: 16).stroke(ObsidianTheme.borderSubtle, lineWidth: 1.5))
-        .padding(.horizontal, 16)
+        ZoomablePlateImageView(imageName: currentImageName, contentHeight: 340)
+            .background(Color.black)
+            .cornerRadius(16)
+            .overlay(RoundedRectangle(cornerRadius: 16).stroke(ObsidianTheme.borderSubtle, lineWidth: 1.5))
+            .padding(.horizontal, 16)
     }
     
     // MARK: - Acuity Summary Card
