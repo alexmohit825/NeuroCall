@@ -1,4 +1,4 @@
-name: NeuroCall PC-to-TestFlight Pipeline
+name: Trephine PC-to-TestFlight Pipeline
 
 on:
   push:
@@ -14,7 +14,7 @@ permissions:
 
 jobs:
   build-and-deliver:
-    name: 🍏 Compile, Package & Deliver NeuroCall to TestFlight
+    name: 🍏 Compile, Package & Deliver Trephine to TestFlight
     runs-on: macos-15
     timeout-minutes: 30
 
@@ -60,12 +60,12 @@ jobs:
         run: |
           mkdir -p build/archive
           xcodebuild archive \
-            -project NeuroCall.xcodeproj \
-            -scheme NeuroCall \
+            -project Trephine.xcodeproj \
+            -scheme Trephine \
             -destination 'generic/platform=iOS' \
             -sdk iphoneos \
             -configuration Release \
-            -archivePath build/archive/NeuroCall.xcarchive \
+            -archivePath build/archive/Trephine.xcarchive \
             CODE_SIGNING_ALLOWED=NO \
             CODE_SIGNING_REQUIRED=NO
 
@@ -73,7 +73,7 @@ jobs:
         run: |
           mkdir -p build/output
           xcodebuild -exportArchive \
-            -archivePath build/archive/NeuroCall.xcarchive \
+            -archivePath build/archive/Trephine.xcarchive \
             -exportOptionsPlist ExportOptions.plist \
             -exportPath build/output \
             -allowProvisioningUpdates \
@@ -81,6 +81,6 @@ jobs:
             -authenticationKeyIssuerID 73c7355a-beef-4d79-919d-c3d7dec7747a \
             -authenticationKeyPath ~/.appstoreconnect/private_keys/AuthKey_38F6WA87DU.p8
           echo "=========================================================="
-          echo "🎉 NeuroCall Build Successfully Delivered to Apple TestFlight!"
-          echo "Target Bundle: com.AlexMohit.NeuroCall"
+          echo "🎉 Trephine Build Successfully Delivered to Apple TestFlight!"
+          echo "Target Bundle: com.AlexMohit.Trephine"
           echo "=========================================================="

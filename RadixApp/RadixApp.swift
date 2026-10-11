@@ -1,11 +1,11 @@
 import SwiftUI
 
 @main
-struct NeuroCallApp: App {
+struct TrephineApp: App {
     var body: some Scene {
         WindowGroup {
             MainContainerView()
-                .preferredColorScheme(.light) // Crisp high-contrast light clinical aesthetic
+                .preferredColorScheme(.light) // Ceramic light aesthetic standard
         }
     }
 }

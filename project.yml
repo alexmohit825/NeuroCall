@@ -1,4 +1,4 @@
-name: NeuroCall
+name: Trephine
 options:
   bundleIdPrefix: com.AlexMohit
   deploymentTarget:
@@ -8,8 +8,8 @@ options:
 
 settings:
   base:
-    PRODUCT_NAME: NeuroCall
-    PRODUCT_BUNDLE_IDENTIFIER: com.AlexMohit.NeuroCall
+    PRODUCT_NAME: Trephine
+    PRODUCT_BUNDLE_IDENTIFIER: com.AlexMohit.Trephine
     DEVELOPMENT_TEAM: "523MJL63MC"
     CODE_SIGN_STYLE: Automatic
     SWIFT_VERSION: "5.9"
@@ -24,7 +24,7 @@ settings:
     SDKROOT: iphoneos
 
 targets:
-  NeuroCall:
+  Trephine:
     type: application
     platform: iOS
     sources:
@@ -32,7 +32,7 @@ targets:
       - path: Assets.xcassets
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.AlexMohit.NeuroCall
-        PRODUCT_NAME: NeuroCall
+        PRODUCT_BUNDLE_IDENTIFIER: com.AlexMohit.Trephine
+        PRODUCT_NAME: Trephine
         INFOPLIST_FILE: Info.plist
         TARGETED_DEVICE_FAMILY: "1,2"
