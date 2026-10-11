@@ -14,6 +14,7 @@ public struct PhotorealisticSurgicalAtlasView: View {
     @State private var selectedCallout: SurgicalCallout? = nil
     @State private var showDangerOverlay: Bool = true
     @State private var showCalloutPins: Bool = true
+    @State private var isShowingReviewStation: Bool = false
     
     public init() {}
     
@@ -58,6 +59,9 @@ public struct PhotorealisticSurgicalAtlasView: View {
             .padding(.top, 10)
         }
         .background(ObsidianTheme.surfaceVoid)
+        .sheet(isPresented: $isShowingReviewStation) {
+            AnatomicReviewStationView()
+        }
         .onAppear {
             if selectedCallout == nil {
                 selectedCallout = selectedPlate.callouts.first
@@ -67,13 +71,33 @@ public struct PhotorealisticSurgicalAtlasView: View {
     
     // MARK: - Header
     private var atlasHeader: some View {
-        VStack(alignment: .leading, spacing: 4) {
-            HStack(spacing: 6) {
-                Circle().fill(ObsidianTheme.neonAmber).frame(width: 8, height: 8)
-                Text("STUDIO-GRADE SURGICAL ATLAS")
-                    .font(.system(size: 10, weight: .black))
-                    .tracking(1.8)
-                    .foregroundColor(ObsidianTheme.neonAmber)
+        VStack(alignment: .leading, spacing: 6) {
+            HStack {
+                HStack(spacing: 6) {
+                    Circle().fill(ObsidianTheme.neonAmber).frame(width: 8, height: 8)
+                    Text("STUDIO-GRADE SURGICAL ATLAS")
+                        .font(.system(size: 10, weight: .black))
+                        .tracking(1.8)
+                        .foregroundColor(ObsidianTheme.neonAmber)
+                }
+                Spacer()
+                Button(action: {
+                    HapticManager.impact(style: .medium)
+                    isShowingReviewStation = true
+                }) {
+                    HStack(spacing: 5) {
+                        Image(systemName: "checkmark.seal.fill")
+                            .font(.system(size: 11))
+                        Text("Audit Studio")
+                            .font(.system(size: 11, weight: .bold))
+                    }
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 5)
+                    .background(ObsidianTheme.neonCyan.opacity(0.18))
+                    .foregroundColor(ObsidianTheme.neonCyan)
+                    .cornerRadius(8)
+                    .overlay(RoundedRectangle(cornerRadius: 8).stroke(ObsidianTheme.neonCyan.opacity(0.4), lineWidth: 1))
+                }
             }
             Text("High-Definition Microsurgical & MRI Plates")
                 .font(.system(size: 20, weight: .bold))

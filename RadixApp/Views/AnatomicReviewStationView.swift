@@ -1,0 +1,814 @@
+import SwiftUI
+
+// MARK: - Anatomic Reality Check & Quality Review Studio
+// Dedicated resident/attending audit cockpit for inspecting all 26 medical plates in Trephine.
+// Allows Dr. Mohit to systematically review each plate, mark KEEP vs REPLACE (Path A Rhoton / Path B Radiographic),
+// add defect tags/notes, and export an audit report with 1 tap.
+
+public struct ReviewPlateItem: Identifiable, Codable {
+    public let id: String
+    public let imageName: String
+    public let title: String
+    public let category: String // "Surgical Atlas", "2 AM Crisis CT", "Frontline ER Consults"
+    public let clinicalContext: String
+    public let anatomicalChecklist: [String]
+    public var status: PlateReviewStatus // keep, replace, undecided
+    public var defectTags: [String]
+    public var notes: String
+}
+
+public enum PlateReviewStatus: String, Codable, CaseIterable {
+    case undecided = "Undecided"
+    case keep = "Keep (Approved)"
+    case replace = "Recreate / Replace"
+}
+
+public class PlateAuditManager: ObservableObject {
+    public static let shared = PlateAuditManager()
+    
+    @Published public var plates: [ReviewPlateItem] = []
+    
+    private let storageKey = "Trephine_AnatomicPlateAudit_v1"
+    
+    private init() {
+        loadPlates()
+    }
+    
+    public func loadPlates() {
+        if let data = UserDefaults.standard.data(forKey: storageKey),
+           let saved = try? JSONDecoder().decode([ReviewPlateItem].self, data) {
+            self.plates = saved
+        } else {
+            self.plates = PlateAuditManager.defaultPlates
+        }
+    }
+    
+    public func savePlates() {
+        if let data = try? JSONEncoder().encode(plates) {
+            UserDefaults.standard.set(data, forKey: storageKey)
+        }
+    }
+    
+    public func updateStatus(id: String, status: PlateReviewStatus) {
+        if let idx = plates.firstIndex(where: { $0.id == id }) {
+            plates[idx].status = status
+            savePlates()
+        }
+    }
+    
+    public func toggleTag(id: String, tag: String) {
+        if let idx = plates.firstIndex(where: { $0.id == id }) {
+            if plates[idx].defectTags.contains(tag) {
+                plates[idx].defectTags.removeAll { $0 == tag }
+            } else {
+                plates[idx].defectTags.append(tag)
+            }
+            savePlates()
+        }
+    }
+    
+    public func updateNotes(id: String, notes: String) {
+        if let idx = plates.firstIndex(where: { $0.id == id }) {
+            plates[idx].notes = notes
+            savePlates()
+        }
+    }
+    
+    public func resetAudit() {
+        self.plates = PlateAuditManager.defaultPlates
+        savePlates()
+    }
+    
+    public var keepCount: Int {
+        plates.filter { $0.status == .keep }.count
+    }
+    
+    public var replaceCount: Int {
+        plates.filter { $0.status == .replace }.count
+    }
+    
+    public var undecidedCount: Int {
+        plates.filter { $0.status == .undecided }.count
+    }
+    
+    public func generateAuditReportMarkdown() -> String {
+        var report = "# Trephine Anatomic Plate Reality Check Audit\n\n"
+        report += "**Summary:** \(keepCount) Approved to KEEP • \(replaceCount) Flagged for REPLACEMENT • \(undecidedCount) Pending Review\n\n"
+        
+        let categories = ["Surgical Atlas", "2 AM Crisis CT", "Frontline ER Consults"]
+        for cat in categories {
+            report += "## \(cat)\n"
+            let catPlates = plates.filter { $0.category == cat }
+            for plate in catPlates {
+                let statusEmoji = plate.status == .keep ? "🟢 KEEP" : (plate.status == .replace ? "🔴 REPLACE" : "🟡 PENDING")
+                report += "- **\(plate.title)** (`\(plate.imageName)`): **\(statusEmoji)**\n"
+                if !plate.defectTags.isEmpty {
+                    report += "  - *Defect Tags:* " + plate.defectTags.joined(separator: ", ") + "\n"
+                }
+                if !plate.notes.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                    report += "  - *Notes:* \(plate.notes)\n"
+                }
+            }
+            report += "\n"
+        }
+        return report
+    }
+    
+    public static let defaultPlates: [ReviewPlateItem] = [
+        // MARK: - 1. Surgical Atlas Corridors (12 plates)
+        ReviewPlateItem(
+            id: "sa_aneurysm",
+            imageName: "plate_aneurysm",
+            title: "Anterior Circulation Aneurysm Clipping",
+            category: "Surgical Atlas",
+            clinicalContext: "Acom, Pcom, and MCA bifurcation clipping windows via pterional/OZ corridor.",
+            anatomicalChecklist: ["Parent vessel control (ICA/A1/M1)", "Perforator visualization", "Clip blade trajectory"],
+            status: .undecided, defectTags: [], notes: ""
+        ),
+        ReviewPlateItem(
+            id: "sa_pterional",
+            imageName: "plate_pterional",
+            title: "Pterional Frontotemporosphenoidal Corridor",
+            category: "Surgical Atlas",
+            clinicalContext: "Standard pterional craniotomy, sphenoid ridge flattening to meningo-orbital band.",
+            anatomicalChecklist: ["Frontal boss bone removal", "Sphenoid ridge flushness", "Sylvian fissure exposure"],
+            status: .undecided, defectTags: [], notes: ""
+        ),
+        ReviewPlateItem(
+            id: "sa_oz",
+            imageName: "plate_orbitozygomatic",
+            title: "Orbitozygomatic Skull Base Corridor",
+            category: "Surgical Atlas",
+            clinicalContext: "Two-piece OZ osteotomy, superior orbital rim, zygomatic arch for basilar apex.",
+            anatomicalChecklist: ["Orbital rim cut accuracy", "Subfrontal flat corridor", "Periorbita preservation"],
+            status: .undecided, defectTags: [], notes: ""
+        ),
+        ReviewPlateItem(
+            id: "sa_retrosigmoid",
+            imageName: "plate_retrosigmoid",
+            title: "Retrosigmoid CPA Dissection",
+            category: "Surgical Atlas",
+            clinicalContext: "Retromastoid craniectomy exposing transverse-sigmoid junction and CN VII/VIII.",
+            anatomicalChecklist: ["Sinus edge margins", "Petrosal vein (Dandy)", "Acousticofacial bundle"],
+            status: .undecided, defectTags: [], notes: ""
+        ),
+        ReviewPlateItem(
+            id: "sa_far_lateral",
+            imageName: "plate_far_lateral",
+            title: "Far-Lateral Suboccipital Transcondylar",
+            category: "Surgical Atlas",
+            clinicalContext: "Vertebral artery V3 mobilization, condylectomy, PICA origin for lower clival access.",
+            anatomicalChecklist: ["V3 vertebral artery loop", "Condyle resection depth (≤50%)", "Hypoglossal canal"],
+            status: .undecided, defectTags: [], notes: ""
+        ),
+        ReviewPlateItem(
+            id: "sa_endonasal_sellar",
+            imageName: "plate_endonasal_sellar",
+            title: "Endoscopic Endonasal Sellar Corridor",
+            category: "Surgical Atlas",
+            clinicalContext: "Transsphenoidal binostril approach, carotid protuberances, medial OCR, sellar floor.",
+            anatomicalChecklist: ["Carotid siphon prominences", "Optico-carotid recess (OCR)", "Sellar dural exposure"],
+            status: .undecided, defectTags: [], notes: ""
+        ),
+        ReviewPlateItem(
+            id: "sa_chiari",
+            imageName: "plate_chiari",
+            title: "Suboccipital Chiari C1 Decompression",
+            category: "Surgical Atlas",
+            clinicalContext: "Foramen magnum decompression with C1 posterior arch complete laminectomy.",
+            anatomicalChecklist: ["C1 arch completely resected", "Descending tonsils decompressed", "PICA loops identified"],
+            status: .undecided, defectTags: [], notes: ""
+        ),
+        ReviewPlateItem(
+            id: "sa_trauma",
+            imageName: "plate_trauma",
+            title: "Trauma Decompressive Hemicraniectomy",
+            category: "Surgical Atlas",
+            clinicalContext: "12x15 cm bone flap extending across frontal boss and flush with middle fossa floor.",
+            anatomicalChecklist: ["Frontal cut close to midline (<2-3 cm)", "Temporal bone flush to floor", "Dural hitching sutures"],
+            status: .undecided, defectTags: [], notes: ""
+        ),
+        ReviewPlateItem(
+            id: "sa_kocher",
+            imageName: "plate_kocher",
+            title: "Kocher's Point Ventriculostomy",
+            category: "Surgical Atlas",
+            clinicalContext: "11 cm from nasion, 3 cm lateral, perpendicular trajectory to frontal horn.",
+            anatomicalChecklist: ["Burr hole location", "Cannulation vector to medial canthus", "Catheter depth (5.5-6.5 cm)"],
+            status: .undecided, defectTags: [], notes: ""
+        ),
+        ReviewPlateItem(
+            id: "sa_c1_c2_harms",
+            imageName: "plate_c1_c2_harms",
+            title: "C1-C2 Harms Posterior Fixation",
+            category: "Surgical Atlas",
+            clinicalContext: "C1 lateral mass screws and C2 pedicle/pars screws with lateral vertebral artery.",
+            anatomicalChecklist: ["VA strictly outside canal in foramen transversarium", "C1 lateral mass screw entry", "C2 pedicle screw trajectory"],
+            status: .undecided, defectTags: [], notes: ""
+        ),
+        ReviewPlateItem(
+            id: "sa_acdf",
+            imageName: "plate_acdf",
+            title: "ACDF C5-C6 Smith-Robinson Exposure",
+            category: "Surgical Atlas",
+            clinicalContext: "Subaxial anterior cervical discectomy down to PLL, uncinate-to-uncinate decompression.",
+            anatomicalChecklist: ["Caspar pins completely absent", "Uncinate safe borders", "PLL and dura visualized"],
+            status: .undecided, defectTags: [], notes: ""
+        ),
+        ReviewPlateItem(
+            id: "sa_tlif",
+            imageName: "plate_tlif",
+            title: "Posterior Lumbar TLIF (Kambin's Triangle)",
+            category: "Surgical Atlas",
+            clinicalContext: "Prone corridor, complete unilateral facetectomy, exiting L4 and traversing L5 root.",
+            anatomicalChecklist: ["Kambin's safe triangle corridor", "Traversing L5 root medially retracted", "Bulleted cage in anterior 1/3"],
+            status: .undecided, defectTags: [], notes: ""
+        ),
+        ReviewPlateItem(
+            id: "sa_mri_axial_brain",
+            imageName: "plate_mri_axial_brain",
+            title: "Axial Brain T2 MRI: Central Sulcus & Motor Strip",
+            category: "Surgical Atlas",
+            clinicalContext: "Radiographic motor cortex identification via pars marginalis and inverted omega sign.",
+            anatomicalChecklist: ["Central sulcus identification", "Hand knob (inverted omega) in precentral gyrus", "Pars marginalis bracket sign"],
+            status: .undecided, defectTags: [], notes: ""
+        ),
+        
+        // MARK: - 2. 2 AM Crisis Head CTs (4 plates)
+        ReviewPlateItem(
+            id: "cr_edh",
+            imageName: "plate_ct_edh",
+            title: "Acute Epidural Hematoma (EDH)",
+            category: "2 AM Crisis CT",
+            clinicalContext: "High-contrast axial CT, biconvex lenticular arterial hematoma, suture restriction.",
+            anatomicalChecklist: ["Biconvex hyperdense shape", "Does not cross sutures", "Anterior/Posterior orientation"],
+            status: .undecided, defectTags: [], notes: ""
+        ),
+        ReviewPlateItem(
+            id: "cr_sdh",
+            imageName: "plate_ct_sdh",
+            title: "Acute Subdural Hematoma (SDH)",
+            category: "2 AM Crisis CT",
+            clinicalContext: "High-contrast axial CT, crescentic bridging vein bleed crossing cranial suture lines.",
+            anatomicalChecklist: ["Crescentic shape", "Crosses suture lines", "Sulcal effacement"],
+            status: .undecided, defectTags: [], notes: ""
+        ),
+        ReviewPlateItem(
+            id: "cr_uncal",
+            imageName: "plate_ct_uncal",
+            title: "Acute Uncal Herniation",
+            category: "2 AM Crisis CT",
+            clinicalContext: "Medial temporal uncal herniation over tentorial incisura compressing midbrain.",
+            anatomicalChecklist: ["Uncus is ANTERIOR (not posterior)", "Ipsilateral ambient cistern effacement", "Cerebral peduncle distortion"],
+            status: .undecided, defectTags: [], notes: ""
+        ),
+        ReviewPlateItem(
+            id: "cr_post_fossa",
+            imageName: "plate_ct_post_fossa",
+            title: "Posterior Fossa Cerebellar ICH",
+            category: "2 AM Crisis CT",
+            clinicalContext: "Large cerebellar hematoma compressing 4th ventricle with acute obstructive hydrocephalus.",
+            anatomicalChecklist: ["Clear cerebellar hematoma visible", "4th ventricle compression", "Dorsal brainstem distortion"],
+            status: .undecided, defectTags: [], notes: ""
+        ),
+        
+        // MARK: - 3. Frontline ER Consults Suite (9 plates)
+        ReviewPlateItem(
+            id: "er_sah",
+            imageName: "plate_cranial_sah_aneurysm",
+            title: "Aneurysmal Subarachnoid Hemorrhage (SAH)",
+            category: "Frontline ER Consults",
+            clinicalContext: "High-contrast CTA showing ruptured anterior communicating / MCA bifurcation aneurysm.",
+            anatomicalChecklist: ["Hyperdense blood in basal cisterns", "Aneurysm dome and parent vessel", "Ventricular horn blood"],
+            status: .undecided, defectTags: [], notes: ""
+        ),
+        ReviewPlateItem(
+            id: "er_ich_lobar",
+            imageName: "plate_cranial_ich_lobar",
+            title: "Hypertensive Lobar / Basal Ganglia ICH",
+            category: "Frontline ER Consults",
+            clinicalContext: "Axial CT demonstrating putaminal/thalamic hemorrhage with internal capsule effacement.",
+            anatomicalChecklist: ["Deep nuclear/lobar parenchymal bleed", "Perilesional edema halo", "Ventricular extension (IVH)"],
+            status: .undecided, defectTags: [], notes: ""
+        ),
+        ReviewPlateItem(
+            id: "er_vp_shunt",
+            imageName: "plate_cranial_vp_shunt",
+            title: "VP Shunt Valve & Ventricular Catheter",
+            category: "Frontline ER Consults",
+            clinicalContext: "Radiographic shunt series showing programmable valve setting and catheter trajectory.",
+            anatomicalChecklist: ["Ventricular catheter tip at Monro", "Flushing valve reservoir", "Distal peritoneal tubing intact"],
+            status: .undecided, defectTags: [], notes: ""
+        ),
+        ReviewPlateItem(
+            id: "er_shunt_prox_distal",
+            imageName: "plate_cranial_shunt_prox_distal",
+            title: "Shunt Malfunction: Proximal vs Distal",
+            category: "Frontline ER Consults",
+            clinicalContext: "Ventricular catheter choroid occlusion vs distal pseudocyst with ventriculomegaly.",
+            anatomicalChecklist: ["Ventriculomegaly (Evans index >0.3)", "Proximal slit ventricles vs hydrocephalus", "Distal pseudocyst radiograph"],
+            status: .undecided, defectTags: [], notes: ""
+        ),
+        ReviewPlateItem(
+            id: "er_jumped_facets",
+            imageName: "plate_spine_jumped_facets",
+            title: "Bilateral Jumped Cervical Facets",
+            category: "Frontline ER Consults",
+            clinicalContext: "Sagittal CT/MRI showing inferior articular process locked anterior to superior facet.",
+            anatomicalChecklist: ["Facet dislocation / locking", "Anterior listhesis >50%", "Thecal sac pinch / disc herniation"],
+            status: .undecided, defectTags: [], notes: ""
+        ),
+        ReviewPlateItem(
+            id: "er_tumor_compression",
+            imageName: "plate_spine_tumor_compression",
+            title: "Metastatic Epidural Spinal Cord Compression",
+            category: "Frontline ER Consults",
+            clinicalContext: "Sagittal T2 MRI showing vertebral body collapse, epidural mass, Bilsky grade 3.",
+            anatomicalChecklist: ["Ventral epidural tumor component", "Effacement of T2 CSF sleeve", "Cord myelomalacia signal"],
+            status: .undecided, defectTags: [], notes: ""
+        ),
+        ReviewPlateItem(
+            id: "er_burst_fracture",
+            imageName: "plate_spine_burst_fracture",
+            title: "Thoracolumbar Burst Fracture with Retropulsion",
+            category: "Frontline ER Consults",
+            clinicalContext: "Axial/Sagittal CT of L1 burst fracture with retropulsed fragment occupying >50% canal.",
+            anatomicalChecklist: ["Posterior superior cortex fragment", "Canal compromise percentage", "Interpedicular widening"],
+            status: .undecided, defectTags: [], notes: ""
+        ),
+        ReviewPlateItem(
+            id: "er_cauda_equina",
+            imageName: "plate_spine_cauda_equina",
+            title: "Cauda Equina Compression Central Herniation",
+            category: "Frontline ER Consults",
+            clinicalContext: "Axial T2 MRI showing massive extruded central lumbar disc obliterating thecal sac.",
+            anatomicalChecklist: ["Massive central disc sequestration", "Complete thecal sac obliteration", "Compressed cauda equina rootlets"],
+            status: .undecided, defectTags: [], notes: ""
+        ),
+        ReviewPlateItem(
+            id: "er_csf_leak",
+            imageName: "plate_spine_csf_leak",
+            title: "Postoperative Spine Pseudomeningocele / CSF Leak",
+            category: "Frontline ER Consults",
+            clinicalContext: "Sagittal/Axial T2 MRI revealing subfascial fluid collection continuous with dural tear.",
+            anatomicalChecklist: ["Subfascial hyperintense fluid pocket", "Continuous with dural defect", "Rootlet entrapment in tear"],
+            status: .undecided, defectTags: [], notes: ""
+        )
+    ]
+}
+
+// MARK: - Studio View
+public struct AnatomicReviewStationView: View {
+    @ObservedObject var auditManager = PlateAuditManager.shared
+    @Environment(\.dismiss) var dismiss
+    
+    @State private var selectedCategory = "All"
+    @State private var selectedPlateId: String = "sa_aneurysm"
+    @State private var copiedReport = false
+    @State private var zoomScale: CGFloat = 1.0
+    
+    let categories = ["All", "Surgical Atlas", "2 AM Crisis CT", "Frontline ER Consults"]
+    
+    let availableTags = [
+        "Vascular course incorrect",
+        "Bone margins incorrect",
+        "Orientation inverted",
+        "Artifact / unwanted pins",
+        "Needs Path A: Real Rhoton Photo",
+        "Needs Path B: Authentic 3T MRI",
+        "Needs Path B: Thin-Slice Bone CT"
+    ]
+    
+    var filteredPlates: [ReviewPlateItem] {
+        if selectedCategory == "All" {
+            return auditManager.plates
+        }
+        return auditManager.plates.filter { $0.category == selectedCategory }
+    }
+    
+    var currentPlate: ReviewPlateItem? {
+        auditManager.plates.first(where: { $0.id == selectedPlateId }) ?? filteredPlates.first
+    }
+    
+    public init() {}
+    
+    public var body: some View {
+        NavigationStack {
+            VStack(spacing: 0) {
+                // Progress & KPI Header
+                auditProgressHeader
+                
+                // Category Filter Pills
+                categorySelectorBar
+                
+                // Main Plate Review Canvas
+                if let plate = currentPlate {
+                    ScrollView {
+                        VStack(spacing: 16) {
+                            // Plate Image Viewport with Deep Zoom
+                            plateViewport(plate: plate)
+                            
+                            // Decision Decision Buttons (KEEP vs RECREATE)
+                            decisionControlsBar(plate: plate)
+                            
+                            // Anatomical Reality Checklist Card
+                            checklistCard(plate: plate)
+                            
+                            // Defect Tags Selector
+                            defectTagsSelector(plate: plate)
+                            
+                            // Surgeon Notes Field
+                            notesEditor(plate: plate)
+                            
+                            // Quick Navigation Carousel
+                            bottomThumbnailsBar
+                            
+                            Spacer(minLength: 30)
+                        }
+                        .padding(.vertical, 12)
+                    }
+                }
+            }
+            .background(Color(red: 0.08, green: 0.09, blue: 0.12))
+            .navigationTitle("Anatomic Review Studio")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button(action: {
+                        let report = auditManager.generateAuditReportMarkdown()
+                        UIPasteboard.general.string = report
+                        copiedReport = true
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                            copiedReport = false
+                        }
+                    }) {
+                        HStack(spacing: 4) {
+                            Image(systemName: copiedReport ? "checkmark.circle.fill" : "doc.on.doc.fill")
+                            Text(copiedReport ? "Copied Report!" : "Copy Report")
+                        }
+                        .font(.system(size: 12, weight: .bold))
+                        .foregroundColor(copiedReport ? .green : ObsidianTheme.neonCyan)
+                    }
+                }
+                
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("Done") { dismiss() }
+                        .foregroundColor(ObsidianTheme.neonAmber)
+                }
+            }
+        }
+    }
+    
+    // MARK: - Progress & KPI Header
+    private var auditProgressHeader: some View {
+        HStack(spacing: 12) {
+            VStack(alignment: .leading, spacing: 2) {
+                Text("ANATOMIC REALITY CHECK AUDIT")
+                    .font(.system(size: 9, weight: .black))
+                    .tracking(1.4)
+                    .foregroundColor(ObsidianTheme.neonAmber)
+                Text("\(auditManager.keepCount + auditManager.replaceCount) / \(auditManager.plates.count) Reviewed")
+                    .font(.system(size: 14, weight: .heavy))
+                    .foregroundColor(.white)
+            }
+            
+            Spacer()
+            
+            // KPI Badges
+            HStack(spacing: 6) {
+                HStack(spacing: 3) {
+                    Circle().fill(Color.green).frame(width: 7, height: 7)
+                    Text("\(auditManager.keepCount) KEEP")
+                        .font(.system(size: 10, weight: .bold))
+                        .foregroundColor(.green)
+                }
+                .padding(.horizontal, 7)
+                .padding(.vertical, 4)
+                .background(Color.green.opacity(0.12))
+                .cornerRadius(6)
+                
+                HStack(spacing: 3) {
+                    Circle().fill(Color.red).frame(width: 7, height: 7)
+                    Text("\(auditManager.replaceCount) RECREATE")
+                        .font(.system(size: 10, weight: .bold))
+                        .foregroundColor(.red)
+                }
+                .padding(.horizontal, 7)
+                .padding(.vertical, 4)
+                .background(Color.red.opacity(0.12))
+                .cornerRadius(6)
+                
+                HStack(spacing: 3) {
+                    Circle().fill(Color.yellow).frame(width: 7, height: 7)
+                    Text("\(auditManager.undecidedCount) PENDING")
+                        .font(.system(size: 10, weight: .bold))
+                        .foregroundColor(.yellow)
+                }
+                .padding(.horizontal, 7)
+                .padding(.vertical, 4)
+                .background(Color.yellow.opacity(0.12))
+                .cornerRadius(6)
+            }
+        }
+        .padding(.horizontal, 16)
+        .padding(.vertical, 10)
+        .background(Color(red: 0.12, green: 0.14, blue: 0.18))
+    }
+    
+    // MARK: - Category Selector
+    private var categorySelectorBar: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 8) {
+                ForEach(categories, id: \.self) { cat in
+                    Button(action: {
+                        selectedCategory = cat
+                        if let first = filteredPlates.first {
+                            selectedPlateId = first.id
+                        }
+                    }) {
+                        Text(cat)
+                            .font(.system(size: 11, weight: .bold))
+                            .padding(.horizontal, 12)
+                            .padding(.vertical, 6)
+                            .background(selectedCategory == cat ? ObsidianTheme.neonCyan.opacity(0.25) : Color.white.opacity(0.06))
+                            .foregroundColor(selectedCategory == cat ? ObsidianTheme.neonCyan : .gray)
+                            .cornerRadius(8)
+                            .overlay(RoundedRectangle(cornerRadius: 8).stroke(selectedCategory == cat ? ObsidianTheme.neonCyan : Color.clear, lineWidth: 1))
+                    }
+                }
+            }
+            .padding(.horizontal, 14)
+            .padding(.vertical, 8)
+        }
+        .background(Color(red: 0.10, green: 0.11, blue: 0.15))
+    }
+    
+    // MARK: - Plate Viewport
+    private func plateViewport(plate: ReviewPlateItem) -> some View {
+        VStack(alignment: .leading, spacing: 6) {
+            HStack {
+                Text(plate.title)
+                    .font(.system(size: 14, weight: .bold))
+                    .foregroundColor(.white)
+                Spacer()
+                Text(plate.category.uppercased())
+                    .font(.system(size: 9, weight: .black))
+                    .padding(.horizontal, 6)
+                    .padding(.vertical, 2)
+                    .background(Color.white.opacity(0.1))
+                    .foregroundColor(ObsidianTheme.neonAmber)
+                    .cornerRadius(4)
+            }
+            .padding(.horizontal, 16)
+            
+            ZStack {
+                Image(plate.imageName)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(height: 280)
+                    .cornerRadius(12)
+                
+                // Status Ribbon
+                VStack {
+                    HStack {
+                        Spacer()
+                        Text(plate.status.rawValue.uppercased())
+                            .font(.system(size: 10, weight: .black))
+                            .padding(.horizontal, 10)
+                            .padding(.vertical, 5)
+                            .background(plate.status == .keep ? Color.green : (plate.status == .replace ? Color.red : Color.yellow))
+                            .foregroundColor(.white)
+                            .cornerRadius(6)
+                            .padding(10)
+                    }
+                    Spacer()
+                }
+            }
+            .frame(maxWidth: .infinity)
+            .background(Color.black)
+            .cornerRadius(12)
+            .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.white.opacity(0.15), lineWidth: 1))
+            .padding(.horizontal, 14)
+        }
+    }
+    
+    // MARK: - Decision Controls
+    private func decisionControlsBar(plate: ReviewPlateItem) -> some View {
+        HStack(spacing: 10) {
+            Button(action: {
+                HapticManager.impact(style: .medium)
+                auditManager.updateStatus(id: plate.id, status: .keep)
+                advanceToNextPlate()
+            }) {
+                HStack {
+                    Image(systemName: "checkmark.circle.fill")
+                    Text("KEEP (APPROVED)")
+                }
+                .font(.system(size: 12, weight: .black))
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 12)
+                .background(plate.status == .keep ? Color.green : Color.green.opacity(0.2))
+                .foregroundColor(.white)
+                .cornerRadius(10)
+                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.green, lineWidth: 1.5))
+            }
+            
+            Button(action: {
+                HapticManager.impact(style: .heavy)
+                auditManager.updateStatus(id: plate.id, status: .replace)
+                advanceToNextPlate()
+            }) {
+                HStack {
+                    Image(systemName: "xmark.octagon.fill")
+                    Text("RECREATE (PATH A/B)")
+                }
+                .font(.system(size: 12, weight: .black))
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 12)
+                .background(plate.status == .replace ? Color.red : Color.red.opacity(0.2))
+                .foregroundColor(.white)
+                .cornerRadius(10)
+                .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.red, lineWidth: 1.5))
+            }
+        }
+        .padding(.horizontal, 14)
+    }
+    
+    // MARK: - Anatomical Reality Checklist
+    private func checklistCard(plate: ReviewPlateItem) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            HStack {
+                Image(systemName: "magnifyingglass.circle.fill")
+                    .foregroundColor(ObsidianTheme.neonCyan)
+                Text("ANATOMIC REALITY CHECKLIST:")
+                    .font(.system(size: 10, weight: .black))
+                    .foregroundColor(ObsidianTheme.neonCyan)
+            }
+            
+            Text(plate.clinicalContext)
+                .font(.system(size: 11, weight: .regular))
+                .foregroundColor(Color.gray)
+                .padding(.bottom, 2)
+            
+            ForEach(plate.anatomicalChecklist, id: \.self) { item in
+                HStack(alignment: .top, spacing: 6) {
+                    Image(systemName: "circle.circle")
+                        .font(.system(size: 10))
+                        .foregroundColor(ObsidianTheme.neonAmber)
+                        .padding(.top, 2)
+                    Text(item)
+                        .font(.system(size: 11, weight: .medium))
+                        .foregroundColor(.white)
+                }
+            }
+        }
+        .padding(12)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(Color(red: 0.13, green: 0.15, blue: 0.20))
+        .cornerRadius(10)
+        .overlay(RoundedRectangle(cornerRadius: 10).stroke(Color.white.opacity(0.08), lineWidth: 1))
+        .padding(.horizontal, 14)
+    }
+    
+    // MARK: - Defect Tags Selector
+    private func defectTagsSelector(plate: ReviewPlateItem) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text("QUICK DEFECT TAGS (IF RECREATING):")
+                .font(.system(size: 10, weight: .black))
+                .foregroundColor(ObsidianTheme.neonRose)
+            
+            FlowLayout(spacing: 6) {
+                ForEach(availableTags, id: \.self) { tag in
+                    let isSelected = plate.defectTags.contains(tag)
+                    Button(action: {
+                        auditManager.toggleTag(id: plate.id, tag: tag)
+                    }) {
+                        Text(tag)
+                            .font(.system(size: 10, weight: .semibold))
+                            .padding(.horizontal, 8)
+                            .padding(.vertical, 5)
+                            .background(isSelected ? ObsidianTheme.neonRose : Color.white.opacity(0.08))
+                            .foregroundColor(isSelected ? .white : .gray)
+                            .cornerRadius(6)
+                            .overlay(RoundedRectangle(cornerRadius: 6).stroke(isSelected ? Color.white : Color.clear, lineWidth: 1))
+                    }
+                }
+            }
+        }
+        .padding(12)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(Color(red: 0.13, green: 0.15, blue: 0.20))
+        .cornerRadius(10)
+        .padding(.horizontal, 14)
+    }
+    
+    // MARK: - Notes Editor
+    private func notesEditor(plate: ReviewPlateItem) -> some View {
+        VStack(alignment: .leading, spacing: 6) {
+            Text("ATTENDING / RESIDENT NOTES:")
+                .font(.system(size: 10, weight: .black))
+                .foregroundColor(.gray)
+            
+            TextField("e.g. Needs cadaveric dissection showing V3 looping over C1 arch...", text: Binding(
+                get: { plate.notes },
+                set: { auditManager.updateNotes(id: plate.id, notes: $0) }
+            ))
+            .font(.system(size: 12))
+            .foregroundColor(.white)
+            .padding(10)
+            .background(Color.black.opacity(0.6))
+            .cornerRadius(8)
+            .overlay(RoundedRectangle(cornerRadius: 8).stroke(Color.white.opacity(0.12), lineWidth: 1))
+        }
+        .padding(12)
+        .background(Color(red: 0.13, green: 0.15, blue: 0.20))
+        .cornerRadius(10)
+        .padding(.horizontal, 14)
+    }
+    
+    // MARK: - Bottom Thumbnails Bar
+    private var bottomThumbnailsBar: some View {
+        VStack(alignment: .leading, spacing: 6) {
+            Text("QUICK JUMP CAROUSEL:")
+                .font(.system(size: 10, weight: .black))
+                .foregroundColor(.gray)
+                .padding(.horizontal, 14)
+            
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 8) {
+                    ForEach(filteredPlates) { item in
+                        Button(action: {
+                            selectedPlateId = item.id
+                        }) {
+                            VStack(spacing: 4) {
+                                Image(item.imageName)
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(width: 60, height: 45)
+                                    .clipped()
+                                    .cornerRadius(6)
+                                    .overlay(RoundedRectangle(cornerRadius: 6).stroke(selectedPlateId == item.id ? ObsidianTheme.neonCyan : Color.clear, lineWidth: 2))
+                                
+                                Circle()
+                                    .fill(item.status == .keep ? Color.green : (item.status == .replace ? Color.red : Color.yellow))
+                                    .frame(width: 6, height: 6)
+                            }
+                        }
+                    }
+                }
+                .padding(.horizontal, 14)
+            }
+        }
+    }
+    
+    private func advanceToNextPlate() {
+        if let currentIdx = filteredPlates.firstIndex(where: { $0.id == selectedPlateId }),
+           currentIdx + 1 < filteredPlates.count {
+            selectedPlateId = filteredPlates[currentIdx + 1].id
+        }
+    }
+}
+
+// Simple FlowLayout for Tags
+struct FlowLayout: Layout {
+    var spacing: CGFloat = 6
+    
+    func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {
+        let width = proposal.width ?? 300
+        var height: CGFloat = 0
+        var currentX: CGFloat = 0
+        var currentY: CGFloat = 0
+        var lineHeight: CGFloat = 0
+        
+        for subview in subviews {
+            let size = subview.sizeThatFits(.unspecified)
+            if currentX + size.width > width {
+                currentX = 0
+                currentY += lineHeight + spacing
+                lineHeight = 0
+            }
+            currentX += size.width + spacing
+            lineHeight = max(lineHeight, size.height)
+        }
+        height = currentY + lineHeight
+        return CGSize(width: width, height: height)
+    }
+    
+    func placeSubviews(in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) {
+        var currentX = bounds.minX
+        var currentY = bounds.minY
+        var lineHeight: CGFloat = 0
+        
+        for subview in subviews {
+            let size = subview.sizeThatFits(.unspecified)
+            if currentX + size.width > bounds.maxX {
+                currentX = bounds.minX
+                currentY += lineHeight + spacing
+                lineHeight = 0
+            }
+            subview.place(at: CGPoint(x: currentX, y: currentY), proposal: .unspecified)
+            currentX += size.width + spacing
+            lineHeight = max(lineHeight, size.height)
+        }
+    }
+}

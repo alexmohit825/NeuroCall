@@ -11,6 +11,7 @@ public struct ERConsultsView: View {
     @State private var selectedCranialConsult: CranialConsultType = .aneurysmalSAH
     @State private var selectedSpineConsult: SpineConsultType = .jumpedFacets
     @State private var isShowingSbarSheet: Bool = false
+    @State private var isShowingReviewStation: Bool = false
     @State private var zoomScale: CGFloat = 1.0
     @State private var dragOffset: CGSize = .zero
     
@@ -48,6 +49,9 @@ public struct ERConsultsView: View {
             .padding(.top, 10)
         }
         .background(ObsidianTheme.surfaceVoid)
+        .sheet(isPresented: $isShowingReviewStation) {
+            AnatomicReviewStationView()
+        }
         .sheet(isPresented: $isShowingSbarSheet) {
             ERConsultSbarSheet(
                 consultTitle: currentConsultTitle,
@@ -98,21 +102,33 @@ public struct ERConsultsView: View {
     
     // MARK: - Header Banner
     private var headerBanner: some View {
-        VStack(alignment: .leading, spacing: 4) {
-            HStack(spacing: 6) {
-                Circle().fill(ObsidianTheme.neonCyan).frame(width: 8, height: 8)
-                Text("ON-CALL EMERGENCY ROOM CONSULTS")
-                    .font(.system(size: 10, weight: .black))
-                    .tracking(1.8)
-                    .foregroundColor(ObsidianTheme.neonCyan)
+        VStack(alignment: .leading, spacing: 6) {
+            HStack {
+                HStack(spacing: 6) {
+                    Circle().fill(ObsidianTheme.neonCyan).frame(width: 8, height: 8)
+                    Text("ON-CALL EMERGENCY ROOM CONSULTS")
+                        .font(.system(size: 10, weight: .black))
+                        .tracking(1.8)
+                        .foregroundColor(ObsidianTheme.neonCyan)
+                }
                 Spacer()
-                Text("GREENBERG PROTOCOLS")
-                    .font(.system(size: 9, weight: .black))
-                    .padding(.horizontal, 6)
-                    .padding(.vertical, 2)
-                    .background(ObsidianTheme.neonCyan.opacity(0.15))
+                Button(action: {
+                    HapticManager.impact(style: .medium)
+                    isShowingReviewStation = true
+                }) {
+                    HStack(spacing: 4) {
+                        Image(systemName: "checkmark.seal.fill")
+                            .font(.system(size: 11))
+                        Text("Audit Studio")
+                            .font(.system(size: 11, weight: .bold))
+                    }
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 5)
+                    .background(ObsidianTheme.neonCyan.opacity(0.18))
                     .foregroundColor(ObsidianTheme.neonCyan)
-                    .cornerRadius(4)
+                    .cornerRadius(8)
+                    .overlay(RoundedRectangle(cornerRadius: 8).stroke(ObsidianTheme.neonCyan.opacity(0.4), lineWidth: 1))
+                }
             }
             Text("Frontline Neurosurgical Decision Engine")
                 .font(.system(size: 20, weight: .bold))

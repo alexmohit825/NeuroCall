@@ -54,6 +54,7 @@ public struct CallDashboardView: View {
     ]
     
     @State private var filterAcuity: TriageAcuity? = nil
+    @State private var isShowingReviewStation = false
     
     var filteredPatients: [CallPatient] {
         if let filter = filterAcuity {
@@ -76,9 +77,28 @@ public struct CallDashboardView: View {
                             .tracking(1.8)
                             .foregroundColor(ObsidianTheme.neonRed)
                         Spacer()
-                        Text("\(patients.count) Covered")
-                            .font(.system(size: 11, weight: .bold, design: .monospaced))
-                            .foregroundColor(ObsidianTheme.textTertiary)
+                        HStack(spacing: 8) {
+                            Text("\(patients.count) Covered")
+                                .font(.system(size: 11, weight: .bold, design: .monospaced))
+                                .foregroundColor(ObsidianTheme.textTertiary)
+                            Button(action: {
+                                HapticManager.impact(style: .medium)
+                                isShowingReviewStation = true
+                            }) {
+                                HStack(spacing: 4) {
+                                    Image(systemName: "checkmark.seal.fill")
+                                        .font(.system(size: 10))
+                                    Text("Audit Studio")
+                                        .font(.system(size: 10, weight: .bold))
+                                }
+                                .padding(.horizontal, 8)
+                                .padding(.vertical, 4)
+                                .background(ObsidianTheme.neonCyan.opacity(0.18))
+                                .foregroundColor(ObsidianTheme.neonCyan)
+                                .cornerRadius(6)
+                                .overlay(RoundedRectangle(cornerRadius: 6).stroke(ObsidianTheme.neonCyan.opacity(0.3), lineWidth: 1))
+                            }
+                        }
                     }
                     Text("Call Command Cockpit")
                         .font(.system(size: 24, weight: .bold))
@@ -122,6 +142,9 @@ public struct CallDashboardView: View {
             .padding(.bottom, 28)
         }
         .obsidianCockpitBackground()
+        .sheet(isPresented: $isShowingReviewStation) {
+            AnatomicReviewStationView()
+        }
     }
 }
 
