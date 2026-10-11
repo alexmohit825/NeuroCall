@@ -2,11 +2,11 @@ import SwiftUI
 
 // MARK: - Studio-Grade Photorealistic Surgical Atlas Suite (Option C)
 // Featuring Authentic High-Definition Medical Artwork Plates & Radiographic MRI Suite
-// Eliminates all primitive vector stick drawings in favor of Rhoton-caliber medical illustrations,
-// deep micro-zoom (1.0x to 4.0x), interactive pinned callouts, danger zone overlays, and tactical protocols.
+// Synthesized from Albert Rhoton Jr., Greenberg Handbook of Neurosurgery, and Kaloostian Neurosurgery Outlines.
+// Deep micro-zoom (1.0x to 4.0x), interactive pinned callouts, danger zone overlays, and tactical protocols.
 
 public struct PhotorealisticSurgicalAtlasView: View {
-    @State private var selectedPlate: SurgicalPlateType = .pterional
+    @State private var selectedPlate: SurgicalPlateType = .aneurysmClipping
     @State private var zoomScale: CGFloat = 1.0
     @State private var lastZoomScale: CGFloat = 1.0
     @State private var dragOffset: CGSize = .zero
@@ -150,17 +150,12 @@ public struct PhotorealisticSurgicalAtlasView: View {
                         lastDragOffset = .zero
                     }
                 }) {
-                    HStack(spacing: 4) {
-                        Image(systemName: "arrow.counterclockwise")
-                            .font(.system(size: 9))
-                        Text("Reset (\(Int(zoomScale * 100))%)")
-                            .font(.system(size: 9, weight: .bold))
-                    }
-                    .padding(.horizontal, 8)
-                    .padding(.vertical, 4)
-                    .background(Color.black.opacity(0.8))
-                    .foregroundColor(ObsidianTheme.neonCyan)
-                    .cornerRadius(6)
+                    Image(systemName: "arrow.counterclockwise")
+                        .font(.system(size: 12))
+                        .padding(6)
+                        .background(Color.black.opacity(0.8))
+                        .foregroundColor(ObsidianTheme.neonAmber)
+                        .clipShape(Circle())
                 }
             }
         }
@@ -171,77 +166,84 @@ public struct PhotorealisticSurgicalAtlasView: View {
     private var plateViewportCanvas: some View {
         GeometryReader { geo in
             ZStack {
-                // High-Definition Medical Artwork Plate
-                Group {
-                    if let assetName = selectedPlate.assetImageName {
-                        Image(assetName)
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: geo.size.width, height: geo.size.height)
-                    } else {
-                        RadiographicPlateCanvas(plate: selectedPlate)
-                            .frame(width: geo.size.width, height: geo.size.height)
-                    }
+                // If it's a photorealistic image plate from Assets.xcassets
+                if let assetName = selectedPlate.assetImageName {
+                    Image(assetName)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: geo.size.width, height: geo.size.height)
+                } else {
+                    // Radiographic vector fallback for MRI
+                    RadiographicPlateCanvas(plate: selectedPlate)
+                        .frame(width: geo.size.width, height: geo.size.height)
                 }
-                .scaleEffect(zoomScale)
-                .offset(dragOffset)
-                .gesture(
-                    MagnificationGesture()
-                        .onChanged { value in
-                            let delta = value / lastZoomScale
-                            lastZoomScale = value
-                            zoomScale = min(max(zoomScale * delta, 1.0), 4.0)
-                        }
-                        .onEnded { _ in
-                            lastZoomScale = 1.0
-                        }
-                )
-                .simultaneousGesture(
-                    DragGesture()
-                        .onChanged { value in
-                            dragOffset = CGSize(
-                                width: lastDragOffset.width + value.translation.width,
-                                height: lastDragOffset.height + value.translation.height
-                            )
-                        }
-                        .onEnded { _ in
-                            lastDragOffset = dragOffset
-                        }
-                )
                 
-                // Interactive Hotspot Pins Over Image
+                // Interactive Callout Pins
                 if showCalloutPins {
                     ForEach(selectedPlate.callouts) { callout in
-                        let pinX = (callout.normalizedX - 0.5) * geo.size.width * zoomScale + dragOffset.width + geo.size.width / 2
-                        let pinY = (callout.normalizedY - 0.5) * geo.size.height * zoomScale + dragOffset.height + geo.size.height / 2
-                        
-                        Button(action: {
-                            HapticManager.impact(style: .medium)
-                            withAnimation(.spring(response: 0.3, dampingFraction: 0.75)) {
-                                selectedCallout = callout
-                            }
-                        }) {
-                            ZStack {
-                                Circle()
-                                    .fill(callout.color.opacity(0.35))
-                                    .frame(width: 28, height: 28)
-                                
-                                Circle()
-                                    .stroke(callout.color, lineWidth: 2)
-                                    .frame(width: 18, height: 18)
-                                
-                                Circle()
-                                    .fill(callout.color)
-                                    .frame(width: 8, height: 8)
-                            }
-                            .shadow(color: Color.black, radius: 4)
-                        }
-                        .position(x: pinX, y: pinY)
+                        calloutPinView(callout: callout, in: geo.size)
                     }
                 }
             }
+            .scaleEffect(zoomScale)
+            .offset(dragOffset)
+            .gesture(
+                MagnificationGesture()
+                    .onChanged { val in
+                        let delta = val / lastZoomScale
+                        lastZoomScale = val
+                        let newScale = zoomScale * delta
+                        zoomScale = min(max(newScale, 1.0), 4.0)
+                    }
+                    .onEnded { _ in
+                        lastZoomScale = 1.0
+                    }
+            )
+            .simultaneousGesture(
+                DragGesture()
+                    .onChanged { val in
+                        if zoomScale > 1.05 {
+                            dragOffset = CGSize(
+                                width: lastDragOffset.width + val.translation.width,
+                                height: lastDragOffset.height + val.translation.height
+                            )
+                        }
+                    }
+                    .onEnded { _ in
+                        lastDragOffset = dragOffset
+                    }
+            )
             .clipped()
         }
+    }
+    
+    // MARK: - Callout Pin View
+    private func calloutPinView(callout: SurgicalCallout, in size: CGSize) -> some View {
+        let pinX = size.width * callout.normalizedX
+        let pinY = size.height * callout.normalizedY
+        let isSelected = selectedCallout?.id == callout.id
+        
+        return Button(action: {
+            HapticManager.impact(style: .medium)
+            withAnimation(.spring(response: 0.3, dampingFraction: 0.7)) {
+                selectedCallout = callout
+            }
+        }) {
+            ZStack {
+                Circle()
+                    .fill(callout.color.opacity(isSelected ? 0.35 : 0.2))
+                    .frame(width: isSelected ? 32 : 22, height: isSelected ? 32 : 22)
+                
+                Circle()
+                    .stroke(callout.color, lineWidth: isSelected ? 2.5 : 1.5)
+                    .frame(width: isSelected ? 24 : 16, height: isSelected ? 24 : 16)
+                
+                Circle()
+                    .fill(callout.color)
+                    .frame(width: isSelected ? 10 : 7, height: isSelected ? 10 : 7)
+            }
+        }
+        .position(x: pinX, y: pinY)
     }
     
     // MARK: - Callout Inspector Card
@@ -401,11 +403,16 @@ public struct RadiographicPlateCanvas: View {
 
 // MARK: - Data Models
 public enum SurgicalPlateType: String, CaseIterable {
+    case aneurysmClipping = "aneurysm_clipping"
     case pterional = "pterional"
+    case orbitozygomatic = "orbitozygomatic"
     case retrosigmoid = "retrosigmoid"
+    case farLateral = "far_lateral"
+    case endonasalSellar = "endonasal_sellar"
     case suboccipitalChiari = "suboccipital_chiari"
     case traumaHemicraniectomy = "trauma_hemicraniectomy"
     case kocherEVD = "kocher_evd"
+    case c1C2Harms = "c1_c2_harms"
     case acdfCervical = "acdf_cervical"
     case lumbarTLIF = "lumbar_tlif"
     case radiographicBrainT2 = "radiographic_brain_t2"
@@ -414,11 +421,16 @@ public enum SurgicalPlateType: String, CaseIterable {
     
     public var assetImageName: String? {
         switch self {
+        case .aneurysmClipping: return "plate_aneurysm"
         case .pterional: return "plate_pterional"
+        case .orbitozygomatic: return "plate_orbitozygomatic"
         case .retrosigmoid: return "plate_retrosigmoid"
+        case .farLateral: return "plate_far_lateral"
+        case .endonasalSellar: return "plate_endonasal_sellar"
         case .suboccipitalChiari: return "plate_chiari"
         case .traumaHemicraniectomy: return "plate_trauma"
         case .kocherEVD: return "plate_kocher"
+        case .c1C2Harms: return "plate_c1_c2_harms"
         case .acdfCervical: return "plate_acdf"
         case .lumbarTLIF: return "plate_tlif"
         default: return nil
@@ -427,11 +439,16 @@ public enum SurgicalPlateType: String, CaseIterable {
     
     public var shortTitle: String {
         switch self {
+        case .aneurysmClipping: return "Aneurysm Clip"
         case .pterional: return "Pterional"
+        case .orbitozygomatic: return "Orbitozygomatic"
         case .retrosigmoid: return "Retrosigmoid"
+        case .farLateral: return "Far-Lateral"
+        case .endonasalSellar: return "Endonasal Sellar"
         case .suboccipitalChiari: return "Chiari / Suboccipital"
         case .traumaHemicraniectomy: return "Trauma Craniectomy"
         case .kocherEVD: return "Kocher's EVD"
+        case .c1C2Harms: return "C1-C2 Harms"
         case .acdfCervical: return "ACDF C5-C6"
         case .lumbarTLIF: return "Lumbar TLIF"
         case .radiographicBrainT2: return "Brain T2 MRI"
@@ -442,11 +459,16 @@ public enum SurgicalPlateType: String, CaseIterable {
     
     public var title: String {
         switch self {
+        case .aneurysmClipping: return "Anterior Circulation Aneurysm Clipping"
         case .pterional: return "Pterional Transsylvian Corridor"
+        case .orbitozygomatic: return "Orbitozygomatic Skull Base Corridor"
         case .retrosigmoid: return "Retrosigmoid CPA Dissection"
+        case .farLateral: return "Far-Lateral Suboccipital Transcondylar"
+        case .endonasalSellar: return "Endoscopic Endonasal Sellar Corridor"
         case .suboccipitalChiari: return "Suboccipital Foramen Magnum"
         case .traumaHemicraniectomy: return "Frontotemporoparietal Craniectomy"
         case .kocherEVD: return "Frontal Horn Ventriculostomy"
+        case .c1C2Harms: return "C1 Lateral Mass & C2 Pedicle Fixation"
         case .acdfCervical: return "Subaxial ACDF Smith-Robinson"
         case .lumbarTLIF: return "Posterior TLIF & Facetectomy"
         case .radiographicBrainT2: return "Axial T2 MRI Radiographic Map"
@@ -457,14 +479,19 @@ public enum SurgicalPlateType: String, CaseIterable {
     
     public var iconName: String {
         switch self {
+        case .aneurysmClipping: return "bolt.horizontal.fill"
         case .pterional: return "brain.head.profile"
+        case .orbitozygomatic: return "eye.fill"
         case .retrosigmoid: return "ear"
+        case .farLateral: return "arrow.triangle.turn.up.right.diamond"
+        case .endonasalSellar: return "mouth"
         case .suboccipitalChiari: return "waveform.path.ecg"
         case .traumaHemicraniectomy: return "shield.lefthalf.filled"
         case .kocherEVD: return "pencil.line"
+        case .c1C2Harms: return "link"
         case .acdfCervical: return "figure.walk"
         case .lumbarTLIF: return "lines.measurement.horizontal"
-        case .radiographicBrainT2: return "eye.fill"
+        case .radiographicBrainT2: return "circle.grid.cross"
         case .radiographicCervicalT2: return "waveform.path"
         case .radiographicLumbarT2: return "square.stack.3d.down.right"
         }
@@ -472,6 +499,49 @@ public enum SurgicalPlateType: String, CaseIterable {
     
     public var callouts: [SurgicalCallout] {
         switch self {
+        case .aneurysmClipping:
+            return [
+                SurgicalCallout(
+                    id: "aneurysm_sac",
+                    title: "Aneurysm Dome & Neck",
+                    structureType: "VASCULAR LESION",
+                    color: ObsidianTheme.neonRose,
+                    normalizedX: 0.50,
+                    normalizedY: 0.44,
+                    description: "Aneurysm sac at arterial bifurcation. Permanent Yasargil clip must seat precisely across neck without residual dog-ear or parent artery compromise.",
+                    surgicalPearl: "Always achieve 360-degree proximal and distal parent artery visualization before attempting clip application."
+                ),
+                SurgicalCallout(
+                    id: "aneurysm_clip",
+                    title: "Yasargil Micro-Clip",
+                    structureType: "SURGICAL IMPLANT",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.54,
+                    normalizedY: 0.36,
+                    description: "Titanium aneurysm clip applied across aneurysm neck parallel to the parent arterial axis.",
+                    surgicalPearl: "Verify absence of parent artery stenosis and complete obliteration using micro-Doppler or indocyanine green (ICG) angiography."
+                ),
+                SurgicalCallout(
+                    id: "aneurysm_ica",
+                    title: "ICA Bifurcation & A1/M1",
+                    structureType: "PARENT ARTERIAL TRUNK",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.48,
+                    normalizedY: 0.62,
+                    description: "Terminal internal carotid bifurcating into anterior cerebral (A1) and middle cerebral (M1) arteries.",
+                    surgicalPearl: "Keep temporary clip readily available. Limit warm brain ischemia to under 10 minutes under burst suppression / neuroprotection."
+                ),
+                SurgicalCallout(
+                    id: "aneurysm_cn2",
+                    title: "Optic Nerve (CN II)",
+                    structureType: "CRANIAL NERVE",
+                    color: ObsidianTheme.textPrimary,
+                    normalizedX: 0.38,
+                    normalizedY: 0.52,
+                    description: "Courses medial to carotid bifurcation. Opticocarotid triangle provides the classic window to precommunicating A1.",
+                    surgicalPearl: "Avoid aggressive retraction against optic nerve; gentle CSF drainage from optico-carotid cistern relaxes the nerve."
+                )
+            ]
         case .pterional:
             return [
                 SurgicalCallout(
@@ -505,6 +575,39 @@ public enum SurgicalPlateType: String, CaseIterable {
                     surgicalPearl: "Unroofing optic canal relaxes optic nerve tethering and prevents ischemic visual field loss."
                 )
             ]
+        case .orbitozygomatic:
+            return [
+                SurgicalCallout(
+                    id: "oz_rim",
+                    title: "Orbitozygomatic Osteotomy",
+                    structureType: "SKULL BASE OSTEOTOMY",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.72,
+                    normalizedY: 0.32,
+                    description: "Two-piece osteotomy mobilizing superior and lateral orbital rim plus zygomatic arch downward.",
+                    surgicalPearl: "Provides flush subfrontal and transsylvian trajectory to basilar apex and high carotid bifurcation with minimal brain retraction."
+                ),
+                SurgicalCallout(
+                    id: "oz_basilar",
+                    title: "Basilar Apex & P1 Branches",
+                    structureType: "POSTERIOR CIRCULATION",
+                    color: ObsidianTheme.neonRose,
+                    normalizedX: 0.48,
+                    normalizedY: 0.40,
+                    description: "Basilar artery bifurcation situated between cerebral peduncles, supplying posterior cerebral (P1) and superior cerebellar (SCA) arteries.",
+                    surgicalPearl: "Preserve posterior thalamoperforating vessels springing from posterior wall of basilar tip; avulsion causes coma."
+                ),
+                SurgicalCallout(
+                    id: "oz_orbit",
+                    title: "Orbital Roof & Periorbita",
+                    structureType: "ANATOMICAL BOUNDARY",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.76,
+                    normalizedY: 0.58,
+                    description: "Orbital roof flattened flush with superior orbital fissure. Periorbita protected intact.",
+                    surgicalPearl: "Avoid tearing periorbita; intraorbital fat extrusion obscures the microsurgical view."
+                )
+            ]
         case .retrosigmoid:
             return [
                 SurgicalCallout(
@@ -536,6 +639,82 @@ public enum SurgicalPlateType: String, CaseIterable {
                     normalizedY: 0.32,
                     description: "Superolateral boundaries of retrosigmoid trephination meeting at the asterion.",
                     surgicalPearl: "Burr hole placed inferomedial to asterion prevents direct sinus laceration."
+                )
+            ]
+        case .farLateral:
+            return [
+                SurgicalCallout(
+                    id: "fl_v3_va",
+                    title: "Vertebral Artery (V3/V4)",
+                    structureType: "VASCULAR TRUNK",
+                    color: ObsidianTheme.neonRose,
+                    normalizedX: 0.42,
+                    normalizedY: 0.46,
+                    description: "Suboccipital horizontal V3 segment mobilized from C1 groove, piercing dura at dural ring to become intradural V4.",
+                    surgicalPearl: "Subperiosteal dissection of V3 from sulcus arteriosus of atlas prevents severe arterial laceration and pseudoaneurysm."
+                ),
+                SurgicalCallout(
+                    id: "fl_pica",
+                    title: "PICA & Medulla",
+                    structureType: "PERFORATING ARTERY",
+                    color: ObsidianTheme.neonRose,
+                    normalizedX: 0.66,
+                    normalizedY: 0.64,
+                    description: "Posterior inferior cerebellar artery emerging from V4, looping between hypoglossal rootlets.",
+                    surgicalPearl: "Preserve PICA perforators to lateral medulla; occlusion precipitates Wallenberg lateral medullary syndrome."
+                ),
+                SurgicalCallout(
+                    id: "fl_condyle",
+                    title: "Occipital Condyle Resection",
+                    structureType: "SKULL BASE OSTEOTOMY",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.38,
+                    normalizedY: 0.70,
+                    description: "Drilling the posterior third of the occipital condyle opens an unobstructed flat corridor across anterior medulla.",
+                    surgicalPearl: "Resection beyond 50% of the occipital condyle creates craniocervical instability requiring occipitocervical fusion."
+                ),
+                SurgicalCallout(
+                    id: "fl_cn12",
+                    title: "Hypoglossal (CN XII) & CN XI",
+                    structureType: "LOWER CRANIAL NERVES",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.54,
+                    normalizedY: 0.38,
+                    description: "CN XII rootlets in hypoglossal canal and spinal accessory (CN XI) nerve crossing corridor.",
+                    surgicalPearl: "Identify hypoglossal canal before aggressive condyle drilling to protect CN XII."
+                )
+            ]
+        case .endonasalSellar:
+            return [
+                SurgicalCallout(
+                    id: "ee_sellar",
+                    title: "Sellar Floor & Pituitary",
+                    structureType: "SURGICAL TARGET",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.50,
+                    normalizedY: 0.50,
+                    description: "Sphenoid sinus wide opening, anterior sellar wall bone removed and dura opened to access adenoma.",
+                    surgicalPearl: "Distinguish normal anterior gland (yellow-orange, firm) from adenoma (grayish, friable, non-organized)."
+                ),
+                SurgicalCallout(
+                    id: "ee_carotid",
+                    title: "Carotid Protuberances & OCR",
+                    structureType: "CRITICAL ARTERIAL BOUNDARY",
+                    color: ObsidianTheme.neonRose,
+                    normalizedX: 0.28,
+                    normalizedY: 0.46,
+                    description: "Cavernous/paraclival internal carotid artery impressions and medial optico-carotid recess (mOCR).",
+                    surgicalPearl: "Never drill lateral to medial optico-carotid recess; cavernous ICA injury in endoscopic cavity is catastrophic."
+                ),
+                SurgicalCallout(
+                    id: "ee_chiasm",
+                    title: "Optic Chiasm & Diaphragma",
+                    structureType: "SUPRASELLAR ROOF",
+                    color: ObsidianTheme.textPrimary,
+                    normalizedX: 0.50,
+                    normalizedY: 0.34,
+                    description: "Optic chiasm resting above diaphragma sellae; relieved of compression as tumor is delivered.",
+                    surgicalPearl: "Respect diaphragma sellae arachnoid plane to avoid high-flow CSF fistula and meningitis."
                 )
             ]
         case .suboccipitalChiari:
@@ -605,6 +784,49 @@ public enum SurgicalPlateType: String, CaseIterable {
                     normalizedY: 0.42,
                     description: "Target location for catheter tip into cerebrospinal fluid chamber.",
                     surgicalPearl: "Release stylet as soon as ventricle gives a subtle 'pop' at 5.5 cm to prevent penetrating contralateral wall."
+                )
+            ]
+        case .c1C2Harms:
+            return [
+                SurgicalCallout(
+                    id: "harms_c1",
+                    title: "C1 Lateral Mass Screws",
+                    structureType: "CERVICAL IMPLANT",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.34,
+                    normalizedY: 0.32,
+                    description: "Entry at junction of C1 posterior arch and lateral mass midpoint, trajectory 10-15° medial toward anterior tubercle.",
+                    surgicalPearl: "Avoid cephalad angulation to protect atlanto-occipital joint and hypoglossal canal."
+                ),
+                SurgicalCallout(
+                    id: "harms_c2",
+                    title: "C2 Pedicle / Pars Screws",
+                    structureType: "AXIS IMPLANT",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.66,
+                    normalizedY: 0.62,
+                    description: "Entry at superior-medial quadrant of C2 lamina, angled 20-30° medial and 20-30° cephalad.",
+                    surgicalPearl: "Preoperative CTA is mandatory to rule out high-riding vertebral artery or persistent proatlantal vessel."
+                ),
+                SurgicalCallout(
+                    id: "harms_va",
+                    title: "Vertebral Artery Groove",
+                    structureType: "CRITICAL VASCULAR DANGER",
+                    color: ObsidianTheme.neonRose,
+                    normalizedX: 0.44,
+                    normalizedY: 0.26,
+                    description: "Vertebral artery courses in sulcus arteriosus on superior aspect of C1 posterior arch.",
+                    surgicalPearl: "Never dissect laterally on superior aspect of C1 arch beyond 12 mm from midline to avoid catastrophic VA laceration."
+                ),
+                SurgicalCallout(
+                    id: "harms_c2_root",
+                    title: "C2 Nerve Root & Venous Plexus",
+                    structureType: "NEURAL CORRIDOR",
+                    color: ObsidianTheme.textPrimary,
+                    normalizedX: 0.24,
+                    normalizedY: 0.48,
+                    description: "Courses directly over C1-C2 joint capsule; mobilised inferiorly to access C1 lateral mass entry point.",
+                    surgicalPearl: "Venous plexus surrounding C2 ganglion causes vigorous bleeding; pack with hemostatic matrix before drilling."
                 )
             ]
         case .acdfCervical:
@@ -707,6 +929,13 @@ public enum SurgicalPlateType: String, CaseIterable {
     
     public var steps: [ApproachSequentialStep] {
         switch self {
+        case .aneurysmClipping:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Pterional / OZ Craniotomy & Proximal Control", detail: "Reflect scalp, perform craniotomy, flatten sphenoid ridge. Open carotid cistern early for proximal ICA control."),
+                ApproachSequentialStep(stepNumber: 2, title: "Sylvian Fissure Dissection", detail: "Sharply unroof Sylvian fissure distal-to-proximal, releasing frontal from temporal operculum without brain retractors."),
+                ApproachSequentialStep(stepNumber: 3, title: "Dissect Parent Vessels & Neck Circumference", detail: "Expose parent trunk and outflow branches. Dissect aneurysm neck 360 degrees, identifying perforators on back wall."),
+                ApproachSequentialStep(stepNumber: 4, title: "Clip Application & ICG Validation", detail: "Apply permanent Yasargil clip across neck. Confirm parent vessel patency and complete dome occlusion via micro-Doppler or ICG.")
+            ]
         case .pterional:
             return [
                 ApproachSequentialStep(stepNumber: 1, title: "Scalp Flap & Interfascial Dissection", detail: "Reflect scalp flap anteriorly. Dissect through deep temporal fascia to preserve frontalis branch of CN VII."),
@@ -714,12 +943,33 @@ public enum SurgicalPlateType: String, CaseIterable {
                 ApproachSequentialStep(stepNumber: 3, title: "Dural Opening & CSF Release", detail: "Open dura in curvilinear C-shape facing sphenoid ridge. Open optico-carotid cistern early to slacken brain."),
                 ApproachSequentialStep(stepNumber: 4, title: "Sylvian Fissure Dissection", detail: "Sharply open arachnoid from distal to proximal, mobilizing frontal lobe away from temporal lobe.")
             ]
+        case .orbitozygomatic:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Two-Piece Osteotomy", detail: "Execute frontotemporal craniotomy followed by orbital rim and zygomatic arch cuts; mobilize bone flap."),
+                ApproachSequentialStep(stepNumber: 2, title: "Orbital Flattening & Extradural Exposure", detail: "Drill orbital roof and sphenoid ridge completely flat down to superior orbital fissure while preserving periorbita."),
+                ApproachSequentialStep(stepNumber: 3, title: "Subfrontal / Transsylvian Dural Opening", detail: "Open dura along orbital margin; drain basal cisterns (carotid, chiasmatic) to achieve brain relaxation."),
+                ApproachSequentialStep(stepNumber: 4, title: "Basilar Apex & Interpeduncular Access", detail: "Advance between optic nerve and carotid or through carotid-oculomotor window to reach high basilar bifurcation.")
+            ]
         case .retrosigmoid:
             return [
                 ApproachSequentialStep(stepNumber: 1, title: "Retromastoid Incision", detail: "Curvilinear incision 2 cm posterior to mastoid groove. Strip suboccipital musculature subperiosteally."),
                 ApproachSequentialStep(stepNumber: 2, title: "Asterion Craniectomy", detail: "Burr hole inferomedial to asterion. Unroof transverse and sigmoid sinus edges with Kerrison rongeurs."),
                 ApproachSequentialStep(stepNumber: 3, title: "Dural Flap & Cisterna Magna Release", detail: "Open dura with base on sigmoid sinus. Aspirate cisterna magna CSF to relax cerebellum completely."),
                 ApproachSequentialStep(stepNumber: 4, title: "CPA Inspection", detail: "Place gentle cerebellar retractor. Identify acousticofacial bundle, AICA loop, and petrosal vein.")
+            ]
+        case .farLateral:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Hockey-Stick / Inverted L Incision", detail: "Midline incision curving laterally past mastoid tip. Subperiosteally dissect suboccipital musculature."),
+                ApproachSequentialStep(stepNumber: 2, title: "Suboccipital Craniectomy & C1 Hemilaminectomy", detail: "Perform lateral suboccipital craniectomy, unroof sigmoid sinus to jugular bulb, resect C1 posterior arch."),
+                ApproachSequentialStep(stepNumber: 3, title: "Vertebral Artery V3 Mobilization & Condylectomy", detail: "Dissect V3 segment from C1 groove. Drill posterior 1/3 of occipital condyle under microscope."),
+                ApproachSequentialStep(stepNumber: 4, title: "Dural Opening & Premedullary Exposure", detail: "Incise dura medially around dural ring. Access anterior lower brainstem, PICA, and vertebrobasilar junction.")
+            ]
+        case .endonasalSellar:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Nasal Stage & Binostril Access", detail: "Decongest nasal cavity, lateralize middle turbinates, harvest vascularized nasoseptal flap if high CSF leak risk."),
+                ApproachSequentialStep(stepNumber: 2, title: "Sphenoidotomy & Mucosal Stripping", detail: "Identify sphenoid ostia, widely open anterior sphenoid wall, identify sellar floor, clival recess, and carotid prominences."),
+                ApproachSequentialStep(stepNumber: 3, title: "Sellar Dural Opening & Tumor Resection", detail: "Thin sellar bone with micro-drill, unroof floor, cruciate dural opening, deliver pituitary adenoma using ring curettes."),
+                ApproachSequentialStep(stepNumber: 4, title: "Multilayer Reconstruction", detail: "Inspect diaphragma sellae for CSF leaks. Reconstruct skull base with collagen sponge, fat graft, and nasoseptal flap.")
             ]
         case .suboccipitalChiari:
             return [
@@ -741,6 +991,13 @@ public enum SurgicalPlateType: String, CaseIterable {
                 ApproachSequentialStep(stepNumber: 2, title: "Trephination & Dura Incision", detail: "Linear scalp stab, drill bone perpendicular to calvaria, cauterize and punctate dura."),
                 ApproachSequentialStep(stepNumber: 3, title: "Cannulation Trajectory", detail: "Aim toward medial canthus in coronal plane and tragus in sagittal plane."),
                 ApproachSequentialStep(stepNumber: 4, title: "Confirmation of CSF", detail: "Enter frontal horn at 5.5 to 6.5 cm; remove stylet, observe spontaneous CSF pulsation, secure.")
+            ]
+        case .c1C2Harms:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Midline Cervical Exposure", detail: "Midline exposure from inion to C3. Expose C1 posterior arch and C2 lamina/spinous process subperiosteally."),
+                ApproachSequentialStep(stepNumber: 2, title: "C2 Nerve Root Mobilization", detail: "Mobilize C2 nerve root and coagulate surrounding venous plexus to expose C1 lateral mass entry point."),
+                ApproachSequentialStep(stepNumber: 3, title: "C1 Lateral Mass Screw Insertion", detail: "Drill entry point at inferior border of C1 arch, trajectory 10-15° medial toward anterior tubercle, place 3.5mm screw."),
+                ApproachSequentialStep(stepNumber: 4, title: "C2 Pedicle / Pars Screw & Rod Fixation", detail: "Place C2 pedicle screw angled 20-30° medial and cephalad, contour rods, apply crosslink, perform decortication/fusion.")
             ]
         case .acdfCervical:
             return [
@@ -782,17 +1039,41 @@ public enum SurgicalPlateType: String, CaseIterable {
     
     public var catastrophicHazards: [String] {
         switch self {
+        case .aneurysmClipping:
+            return [
+                "Premature intraoperative aneurysm rupture prior to gaining proximal vascular control",
+                "Inadvertent occlusion of critical branching perforators (e.g. Heubner's artery or anterior choroidal artery)",
+                "Residual aneurysm neck dog-ear resulting in catastrophic delayed subarachnoid hemorrhage rebleed"
+            ]
         case .pterional:
             return [
                 "Frontalis branch facial nerve transection if failing to execute interfascial temporalis dissection",
                 "Middle meningeal artery trunk avulsion with uncontrollable epidural bleeding under sphenoid ridge",
                 "Excessive temporal lobe retraction causing hemorrhagic contusion prior to Sylvian fissure release"
             ]
+        case .orbitozygomatic:
+            return [
+                "Perforator avulsion from posterior basilar apex causing irreversible brainstem stroke",
+                "Inadvertent optic nerve injury during anterior clinoidectomy or orbital unroofing",
+                "Enophthalmos or diplopia from improper anatomical reconstruction of orbital rim osteotomy"
+            ]
         case .retrosigmoid:
             return [
                 "Sigmoid sinus or transverse sinus laceration during high-speed craniectomy drilling",
                 "Avulsion of petrosal vein of Dandy precipitating life-threatening cerebellar hemorrhagic venous infarction",
                 "Excessive stretch or thermal coagulation near CN VII/VIII causing permanent facial palsy or deafness"
+            ]
+        case .farLateral:
+            return [
+                "Vertebral artery V3/V4 laceration or thrombosis from traction or aggressive mobilization",
+                "Occipital condyle hyper-resection (>50%) causing craniocervical junction instability",
+                "Hypoglossal (CN XII) nerve rootlet transection causing permanent ipsilateral tongue paralysis and airway compromise"
+            ]
+        case .endonasalSellar:
+            return [
+                "Internal carotid artery laceration at carotid protuberance / siphon with massive exsanguination",
+                "High-flow CSF leak and pneumocephalus through violated diaphragma sellae",
+                "Postoperative pituitary apoplexy or central diabetes insipidus from infundibular disruption"
             ]
         case .suboccipitalChiari:
             return [
@@ -810,6 +1091,12 @@ public enum SurgicalPlateType: String, CaseIterable {
                 "Advancing catheter beyond 7.0 cm resulting in fatal brainstem or thalamic injury",
                 "Trajectory directed too medial crossing septum pellucidum with fornix disruption",
                 "Intraventricular hemorrhage from blind laceration of choroid plexus"
+            ]
+        case .c1C2Harms:
+            return [
+                "Vertebral artery laceration during C2 pedicle screw placement in patient with high-riding transverse foramen",
+                "Penetration of spinal canal medially causing acute spinal cord injury or thecal sac CSF fistula",
+                "C2 ganglion neuralgia or occipital numbness from excessive nerve root traction"
             ]
         case .acdfCervical:
             return [
