@@ -7,18 +7,18 @@ public struct MainContainerView: View {
     
     public var body: some View {
         TabView(selection: $selectedTab) {
-            // Tab 1: Call Command Center & Census (Acuity, Tasks, Sickest Patients)
+            // Tab 1: Call Command Cockpit (Acuity, Tasks, Sickest Patients, Radar)
             NavigationStack {
                 CallDashboardView()
-                    .navigationTitle("Census & Tasks")
+                    .navigationTitle("Census & Radar")
                     .navigationBarTitleDisplayMode(.inline)
             }
             .tabItem {
-                Label("Dashboard", systemImage: "checklist")
+                Label("Radar", systemImage: "waveform.path.ecg")
             }
             .tag(0)
             
-            // Tab 2: 2 AM Crisis Triage & Red Flag Emergencies (TBI, EDH, SDH, Uncal, Shunt, SEA, CES)
+            // Tab 2: 2 AM Crisis Triage & Red Flag Emergencies
             NavigationStack {
                 EmergencyProtocolsView()
                     .navigationTitle("Crisis & Triage")
@@ -29,39 +29,39 @@ public struct MainContainerView: View {
             }
             .tag(1)
             
-            // Tab 3: Consult Intake & Auto-SBAR Note Generator
+            // Tab 3: Consult Intake & Auto-SBAR Triage Engine
             NavigationStack {
                 ConsultManagerView()
                     .navigationTitle("Consults")
                     .navigationBarTitleDisplayMode(.inline)
             }
             .tabItem {
-                Label("Consult Intake", systemImage: "doc.text.fill")
+                Label("Consults", systemImage: "doc.text.fill")
             }
             .tag(2)
             
-            // Tab 4: Calculators & Drug Reversals (ABC/2, CPP, WFNS, SINS + DOAC Reversals)
+            // Tab 4: Picturesque MRI & Vector Anatomy Suite
             NavigationStack {
-                NeurosurgeryCalculatorsView()
-                    .navigationTitle("Calculators")
+                PicturesqueMRIAtlasView()
+                    .navigationTitle("MRI & Atlas")
                     .navigationBarTitleDisplayMode(.inline)
             }
             .tabItem {
-                Label("Calculators", systemImage: "function")
+                Label("MRI Atlas", systemImage: "brain.head.profile")
             }
             .tag(3)
             
-            // Tab 5: Surgical & Neuroradiology Atlas (Procedures, Cranial/Spinal Normal Anatomy, EVD)
+            // Tab 5: Frontline On-Call Field Manual
             NavigationStack {
-                SurgicalAtlasView()
-                    .navigationTitle("Atlas & Anatomy")
+                OnCallFieldManualView()
+                    .navigationTitle("On-Call Manual")
                     .navigationBarTitleDisplayMode(.inline)
             }
             .tabItem {
-                Label("Atlas", systemImage: "brain.head.profile")
+                Label("Field Manual", systemImage: "shield.lefthalf.filled")
             }
             .tag(4)
         }
-        .tint(.blue)
+        .tint(ObsidianTheme.neonCyan)
     }
 }

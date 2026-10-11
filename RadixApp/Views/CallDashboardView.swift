@@ -70,18 +70,19 @@ public struct CallDashboardView: View {
                 // Census Summary Header
                 VStack(alignment: .leading, spacing: 6) {
                     HStack {
+                        Circle().fill(ObsidianTheme.neonRed).frame(width: 8, height: 8)
                         Text("ACTIVE ON-CALL CENSUS")
                             .font(.system(size: 11, weight: .black))
-                            .tracking(1.5)
-                            .foregroundColor(.blue)
+                            .tracking(1.8)
+                            .foregroundColor(ObsidianTheme.neonRed)
                         Spacer()
-                        Text("\(patients.count) Patients Covered")
-                            .font(.system(size: 12, weight: .bold))
-                            .foregroundColor(.secondary)
+                        Text("\(patients.count) Covered")
+                            .font(.system(size: 11, weight: .bold, design: .monospaced))
+                            .foregroundColor(ObsidianTheme.textTertiary)
                     }
-                    Text("Call Command Center")
-                        .font(.system(size: 24, weight: .black, design: .rounded))
-                        .foregroundColor(Color(red: 0.1, green: 0.12, blue: 0.18))
+                    Text("Call Command Cockpit")
+                        .font(.system(size: 24, weight: .bold))
+                        .foregroundColor(ObsidianTheme.textPrimary)
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal)
@@ -120,7 +121,7 @@ public struct CallDashboardView: View {
             }
             .padding(.bottom, 28)
         }
-        .background(Color(red: 0.97, green: 0.98, blue: 0.99))
+        .obsidianCockpitBackground()
     }
 }
 
@@ -247,35 +248,35 @@ struct PatientCensusCard: View {
             // Contingency If/Then Rule
             HStack(alignment: .top, spacing: 6) {
                 Image(systemName: "arrow.triangle.branch")
-                    .foregroundColor(.orange)
-                    .font(.system(size: 11))
+                    .foregroundColor(ObsidianTheme.neonAmber)
+                    .font(.system(size: 11, weight: .bold))
                     .padding(.top, 2)
-                Text("If/Then: \(patient.contingencyPlan)")
+                Text("CONTINGENCY: \(patient.contingencyPlan)")
                     .font(.system(size: 11, weight: .semibold))
-                    .foregroundColor(Color(red: 0.2, green: 0.25, blue: 0.35))
+                    .foregroundColor(ObsidianTheme.neonAmber)
             }
+            .padding(8)
+            .background(RoundedRectangle(cornerRadius: 8).fill(ObsidianTheme.neonAmber.opacity(0.12)))
             
             // Overnight Tasks Checklist
             VStack(alignment: .leading, spacing: 4) {
                 Text("OUTSTANDING OVERNIGHT TASKS:")
                     .font(.system(size: 9, weight: .black))
-                    .foregroundColor(.secondary)
+                    .foregroundColor(ObsidianTheme.textTertiary)
                 ForEach(patient.keyTasks, id: \.self) { task in
                     HStack(spacing: 6) {
                         Image(systemName: "circle")
                             .font(.system(size: 10))
-                            .foregroundColor(.blue)
+                            .foregroundColor(ObsidianTheme.neonCyan)
                         Text(task)
                             .font(.system(size: 11, weight: .medium))
-                            .foregroundColor(Color(red: 0.25, green: 0.3, blue: 0.4))
+                            .foregroundColor(ObsidianTheme.textSecondary)
                     }
                 }
             }
         }
         .padding(16)
-        .background(Color.white)
-        .cornerRadius(18)
-        .shadow(color: Color.black.opacity(0.04), radius: 6)
+        .vitreousGlassCard()
     }
 }
 
