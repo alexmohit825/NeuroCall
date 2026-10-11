@@ -57,50 +57,35 @@ public struct EmergencyProtocolsView: View {
     }
     
     var estimatedVolumeCc: Double {
-        // Approximate ellipsoid volume: (A * B * C) / 2
-        let a = clotThicknessMM / 10.0 // cm
-        let b = a * 2.5 // approximate length
-        let c = 5.0 // average craniocaudal extent
+        let a = clotThicknessMM / 10.0
+        let b = a * 2.5
+        let c = 5.0
         return (a * b * c) / 2.0
+    }
+    
+    var anatomicalPearlText: String {
+        switch selectedEmergency {
+        case "EDH":
+            return "Biconvex / Lenticular arterial MMA bleed. Suture-bound. High surgical urgency if >15mm thickness or >5mm shift."
+        case "SDH":
+            return "Crescentic bridging vein hematoma crossing suture lines. Decompress if thickness >10mm or shift >5mm."
+        case "Uncal":
+            return "ANTERIOR MEDIAL TEMPORAL UNCAL HERNIATION: Uncus (anterior) herniates medially over tentorial edge, directly compressing ipsilateral CN III and cerebral peduncle."
+        case "Posterior Fossa":
+            return "POSTERIOR FOSSA CEREBELLAR ICH: Hematoma ≥3cm compressing 4th ventricle and dorsal brainstem. Lumbar puncture strictly contraindicated due to tonsillar coning risk."
+        default:
+            return "Acute neurosurgical crisis pathology."
+        }
     }
     
     public var body: some View {
         ScrollView {
             VStack(spacing: 20) {
                 // Header Banner
-                HStack {
-                    VStack(alignment: .leading, spacing: 4) {
-                        HStack(spacing: 6) {
-                            Circle().fill(isSurgicalCandidate ? Color.red : Color.green).frame(width: 8, height: 8)
-                            Text("2 AM CRISIS PROTOCOL & OPERATIVE SUITE")
-                                .font(.system(size: 11, weight: .black))
-                                .tracking(1.5)
-                                .foregroundColor(isSurgicalCandidate ? .red : .green)
-                        }
-                        Text("Acute Herniation & Emergency Checklists")
-                            .font(.system(size: 20, weight: .bold))
-                            .foregroundColor(Color(red: 0.1, green: 0.12, blue: 0.18))
-                    }
-                    Spacer()
-                    // Urgency Badge
-                    Text(isSurgicalCandidate ? "SURGICAL OR MANDATE" : "ICU MONITORING")
-                        .font(.system(size: 11, weight: .heavy))
-                        .padding(.horizontal, 10)
-                        .padding(.vertical, 6)
-                        .background(isSurgicalCandidate ? Color.red.opacity(0.12) : Color.green.opacity(0.12))
-                        .foregroundColor(isSurgicalCandidate ? .red : .green)
-                        .clipShape(Capsule())
-                }
-                .padding(.horizontal)
-                .padding(.top, 8)
+                headerBanner
                 
                 // Section Selector Tabs
-                HStack(spacing: 8) {
-                    SectionTabButton(id: "arbitrator", label: "Acute Triage", icon: "brain.head.profile", active: $activeSection)
-                    SectionTabButton(id: "reversal", label: "Anticoagulation Reversal", icon: "cross.vial.fill", active: $activeSection)
-                    SectionTabButton(id: "checklists", label: "OR & Bedside Checklists", icon: "list.clipboard.fill", active: $activeSection)
-                }
-                .padding(.horizontal)
+                sectionSelectorTabs
                 
                 if activeSection == "arbitrator" {
                     acuteTriageSection
@@ -111,23 +96,7 @@ public struct EmergencyProtocolsView: View {
                 }
                 
                 // Generate SBAR Button
-                Button(action: {
-                    isShowingSbarSheet = true
-                }) {
-                    HStack {
-                        Image(systemName: "phone.fill")
-                        Text("Generate 3 AM Attending Call Briefing (SBAR)")
-                            .font(.system(size: 13, weight: .bold))
-                    }
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 14)
-                    .background(LinearGradient(colors: [Color.indigo, Color.purple], startPoint: .leading, endPoint: .trailing))
-                    .foregroundColor(.white)
-                    .cornerRadius(16)
-                    .shadow(color: Color.indigo.opacity(0.25), radius: 8, y: 4)
-                }
-                .padding(.horizontal)
-                .padding(.bottom, 24)
+                sbarButton
             }
         }
         .background(Color(red: 0.97, green: 0.98, blue: 0.99))
@@ -142,240 +111,301 @@ public struct EmergencyProtocolsView: View {
         }
     }
     
+    // MARK: - Header Banner
+    private var headerBanner: some View {
+        HStack {
+            VStack(alignment: .leading, spacing: 4) {
+                HStack(spacing: 6) {
+                    Circle().fill(isSurgicalCandidate ? Color.red : Color.green).frame(width: 8, height: 8)
+                    Text("2 AM CRISIS PROTOCOL & OPERATIVE SUITE")
+                        .font(.system(size: 11, weight: .black))
+                        .tracking(1.5)
+                        .foregroundColor(isSurgicalCandidate ? .red : .green)
+                }
+                Text("Acute Herniation & Emergency Checklists")
+                    .font(.system(size: 20, weight: .bold))
+                    .foregroundColor(Color(red: 0.1, green: 0.12, blue: 0.18))
+            }
+            Spacer()
+            Text(isSurgicalCandidate ? "SURGICAL OR MANDATE" : "ICU MONITORING")
+                .font(.system(size: 11, weight: .heavy))
+                .padding(.horizontal, 10)
+                .padding(.vertical, 6)
+                .background(isSurgicalCandidate ? Color.red.opacity(0.12) : Color.green.opacity(0.12))
+                .foregroundColor(isSurgicalCandidate ? .red : .green)
+                .clipShape(Capsule())
+        }
+        .padding(.horizontal)
+        .padding(.top, 8)
+    }
+    
+    // MARK: - Section Selector Tabs
+    private var sectionSelectorTabs: some View {
+        HStack(spacing: 8) {
+            SectionTabButton(id: "arbitrator", label: "Acute Triage", icon: "brain.head.profile", active: $activeSection)
+            SectionTabButton(id: "reversal", label: "Anticoagulation Reversal", icon: "cross.vial.fill", active: $activeSection)
+            SectionTabButton(id: "checklists", label: "OR & Bedside Checklists", icon: "list.clipboard.fill", active: $activeSection)
+        }
+        .padding(.horizontal)
+    }
+    
+    // MARK: - SBAR Button
+    private var sbarButton: some View {
+        Button(action: {
+            isShowingSbarSheet = true
+        }) {
+            HStack {
+                Image(systemName: "phone.fill")
+                Text("Generate 3 AM Attending Call Briefing (SBAR)")
+                    .font(.system(size: 13, weight: .bold))
+            }
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 14)
+            .background(LinearGradient(colors: [Color.indigo, Color.purple], startPoint: .leading, endPoint: .trailing))
+            .foregroundColor(.white)
+            .cornerRadius(16)
+            .shadow(color: Color.indigo.opacity(0.25), radius: 8, y: 4)
+        }
+        .padding(.horizontal)
+        .padding(.bottom, 24)
+    }
+    
     // MARK: - 1. Acute Triage Section
     private var acuteTriageSection: some View {
         VStack(spacing: 16) {
-            // Emergency Selector Tabs
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 8) {
-                    ForEach(["EDH", "SDH", "Uncal", "Posterior Fossa"], id: \.self) { type in
-                        Button(action: {
-                            selectedEmergency = type
-                            // Set realistic defaults for selected pathology
-                            if type == "EDH" {
-                                clotThicknessMM = 16.0
-                                midlineShiftMM = 6.0
-                            } else if type == "SDH" {
-                                clotThicknessMM = 12.0
-                                midlineShiftMM = 7.0
-                            } else if type == "Uncal" {
-                                clotThicknessMM = 18.0
-                                midlineShiftMM = 9.0
-                                pupilStatus = "Unilateral Blown / Fixed (Uncal Herniation)"
-                            } else {
-                                clotThicknessMM = 32.0
-                                midlineShiftMM = 4.0
-                            }
-                        }) {
-                            Text(type == "EDH" ? "Epidural (EDH)" : (type == "SDH" ? "Subdural (SDH)" : (type == "Uncal" ? "Uncal Herniation" : "Posterior Fossa ICH")))
-                                .font(.system(size: 12, weight: .bold))
-                                .padding(.vertical, 8)
-                                .padding(.horizontal, 14)
-                                .background(selectedEmergency == type ? Color.indigo : Color.white)
-                                .foregroundColor(selectedEmergency == type ? .white : Color(red: 0.3, green: 0.35, blue: 0.45))
-                                .cornerRadius(10)
-                                .shadow(color: Color.black.opacity(0.04), radius: 3)
-                        }
-                    }
-                }
-                .padding(.horizontal)
-            }
+            emergencyTypeTabs
+            ctViewportWithCalipers
             
-            // Photorealistic High-Definition CT Scan Viewport with Live Calipers
-            ZStack {
-                // Background authentic CT Image from Assets
-                Image(currentCTImageName)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(height: 320)
-                    .cornerRadius(16)
-                
-                // Live Dynamic Caliper Overlay directly driven by Sliders
-                VStack {
-                    Spacer()
-                    HStack {
-                        // Dynamic Clot Caliper Box
-                        HStack(spacing: 6) {
-                            Image(systemName: "arrow.left.and.right")
-                                .font(.system(size: 11, weight: .bold))
-                            Text("CLOT: \(Int(clotThicknessMM)) mm")
-                                .font(.system(size: 12, weight: .black, design: .monospaced))
-                        }
-                        .padding(.horizontal, 10)
-                        .padding(.vertical, 5)
-                        .background(isThicknessBreached ? Color.red.opacity(0.85) : Color.black.opacity(0.75))
-                        .foregroundColor(.white)
-                        .cornerRadius(8)
-                        .overlay(RoundedRectangle(cornerRadius: 8).stroke(isThicknessBreached ? Color.red : Color.cyan, lineWidth: 1.5))
-                        
-                        Spacer()
-                        
-                        // Dynamic Midline Shift Caliper Box
-                        HStack(spacing: 6) {
-                            Image(systemName: "arrow.right.to.line")
-                                .font(.system(size: 11, weight: .bold))
-                            Text("SHIFT: \(String(format: "%.1f", midlineShiftMM)) mm")
-                                .font(.system(size: 12, weight: .black, design: .monospaced))
-                        }
-                        .padding(.horizontal, 10)
-                        .padding(.vertical, 5)
-                        .background(isShiftBreached ? Color.red.opacity(0.85) : Color.black.opacity(0.75))
-                        .foregroundColor(.white)
-                        .cornerRadius(8)
-                        .overlay(RoundedRectangle(cornerRadius: 8).stroke(isShiftBreached ? Color.red : Color.amber, lineWidth: 1.5))
-                    }
-                    .padding(12)
-                }
-            }
-            .frame(height: 320)
-            .background(Color.black)
-            .cornerRadius(18)
-            .overlay(RoundedRectangle(cornerRadius: 18).stroke(isSurgicalCandidate ? Color.red.opacity(0.6) : Color.black.opacity(0.1), lineWidth: 2))
-            .padding(.horizontal)
-            
-            // Anatomical Pearl Text
-            Text(selectedEmergency == "EDH"
-                 ? "Biconvex / Lenticular arterial MMA bleed. Suture-bound. High surgical urgency if >15mm thickness or >5mm shift."
-                 : (selectedEmergency == "SDH"
-                    ? "Crescentic bridging vein hematoma crossing suture lines. Decompress if thickness >10mm or shift >5mm."
-                    : (selectedEmergency == "Uncal"
-                       ? "ANTERIOR MEDIAL TEMPORAL UNCAL HERNIATION: Uncus (anterior) herniates medially over tentorial edge, directly compressing ipsilateral CN III and cerebral peduncle."
-                       : "POSTERIOR FOSSA CEREBELLAR ICH: Hematoma ≥3cm compressing 4th ventricle and dorsal brainstem. Lumbar puncture strictly contraindicated due to tonsillar coning risk.")))
+            Text(anatomicalPearlText)
                 .font(.system(size: 11, weight: .medium))
                 .multilineTextAlignment(.center)
                 .foregroundColor(Color(red: 0.35, green: 0.4, blue: 0.5))
                 .padding(.horizontal, 24)
             
-            // Real-Time Surgical Criteria Cockpit & Sliders
-            VStack(alignment: .leading, spacing: 16) {
-                HStack {
-                    Text("Interactive Bedside Decision Cockpit")
-                        .font(.system(size: 14, weight: .bold))
-                        .foregroundColor(Color(red: 0.1, green: 0.12, blue: 0.18))
-                    Spacer()
-                    Text("EST. VOL: \(String(format: "%.0f", estimatedVolumeCc)) cc")
-                        .font(.system(size: 11, weight: .black))
-                        .foregroundColor(estimatedVolumeCc >= 30 ? .red : .indigo)
-                        .padding(.horizontal, 8)
-                        .padding(.vertical, 3)
-                        .background((estimatedVolumeCc >= 30 ? Color.red : Color.indigo).opacity(0.1))
-                        .cornerRadius(6)
-                }
-                
-                // Clot Thickness Slider (Directly drives caliper & threshold)
-                VStack(alignment: .leading, spacing: 4) {
-                    HStack {
-                        Text("Clot Thickness / Diameter")
-                            .font(.system(size: 12, weight: .semibold))
-                        Spacer()
-                        Text("\(Int(clotThicknessMM)) mm \(isThicknessBreached ? "• BREACHED (> \(selectedEmergency == "EDH" ? "15" : (selectedEmergency == "Posterior Fossa" ? "30" : "10")) mm)" : "• ACCEPTABLE")")
-                            .font(.system(size: 11, weight: .black))
-                            .foregroundColor(isThicknessBreached ? .red : .green)
+            decisionCockpitCard
+            hyperosmolarProtocolCard
+        }
+    }
+    
+    private var emergencyTypeTabs: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 8) {
+                ForEach(["EDH", "SDH", "Uncal", "Posterior Fossa"], id: \.self) { type in
+                    Button(action: {
+                        selectedEmergency = type
+                        if type == "EDH" {
+                            clotThicknessMM = 16.0
+                            midlineShiftMM = 6.0
+                        } else if type == "SDH" {
+                            clotThicknessMM = 12.0
+                            midlineShiftMM = 7.0
+                        } else if type == "Uncal" {
+                            clotThicknessMM = 18.0
+                            midlineShiftMM = 9.0
+                            pupilStatus = "Unilateral Blown / Fixed (Uncal Herniation)"
+                        } else {
+                            clotThicknessMM = 32.0
+                            midlineShiftMM = 4.0
+                        }
+                    }) {
+                        Text(type == "EDH" ? "Epidural (EDH)" : (type == "SDH" ? "Subdural (SDH)" : (type == "Uncal" ? "Uncal Herniation" : "Posterior Fossa ICH")))
+                            .font(.system(size: 12, weight: .bold))
+                            .padding(.vertical, 8)
+                            .padding(.horizontal, 14)
+                            .background(selectedEmergency == type ? Color.indigo : Color.white)
+                            .foregroundColor(selectedEmergency == type ? .white : Color(red: 0.3, green: 0.35, blue: 0.45))
+                            .cornerRadius(10)
+                            .shadow(color: Color.black.opacity(0.04), radius: 3)
                     }
-                    Slider(value: $clotThicknessMM, in: 1...40, step: 1)
-                        .tint(isThicknessBreached ? .red : .indigo)
                 }
-                
-                // Midline Shift Slider (Directly drives caliper & threshold)
-                VStack(alignment: .leading, spacing: 4) {
-                    HStack {
-                        Text("Midline Shift")
-                            .font(.system(size: 12, weight: .semibold))
-                        Spacer()
-                        Text("\(String(format: "%.1f", midlineShiftMM)) mm \(isShiftBreached ? "• BREACHED (> \(selectedEmergency == "Posterior Fossa" ? "3" : "5") mm)" : "• ACCEPTABLE")")
-                            .font(.system(size: 11, weight: .black))
-                            .foregroundColor(isShiftBreached ? .red : .green)
-                    }
-                    Slider(value: $midlineShiftMM, in: 0...20, step: 0.5)
-                        .tint(isShiftBreached ? .red : .indigo)
-                }
-                
-                // GCS Stepper
-                HStack {
-                    VStack(alignment: .leading, spacing: 2) {
-                        Text("Glasgow Coma Scale (GCS)")
-                            .font(.system(size: 12, weight: .semibold))
-                        Text(isGCSBreached ? "Critical Coma (GCS ≤ 8 / Intubation Indicated)" : "Conscious / Responsive")
-                            .font(.system(size: 10))
-                            .foregroundColor(isGCSBreached ? .red : .secondary)
-                    }
-                    Spacer()
-                    Stepper("\(gcsScore)", value: $gcsScore, in: 3...15)
-                        .font(.system(size: 13, weight: .black))
-                }
-                
-                // Pupil Status Picker
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("Pupillary Examination")
-                        .font(.system(size: 12, weight: .semibold))
-                    Picker("Pupil Exam", selection: $pupilStatus) {
-                        Text("Bilateral Brisk & Reactive (Normal)").tag("Normal")
-                        Text("Ipsilateral Sluggish (Early CN III Compression)").tag("Ipsilateral Sluggish")
-                        Text("Unilateral Blown / Fixed (Uncal Herniation)").tag("Unilateral Blown / Fixed (Uncal Herniation)")
-                        Text("Bilateral Fixed & Dilated (Terminal Brainstem)").tag("Bilateral Fixed & Dilated")
-                    }
-                    .pickerStyle(.menu)
-                    .padding(6)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .background(Color(red: 0.96, green: 0.97, blue: 0.99))
-                    .cornerRadius(8)
-                }
-                
-                // Real-Time Verdict Box
-                VStack(alignment: .leading, spacing: 6) {
-                    HStack {
-                        Image(systemName: isSurgicalCandidate ? "exclamationmark.triangle.fill" : "checkmark.shield.fill")
-                            .foregroundColor(isSurgicalCandidate ? .red : .green)
-                        Text(isSurgicalCandidate ? "EMERGENT SURGICAL OPERATIVE MANDATE" : "ICU CONSERVATIVE MONITORING PROTOCOL")
-                            .font(.system(size: 11, weight: .black))
-                            .foregroundColor(isSurgicalCandidate ? .red : .green)
-                    }
-                    
-                    Text(isSurgicalCandidate
-                         ? "Patient meets definitive Brain Trauma Foundation operative guidelines. Activate operating room, notify on-call attending, draw crossmatch, initiate hyperosmolar bolus, and administer anticoagulation reversal immediately."
-                         : "Parameters are currently sub-critical. Admit to Neuro-ICU for hourly neurological exams, maintain MAP >80 mmHg, strict head-of-bed 30°, and obtain mandatory repeat non-contrast head CT in 6 hours.")
-                        .font(.system(size: 11, weight: .regular))
-                        .foregroundColor(Color(red: 0.25, green: 0.3, blue: 0.38))
-                        .lineSpacing(2)
-                }
-                .padding(12)
-                .background((isSurgicalCandidate ? Color.red : Color.green).opacity(0.08))
-                .cornerRadius(12)
-                .overlay(RoundedRectangle(cornerRadius: 12).stroke((isSurgicalCandidate ? Color.red : Color.green).opacity(0.3), lineWidth: 1.5))
             }
-            .padding()
-            .background(Color.white)
-            .cornerRadius(20)
-            .shadow(color: Color.black.opacity(0.04), radius: 8)
-            .padding(.horizontal)
-            
-            // Hyperosmolar Dosing Protocol
-            VStack(alignment: .leading, spacing: 12) {
-                HStack {
-                    Image(systemName: "cross.vial.fill")
-                        .foregroundColor(.teal)
-                    Text("Hyperosmolar Therapy Protocol")
-                        .font(.system(size: 13, weight: .bold))
-                        .foregroundColor(Color(red: 0.1, green: 0.12, blue: 0.18))
-                }
-                
-                VStack(alignment: .leading, spacing: 6) {
-                    Text("• Mannitol 20%: 1.0 g/kg IV bolus over 20 min (requires Foley catheter)")
-                        .font(.system(size: 11, weight: .medium))
-                    Text("• 3% Hypertonic Saline: 250 mL bolus over 15 min (target serum Na 145-155 mEq/L)")
-                        .font(.system(size: 11, weight: .medium))
-                    Text("• 23.4% Super-Saturated Saline: 30 mL central line push for acute pupillary arrest")
-                        .font(.system(size: 11, weight: .bold))
-                        .foregroundColor(.red)
-                }
-                .foregroundColor(Color(red: 0.25, green: 0.3, blue: 0.38))
-            }
-            .padding()
-            .background(Color(red: 0.94, green: 0.98, blue: 0.98))
-            .cornerRadius(18)
-            .overlay(RoundedRectangle(cornerRadius: 18).stroke(Color.teal.opacity(0.3), lineWidth: 1.5))
             .padding(.horizontal)
         }
+    }
+    
+    private var ctViewportWithCalipers: some View {
+        ZStack {
+            Image(currentCTImageName)
+                .resizable()
+                .scaledToFit()
+                .frame(height: 320)
+                .cornerRadius(16)
+            
+            VStack {
+                Spacer()
+                HStack {
+                    HStack(spacing: 6) {
+                        Image(systemName: "arrow.left.and.right")
+                            .font(.system(size: 11, weight: .bold))
+                        Text("CLOT: \(Int(clotThicknessMM)) mm")
+                            .font(.system(size: 12, weight: .black, design: .monospaced))
+                    }
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 5)
+                    .background(isThicknessBreached ? Color.red.opacity(0.85) : Color.black.opacity(0.75))
+                    .foregroundColor(.white)
+                    .cornerRadius(8)
+                    .overlay(RoundedRectangle(cornerRadius: 8).stroke(isThicknessBreached ? Color.red : Color.cyan, lineWidth: 1.5))
+                    
+                    Spacer()
+                    
+                    HStack(spacing: 6) {
+                        Image(systemName: "arrow.right.to.line")
+                            .font(.system(size: 11, weight: .bold))
+                        Text("SHIFT: \(String(format: "%.1f", midlineShiftMM)) mm")
+                            .font(.system(size: 12, weight: .black, design: .monospaced))
+                    }
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 5)
+                    .background(isShiftBreached ? Color.red.opacity(0.85) : Color.black.opacity(0.75))
+                    .foregroundColor(.white)
+                    .cornerRadius(8)
+                    .overlay(RoundedRectangle(cornerRadius: 8).stroke(isShiftBreached ? Color.red : Color.orange, lineWidth: 1.5))
+                }
+                .padding(12)
+            }
+        }
+        .frame(height: 320)
+        .background(Color.black)
+        .cornerRadius(18)
+        .overlay(RoundedRectangle(cornerRadius: 18).stroke(isSurgicalCandidate ? Color.red.opacity(0.6) : Color.black.opacity(0.1), lineWidth: 2))
+        .padding(.horizontal)
+    }
+    
+    private var decisionCockpitCard: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            HStack {
+                Text("Interactive Bedside Decision Cockpit")
+                    .font(.system(size: 14, weight: .bold))
+                    .foregroundColor(Color(red: 0.1, green: 0.12, blue: 0.18))
+                Spacer()
+                Text("EST. VOL: \(String(format: "%.0f", estimatedVolumeCc)) cc")
+                    .font(.system(size: 11, weight: .black))
+                    .foregroundColor(estimatedVolumeCc >= 30 ? .red : .indigo)
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 3)
+                    .background((estimatedVolumeCc >= 30 ? Color.red : Color.indigo).opacity(0.1))
+                    .cornerRadius(6)
+            }
+            
+            // Clot Thickness Slider
+            VStack(alignment: .leading, spacing: 4) {
+                HStack {
+                    Text("Clot Thickness / Diameter")
+                        .font(.system(size: 12, weight: .semibold))
+                    Spacer()
+                    Text("\(Int(clotThicknessMM)) mm \(isThicknessBreached ? "• BREACHED" : "• ACCEPTABLE")")
+                        .font(.system(size: 11, weight: .black))
+                        .foregroundColor(isThicknessBreached ? .red : .green)
+                }
+                Slider(value: $clotThicknessMM, in: 1...40, step: 1)
+                    .tint(isThicknessBreached ? .red : .indigo)
+            }
+            
+            // Midline Shift Slider
+            VStack(alignment: .leading, spacing: 4) {
+                HStack {
+                    Text("Midline Shift")
+                        .font(.system(size: 12, weight: .semibold))
+                    Spacer()
+                    Text("\(String(format: "%.1f", midlineShiftMM)) mm \(isShiftBreached ? "• BREACHED" : "• ACCEPTABLE")")
+                        .font(.system(size: 11, weight: .black))
+                        .foregroundColor(isShiftBreached ? .red : .green)
+                }
+                Slider(value: $midlineShiftMM, in: 0...20, step: 0.5)
+                    .tint(isShiftBreached ? .red : .indigo)
+            }
+            
+            // GCS Stepper
+            HStack {
+                VStack(alignment: .leading, spacing: 2) {
+                    Text("Glasgow Coma Scale (GCS)")
+                        .font(.system(size: 12, weight: .semibold))
+                    Text(isGCSBreached ? "Critical Coma (GCS ≤ 8 / Intubation Indicated)" : "Conscious / Responsive")
+                        .font(.system(size: 10))
+                        .foregroundColor(isGCSBreached ? .red : .secondary)
+                }
+                Spacer()
+                Stepper("\(gcsScore)", value: $gcsScore, in: 3...15)
+                    .font(.system(size: 13, weight: .black))
+            }
+            
+            // Pupil Status Picker
+            VStack(alignment: .leading, spacing: 4) {
+                Text("Pupillary Examination")
+                    .font(.system(size: 12, weight: .semibold))
+                Picker("Pupil Exam", selection: $pupilStatus) {
+                    Text("Bilateral Brisk & Reactive (Normal)").tag("Normal")
+                    Text("Ipsilateral Sluggish (Early CN III Compression)").tag("Ipsilateral Sluggish")
+                    Text("Unilateral Blown / Fixed (Uncal Herniation)").tag("Unilateral Blown / Fixed (Uncal Herniation)")
+                    Text("Bilateral Fixed & Dilated (Terminal Brainstem)").tag("Bilateral Fixed & Dilated")
+                }
+                .pickerStyle(.menu)
+                .padding(6)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(Color(red: 0.96, green: 0.97, blue: 0.99))
+                .cornerRadius(8)
+            }
+            
+            // Real-Time Verdict Box
+            verdictBox
+        }
+        .padding()
+        .background(Color.white)
+        .cornerRadius(20)
+        .shadow(color: Color.black.opacity(0.04), radius: 8)
+        .padding(.horizontal)
+    }
+    
+    private var verdictBox: some View {
+        VStack(alignment: .leading, spacing: 6) {
+            HStack {
+                Image(systemName: isSurgicalCandidate ? "exclamationmark.triangle.fill" : "checkmark.shield.fill")
+                    .foregroundColor(isSurgicalCandidate ? .red : .green)
+                Text(isSurgicalCandidate ? "EMERGENT SURGICAL OPERATIVE MANDATE" : "ICU CONSERVATIVE MONITORING PROTOCOL")
+                    .font(.system(size: 11, weight: .black))
+                    .foregroundColor(isSurgicalCandidate ? .red : .green)
+            }
+            
+            Text(isSurgicalCandidate
+                 ? "Patient meets definitive Brain Trauma Foundation operative guidelines. Activate operating room, notify on-call attending, draw crossmatch, initiate hyperosmolar bolus, and administer anticoagulation reversal immediately."
+                 : "Parameters are currently sub-critical. Admit to Neuro-ICU for hourly neurological exams, maintain MAP >80 mmHg, strict head-of-bed 30°, and obtain mandatory repeat non-contrast head CT in 6 hours.")
+                .font(.system(size: 11, weight: .regular))
+                .foregroundColor(Color(red: 0.25, green: 0.3, blue: 0.38))
+                .lineSpacing(2)
+        }
+        .padding(12)
+        .background((isSurgicalCandidate ? Color.red : Color.green).opacity(0.08))
+        .cornerRadius(12)
+        .overlay(RoundedRectangle(cornerRadius: 12).stroke((isSurgicalCandidate ? Color.red : Color.green).opacity(0.3), lineWidth: 1.5))
+    }
+    
+    private var hyperosmolarProtocolCard: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            HStack {
+                Image(systemName: "cross.vial.fill")
+                    .foregroundColor(.teal)
+                Text("Hyperosmolar Therapy Protocol")
+                    .font(.system(size: 13, weight: .bold))
+                    .foregroundColor(Color(red: 0.1, green: 0.12, blue: 0.18))
+            }
+            
+            VStack(alignment: .leading, spacing: 6) {
+                Text("• Mannitol 20%: 1.0 g/kg IV bolus over 20 min (requires Foley catheter)")
+                    .font(.system(size: 11, weight: .medium))
+                Text("• 3% Hypertonic Saline: 250 mL bolus over 15 min (target serum Na 145-155 mEq/L)")
+                    .font(.system(size: 11, weight: .medium))
+                Text("• 23.4% Super-Saturated Saline: 30 mL central line push for acute pupillary arrest")
+                    .font(.system(size: 11, weight: .bold))
+                    .foregroundColor(.red)
+            }
+            .foregroundColor(Color(red: 0.25, green: 0.3, blue: 0.38))
+        }
+        .padding()
+        .background(Color(red: 0.94, green: 0.98, blue: 0.98))
+        .cornerRadius(18)
+        .overlay(RoundedRectangle(cornerRadius: 18).stroke(Color.teal.opacity(0.3), lineWidth: 1.5))
+        .padding(.horizontal)
     }
     
     // MARK: - 2. Anticoagulation Reversal Section
