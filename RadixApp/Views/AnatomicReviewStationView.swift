@@ -1047,7 +1047,7 @@ public struct AuditReportModalView: View {
         let endpoints = [
             "http://192.168.4.42:7788/upload",
             "http://192.168.6.120:7788/upload",
-            "https://screendrop-relay.mohalex.workers.dev/upload"
+            "https://screendrop-relay.mohalex.workers.dev/upload?token=alex-screendrop-2026"
         ]
         
         func trySend(index: Int) {
