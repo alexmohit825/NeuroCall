@@ -150,23 +150,28 @@ struct LumbarMicrodiscectomyCard: View {
 // MARK: - 3. Thoracolumbar Pedicle Screws Card
 struct ThoracolumbarPedicleScrewsCard: View {
     var body: some View {
-        AtlasCardContainer(
-            badge: "SPINAL INSTRUMENTATION",
-            color: .orange,
-            title: "Thoracolumbar Pedicle Screw Placement",
-            indication: "Unstable fractures, spondylolisthesis, spinal deformity, and multi-level fusion constructs.",
-            steps: [
-                ("1. Entry Point Identification (Roy-Camille / Weinstein)", "Lumbar: Intersection of the vertical line through the lateral border of the superior articular process (SAP) and the horizontal line bisecting the transverse process (at the mamillary process)."),
-                ("2. Thoracic Entry Point", "T1-T10: Junction of the superior border of the transverse process and the lateral 1/3 of the superior articular facet (base of the superior facet)."),
-                ("3. Cortical Breach & Gearshift Probing", "Decorticate the entry site with an awl or burr. Introduce the blunt Lenke pedicle probe with the tip directed laterally initially to avoid medial canal breach. Once in the pedicle body (15–20 mm), rotate probe medially to enter the vertebral body. Depth typically 35–45 mm."),
-                ("4. 5-Wall Ball-Tipped Palpation", "Inspect all 5 bony borders with a ball-tipped sound: Medial, Lateral, Superior, Inferior, and Anterior Floor. Ensure no soft tissue drop-off."),
-                ("5. Tapping & Screw Placement", "Tap 1 mm under the planned screw diameter. Insert polyaxial screw matching pedicle dimensions (typically 6.5 mm or 7.5 mm in lumbar, 5.0–6.0 mm in thoracic).")
-            ],
-            pimpingPearls: [
-                "Medial breach danger: Spinal canal impingement and traversing nerve root injury. Lateral breach: Psoas irritation or vascular injury (great vessels in anterior floor breach).",
-                "Triggered EMG testing: Screw stimulation threshold > 11–15 mA generally confirms an intact medial pedicle cortex; < 8 mA indicates a medial pedicle breach."
-            ]
-        )
+        VStack(spacing: 16) {
+            // Interactive Vector Schematic: Lumbar Vertebra & Calipers
+            LumbarVertebraTrajectoryView()
+            
+            AtlasCardContainer(
+                badge: "SPINAL INSTRUMENTATION",
+                color: .orange,
+                title: "Thoracolumbar Pedicle Screw Placement",
+                indication: "Unstable fractures, spondylolisthesis, spinal deformity, and multi-level fusion constructs.",
+                steps: [
+                    ("1. Entry Point Identification (Roy-Camille / Weinstein)", "Lumbar: Intersection of the vertical line through the lateral border of the superior articular process (SAP) and the horizontal line bisecting the transverse process (at the mamillary process)."),
+                    ("2. Thoracic Entry Point", "T1-T10: Junction of the superior border of the transverse process and the lateral 1/3 of the superior articular facet (base of the superior facet)."),
+                    ("3. Cortical Breach & Gearshift Probing", "Decorticate the entry site with an awl or burr. Introduce the blunt Lenke pedicle probe with the tip directed laterally initially to avoid medial canal breach. Once in the pedicle body (15–20 mm), rotate probe medially to enter the vertebral body. Depth typically 35–45 mm."),
+                    ("4. 5-Wall Ball-Tipped Palpation", "Inspect all 5 bony borders with a ball-tipped sound: Medial, Lateral, Superior, Inferior, and Anterior Floor. Ensure no soft tissue drop-off."),
+                    ("5. Tapping & Screw Placement", "Tap 1 mm under the planned screw diameter. Insert polyaxial screw matching pedicle dimensions (typically 6.5 mm or 7.5 mm in lumbar, 5.0–6.0 mm in thoracic).")
+                ],
+                pimpingPearls: [
+                    "Medial breach danger: Spinal canal impingement and traversing nerve root injury. Lateral breach: Psoas irritation or vascular injury (great vessels in anterior floor breach).",
+                    "Triggered EMG testing: Screw stimulation threshold > 11–15 mA generally confirms an intact medial pedicle cortex; < 8 mA indicates a medial pedicle breach."
+                ]
+            )
+        }
     }
 }
 

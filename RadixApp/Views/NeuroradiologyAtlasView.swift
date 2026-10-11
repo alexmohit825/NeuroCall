@@ -77,7 +77,10 @@ struct CranialNeuroradiologyView: View {
     var body: some View {
         VStack(spacing: 16) {
             
-            // 1. Basal Cisterns & Brainstem
+            // 1. Interactive Vector Schematic: Ventricular System
+            VentricularSystemDiagramView()
+            
+            // 2. Basal Cisterns & Brainstem
             NeuroAnatomyCard(
                 badge: "CRANIAL BASAL CISTERNS",
                 color: .indigo,
@@ -92,7 +95,10 @@ struct CranialNeuroradiologyView: View {
                 roundsQuestion: "If the ambient cistern is asymmetric or effaced on one side, what is occurring? Early uncal herniation compressing the ipsilateral midbrain and posterior cerebral artery (PCA)."
             )
             
-            // 2. Vascular Territories
+            // 3. Interactive Vector Schematic: Circle of Willis & Aneurysm Atlas
+            CircleOfWillisDiagramView()
+            
+            // 4. Vascular Territories
             NeuroAnatomyCard(
                 badge: "CEREBROVASCULAR TERRITORIES",
                 color: .purple,
