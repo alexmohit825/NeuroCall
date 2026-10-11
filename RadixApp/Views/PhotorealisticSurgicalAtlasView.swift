@@ -498,7 +498,7 @@ public struct PlateCanvasRenderer: View {
         
         // Cerebellar Hemisphere (Shaded Pinkish Gray)
         let cerebellumPath = Path(ellipseIn: CGRect(x: w * 0.28, y: h * 0.24, width: w * 0.52, height: h * 0.52))
-        context.fill(cerebellarPath, with: .color(Color(red: 0.72, green: 0.64, blue: 0.66).opacity(0.9)))
+        context.fill(cerebellumPath, with: .color(Color(red: 0.72, green: 0.64, blue: 0.66).opacity(0.9)))
         
         // Transverse Sinus (Superior border)
         var transSinus = Path()

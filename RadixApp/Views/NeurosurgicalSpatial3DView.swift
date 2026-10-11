@@ -1147,10 +1147,19 @@ public struct SpatialAnatomicalPin: Identifiable {
     public let position3D: SCNVector3
 }
 
-public struct CameraPreset: Hashable {
+public struct CameraPreset: Identifiable, Hashable, Equatable {
+    public var id: String { shortName }
     public let shortName: String
     public let position: SCNVector3
     public let eulerAngles: SCNVector3
+    
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(shortName)
+    }
+    
+    public static func == (lhs: CameraPreset, rhs: CameraPreset) -> Bool {
+        lhs.shortName == rhs.shortName
+    }
     
     public static let anterolateral = CameraPreset(
         shortName: "Pterional 45°",
