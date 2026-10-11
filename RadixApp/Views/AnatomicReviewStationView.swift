@@ -365,6 +365,7 @@ public struct AnatomicReviewStationView: View {
     @State private var selectedCategory = "All"
     @State private var selectedPlateId: String = "sa_aneurysm"
     @State private var copiedReport = false
+    @State private var showingReportSheet = false
     @State private var zoomScale: CGFloat = 1.0
     
     let categories = ["All", "Surgical Atlas", "2 AM Crisis CT", "Frontline ER Consults"]
@@ -434,20 +435,37 @@ public struct AnatomicReviewStationView: View {
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
-                    Button(action: {
-                        let report = auditManager.generateAuditReportMarkdown()
-                        UIPasteboard.general.string = report
-                        copiedReport = true
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                            copiedReport = false
+                    HStack(spacing: 8) {
+                        Button(action: {
+                            showingReportSheet = true
+                        }) {
+                            HStack(spacing: 4) {
+                                Image(systemName: "list.bullet.clipboard.fill")
+                                Text("View & Sync")
+                            }
+                            .font(.system(size: 12, weight: .bold))
+                            .foregroundColor(ObsidianTheme.neonCyan)
+                            .padding(.horizontal, 8)
+                            .padding(.vertical, 4)
+                            .background(ObsidianTheme.neonCyan.opacity(0.15))
+                            .cornerRadius(6)
                         }
-                    }) {
-                        HStack(spacing: 4) {
-                            Image(systemName: copiedReport ? "checkmark.circle.fill" : "doc.on.doc.fill")
-                            Text(copiedReport ? "Copied Report!" : "Copy Report")
+                        
+                        Button(action: {
+                            let report = auditManager.generateAuditReportMarkdown()
+                            UIPasteboard.general.string = report
+                            copiedReport = true
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                copiedReport = false
+                            }
+                        }) {
+                            HStack(spacing: 4) {
+                                Image(systemName: copiedReport ? "checkmark.circle.fill" : "doc.on.doc.fill")
+                                Text(copiedReport ? "Copied!" : "Copy")
+                            }
+                            .font(.system(size: 12, weight: .bold))
+                            .foregroundColor(copiedReport ? .green : .white.opacity(0.8))
                         }
-                        .font(.system(size: 12, weight: .bold))
-                        .foregroundColor(copiedReport ? .green : ObsidianTheme.neonCyan)
                     }
                 }
                 
@@ -456,63 +474,67 @@ public struct AnatomicReviewStationView: View {
                         .foregroundColor(ObsidianTheme.neonAmber)
                 }
             }
+            .sheet(isPresented: $showingReportSheet) {
+                AuditReportModalView(auditManager: auditManager)
+            }
         }
     }
     
     // MARK: - Progress & KPI Header
     private var auditProgressHeader: some View {
-        HStack(spacing: 12) {
-            VStack(alignment: .leading, spacing: 2) {
-                Text("ANATOMIC REALITY CHECK AUDIT")
-                    .font(.system(size: 9, weight: .black))
-                    .tracking(1.4)
-                    .foregroundColor(ObsidianTheme.neonAmber)
-                Text("\(auditManager.keepCount + auditManager.replaceCount) / \(auditManager.plates.count) Reviewed")
-                    .font(.system(size: 14, weight: .heavy))
-                    .foregroundColor(.white)
-            }
-            
-            Spacer()
-            
-            // KPI Badges
-            HStack(spacing: 6) {
-                HStack(spacing: 3) {
-                    Circle().fill(Color.green).frame(width: 7, height: 7)
-                    Text("\(auditManager.keepCount) KEEP")
-                        .font(.system(size: 10, weight: .bold))
-                        .foregroundColor(.green)
+        Button(action: { showingReportSheet = true }) {
+            HStack(spacing: 12) {
+                VStack(alignment: .leading, spacing: 2) {
+                    HStack(spacing: 6) {
+                        Text("ANATOMIC REALITY CHECK AUDIT")
+                            .font(.system(size: 9, weight: .black))
+                            .tracking(1.4)
+                            .foregroundColor(ObsidianTheme.neonAmber)
+                        Image(systemName: "list.bullet.clipboard.fill")
+                            .font(.system(size: 10))
+                            .foregroundColor(ObsidianTheme.neonCyan)
+                    }
+                    Text("\(auditManager.keepCount + auditManager.replaceCount) / \(auditManager.plates.count) Reviewed  •  Tap to View Report")
+                        .font(.system(size: 12, weight: .bold))
+                        .foregroundColor(.white)
                 }
-                .padding(.horizontal, 7)
-                .padding(.vertical, 4)
-                .background(Color.green.opacity(0.12))
-                .cornerRadius(6)
                 
-                HStack(spacing: 3) {
-                    Circle().fill(Color.red).frame(width: 7, height: 7)
-                    Text("\(auditManager.replaceCount) RECREATE")
-                        .font(.system(size: 10, weight: .bold))
-                        .foregroundColor(.red)
-                }
-                .padding(.horizontal, 7)
-                .padding(.vertical, 4)
-                .background(Color.red.opacity(0.12))
-                .cornerRadius(6)
+                Spacer()
                 
-                HStack(spacing: 3) {
-                    Circle().fill(Color.yellow).frame(width: 7, height: 7)
-                    Text("\(auditManager.undecidedCount) PENDING")
-                        .font(.system(size: 10, weight: .bold))
-                        .foregroundColor(.yellow)
+                // KPI Badges
+                HStack(spacing: 6) {
+                    HStack(spacing: 3) {
+                        Circle().fill(Color.green).frame(width: 7, height: 7)
+                        Text("\(auditManager.keepCount) KEEP")
+                            .font(.system(size: 10, weight: .bold))
+                            .foregroundColor(.green)
+                    }
+                    .padding(.horizontal, 7)
+                    .padding(.vertical, 4)
+                    .background(Color.green.opacity(0.12))
+                    .cornerRadius(6)
+                    
+                    HStack(spacing: 3) {
+                        Circle().fill(Color.red).frame(width: 7, height: 7)
+                        Text("\(auditManager.replaceCount) RECREATE")
+                            .font(.system(size: 10, weight: .bold))
+                            .foregroundColor(.red)
+                    }
+                    .padding(.horizontal, 7)
+                    .padding(.vertical, 4)
+                    .background(Color.red.opacity(0.12))
+                    .cornerRadius(6)
+                    
+                    Image(systemName: "chevron.right")
+                        .font(.system(size: 11, weight: .bold))
+                        .foregroundColor(ObsidianTheme.neonCyan)
                 }
-                .padding(.horizontal, 7)
-                .padding(.vertical, 4)
-                .background(Color.yellow.opacity(0.12))
-                .cornerRadius(6)
             }
+            .padding(.horizontal, 16)
+            .padding(.vertical, 10)
+            .background(Color(red: 0.12, green: 0.14, blue: 0.18))
         }
-        .padding(.horizontal, 16)
-        .padding(.vertical, 10)
-        .background(Color(red: 0.12, green: 0.14, blue: 0.18))
+        .buttonStyle(.plain)
     }
     
     // MARK: - Category Selector
@@ -810,5 +832,259 @@ struct FlowLayout: Layout {
             currentX += size.width + spacing
             lineHeight = max(lineHeight, size.height)
         }
+    }
+}
+
+// MARK: - Audit Report Modal View
+public struct AuditReportModalView: View {
+    @ObservedObject var auditManager: PlateAuditManager
+    @Environment(\.dismiss) var dismiss
+    
+    @State private var syncStatus: String? = nil
+    @State private var isSyncing: Bool = false
+    @State private var copied: Bool = false
+    
+    public var body: some View {
+        NavigationStack {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 20) {
+                    // Header Summary Banner
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("ANATOMIC AUDIT REPORT")
+                            .font(.system(size: 11, weight: .black))
+                            .tracking(1.5)
+                            .foregroundColor(ObsidianTheme.neonAmber)
+                        
+                        Text("Trephine Plate Quality & Anatomic Review")
+                            .font(.system(size: 20, weight: .bold))
+                            .foregroundColor(.white)
+                        
+                        HStack(spacing: 8) {
+                            HStack(spacing: 4) {
+                                Circle().fill(Color.green).frame(width: 8, height: 8)
+                                Text("\(auditManager.keepCount) Approved")
+                                    .font(.system(size: 12, weight: .bold))
+                                    .foregroundColor(.green)
+                            }
+                            .padding(.horizontal, 10)
+                            .padding(.vertical, 6)
+                            .background(Color.green.opacity(0.12))
+                            .cornerRadius(8)
+                            
+                            HStack(spacing: 4) {
+                                Circle().fill(Color.red).frame(width: 8, height: 8)
+                                Text("\(auditManager.replaceCount) Recreate")
+                                    .font(.system(size: 12, weight: .bold))
+                                    .foregroundColor(.red)
+                            }
+                            .padding(.horizontal, 10)
+                            .padding(.vertical, 6)
+                            .background(Color.red.opacity(0.12))
+                            .cornerRadius(8)
+                            
+                            HStack(spacing: 4) {
+                                Circle().fill(Color.yellow).frame(width: 8, height: 8)
+                                Text("\(auditManager.undecidedCount) Pending")
+                                    .font(.system(size: 12, weight: .bold))
+                                    .foregroundColor(.yellow)
+                            }
+                            .padding(.horizontal, 10)
+                            .padding(.vertical, 6)
+                            .background(Color.yellow.opacity(0.12))
+                            .cornerRadius(8)
+                        }
+                    }
+                    .padding()
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .background(Color(red: 0.12, green: 0.14, blue: 0.18))
+                    .cornerRadius(14)
+                    
+                    // 1-Tap Autonomous Sync to PC Action
+                    VStack(spacing: 12) {
+                        Button(action: syncAuditToPC) {
+                            HStack(spacing: 8) {
+                                if isSyncing {
+                                    ProgressView()
+                                        .tint(.black)
+                                } else {
+                                    Image(systemName: "antenna.radiowaves.left.and.right")
+                                        .font(.system(size: 16, weight: .bold))
+                                }
+                                Text(isSyncing ? "Transmitting to PC..." : "⚡ Sync Audit Directly to Antigravity PC")
+                                    .font(.system(size: 14, weight: .black))
+                            }
+                            .foregroundColor(.black)
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 14)
+                            .background(ObsidianTheme.neonCyan)
+                            .cornerRadius(12)
+                            .shadow(color: ObsidianTheme.neonCyan.opacity(0.3), radius: 8, y: 3)
+                        }
+                        .disabled(isSyncing)
+                        
+                        if let status = syncStatus {
+                            Text(status)
+                                .font(.system(size: 12, weight: .bold))
+                                .foregroundColor(status.contains("✅") ? .green : .red)
+                                .frame(maxWidth: .infinity, alignment: .center)
+                        }
+                        
+                        HStack(spacing: 12) {
+                            Button(action: {
+                                UIPasteboard.general.string = auditManager.generateAuditReportMarkdown()
+                                copied = true
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 2) { copied = false }
+                            }) {
+                                HStack(spacing: 6) {
+                                    Image(systemName: copied ? "checkmark.circle.fill" : "doc.on.doc.fill")
+                                    Text(copied ? "Copied!" : "Copy Markdown")
+                                }
+                                .font(.system(size: 12, weight: .bold))
+                                .foregroundColor(.white)
+                                .frame(maxWidth: .infinity)
+                                .padding(.vertical, 10)
+                                .background(Color.white.opacity(0.08))
+                                .cornerRadius(8)
+                            }
+                            
+                            ShareLink(item: auditManager.generateAuditReportMarkdown()) {
+                                HStack(spacing: 6) {
+                                    Image(systemName: "square.and.arrow.up")
+                                    Text("Share Report")
+                                }
+                                .font(.system(size: 12, weight: .bold))
+                                .foregroundColor(.white)
+                                .frame(maxWidth: .infinity)
+                                .padding(.vertical, 10)
+                                .background(Color.white.opacity(0.08))
+                                .cornerRadius(8)
+                            }
+                        }
+                    }
+                    
+                    // Detailed List of All Plates by Category
+                    VStack(alignment: .leading, spacing: 16) {
+                        Text("DETAILED PLATE BREAKDOWN")
+                            .font(.system(size: 11, weight: .black))
+                            .tracking(1.4)
+                            .foregroundColor(ObsidianTheme.neonAmber)
+                        
+                        let categories = ["Surgical Atlas", "2 AM Crisis CT", "Frontline ER Consults"]
+                        ForEach(categories, id: \.self) { cat in
+                            VStack(alignment: .leading, spacing: 8) {
+                                Text(cat.uppercased())
+                                    .font(.system(size: 12, weight: .heavy))
+                                    .foregroundColor(ObsidianTheme.neonCyan)
+                                    .padding(.top, 4)
+                                
+                                let catPlates = auditManager.plates.filter { $0.category == cat }
+                                ForEach(catPlates) { plate in
+                                    HStack(alignment: .top, spacing: 10) {
+                                        Circle()
+                                            .fill(plate.status == .keep ? Color.green : (plate.status == .replace ? Color.red : Color.yellow))
+                                            .frame(width: 8, height: 8)
+                                            .padding(.top, 5)
+                                        
+                                        VStack(alignment: .leading, spacing: 4) {
+                                            HStack {
+                                                Text(plate.title)
+                                                    .font(.system(size: 13, weight: .bold))
+                                                    .foregroundColor(.white)
+                                                Spacer()
+                                                Text(plate.status.rawValue)
+                                                    .font(.system(size: 10, weight: .bold))
+                                                    .foregroundColor(plate.status == .keep ? .green : (plate.status == .replace ? .red : .yellow))
+                                            }
+                                            
+                                            if !plate.defectTags.isEmpty {
+                                                Text("Defects: " + plate.defectTags.joined(separator: ", "))
+                                                    .font(.system(size: 11))
+                                                    .foregroundColor(.red.opacity(0.85))
+                                            }
+                                            
+                                            if !plate.notes.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                                                Text("Attending Note: \(plate.notes)")
+                                                    .font(.system(size: 11, weight: .medium))
+                                                    .foregroundColor(ObsidianTheme.neonAmber)
+                                            }
+                                        }
+                                    }
+                                    .padding(.vertical, 6)
+                                    .padding(.horizontal, 10)
+                                    .background(Color(red: 0.10, green: 0.12, blue: 0.16))
+                                    .cornerRadius(8)
+                                }
+                            }
+                        }
+                    }
+                }
+                .padding()
+            }
+            .background(Color(red: 0.08, green: 0.09, blue: 0.12))
+            .navigationTitle("Audit Summary")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("Done") { dismiss() }
+                        .foregroundColor(ObsidianTheme.neonAmber)
+                }
+            }
+        }
+    }
+    
+    private func syncAuditToPC() {
+        isSyncing = true
+        syncStatus = nil
+        
+        let report = auditManager.generateAuditReportMarkdown()
+        guard let data = report.data(using: .utf8) else {
+            isSyncing = false
+            syncStatus = "❌ Encoding Error"
+            return
+        }
+        
+        // 1. Try local Wi-Fi ScreenDrop Server
+        guard let localUrl = URL(string: "http://192.168.6.120:7788/upload") else { return }
+        var request = URLRequest(url: localUrl)
+        request.httpMethod = "POST"
+        request.setValue("text/plain", forHTTPHeaderField: "Content-Type")
+        request.httpBody = data
+        request.timeoutInterval = 3
+        
+        URLSession.shared.dataTask(with: request) { _, response, error in
+            if let httpResp = response as? HTTPURLResponse, httpResp.statusCode == 200 {
+                DispatchQueue.main.async {
+                    self.isSyncing = false
+                    self.syncStatus = "✅ Transmitted to Antigravity PC (Wi-Fi 7788)!"
+                }
+            } else {
+                // 2. Fallback to Cloudflare Edge Relay
+                guard let edgeUrl = URL(string: "https://screendrop-relay.mohalex.workers.dev/upload") else {
+                    DispatchQueue.main.async {
+                        self.isSyncing = false
+                        self.syncStatus = "❌ Local upload failed (Offline)"
+                    }
+                    return
+                }
+                var edgeReq = URLRequest(url: edgeUrl)
+                edgeReq.httpMethod = "POST"
+                edgeReq.setValue("text/plain", forHTTPHeaderField: "Content-Type")
+                edgeReq.setValue("alex-screendrop-2026", forHTTPHeaderField: "X-Auth-Token")
+                edgeReq.httpBody = data
+                edgeReq.timeoutInterval = 5
+                
+                URLSession.shared.dataTask(with: edgeReq) { _, edgeResp, _ in
+                    DispatchQueue.main.async {
+                        self.isSyncing = false
+                        if let edgeHttp = edgeResp as? HTTPURLResponse, edgeHttp.statusCode == 200 {
+                            self.syncStatus = "✅ Transmitted to Antigravity PC (Cloudflare Relay)!"
+                        } else {
+                            self.syncStatus = "⚠️ Offline: Copied to Clipboard instead!"
+                            UIPasteboard.general.string = report
+                        }
+                    }
+                }.resume()
+            }
+        }.resume()
     }
 }
