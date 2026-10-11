@@ -24,13 +24,13 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: 🛠️ Select Xcode 16
+      - name: 🛠️ Select Xcode & Warm Up Simulator Runtime
         run: |
-          echo "Available Xcode installations:"
-          ls -d /Applications/Xcode*.app
-          sudo xcode-select -s /Applications/Xcode_16.2.app || sudo xcode-select -s /Applications/Xcode_16.1.app || sudo xcode-select -s /Applications/Xcode_16.0.app || sudo xcode-select -s /Applications/Xcode.app
+          echo "Selecting Xcode 16.4..."
+          sudo xcode-select -s /Applications/Xcode_16.4.app || sudo xcode-select -s /Applications/Xcode_16.2.app || sudo xcode-select -s /Applications/Xcode.app
           xcodebuild -version
           swift --version
+          xcrun simctl list > /dev/null || true
 
       - name: ⚙️ Install XcodeGen
         run: brew install xcodegen
