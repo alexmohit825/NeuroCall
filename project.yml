@@ -9,7 +9,7 @@ options:
 settings:
   base:
     PRODUCT_NAME: NeuroCall
-    PRODUCT_BUNDLE_IDENTIFIER: com.AlexMohit.NeuroCall
+    PRODUCT_BUNDLE_IDENTIFIER: com.AlexMohit.Trephine
     DEVELOPMENT_TEAM: "523MJL63MC"
     CODE_SIGN_STYLE: Automatic
     SWIFT_VERSION: "5.9"
@@ -32,7 +32,7 @@ targets:
       - path: Assets.xcassets
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: com.AlexMohit.NeuroCall
+        PRODUCT_BUNDLE_IDENTIFIER: com.AlexMohit.Trephine
         PRODUCT_NAME: NeuroCall
         INFOPLIST_FILE: Info.plist
         TARGETED_DEVICE_FAMILY: "1,2"
