@@ -496,52 +496,6 @@ public enum SurgicalPlateType: String, CaseIterable {
                     surgicalPearl: "Identify opticocarotid triangle before any aneurysm dissection for early proximal vascular control."
                 )
             ]
-        case .orbitozygomatic:
-            return [
-                SurgicalCallout(
-                    id: "oz_rim",
-                    title: "Orbitozygomatic Osteotomy",
-                    structureType: "SKULL BASE OSTEOTOMY",
-                    color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.72,
-                    normalizedY: 0.32,
-                    description: "Two-piece osteotomy mobilizing superior and lateral orbital rim plus zygomatic arch downward.",
-                    surgicalPearl: "Provides flush subfrontal and transsylvian trajectory to basilar apex and high carotid bifurcation with minimal brain retraction."
-                ),
-                SurgicalCallout(
-                    id: "oz_basilar",
-                    title: "Basilar Apex & P1 Branches",
-                    structureType: "POSTERIOR CIRCULATION",
-                    color: ObsidianTheme.neonRose,
-                    normalizedX: 0.48,
-                    normalizedY: 0.40,
-                    description: "Basilar artery bifurcation situated between cerebral peduncles, supplying posterior cerebral (P1) and superior cerebellar (SCA) arteries.",
-                    surgicalPearl: "Preserve posterior thalamoperforating vessels springing from posterior wall of basilar tip; avulsion causes coma."
-                )
-            ]
-        case .retrosigmoid:
-            return [
-                SurgicalCallout(
-                    id: "rs_cn78",
-                    title: "CN VII & CN VIII Complex",
-                    structureType: "ACOUSTICOFACIAL BUNDLE",
-                    color: ObsidianTheme.neonCyan,
-                    normalizedX: 0.60,
-                    normalizedY: 0.48,
-                    description: "Courses across cerebellopontine angle cistern into internal acoustic meatus.",
-                    surgicalPearl: "CN VII (facial) is consistently positioned anterior to CN VIII (cochleovestibular). Avoid bipolar cautery within 2 mm of nerve bundle."
-                ),
-                SurgicalCallout(
-                    id: "rs_aica",
-                    title: "AICA Vascular Loop",
-                    structureType: "ARTERIAL LOOP",
-                    color: ObsidianTheme.neonRose,
-                    normalizedX: 0.54,
-                    normalizedY: 0.58,
-                    description: "Originates from basilar artery, loops into the porus acusticus, and supplies internal auditory canal via labyrinthine artery.",
-                    surgicalPearl: "Spasm or traction on labyrinthine artery causes instantaneous, irreversible sensorineural deafness."
-                )
-            ]
         case .retrosigmoid:
             return [
                 SurgicalCallout(
