@@ -21,6 +21,16 @@ jobs:
     steps:
       - name: 📥 Checkout Repository
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 🛠️ Select Xcode 26.x (iOS 26+ SDK)
+        run: |
+          echo "Selecting Xcode 26.x..."
+          sudo xcode-select -s /Applications/Xcode_26.3.0.app || sudo xcode-select -s /Applications/Xcode_26.3.app || sudo xcode-select -s /Applications/Xcode_26.app || sudo xcode-select -s /Applications/Xcode.app
+          xcodebuild -version
+          swift --version
+          xcrun simctl list > /dev/null || true
 
       - name: ⚙️ Install XcodeGen
         run: brew install xcodegen
@@ -72,5 +82,5 @@ jobs:
             -authenticationKeyPath ~/.appstoreconnect/private_keys/AuthKey_38F6WA87DU.p8
           echo "=========================================================="
           echo "🎉 NeuroCall Build Successfully Delivered to Apple TestFlight!"
-          echo "Target Bundle: com.AlexMohit.NeuroCall"
+          echo "Target Bundle: com.AlexMohit.Trephine"
           echo "=========================================================="
