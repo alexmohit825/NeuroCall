@@ -1,7 +1,7 @@
 import SwiftUI
 
 // MARK: - ER Neurosurgical Consults Suite (Cranial & Spinal)
-// Synthesized directly from Greenberg's Handbook of Neurosurgery, Kaloostian Neurosurgery Outlines,
+// Synthesized from Brain Trauma Foundation (BTF) Guidelines, Congress of Neurological Surgeons (CNS) Guidelines,
 // and Ellenbogen Principles of Neurosurgery.
 // Featuring 8K-styled authentic clinical radiological plates, stepwise clinical triage,
 // operative indications, catastrophic pitfalls, and attending SBAR briefing scripts.
@@ -35,8 +35,8 @@ public struct ERConsultsView: View {
                 // Clinical Triage & Acuity Badge
                 acuitySummaryCard
                 
-                // Greenberg Stepwise Management Protocol (4 Phases)
-                greenbergStepwiseProtocolCard
+                // Stepwise Management Protocol (4 Phases)
+                stepwiseProtocolCard
                 
                 // Catastrophic Pitfalls & Hazard Avoidance
                 catastrophicPitfallsCard
@@ -290,13 +290,13 @@ public struct ERConsultsView: View {
         .padding(.horizontal, 16)
     }
     
-    // MARK: - Greenberg Stepwise Protocol Card
-    private var greenbergStepwiseProtocolCard: some View {
+    // MARK: - Stepwise Emergency Protocol Card
+    private var stepwiseProtocolCard: some View {
         VStack(alignment: .leading, spacing: 12) {
             HStack {
                 Image(systemName: "list.number")
                     .foregroundColor(ObsidianTheme.neonCyan)
-                Text("GREENBERG STEPWISE MANAGEMENT PROTOCOL")
+                Text("STEPWISE EMERGENCY MANAGEMENT PROTOCOL")
                     .font(.system(size: 10, weight: .black))
                     .tracking(1.4)
                     .foregroundColor(ObsidianTheme.neonCyan)
@@ -423,7 +423,7 @@ struct ERConsultSbarSheet: View {
         "Emergency imaging demonstrates: \(pearl)."
 
         ASSESSMENT:
-        "Based on Greenberg guidelines, this patient requires immediate neurosurgical intervention: \(operativeRecommendation)."
+        "Based on acute neurosurgical guidelines, this patient requires immediate neurosurgical intervention: \(operativeRecommendation)."
 
         RECOMMENDATION:
         "I recommend securing the airway, administering emergency pharmacotherapy, drawing baseline type & screen and coags, and mobilizing the operating room team immediately."

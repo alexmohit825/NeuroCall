@@ -115,15 +115,15 @@ public class PlateAuditManager: ObservableObject {
     }
     
     public static let defaultPlates: [ReviewPlateItem] = [
-        // MARK: - 1. Surgical Atlas Corridors (12 plates)
+        // MARK: - 1. Surgical Atlas Corridors (4 approved plates)
         ReviewPlateItem(
             id: "sa_aneurysm",
             imageName: "plate_aneurysm",
             title: "Anterior Circulation Aneurysm Clipping",
             category: "Surgical Atlas",
-            clinicalContext: "Acom, Pcom, and MCA bifurcation clipping windows via pterional/OZ corridor.",
+            clinicalContext: "Acom, Pcom, and MCA bifurcation clipping windows via pterional corridor.",
             anatomicalChecklist: ["Parent vessel control (ICA/A1/M1)", "Perforator visualization", "Clip blade trajectory"],
-            status: .undecided, defectTags: [], notes: ""
+            status: .keep, defectTags: [], notes: "Authentic intraoperative neurovascular corridor plate."
         ),
         ReviewPlateItem(
             id: "sa_pterional",
@@ -132,16 +132,7 @@ public class PlateAuditManager: ObservableObject {
             category: "Surgical Atlas",
             clinicalContext: "Standard pterional craniotomy, sphenoid ridge flattening to meningo-orbital band.",
             anatomicalChecklist: ["Frontal boss bone removal", "Sphenoid ridge flushness", "Sylvian fissure exposure"],
-            status: .undecided, defectTags: [], notes: ""
-        ),
-        ReviewPlateItem(
-            id: "sa_oz",
-            imageName: "plate_orbitozygomatic",
-            title: "Orbitozygomatic Skull Base Corridor",
-            category: "Surgical Atlas",
-            clinicalContext: "Two-piece OZ osteotomy, superior orbital rim, zygomatic arch for basilar apex.",
-            anatomicalChecklist: ["Orbital rim cut accuracy", "Subfrontal flat corridor", "Periorbita preservation"],
-            status: .undecided, defectTags: [], notes: ""
+            status: .keep, defectTags: [], notes: "Core cranial operative corridor."
         ),
         ReviewPlateItem(
             id: "sa_retrosigmoid",
@@ -150,16 +141,7 @@ public class PlateAuditManager: ObservableObject {
             category: "Surgical Atlas",
             clinicalContext: "Retromastoid craniectomy exposing transverse-sigmoid junction and CN VII/VIII.",
             anatomicalChecklist: ["Sinus edge margins", "Petrosal vein (Dandy)", "Acousticofacial bundle"],
-            status: .undecided, defectTags: [], notes: ""
-        ),
-        ReviewPlateItem(
-            id: "sa_far_lateral",
-            imageName: "plate_far_lateral",
-            title: "Far-Lateral Suboccipital Transcondylar",
-            category: "Surgical Atlas",
-            clinicalContext: "Vertebral artery V3 mobilization, condylectomy, PICA origin for lower clival access.",
-            anatomicalChecklist: ["V3 vertebral artery loop", "Condyle resection depth (≤50%)", "Hypoglossal canal"],
-            status: .undecided, defectTags: [], notes: ""
+            status: .keep, defectTags: [], notes: "CPA operative corridor."
         ),
         ReviewPlateItem(
             id: "sa_endonasal_sellar",
@@ -168,70 +150,7 @@ public class PlateAuditManager: ObservableObject {
             category: "Surgical Atlas",
             clinicalContext: "Transsphenoidal binostril approach, carotid protuberances, medial OCR, sellar floor.",
             anatomicalChecklist: ["Carotid siphon prominences", "Optico-carotid recess (OCR)", "Sellar dural exposure"],
-            status: .undecided, defectTags: [], notes: ""
-        ),
-        ReviewPlateItem(
-            id: "sa_chiari",
-            imageName: "plate_chiari",
-            title: "Suboccipital Chiari C1 Decompression",
-            category: "Surgical Atlas",
-            clinicalContext: "Foramen magnum decompression with C1 posterior arch complete laminectomy.",
-            anatomicalChecklist: ["C1 arch completely resected", "Descending tonsils decompressed", "PICA loops identified"],
-            status: .undecided, defectTags: [], notes: ""
-        ),
-        ReviewPlateItem(
-            id: "sa_trauma",
-            imageName: "plate_trauma",
-            title: "Trauma Decompressive Hemicraniectomy",
-            category: "Surgical Atlas",
-            clinicalContext: "12x15 cm bone flap extending across frontal boss and flush with middle fossa floor.",
-            anatomicalChecklist: ["Frontal cut close to midline (<2-3 cm)", "Temporal bone flush to floor", "Dural hitching sutures"],
-            status: .undecided, defectTags: [], notes: ""
-        ),
-        ReviewPlateItem(
-            id: "sa_kocher",
-            imageName: "plate_kocher",
-            title: "Kocher's Point Ventriculostomy",
-            category: "Surgical Atlas",
-            clinicalContext: "11 cm from nasion, 3 cm lateral, perpendicular trajectory to frontal horn.",
-            anatomicalChecklist: ["Burr hole location", "Cannulation vector to medial canthus", "Catheter depth (5.5-6.5 cm)"],
-            status: .undecided, defectTags: [], notes: ""
-        ),
-        ReviewPlateItem(
-            id: "sa_c1_c2_harms",
-            imageName: "plate_c1_c2_harms",
-            title: "C1-C2 Harms Posterior Fixation",
-            category: "Surgical Atlas",
-            clinicalContext: "C1 lateral mass screws and C2 pedicle/pars screws with lateral vertebral artery.",
-            anatomicalChecklist: ["VA strictly outside canal in foramen transversarium", "C1 lateral mass screw entry", "C2 pedicle screw trajectory"],
-            status: .undecided, defectTags: [], notes: ""
-        ),
-        ReviewPlateItem(
-            id: "sa_acdf",
-            imageName: "plate_acdf",
-            title: "ACDF C5-C6 Smith-Robinson Exposure",
-            category: "Surgical Atlas",
-            clinicalContext: "Subaxial anterior cervical discectomy down to PLL, uncinate-to-uncinate decompression.",
-            anatomicalChecklist: ["Caspar pins completely absent", "Uncinate safe borders", "PLL and dura visualized"],
-            status: .undecided, defectTags: [], notes: ""
-        ),
-        ReviewPlateItem(
-            id: "sa_tlif",
-            imageName: "plate_tlif",
-            title: "Posterior Lumbar TLIF (Kambin's Triangle)",
-            category: "Surgical Atlas",
-            clinicalContext: "Prone corridor, complete unilateral facetectomy, exiting L4 and traversing L5 root.",
-            anatomicalChecklist: ["Kambin's safe triangle corridor", "Traversing L5 root medially retracted", "Bulleted cage in anterior 1/3"],
-            status: .undecided, defectTags: [], notes: ""
-        ),
-        ReviewPlateItem(
-            id: "sa_mri_axial_brain",
-            imageName: "plate_mri_axial_brain",
-            title: "Axial Brain T2 MRI: Central Sulcus & Motor Strip",
-            category: "Surgical Atlas",
-            clinicalContext: "Radiographic motor cortex identification via pars marginalis and inverted omega sign.",
-            anatomicalChecklist: ["Central sulcus identification", "Hand knob (inverted omega) in precentral gyrus", "Pars marginalis bracket sign"],
-            status: .undecided, defectTags: [], notes: ""
+            status: .keep, defectTags: [], notes: "Skull base transsphenoidal corridor."
         ),
         
         // MARK: - 2. 2 AM Crisis Head CTs (4 plates)

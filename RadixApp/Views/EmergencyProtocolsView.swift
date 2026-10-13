@@ -1,7 +1,7 @@
 import SwiftUI
 
 // MARK: - 2 AM Acute Neurosurgical Crisis Protocols & Operative Cockpit
-// Synthesized from Greenberg Handbook of Neurosurgery, Kaloostian Neurosurgery Outlines, and Ellenbogen Principles of Neurosurgery.
+// Synthesized from Brain Trauma Foundation (BTF) Guidelines (4th Edition), Kaloostian Neurosurgery Outlines, and Ellenbogen Principles of Neurosurgery.
 // Featuring authentic high-contrast CT scan plates (EDH, SDH, Uncal Herniation with anterior uncus, Posterior Fossa cerebellar ICH)
 // with prominent [ANT] / [POST] orientation, dynamic real-time caliper overlays driven by sliders,
 // full anticoagulation reversal cockpit, and emergency bedside/OR operative checklists.
@@ -16,7 +16,7 @@ public struct EmergencyProtocolsView: View {
     
     public init() {}
     
-    // Greenberg & BTF Surgical Criteria Spec
+    // Brain Trauma Foundation (BTF) Surgical Criteria Spec
     var thresholdSpec: EmergencyThresholdSpec {
         switch selectedEmergency {
         case "EDH":
@@ -251,7 +251,7 @@ public struct EmergencyProtocolsView: View {
         VStack(alignment: .leading, spacing: 16) {
             HStack {
                 VStack(alignment: .leading, spacing: 2) {
-                    Text("BTF & Greenberg Operative Thresholds")
+                    Text("Brain Trauma Foundation (BTF) Operative Thresholds")
                         .font(.system(size: 14, weight: .bold))
                         .foregroundColor(Color(red: 0.1, green: 0.12, blue: 0.18))
                     Text(thresholdSpec.title)
@@ -759,7 +759,7 @@ struct SbarBriefingSheet: View {
         "Dr. Mohit, I am calling about a 45-year-old patient in the emergency bay with acute \(emergencyType). Current GCS is \(gcs) with \(pupilStatus) pupillary exam."
 
         BACKGROUND:
-        "Head CT demonstrates acute \(emergencyType) meeting definitive Brain Trauma Foundation & Greenberg surgical thresholds."
+        "Head CT demonstrates acute \(emergencyType) meeting definitive Brain Trauma Foundation (BTF) surgical thresholds."
 
         ASSESSMENT:
         "The patient meets \(isSurgical ? "DEFINITIVE CRITERIA FOR IMMEDIATE SURGICAL OPERATIVE INTERVENTION (\(procedure.uppercased()))" : "CRITERIA FOR CLOSE NEURO-ICU PRESSURE MONITORING")."

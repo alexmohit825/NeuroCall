@@ -1,7 +1,7 @@
 import SwiftUI
 
 // MARK: - Dedicated Neurosurgical Calculator Hub
-// Synthesized from Greenberg Handbook of Neurosurgery, Kaloostian Neurosurgery Outlines, and Ellenbogen Principles of Neurosurgery.
+// Synthesized from Brain Trauma Foundation (BTF) Guidelines, Kothari ABC/2 Volume Standards, and Ellenbogen Principles of Neurosurgery.
 // Provides rapid, precise bedside calculations for intracranial volume, cerebral perfusion, acute hemorrhage grading,
 // spinal trauma classification (TLICS / SLIC / SINS), AVM grading, and neurocritical hyperosmolar therapy.
 
@@ -326,7 +326,7 @@ struct ABC2CalculatorView: View {
                 Image(systemName: "lightbulb.fill")
                     .foregroundColor(.orange)
                     .font(.system(size: 14))
-                Text("Greenberg Rule: Slices displaying >75% hematoma area count as 1.0; 25-75% count as 0.5; <25% are excluded.")
+                Text("ABC/2 Slice Counting Rule (Kothari et al.): Slices displaying >75% hematoma area count as 1.0; 25-75% count as 0.5; <25% are excluded.")
                     .font(.system(size: 11, weight: .medium))
                     .foregroundColor(Color(red: 0.25, green: 0.3, blue: 0.4))
             }

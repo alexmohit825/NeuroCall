@@ -60,7 +60,7 @@ public struct OnboardingFlowView: View {
                             badgeColor: .red,
                             icon: "phone.bubble.left.fill",
                             title: "Deal With 2 AM Crises Decisively",
-                            description: "When the ED calls with a 12 mm acute subdural, pupillary asymmetry, or suspected cauda equina, there is zero time to hesitate. Trephine gives you the exact surgical threshold criteria and hyperosmolar dosing in seconds.",
+                            description: "When the ED calls with a 12 mm acute subdural, pupillary asymmetry, or suspected cauda equina, there is zero time to hesitate. NeuroCall gives you the exact surgical threshold criteria and hyperosmolar dosing in seconds.",
                             keyTakeaway: "Know the numbers cold: Midline shift ≥ 5 mm, clot thickness ≥ 10 mm, GCS drop ≥ 2 points."
                         )
                         
@@ -71,7 +71,7 @@ public struct OnboardingFlowView: View {
                             icon: "person.badge.shield.checkmark.fill",
                             title: "What Attendings Actually Expect",
                             description: "Senior attendings do not want a rambling narrative at 3:15 AM. They expect an airtight SBAR briefing: Age, Mechanism, GCS, Pupillary exam, Scan dimensions, Reversal status, and your recommended action.",
-                            keyTakeaway: "Never call without a plan. Trephine crafts your Attending Briefing script automatically."
+                            keyTakeaway: "Never call without a plan. NeuroCall crafts your Attending Briefing script automatically."
                         )
                         
                         // Pillar 3: Shine on Morning Rounds
@@ -119,7 +119,7 @@ public struct OnboardingFlowView: View {
                         }
                     }) {
                         HStack(spacing: 8) {
-                            Text("Enter Trephine Atlas")
+                            Text("Enter NeuroCall Atlas")
                                 .font(.system(size: 16, weight: .bold, design: .rounded))
                             Image(systemName: "arrow.right")
                                 .font(.system(size: 14, weight: .bold))

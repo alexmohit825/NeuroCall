@@ -1,7 +1,7 @@
 import SwiftUI
 
 @main
-struct TrephineApp: App {
+struct NeuroCallApp: App {
     @AppStorage("hasCompletedOnboarding") private var hasCompletedOnboarding: Bool = false
 
     var body: some Scene {

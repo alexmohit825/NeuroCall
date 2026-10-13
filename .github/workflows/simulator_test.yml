@@ -21,17 +21,17 @@ jobs:
 
       - name: Build for iOS simulator
         run: |
-          xcodebuild -project Trephine.xcodeproj \
-                     -scheme Trephine \
-                     -destination "platform=iOS Simulator,name=iPhone 15,OS=latest" \
+          xcodebuild -project NeuroCall.xcodeproj \
+                     -scheme NeuroCall \
+                     -destination "platform=iOS Simulator,name=iPhone 16,OS=latest" \
                      clean build
         working-directory: .
 
       - name: Run unit tests (optional)
         run: |
-          xcodebuild test -project Trephine.xcodeproj \
-                         -scheme Trephine \
-                         -destination "platform=iOS Simulator,name=iPhone 15,OS=latest" \
+          xcodebuild test -project NeuroCall.xcodeproj \
+                         -scheme NeuroCall \
+                         -destination "platform=iOS Simulator,name=iPhone 16,OS=latest" \
                          -enableCodeCoverage YES
         working-directory: .
         continue-on-error: true
