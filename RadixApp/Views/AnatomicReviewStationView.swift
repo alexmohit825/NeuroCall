@@ -161,6 +161,15 @@ public class PlateAuditManager: ObservableObject {
             anatomicalChecklist: ["Unroofed C1 foramen transversarium", "Mobilized V3 vertebral artery loop", "C2 nerve root relationship", "Trimmed C2 superior edge", "Dural exposure without incision line"],
             status: .keep, defectTags: [], notes: "Approved Plate A.248 schematic with mobilized vertebral artery."
         ),
+        ReviewPlateItem(
+            id: "sa_hemicraniectomy",
+            imageName: "plate_hemicraniectomy",
+            title: "Decompressive Hemicraniectomy & Expansile Duroplasty",
+            category: "Surgical Atlas",
+            clinicalContext: "Massive >=12x15 cm frontotemporoparietal bone removal flush to middle fossa floor with expansile patch duroplasty and perimeter hitch sutures.",
+            anatomicalChecklist: ["Expansile tension-free patch duroplasty", "Herniating edematous hemisphere", "Flush middle fossa floor decompression", "Perimeter dural hitch sutures"],
+            status: .keep, defectTags: [], notes: "Approved decompressive hemicraniectomy operative plate."
+        ),
         
         // MARK: - 2. 2 AM Crisis Head CTs (4 plates)
         ReviewPlateItem(

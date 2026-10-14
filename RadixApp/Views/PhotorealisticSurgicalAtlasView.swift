@@ -382,6 +382,7 @@ public enum SurgicalPlateType: String, CaseIterable {
     case retrosigmoid = "retrosigmoid"
     case endonasalSellar = "endonasal_sellar"
     case farLateral = "far_lateral"
+    case hemicraniectomy = "hemicraniectomy"
     
     public var assetImageName: String? {
         switch self {
@@ -390,6 +391,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .retrosigmoid: return "plate_retrosigmoid"
         case .endonasalSellar: return "plate_endonasal_sellar"
         case .farLateral: return "plate_far_lateral"
+        case .hemicraniectomy: return "plate_hemicraniectomy"
         }
     }
     
@@ -400,6 +402,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .retrosigmoid: return "Retrosigmoid"
         case .endonasalSellar: return "Endonasal Sellar"
         case .farLateral: return "Far-Lateral"
+        case .hemicraniectomy: return "Hemicraniectomy"
         }
     }
     
@@ -410,6 +413,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .retrosigmoid: return "Retrosigmoid CPA Dissection"
         case .endonasalSellar: return "Endoscopic Endonasal Sellar Corridor"
         case .farLateral: return "Far-Lateral Suboccipital Transcondylar Approach"
+        case .hemicraniectomy: return "Decompressive Hemicraniectomy & Duroplasty"
         }
     }
     
@@ -420,6 +424,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .retrosigmoid: return "ear"
         case .endonasalSellar: return "mouth"
         case .farLateral: return "arrow.triangle.turn.up.right.diamond.fill"
+        case .hemicraniectomy: return "shield.slash.fill"
         }
     }
     
@@ -590,6 +595,49 @@ public enum SurgicalPlateType: String, CaseIterable {
                     surgicalPearl: "Maintain intact dural cuff around the vertebral artery dural entrance at the foramen magnum until ready for intradural exploration."
                 )
             ]
+        case .hemicraniectomy:
+            return [
+                SurgicalCallout(
+                    id: "dc_duroplasty",
+                    title: "Expansile Patch Duroplasty",
+                    structureType: "TENSION-FREE DOME",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.50,
+                    normalizedY: 0.35,
+                    description: "Large collagen/pericranial substitute patch sewn with continuous running monofilament suture to create an expansile dome.",
+                    surgicalPearl: "Duroplasty must be completely tension-free; tight closure converts a craniectomy into a tourniquet, worsening herniation."
+                ),
+                SurgicalCallout(
+                    id: "dc_edema",
+                    title: "Swollen Cerebral Hemisphere",
+                    structureType: "HERNIATING BRAIN PARENCHYMA",
+                    color: ObsidianTheme.neonRose,
+                    normalizedX: 0.45,
+                    normalizedY: 0.45,
+                    description: "Ischemic / contused swollen hemisphere with flattened gyri and effaced sulci herniating safely into the expanded dural compartment.",
+                    surgicalPearl: "Do not attempt cortical resection unless non-viable, necrotic contusion is actively elevating ICP."
+                ),
+                SurgicalCallout(
+                    id: "dc_mcf_floor",
+                    title: "Flush Middle Fossa Floor Decompression",
+                    structureType: "CRITICAL SKULL BASE MARGIN",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.65,
+                    normalizedY: 0.55,
+                    description: "Temporal bone drilled down flush to the middle cranial fossa floor and root of the zygoma.",
+                    surgicalPearl: "A residual temporal bone ledge compresses the uncus against the tentorial incisura, defeating the purpose of the craniectomy."
+                ),
+                SurgicalCallout(
+                    id: "dc_tack_ups",
+                    title: "Perimeter Dural Tack-Up Sutures",
+                    structureType: "HEMOSTATIC ANCHORS",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.30,
+                    normalizedY: 0.28,
+                    description: "Circumferential dural hitch sutures placed through drill holes along the entire cut bone perimeter.",
+                    surgicalPearl: "Meticulous dural hitch sutures are mandatory to eliminate the epidural dead space and prevent fatal postoperative epidural hematomas."
+                )
+            ]
         }
     }
     
@@ -630,6 +678,13 @@ public enum SurgicalPlateType: String, CaseIterable {
                 ApproachSequentialStep(stepNumber: 3, title: "Vertebral Artery Mobilization & C2 Trimming", detail: "Sharply release the fibrous dural-periosteal collar, sling the V3 loop with an elastic vessel loop, and shave the superior crest of C2 to mobilize the artery inferiorly."),
                 ApproachSequentialStep(stepNumber: 4, title: "Partial Condylectomy & Dural Opening", detail: "Drill posterior 1/3 of the occipital condyle with diamond burr. Open dura in curvilinear fashion along the skull base floor.")
             ]
+        case .hemicraniectomy:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Reverse Question-Mark Incision & Flap", detail: "Curvilinear Kempe incision originating at zygomatic arch, curving superiorly 2 cm off midline, and turning down behind ear. Elevate scalp and temporalis muscle."),
+                ApproachSequentialStep(stepNumber: 2, title: "Massive Craniectomy (>=12x15 cm)", detail: "Multiple burr holes. Resect bone frontotemporoparietally, extending anterior to frontal pole, superior to sagittal sinus, posterior to parietal boss, and flush to middle fossa floor."),
+                ApproachSequentialStep(stepNumber: 3, title: "Circumferential Dural Tack-Up Sutures", detail: "Drill perimeter bone holes at 2 cm intervals and place 4-0 Nurolon dural hitch sutures to obliterate epidural space."),
+                ApproachSequentialStep(stepNumber: 4, title: "Stellate Dural Incision & Expansile Duroplasty", detail: "Cruciate or stellate dural incision radiating outward. Sew on-lay or inlay expansile collagen/pericranial patch graft tension-free.")
+            ]
         }
     }
     
@@ -664,6 +719,12 @@ public enum SurgicalPlateType: String, CaseIterable {
                 "Laceration of the V3 vertebral artery during high-speed diamond unroofing of the C1 transverse foramen",
                 "Craniocervical junction mechanical instability if condyle resection exceeds 50%, mandating occipitocervical fusion",
                 "Injury to hypoglossal nerve (CN XII) within hypoglossal canal from overzealous anterior/medial condyle drilling"
+            ]
+        case .hemicraniectomy:
+            return [
+                "Failure to decompress flush to the middle cranial fossa floor, allowing residual bone edge to strangulate the herniating uncus",
+                "Small bone window (<12x15 cm) causing cerebral venous compression against bone edges and secondary malignant brain herniation",
+                "Omission of perimeter dural hitch sutures resulting in rapid epidural hematoma reaccumulation"
             ]
         }
     }
