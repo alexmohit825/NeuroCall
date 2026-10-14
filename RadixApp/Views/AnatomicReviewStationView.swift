@@ -152,6 +152,15 @@ public class PlateAuditManager: ObservableObject {
             anatomicalChecklist: ["Carotid siphon prominences", "Optico-carotid recess (OCR)", "Sellar dural exposure"],
             status: .keep, defectTags: [], notes: "Skull base transsphenoidal corridor."
         ),
+        ReviewPlateItem(
+            id: "sa_far_lateral",
+            imageName: "plate_far_lateral",
+            title: "Far-Lateral Suboccipital Transcondylar Approach",
+            category: "Surgical Atlas",
+            clinicalContext: "Suboccipital craniectomy, C1 lateral mass unroofed foramen transversarium, mobilized V3 vertebral artery loop, trimmed C2 superior edge.",
+            anatomicalChecklist: ["Unroofed C1 foramen transversarium", "Mobilized V3 vertebral artery loop", "C2 nerve root relationship", "Trimmed C2 superior edge", "Dural exposure without incision line"],
+            status: .keep, defectTags: [], notes: "Approved Plate A.248 schematic with mobilized vertebral artery."
+        ),
         
         // MARK: - 2. 2 AM Crisis Head CTs (4 plates)
         ReviewPlateItem(

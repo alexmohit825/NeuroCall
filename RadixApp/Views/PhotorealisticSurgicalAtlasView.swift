@@ -381,6 +381,7 @@ public enum SurgicalPlateType: String, CaseIterable {
     case pterional = "pterional"
     case retrosigmoid = "retrosigmoid"
     case endonasalSellar = "endonasal_sellar"
+    case farLateral = "far_lateral"
     
     public var assetImageName: String? {
         switch self {
@@ -388,6 +389,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .pterional: return "plate_pterional"
         case .retrosigmoid: return "plate_retrosigmoid"
         case .endonasalSellar: return "plate_endonasal_sellar"
+        case .farLateral: return "plate_far_lateral"
         }
     }
     
@@ -397,6 +399,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .pterional: return "Pterional"
         case .retrosigmoid: return "Retrosigmoid"
         case .endonasalSellar: return "Endonasal Sellar"
+        case .farLateral: return "Far-Lateral"
         }
     }
     
@@ -406,6 +409,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .pterional: return "Pterional Frontotemporosphenoidal Corridor"
         case .retrosigmoid: return "Retrosigmoid CPA Dissection"
         case .endonasalSellar: return "Endoscopic Endonasal Sellar Corridor"
+        case .farLateral: return "Far-Lateral Suboccipital Transcondylar Approach"
         }
     }
     
@@ -415,6 +419,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .pterional: return "brain.head.profile"
         case .retrosigmoid: return "ear"
         case .endonasalSellar: return "mouth"
+        case .farLateral: return "arrow.triangle.turn.up.right.diamond.fill"
         }
     }
     
@@ -542,6 +547,49 @@ public enum SurgicalPlateType: String, CaseIterable {
                     surgicalPearl: "Never drill lateral to medial optico-carotid recess; cavernous ICA injury in endoscopic cavity is catastrophic."
                 )
             ]
+        case .farLateral:
+            return [
+                SurgicalCallout(
+                    id: "fl_va_mobilized",
+                    title: "Mobilized Vertebral Artery (V3)",
+                    structureType: "VASCULAR TRUNK MOBILIZATION",
+                    color: ObsidianTheme.neonRose,
+                    normalizedX: 0.50,
+                    normalizedY: 0.62,
+                    description: "V3 horizontal segment transposed and mobilized out of the unroofed C1 foramen transversarium with elastic vessel loop, creating an unobstructed corridor along the skull base.",
+                    surgicalPearl: "Mobilize subperiosteally to avoid injuring muscular branches or tearing the dense suboccipital venous plexus."
+                ),
+                SurgicalCallout(
+                    id: "fl_c1_mass",
+                    title: "C1 Lateral Mass & Unroofed Foramen",
+                    structureType: "BONY ANATOMY",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.60,
+                    normalizedY: 0.46,
+                    description: "Posterior arch of atlas resected, transverse foramen unroofed with diamond burr down to the cancellous marrow.",
+                    surgicalPearl: "Drill superior and posterior cortical edges of the foramen transversarium before peeling the fibrous periosteal ring from the artery."
+                ),
+                SurgicalCallout(
+                    id: "fl_c2_edge",
+                    title: "Trimmed C2 Superior Edge & Nerve Root",
+                    structureType: "NEURAL & FACET MARGIN",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.56,
+                    normalizedY: 0.72,
+                    description: "C2 superior articular facet crest shaved flat and C2 nerve root passing beneath the transposed vertebral artery loop.",
+                    surgicalPearl: "Trimming the superior edge of C2 prevents impingement on the mobilized vertebral artery when displacing it inferiorly."
+                ),
+                SurgicalCallout(
+                    id: "fl_dura",
+                    title: "Posterior Fossa Dura",
+                    structureType: "DURAL ENVELOPE",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.42,
+                    normalizedY: 0.32,
+                    description: "Suboccipital craniectomy exposing the posterior fossa dura mater down to the foramen magnum rim.",
+                    surgicalPearl: "Maintain intact dural cuff around the vertebral artery dural entrance at the foramen magnum until ready for intradural exploration."
+                )
+            ]
         }
     }
     
@@ -575,6 +623,13 @@ public enum SurgicalPlateType: String, CaseIterable {
                 ApproachSequentialStep(stepNumber: 3, title: "Sellar Dural Opening & Tumor Resection", detail: "Thin sellar bone with micro-drill, unroof floor, cruciate dural opening, deliver pituitary adenoma using ring curettes."),
                 ApproachSequentialStep(stepNumber: 4, title: "Multilayer Reconstruction", detail: "Inspect diaphragma sellae for CSF leaks. Reconstruct skull base with collagen sponge, fat graft, and nasoseptal flap.")
             ]
+        case .farLateral:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Suboccipital Craniectomy & C1 Laminectomy", detail: "Perform retrosigmoid suboccipital craniectomy to foramen magnum rim. Execute lateral C1 hemilaminectomy to expose the transverse process."),
+                ApproachSequentialStep(stepNumber: 2, title: "Unroofing Foramen Transversarium", detail: "Use a 2 mm diamond burr under continuous irrigation to thin and remove the posterior and superior bridge of the C1 foramen transversarium."),
+                ApproachSequentialStep(stepNumber: 3, title: "Vertebral Artery Mobilization & C2 Trimming", detail: "Sharply release the fibrous dural-periosteal collar, sling the V3 loop with an elastic vessel loop, and shave the superior crest of C2 to mobilize the artery inferiorly."),
+                ApproachSequentialStep(stepNumber: 4, title: "Partial Condylectomy & Dural Opening", detail: "Drill posterior 1/3 of the occipital condyle with diamond burr. Open dura in curvilinear fashion along the skull base floor.")
+            ]
         }
     }
     
@@ -603,6 +658,12 @@ public enum SurgicalPlateType: String, CaseIterable {
                 "Internal carotid artery laceration at carotid protuberance / siphon with massive exsanguination",
                 "High-flow CSF leak and pneumocephalus through violated diaphragma sellae",
                 "Postoperative pituitary apoplexy or central diabetes insipidus from infundibular disruption"
+            ]
+        case .farLateral:
+            return [
+                "Laceration of the V3 vertebral artery during high-speed diamond unroofing of the C1 transverse foramen",
+                "Craniocervical junction mechanical instability if condyle resection exceeds 50%, mandating occipitocervical fusion",
+                "Injury to hypoglossal nerve (CN XII) within hypoglossal canal from overzealous anterior/medial condyle drilling"
             ]
         }
     }
