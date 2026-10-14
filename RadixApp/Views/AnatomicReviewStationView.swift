@@ -170,6 +170,15 @@ public class PlateAuditManager: ObservableObject {
             anatomicalChecklist: ["Expansile tension-free patch duroplasty", "Herniating edematous hemisphere", "Flush middle fossa floor decompression", "Perimeter dural hitch sutures"],
             status: .keep, defectTags: [], notes: "Approved decompressive hemicraniectomy operative plate."
         ),
+        ReviewPlateItem(
+            id: "sa_kochers_evd",
+            imageName: "plate_kochers_evd",
+            title: "Frontal Burr Hole / Kocher's Point EVD Ventriculostomy",
+            category: "Surgical Atlas",
+            clinicalContext: "Right frontal Kocher's point burr hole, lateral C-shaped ventricle, catheter seating at Foramen of Monro (5.5 cm depth) aligned with tragus.",
+            anatomicalChecklist: ["Kocher's point pre-coronal coordinates", "Catheter perpendicular entry", "Foramen of Monro seating anterior to choroid plexus", "Tragus trajectory line"],
+            status: .keep, defectTags: [], notes: "Approved Kocher's point EVD ventriculostomy lateral projection plate."
+        ),
         
         // MARK: - 2. 2 AM Crisis Head CTs (4 plates)
         ReviewPlateItem(

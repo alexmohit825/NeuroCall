@@ -383,6 +383,7 @@ public enum SurgicalPlateType: String, CaseIterable {
     case endonasalSellar = "endonasal_sellar"
     case farLateral = "far_lateral"
     case hemicraniectomy = "hemicraniectomy"
+    case kochersEVD = "kochers_evd"
     
     public var assetImageName: String? {
         switch self {
@@ -392,6 +393,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .endonasalSellar: return "plate_endonasal_sellar"
         case .farLateral: return "plate_far_lateral"
         case .hemicraniectomy: return "plate_hemicraniectomy"
+        case .kochersEVD: return "plate_kochers_evd"
         }
     }
     
@@ -403,6 +405,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .endonasalSellar: return "Endonasal Sellar"
         case .farLateral: return "Far-Lateral"
         case .hemicraniectomy: return "Hemicraniectomy"
+        case .kochersEVD: return "Kocher's EVD"
         }
     }
     
@@ -414,6 +417,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .endonasalSellar: return "Endoscopic Endonasal Sellar Corridor"
         case .farLateral: return "Far-Lateral Suboccipital Transcondylar Approach"
         case .hemicraniectomy: return "Decompressive Hemicraniectomy & Duroplasty"
+        case .kochersEVD: return "Kocher's Point Ventriculostomy & EVD"
         }
     }
     
@@ -425,6 +429,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .endonasalSellar: return "mouth"
         case .farLateral: return "arrow.triangle.turn.up.right.diamond.fill"
         case .hemicraniectomy: return "shield.slash.fill"
+        case .kochersEVD: return "target"
         }
     }
     
@@ -638,6 +643,49 @@ public enum SurgicalPlateType: String, CaseIterable {
                     surgicalPearl: "Meticulous dural hitch sutures are mandatory to eliminate the epidural dead space and prevent fatal postoperative epidural hematomas."
                 )
             ]
+        case .kochersEVD:
+            return [
+                SurgicalCallout(
+                    id: "evd_kochers_point",
+                    title: "Kocher's Point Burr Hole",
+                    structureType: "CRANIAL ENTRY SITE",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.36,
+                    normalizedY: 0.17,
+                    description: "Burr hole 11–12 cm posterior to nasion, 1–2 cm anterior to coronal suture, 2.5–3 cm lateral to midline.",
+                    surgicalPearl: "Never place burr hole posterior to coronal suture; entry into primary motor cortex causes irreversible contralateral hemiparesis."
+                ),
+                SurgicalCallout(
+                    id: "evd_catheter",
+                    title: "Graduated Ventricular Catheter",
+                    structureType: "SILICONE DRAIN",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.40,
+                    normalizedY: 0.30,
+                    description: "Catheter passed strictly perpendicular to calvarium, aimed in sagittal plane toward ipsilateral tragus.",
+                    surgicalPearl: "Catheter depth should not exceed 5.5–6.0 cm from outer calvarium; deeper insertion risks basilar or midbrain puncture."
+                ),
+                SurgicalCallout(
+                    id: "evd_monro",
+                    title: "Foramen of Monro & Frontal Horn",
+                    structureType: "INTRAVENTRICULAR TARGET",
+                    color: ObsidianTheme.neonRose,
+                    normalizedX: 0.45,
+                    normalizedY: 0.40,
+                    description: "Fenestrated catheter tip rests in frontal horn at Foramen of Monro anterior to choroid plexus.",
+                    surgicalPearl: "Seating tip anterior to choroid plexus prevents catheter fenestration clogging and premature EVD failure."
+                ),
+                SurgicalCallout(
+                    id: "evd_tragus_line",
+                    title: "Tragus Trajectory Line",
+                    structureType: "ANATOMICAL AIMING AXIS",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.54,
+                    normalizedY: 0.62,
+                    description: "Dotted aiming axis aligned with external auditory meatus in the lateral sagittal projection.",
+                    surgicalPearl: "Keep catheter perpendicular to skull surface; tilting anteriorly risks hitting the skull base and optic apparatus."
+                )
+            ]
         }
     }
     
@@ -685,6 +733,13 @@ public enum SurgicalPlateType: String, CaseIterable {
                 ApproachSequentialStep(stepNumber: 3, title: "Circumferential Dural Tack-Up Sutures", detail: "Drill perimeter bone holes at 2 cm intervals and place 4-0 Nurolon dural hitch sutures to obliterate epidural space."),
                 ApproachSequentialStep(stepNumber: 4, title: "Stellate Dural Incision & Expansile Duroplasty", detail: "Cruciate or stellate dural incision radiating outward. Sew on-lay or inlay expansile collagen/pericranial patch graft tension-free.")
             ]
+        case .kochersEVD:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Calvarial Landmark Measurement", detail: "Measure 11–12 cm posterior to nasion and 2.5–3.0 cm lateral to midline (mid-pupillary line), strictly 1–2 cm anterior to coronal suture."),
+                ApproachSequentialStep(stepNumber: 2, title: "Scalp Incision & Cranial Burr Hole", detail: "Make 1.5 cm linear sagittal incision. Drill a single full-thickness burr hole through outer table, diploe, and inner table under saline irrigation."),
+                ApproachSequentialStep(stepNumber: 3, title: "Dural Puncture & Pial Coagulation", detail: "Cauterize dura with bipolar forceps and perform a cruciate incision. Lightly coagulate the pia to prevent sulcal bleeding."),
+                ApproachSequentialStep(stepNumber: 4, title: "Catheter Trajectory & CSF Flow", detail: "Aim toward medial canthus and tragus. Advance catheter perpendicular to calvarium to 5.5–6.0 cm depth. Remove stylet to confirm pulsatile CSF return.")
+            ]
         }
     }
     
@@ -725,6 +780,12 @@ public enum SurgicalPlateType: String, CaseIterable {
                 "Failure to decompress flush to the middle cranial fossa floor, allowing residual bone edge to strangulate the herniating uncus",
                 "Small bone window (<12x15 cm) causing cerebral venous compression against bone edges and secondary malignant brain herniation",
                 "Omission of perimeter dural hitch sutures resulting in rapid epidural hematoma reaccumulation"
+            ]
+        case .kochersEVD:
+            return [
+                "Burr hole positioned posterior to coronal suture causing penetration of motor cortex with permanent contralateral hemiplegia",
+                "Excessive catheter insertion depth (>6.5 cm) leading to lethal midbrain, basilar artery, or third ventricular floor laceration",
+                "Excessively medial trajectory causing contralateral ventricular puncture and bilateral fornix disruption"
             ]
         }
     }
