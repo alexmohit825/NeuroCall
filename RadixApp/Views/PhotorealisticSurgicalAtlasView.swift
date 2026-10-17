@@ -384,6 +384,7 @@ public enum SurgicalPlateType: String, CaseIterable {
     case farLateral = "far_lateral"
     case hemicraniectomy = "hemicraniectomy"
     case kochersEVD = "kochers_evd"
+    case acdf = "acdf"
     
     public var assetImageName: String? {
         switch self {
@@ -394,6 +395,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .farLateral: return "plate_far_lateral"
         case .hemicraniectomy: return "plate_hemicraniectomy"
         case .kochersEVD: return "plate_kochers_evd"
+        case .acdf: return "plate_acdf"
         }
     }
     
@@ -406,6 +408,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .farLateral: return "Far-Lateral"
         case .hemicraniectomy: return "Hemicraniectomy"
         case .kochersEVD: return "Kocher's EVD"
+        case .acdf: return "ACDF"
         }
     }
     
@@ -418,6 +421,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .farLateral: return "Far-Lateral Suboccipital Transcondylar Approach"
         case .hemicraniectomy: return "Decompressive Hemicraniectomy & Duroplasty"
         case .kochersEVD: return "Kocher's Point Ventriculostomy & EVD"
+        case .acdf: return "Anterior Cervical Discectomy & Fusion (ACDF)"
         }
     }
     
@@ -430,6 +434,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .farLateral: return "arrow.triangle.turn.up.right.diamond.fill"
         case .hemicraniectomy: return "shield.slash.fill"
         case .kochersEVD: return "target"
+        case .acdf: return "waveform.path.ecg"
         }
     }
     
@@ -686,6 +691,49 @@ public enum SurgicalPlateType: String, CaseIterable {
                     surgicalPearl: "Keep catheter perpendicular to skull surface; tilting anteriorly risks hitting the skull base and optic apparatus."
                 )
             ]
+        case .acdf:
+            return [
+                SurgicalCallout(
+                    id: "acdf_plate",
+                    title: "Anterior Cervical Locking Plate",
+                    structureType: "SURGICAL IMPLANT",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.50,
+                    normalizedY: 0.54,
+                    description: "Low-profile titanium locking plate spanning C5 to C6 vertebral bodies. Superior and inferior locking screws enter safely into vertebral bone without violating adjacent disc spaces (C4–C5 and C6–C7).",
+                    surgicalPearl: "Plate must be centered flush on anterior cortex. Ensure screws do not violate adjacent unfused discs."
+                ),
+                SurgicalCallout(
+                    id: "acdf_cage",
+                    title: "Interbody Cage & Porous Graft",
+                    structureType: "FUSION CONSTRUCT",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.50,
+                    normalizedY: 0.50,
+                    description: "Porous titanium / PEEK interbody spacer packed with cancellous autograft/allograft, providing immediate structural height restoration and parallel distraction.",
+                    surgicalPearl: "Prepare endplates carefully with curettes to bleeding bone; avoid puncturing subchondral plate to prevent cage subsidence."
+                ),
+                SurgicalCallout(
+                    id: "acdf_medial_retractor",
+                    title: "Medial Retractor (Esophagus & Trachea)",
+                    structureType: "SOFT TISSUE RETRACTION",
+                    color: ObsidianTheme.neonRose,
+                    normalizedX: 0.16,
+                    normalizedY: 0.52,
+                    description: "Smooth blunt medial retractor blade gently displacing the visceral axis (trachea, esophagus, and recurrent laryngeal nerve) across the midline.",
+                    surgicalPearl: "Deflate and periodically release endotracheal tube cuff pressure during retraction to prevent recurrent laryngeal neuropraxia or mucosal ischemia."
+                ),
+                SurgicalCallout(
+                    id: "acdf_lateral_retractor",
+                    title: "Lateral Retractor (Carotid Sheath)",
+                    structureType: "VASCULAR RETRACTION",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.88,
+                    normalizedY: 0.52,
+                    description: "Lateral retractor blade placed safely beneath longus colli muscle to protect the common carotid artery, internal jugular vein, and vagus nerve.",
+                    surgicalPearl: "Always seat lateral blades beneath the elevated longus colli muscle to avoid direct compression or laceration of the carotid sheath."
+                )
+            ]
         }
     }
     
@@ -740,6 +788,13 @@ public enum SurgicalPlateType: String, CaseIterable {
                 ApproachSequentialStep(stepNumber: 3, title: "Dural Puncture & Pial Coagulation", detail: "Cauterize dura with bipolar forceps and perform a cruciate incision. Lightly coagulate the pia to prevent sulcal bleeding."),
                 ApproachSequentialStep(stepNumber: 4, title: "Catheter Trajectory & CSF Flow", detail: "Aim toward medial canthus and tragus. Advance catheter perpendicular to calvarium to 5.5–6.0 cm depth. Remove stylet to confirm pulsatile CSF return.")
             ]
+        case .acdf:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Smith-Robinson Anterolateral Approach", detail: "Transverse cervical incision in skin crease. Dissect medial to carotid sheath and lateral to visceral column (trachea/esophagus)."),
+                ApproachSequentialStep(stepNumber: 2, title: "Complete Discectomy & PLL Decompression", detail: "Perform complete discectomy back to posterior longitudinal ligament (PLL). Open PLL to directly decompress the thecal sac and exit roots."),
+                ApproachSequentialStep(stepNumber: 3, title: "Interbody Cage Insertion", detail: "Prepare subchondral endplates without violating cortex. Trial and insert porous cage packed with bone graft into interspace."),
+                ApproachSequentialStep(stepNumber: 4, title: "Anterior Plate Fixation", detail: "Position low-profile cervical plate centered on C5–C6. Drill, tap, and lock dual screws into superior and inferior vertebral bodies.")
+            ]
         }
     }
     
@@ -786,6 +841,12 @@ public enum SurgicalPlateType: String, CaseIterable {
                 "Burr hole positioned posterior to coronal suture causing penetration of motor cortex with permanent contralateral hemiplegia",
                 "Excessive catheter insertion depth (>6.5 cm) leading to lethal midbrain, basilar artery, or third ventricular floor laceration",
                 "Excessively medial trajectory causing contralateral ventricular puncture and bilateral fornix disruption"
+            ]
+        case .acdf:
+            return [
+                "Esophageal perforation during medial retractor placement or aggressive dissection along the prevertebral fascia",
+                "Carotid artery thrombosis or dissection from excessively vigorous lateral retraction without relaxing blade tension",
+                "Recurrent laryngeal nerve traction injury leading to vocal cord paralysis and persistent postoperative hoarseness"
             ]
         }
     }
