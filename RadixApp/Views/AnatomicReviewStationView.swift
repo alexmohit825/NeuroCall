@@ -179,6 +179,24 @@ public class PlateAuditManager: ObservableObject {
             anatomicalChecklist: ["Kocher's point pre-coronal coordinates", "Catheter perpendicular entry", "Foramen of Monro seating anterior to choroid plexus", "Tragus trajectory line"],
             status: .keep, defectTags: [], notes: "Approved Kocher's point EVD ventriculostomy lateral projection plate."
         ),
+        ReviewPlateItem(
+            id: "sa_acdf",
+            imageName: "plate_acdf",
+            title: "Anterior Cervical Discectomy & Fusion (ACDF)",
+            category: "Surgical Atlas",
+            clinicalContext: "Smith-Robinson anterolateral cervical corridor, interbody cage, and low-profile locking plate with screws safely entering vertebral bone.",
+            anatomicalChecklist: ["Medial visceral retraction", "Lateral carotid sheath protection", "Subchondral endplate preparation", "Plate screws confined to vertebral bodies"],
+            status: .keep, defectTags: [], notes: "Approved ACDF operative corridor plate."
+        ),
+        ReviewPlateItem(
+            id: "sa_orbitozygomatic",
+            imageName: "plate_orbitozygomatic",
+            title: "Frontotemporal Orbitozygomatic Approach (FT-OZ)",
+            category: "Surgical Atlas",
+            clinicalContext: "Two-piece disassembly triptych showing detached frontotemporal craniotomy flap on left, central skull base transbasal corridor, and detached orbitozygomatic fragment on right.",
+            anatomicalChecklist: ["Detached frontotemporal bone flap", "Central transbasal subfrontal exposure", "Detached orbitozygomatic osteotomy unit", "Temporal opercular dura at middle fossa"],
+            status: .keep, defectTags: [], notes: "Approved FT-OZ surgical disassembly triptych plate."
+        ),
         
         // MARK: - 2. 2 AM Crisis Head CTs (4 plates)
         ReviewPlateItem(

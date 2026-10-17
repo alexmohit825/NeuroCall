@@ -385,6 +385,7 @@ public enum SurgicalPlateType: String, CaseIterable {
     case hemicraniectomy = "hemicraniectomy"
     case kochersEVD = "kochers_evd"
     case acdf = "acdf"
+    case orbitozygomatic = "orbitozygomatic"
     
     public var assetImageName: String? {
         switch self {
@@ -396,6 +397,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .hemicraniectomy: return "plate_hemicraniectomy"
         case .kochersEVD: return "plate_kochers_evd"
         case .acdf: return "plate_acdf"
+        case .orbitozygomatic: return "plate_orbitozygomatic"
         }
     }
     
@@ -409,6 +411,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .hemicraniectomy: return "Hemicraniectomy"
         case .kochersEVD: return "Kocher's EVD"
         case .acdf: return "ACDF"
+        case .orbitozygomatic: return "FT-OZ"
         }
     }
     
@@ -422,6 +425,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .hemicraniectomy: return "Decompressive Hemicraniectomy & Duroplasty"
         case .kochersEVD: return "Kocher's Point Ventriculostomy & EVD"
         case .acdf: return "Anterior Cervical Discectomy & Fusion (ACDF)"
+        case .orbitozygomatic: return "Frontotemporal Orbitozygomatic Approach (FT-OZ)"
         }
     }
     
@@ -435,6 +439,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .hemicraniectomy: return "shield.slash.fill"
         case .kochersEVD: return "target"
         case .acdf: return "waveform.path.ecg"
+        case .orbitozygomatic: return "eye.circle.fill"
         }
     }
     
@@ -734,6 +739,49 @@ public enum SurgicalPlateType: String, CaseIterable {
                     surgicalPearl: "Always seat lateral blades beneath the elevated longus colli muscle to avoid direct compression or laceration of the carotid sheath."
                 )
             ]
+        case .orbitozygomatic:
+            return [
+                SurgicalCallout(
+                    id: "oz_crani_flap",
+                    title: "Detached Frontotemporal Flap",
+                    structureType: "CALVARIAL BONE FLAP",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.16,
+                    normalizedY: 0.50,
+                    description: "Free frontotemporal calvarial bone flap resected first, exposing frontal and temporal opercular dura and sphenoid ridge.",
+                    surgicalPearl: "Elevate carefully off the underlying dura; peel dura away from the sphenoid ridge to avoid tearing the middle meningeal artery."
+                ),
+                SurgicalCallout(
+                    id: "oz_central_corridor",
+                    title: "Subfrontal & Transbasal Corridor",
+                    structureType: "SURGICAL EXPOSURE",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.50,
+                    normalizedY: 0.45,
+                    description: "Central orbital rim and sphenoid ridge exposure. Unroofed orbital roof allows flat, direct transbasal access with minimal frontal lobe retraction.",
+                    surgicalPearl: "Drill remaining orbital roof remnants and superior orbital fissure bone flush to maximize the flat skull base line of sight."
+                ),
+                SurgicalCallout(
+                    id: "oz_fragment",
+                    title: "Detached Orbitozygomatic Unit",
+                    structureType: "OSTEOTOMY FRAGMENT",
+                    color: ObsidianTheme.neonRose,
+                    normalizedX: 0.84,
+                    normalizedY: 0.48,
+                    description: "Detached one-piece orbitozygomatic fragment containing superior orbital rim, orbital roof, zygomatic arch, and lateral orbital wall.",
+                    surgicalPearl: "Protect the periorbita meticulously during osteotomies; preserve supraorbital nerve within notch/foramen during rim mobilization."
+                ),
+                SurgicalCallout(
+                    id: "oz_dura",
+                    title: "Temporal Opercular Dura",
+                    structureType: "DURAL ENVELOPE",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.48,
+                    normalizedY: 0.60,
+                    description: "Exposed temporal dura at middle cranial fossa floor and subfrontal dura visible through the combined osteotomy defect.",
+                    surgicalPearl: "Slack the brain early by opening the optico-carotid cistern to allow gentle gravitational brain fall without retractor pressure."
+                )
+            ]
         }
     }
     
@@ -795,6 +843,13 @@ public enum SurgicalPlateType: String, CaseIterable {
                 ApproachSequentialStep(stepNumber: 3, title: "Interbody Cage Insertion", detail: "Prepare subchondral endplates without violating cortex. Trial and insert porous cage packed with bone graft into interspace."),
                 ApproachSequentialStep(stepNumber: 4, title: "Anterior Plate Fixation", detail: "Position low-profile cervical plate centered on C5–C6. Drill, tap, and lock dual screws into superior and inferior vertebral bodies.")
             ]
+        case .orbitozygomatic:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Curvilinear Incision & Facial Nerve Protection", detail: "Modified pterional or bicoronal incision. Perform interfascial or subfascial dissection over zygomatic arch to safeguard the frontalis branch of CN VII."),
+                ApproachSequentialStep(stepNumber: 2, title: "Frontotemporal Craniotomy", detail: "Place MacCarty keyhole exposing both frontal dura and periorbita. Complete frontotemporal craniotomy, leaving the orbital rim and zygoma intact initially."),
+                ApproachSequentialStep(stepNumber: 3, title: "Orbitozygomatic Osteotomies", detail: "Perform cuts across posterior root of zygomatic arch, zygomaticofacial suture, orbital roof back to inferior orbital fissure, and supraorbital rim."),
+                ApproachSequentialStep(stepNumber: 4, title: "Removal of OZ Unit & Skull Base Flattening", detail: "Mobilize and remove the one-piece orbitozygomatic bar. Flatten residual sphenoid ridge and orbital roof with a diamond drill flush with the skull base.")
+            ]
         }
     }
     
@@ -847,6 +902,12 @@ public enum SurgicalPlateType: String, CaseIterable {
                 "Esophageal perforation during medial retractor placement or aggressive dissection along the prevertebral fascia",
                 "Carotid artery thrombosis or dissection from excessively vigorous lateral retraction without relaxing blade tension",
                 "Recurrent laryngeal nerve traction injury leading to vocal cord paralysis and persistent postoperative hoarseness"
+            ]
+        case .orbitozygomatic:
+            return [
+                "Supraorbital nerve transection during superior orbital rim osteotomy causing permanent forehead sensory loss",
+                "Thermal or traction injury to frontalis branch of facial nerve (CN VII) leading to permanent brow ptosis",
+                "Violation of the periorbita leading to orbital fat herniation, postoperative enophthalmos, or diplopia"
             ]
         }
     }
