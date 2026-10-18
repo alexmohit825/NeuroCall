@@ -28,7 +28,7 @@ public class PlateAuditManager: ObservableObject {
     
     @Published public var plates: [ReviewPlateItem] = []
     
-    private let storageKey = "Trephine_AnatomicPlateAudit_v1"
+    private let storageKey = "Trephine_AnatomicPlateAudit_v2"
     
     private init() {
         loadPlates()
@@ -197,6 +197,15 @@ public class PlateAuditManager: ObservableObject {
             anatomicalChecklist: ["Detached frontotemporal bone flap", "Central transbasal subfrontal exposure", "Detached orbitozygomatic osteotomy unit", "Temporal opercular dura at middle fossa"],
             status: .keep, defectTags: [], notes: "Approved FT-OZ surgical disassembly triptych plate."
         ),
+        ReviewPlateItem(
+            id: "sa_tlif",
+            imageName: "plate_tlif",
+            title: "L4–L5 Transforaminal Lumbar Interbody Fusion (TLIF)",
+            category: "Surgical Atlas",
+            clinicalContext: "Posterior operative corridor showing 4 titanium pedicle screws across L4-L5, unilateral right-sided complete facetectomy, medially retracted traversing root, and bullet-shaped interbody cage seated within disc space.",
+            anatomicalChecklist: ["4 pedicle screws (L4 & L5 bilaterally)", "Contoured longitudinal rods", "Unilateral facetectomy corridor", "Bullet porous titanium cage in disc space", "Traversing nerve root medial retraction"],
+            status: .keep, defectTags: [], notes: "Approved L4-L5 TLIF operative anatomy plate."
+        ),
         
         // MARK: - 2. 2 AM Crisis Head CTs (4 plates)
         ReviewPlateItem(
@@ -236,7 +245,7 @@ public class PlateAuditManager: ObservableObject {
             status: .undecided, defectTags: [], notes: ""
         ),
         
-        // MARK: - 3. Frontline ER Consults Suite (9 plates)
+        // MARK: - 3. Frontline ER Consults Suite (10 plates)
         ReviewPlateItem(
             id: "er_sah",
             imageName: "plate_cranial_sah_aneurysm",
@@ -244,7 +253,7 @@ public class PlateAuditManager: ObservableObject {
             category: "Frontline ER Consults",
             clinicalContext: "High-contrast CTA showing ruptured anterior communicating / MCA bifurcation aneurysm.",
             anatomicalChecklist: ["Hyperdense blood in basal cisterns", "Aneurysm dome and parent vessel", "Ventricular horn blood"],
-            status: .undecided, defectTags: [], notes: ""
+            status: .keep, defectTags: [], notes: "Approved Aneurysmal SAH frontline plate."
         ),
         ReviewPlateItem(
             id: "er_ich_lobar",
@@ -253,34 +262,43 @@ public class PlateAuditManager: ObservableObject {
             category: "Frontline ER Consults",
             clinicalContext: "Axial CT demonstrating putaminal/thalamic hemorrhage with internal capsule effacement.",
             anatomicalChecklist: ["Deep nuclear/lobar parenchymal bleed", "Perilesional edema halo", "Ventricular extension (IVH)"],
-            status: .undecided, defectTags: [], notes: ""
+            status: .keep, defectTags: [], notes: "Approved Basal Ganglia ICH frontline plate."
         ),
         ReviewPlateItem(
             id: "er_vp_shunt",
             imageName: "plate_cranial_vp_shunt",
-            title: "VP Shunt Valve & Ventricular Catheter",
+            title: "Proximal VP Shunt Obstruction: Head CT",
             category: "Frontline ER Consults",
-            clinicalContext: "Radiographic shunt series showing programmable valve setting and catheter trajectory.",
-            anatomicalChecklist: ["Ventricular catheter tip at Monro", "Flushing valve reservoir", "Distal peritoneal tubing intact"],
-            status: .undecided, defectTags: [], notes: ""
+            clinicalContext: "Axial non-contrast CT showing ventricular catheter with marked ventriculomegaly and periventricular interstitial edema.",
+            anatomicalChecklist: ["Ventricular catheter in frontal horn", "Symmetric ventriculomegaly (Evans >0.4)", "Transependymal CSF migration"],
+            status: .keep, defectTags: [], notes: "Approved Proximal Shunt Obstruction Head CT plate."
+        ),
+        ReviewPlateItem(
+            id: "er_shunt_distal",
+            imageName: "plate_cranial_shunt_distal",
+            title: "Distal Shunt Failure: Abdominal Pseudocyst",
+            category: "Frontline ER Consults",
+            clinicalContext: "Contrast-enhanced abdominal CT showing coiled distal catheter terminating within a well-circumscribed peritoneal CSF pseudocyst.",
+            anatomicalChecklist: ["Distal peritoneal catheter terminus", "Encapsulated fluid pseudocyst", "Mass effect displacing bowel loops"],
+            status: .keep, defectTags: [], notes: "Approved Distal Shunt CSF Pseudocyst Abdominal CT plate."
         ),
         ReviewPlateItem(
             id: "er_shunt_prox_distal",
             imageName: "plate_cranial_shunt_prox_distal",
-            title: "Shunt Malfunction: Proximal vs Distal",
+            title: "Shunt Malfunction: Proximal vs Distal Matrix",
             category: "Frontline ER Consults",
-            clinicalContext: "Ventricular catheter choroid occlusion vs distal pseudocyst with ventriculomegaly.",
+            clinicalContext: "Comprehensive diagnostic decision matrix comparing proximal vs distal shunt failure pathophysiology, manometry, and tap protocols.",
             anatomicalChecklist: ["Ventriculomegaly (Evans index >0.3)", "Proximal slit ventricles vs hydrocephalus", "Distal pseudocyst radiograph"],
-            status: .undecided, defectTags: [], notes: ""
+            status: .keep, defectTags: [], notes: "Approved Shunt Failure Decision Matrix plate."
         ),
         ReviewPlateItem(
             id: "er_jumped_facets",
             imageName: "plate_spine_jumped_facets",
             title: "Bilateral Jumped Cervical Facets",
             category: "Frontline ER Consults",
-            clinicalContext: "Sagittal CT/MRI showing inferior articular process locked anterior to superior facet.",
+            clinicalContext: "Sagittal CT/MRI showing inferior articular process locked anterior to superior facet with severe cord compression.",
             anatomicalChecklist: ["Facet dislocation / locking", "Anterior listhesis >50%", "Thecal sac pinch / disc herniation"],
-            status: .undecided, defectTags: [], notes: ""
+            status: .keep, defectTags: [], notes: "Approved Bilateral Jumped Facets C6-C7 diagnostic plate."
         ),
         ReviewPlateItem(
             id: "er_tumor_compression",
@@ -289,7 +307,7 @@ public class PlateAuditManager: ObservableObject {
             category: "Frontline ER Consults",
             clinicalContext: "Sagittal T2 MRI showing vertebral body collapse, epidural mass, Bilsky grade 3.",
             anatomicalChecklist: ["Ventral epidural tumor component", "Effacement of T2 CSF sleeve", "Cord myelomalacia signal"],
-            status: .undecided, defectTags: [], notes: ""
+            status: .keep, defectTags: [], notes: "Approved Metastatic Epidural Cord Compression plate."
         ),
         ReviewPlateItem(
             id: "er_burst_fracture",
@@ -298,7 +316,7 @@ public class PlateAuditManager: ObservableObject {
             category: "Frontline ER Consults",
             clinicalContext: "Axial/Sagittal CT of L1 burst fracture with retropulsed fragment occupying >50% canal.",
             anatomicalChecklist: ["Posterior superior cortex fragment", "Canal compromise percentage", "Interpedicular widening"],
-            status: .undecided, defectTags: [], notes: ""
+            status: .keep, defectTags: [], notes: "Approved Thoracolumbar Burst Fracture plate."
         ),
         ReviewPlateItem(
             id: "er_cauda_equina",
@@ -307,16 +325,16 @@ public class PlateAuditManager: ObservableObject {
             category: "Frontline ER Consults",
             clinicalContext: "Axial T2 MRI showing massive extruded central lumbar disc obliterating thecal sac.",
             anatomicalChecklist: ["Massive central disc sequestration", "Complete thecal sac obliteration", "Compressed cauda equina rootlets"],
-            status: .undecided, defectTags: [], notes: ""
+            status: .keep, defectTags: [], notes: "Approved Cauda Equina Compression plate."
         ),
         ReviewPlateItem(
             id: "er_csf_leak",
             imageName: "plate_spine_csf_leak",
-            title: "Postoperative Spine Pseudomeningocele / CSF Leak",
+            title: "Postoperative Lumbar Pseudomeningocele / CSF Leak",
             category: "Frontline ER Consults",
-            clinicalContext: "Sagittal/Axial T2 MRI revealing subfascial fluid collection continuous with dural tear.",
+            clinicalContext: "Sagittal T2 MRI revealing subfascial fluid collection tracking through laminectomy defect directly to the dural tear.",
             anatomicalChecklist: ["Subfascial hyperintense fluid pocket", "Continuous with dural defect", "Rootlet entrapment in tear"],
-            status: .undecided, defectTags: [], notes: ""
+            status: .keep, defectTags: [], notes: "Approved Postoperative Lumbar Pseudomeningocele T2 MRI plate."
         )
     ]
 }

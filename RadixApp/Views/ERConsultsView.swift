@@ -522,6 +522,7 @@ public enum CranialConsultType: String, CaseIterable {
     case subduralHematoma = "sdh"
     case intracerebralHemorrhage = "ich"
     case vpShuntObstruction = "shunt_obs"
+    case vpShuntDistal = "shunt_distal"
     case shuntProxVsDistal = "shunt_prox_dist"
     
     public var shortTitle: String {
@@ -530,8 +531,9 @@ public enum CranialConsultType: String, CaseIterable {
         case .epiduralHematoma: return "Epidural (EDH)"
         case .subduralHematoma: return "Subdural (SDH)"
         case .intracerebralHemorrhage: return "Intracerebral (ICH)"
-        case .vpShuntObstruction: return "Shunt Obstruction"
-        case .shuntProxVsDistal: return "Prox vs Distal Shunt"
+        case .vpShuntObstruction: return "Proximal Shunt (CT)"
+        case .vpShuntDistal: return "Distal Shunt (Pseudocyst)"
+        case .shuntProxVsDistal: return "Prox vs Distal Matrix"
         }
     }
     
@@ -541,8 +543,9 @@ public enum CranialConsultType: String, CaseIterable {
         case .epiduralHematoma: return "Acute Epidural Hematoma (EDH)"
         case .subduralHematoma: return "Acute Subdural Hematoma (SDH)"
         case .intracerebralHemorrhage: return "Acute Intracerebral Hemorrhage (ICH)"
-        case .vpShuntObstruction: return "Ventriculoperitoneal (VP) Shunt Obstruction"
-        case .shuntProxVsDistal: return "VP Shunt Failure: Proximal vs Distal Differentiation"
+        case .vpShuntObstruction: return "Proximal Shunt Obstruction: Head CT"
+        case .vpShuntDistal: return "Distal Shunt Failure: Peritoneal Pseudocyst"
+        case .shuntProxVsDistal: return "VP Shunt Failure: Proximal vs Distal Differentiation Matrix"
         }
     }
     
@@ -553,6 +556,7 @@ public enum CranialConsultType: String, CaseIterable {
         case .subduralHematoma: return "plate_ct_sdh"
         case .intracerebralHemorrhage: return "plate_cranial_ich_lobar"
         case .vpShuntObstruction: return "plate_cranial_vp_shunt"
+        case .vpShuntDistal: return "plate_cranial_shunt_distal"
         case .shuntProxVsDistal: return "plate_cranial_shunt_prox_distal"
         }
     }
@@ -564,6 +568,7 @@ public enum CranialConsultType: String, CaseIterable {
         case .subduralHematoma: return "STAT OR MANDATE (>10 MM / SHIFT >5 MM)"
         case .intracerebralHemorrhage: return "EMERGENT SBP 140 & CRANIOTOMY IF >30 CC"
         case .vpShuntObstruction: return "URGENT SHUNT TAP & REVISION"
+        case .vpShuntDistal: return "URGENT ABDOMINAL CT & DISTAL REVISION"
         case .shuntProxVsDistal: return "DIAGNOSTIC TAP & DIFFERENTIAL"
         }
     }
@@ -575,6 +580,7 @@ public enum CranialConsultType: String, CaseIterable {
         case .subduralHematoma: return ObsidianTheme.neonRed
         case .intracerebralHemorrhage: return ObsidianTheme.neonAmber
         case .vpShuntObstruction: return ObsidianTheme.neonAmber
+        case .vpShuntDistal: return ObsidianTheme.neonCyan
         case .shuntProxVsDistal: return ObsidianTheme.neonCyan
         }
     }
@@ -591,6 +597,8 @@ public enum CranialConsultType: String, CaseIterable {
             return "Hyperdense parenchymal hematoma with hypodense perihematomal edema rim. Posterior fossa cerebellar ICH >3cm compressing 4th ventricle mandates STAT evacuation."
         case .vpShuntObstruction:
             return "Marked enlargement of lateral ventricles compared to baseline prior scan. Periventricular halo reflects transependymal CSF resorption."
+        case .vpShuntDistal:
+            return "Contrast-enhanced abdominal CT demonstrates the coiled distal peritoneal catheter tip terminating within a well-circumscribed, non-enhancing fluid pseudocyst displacing bowel."
         case .shuntProxVsDistal:
             return "Proximal failure shows slow/no tap refill and normal opening pressure; distal failure shows rapid refill, high opening pressure (>25 cm H2O), or abdominal pseudocyst."
         }
@@ -627,6 +635,12 @@ public enum CranialConsultType: String, CaseIterable {
                 "Morning headache, projectile nausea/vomiting, and increasing lethargy",
                 "Sunsetting eyes or abducens (CN VI) palsy from elevated ICP",
                 "Subcutaneous fluid collection along the shunt tubing tract"
+            ]
+        case .vpShuntDistal:
+            return [
+                "Abdominal pain, distension, or palpable cystic mass along tubing tract",
+                "Persistent headache and lethargy with elevated ICP symptoms",
+                "Elevated opening pressure on reservoir tap (>25 cm H2O) with free refill"
             ]
         case .shuntProxVsDistal:
             return [
@@ -674,6 +688,13 @@ public enum CranialConsultType: String, CaseIterable {
                 ConsultPhase(phaseNumber: 3, phaseTitle: "Sterile Shunt Tap", actionInstructions: "Perform sterile reservoir tap with 25G butterfly needle; measure opening pressure; evaluate spontaneous flow rate; send CSF for cells/culture."),
                 ConsultPhase(phaseNumber: 4, phaseTitle: "Operative Revision", actionInstructions: "Urgent surgical revision of occluded ventricular catheter (Kocher's point) or distal peritoneal catheter based on tap findings.")
             ]
+        case .vpShuntDistal:
+            return [
+                ConsultPhase(phaseNumber: 1, phaseTitle: "Abdominal CT & X-Ray", actionInstructions: "Obtain contrast-enhanced abdominal CT to characterize pseudocyst and plain radiographs to confirm catheter continuity."),
+                ConsultPhase(phaseNumber: 2, phaseTitle: "Diagnostic Tap & Pressure", actionInstructions: "Perform sterile reservoir tap; elevated opening pressure (>25 cm H2O) with brisk CSF return confirms distal outflow block."),
+                ConsultPhase(phaseNumber: 3, phaseTitle: "CSF Infection Workup", actionInstructions: "Send CSF for cell count, gram stain, and cultures to rule out Propionibacterium acnes or Staphylococcus epidermidis colonization."),
+                ConsultPhase(phaseNumber: 4, phaseTitle: "Surgical Distal Revision", actionInstructions: "Co-consult General Surgery for laparoscopic externalization, pseudocyst marsupialization, or relocation to pleural space/atrium (VA shunt).")
+            ]
         case .shuntProxVsDistal:
             return [
                 ConsultPhase(phaseNumber: 1, phaseTitle: "Physical Reservoir Exam", actionInstructions: "Depress reservoir: failure to refill or slow refill (>15-30s) indicates proximal blockage; normal rapid refill indicates distal issue."),
@@ -716,6 +737,12 @@ public enum CranialConsultType: String, CaseIterable {
                 "Non-sterile shunt tap technique introducing bacterial colonization into the central nervous system",
                 "Pumping the shunt reservoir forcefully, which can suck choroid plexus permanently into catheter holes"
             ]
+        case .vpShuntDistal:
+            return [
+                "Replacing the proximal ventricular catheter when the primary pathology is peritoneal pseudocyst encapsulation",
+                "Failing to send CSF for low-virulence indolent bacterial cultures (e.g. Cutibacterium acnes)",
+                "Re-implanting the distal catheter into the same quadrant without resolving the inflammatory pseudocyst"
+            ]
         case .shuntProxVsDistal:
             return [
                 "Replacing the ventricular catheter when the actual failure is a distal peritoneal pseudocyst",
@@ -732,6 +759,7 @@ public enum CranialConsultType: String, CaseIterable {
         case .subduralHematoma: return "Emergent 12x15 cm Decompressive Hemicraniectomy and Expansile Duraplasty"
         case .intracerebralHemorrhage: return "STAT Suboccipital Decompression (Posterior Fossa) or MIS Clot Evacuation (Lobar)"
         case .vpShuntObstruction: return "Urgent Shunt Tap & Operative Catheter Revision via Kocher's Point"
+        case .vpShuntDistal: return "Laparoscopic Peritoneal Shunt Revision / Pseudocyst Drainage or Conversion to VA Shunt"
         case .shuntProxVsDistal: return "Targeted Proximal Ventricular or Distal Peritoneal Laparoscopic Revision"
         }
     }
