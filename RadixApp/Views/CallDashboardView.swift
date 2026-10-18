@@ -55,6 +55,7 @@ public struct CallDashboardView: View {
     
     @State private var filterAcuity: TriageAcuity? = nil
     @State private var isShowingReviewStation = false
+    @State private var isShowingDeveloperPortfolio = false
     
     var filteredPatients: [CallPatient] {
         if let filter = filterAcuity {
@@ -81,6 +82,23 @@ public struct CallDashboardView: View {
                             Text("\(patients.count) Covered")
                                 .font(.system(size: 11, weight: .bold, design: .monospaced))
                                 .foregroundColor(ObsidianTheme.textTertiary)
+                            Button(action: {
+                                HapticManager.impact(style: .medium)
+                                isShowingDeveloperPortfolio = true
+                            }) {
+                                HStack(spacing: 4) {
+                                    Image(systemName: "person.crop.circle.fill")
+                                        .font(.system(size: 10))
+                                    Text("Dr. Mohit Apps")
+                                        .font(.system(size: 10, weight: .bold))
+                                }
+                                .padding(.horizontal, 8)
+                                .padding(.vertical, 4)
+                                .background(ObsidianTheme.neonPurple.opacity(0.18))
+                                .foregroundColor(ObsidianTheme.neonPurple)
+                                .cornerRadius(6)
+                                .overlay(RoundedRectangle(cornerRadius: 6).stroke(ObsidianTheme.neonPurple.opacity(0.3), lineWidth: 1))
+                            }
                             Button(action: {
                                 HapticManager.impact(style: .medium)
                                 isShowingReviewStation = true
@@ -144,6 +162,9 @@ public struct CallDashboardView: View {
         .obsidianCockpitBackground()
         .sheet(isPresented: $isShowingReviewStation) {
             AnatomicReviewStationView()
+        }
+        .sheet(isPresented: $isShowingDeveloperPortfolio) {
+            DeveloperPortfolioView()
         }
     }
 }

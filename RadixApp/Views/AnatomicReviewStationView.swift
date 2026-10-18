@@ -215,7 +215,7 @@ public class PlateAuditManager: ObservableObject {
             category: "2 AM Crisis CT",
             clinicalContext: "High-contrast axial CT, biconvex lenticular arterial hematoma, suture restriction.",
             anatomicalChecklist: ["Biconvex hyperdense shape", "Does not cross sutures", "Anterior/Posterior orientation"],
-            status: .undecided, defectTags: [], notes: ""
+            status: .keep, defectTags: [], notes: "Approved Acute Epidural Hematoma diagnostic CT plate."
         ),
         ReviewPlateItem(
             id: "cr_sdh",
@@ -224,7 +224,7 @@ public class PlateAuditManager: ObservableObject {
             category: "2 AM Crisis CT",
             clinicalContext: "High-contrast axial CT, crescentic bridging vein bleed crossing cranial suture lines.",
             anatomicalChecklist: ["Crescentic shape", "Crosses suture lines", "Sulcal effacement"],
-            status: .undecided, defectTags: [], notes: ""
+            status: .keep, defectTags: [], notes: "Approved Acute Subdural Hematoma diagnostic CT plate."
         ),
         ReviewPlateItem(
             id: "cr_uncal",
@@ -233,7 +233,7 @@ public class PlateAuditManager: ObservableObject {
             category: "2 AM Crisis CT",
             clinicalContext: "Medial temporal uncal herniation over tentorial incisura compressing midbrain.",
             anatomicalChecklist: ["Uncus is ANTERIOR (not posterior)", "Ipsilateral ambient cistern effacement", "Cerebral peduncle distortion"],
-            status: .undecided, defectTags: [], notes: ""
+            status: .keep, defectTags: [], notes: "Approved Acute Uncal Herniation pre/post-decompression plate."
         ),
         ReviewPlateItem(
             id: "cr_post_fossa",
@@ -242,7 +242,7 @@ public class PlateAuditManager: ObservableObject {
             category: "2 AM Crisis CT",
             clinicalContext: "Large cerebellar hematoma compressing 4th ventricle with acute obstructive hydrocephalus.",
             anatomicalChecklist: ["Clear cerebellar hematoma visible", "4th ventricle compression", "Dorsal brainstem distortion"],
-            status: .undecided, defectTags: [], notes: ""
+            status: .keep, defectTags: [], notes: "Approved Posterior Fossa Cerebellar ICH 4-panel diagnostic CT plate."
         ),
         
         // MARK: - 3. Frontline ER Consults Suite (10 plates)
