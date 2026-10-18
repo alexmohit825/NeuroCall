@@ -386,6 +386,7 @@ public enum SurgicalPlateType: String, CaseIterable {
     case kochersEVD = "kochers_evd"
     case acdf = "acdf"
     case orbitozygomatic = "orbitozygomatic"
+    case tlif = "tlif"
     
     public var assetImageName: String? {
         switch self {
@@ -398,6 +399,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .kochersEVD: return "plate_kochers_evd"
         case .acdf: return "plate_acdf"
         case .orbitozygomatic: return "plate_orbitozygomatic"
+        case .tlif: return "plate_tlif"
         }
     }
     
@@ -412,6 +414,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .kochersEVD: return "Kocher's EVD"
         case .acdf: return "ACDF"
         case .orbitozygomatic: return "FT-OZ"
+        case .tlif: return "L4-5 TLIF"
         }
     }
     
@@ -426,6 +429,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .kochersEVD: return "Kocher's Point Ventriculostomy & EVD"
         case .acdf: return "Anterior Cervical Discectomy & Fusion (ACDF)"
         case .orbitozygomatic: return "Frontotemporal Orbitozygomatic Approach (FT-OZ)"
+        case .tlif: return "L4–L5 Transforaminal Lumbar Interbody Fusion (TLIF)"
         }
     }
     
@@ -440,6 +444,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .kochersEVD: return "target"
         case .acdf: return "waveform.path.ecg"
         case .orbitozygomatic: return "eye.circle.fill"
+        case .tlif: return "figure.walk"
         }
     }
     
@@ -782,6 +787,49 @@ public enum SurgicalPlateType: String, CaseIterable {
                     surgicalPearl: "Slack the brain early by opening the optico-carotid cistern to allow gentle gravitational brain fall without retractor pressure."
                 )
             ]
+        case .tlif:
+            return [
+                SurgicalCallout(
+                    id: "tlif_screws",
+                    title: "Bilateral Pedicle Screws (L4 & L5)",
+                    structureType: "TITANIUM FIXATION",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.25,
+                    normalizedY: 0.35,
+                    description: "Four titanium pedicle screws inserted bilaterally into L4 and L5 pedicles, interconnected with contoured longitudinal titanium rods and set screws.",
+                    surgicalPearl: "Confirm anatomic mammillary entry point at junction of transverse process and superior articular facet; verify medial angulation and bicortical purchase on fluoroscopy."
+                ),
+                SurgicalCallout(
+                    id: "tlif_corridor",
+                    title: "Unilateral Facetectomy Corridor",
+                    structureType: "SURGICAL WINDOW",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.72,
+                    normalizedY: 0.45,
+                    description: "Complete resection of right L4 inferior articular process (IAP) and L5 superior articular process (SAP), opening Kambin's transforaminal corridor.",
+                    surgicalPearl: "Resect bone flush with the superior border of the lower pedicle to create a clear, flat trajectory into the disc space."
+                ),
+                SurgicalCallout(
+                    id: "tlif_cage",
+                    title: "Porous Titanium TLIF Interbody Spacer",
+                    structureType: "INTERBODY IMPLANT",
+                    color: ObsidianTheme.neonRose,
+                    normalizedX: 0.62,
+                    normalizedY: 0.58,
+                    description: "Curved bullet-shaped 3D porous titanium spacer packed with autologous cancellous bone graft, seated stably across the anterior-middle disc space.",
+                    surgicalPearl: "Prepare endplates down to bleeding subchondral bone without penetrating cortical endplates to prevent cage subsidence."
+                ),
+                SurgicalCallout(
+                    id: "tlif_nerve_root",
+                    title: "Traversing L5 Root & Thecal Sac",
+                    structureType: "NEURAL ELEMENTS",
+                    color: ObsidianTheme.neonPurple,
+                    normalizedX: 0.48,
+                    normalizedY: 0.52,
+                    description: "Glistening thecal sac and traversing L5 root protected and gently retracted medially with a nerve root retractor during disc clearing and cage insertion.",
+                    surgicalPearl: "Never apply prolonged, aggressive medial root traction; relax retractor frequently to avoid ischemic neurapraxia."
+                )
+            ]
         }
     }
     
@@ -850,6 +898,13 @@ public enum SurgicalPlateType: String, CaseIterable {
                 ApproachSequentialStep(stepNumber: 3, title: "Orbitozygomatic Osteotomies", detail: "Perform cuts across posterior root of zygomatic arch, zygomaticofacial suture, orbital roof back to inferior orbital fissure, and supraorbital rim."),
                 ApproachSequentialStep(stepNumber: 4, title: "Removal of OZ Unit & Skull Base Flattening", detail: "Mobilize and remove the one-piece orbitozygomatic bar. Flatten residual sphenoid ridge and orbital roof with a diamond drill flush with the skull base.")
             ]
+        case .tlif:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Midline Exposure & Pedicle Screws", detail: "Subperiosteal dissection out to transverse processes. Cannulate and insert 4 titanium pedicle screws into L4 and L5 bilaterally under fluoroscopy."),
+                ApproachSequentialStep(stepNumber: 2, title: "Unilateral Facetectomy Corridor", detail: "Complete resection of right L4 inferior facet and L5 superior facet. Open ligamentum flavum to expose Kambin's triangle and exiting/traversing roots."),
+                ApproachSequentialStep(stepNumber: 3, title: "Discectomy & Endplate Curettage", detail: "Incise disc annulus, thoroughly decompress disc space, and prepare endplates down to bleeding subchondral bone without penetrating cortex."),
+                ApproachSequentialStep(stepNumber: 4, title: "Cage Insertion & Rod Compression", detail: "Trial and insert curved porous titanium cage packed with bone graft into anterior disc space. Secure longitudinal rods, compress for lordosis, and lock set screws.")
+            ]
         }
     }
     
@@ -908,6 +963,12 @@ public enum SurgicalPlateType: String, CaseIterable {
                 "Supraorbital nerve transection during superior orbital rim osteotomy causing permanent forehead sensory loss",
                 "Thermal or traction injury to frontalis branch of facial nerve (CN VII) leading to permanent brow ptosis",
                 "Violation of the periorbita leading to orbital fat herniation, postoperative enophthalmos, or diplopia"
+            ]
+        case .tlif:
+            return [
+                "Traversing L5 or exiting L4 nerve root laceration or over-traction resulting in permanent foot drop or radiculopathy",
+                "Dural tear with persistent CSF leak / postoperative lumbar pseudomeningocele requiring direct repair",
+                "Endplate violation causing titanium cage subsidence or retropulsion into the spinal canal"
             ]
         }
     }
