@@ -206,6 +206,15 @@ public class PlateAuditManager: ObservableObject {
             anatomicalChecklist: ["4 pedicle screws (L4 & L5 bilaterally)", "Contoured longitudinal rods", "Unilateral facetectomy corridor", "Bullet porous titanium cage in disc space", "Traversing nerve root medial retraction"],
             status: .keep, defectTags: [], notes: "Approved L4-L5 TLIF operative anatomy plate."
         ),
+        ReviewPlateItem(
+            id: "sa_chiari",
+            imageName: "plate_chiari_decompression",
+            title: "Chiari I Malformation Decompression & Duraplasty",
+            category: "Surgical Atlas",
+            clinicalContext: "Dual-panel operative atlas showing suboccipital decompression, C1 laminectomy, and lateral dural reflection exposing herniated cerebellar tonsils on left, with completed watertight expansile tan duraplasty on right.",
+            anatomicalChecklist: ["Suboccipital craniectomy & foramen magnum rim", "C1 posterior arch resection to sulcus arteriosus", "V3 vertebral artery bilateral safety loops", "Herniated cerebellar tonsils into cervical canal", "Watertight expansile tan duraplasty patch"],
+            status: .keep, defectTags: [], notes: "Approved canonical 2-panel Chiari decompression operative plate."
+        ),
         
         // MARK: - 2. 2 AM Crisis Head CTs (4 plates)
         ReviewPlateItem(

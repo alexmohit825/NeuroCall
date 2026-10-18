@@ -387,6 +387,7 @@ public enum SurgicalPlateType: String, CaseIterable {
     case acdf = "acdf"
     case orbitozygomatic = "orbitozygomatic"
     case tlif = "tlif"
+    case chiariDecompression = "chiari_decompression"
     
     public var assetImageName: String? {
         switch self {
@@ -400,6 +401,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .acdf: return "plate_acdf"
         case .orbitozygomatic: return "plate_orbitozygomatic"
         case .tlif: return "plate_tlif"
+        case .chiariDecompression: return "plate_chiari_decompression"
         }
     }
     
@@ -415,6 +417,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .acdf: return "ACDF"
         case .orbitozygomatic: return "FT-OZ"
         case .tlif: return "L4-5 TLIF"
+        case .chiariDecompression: return "Chiari I"
         }
     }
     
@@ -430,6 +433,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .acdf: return "Anterior Cervical Discectomy & Fusion (ACDF)"
         case .orbitozygomatic: return "Frontotemporal Orbitozygomatic Approach (FT-OZ)"
         case .tlif: return "L4–L5 Transforaminal Lumbar Interbody Fusion (TLIF)"
+        case .chiariDecompression: return "Chiari I Malformation Decompression & Duraplasty"
         }
     }
     
@@ -445,6 +449,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .acdf: return "waveform.path.ecg"
         case .orbitozygomatic: return "eye.circle.fill"
         case .tlif: return "figure.walk"
+        case .chiariDecompression: return "cross.fill"
         }
     }
     
@@ -830,6 +835,49 @@ public enum SurgicalPlateType: String, CaseIterable {
                     surgicalPearl: "Never apply prolonged, aggressive medial root traction; relax retractor frequently to avoid ischemic neurapraxia."
                 )
             ]
+        case .chiariDecompression:
+            return [
+                SurgicalCallout(
+                    id: "chiari_tonsils",
+                    title: "Herniated Cerebellar Tonsils",
+                    structureType: "HERNIATED NEURAL ELEMENTS",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.25,
+                    normalizedY: 0.28,
+                    description: "Elongated, peg-like cerebellar tonsils extending caudal to the foramen magnum into the upper cervical canal, compressing the dorsal cervicomedullary junction.",
+                    surgicalPearl: "Subpial tonsillar coagulation or aspiration is reserved for refractory compression; primary objective is restoring wide, pulsatile CSF flow across the foramen of Magendie."
+                ),
+                SurgicalCallout(
+                    id: "chiari_dural_opening",
+                    title: "Y-Shaped Dural Opening",
+                    structureType: "SURGICAL INCISION",
+                    color: ObsidianTheme.neonRose,
+                    normalizedX: 0.16,
+                    normalizedY: 0.22,
+                    description: "Curvilinear/Y-shaped posterior fossa dural incision extending across the foramen magnum and C1 posterior arch, exposing the cerebellar vermis, tonsils, and PICA loops.",
+                    surgicalPearl: "Carefully identify and divide the tight fibrous constricting dural band at the occipitoatlantal junction prior to dural reflection."
+                ),
+                SurgicalCallout(
+                    id: "chiari_vertebral_artery",
+                    title: "V3 Vertebral Artery Loops",
+                    structureType: "CRITICAL VASCULAR CORRIDOR",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.14,
+                    normalizedY: 0.52,
+                    description: "V3 segment of vertebral artery coursing laterally out of C2 transverse foramen, sweeping across C1 lateral mass sulcus arteriosus before piercing the atlanto-occipital membrane.",
+                    surgicalPearl: "Keep suboccipital and C1 laminectomy strictly within the medial 1.5 cm of midline to maintain a generous safety buffer from the V3 loops."
+                ),
+                SurgicalCallout(
+                    id: "chiari_duraplasty",
+                    title: "Expansile Tan Duraplasty Patch",
+                    structureType: "EXPANSION RECONSTRUCTION",
+                    color: ObsidianTheme.neonGreen,
+                    normalizedX: 0.74,
+                    normalizedY: 0.35,
+                    description: "Watertight expansile duraplasty using a tapered tan pericardial/collagen patch graft, broad superiorly and tapering over the C1 canal, secured with running monofilament sutures.",
+                    surgicalPearl: "Ensure watertight running closure tested under Valsalva to 30 cm H2O to prevent postoperative pseudomeningocele or CSF fistulae."
+                )
+            ]
         }
     }
     
@@ -905,6 +953,13 @@ public enum SurgicalPlateType: String, CaseIterable {
                 ApproachSequentialStep(stepNumber: 3, title: "Discectomy & Endplate Curettage", detail: "Incise disc annulus, thoroughly decompress disc space, and prepare endplates down to bleeding subchondral bone without penetrating cortex."),
                 ApproachSequentialStep(stepNumber: 4, title: "Cage Insertion & Rod Compression", detail: "Trial and insert curved porous titanium cage packed with bone graft into anterior disc space. Secure longitudinal rods, compress for lordosis, and lock set screws.")
             ]
+        case .chiariDecompression:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Midline Suboccipital & C1 Exposure", detail: "Linear midline incision from inion to C2. Subperiosteally elevate paracervical musculature strictly in midline, identifying the posterior rim of foramen magnum and C1 posterior arch."),
+                ApproachSequentialStep(stepNumber: 2, title: "Suboccipital Craniectomy & C1 Laminectomy", detail: "Perform a 3x3 cm suboccipital craniectomy incorporating the posterior foramen magnum rim. Re-sect the posterior arch of C1 out to the sulcus arteriosus, safeguarding V3 vertebral artery loops."),
+                ApproachSequentialStep(stepNumber: 3, title: "Epidural Band Division & Y-Dural Opening", detail: "Sharply incise the thickened constricting fibrous band at the atlanto-occipital junction. Perform a Y-shaped dural incision, reflecting dural flaps to expose the herniated cerebellar tonsils, vermis, and PICA loops."),
+                ApproachSequentialStep(stepNumber: 4, title: "Watertight Expansile Patch Duraplasty", detail: "Suture a tapered tan pericardial or collagen patch graft with continuous running monofilament suture to reconstruct a generous, non-restrictive posterior fossa cistern.")
+            ]
         }
     }
     
@@ -969,6 +1024,12 @@ public enum SurgicalPlateType: String, CaseIterable {
                 "Traversing L5 or exiting L4 nerve root laceration or over-traction resulting in permanent foot drop or radiculopathy",
                 "Dural tear with persistent CSF leak / postoperative lumbar pseudomeningocele requiring direct repair",
                 "Endplate violation causing titanium cage subsidence or retropulsion into the spinal canal"
+            ]
+        case .chiariDecompression:
+            return [
+                "Laceration of the V3 vertebral artery loops during lateral dissection on the superior arch of C1",
+                "Postoperative CSF leak and lumbar pseudomeningocele or meningitis from non-watertight duraplasty closure",
+                "Acute cerebellar ptosis or slump from an overly aggressive suboccipital craniectomy (>3.5 cm) breaching transverse sinus"
             ]
         }
     }
