@@ -87,9 +87,9 @@ public struct CallDashboardView: View {
                                 isShowingDeveloperPortfolio = true
                             }) {
                                 HStack(spacing: 4) {
-                                    Image(systemName: "person.crop.circle.fill")
+                                    Image(systemName: "square.stack.3d.up.fill")
                                         .font(.system(size: 10))
-                                    Text("Dr. Mohit Apps")
+                                    Text("Developer's Apps")
                                         .font(.system(size: 10, weight: .bold))
                                 }
                                 .padding(.horizontal, 8)

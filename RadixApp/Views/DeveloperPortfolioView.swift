@@ -2,7 +2,7 @@ import SwiftUI
 import StoreKit
 
 // MARK: - Developer Portfolio & Discoverability View
-// Direct 1-Tap Navigation to All Apps by Dr. A. Alex Mohit
+// Direct 1-Tap Navigation to Developer's Other Apps
 // Solves App Store Search Damping & Discoverability (ref: 1a371fae-7f7f-47fd-9757-e414e576c055)
 
 public struct DeveloperPortfolioView: View {
@@ -89,11 +89,11 @@ public struct DeveloperPortfolioView: View {
                             .foregroundColor(ObsidianTheme.neonCyan)
                             .padding(.top, 10)
                         
-                        Text("Dr. A. Alex Mohit Apps")
+                        Text("Developer's Other Apps")
                             .font(.system(size: 22, weight: .bold))
                             .foregroundColor(ObsidianTheme.textPrimary)
                         
-                        Text("Physician-Engineered iOS Applications")
+                        Text("Native Mobile Applications")
                             .font(.system(size: 13, weight: .medium))
                             .foregroundColor(ObsidianTheme.textSecondary)
                     }
@@ -110,7 +110,7 @@ public struct DeveloperPortfolioView: View {
                                 .foregroundColor(ObsidianTheme.neonAmber)
                         }
                         
-                        Text("To find all apps by Dr. Mohit on any iPhone, search his registered developer name directly in the App Store search bar:")
+                        Text("To find all apps by this developer on any iPhone, search the registered developer name directly in the App Store search bar:")
                             .font(.system(size: 12, weight: .regular))
                             .foregroundColor(ObsidianTheme.textSecondary)
                         
