@@ -772,6 +772,7 @@ public enum SpineConsultType: String, CaseIterable {
     case burstFracture = "burst_fracture"
     case caudaEquina = "cauda_equina"
     case csfLeakSpine = "csf_leak_spine"
+    case odontoidFracture = "odontoid_fracture"
     
     public var shortTitle: String {
         switch self {
@@ -780,6 +781,7 @@ public enum SpineConsultType: String, CaseIterable {
         case .burstFracture: return "Burst Fracture"
         case .caudaEquina: return "Cauda Equina"
         case .csfLeakSpine: return "Post-Op CSF Leak"
+        case .odontoidFracture: return "Odontoid Fx"
         }
     }
     
@@ -790,6 +792,7 @@ public enum SpineConsultType: String, CaseIterable {
         case .burstFracture: return "Thoracolumbar Burst Fracture with Canal Retropulsion"
         case .caudaEquina: return "Cauda Equina Syndrome (CES) from Lumbar Disc Extrusion"
         case .csfLeakSpine: return "Management of Postoperative Spinal CSF Leak / Pseudomeningocele"
+        case .odontoidFracture: return "Anderson & D'Alonzo Odontoid Fractures (Types I, II, III)"
         }
     }
     
@@ -800,6 +803,7 @@ public enum SpineConsultType: String, CaseIterable {
         case .burstFracture: return "plate_spine_burst_fracture"
         case .caudaEquina: return "plate_spine_cauda_equina"
         case .csfLeakSpine: return "plate_spine_csf_leak"
+        case .odontoidFracture: return "plate_spine_odontoid_classification"
         }
     }
     
@@ -810,6 +814,7 @@ public enum SpineConsultType: String, CaseIterable {
         case .burstFracture: return "TLICS >= 5: OPERATIVE STABILIZATION"
         case .caudaEquina: return "STAT SURGICAL DECOMPRESSION (<24-48H)"
         case .csfLeakSpine: return "STEPWISE DIVERSION VS RE-EXPLORATION"
+        case .odontoidFracture: return "TYPE II: HIGH NONUNION RISK (45-70%) — SURGERY VS COLLAR"
         }
     }
     
@@ -820,6 +825,7 @@ public enum SpineConsultType: String, CaseIterable {
         case .burstFracture: return ObsidianTheme.neonAmber
         case .caudaEquina: return ObsidianTheme.neonRed
         case .csfLeakSpine: return ObsidianTheme.neonCyan
+        case .odontoidFracture: return ObsidianTheme.neonRed
         }
     }
     
@@ -835,6 +841,8 @@ public enum SpineConsultType: String, CaseIterable {
             return "Sagittal and axial T2 MRI demonstrates massive central/subarticular extruded disc herniation (L4-L5) completely filling the canal and obliterating all descending cauda equina nerve roots."
         case .csfLeakSpine:
             return "Sagittal T2 MRI reveals large hyperintense dorsal subcutaneous fluid collection (pseudomeningocele) tracking through laminectomy defect and communicating with the intrathecal space."
+        case .odontoidFracture:
+            return "Thin-slice cervical CT with coronal and sagittal reconstructions defines the fracture plane: Type I (alar tip avulsion), Type II (transverse waist watershed), Type III (body extension). Evaluate translation (>5 mm), angulation (>10 deg), and rule out craniocervical dissociation."
         }
     }
     
@@ -869,6 +877,12 @@ public enum SpineConsultType: String, CaseIterable {
                 "Clear fluid draining through surgical wound margins or fluctuant dorsal mass",
                 "Positional orthostatic headache worsening on standing and relieved when flat",
                 "Nausea, tinnitus, or neck stiffness with positive beta-2 transferrin test"
+            ]
+        case .odontoidFracture:
+            return [
+                "High-speed motor vehicle collision or ground-level fall in elderly with severe upper cervical pain",
+                "Occipital neuralgia radiating along C2 dermatome with severely restricted, painful cervical rotation",
+                "Myelopathy signs (brisk reflexes, Hoffman's, spasticity) if significant posterior dens displacement"
             ]
         }
     }
@@ -910,6 +924,13 @@ public enum SpineConsultType: String, CaseIterable {
                 ConsultPhase(phaseNumber: 3, phaseTitle: "Operative Re-Exploration", actionInstructions: "Mandatory if persistent cutaneous fistula, high-volume leak, or failed lumbar drain: open wound under microscope for direct repair."),
                 ConsultPhase(phaseNumber: 4, phaseTitle: "Watertight Dural Closure", actionInstructions: "Primary 5-0/6-0 Prolene running suture, DuraGen onlay, DuraSeal hydrogel, intraoperative Valsalva challenge (30-40 cm H2O), watertight running 0-Vicryl fascia, drain to gravity without suction.")
             ]
+        case .odontoidFracture:
+            return [
+                ConsultPhase(phaseNumber: 1, phaseTitle: "Rigid Cervical Immobilization", actionInstructions: "Apply rigid cervical collar (Miami J / Aspen) immediately. Maintain strict spine precautions; obtain thin-cut CT cervical spine and CTA neck to evaluate vertebral arteries."),
+                ConsultPhase(phaseNumber: 2, phaseTitle: "Classification & Union Triaging", actionInstructions: "Type I: 95-100% union with collar; rule out craniocervical dissociation. Type II: Watershed zone with 45-70% nonunion rate. Type III: 85-93% union nonoperatively via cancellous bone marrow bed."),
+                ConsultPhase(phaseNumber: 3, phaseTitle: "Type II Surgical Risk Stratification", actionInstructions: "Surgery strongly indicated for Type II if: age >= 50-65 years, translation > 5 mm, angulation > 10 degrees, posterior displacement, or tobacco use (nonunion >65% without surgery)."),
+                ConsultPhase(phaseNumber: 4, phaseTitle: "Operative Fixation Choice", actionInstructions: "Anterior Odontoid Screw if intact transverse ligament, non-osteoporotic, and acute (<6 mo). If osteoporotic, comminuted, or chronic: Posterior C1-C2 Goel-Harms fusion.")
+            ]
         }
     }
     
@@ -945,6 +966,12 @@ public enum SpineConsultType: String, CaseIterable {
                 "Over-draining lumbar subarachnoid drain (>200 cc/day) precipitating intracranial subdural hematoma or tonsillar herniation",
                 "Dismissing clear fluid drainage as a 'seroma' without testing for beta-2 transferrin, leading to bacterial meningitis"
             ]
+        case .odontoidFracture:
+            return [
+                "TREATING TYPE II ODONTOID FRACTURES CONSERVATIVELY IN ELDERLY PATIENTS WITH >5 MM DISPLACEMENT (nonunion rate exceeds 65-80% and halo vest carries high mortality in elderly)",
+                "Missing underlying craniocervical / atlanto-occipital dissociation (AOD) in patients presenting with Type I avulsion fractures",
+                "Attempting anterior odontoid screw fixation when the transverse atlantal ligament is ruptured, resulting in early catastrophic hardware failure"
+            ]
         }
     }
     
@@ -955,6 +982,7 @@ public enum SpineConsultType: String, CaseIterable {
         case .burstFracture: return "Posterior Instrumented Fusion (1-2 above/below) + Transpedicular Fragment Reduction"
         case .caudaEquina: return "STAT Wide Lumbar Laminectomy, Flavectomy, and Discectomy (<24-48h)"
         case .csfLeakSpine: return "Lumbar Subarachnoid Drain (10-15 cc/hr) vs Operative Re-exploration with Primary Dural Repair"
+        case .odontoidFracture: return "Type I/III: Rigid Miami J Collar (8-12w) vs Type II: Anterior Odontoid Screw or Posterior C1-C2 Harms Fusion"
         }
     }
 }

@@ -215,6 +215,24 @@ public class PlateAuditManager: ObservableObject {
             anatomicalChecklist: ["Suboccipital craniectomy & foramen magnum rim", "C1 posterior arch resection to sulcus arteriosus", "V3 vertebral artery bilateral safety loops", "Herniated cerebellar tonsils into cervical canal", "Watertight expansile tan duraplasty patch"],
             status: .keep, defectTags: [], notes: "Approved canonical 2-panel Chiari decompression operative plate."
         ),
+        ReviewPlateItem(
+            id: "sa_harms",
+            imageName: "plate_harms_c1_c2",
+            title: "Posterior C1–C2 Fixation (Goel-Harms Construct)",
+            category: "Surgical Atlas",
+            clinicalContext: "Dual-view operative plate (lateral & posterior dorsal) showing polyaxial C1 lateral mass screws, C2 pedicle screws, connecting titanium rods, and V3 vertebral artery craniocervical safety loops.",
+            anatomicalChecklist: ["Bilateral C1 lateral mass polyaxial screws", "Bilateral C2 pedicle / pars screws", "Vertical contoured titanium rods", "V3 vertebral artery loop over C1 groove", "Mobilized C2 dorsal root ganglion"],
+            status: .keep, defectTags: [], notes: "Approved canonical Goel-Harms C1-C2 construct plate with custom bone and titanium palette."
+        ),
+        ReviewPlateItem(
+            id: "sa_csdh",
+            imageName: "plate_csdh_burr_hole",
+            title: "Chronic Subdural Hematoma: Diagnostic CT & Burr Hole Evacuation",
+            category: "Surgical Atlas",
+            clinicalContext: "Dual-panel diagnostic & operative plate pairing cleaned axial non-contrast head CT with ~14 mm circular burr hole craniostomy actively evacuating liquefied dark motor-oil blood with diploic cut edges.",
+            anatomicalChecklist: ["Left crescentic hypodense cSDH with midline shift", "14 mm circular calvarial burr hole", "Cortical outer/inner tables with cancellous diploe", "Cruciate dural incisional opening", "Efflux of dark liquefied motor-oil blood"],
+            status: .keep, defectTags: [], notes: "Approved canonical Chronic SDH dual-panel CT and operative burr hole plate."
+        ),
         
         // MARK: - 2. 2 AM Crisis Head CTs (4 plates)
         ReviewPlateItem(
@@ -299,6 +317,15 @@ public class PlateAuditManager: ObservableObject {
             clinicalContext: "Comprehensive diagnostic decision matrix comparing proximal vs distal shunt failure pathophysiology, manometry, and tap protocols.",
             anatomicalChecklist: ["Ventriculomegaly (Evans index >0.3)", "Proximal slit ventricles vs hydrocephalus", "Distal pseudocyst radiograph"],
             status: .keep, defectTags: [], notes: "Approved Shunt Failure Decision Matrix plate."
+        ),
+        ReviewPlateItem(
+            id: "er_odontoid",
+            imageName: "plate_spine_odontoid_classification",
+            title: "Anderson & D'Alonzo Odontoid Fracture Classification",
+            category: "Frontline ER Consults",
+            clinicalContext: "Triple coronal dens schematics (Types I, II, III) with warm ivory bone contours and red fracture lines, paired with comprehensive fusion probabilities and surgical decision matrix.",
+            anatomicalChecklist: ["Type I apical alar avulsion (95-100% union)", "Type II dens waist watershed (45-70% nonunion)", "Type III axis body extension (85-93% union)", "Watershed vascularity comparison", "Evidence-based surgical vs collar algorithm"],
+            status: .keep, defectTags: [], notes: "Approved canonical Odontoid fracture classification plate with recolored bone schematics."
         ),
         ReviewPlateItem(
             id: "er_jumped_facets",

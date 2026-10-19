@@ -388,6 +388,8 @@ public enum SurgicalPlateType: String, CaseIterable {
     case orbitozygomatic = "orbitozygomatic"
     case tlif = "tlif"
     case chiariDecompression = "chiari_decompression"
+    case harmsC1C2 = "harms_c1_c2"
+    case csdhBurrHole = "csdh_burr_hole"
     
     public var assetImageName: String? {
         switch self {
@@ -402,6 +404,8 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .orbitozygomatic: return "plate_orbitozygomatic"
         case .tlif: return "plate_tlif"
         case .chiariDecompression: return "plate_chiari_decompression"
+        case .harmsC1C2: return "plate_harms_c1_c2"
+        case .csdhBurrHole: return "plate_csdh_burr_hole"
         }
     }
     
@@ -418,6 +422,8 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .orbitozygomatic: return "FT-OZ"
         case .tlif: return "L4-5 TLIF"
         case .chiariDecompression: return "Chiari I"
+        case .harmsC1C2: return "Goel-Harms"
+        case .csdhBurrHole: return "Chronic SDH"
         }
     }
     
@@ -434,6 +440,8 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .orbitozygomatic: return "Frontotemporal Orbitozygomatic Approach (FT-OZ)"
         case .tlif: return "L4–L5 Transforaminal Lumbar Interbody Fusion (TLIF)"
         case .chiariDecompression: return "Chiari I Malformation Decompression & Duraplasty"
+        case .harmsC1C2: return "Posterior C1–C2 Fixation (Goel-Harms Construct)"
+        case .csdhBurrHole: return "Chronic Subdural Hematoma: Diagnostic CT & Burr Hole Evacuation"
         }
     }
     
@@ -450,6 +458,8 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .orbitozygomatic: return "eye.circle.fill"
         case .tlif: return "figure.walk"
         case .chiariDecompression: return "cross.fill"
+        case .harmsC1C2: return "link"
+        case .csdhBurrHole: return "drop.fill"
         }
     }
     
@@ -496,6 +506,102 @@ public enum SurgicalPlateType: String, CaseIterable {
                     normalizedY: 0.52,
                     description: "Courses medial to carotid bifurcation. Opticocarotid triangle provides the classic window to precommunicating A1.",
                     surgicalPearl: "Avoid aggressive retraction against optic nerve; gentle CSF drainage from optico-carotid cistern relaxes the nerve."
+                )
+            ]
+        case .harmsC1C2:
+            return [
+                SurgicalCallout(
+                    id: "c1_screw",
+                    title: "C1 Lateral Mass Screw",
+                    structureType: "INSTRUMENTATION",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.35,
+                    normalizedY: 0.38,
+                    description: "Polyaxial 3.5 mm titanium screw inserted into midpoint of C1 lateral mass with ~10 deg medial convergence toward anterior C1 tubercle.",
+                    surgicalPearl: "Mobilize or bipolar the C2 dorsal nerve root and venous plexus inferiorly to expose C1 lateral mass entry point safely."
+                ),
+                SurgicalCallout(
+                    id: "c2_pedicle",
+                    title: "C2 Pedicle Screw",
+                    structureType: "INSTRUMENTATION",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.33,
+                    normalizedY: 0.64,
+                    description: "Polyaxial 3.5-4.0 mm screw entering superior-medial quadrant of C2 pars/isthmus, angled ~25 deg medially and 25 deg cephalad into C2 body.",
+                    surgicalPearl: "High-riding vertebral artery (narrow C2 isthmus height < 5 mm) mandates switching from pedicle screw to C2 pars or laminar screw."
+                ),
+                SurgicalCallout(
+                    id: "harms_rod",
+                    title: "Longitudinal Titanium Rod",
+                    structureType: "RIGID CONSTRUCT",
+                    color: ObsidianTheme.neonMint,
+                    normalizedX: 0.30,
+                    normalizedY: 0.50,
+                    description: "Contoured 3.5 mm titanium longitudinal rod rigidly bridging C1 lateral mass and C2 pedicle tulip heads, locked with threaded set screws.",
+                    surgicalPearl: "Provides immediate rigid 3-column biomechanical stabilization, allowing high fusion rates without halo-vest immobilization."
+                ),
+                SurgicalCallout(
+                    id: "v3_artery",
+                    title: "V3 Vertebral Artery Loop",
+                    structureType: "VASCULAR RISK",
+                    color: ObsidianTheme.neonRose,
+                    normalizedX: 0.70,
+                    normalizedY: 0.38,
+                    description: "Vertebral artery V3 segment looping out of C2 transverse foramen and sweeping across the superior sulcus arteriosus groove on C1 posterior arch.",
+                    surgicalPearl: "Drill strictly below the superior border of the C1 arch to prevent catastrophic laceration of the looped V3 vertebral artery."
+                ),
+                SurgicalCallout(
+                    id: "c2_ganglion",
+                    title: "C2 Nerve Root & Ganglion",
+                    structureType: "NEURAL ELEMENT",
+                    color: ObsidianTheme.neonBlue,
+                    normalizedX: 0.76,
+                    normalizedY: 0.55,
+                    description: "Large C2 nerve root and extensive dorsal venous plexus crossing dorsal aspect of C1-C2 atlantoaxial joint space.",
+                    surgicalPearl: "Gentle caudal mobilization avoids permanent occipital numbness or dysesthesia; coagulate perivertebral venous plexus with bipolar."
+                )
+            ]
+        case .csdhBurrHole:
+            return [
+                SurgicalCallout(
+                    id: "ct_csdh",
+                    title: "Crescentic cSDH & Midline Shift",
+                    structureType: "DIAGNOSTIC RADIOLOGY",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.28,
+                    normalizedY: 0.42,
+                    description: "Axial non-contrast CT showing large hypodense (chronic) crescentic subdural fluid collection with subfalcine herniation and ventricular compression.",
+                    surgicalPearl: "Internal membrane loculations or hyperdense acute re-bleeding on CT guide operative burr hole placement directly over thickest fluid pocket."
+                ),
+                SurgicalCallout(
+                    id: "burr_hole_opening",
+                    title: "14 mm Circular Burr Hole",
+                    structureType: "OPERATIVE CORRIDOR",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.76,
+                    normalizedY: 0.42,
+                    description: "Neurosurgical circular burr hole (approximately 14 mm) placed over parietal boss / frontal convexity with cut cortical and cancellous diploic margins.",
+                    surgicalPearl: "Inspect diploic cancellous marrow for hemostasis with bone wax before incising dura; avoid drilling directly over dural venous sinuses."
+                ),
+                SurgicalCallout(
+                    id: "motor_oil_efflux",
+                    title: "Liquefied 'Motor-Oil' Efflux",
+                    structureType: "PATHOLOGY EVACUATION",
+                    color: ObsidianTheme.neonRose,
+                    normalizedX: 0.78,
+                    normalizedY: 0.54,
+                    description: "Classic dark reddish-black / mahogany liquefied chronic subdural hematoma fluid actively draining under pressure through cruciate durotomy.",
+                    surgicalPearl: "Irrigate gently with warm physiological saline until effluent is crystal clear; never allow forceful jet irrigation into fragile brain parenchyma."
+                ),
+                SurgicalCallout(
+                    id: "cruciate_dura",
+                    title: "Cruciate Dural Incision",
+                    structureType: "DURAL ARCHITECTURE",
+                    color: ObsidianTheme.neonMint,
+                    normalizedX: 0.74,
+                    normalizedY: 0.36,
+                    description: "Outer dural leaves coagulated with bipolar and opened in 4-quadrant cruciate pattern with outer neo-membrane unroofed.",
+                    surgicalPearl: "Thoroughly bipolar dural edges to inner bone rim; ensure outer membrane is fenestrated so subdural fluid drains freely without valve effect."
                 )
             ]
         case .pterional:
@@ -878,6 +984,20 @@ public enum SurgicalPlateType: String, CaseIterable {
                     surgicalPearl: "Ensure watertight running closure tested under Valsalva to 30 cm H2O to prevent postoperative pseudomeningocele or CSF fistulae."
                 )
             ]
+        case .harmsC1C2:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Positioning & Craniocervical Exposure", detail: "Prone positioning in Mayfield pins with military tuck. Midline incision from inion to C3; subperiosteal exposure of C1 arch and C2 bifid spine."),
+                ApproachSequentialStep(stepNumber: 2, title: "C1 Lateral Mass Screw Placement", detail: "Mobilize C2 nerve root caudally. Entry point at midpoint of C1 lateral mass (inferior border of C1 arch), trajectory 10 deg medial convergence toward anterior tubercle."),
+                ApproachSequentialStep(stepNumber: 3, title: "C2 Pedicle / Pars Screw Placement", detail: "Expose superior-medial C2 pars. Entry in cranial-medial quadrant of C2 isthmus, trajectory 25 deg medial and 25 deg cephalad into C2 vertebral body."),
+                ApproachSequentialStep(stepNumber: 4, title: "Rod Contouring & Posterior Fusion", detail: "Contour 3.5 mm titanium rods, lock set screws, decorticate dorsal arches of C1-C2, and pack autologous or demineralized bone matrix for solid arthrodesis.")
+            ]
+        case .csdhBurrHole:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Localization & Scalp Incision", detail: "Position supine with head turned. Correlate with CT maximum thickness; make a 3 cm linear scalp incision over parietal boss or pre-coronal frontal convexity."),
+                ApproachSequentialStep(stepNumber: 2, title: "14 mm Burr Hole Craniostomy", detail: "Perforate skull with high-speed cranial perforator. Ensure outer table, cancellous diploic marrow, and inner cortical plate are cleanly unroofed."),
+                ApproachSequentialStep(stepNumber: 3, title: "Cruciate Durotomy & Evacuation", detail: "Bipolar outer dura and incise in cruciate fashion. Open outer subdural pseudomembrane to trigger spontaneous dark liquefied 'motor-oil' hematoma evacuation."),
+                ApproachSequentialStep(stepNumber: 4, title: "Saline Irrigation & Subdural Drain", detail: "Irrigate subdural space copiously with warm saline via soft catheter until effluent is clear. Pass clear silicone closed-system drain to gravity and close in layers.")
+            ]
         }
     }
     
@@ -959,6 +1079,18 @@ public enum SurgicalPlateType: String, CaseIterable {
                 ApproachSequentialStep(stepNumber: 2, title: "Suboccipital Craniectomy & C1 Laminectomy", detail: "Perform a 3x3 cm suboccipital craniectomy incorporating the posterior foramen magnum rim. Re-sect the posterior arch of C1 out to the sulcus arteriosus, safeguarding V3 vertebral artery loops."),
                 ApproachSequentialStep(stepNumber: 3, title: "Epidural Band Division & Y-Dural Opening", detail: "Sharply incise the thickened constricting fibrous band at the atlanto-occipital junction. Perform a Y-shaped dural incision, reflecting dural flaps to expose the herniated cerebellar tonsils, vermis, and PICA loops."),
                 ApproachSequentialStep(stepNumber: 4, title: "Watertight Expansile Patch Duraplasty", detail: "Suture a tapered tan pericardial or collagen patch graft with continuous running monofilament suture to reconstruct a generous, non-restrictive posterior fossa cistern.")
+            ]
+        case .harmsC1C2:
+            return [
+                "Laceration of the V3 vertebral artery during C1 lateral mass exposure or high-speed drilling of the C2 pedicle",
+                "Intraoperative injury to the C2 nerve root/ganglion causing intractable postoperative occipital neuralgia or neuropathic deafferentation",
+                "Medial wall breech of the C2 pedicle screw into the cervical spinal canal causing direct spinal cord impingement"
+            ]
+        case .csdhBurrHole:
+            return [
+                "Aggressive plunge of perforator through inner table causing acute cortical laceration or intraparenchymal hemorrhage",
+                "Rapid, precipitous intracranial decompression precipitating contralateral acute epidural hematoma or brainstem hemorrhage",
+                "Tension pneumocephalus from introducing large air volumes during irrigation or improper drain reservoir priming"
             ]
         }
     }
