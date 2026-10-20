@@ -1,7 +1,11 @@
 {
   "app_identity": {
     "bundle_id": "com.AlexMohit.Trephine",
-    "app_name": "NeuroCall"
+    "app_name": "NeuroCall",
+    "sku": "Trephine-01",
+    "primary_category": "MEDICAL",
+    "secondary_category": "EDUCATION",
+    "primary_locale": "en-US"
   },
   "general_information": {
     "subtitle": "Neurosurgery Atlas & ER Triage",
@@ -12,18 +16,18 @@
   "version_metadata": {
     "version_string": "1.0",
     "copyright": "2026 A. Alex Mohit",
-    "description": "NeuroCall is the premier operative neurosurgery reference atlas, crisis head CT interpretation workstation, and frontline emergency consultation manual designed for neurosurgeons, spine surgeons, neurocritical care teams, and surgical residents on call.\n\nCOMPREHENSIVE CLINICAL FEATURES:\n\n• PHOTOREALISTIC SURGICAL ATLAS (10 MASTER CORRIDORS):\nDeep micro-zoom inspection with pinned anatomical callouts, sequential surgical dissection phases, and catastrophic complication hazards for:\n- Anterior Circulation Aneurysm Clipping\n- Pterional Frontotemporosphenoidal Corridor\n- Retrosigmoid CPA Acousticofacial Dissection\n- Endoscopic Endonasal Transsphenoidal Sellar Corridor\n- Far-Lateral Suboccipital Transcondylar Approach with Vertebral Artery Mobilization\n- Trauma Decompressive Hemicraniectomy & Expansile Duroplasty\n- Frontal Burr Hole & Kocher's Point Ventriculostomy / EVD\n- Anterior Cervical Discectomy & Fusion (ACDF)\n- Frontotemporal Orbitozygomatic Approach (FT-OZ)\n- L4–L5 Transforaminal Lumbar Interbody Fusion (TLIF)\n\n• 2 AM CRISIS HEAD CT INTERPRETATION:\nDiagnostic radiological imaging with interactive calvarium calipers and standardized anatomical checklists:\n- Acute Epidural Hematoma (EDH) with suture boundary constraint\n- Acute Subdural Hematoma (SDH) with hemispheric midline shift\n- Acute Uncal Herniation with ambient cistern effacement & midbrain compression\n- Posterior Fossa Cerebellar Hemorrhage with 4th ventricle obliteration\n\n• FRONTLINE ER CONSULTS & 4-PHASE TRIAGE PROTOCOLS:\nActionable first-hour order sets, operative indications, and clinical pearls:\n- Aneurysmal Subarachnoid Hemorrhage (SAH)\n- Hypertensive Basal Ganglia & Lobar ICH\n- Proximal VP Shunt Obstruction & Slit Ventricle Analysis\n- Distal Shunt Failure & Abdominal Peritoneal CSF Pseudocyst\n- Shunt Failure Differentiation Decision Matrix & Tap Dynamics\n- Bilateral Jumped / Locked Cervical Facets (C6–C7)\n- Metastatic Epidural Spinal Cord Compression (Bilsky Grade 3)\n- Thoracolumbar Burst Fracture with Retropulsion\n- Massive Cauda Equina Central Disc Sequestration\n- Postoperative Lumbar Pseudomeningocele with Dural Fistula\n\n• RAPID CLINICAL CALCULATORS:\nInstant on-call risk scoring for Glasgow Coma Scale (GCS), Spetzler-Martin, Hunt & Hess, Modified Fisher, ICH Score, and ASIA Spinal Impairment.\n\nEngineered for instantaneous bedside execution with zero ads, zero user tracking, and full offline accessibility.",
-    "keywords": "evd,shunt,ich,sah,acdf,tlif,trauma,craniotomy,hydrocephalus,aneurysm,edh,sdh,icp,spine,brain,bleed",
+    "description": "NeuroCall is the premier operative neurosurgery reference atlas, crisis head CT interpretation workstation, and frontline emergency consultation manual designed for neurosurgeons, spine surgeons, neurocritical care teams, and surgical residents on call.\n\nSchematics and novel images highlight and simplify concepts across 10 master operative corridors, 2 AM crisis head CT interpretation, and emergency triage protocols.\n\nCOMPREHENSIVE CLINICAL FEATURES:\n\n• PHOTOREALISTIC SURGICAL ATLAS (10 MASTER CORRIDORS):\nDeep micro-zoom inspection with pinned anatomical callouts, sequential surgical dissection phases, and catastrophic complication hazards for:\n- Anterior Circulation Aneurysm Clipping\n- Pterional Frontotemporosphenoidal Corridor\n- Retrosigmoid CPA Acousticofacial Dissection\n- Endoscopic Endonasal Transsphenoidal Sellar Corridor\n- Far-Lateral Suboccipital Transcondylar Approach with Vertebral Artery Mobilization\n- Trauma Decompressive Hemicraniectomy & Expansile Duroplasty\n- Frontal Burr Hole & Kocher's Point Ventriculostomy / EVD\n- Anterior Cervical Discectomy & Fusion (ACDF)\n- Frontotemporal Orbitozygomatic Approach (FT-OZ)\n- L4–L5 Transforaminal Lumbar Interbody Fusion (TLIF)\n- Goel-Harms C1–C2 Posterior Cervical Fixation with Ghosted Intraosseous Trajectory\n\n• 2 AM CRISIS HEAD CT INTERPRETATION:\nDiagnostic radiological imaging with interactive calvarium calipers and standardized anatomical checklists:\n- Acute Epidural Hematoma (EDH) with suture boundary constraint\n- Acute Subdural Hematoma (SDH) with hemispheric midline shift\n- Acute Uncal Herniation with ambient cistern effacement & midbrain compression\n- Posterior Fossa Cerebellar Hemorrhage with 4th ventricle obliteration\n\n• FRONTLINE ER CONSULTS & 4-PHASE TRIAGE PROTOCOLS:\nActionable first-hour order sets, operative indications, and clinical pearls:\n- Aneurysmal Subarachnoid Hemorrhage (SAH)\n- Hypertensive Basal Ganglia & Lobar ICH\n- Proximal VP Shunt Obstruction & Slit Ventricle Analysis\n- Distal Shunt Failure & Abdominal Peritoneal CSF Pseudocyst\n- Shunt Failure Differentiation Decision Matrix & Tap Dynamics\n- Bilateral Jumped / Locked Cervical Facets (C6–C7)\n- Metastatic Epidural Spinal Cord Compression (Bilsky Grade 3)\n- Thoracolumbar Burst Fracture with Retropulsion\n- Massive Cauda Equina Central Disc Sequestration\n- Postoperative Lumbar Pseudomeningocele with Dural Fistula\n\n• RAPID CLINICAL CALCULATORS:\nInstant on-call risk scoring for Glasgow Coma Scale (GCS), Spetzler-Martin, Hunt & Hess, Modified Fisher, ICH Score, and ASIA Spinal Impairment.\n\nEngineered for instantaneous bedside execution with zero ads, zero user tracking, and full offline accessibility.",
+    "keywords": "neuro,call,trauma,burr,hole,edh,sdh,ich,sah,evd,shunt,icp,bleed,acdf,tlif,aneurysm,spine,ct,gcs,cpa",
     "support_url": "https://neurocall.pages.dev/support",
     "marketing_url": "https://neurocall.pages.dev",
-    "promotional_text": "Complete operative neurosurgery atlas, crisis head CT interpretation, and frontline emergency consultation manual."
+    "promotional_text": "Frontline operative neurosurgery atlas and emergency triage manual. Schematics and novel images highlight and simplify complex anatomical corridors and crisis protocols."
   },
   "app_review_information": {
     "contact_first_name": "Alex",
     "contact_last_name": "Mohit",
     "contact_email": "mohalex@gmail.com",
-    "contact_phone": "12066795710",
-    "review_notes": "NeuroCall is a standalone reference atlas for neurosurgeons and residents. All interactive tools and atlas plates are completely offline-capable with zero external login or user registration required.",
+    "contact_phone": "+12066795710",
+    "review_notes": "NeuroCall is an institutional reference atlas and bedside clinical decision-support tool for neurosurgeons, spine surgeons, and residents. All interactive tools, crisis head CT interpretation workstations, and photorealistic anatomical atlas plates are 100% offline-capable with zero external login or user registration required. Schematics and novel images highlight and simplify concepts across all operative corridors.",
     "sign_in_required": false
   }
 }
