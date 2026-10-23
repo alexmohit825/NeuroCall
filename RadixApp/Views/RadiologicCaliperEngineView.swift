@@ -113,22 +113,21 @@ public struct RadiologicCaliperEngineView: View {
             GeometryReader { geo in
                 ZStack {
                     // Base Radiologic Scan (Custom Camera Snapshot OR Pre-Loaded Scan)
-                    if let customImage = customCapturedImage {
-                        Image(uiImage: customImage)
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: geo.size.width, height: geo.size.height)
-                            .clipped()
-                    } else {
-                        Image(imageName)
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: geo.size.width, height: geo.size.height)
-                            .clipped()
+                    Group {
+                        if let customImage = customCapturedImage {
+                            Image(uiImage: customImage)
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                        } else {
+                            Image(imageName)
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                        }
                     }
-                        .frame(width: geo.size.width, height: geo.size.height)
-                        .background(Color.black)
-                        .cornerRadius(14)
+                    .frame(width: geo.size.width, height: geo.size.height)
+                    .clipped()
+                    .background(Color.black)
+                    .cornerRadius(14)
                     
                     if isCaliperActive {
                         // Caliper Overlay Layer
