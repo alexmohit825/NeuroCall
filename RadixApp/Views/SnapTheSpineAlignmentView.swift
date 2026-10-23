@@ -264,6 +264,19 @@ public struct SnapTheSpineAlignmentView: View {
                     // Action Buttons: 1-Tap SBAR Copy & Reset
                     bottomActionStrip(canvasSize: CGSize(width: windowGeo.size.width - 32, height: 350))
                     
+                    // Radiographic Reference Disclaimer
+                    HStack(alignment: .top, spacing: 6) {
+                        Image(systemName: "scale.3d")
+                            .font(.system(size: 11, weight: .bold))
+                            .foregroundColor(ObsidianTheme.neonAmber)
+                        Text("Radiographic measurements are decision-support estimates subject to image parallax and patient positioning. They do not replace formal calibrated PACS measurement or attending surgical review.")
+                            .font(.system(size: 10, weight: .medium))
+                            .foregroundColor(ObsidianTheme.textTertiary)
+                            .lineSpacing(2)
+                    }
+                    .padding(.horizontal)
+                    .padding(.top, 4)
+                    
                     Spacer(minLength: 40)
                 }
                 .padding(.top, 10)

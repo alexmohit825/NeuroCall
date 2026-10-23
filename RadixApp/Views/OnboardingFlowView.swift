@@ -94,17 +94,23 @@ public struct OnboardingFlowView: View {
                             keyTakeaway: "Zero ambiguity on acuity: Colored pills define bedside evaluation windows and attending escalation."
                         )
                         
-                        // Pillar 5: Focused Scope Disclaimer
-                        VStack(alignment: .leading, spacing: 8) {
+                        // Pillar 5: Clinical Reference & Intended Use Disclaimer
+                        VStack(alignment: .leading, spacing: 10) {
                             HStack(spacing: 8) {
-                                Image(systemName: "info.circle.fill")
+                                Image(systemName: "scale.3d")
+                                    .font(.system(size: 13, weight: .bold))
                                     .foregroundColor(.cyan)
-                                Text("NOT ALL NEUROSURGERY — JUST WHAT MATTERS ON CALL")
+                                Text("CLINICAL REFERENCE & INTENDED USE DISCLAIMER")
                                     .font(.system(size: 10, weight: .black))
                                     .foregroundColor(.cyan)
                             }
-                            Text("This is not a comprehensive encyclopedia of every complex skull base bypass or intraoperative monitoring nuance. It is an intentional, high-yield compendium of the essential surgical procedures, emergencies, and neuroradiology you must master to protect patients and thrive on service.")
-                                .font(.system(size: 12, weight: .medium))
+                            Text("NeuroCall is an educational on-call decision-support reference designed for rapid bedside information gathering. It does NOT replace independent clinical acumen, physical and neurological examination, direct imaging review, or attending physician judgment.")
+                                .font(.system(size: 12, weight: .semibold))
+                                .foregroundColor(.white)
+                                .lineSpacing(3)
+                            
+                            Text("All calculations, hematoma volume approximations, spinopelvic parameters, and trauma scores are decision-support estimates synthesized from published literature. They must be independently verified against institutional protocols before clinical or surgical execution.")
+                                .font(.system(size: 11, weight: .medium))
                                 .foregroundColor(Color(red: 0.6, green: 0.66, blue: 0.76))
                                 .lineSpacing(3)
                         }
@@ -112,7 +118,7 @@ public struct OnboardingFlowView: View {
                         .background(
                             RoundedRectangle(cornerRadius: 16)
                                 .fill(Color.white.opacity(0.04))
-                                .overlay(RoundedRectangle(cornerRadius: 16).stroke(Color.white.opacity(0.08), lineWidth: 1))
+                                .overlay(RoundedRectangle(cornerRadius: 16).stroke(Color.cyan.opacity(0.3), lineWidth: 1))
                         )
                         
                         Spacer().frame(height: 10)
@@ -129,8 +135,8 @@ public struct OnboardingFlowView: View {
                         }
                     }) {
                         HStack(spacing: 8) {
-                            Text("Enter NeuroCall Atlas")
-                                .font(.system(size: 16, weight: .bold, design: .rounded))
+                            Text("I Acknowledge & Enter NeuroCall Atlas")
+                                .font(.system(size: 15, weight: .bold, design: .rounded))
                             Image(systemName: "arrow.right")
                                 .font(.system(size: 14, weight: .bold))
                         }

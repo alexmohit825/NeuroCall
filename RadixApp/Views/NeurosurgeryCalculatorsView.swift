@@ -267,6 +267,28 @@ public struct NeurosurgeryCalculatorsView: View {
                 }
                 .padding(.horizontal)
                 
+                // Clinical Decision Support Disclaimer Footnote
+                HStack(alignment: .top, spacing: 8) {
+                    Image(systemName: "scale.3d")
+                        .font(.system(size: 13, weight: .bold))
+                        .foregroundColor(.indigo)
+                    VStack(alignment: .leading, spacing: 3) {
+                        Text("CLINICAL DECISION-SUPPORT REFERENCE")
+                            .font(.system(size: 9, weight: .black))
+                            .foregroundColor(.indigo)
+                        Text("Calculations, hematoma volumes, and risk scores are mathematical estimates designed for rapid bedside reference. They do not replace formal imaging planimetry, serial physical examination, or attending physician judgment.")
+                            .font(.system(size: 10, weight: .medium))
+                            .foregroundColor(.secondary)
+                            .lineSpacing(2)
+                    }
+                }
+                .padding(12)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(Color.indigo.opacity(0.06))
+                .cornerRadius(10)
+                .padding(.horizontal)
+                .padding(.top, 4)
+                
                 // Persistent Un-Gated In-App Rating Banner Card
                 DashboardRatingBannerCard()
                     .padding(.horizontal)

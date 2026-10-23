@@ -56,6 +56,7 @@ public struct CallDashboardView: View {
     @State private var filterAcuity: TriageAcuity? = nil
     @State private var isShowingReviewStation = false
     @State private var isShowingDeveloperPortfolio = false
+    @State private var isShowingDisclaimerSheet = false
     @State private var isAcuityGuideExpanded = false
     @Environment(\.requestReview) var requestReview
     @Environment(\.openURL) var openURL
@@ -168,6 +169,12 @@ public struct CallDashboardView: View {
                 // Persistent Un-Gated App Store Review & Rating Card
                 DashboardRatingBannerCard()
                     .padding(.horizontal)
+                
+                // Clinical Reference & Intended Use Disclaimer Card
+                ClinicalDisclaimerCard(onViewFullDisclaimer: {
+                    isShowingDisclaimerSheet = true
+                })
+                .padding(.horizontal)
             }
             .padding(.bottom, 28)
         }
@@ -177,6 +184,9 @@ public struct CallDashboardView: View {
         }
         .sheet(isPresented: $isShowingDeveloperPortfolio) {
             DeveloperPortfolioView()
+        }
+        .sheet(isPresented: $isShowingDisclaimerSheet) {
+            ClinicalDisclaimerFullSheet()
         }
     }
 }
@@ -588,5 +598,168 @@ public struct DashboardRatingBannerCard: View {
         .background(Color(red: 0.12, green: 0.14, blue: 0.20))
         .cornerRadius(14)
         .overlay(RoundedRectangle(cornerRadius: 14).stroke(Color.yellow.opacity(0.3), lineWidth: 1))
+    }
+}
+
+// MARK: - Clinical Reference & Intended Use Disclaimer Card
+public struct ClinicalDisclaimerCard: View {
+    public let onViewFullDisclaimer: () -> Void
+    
+    public init(onViewFullDisclaimer: @escaping () -> Void) {
+        self.onViewFullDisclaimer = onViewFullDisclaimer
+    }
+    
+    public var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            HStack(spacing: 6) {
+                Image(systemName: "scale.3d")
+                    .font(.system(size: 11, weight: .bold))
+                    .foregroundColor(ObsidianTheme.neonCyan)
+                Text("CLINICAL REFERENCE TOOL")
+                    .font(.system(size: 10, weight: .black))
+                    .tracking(1.0)
+                    .foregroundColor(ObsidianTheme.neonCyan)
+                Spacer()
+            }
+            
+            Text("NeuroCall is an educational on-call reference designed for rapid bedside information gathering. It does not replace independent clinical acumen, physical examination, or attending physician judgment.")
+                .font(.system(size: 11, weight: .medium))
+                .foregroundColor(ObsidianTheme.textSecondary)
+                .lineSpacing(2)
+            
+            Button(action: {
+                HapticManager.impact(style: .light)
+                onViewFullDisclaimer()
+            }) {
+                HStack(spacing: 4) {
+                    Text("View Full Disclaimer & Literature Reference Standards")
+                        .font(.system(size: 11, weight: .bold))
+                    Image(systemName: "chevron.right")
+                        .font(.system(size: 10, weight: .bold))
+                }
+                .foregroundColor(ObsidianTheme.neonCyan)
+                .padding(.top, 2)
+            }
+        }
+        .padding(14)
+        .background(ObsidianTheme.glassSurface)
+        .cornerRadius(12)
+        .overlay(RoundedRectangle(cornerRadius: 12).stroke(ObsidianTheme.glassBorder, lineWidth: 1))
+    }
+}
+
+// MARK: - Full Clinical Disclaimer Sheet
+public struct ClinicalDisclaimerFullSheet: View {
+    @Environment(\.dismiss) private var dismiss
+    
+    public init() {}
+    
+    public var body: some View {
+        NavigationView {
+            ScrollView {
+                VStack(alignment: .leading, spacing: 20) {
+                    
+                    // Header Card
+                    VStack(alignment: .leading, spacing: 6) {
+                        HStack(spacing: 8) {
+                            Image(systemName: "scale.3d")
+                                .font(.system(size: 16, weight: .bold))
+                                .foregroundColor(ObsidianTheme.neonCyan)
+                            Text("CLINICAL REFERENCE & INTENDED USE")
+                                .font(.system(size: 11, weight: .black))
+                                .tracking(1.2)
+                                .foregroundColor(ObsidianTheme.neonCyan)
+                        }
+                        Text("Statement of Intended Use & Professional Boundaries")
+                            .font(.system(size: 18, weight: .bold))
+                            .foregroundColor(ObsidianTheme.textPrimary)
+                    }
+                    .padding()
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .background(ObsidianTheme.surfaceElevated)
+                    .cornerRadius(14)
+                    
+                    // Section 1: Educational & Reference Purpose
+                    DisclaimerSectionBlock(
+                        icon: "book.closed.fill",
+                        title: "Educational & Bedside Reference Tool",
+                        bodyText: "NeuroCall is engineered strictly as an educational and rapid clinical decision-support reference tool for neurosurgery residents, spine fellows, attending surgeons, and frontline neurotrauma teams to facilitate rapid information gathering and protocol retrieval while on call."
+                    )
+                    
+                    // Section 2: Clinical Acumen Mandate
+                    DisclaimerSectionBlock(
+                        icon: "cross.case.fill",
+                        title: "Clinical Acumen & Judgment Mandate",
+                        bodyText: "NeuroCall does NOT provide autonomous medical diagnoses, definitive therapeutic prescriptions, or binding surgical directives. It does NOT replace the clinical acumen, direct physical and neurological examination, comprehensive imaging review, and independent medical judgment of a qualified, licensed physician."
+                    )
+                    
+                    // Section 3: Calculations & Protocols
+                    DisclaimerSectionBlock(
+                        icon: "function",
+                        title: "Calculations, Calipers & Risk Scores",
+                        bodyText: "All mathematical formulas, hematoma volume approximations (ABC/2), spinopelvic parameter calculations (PI, PT, SS, SVA), trauma classification scores (TLICS, SLIC, SINS, GCS, ICH Score), and osmotherapy/reversal protocols are decision-support aids synthesized from peer-reviewed medical literature. They must be independently verified against patient-specific clinical variables, real-time hemodynamic/laboratory data, and institutional protocols before clinical action or surgical execution."
+                    )
+                    
+                    // Section 4: Literature Reference Foundations
+                    VStack(alignment: .leading, spacing: 8) {
+                        Text("PEER-REVIEWED FOUNDATIONS")
+                            .font(.system(size: 10, weight: .black))
+                            .foregroundColor(ObsidianTheme.textTertiary)
+                        
+                        Text("• Brain Trauma Foundation (BTF) Guidelines 4th Edition (Neurosurgery 2017)\n• Hemphill et al., ICH Score & 30-Day Mortality (Stroke 2001)\n• Vaccaro et al., TLICS & SLIC Spine Trauma Classifications (Spine 2005, 2007)\n• Fisher et al., Spine Instability Neoplastic Score (Spine 2010)\n• Duval-Beaupère & Lafage Spinopelvic Alignment Invariants (Eur Spine J, Spine 2016)\n• Neurocritical Care Society (NCS) Anticoagulation Reversal Guidelines (2016)")
+                            .font(.system(size: 11, weight: .medium))
+                            .foregroundColor(ObsidianTheme.textSecondary)
+                            .lineSpacing(4)
+                    }
+                    .padding()
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .background(ObsidianTheme.glassSurface)
+                    .cornerRadius(12)
+                    .overlay(RoundedRectangle(cornerRadius: 12).stroke(ObsidianTheme.glassBorder, lineWidth: 1))
+                }
+                .padding(20)
+            }
+            .obsidianCockpitBackground()
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("Done") {
+                        dismiss()
+                    }
+                    .font(.system(size: 15, weight: .bold))
+                    .foregroundColor(ObsidianTheme.neonCyan)
+                }
+            }
+        }
+    }
+}
+
+// MARK: - Disclaimer Section Block Helper
+private struct DisclaimerSectionBlock: View {
+    let icon: String
+    let title: String
+    let bodyText: String
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 6) {
+            HStack(spacing: 8) {
+                Image(systemName: icon)
+                    .font(.system(size: 13, weight: .bold))
+                    .foregroundColor(ObsidianTheme.neonCyan)
+                Text(title)
+                    .font(.system(size: 13, weight: .bold))
+                    .foregroundColor(ObsidianTheme.textPrimary)
+            }
+            
+            Text(bodyText)
+                .font(.system(size: 12, weight: .medium))
+                .foregroundColor(ObsidianTheme.textSecondary)
+                .lineSpacing(3)
+        }
+        .padding(14)
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .background(ObsidianTheme.glassSurface)
+        .cornerRadius(12)
+        .overlay(RoundedRectangle(cornerRadius: 12).stroke(ObsidianTheme.glassBorder, lineWidth: 1))
     }
 }
