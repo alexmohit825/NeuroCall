@@ -41,6 +41,10 @@
         <string>UIInterfaceOrientationLandscapeLeft</string>
         <string>UIInterfaceOrientationLandscapeRight</string>
     </array>
+    <key>NSCameraUsageDescription</key>
+    <string>NeuroCall utilizes the camera for on-device radiologic caliper drafting and spinopelvic parameter alignment directly from PACS workstation screens.</string>
+    <key>NSPhotoLibraryUsageDescription</key>
+    <string>NeuroCall allows selecting diagnostic radiologic images for on-device caliper and spinopelvic measurements.</string>
     <key>ITSAppUsesNonExemptEncryption</key>
     <false/>
 </dict>

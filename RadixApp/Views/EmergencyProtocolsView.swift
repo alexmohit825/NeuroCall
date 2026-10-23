@@ -124,6 +124,8 @@ public struct EmergencyProtocolsView: View {
                     TieredICPLadderView()
                 } else if activeSection == "reversal" {
                     EmergencyReversalEngineView()
+                } else if activeSection == "orsetup" {
+                    ORSetupBridgeView()
                 } else {
                     operativeChecklistsSection
                 }
@@ -173,6 +175,7 @@ public struct EmergencyProtocolsView: View {
                 SectionTabButton(id: "arbitrator", label: "Acute Triage", icon: "brain.head.profile", active: $activeSection)
                 SectionTabButton(id: "icp", label: "BTF ICP Ladder", icon: "ladder", active: $activeSection)
                 SectionTabButton(id: "reversal", label: "Reversal Engine", icon: "cross.vial.fill", active: $activeSection)
+                SectionTabButton(id: "orsetup", label: "OR Spec-Sheets", icon: "shippingbox.fill", active: $activeSection)
                 SectionTabButton(id: "checklists", label: "OR Checklists", icon: "list.clipboard.fill", active: $activeSection)
             }
             .padding(.horizontal)

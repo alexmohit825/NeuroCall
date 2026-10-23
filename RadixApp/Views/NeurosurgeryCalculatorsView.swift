@@ -151,6 +151,7 @@ public struct NeurosurgeryCalculatorsView: View {
                 // Calculator Picker
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 8) {
+                        CalcPill(id: "snapspine", label: "Snap-the-Spine", icon: "camera.viewfinder", selected: $selectedCalculator)
                         CalcPill(id: "calipers", label: "Bedside Calipers", icon: "ruler.fill", selected: $selectedCalculator)
                         CalcPill(id: "icpladder", label: "BTF ICP Ladder", icon: "ladder", selected: $selectedCalculator)
                         CalcPill(id: "reversal", label: "Reversal Engine", icon: "cross.vial.fill", selected: $selectedCalculator)
@@ -170,6 +171,8 @@ public struct NeurosurgeryCalculatorsView: View {
                 // Active Calculator View
                 Group {
                     switch selectedCalculator {
+                    case "snapspine":
+                        SnapTheSpineAlignmentView()
                     case "calipers":
                         RadiologicCaliperEngineView(
                             imageName: "plate_ct_edh",

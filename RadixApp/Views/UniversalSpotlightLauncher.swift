@@ -49,9 +49,11 @@ public enum SpotlightDestination {
     case atlasPlate(String)
     case erConsult(String)
     case caliperEngine
+    case snapSpine
     case reversalEngine
     case icpLadder
     case sbarTeleprompter
+    case orSetupBridge
     case calculator(String)
 }
 
@@ -168,6 +170,14 @@ public struct UniversalSpotlightModal: View {
             
             // Calculators & Engines
             SpotlightItem(
+                title: "Snap-the-Spine Alignment Engine",
+                subtitle: "100% On-device spinopelvic parameters (PI, PT, SS, LL, SVA, SRS-Schwab)",
+                category: .calculators,
+                icon: "camera.viewfinder",
+                accentColor: ObsidianTheme.neonGreen,
+                destination: .snapSpine
+            ),
+            SpotlightItem(
                 title: "Bedside Radiologic Caliper Engine",
                 subtitle: "Interactive touch calipers for ABC/2 volume, Midline Shift (mm), and Evans Index",
                 category: .calculators,
@@ -266,6 +276,14 @@ public struct UniversalSpotlightModal: View {
                 icon: "list.clipboard.fill",
                 accentColor: ObsidianTheme.neonGreen,
                 destination: .atlasPlate("EVD")
+            ),
+            SpotlightItem(
+                title: "OR Setup & Implant Spec-Sheets",
+                subtitle: "Mayfield pins, Harms C1-C2 screws, TLIF cages, EVD kits, and shunt valve charts",
+                category: .protocols,
+                icon: "shippingbox.fill",
+                accentColor: ObsidianTheme.neonCyan,
+                destination: .orSetupBridge
             )
         ]
     }
@@ -437,6 +455,12 @@ public struct UniversalSpotlightModal: View {
                     .navigationTitle("Radiologic Caliper Engine")
                     .navigationBarTitleDisplayMode(.inline)
             }
+        case .snapSpine:
+            NavigationStack {
+                SnapTheSpineAlignmentView()
+                    .navigationTitle("Snap-the-Spine Alignment")
+                    .navigationBarTitleDisplayMode(.inline)
+            }
         case .reversalEngine:
             NavigationStack {
                 EmergencyReversalEngineView()
@@ -451,6 +475,12 @@ public struct UniversalSpotlightModal: View {
             }
         case .sbarTeleprompter:
             SbarTeleprompterSheet()
+        case .orSetupBridge:
+            NavigationStack {
+                ORSetupBridgeView()
+                    .navigationTitle("OR Setup & Implant Specs")
+                    .navigationBarTitleDisplayMode(.inline)
+            }
         case .calculator:
             NeurosurgeryCalculatorsView()
         }

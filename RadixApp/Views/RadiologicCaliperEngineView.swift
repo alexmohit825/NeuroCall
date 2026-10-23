@@ -26,6 +26,8 @@ public struct RadiologicCaliperEngineView: View {
     
     @State private var activeMode: CaliperToolMode = .abc2
     @State private var isCaliperActive: Bool = true
+    @State private var customCapturedImage: UIImage? = nil
+    @State private var isShowingCameraPicker: Bool = false
     
     // 1. ABC/2 Caliper State (Points normalized 0.0 to 1.0 relative to image viewport)
     @State private var pointA1: CGPoint = CGPoint(x: 0.35, y: 0.35)
@@ -80,6 +82,22 @@ public struct RadiologicCaliperEngineView: View {
                 Spacer()
                 
                 Button(action: {
+                    HapticManager.impact(style: .medium)
+                    isShowingCameraPicker = true
+                }) {
+                    HStack(spacing: 4) {
+                        Image(systemName: "camera.fill")
+                        Text("Snap PACS")
+                            .font(.system(size: 10, weight: .bold))
+                    }
+                    .padding(.vertical, 6)
+                    .padding(.horizontal, 8)
+                    .background(ObsidianTheme.neonCyan)
+                    .foregroundColor(.black)
+                    .cornerRadius(6)
+                }
+                
+                Button(action: {
                     isCaliperActive.toggle()
                 }) {
                     Image(systemName: isCaliperActive ? "eye.fill" : "eye.slash.fill")
@@ -94,10 +112,20 @@ public struct RadiologicCaliperEngineView: View {
             // Interactive Caliper Viewport Canvas
             GeometryReader { geo in
                 ZStack {
-                    // Base Radiologic Scan
-                    Image(imageName)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
+                    // Base Radiologic Scan (Custom Camera Snapshot OR Pre-Loaded Scan)
+                    if let customImage = customCapturedImage {
+                        Image(uiImage: customImage)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: geo.size.width, height: geo.size.height)
+                            .clipped()
+                    } else {
+                        Image(imageName)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: geo.size.width, height: geo.size.height)
+                            .clipped()
+                    }
                         .frame(width: geo.size.width, height: geo.size.height)
                         .background(Color.black)
                         .cornerRadius(14)
@@ -163,6 +191,11 @@ public struct RadiologicCaliperEngineView: View {
             // Diagnostic Measurements & Clinical Indication Cockpit Card
             measurementCockpitCard
                 .padding(.horizontal)
+        }
+        .sheet(isPresented: $isShowingCameraPicker) {
+            ImagePickerSheet(sourceType: .camera) { img in
+                customCapturedImage = img
+            }
         }
     }
     
