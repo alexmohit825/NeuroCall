@@ -151,6 +151,9 @@ public struct NeurosurgeryCalculatorsView: View {
                 // Calculator Picker
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 8) {
+                        CalcPill(id: "calipers", label: "Bedside Calipers", icon: "ruler.fill", selected: $selectedCalculator)
+                        CalcPill(id: "icpladder", label: "BTF ICP Ladder", icon: "ladder", selected: $selectedCalculator)
+                        CalcPill(id: "reversal", label: "Reversal Engine", icon: "cross.vial.fill", selected: $selectedCalculator)
                         CalcPill(id: "abc2", label: "ABC/2 Volume", icon: "cube.fill", selected: $selectedCalculator)
                         CalcPill(id: "cpp", label: "CPP & ICP Targets", icon: "waveform.path.ecg", selected: $selectedCalculator)
                         CalcPill(id: "ich", label: "ICH Score", icon: "drop.fill", selected: $selectedCalculator)
@@ -167,6 +170,15 @@ public struct NeurosurgeryCalculatorsView: View {
                 // Active Calculator View
                 Group {
                     switch selectedCalculator {
+                    case "calipers":
+                        RadiologicCaliperEngineView(
+                            imageName: "plate_ct_edh",
+                            emergencyTitle: "Bedside Radiologic Calipers"
+                        )
+                    case "icpladder":
+                        TieredICPLadderView()
+                    case "reversal":
+                        EmergencyReversalEngineView()
                     case "abc2":
                         ABC2CalculatorView(
                             dimA: $dimensionA,

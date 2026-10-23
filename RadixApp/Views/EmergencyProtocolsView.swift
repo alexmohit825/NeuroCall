@@ -12,7 +12,8 @@ public struct EmergencyProtocolsView: View {
     @State private var gcsScore: Int = 10
     @State private var pupilStatus = "Ipsilateral Sluggish"
     @State private var isShowingSbarSheet = false
-    @State private var activeSection = "arbitrator" // arbitrator, reversal, checklists
+    @State private var activeSection = "arbitrator" // arbitrator, icp, reversal, checklists
+    @State private var viewportMode = "scan" // scan vs calipers
     
     public init() {}
     
@@ -119,8 +120,10 @@ public struct EmergencyProtocolsView: View {
                 
                 if activeSection == "arbitrator" {
                     acuteTriageSection
+                } else if activeSection == "icp" {
+                    TieredICPLadderView()
                 } else if activeSection == "reversal" {
-                    anticoagulationReversalSection
+                    EmergencyReversalEngineView()
                 } else {
                     operativeChecklistsSection
                 }
@@ -131,13 +134,7 @@ public struct EmergencyProtocolsView: View {
         }
         .background(Color(red: 0.97, green: 0.98, blue: 0.99))
         .sheet(isPresented: $isShowingSbarSheet) {
-            SbarBriefingSheet(
-                emergencyType: selectedEmergency,
-                gcs: gcsScore,
-                pupilStatus: pupilStatus,
-                procedure: thresholdSpec.operativeProcedure,
-                isSurgical: isSurgicalCandidate
-            )
+            SbarTeleprompterSheet()
         }
     }
     
@@ -171,12 +168,15 @@ public struct EmergencyProtocolsView: View {
     
     // MARK: - Section Selector Tabs
     private var sectionSelectorTabs: some View {
-        HStack(spacing: 8) {
-            SectionTabButton(id: "arbitrator", label: "Acute Triage", icon: "brain.head.profile", active: $activeSection)
-            SectionTabButton(id: "reversal", label: "Anticoagulation Reversal", icon: "cross.vial.fill", active: $activeSection)
-            SectionTabButton(id: "checklists", label: "OR & Bedside Checklists", icon: "list.clipboard.fill", active: $activeSection)
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 8) {
+                SectionTabButton(id: "arbitrator", label: "Acute Triage", icon: "brain.head.profile", active: $activeSection)
+                SectionTabButton(id: "icp", label: "BTF ICP Ladder", icon: "ladder", active: $activeSection)
+                SectionTabButton(id: "reversal", label: "Reversal Engine", icon: "cross.vial.fill", active: $activeSection)
+                SectionTabButton(id: "checklists", label: "OR Checklists", icon: "list.clipboard.fill", active: $activeSection)
+            }
+            .padding(.horizontal)
         }
-        .padding(.horizontal)
     }
     
     // MARK: - SBAR Button
@@ -205,11 +205,58 @@ public struct EmergencyProtocolsView: View {
         VStack(spacing: 16) {
             emergencyTypeTabs
             
-            CTViewportView(
-                imageName: currentCTImageName,
-                emergencyTitle: thresholdSpec.title,
-                isSurgical: isSurgicalCandidate
-            )
+            // Viewport Mode Switcher (Diagnostic Scan vs Interactive Calipers)
+            HStack(spacing: 8) {
+                Button(action: {
+                    HapticManager.impact(style: .light)
+                    viewportMode = "scan"
+                }) {
+                    HStack(spacing: 5) {
+                        Image(systemName: "photo.fill")
+                        Text("Diagnostic CT View")
+                            .font(.system(size: 11, weight: .bold))
+                    }
+                    .padding(.vertical, 7)
+                    .padding(.horizontal, 12)
+                    .background(viewportMode == "scan" ? Color.indigo : Color.white)
+                    .foregroundColor(viewportMode == "scan" ? .white : Color(red: 0.3, green: 0.35, blue: 0.45))
+                    .cornerRadius(8)
+                    .shadow(color: Color.black.opacity(0.04), radius: 2)
+                }
+                
+                Button(action: {
+                    HapticManager.impact(style: .light)
+                    viewportMode = "calipers"
+                }) {
+                    HStack(spacing: 5) {
+                        Image(systemName: "ruler.fill")
+                        Text("Interactive Calipers")
+                            .font(.system(size: 11, weight: .bold))
+                    }
+                    .padding(.vertical, 7)
+                    .padding(.horizontal, 12)
+                    .background(viewportMode == "calipers" ? ObsidianTheme.neonCyan : Color.white)
+                    .foregroundColor(viewportMode == "calipers" ? .black : Color(red: 0.3, green: 0.35, blue: 0.45))
+                    .cornerRadius(8)
+                    .shadow(color: Color.black.opacity(0.04), radius: 2)
+                }
+                
+                Spacer()
+            }
+            .padding(.horizontal)
+            
+            if viewportMode == "scan" {
+                CTViewportView(
+                    imageName: currentCTImageName,
+                    emergencyTitle: thresholdSpec.title,
+                    isSurgical: isSurgicalCandidate
+                )
+            } else {
+                RadiologicCaliperEngineView(
+                    imageName: currentCTImageName,
+                    emergencyTitle: thresholdSpec.title
+                )
+            }
             
             Text(anatomicalPearlText)
                 .font(.system(size: 11, weight: .medium))
