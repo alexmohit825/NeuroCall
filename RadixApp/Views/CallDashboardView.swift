@@ -56,6 +56,10 @@ public struct CallDashboardView: View {
     @State private var filterAcuity: TriageAcuity? = nil
     @State private var isShowingReviewStation = false
     @State private var isShowingDeveloperPortfolio = false
+    @State private var isAcuityGuideExpanded = false
+    @Environment(\.requestReview) var requestReview
+    @Environment(\.openURL) var openURL
+    @State private var hasRatedNeuroCall = false
     
     var filteredPatients: [CallPatient] {
         if let filter = filterAcuity {
@@ -126,6 +130,10 @@ public struct CallDashboardView: View {
                 .padding(.horizontal)
                 .padding(.top, 8)
                 
+                // Toggleable Clinical Acuity Pill Guide (Starts Collapsed)
+                TriageAcuityInfoBox(isExpanded: $isAcuityGuideExpanded)
+                    .padding(.horizontal)
+                
                 // Color-Coded Acuity Filter Bar
                 HStack(spacing: 8) {
                     AcuityFilterPill(title: "All (\(patients.count))", isSelected: filterAcuity == nil) {
@@ -156,6 +164,10 @@ public struct CallDashboardView: View {
                     }
                 }
                 .padding(.horizontal)
+                
+                // Persistent Un-Gated App Store Review & Rating Card
+                DashboardRatingBannerCard()
+                    .padding(.horizontal)
             }
             .padding(.bottom, 28)
         }
@@ -343,5 +355,238 @@ struct AcuityFilterPill: View {
                 .cornerRadius(10)
                 .overlay(RoundedRectangle(cornerRadius: 10).stroke(isSelected ? Color.blue : Color.black.opacity(0.06), lineWidth: 1))
         }
+    }
+}
+
+// MARK: - Toggleable Clinical Triage Acuity Pill Guide (Starts Collapsed)
+struct TriageAcuityInfoBox: View {
+    @Binding var isExpanded: Bool
+    
+    var body: some View {
+        VStack(spacing: 0) {
+            Button(action: {
+                withAnimation(.spring(response: 0.35, dampingFraction: 0.8)) {
+                    isExpanded.toggle()
+                }
+                HapticManager.impact(style: .light)
+            }) {
+                HStack(spacing: 10) {
+                    Image(systemName: "info.circle.fill")
+                        .font(.system(size: 15, weight: .bold))
+                        .foregroundColor(ObsidianTheme.neonCyan)
+                    
+                    VStack(alignment: .leading, spacing: 2) {
+                        HStack(spacing: 6) {
+                            Text("WHAT DO THE COLORED PILLS DESIGNATE?")
+                                .font(.system(size: 10, weight: .black))
+                                .tracking(1.0)
+                                .foregroundColor(ObsidianTheme.neonCyan)
+                        }
+                        Text(isExpanded ? "Neurosurgical On-Call Triage Taxonomy" : "Tap to expand clinical acuity definitions & response times")
+                            .font(.system(size: 11, weight: .medium))
+                            .foregroundColor(ObsidianTheme.textSecondary)
+                    }
+                    
+                    Spacer()
+                    
+                    // Preview dots when collapsed
+                    if !isExpanded {
+                        HStack(spacing: 4) {
+                            Circle().fill(Color.red).frame(width: 7, height: 7)
+                            Circle().fill(Color.orange).frame(width: 7, height: 7)
+                            Circle().fill(Color.yellow).frame(width: 7, height: 7)
+                            Circle().fill(Color.blue).frame(width: 7, height: 7)
+                            Circle().fill(Color.green).frame(width: 7, height: 7)
+                        }
+                        .padding(.trailing, 2)
+                    }
+                    
+                    Image(systemName: isExpanded ? "chevron.up.circle.fill" : "chevron.down.circle.fill")
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundColor(isExpanded ? ObsidianTheme.neonCyan : ObsidianTheme.textTertiary)
+                }
+                .padding(12)
+                .background(Color(red: 0.10, green: 0.12, blue: 0.18))
+                .cornerRadius(isExpanded ? 14 : 14)
+            }
+            .buttonStyle(.plain)
+            
+            // Expanded Content Guide
+            if isExpanded {
+                VStack(alignment: .leading, spacing: 10) {
+                    Divider().background(ObsidianTheme.glassBorder)
+                        .padding(.vertical, 4)
+                    
+                    acuityTierRow(
+                        color: Color.red,
+                        tag: "IMMEDIATE (STAT)",
+                        window: "< 15 Min Bedside Evaluation",
+                        description: "Life-or-brain-threatening acute mass effect or herniation. Stat attending notification & operating room mobilization.",
+                        examples: "Acute EDH/SDH with ≥ 5mm shift, uncal herniation with pupillary dilation, acute cord transection, refractory ICP > 20 mmHg."
+                    )
+                    
+                    acuityTierRow(
+                        color: Color.orange,
+                        tag: "URGENT (HIGH ACUITY)",
+                        window: "< 1-2 Hours Evaluation",
+                        description: "Severe neurological compromise requiring ICU neuromonitoring and planned surgical intervention within 2–6 hours.",
+                        examples: "Fisher 3 aSAH with EVD, acute progressive cauda equina, worsening cervical myelopathy, open depressed skull fracture."
+                    )
+                    
+                    acuityTierRow(
+                        color: Color.yellow,
+                        tag: "CONTINGENCY / CAUTION",
+                        window: "Strict Overnight If/Then Rules",
+                        description: "Actionable threshold protocols empowering nursing and on-call residents to preempt clinical deterioration.",
+                        examples: "If ICP > 20 for > 5 min -> open EVD @ 10; if pupil sluggish -> 250cc 3% HTS stat; follow Q4H sodium goal 145-150."
+                    )
+                    
+                    acuityTierRow(
+                        color: Color.blue,
+                        tag: "ROUTINE (STEPDOWN / FLOOR)",
+                        window: "Standard Shift Care",
+                        description: "Stable postoperative patients requiring drain output surveillance, transition to oral analgesia, and physical therapy clearance.",
+                        examples: "POD#1 lumbar microdiscectomy, ACDF single-level, uncomplicated elective craniotomy for unruptured meningioma."
+                    )
+                    
+                    acuityTierRow(
+                        color: Color.green,
+                        tag: "STABLE (FLOOR / DISCHARGE)",
+                        window: "Non-Emergent Surveillance",
+                        description: "Intact baseline neurology with zero acute surgical intervention required overnight. Discharge planning active.",
+                        examples: "Functioning VP shunt at baseline setting, non-operative stable transverse process fracture, medically cleared for acute rehab."
+                    )
+                    
+                    Button(action: {
+                        withAnimation(.spring(response: 0.35, dampingFraction: 0.8)) {
+                            isExpanded = false
+                        }
+                    }) {
+                        HStack {
+                            Spacer()
+                            Text("Collapse Pill Guide ⌃")
+                                .font(.system(size: 11, weight: .bold))
+                                .foregroundColor(ObsidianTheme.neonCyan)
+                            Spacer()
+                        }
+                        .padding(.top, 6)
+                    }
+                }
+                .padding(12)
+                .background(Color(red: 0.08, green: 0.10, blue: 0.15))
+                .cornerRadius(14)
+            }
+        }
+        .background(Color(red: 0.09, green: 0.11, blue: 0.16))
+        .cornerRadius(14)
+        .overlay(RoundedRectangle(cornerRadius: 14).stroke(ObsidianTheme.neonCyan.opacity(0.35), lineWidth: 1))
+    }
+    
+    private func acuityTierRow(color: Color, tag: String, window: String, description: String, examples: String) -> some View {
+        VStack(alignment: .leading, spacing: 3) {
+            HStack(spacing: 6) {
+                Circle().fill(color).frame(width: 7, height: 7)
+                Text(tag)
+                    .font(.system(size: 10, weight: .black))
+                    .foregroundColor(color)
+                Spacer()
+                Text(window)
+                    .font(.system(size: 9, weight: .bold, design: .monospaced))
+                    .foregroundColor(ObsidianTheme.textTertiary)
+            }
+            
+            Text(description)
+                .font(.system(size: 11, weight: .medium))
+                .foregroundColor(ObsidianTheme.textPrimary)
+                .lineSpacing(2)
+            
+            Text("Examples: \(examples)")
+                .font(.system(size: 10, weight: .regular))
+                .foregroundColor(ObsidianTheme.textSecondary)
+                .italic()
+        }
+        .padding(8)
+        .background(color.opacity(0.06))
+        .cornerRadius(8)
+    }
+}
+
+// MARK: - Persistent In-App Rating & Review Card (Guideline 5.6.1 Compliant)
+public struct DashboardRatingBannerCard: View {
+    @State private var hasRated = false
+    @Environment(\.requestReview) private var requestReview
+    @Environment(\.openURL) private var openURL
+    
+    public init() {}
+    
+    public var body: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            HStack {
+                HStack(spacing: 5) {
+                    ForEach(0..<5) { _ in
+                        Image(systemName: "star.fill")
+                            .font(.system(size: 12))
+                            .foregroundColor(.yellow)
+                    }
+                }
+                Spacer()
+                Text("APP STORE DISCOVERABILITY")
+                    .font(.system(size: 9, weight: .black))
+                    .tracking(1.0)
+                    .foregroundColor(.yellow)
+            }
+            
+            VStack(alignment: .leading, spacing: 3) {
+                Text("Support NeuroCall with a 5-Star Rating")
+                    .font(.system(size: 14, weight: .bold))
+                    .foregroundColor(ObsidianTheme.textPrimary)
+                Text("Apple's algorithm indexes unrated medical apps lower in search results. An un-gated review helps on-call residents and spine surgeons find NeuroCall instantly.")
+                    .font(.system(size: 11, weight: .medium))
+                    .foregroundColor(ObsidianTheme.textSecondary)
+                    .lineSpacing(2)
+            }
+            
+            HStack(spacing: 10) {
+                Button(action: {
+                    HapticManager.impact(style: .medium)
+                    requestReview()
+                    hasRated = true
+                }) {
+                    HStack(spacing: 6) {
+                        Image(systemName: hasRated ? "checkmark.circle.fill" : "star.circle.fill")
+                        Text(hasRated ? "Thank You!" : "Rate 5 Stars In-App")
+                    }
+                    .font(.system(size: 12, weight: .bold))
+                    .foregroundColor(.black)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 8)
+                    .background(Color.yellow)
+                    .cornerRadius(8)
+                }
+                
+                Button(action: {
+                    HapticManager.impact(style: .light)
+                    if let url = URL(string: "https://apps.apple.com/app/id6821489631?action=write-review") {
+                        openURL(url)
+                    }
+                }) {
+                    HStack(spacing: 4) {
+                        Text("App Store Page")
+                        Image(systemName: "arrow.up.right")
+                    }
+                    .font(.system(size: 11, weight: .bold))
+                    .foregroundColor(ObsidianTheme.textSecondary)
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 8)
+                    .background(Color(red: 0.16, green: 0.18, blue: 0.24))
+                    .cornerRadius(8)
+                    .overlay(RoundedRectangle(cornerRadius: 8).stroke(ObsidianTheme.glassBorder, lineWidth: 1))
+                }
+            }
+        }
+        .padding(14)
+        .background(Color(red: 0.12, green: 0.14, blue: 0.20))
+        .cornerRadius(14)
+        .overlay(RoundedRectangle(cornerRadius: 14).stroke(Color.yellow.opacity(0.3), lineWidth: 1))
     }
 }

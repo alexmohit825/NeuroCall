@@ -6,7 +6,10 @@ import SwiftUI
 // spinal trauma classification (TLICS / SLIC / SINS), AVM grading, and neurocritical hyperosmolar therapy.
 
 public struct NeurosurgeryCalculatorsView: View {
-    @State private var selectedCalculator = "abc2"
+    @State private var selectedCalculator = "snapspine"
+    @Environment(\.requestReview) var requestReview
+    @Environment(\.openURL) var openURL
+    @State private var hasRated = false
     
     // ABC/2 State
     @State private var dimensionA: Double = 4.0 // cm
@@ -263,6 +266,11 @@ public struct NeurosurgeryCalculatorsView: View {
                     }
                 }
                 .padding(.horizontal)
+                
+                // Persistent Un-Gated In-App Rating Banner Card
+                DashboardRatingBannerCard()
+                    .padding(.horizontal)
+                    .padding(.top, 8)
             }
             .padding(.bottom, 28)
         }

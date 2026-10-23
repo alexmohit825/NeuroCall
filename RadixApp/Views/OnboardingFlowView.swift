@@ -84,7 +84,17 @@ public struct OnboardingFlowView: View {
                             keyTakeaway: "Be prepared for pimping: EVD trajectory Kocher's points, pedicle screw anatomical landmarks, and shunt troubleshooting."
                         )
                         
-                        // Pillar 4: Focused Scope Disclaimer
+                        // Pillar 4: The 5-Color Triage Pill System
+                        ManifestoPillarCard(
+                            badge: "TRIAGE TAXONOMY",
+                            badgeColor: .cyan,
+                            icon: "circle.grid.2x2.fill",
+                            title: "5-Tier Colored Pill Acuity System",
+                            description: "Every consult and census card features an instant triage pill: 🔴 Red for Immediate life/brain threats (midline shift ≥ 5mm, herniation), 🟠 Orange for Urgent ICU cases (aSAH, EVD), 🟡 Yellow for overnight Contingency triggers, 🔵 Blue for Routine floor post-ops, and 🟢 Green for Stable patients.",
+                            keyTakeaway: "Zero ambiguity on acuity: Colored pills define bedside evaluation windows and attending escalation."
+                        )
+                        
+                        // Pillar 5: Focused Scope Disclaimer
                         VStack(alignment: .leading, spacing: 8) {
                             HStack(spacing: 8) {
                                 Image(systemName: "info.circle.fill")
