@@ -30,6 +30,17 @@ public enum S1NormativePreset: String, CaseIterable, Identifiable {
     }
 }
 
+extension View {
+    @ViewBuilder
+    func applyColorInvert(_ active: Bool) -> some View {
+        if active {
+            self.colorInvert()
+        } else {
+            self
+        }
+    }
+}
+
 public struct SnapTheSpineAlignmentView: View {
     @State private var capturedImage: UIImage? = nil
     @State private var isShowingCamera = false
@@ -447,7 +458,7 @@ public struct SnapTheSpineAlignmentView: View {
                         .clipped()
                         .contrast(contrast)
                         .brightness(brightness)
-                        .colorInvert(isInverted)
+                        .applyColorInvert(isInverted)
                 } else {
                     // Default Anatomical Lateral Radiograph Canvas
                     ZStack {
@@ -582,7 +593,7 @@ public struct SnapTheSpineAlignmentView: View {
                     .clipShape(Circle())
                     .contrast(contrast)
                     .brightness(brightness)
-                    .colorInvert(isInverted)
+                    .applyColorInvert(isInverted)
             }
             
             // Loupe Reticle Crosshair
