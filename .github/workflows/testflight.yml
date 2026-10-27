@@ -70,7 +70,7 @@ jobs:
             CODE_SIGNING_ALLOWED=NO \
             CODE_SIGNING_REQUIRED=NO
 
-      - name: 📤 Export & Deliver to TestFlight via Apple Direct Upload
+      - name: 📦 Export Signed IPA Package
         run: |
           mkdir -p build/output
           xcodebuild -exportArchive \
@@ -81,6 +81,20 @@ jobs:
             -authenticationKeyID 38F6WA87DU \
             -authenticationKeyIssuerID 73c7355a-beef-4d79-919d-c3d7dec7747a \
             -authenticationKeyPath ~/.appstoreconnect/private_keys/AuthKey_38F6WA87DU.p8
+
+      - name: 🚀 Deliver to TestFlight via Apple altool
+        run: |
+          IPA_PATH=$(find build/output -name "*.ipa" | head -n 1)
+          if [ -z "$IPA_PATH" ]; then
+            echo "❌ Error: No .ipa found in build/output!"
+            exit 1
+          fi
+          echo "Found IPA at: $IPA_PATH"
+          xcrun altool --upload-app \
+            -f "$IPA_PATH" \
+            -t ios \
+            --apiKey 38F6WA87DU \
+            --apiIssuer 73c7355a-beef-4d79-919d-c3d7dec7747a
           echo "=========================================================="
           echo "🎉 NeuroCall Build Successfully Delivered to Apple TestFlight!"
           echo "Target Bundle: com.AlexMohit.Trephine"
