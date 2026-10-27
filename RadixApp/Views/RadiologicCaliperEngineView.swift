@@ -51,6 +51,25 @@ public struct RadiologicCaliperEngineView: View {
     // Scale factor: assuming standard axial CT viewport width is ~200 mm inner skull
     private let assumedSkullWidthMm: Double = 180.0
     
+    private var activeModeHeaderTitle: String {
+        switch activeMode {
+        case .abc2: return "BEDSIDE ABC/2 HEMATOMA CALIPERS"
+        case .midlineShift: return "BEDSIDE SEPTAL MIDLINE SHIFT CALIPERS"
+        case .evansIndex: return "BEDSIDE EVANS HYDROCEPHALUS INDEX"
+        }
+    }
+    
+    private var activeModeDescription: String {
+        switch activeMode {
+        case .abc2:
+            return "Drag amber handles A1–A2 across maximal hematoma length and cyan handles B1–B2 across perpendicular width on axial CT. Adjust slice count below to calculate instant ABC/2 volume (surgical indication threshold ≥ 30 mL)."
+        case .midlineShift:
+            return "Align white dashed reference axis along the falx cerebri from crista galli to internal occipital protuberance. Drag the red Septum marker to the septum pellucidum. Shift > 5 mm indicates emergent surgical decompression."
+        case .evansIndex:
+            return "Position cyan markers F1–F2 across the widest frontal horn diameter and rose markers S1–S2 across the maximal inner calvarial table. An Evans Index ratio > 0.30 confirms acute ventriculomegaly requiring EVD or shunt."
+        }
+    }
+    
     public init(imageName: String, emergencyTitle: String) {
         self.imageName = imageName
         self.emergencyTitle = emergencyTitle
@@ -58,55 +77,85 @@ public struct RadiologicCaliperEngineView: View {
     
     public var body: some View {
         VStack(spacing: 12) {
-            // Mode Selector Bar
-            HStack(spacing: 8) {
-                ForEach(CaliperToolMode.allCases, id: \.self) { mode in
+            // Mode Selector Bar & Controls Strip (Horizontal Scrolling)
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 8) {
+                    ForEach(CaliperToolMode.allCases, id: \.self) { mode in
+                        Button(action: {
+                            HapticManager.impact(style: .light)
+                            activeMode = mode
+                        }) {
+                            HStack(spacing: 5) {
+                                Image(systemName: mode.icon)
+                                Text(mode.rawValue)
+                                    .font(.system(size: 11, weight: .bold))
+                            }
+                            .padding(.vertical, 7)
+                            .padding(.horizontal, 10)
+                            .background(activeMode == mode ? ObsidianTheme.neonCyan : ObsidianTheme.surfaceElevated)
+                            .foregroundColor(activeMode == mode ? .black : ObsidianTheme.textSecondary)
+                            .cornerRadius(8)
+                            .overlay(RoundedRectangle(cornerRadius: 8).stroke(activeMode == mode ? ObsidianTheme.neonCyan : ObsidianTheme.borderSubtle, lineWidth: 1))
+                        }
+                    }
+                    
                     Button(action: {
-                        HapticManager.impact(style: .light)
-                        activeMode = mode
+                        HapticManager.impact(style: .medium)
+                        isShowingCameraPicker = true
                     }) {
-                        HStack(spacing: 5) {
-                            Image(systemName: mode.icon)
-                            Text(mode.rawValue)
-                                .font(.system(size: 11, weight: .bold))
+                        HStack(spacing: 4) {
+                            Image(systemName: "camera.fill")
+                            Text("Snap PACS")
+                                .font(.system(size: 10, weight: .bold))
                         }
                         .padding(.vertical, 7)
                         .padding(.horizontal, 10)
-                        .background(activeMode == mode ? ObsidianTheme.neonCyan : ObsidianTheme.surfaceElevated)
-                        .foregroundColor(activeMode == mode ? .black : ObsidianTheme.textSecondary)
+                        .background(ObsidianTheme.neonCyan)
+                        .foregroundColor(.black)
                         .cornerRadius(8)
-                        .overlay(RoundedRectangle(cornerRadius: 8).stroke(activeMode == mode ? ObsidianTheme.neonCyan : ObsidianTheme.borderSubtle, lineWidth: 1))
                     }
-                }
-                
-                Spacer()
-                
-                Button(action: {
-                    HapticManager.impact(style: .medium)
-                    isShowingCameraPicker = true
-                }) {
-                    HStack(spacing: 4) {
-                        Image(systemName: "camera.fill")
-                        Text("Snap PACS")
-                            .font(.system(size: 10, weight: .bold))
-                    }
-                    .padding(.vertical, 6)
-                    .padding(.horizontal, 8)
-                    .background(ObsidianTheme.neonCyan)
-                    .foregroundColor(.black)
-                    .cornerRadius(6)
-                }
-                
-                Button(action: {
-                    isCaliperActive.toggle()
-                }) {
-                    Image(systemName: isCaliperActive ? "eye.fill" : "eye.slash.fill")
-                        .foregroundColor(isCaliperActive ? ObsidianTheme.neonCyan : ObsidianTheme.textTertiary)
-                        .padding(8)
+                    
+                    Button(action: {
+                        isCaliperActive.toggle()
+                    }) {
+                        HStack(spacing: 4) {
+                            Image(systemName: isCaliperActive ? "eye.fill" : "eye.slash.fill")
+                            Text(isCaliperActive ? "Hide Calipers" : "Show Calipers")
+                                .font(.system(size: 10, weight: .bold))
+                        }
+                        .padding(.vertical, 7)
+                        .padding(.horizontal, 10)
                         .background(ObsidianTheme.surfaceElevated)
-                        .clipShape(Circle())
+                        .foregroundColor(isCaliperActive ? ObsidianTheme.neonCyan : ObsidianTheme.textTertiary)
+                        .cornerRadius(8)
+                    }
                 }
+                .padding(.horizontal)
             }
+            
+            // Bedside Calipers Fluid Horizontal Description Banner (Never constrained vertically)
+            VStack(alignment: .leading, spacing: 5) {
+                HStack(spacing: 6) {
+                    Image(systemName: "ruler.fill")
+                        .font(.system(size: 11, weight: .bold))
+                        .foregroundColor(ObsidianTheme.neonCyan)
+                    Text(activeModeHeaderTitle)
+                        .font(.system(size: 10, weight: .black))
+                        .tracking(1.2)
+                        .foregroundColor(ObsidianTheme.neonCyan)
+                }
+                Text(activeModeDescription)
+                    .font(.system(size: 12, weight: .medium))
+                    .foregroundColor(ObsidianTheme.textSecondary)
+                    .lineSpacing(3)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
+            .padding(12)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .background(ObsidianTheme.surfaceElevated)
+            .cornerRadius(10)
+            .overlay(RoundedRectangle(cornerRadius: 10).stroke(ObsidianTheme.borderSubtle, lineWidth: 1))
             .padding(.horizontal)
             
             // Interactive Caliper Viewport Canvas
@@ -363,19 +412,46 @@ public struct RadiologicCaliperEngineView: View {
             
             Divider().background(ObsidianTheme.borderSubtle)
             
-            HStack(spacing: 16) {
-                VStack(alignment: .leading) {
-                    Text("A (Max Length)").font(.system(size: 9, weight: .bold)).foregroundColor(ObsidianTheme.textTertiary)
-                    Text(String(format: "%.1f cm", lengthCm)).font(.system(size: 13, weight: .heavy)).foregroundColor(ObsidianTheme.neonAmber)
+            // Fluid Horizontal Cards for Caliper Dimensions (Never crammed vertically)
+            HStack(spacing: 8) {
+                HStack(spacing: 6) {
+                    Circle().fill(ObsidianTheme.neonAmber).frame(width: 8, height: 8)
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("A: Length").font(.system(size: 9, weight: .bold)).foregroundColor(ObsidianTheme.textTertiary)
+                        Text(String(format: "%.1f cm", lengthCm)).font(.system(size: 13, weight: .heavy, design: .rounded)).foregroundColor(ObsidianTheme.neonAmber)
+                    }
                 }
-                VStack(alignment: .leading) {
-                    Text("B (Max Width)").font(.system(size: 9, weight: .bold)).foregroundColor(ObsidianTheme.textTertiary)
-                    Text(String(format: "%.1f cm", widthCm)).font(.system(size: 13, weight: .heavy)).foregroundColor(ObsidianTheme.neonCyan)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.vertical, 7)
+                .padding(.horizontal, 9)
+                .background(ObsidianTheme.surfaceVoid)
+                .cornerRadius(8)
+                
+                HStack(spacing: 6) {
+                    Circle().fill(ObsidianTheme.neonCyan).frame(width: 8, height: 8)
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("B: Width").font(.system(size: 9, weight: .bold)).foregroundColor(ObsidianTheme.textTertiary)
+                        Text(String(format: "%.1f cm", widthCm)).font(.system(size: 13, weight: .heavy, design: .rounded)).foregroundColor(ObsidianTheme.neonCyan)
+                    }
                 }
-                VStack(alignment: .leading) {
-                    Text("C (Z-Depth)").font(.system(size: 9, weight: .bold)).foregroundColor(ObsidianTheme.textTertiary)
-                    Text(String(format: "%.1f cm", depthCm)).font(.system(size: 13, weight: .heavy)).foregroundColor(Color.white)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.vertical, 7)
+                .padding(.horizontal, 9)
+                .background(ObsidianTheme.surfaceVoid)
+                .cornerRadius(8)
+                
+                HStack(spacing: 6) {
+                    Circle().fill(Color.white).frame(width: 8, height: 8)
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("C: Z-Depth").font(.system(size: 9, weight: .bold)).foregroundColor(ObsidianTheme.textTertiary)
+                        Text(String(format: "%.1f cm", depthCm)).font(.system(size: 13, weight: .heavy, design: .rounded)).foregroundColor(Color.white)
+                    }
                 }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.vertical, 7)
+                .padding(.horizontal, 9)
+                .background(ObsidianTheme.surfaceVoid)
+                .cornerRadius(8)
             }
             
             // Slice Stepper
@@ -421,6 +497,8 @@ public struct RadiologicCaliperEngineView: View {
             Text("BTF Rule: Midline shift > 5 mm in acute SDH or EDH is an independent indication for emergent surgical craniotomy regardless of admission GCS score.")
                 .font(.system(size: 11, weight: .medium))
                 .foregroundColor(ObsidianTheme.textSecondary)
+                .fixedSize(horizontal: false, vertical: true)
+                .frame(maxWidth: .infinity, alignment: .leading)
         }
     }
     
@@ -454,6 +532,8 @@ public struct RadiologicCaliperEngineView: View {
             Text("Evans Index > 0.30 establishes acute ventricular enlargement / communicating hydrocephalus requiring external ventricular drain (EVD) or shunt revision.")
                 .font(.system(size: 11, weight: .medium))
                 .foregroundColor(ObsidianTheme.textSecondary)
+                .fixedSize(horizontal: false, vertical: true)
+                .frame(maxWidth: .infinity, alignment: .leading)
         }
     }
 }
