@@ -867,8 +867,6 @@ public struct AuditReportModalView: View {
     @ObservedObject var auditManager: PlateAuditManager
     @Environment(\.dismiss) var dismiss
     
-    @State private var syncStatus: String? = nil
-    @State private var isSyncing: Bool = false
     @State private var copied: Bool = false
     
     public var body: some View {
@@ -926,36 +924,8 @@ public struct AuditReportModalView: View {
                     .background(Color(red: 0.12, green: 0.14, blue: 0.18))
                     .cornerRadius(14)
                     
-                    // 1-Tap Autonomous Sync to PC Action
+                    // Local Offline Export Actions
                     VStack(spacing: 12) {
-                        Button(action: syncAuditToPC) {
-                            HStack(spacing: 8) {
-                                if isSyncing {
-                                    ProgressView()
-                                        .tint(.black)
-                                } else {
-                                    Image(systemName: "antenna.radiowaves.left.and.right")
-                                        .font(.system(size: 16, weight: .bold))
-                                }
-                                Text(isSyncing ? "Transmitting to PC..." : "⚡ Sync Audit Directly to Antigravity PC")
-                                    .font(.system(size: 14, weight: .black))
-                            }
-                            .foregroundColor(.black)
-                            .frame(maxWidth: .infinity)
-                            .padding(.vertical, 14)
-                            .background(ObsidianTheme.neonCyan)
-                            .cornerRadius(12)
-                            .shadow(color: ObsidianTheme.neonCyan.opacity(0.3), radius: 8, y: 3)
-                        }
-                        .disabled(isSyncing)
-                        
-                        if let status = syncStatus {
-                            Text(status)
-                                .font(.system(size: 12, weight: .bold))
-                                .foregroundColor(status.contains("✅") ? .green : .red)
-                                .frame(maxWidth: .infinity, alignment: .center)
-                        }
-                        
                         HStack(spacing: 12) {
                             Button(action: {
                                 UIPasteboard.general.string = auditManager.generateAuditReportMarkdown()
@@ -1059,63 +1029,6 @@ public struct AuditReportModalView: View {
         }
     }
     
-    private func syncAuditToPC() {
-        isSyncing = true
-        syncStatus = nil
-        
-        let report = auditManager.generateAuditReportMarkdown()
-        guard let data = report.data(using: .utf8) else {
-            isSyncing = false
-            syncStatus = "❌ Encoding Error"
-            return
-        }
-        
-        // Try candidate endpoints: current Wi-Fi IP, secondary IP, then Cloudflare Edge Relay
-        let endpoints = [
-            "http://192.168.4.42:7788/upload",
-            "http://192.168.6.120:7788/upload",
-            "https://screendrop-relay.mohalex.workers.dev/upload?token=alex-screendrop-2026"
-        ]
-        
-        func trySend(index: Int) {
-            guard index < endpoints.count else {
-                DispatchQueue.main.async {
-                    self.isSyncing = false
-                    self.syncStatus = "⚠️ Offline: Copied to Clipboard instead!"
-                    UIPasteboard.general.string = report
-                }
-                return
-            }
-            
-            guard let url = URL(string: endpoints[index]) else {
-                trySend(index: index + 1)
-                return
-            }
-            
-            var req = URLRequest(url: url)
-            req.httpMethod = "POST"
-            req.setValue("text/plain", forHTTPHeaderField: "Content-Type")
-            if url.host?.contains("workers.dev") == true {
-                req.setValue("alex-screendrop-2026", forHTTPHeaderField: "X-Auth-Token")
-            }
-            req.httpBody = data
-            req.timeoutInterval = 3
-            
-            URLSession.shared.dataTask(with: req) { _, response, _ in
-                if let http = response as? HTTPURLResponse, http.statusCode == 200 {
-                    DispatchQueue.main.async {
-                        self.isSyncing = false
-                        let label = url.host?.contains("workers.dev") == true ? "Cloudflare Edge Relay" : "Wi-Fi (Port 7788)"
-                        self.syncStatus = "✅ Transmitted to Antigravity PC via \(label)!"
-                    }
-                } else {
-                    trySend(index: index + 1)
-                }
-            }.resume()
-        }
-        
-        trySend(index: 0)
-    }
 }
 
 // MARK: - Interactive Two-Finger Pinch-to-Zoom & Pan Component
