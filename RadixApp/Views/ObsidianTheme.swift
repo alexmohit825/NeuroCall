@@ -26,6 +26,7 @@ public enum ObsidianTheme {
     
     // Semantic Theme Aliases
     public static let vitreousGlass = glassSurface
+    public static let surfaceGlass = glassSurface
     public static let borderSubtle = glassBorder
     public static let surfaceVoid = canvasDark
     public static let surfaceElevated = glassSurfaceRaised
