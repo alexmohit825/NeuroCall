@@ -11,7 +11,6 @@ public struct ERConsultsView: View {
     @State private var selectedCranialConsult: CranialConsultType = .aneurysmalSAH
     @State private var selectedSpineConsult: SpineConsultType = .jumpedFacets
     @State private var isShowingSbarSheet: Bool = false
-    @State private var isShowingReviewStation: Bool = false
     @State private var zoomScale: CGFloat = 1.0
     @State private var dragOffset: CGSize = .zero
     
@@ -49,9 +48,6 @@ public struct ERConsultsView: View {
             .padding(.top, 10)
         }
         .background(ObsidianTheme.surfaceVoid)
-        .sheet(isPresented: $isShowingReviewStation) {
-            AnatomicReviewStationView()
-        }
         .sheet(isPresented: $isShowingSbarSheet) {
             ERConsultSbarSheet(
                 consultTitle: currentConsultTitle,
@@ -112,23 +108,6 @@ public struct ERConsultsView: View {
                         .foregroundColor(ObsidianTheme.neonCyan)
                 }
                 Spacer()
-                Button(action: {
-                    HapticManager.impact(style: .medium)
-                    isShowingReviewStation = true
-                }) {
-                    HStack(spacing: 4) {
-                        Image(systemName: "checkmark.seal.fill")
-                            .font(.system(size: 11))
-                        Text("Audit Studio")
-                            .font(.system(size: 11, weight: .bold))
-                    }
-                    .padding(.horizontal, 10)
-                    .padding(.vertical, 5)
-                    .background(ObsidianTheme.neonCyan.opacity(0.18))
-                    .foregroundColor(ObsidianTheme.neonCyan)
-                    .cornerRadius(8)
-                    .overlay(RoundedRectangle(cornerRadius: 8).stroke(ObsidianTheme.neonCyan.opacity(0.4), lineWidth: 1))
-                }
             }
             Text("Frontline Neurosurgical Decision Engine")
                 .font(.system(size: 20, weight: .bold))

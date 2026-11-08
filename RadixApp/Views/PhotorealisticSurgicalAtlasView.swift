@@ -6,6 +6,7 @@ import SwiftUI
 // Deep micro-zoom (1.0x to 4.0x), interactive pinned callouts, danger zone overlays, and tactical protocols.
 
 public struct PhotorealisticSurgicalAtlasView: View {
+    @State private var selectedCategory: AtlasCategory = .all
     @State private var selectedPlate: SurgicalPlateType = .aneurysmClipping
     @State private var zoomScale: CGFloat = 1.0
     @State private var lastZoomScale: CGFloat = 1.0
@@ -14,15 +15,31 @@ public struct PhotorealisticSurgicalAtlasView: View {
     @State private var selectedCallout: SurgicalCallout? = nil
     @State private var showDangerOverlay: Bool = true
     @State private var showCalloutPins: Bool = true
-    @State private var isShowingReviewStation: Bool = false
     
     public init() {}
+    
+    private func selectAdjacentPlate(direction: Int) {
+        let all = SurgicalPlateType.allCases
+        guard let idx = all.firstIndex(of: selectedPlate) else { return }
+        let nextIdx = (idx + direction + all.count) % all.count
+        HapticManager.impact(style: .light)
+        withAnimation(.easeInOut(duration: 0.22)) {
+            selectedPlate = all[nextIdx]
+            zoomScale = 1.0
+            dragOffset = .zero
+            lastDragOffset = .zero
+            selectedCallout = all[nextIdx].callouts.first
+        }
+    }
     
     public var body: some View {
         ScrollView {
             VStack(spacing: 16) {
                 // Header
                 atlasHeader
+                
+                // Atlas Pillar Category Selector
+                categorySelectorBar
                 
                 // Plate Carousel Selector Bar
                 plateSelectorBar
@@ -31,10 +48,11 @@ public struct PhotorealisticSurgicalAtlasView: View {
                 ZStack {
                     plateViewportCanvas
                     
-                    // Controls Overlay (Reset zoom + Pin toggle)
+                    // Controls Overlay (Reset zoom + Pin toggle + Swipe Nav)
                     VStack {
                         topControlsBar
                         Spacer()
+                        bottomSwipeHintBar
                     }
                 }
                 .frame(height: 380)
@@ -59,9 +77,6 @@ public struct PhotorealisticSurgicalAtlasView: View {
             .padding(.top, 10)
         }
         .background(ObsidianTheme.surfaceVoid)
-        .sheet(isPresented: $isShowingReviewStation) {
-            AnatomicReviewStationView()
-        }
         .onAppear {
             if selectedCallout == nil {
                 selectedCallout = selectedPlate.callouts.first
@@ -81,28 +96,20 @@ public struct PhotorealisticSurgicalAtlasView: View {
                         .foregroundColor(ObsidianTheme.neonAmber)
                 }
                 Spacer()
-                Button(action: {
-                    HapticManager.impact(style: .medium)
-                    isShowingReviewStation = true
-                }) {
-                    HStack(spacing: 5) {
-                        Image(systemName: "checkmark.seal.fill")
-                            .font(.system(size: 11))
-                        Text("Audit Studio")
-                            .font(.system(size: 11, weight: .bold))
-                    }
-                    .padding(.horizontal, 10)
-                    .padding(.vertical, 5)
-                    .background(ObsidianTheme.neonCyan.opacity(0.18))
-                    .foregroundColor(ObsidianTheme.neonCyan)
-                    .cornerRadius(8)
-                    .overlay(RoundedRectangle(cornerRadius: 8).stroke(ObsidianTheme.neonCyan.opacity(0.4), lineWidth: 1))
+                if let idx = SurgicalPlateType.allCases.firstIndex(of: selectedPlate) {
+                    Text("PLATE \(idx + 1) / \(SurgicalPlateType.allCases.count) • SWIPE ◀ ▶")
+                        .font(.system(size: 10, weight: .bold, design: .monospaced))
+                        .foregroundColor(ObsidianTheme.neonCyan)
+                        .padding(.horizontal, 8)
+                        .padding(.vertical, 4)
+                        .background(ObsidianTheme.neonCyan.opacity(0.14))
+                        .cornerRadius(6)
                 }
             }
             Text("High-Definition Microsurgical & MRI Plates")
                 .font(.system(size: 20, weight: .bold))
                 .foregroundColor(ObsidianTheme.textPrimary)
-            Text("Authentic Rhoton-caliber anatomical artwork and clinical MRI scans with deep-zoom tactile callouts.")
+            Text("Authentic Rhoton-caliber anatomical artwork and clinical MRI scans. Slide left or right on any plate to advance.")
                 .font(.system(size: 12, weight: .medium))
                 .foregroundColor(ObsidianTheme.textSecondary)
         }
@@ -110,35 +117,79 @@ public struct PhotorealisticSurgicalAtlasView: View {
         .padding(.horizontal, 16)
     }
     
-    // MARK: - Plate Selector Bar
-    private var plateSelectorBar: some View {
+    // MARK: - Category Selector Bar
+    private var categorySelectorBar: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 8) {
-                ForEach(SurgicalPlateType.allCases, id: \.self) { plate in
+                ForEach(AtlasCategory.allCases, id: \.self) { cat in
                     Button(action: {
                         HapticManager.impact(style: .light)
-                        selectedPlate = plate
-                        zoomScale = 1.0
-                        dragOffset = .zero
-                        lastDragOffset = .zero
-                        selectedCallout = plate.callouts.first
-                    }) {
-                        HStack(spacing: 6) {
-                            Image(systemName: plate.iconName)
-                                .font(.system(size: 11, weight: .bold))
-                            Text(plate.shortTitle)
-                                .font(.system(size: 12, weight: .bold))
+                        withAnimation(.easeInOut(duration: 0.2)) {
+                            selectedCategory = cat
+                            let filtered = cat.filteredPlates
+                            if !filtered.contains(selectedPlate), let first = filtered.first {
+                                selectedPlate = first
+                                zoomScale = 1.0
+                                dragOffset = .zero
+                                lastDragOffset = .zero
+                                selectedCallout = first.callouts.first
+                            }
                         }
-                        .padding(.horizontal, 12)
-                        .padding(.vertical, 8)
-                        .background(selectedPlate == plate ? ObsidianTheme.neonAmber.opacity(0.2) : ObsidianTheme.vitreousGlass)
-                        .foregroundColor(selectedPlate == plate ? ObsidianTheme.neonAmber : ObsidianTheme.textSecondary)
-                        .cornerRadius(10)
-                        .overlay(RoundedRectangle(cornerRadius: 10).stroke(selectedPlate == plate ? ObsidianTheme.neonAmber : ObsidianTheme.borderSubtle, lineWidth: 1.5))
+                    }) {
+                        Text(cat.rawValue)
+                            .font(.system(size: 11, weight: .bold))
+                            .padding(.horizontal, 12)
+                            .padding(.vertical, 6)
+                            .background(selectedCategory == cat ? ObsidianTheme.neonAmber : ObsidianTheme.surfaceGlass)
+                            .foregroundColor(selectedCategory == cat ? .black : ObsidianTheme.textSecondary)
+                            .cornerRadius(8)
+                            .overlay(RoundedRectangle(cornerRadius: 8).stroke(selectedCategory == cat ? ObsidianTheme.neonAmber : ObsidianTheme.borderSubtle, lineWidth: 1))
                     }
                 }
             }
-            .padding(.horizontal, 14)
+            .padding(.horizontal, 16)
+        }
+    }
+
+    // MARK: - Plate Selector Bar
+    private var plateSelectorBar: some View {
+        ScrollViewReader { proxy in
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 8) {
+                    ForEach(selectedCategory.filteredPlates, id: \.self) { plate in
+                        Button(action: {
+                            HapticManager.impact(style: .light)
+                            withAnimation(.easeInOut(duration: 0.2)) {
+                                selectedPlate = plate
+                                zoomScale = 1.0
+                                dragOffset = .zero
+                                lastDragOffset = .zero
+                                selectedCallout = plate.callouts.first
+                            }
+                        }) {
+                            HStack(spacing: 6) {
+                                Image(systemName: plate.iconName)
+                                    .font(.system(size: 11, weight: .bold))
+                                Text(plate.shortTitle)
+                                    .font(.system(size: 12, weight: .bold))
+                            }
+                            .padding(.horizontal, 12)
+                            .padding(.vertical, 8)
+                            .background(selectedPlate == plate ? ObsidianTheme.neonAmber.opacity(0.2) : ObsidianTheme.vitreousGlass)
+                            .foregroundColor(selectedPlate == plate ? ObsidianTheme.neonAmber : ObsidianTheme.textSecondary)
+                            .cornerRadius(10)
+                            .overlay(RoundedRectangle(cornerRadius: 10).stroke(selectedPlate == plate ? ObsidianTheme.neonAmber : ObsidianTheme.borderSubtle, lineWidth: 1.5))
+                        }
+                        .id(plate)
+                    }
+                }
+                .padding(.horizontal, 14)
+            }
+            .onChange(of: selectedPlate) { newPlate in
+                withAnimation(.easeInOut(duration: 0.25)) {
+                    proxy.scrollTo(newPlate, anchor: .center)
+                }
+            }
         }
     }
     
@@ -186,6 +237,49 @@ public struct PhotorealisticSurgicalAtlasView: View {
         .padding(10)
     }
     
+    // MARK: - Bottom Swipe Navigation Bar
+    private var bottomSwipeHintBar: some View {
+        HStack {
+            Button(action: { selectAdjacentPlate(direction: -1) }) {
+                HStack(spacing: 4) {
+                    Image(systemName: "chevron.left")
+                        .font(.system(size: 11, weight: .bold))
+                    Text("Prev")
+                        .font(.system(size: 10, weight: .bold))
+                }
+                .padding(.horizontal, 10)
+                .padding(.vertical, 5)
+                .background(Color.black.opacity(0.75))
+                .foregroundColor(ObsidianTheme.textSecondary)
+                .cornerRadius(8)
+            }
+            Spacer()
+            Text(zoomScale <= 1.05 ? "Slide left / right for next plate • Pinch to zoom" : "Drag to pan • Tap reset to swipe plates")
+                .font(.system(size: 10, weight: .medium))
+                .foregroundColor(ObsidianTheme.textMuted)
+                .padding(.horizontal, 8)
+                .padding(.vertical, 4)
+                .background(Color.black.opacity(0.65))
+                .cornerRadius(6)
+            Spacer()
+            Button(action: { selectAdjacentPlate(direction: 1) }) {
+                HStack(spacing: 4) {
+                    Text("Next")
+                        .font(.system(size: 10, weight: .bold))
+                    Image(systemName: "chevron.right")
+                        .font(.system(size: 11, weight: .bold))
+                }
+                .padding(.horizontal, 10)
+                .padding(.vertical, 5)
+                .background(Color.black.opacity(0.75))
+                .foregroundColor(ObsidianTheme.textSecondary)
+                .cornerRadius(8)
+            }
+        }
+        .padding(.horizontal, 10)
+        .padding(.bottom, 8)
+    }
+    
     // MARK: - Plate Viewport Canvas
     private var plateViewportCanvas: some View {
         GeometryReader { geo in
@@ -220,7 +314,7 @@ public struct PhotorealisticSurgicalAtlasView: View {
                     }
             )
             .simultaneousGesture(
-                DragGesture()
+                DragGesture(minimumDistance: 20)
                     .onChanged { val in
                         if zoomScale > 1.05 {
                             dragOffset = CGSize(
@@ -229,8 +323,20 @@ public struct PhotorealisticSurgicalAtlasView: View {
                             )
                         }
                     }
-                    .onEnded { _ in
-                        lastDragOffset = dragOffset
+                    .onEnded { val in
+                        if zoomScale > 1.05 {
+                            lastDragOffset = dragOffset
+                        } else {
+                            let dx = val.translation.width
+                            let dy = val.translation.height
+                            if abs(dx) > 45 && abs(dx) > abs(dy) * 1.2 {
+                                if dx < 0 {
+                                    selectAdjacentPlate(direction: 1)
+                                } else {
+                                    selectAdjacentPlate(direction: -1)
+                                }
+                            }
+                        }
                     }
             )
             .clipped()
@@ -376,6 +482,23 @@ public struct PhotorealisticSurgicalAtlasView: View {
 }
 
 // MARK: - Data Models
+
+public enum AtlasCategory: String, CaseIterable {
+    case all = "All Plates"
+    case cranial = "Craniotomies & Trauma"
+    case skullBase = "Skull Base & Vascular"
+    case spine = "Spine & CVJ"
+    
+    public var filteredPlates: [SurgicalPlateType] {
+        switch self {
+        case .all: return SurgicalPlateType.allCases
+        case .cranial: return [.pterional, .hemicraniectomy, .kochersEVD, .csdhBurrHole]
+        case .skullBase: return [.aneurysmClipping, .retrosigmoid, .endonasalSellar, .farLateral, .orbitozygomatic, .chiariDecompression]
+        case .spine: return [.acdf, .tlif, .harmsC1C2]
+        }
+    }
+}
+
 public enum SurgicalPlateType: String, CaseIterable {
     case aneurysmClipping = "aneurysm_clipping"
     case pterional = "pterional"
@@ -468,44 +591,44 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .aneurysmClipping:
             return [
                 SurgicalCallout(
-                    id: "aneurysm_sac",
-                    title: "Aneurysm Dome & Neck",
+                    id: "aneurysm_pcoma",
+                    title: "PComA Aneurysm & Dome",
                     structureType: "VASCULAR LESION",
                     color: ObsidianTheme.neonRose,
-                    normalizedX: 0.50,
+                    normalizedX: 0.55,
                     normalizedY: 0.44,
-                    description: "Aneurysm sac at arterial bifurcation. Permanent Yasargil clip must seat precisely across neck without residual dog-ear or parent artery compromise.",
-                    surgicalPearl: "Always achieve 360-degree proximal and distal parent artery visualization before attempting clip application."
+                    description: "Saccular aneurysm originating from the posterolateral wall of the supraclinoid ICA at the PComA origin. The permanent titanium Yasargil clip blades occlude the neck while sparing the parent vessel.",
+                    surgicalPearl: "Always dissect the neck 360 degrees to confirm the oculomotor nerve (CN III) is free from the posterior dome and PComA patency is preserved."
                 ),
                 SurgicalCallout(
                     id: "aneurysm_clip",
-                    title: "Yasargil Micro-Clip",
+                    title: "Yasargil Titanium Clip",
                     structureType: "SURGICAL IMPLANT",
-                    color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.54,
-                    normalizedY: 0.36,
-                    description: "Titanium aneurysm clip applied across aneurysm neck parallel to the parent arterial axis.",
-                    surgicalPearl: "Verify absence of parent artery stenosis and complete obliteration using micro-Doppler or indocyanine green (ICG) angiography."
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.59,
+                    normalizedY: 0.49,
+                    description: "Permanent mini-clip with parallel opposing blades across the aneurysm neck. The distal portion of the upper blade passes behind the neck while the lower blade crosses in front.",
+                    surgicalPearl: "Inspect both blade tips with a dental mirror or 30-degree endoscope to ensure no perforating branches or CN III are entrapped."
                 ),
                 SurgicalCallout(
                     id: "aneurysm_ica",
-                    title: "ICA Bifurcation & A1/M1",
+                    title: "Internal Carotid Artery (ICA)",
                     structureType: "PARENT ARTERIAL TRUNK",
-                    color: ObsidianTheme.neonCyan,
+                    color: ObsidianTheme.neonAmber,
                     normalizedX: 0.48,
-                    normalizedY: 0.62,
-                    description: "Terminal internal carotid bifurcating into anterior cerebral (A1) and middle cerebral (M1) arteries.",
-                    surgicalPearl: "Keep temporary clip readily available. Limit warm brain ischemia to under 10 minutes under burst suppression / neuroprotection."
+                    normalizedY: 0.47,
+                    description: "Supraclinoid ICA trunk coursing through the carotid cistern, giving rise to PComA before bifurcating into A1 and M1.",
+                    surgicalPearl: "Establish early proximal control in the neck or at the clinoidal segment before mobilizing an unclipped PComA aneurysm."
                 ),
                 SurgicalCallout(
                     id: "aneurysm_cn2",
                     title: "Optic Nerve (CN II)",
                     structureType: "CRANIAL NERVE",
                     color: ObsidianTheme.textPrimary,
-                    normalizedX: 0.38,
-                    normalizedY: 0.52,
-                    description: "Courses medial to carotid bifurcation. Opticocarotid triangle provides the classic window to precommunicating A1.",
-                    surgicalPearl: "Avoid aggressive retraction against optic nerve; gentle CSF drainage from optico-carotid cistern relaxes the nerve."
+                    normalizedX: 0.45,
+                    normalizedY: 0.47,
+                    description: "Courses anteromedial to the supraclinoid ICA. Forms the medial border of the opticocarotid triangle.",
+                    surgicalPearl: "Sharply open the optico-carotid arachnoid to release CSF and minimize the need for fixed frontal lobe retraction."
                 )
             ]
         case .pterional:
@@ -544,24 +667,64 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .retrosigmoid:
             return [
                 SurgicalCallout(
+                    id: "rs_cn5",
+                    title: "CN V (Trigeminal Nerve)",
+                    structureType: "UPPER NEUROVASCULAR COMPLEX",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.550,
+                    normalizedY: 0.388,
+                    description: "Courses across the rostral cerebellopontine angle beneath the superior petrosal sinus and Dandy's vein toward Meckel's cave.",
+                    surgicalPearl: "Look for superior cerebellar artery (SCA) loops compressing the trigeminal root entry zone (REZ) during microvascular decompression."
+                ),
+                SurgicalCallout(
                     id: "rs_cn78",
                     title: "CN VII & CN VIII Complex",
-                    structureType: "ACOUSTICOFACIAL BUNDLE",
+                    structureType: "MIDDLE NEUROVASCULAR COMPLEX",
                     color: ObsidianTheme.neonCyan,
-                    normalizedX: 0.60,
-                    normalizedY: 0.48,
-                    description: "Courses across cerebellopontine angle cistern into internal acoustic meatus.",
-                    surgicalPearl: "CN VII (facial) is consistently positioned anterior to CN VIII (cochleovestibular). Avoid bipolar cautery within 2 mm of nerve bundle."
+                    normalizedX: 0.623,
+                    normalizedY: 0.409,
+                    description: "Facial and vestibulocochlear nerve bundle traversing the middle CPA cistern toward the internal acoustic meatus.",
+                    surgicalPearl: "CN VII (facial) lies anterior/ventral to CN VIII. Avoid bipolar coagulation or direct traction on the bundle."
                 ),
                 SurgicalCallout(
                     id: "rs_aica",
-                    title: "AICA Vascular Loop",
-                    structureType: "ARTERIAL LOOP",
+                    title: "AICA (Anterior Inferior Cerebellar Artery)",
+                    structureType: "ARTERIAL MEATAL LOOP",
                     color: ObsidianTheme.neonRose,
-                    normalizedX: 0.54,
-                    normalizedY: 0.58,
-                    description: "Originates from basilar artery, loops into the porus acusticus, and supplies internal auditory canal via labyrinthine artery.",
-                    surgicalPearl: "Spasm or traction on labyrinthine artery causes instantaneous, irreversible sensorineural deafness."
+                    normalizedX: 0.562,
+                    normalizedY: 0.560,
+                    description: "Prominent bifurcating arterial loop coursing between and across the CN VII/VIII complex, giving rise to the labyrinthine (internal auditory) artery.",
+                    surgicalPearl: "Spasm or avulsion of the labyrinthine branch causes immediate, irreversible sensorineural hearing loss."
+                ),
+                SurgicalCallout(
+                    id: "rs_cn9_11",
+                    title: "CN IX, X, XI (Jugular Foramen Complex)",
+                    structureType: "LOWER NEUROVASCULAR COMPLEX",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.442,
+                    normalizedY: 0.457,
+                    description: "Glossopharyngeal, vagus, and accessory nerve rootlets ascending from the post-olivary sulcus to exit the jugular foramen.",
+                    surgicalPearl: "Traction or thermal injury to the lower cranial nerves causes postoperative dysphagia, vocal cord paralysis, and aspiration."
+                ),
+                SurgicalCallout(
+                    id: "rs_pica",
+                    title: "PICA & Vertebral Artery (VA)",
+                    structureType: "CAUDAL ARTERIAL LOOP",
+                    color: ObsidianTheme.neonRose,
+                    normalizedX: 0.317,
+                    normalizedY: 0.826,
+                    description: "Intradural V4 vertebral artery trunk coursing ventral to CN XII rootlets and giving rise to the caudal loop of PICA among the lower cranial nerves.",
+                    surgicalPearl: "Identify PICA origin and hypoglossal (CN XII) rootlets early when dissecting caudal CPA and foramen magnum lesions."
+                ),
+                SurgicalCallout(
+                    id: "rs_spv",
+                    title: "Superior Petrosal Vein (Dandy's Vein)",
+                    structureType: "BRIDGING VENOUS DRAINAGE",
+                    color: ObsidianTheme.neonBlue,
+                    normalizedX: 0.576,
+                    normalizedY: 0.317,
+                    description: "Major bridging venous complex draining the petrosal surface of the cerebellum and brainstem into the superior petrosal sinus.",
+                    surgicalPearl: "Preserve Dandy's vein whenever possible; sacrifice of a large dominant petrosal vein can precipitate fatal cerebellar venous infarction."
                 )
             ]
         case .endonasalSellar:

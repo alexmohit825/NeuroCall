@@ -13,7 +13,6 @@ public struct EmergencyProtocolsView: View {
     @State private var pupilStatus = "Ipsilateral Sluggish"
     @State private var isShowingSbarSheet = false
     @State private var activeSection = "arbitrator" // arbitrator, icp, reversal, checklists
-    @State private var viewportMode = "scan" // scan vs calipers
     
     public init() {}
     
@@ -208,58 +207,32 @@ public struct EmergencyProtocolsView: View {
         VStack(spacing: 16) {
             emergencyTypeTabs
             
-            // Viewport Mode Switcher (Diagnostic Scan vs Interactive Calipers)
-            HStack(spacing: 8) {
-                Button(action: {
-                    HapticManager.impact(style: .light)
-                    viewportMode = "scan"
-                }) {
-                    HStack(spacing: 5) {
-                        Image(systemName: "photo.fill")
-                        Text("Diagnostic CT View")
-                            .font(.system(size: 11, weight: .bold))
+            CTViewportView(
+                imageName: currentCTImageName,
+                emergencyTitle: thresholdSpec.title,
+                isSurgical: isSurgicalCandidate
+            )
+            .gesture(
+                DragGesture(minimumDistance: 35)
+                    .onEnded { value in
+                        let emergencies = ["EDH", "SDH", "Uncal", "Posterior Fossa"]
+                        guard let currentIndex = emergencies.firstIndex(of: selectedEmergency) else { return }
+                        if value.translation.width < -40 && currentIndex < emergencies.count - 1 {
+                            HapticManager.impact(style: .medium)
+                            withAnimation(.easeInOut(duration: 0.22)) {
+                                selectedEmergency = emergencies[currentIndex + 1]
+                                if selectedEmergency == "Uncal" {
+                                    pupilStatus = "Unilateral Blown / Fixed (Uncal Herniation)"
+                                }
+                            }
+                        } else if value.translation.width > 40 && currentIndex > 0 {
+                            HapticManager.impact(style: .medium)
+                            withAnimation(.easeInOut(duration: 0.22)) {
+                                selectedEmergency = emergencies[currentIndex - 1]
+                            }
+                        }
                     }
-                    .padding(.vertical, 7)
-                    .padding(.horizontal, 12)
-                    .background(viewportMode == "scan" ? Color.indigo : Color.white)
-                    .foregroundColor(viewportMode == "scan" ? .white : Color(red: 0.3, green: 0.35, blue: 0.45))
-                    .cornerRadius(8)
-                    .shadow(color: Color.black.opacity(0.04), radius: 2)
-                }
-                
-                Button(action: {
-                    HapticManager.impact(style: .light)
-                    viewportMode = "calipers"
-                }) {
-                    HStack(spacing: 5) {
-                        Image(systemName: "ruler.fill")
-                        Text("Interactive Calipers")
-                            .font(.system(size: 11, weight: .bold))
-                    }
-                    .padding(.vertical, 7)
-                    .padding(.horizontal, 12)
-                    .background(viewportMode == "calipers" ? ObsidianTheme.neonCyan : Color.white)
-                    .foregroundColor(viewportMode == "calipers" ? .black : Color(red: 0.3, green: 0.35, blue: 0.45))
-                    .cornerRadius(8)
-                    .shadow(color: Color.black.opacity(0.04), radius: 2)
-                }
-                
-                Spacer()
-            }
-            .padding(.horizontal)
-            
-            if viewportMode == "scan" {
-                CTViewportView(
-                    imageName: currentCTImageName,
-                    emergencyTitle: thresholdSpec.title,
-                    isSurgical: isSurgicalCandidate
-                )
-            } else {
-                RadiologicCaliperEngineView(
-                    imageName: currentCTImageName,
-                    emergencyTitle: thresholdSpec.title
-                )
-            }
+            )
             
             Text(anatomicalPearlText)
                 .font(.system(size: 11, weight: .medium))
@@ -346,6 +319,13 @@ public struct EmergencyProtocolsView: View {
                     Spacer()
                     Stepper("\(gcsScore)", value: $gcsScore, in: 3...15)
                         .font(.system(size: 13, weight: .black))
+                        .onChange(of: gcsScore) { newScore in
+                            if newScore == 8 || newScore == 7 {
+                                HapticManager.impact(style: .rigid)
+                            } else {
+                                HapticManager.impact(style: .light)
+                            }
+                        }
                 }
                 
                 // Pupil Status Picker
@@ -793,77 +773,3 @@ struct SectionTabButton: View {
     }
 }
 
-// MARK: - 3 AM SBAR Briefing Sheet
-struct SbarBriefingSheet: View {
-    let emergencyType: String
-    let gcs: Int
-    let pupilStatus: String
-    let procedure: String
-    let isSurgical: Bool
-    @Environment(\.dismiss) var dismiss
-    @State private var copied = false
-    
-    var sbarScript: String {
-        return """
-        SITUATION:
-        "Dr. Mohit, I am calling about a 45-year-old patient in the emergency bay with acute \(emergencyType). Current GCS is \(gcs) with \(pupilStatus) pupillary exam."
-
-        BACKGROUND:
-        "Head CT demonstrates acute \(emergencyType) meeting definitive Brain Trauma Foundation (BTF) surgical thresholds."
-
-        ASSESSMENT:
-        "The patient meets \(isSurgical ? "DEFINITIVE CRITERIA FOR IMMEDIATE SURGICAL OPERATIVE INTERVENTION (\(procedure.uppercased()))" : "CRITERIA FOR CLOSE NEURO-ICU PRESSURE MONITORING")."
-
-        RECOMMENDATION:
-        "\(isSurgical ? "I have alerted the OR team, administered hyperosmolar therapy, and placed an arterial line. I recommend taking the patient immediately for \(procedure)." : "I recommend continuing hourly neuro checks, maintaining MAP > 80, and repeat CT in 4-6 hours unless exam deteriorates.")"
-        """
-    }
-    
-    var body: some View {
-        NavigationStack {
-            VStack(spacing: 16) {
-                Text("Spoken Call Script for On-Call Attending")
-                    .font(.system(size: 12, weight: .semibold))
-                    .foregroundColor(.secondary)
-                    .padding(.top)
-                
-                ScrollView {
-                    Text(sbarScript)
-                        .font(.system(size: 13, design: .monospaced))
-                        .padding()
-                        .background(Color(red: 0.96, green: 0.97, blue: 0.98))
-                        .cornerRadius(14)
-                        .padding(.horizontal)
-                }
-                
-                Button(action: {
-                    UIPasteboard.general.string = sbarScript
-                    copied = true
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                        copied = false
-                    }
-                }) {
-                    HStack {
-                        Image(systemName: copied ? "checkmark" : "doc.on.doc")
-                        Text(copied ? "Copied Script!" : "Copy Script to Clipboard")
-                    }
-                    .font(.system(size: 13, weight: .bold))
-                    .frame(maxWidth: .infinity)
-                    .padding(.vertical, 12)
-                    .background(Color.indigo)
-                    .foregroundColor(.white)
-                    .cornerRadius(12)
-                }
-                .padding(.horizontal)
-                .padding(.bottom)
-            }
-            .navigationTitle("Attending Call Briefing")
-            .navigationBarTitleDisplayMode(.inline)
-            .toolbar {
-                ToolbarItem(placement: .topBarTrailing) {
-                    Button("Done") { dismiss() }
-                }
-            }
-        }
-    }
-}
