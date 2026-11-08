@@ -7,6 +7,7 @@ import SwiftUI
 
 public struct SbarTeleprompterSheet: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.requestReview) private var requestReview
     
     // Caller & Attending
     @State private var attendingName = "Dr. Mohit"
@@ -430,6 +431,9 @@ public struct SbarTeleprompterSheet: View {
     }
     
     private func resetCopiedBadge() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+            requestReview()
+        }
         DispatchQueue.main.asyncAfter(deadline: .now() + 2.5) {
             copiedFormat = ""
         }
