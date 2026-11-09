@@ -557,11 +557,49 @@ struct CTViewportView: View {
     let imageName: String
     let emergencyTitle: String
     let isSurgical: Bool
+    @State private var showHerniationDynamics = false
+    
+    var activeImage: String {
+        if imageName == "plate_ct_uncal" && showHerniationDynamics {
+            return "plate_herniation_pupils"
+        }
+        return imageName
+    }
     
     var body: some View {
         ZStack {
-            ZoomablePlateImageView(imageName: imageName, contentHeight: 320)
+            ZoomablePlateImageView(imageName: activeImage, contentHeight: 320)
                 .cornerRadius(16)
+            
+            // Toggle for Uncal Herniation & Pupil Dynamics
+            if imageName == "plate_ct_uncal" {
+                VStack {
+                    HStack {
+                        Spacer()
+                        Button(action: {
+                            HapticManager.impact(style: .light)
+                            withAnimation(.easeInOut(duration: 0.2)) {
+                                showHerniationDynamics.toggle()
+                            }
+                        }) {
+                            HStack(spacing: 4) {
+                                Image(systemName: showHerniationDynamics ? "brain.head.profile" : "eye.fill")
+                                Text(showHerniationDynamics ? "View Axial CT" : "Herniation & Pupils")
+                            }
+                            .font(.system(size: 10, weight: .bold))
+                            .padding(.horizontal, 8)
+                            .padding(.vertical, 4)
+                            .background(Color.black.opacity(0.85))
+                            .foregroundColor(ObsidianTheme.neonAmber)
+                            .cornerRadius(6)
+                            .overlay(RoundedRectangle(cornerRadius: 6).stroke(ObsidianTheme.neonAmber.opacity(0.5), lineWidth: 1))
+                        }
+                        .padding(.top, 8)
+                        .padding(.trailing, 8)
+                    }
+                    Spacer()
+                }
+            }
             
             // 1. Prominent Anatomical Orientation Markers
             VStack {

@@ -3,8 +3,8 @@ import SwiftUI
 // MARK: - Bedside Procedural Atlas & Hardware Suite
 // Synthesized from Greenberg Handbook of Neurosurgery, Ellenbogen Principles of Neurosurgery,
 // and Brain Trauma Foundation (BTF) Bedside Hardware Standards.
-// Designed with Apple Pro-Tier Obsidian Dark Theme, high-contrast anatomical schematics,
-// pinch-to-zoom vector diagrams, step-by-step technical guides, contraindications, and emergency troubleshooting.
+// Designed with Apple Pro-Tier Obsidian Dark Theme, authentic high-definition anatomical schematics,
+// smooth pinch-to-zoom inspection, step-by-step trajectory guidance, contraindications, and emergency troubleshooting.
 
 public struct NeurosurgicalProceduresView: View {
     @State private var selectedProcedure = "evd"
@@ -96,7 +96,7 @@ public struct NeurosurgicalProceduresView: View {
             Text("Frontline Neurosurgical Procedures")
                 .font(.system(size: 20, weight: .bold))
                 .foregroundColor(ObsidianTheme.textPrimary)
-            Text("Real-time anatomical landmarks, trajectory rules, transducer leveling, and emergency troubleshooting.")
+            Text("High-definition anatomical schematics, trajectory rules, transducer leveling, and emergency troubleshooting.")
                 .font(.system(size: 12, weight: .medium))
                 .foregroundColor(ObsidianTheme.textSecondary)
         }
@@ -140,62 +140,27 @@ public struct NeurosurgicalProceduresView: View {
 
 // MARK: - 1. EVD Kocher's Point Card
 struct EVDDetailCard: View {
-    @State private var zoomScale: CGFloat = 1.0
-    
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
-            // Schematic Diagram with Pinch-to-Zoom
-            ZStack {
-                RoundedRectangle(cornerRadius: 16)
-                    .fill(Color(red: 0.06, green: 0.08, blue: 0.12))
-                    .frame(height: 220)
-                    .overlay(RoundedRectangle(cornerRadius: 16).stroke(ObsidianTheme.borderSubtle, lineWidth: 1))
-                
-                VStack(spacing: 8) {
-                    ZStack {
-                        // Skull Contour
-                        Circle()
-                            .stroke(ObsidianTheme.textMuted.opacity(0.4), lineWidth: 3)
-                            .frame(width: 140, height: 140)
-                        
-                        // Coronal Suture Line
-                        Rectangle()
-                            .fill(ObsidianTheme.neonCyan.opacity(0.7))
-                            .frame(width: 130, height: 2.5)
-                            .offset(y: -18)
-                        
-                        // Sagittal Midline
-                        Rectangle()
-                            .fill(ObsidianTheme.neonCyan.opacity(0.7))
-                            .frame(width: 2.5, height: 135)
-                        
-                        // Kocher's Point Entry (Burr Hole)
-                        Circle()
-                            .fill(Color.red)
-                            .frame(width: 14, height: 14)
-                            .overlay(Circle().stroke(Color.white, lineWidth: 1.5))
-                            .offset(x: 30, y: -30)
-                        
-                        // Cannulation Trajectory Vector
-                        Path { path in
-                            path.move(to: CGPoint(x: 100, y: 40))
-                            path.addLine(to: CGPoint(x: 70, y: 70))
-                        }
-                        .stroke(Color.yellow, style: StrokeStyle(lineWidth: 3, lineCap: .round, dash: [4, 3]))
-                    }
-                    .scaleEffect(zoomScale)
-                    .gesture(
-                        MagnificationGesture()
-                            .onChanged { val in zoomScale = max(1.0, min(2.5, val)) }
-                            .onEnded { _ in withAnimation { zoomScale = 1.0 } }
-                    )
-                    
-                    Text("KOCHER'S POINT: 1 cm Ant. to Coronal Suture | 2.5-3.0 cm Lat. to Midline (Mid-Pupillary)")
-                        .font(.system(size: 9, weight: .heavy, design: .monospaced))
+            // High-Definition Schematic with Pinch-to-Zoom
+            VStack(alignment: .leading, spacing: 6) {
+                HStack {
+                    Image(systemName: "hand.draw.fill")
                         .foregroundColor(ObsidianTheme.neonCyan)
-                        .multilineTextAlignment(.center)
-                        .padding(.horizontal, 12)
+                        .font(.system(size: 10))
+                    Text("KOCHER'S POINT VENTRICULOSTOMY TRAJECTORY")
+                        .font(.system(size: 10, weight: .heavy, design: .monospaced))
+                        .foregroundColor(ObsidianTheme.neonCyan)
+                    Spacer()
+                    Text("Pinch to Zoom (1x - 5x)")
+                        .font(.system(size: 9, weight: .medium))
+                        .foregroundColor(ObsidianTheme.textMuted)
                 }
+                .padding(.horizontal, 4)
+                
+                ZoomablePlateImageView(imageName: "plate_bedside_evd", contentHeight: 250)
+                    .cornerRadius(14)
+                    .overlay(RoundedRectangle(cornerRadius: 14).stroke(ObsidianTheme.borderSubtle, lineWidth: 1))
             }
             .padding(.horizontal)
             
@@ -210,9 +175,10 @@ struct EVDDetailCard: View {
                 }
                 
                 VStack(alignment: .leading, spacing: 8) {
-                    TrajectoryStepRow(number: "1", title: "Coronal Plane Target", detail: "Aimed strictly toward the **Ipsilateral Medial Canthus** (Inner eye corner).")
-                    TrajectoryStepRow(number: "2", title: "Sagittal Plane Target", detail: "Perpendicular to skull curvature, aimed toward the **External Auditory Meatus (Tragus)**.")
-                    TrajectoryStepRow(number: "3", title: "Depth Warning Limit", detail: "CSF flash typically at **4.5 - 5.0 cm** (Foramen of Monro). **NEVER advance beyond 6.0 cm** from outer skull cortex!")
+                    TrajectoryStepRow(number: "1", title: "Burr Hole Entry", detail: "**1 cm anterior to coronal suture**, **2.5 - 3.0 cm lateral to sagittal midline** (mid-pupillary line).")
+                    TrajectoryStepRow(number: "2", title: "Coronal Plane Target", detail: "Aimed strictly toward the **Ipsilateral Medial Canthus** (inner eye corner).")
+                    TrajectoryStepRow(number: "3", title: "Sagittal Plane Target", detail: "Perpendicular to skull curvature, aimed toward the **External Auditory Meatus (Tragus)**.")
+                    TrajectoryStepRow(number: "4", title: "Depth Warning Limit", detail: "CSF flash typically at **4.5 - 5.0 cm** (Foramen of Monro). **NEVER advance beyond 6.0 cm** from outer skull cortex!")
                 }
             }
             .padding()
@@ -253,75 +219,26 @@ struct EVDDetailCard: View {
 struct CaminoBoltDetailCard: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
-            // Waveform Anatomy Diagram
-            VStack(alignment: .leading, spacing: 8) {
-                Text("ICP PULSE MORPHOLOGY & COMPLIANCE")
-                    .font(.system(size: 11, weight: .black))
-                    .foregroundColor(Color.orange)
-                
-                // Visual Waveform Curve
-                ZStack {
-                    RoundedRectangle(cornerRadius: 14)
-                        .fill(Color(red: 0.06, green: 0.08, blue: 0.12))
-                        .frame(height: 140)
-                    
-                    VStack {
-                        HStack(spacing: 24) {
-                            VStack(spacing: 2) {
-                                Text("P1 (Percussion)")
-                                    .font(.system(size: 10, weight: .bold))
-                                    .foregroundColor(ObsidianTheme.neonCyan)
-                                Text("Arterial pulse")
-                                    .font(.system(size: 8))
-                                    .foregroundColor(ObsidianTheme.textMuted)
-                            }
-                            VStack(spacing: 2) {
-                                Text("P2 (Tidal)")
-                                    .font(.system(size: 10, weight: .bold))
-                                    .foregroundColor(.orange)
-                                Text("Brain Compliance")
-                                    .font(.system(size: 8))
-                                    .foregroundColor(ObsidianTheme.textMuted)
-                            }
-                            VStack(spacing: 2) {
-                                Text("P3 (Dicrotic)")
-                                    .font(.system(size: 10, weight: .bold))
-                                    .foregroundColor(.purple)
-                                Text("Venous outflow")
-                                    .font(.system(size: 8))
-                                    .foregroundColor(ObsidianTheme.textMuted)
-                            }
-                        }
-                        .padding(.top, 8)
-                        
-                        // Schematic Wave Peak Curves
-                        HStack(alignment: .bottom, spacing: 20) {
-                            Capsule().fill(ObsidianTheme.neonCyan).frame(width: 8, height: 75)
-                            Capsule().fill(Color.orange).frame(width: 8, height: 55)
-                            Capsule().fill(Color.purple).frame(width: 8, height: 40)
-                            
-                            Spacer().frame(width: 20)
-                            
-                            // Decompensated state
-                            VStack(spacing: 2) {
-                                Text("EXHAUSTED COMPLIANCE")
-                                    .font(.system(size: 8, weight: .black))
-                                    .foregroundColor(.red)
-                                HStack(alignment: .bottom, spacing: 8) {
-                                    Capsule().fill(ObsidianTheme.neonCyan.opacity(0.6)).frame(width: 6, height: 50)
-                                    Capsule().fill(Color.red).frame(width: 8, height: 75)
-                                    Capsule().fill(Color.purple.opacity(0.6)).frame(width: 6, height: 40)
-                                }
-                            }
-                        }
-                        .padding(.bottom, 8)
-                    }
+            // High-Definition Schematic with Pinch-to-Zoom
+            VStack(alignment: .leading, spacing: 6) {
+                HStack {
+                    Image(systemName: "hand.draw.fill")
+                        .foregroundColor(.orange)
+                        .font(.system(size: 10))
+                    Text("CAMINO BOLT PLACEMENT & WAVEFORM ATLAS")
+                        .font(.system(size: 10, weight: .heavy, design: .monospaced))
+                        .foregroundColor(.orange)
+                    Spacer()
+                    Text("Pinch to Zoom (1x - 5x)")
+                        .font(.system(size: 9, weight: .medium))
+                        .foregroundColor(ObsidianTheme.textMuted)
                 }
+                .padding(.horizontal, 4)
+                
+                ZoomablePlateImageView(imageName: "plate_bedside_camino_bolt", contentHeight: 250)
+                    .cornerRadius(14)
+                    .overlay(RoundedRectangle(cornerRadius: 14).stroke(ObsidianTheme.borderSubtle, lineWidth: 1))
             }
-            .padding()
-            .background(ObsidianTheme.surfaceGlass)
-            .cornerRadius(16)
-            .overlay(RoundedRectangle(cornerRadius: 16).stroke(ObsidianTheme.borderSubtle, lineWidth: 1))
             .padding(.horizontal)
             
             // Lundberg Wave Classifications
@@ -367,11 +284,33 @@ struct CaminoBoltDetailCard: View {
 struct LumbarPunctureDetailCard: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
+            // High-Definition Schematic with Pinch-to-Zoom
+            VStack(alignment: .leading, spacing: 6) {
+                HStack {
+                    Image(systemName: "hand.draw.fill")
+                        .foregroundColor(.teal)
+                        .font(.system(size: 10))
+                    Text("LUMBAR PUNCTURE ANATOMY & MANOMETRY")
+                        .font(.system(size: 10, weight: .heavy, design: .monospaced))
+                        .foregroundColor(.teal)
+                    Spacer()
+                    Text("Pinch to Zoom (1x - 5x)")
+                        .font(.system(size: 9, weight: .medium))
+                        .foregroundColor(ObsidianTheme.textMuted)
+                }
+                .padding(.horizontal, 4)
+                
+                ZoomablePlateImageView(imageName: "plate_bedside_lumbar_puncture", contentHeight: 250)
+                    .cornerRadius(14)
+                    .overlay(RoundedRectangle(cornerRadius: 14).stroke(ObsidianTheme.borderSubtle, lineWidth: 1))
+            }
+            .padding(.horizontal)
+            
             VStack(alignment: .leading, spacing: 10) {
                 HStack {
                     Image(systemName: "gauge.with.needle.fill")
                         .foregroundColor(.teal)
-                    Text("LUMBAR PUNCTURE & OPENING PRESSURE")
+                    Text("PROCEDURAL STEPS & OPENING PRESSURE")
                         .font(.system(size: 12, weight: .black))
                         .foregroundColor(.teal)
                 }
@@ -418,11 +357,33 @@ struct LumbarPunctureDetailCard: View {
 struct LumbarDrainDetailCard: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
+            // High-Definition Schematic with Pinch-to-Zoom
+            VStack(alignment: .leading, spacing: 6) {
+                HStack {
+                    Image(systemName: "hand.draw.fill")
+                        .foregroundColor(.cyan)
+                        .font(.system(size: 10))
+                    Text("CONTINUOUS LUMBAR DRAIN MANAGEMENT")
+                        .font(.system(size: 10, weight: .heavy, design: .monospaced))
+                        .foregroundColor(.cyan)
+                    Spacer()
+                    Text("Pinch to Zoom (1x - 5x)")
+                        .font(.system(size: 9, weight: .medium))
+                        .foregroundColor(ObsidianTheme.textMuted)
+                }
+                .padding(.horizontal, 4)
+                
+                ZoomablePlateImageView(imageName: "plate_bedside_lumbar_drain", contentHeight: 250)
+                    .cornerRadius(14)
+                    .overlay(RoundedRectangle(cornerRadius: 14).stroke(ObsidianTheme.borderSubtle, lineWidth: 1))
+            }
+            .padding(.horizontal)
+            
             VStack(alignment: .leading, spacing: 10) {
                 HStack {
                     Image(systemName: "arrow.down.to.line.compact")
                         .foregroundColor(.cyan)
-                    Text("CONTINUOUS LUMBAR SUBARACHNOID DRAIN")
+                    Text("TUOHY INSERTION & LEVELING")
                         .font(.system(size: 12, weight: .black))
                         .foregroundColor(.cyan)
                 }
@@ -465,11 +426,33 @@ struct LumbarDrainDetailCard: View {
 struct RadialArterialLineDetailCard: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
+            // High-Definition Schematic with Pinch-to-Zoom
+            VStack(alignment: .leading, spacing: 6) {
+                HStack {
+                    Image(systemName: "hand.draw.fill")
+                        .foregroundColor(.red)
+                        .font(.system(size: 10))
+                    Text("RADIAL ARTERIAL LINE CANNULATION")
+                        .font(.system(size: 10, weight: .heavy, design: .monospaced))
+                        .foregroundColor(.red)
+                    Spacer()
+                    Text("Pinch to Zoom (1x - 5x)")
+                        .font(.system(size: 9, weight: .medium))
+                        .foregroundColor(ObsidianTheme.textMuted)
+                }
+                .padding(.horizontal, 4)
+                
+                ZoomablePlateImageView(imageName: "plate_bedside_art_line", contentHeight: 250)
+                    .cornerRadius(14)
+                    .overlay(RoundedRectangle(cornerRadius: 14).stroke(ObsidianTheme.borderSubtle, lineWidth: 1))
+            }
+            .padding(.horizontal)
+            
             VStack(alignment: .leading, spacing: 10) {
                 HStack {
                     Image(systemName: "heart.pulse.fill")
                         .foregroundColor(.red)
-                    Text("RADIAL ARTERIAL LINE PLACEMENT")
+                    Text("PLACEMENT TECHNIQUE & LEVELING")
                         .font(.system(size: 12, weight: .black))
                         .foregroundColor(.red)
                 }
@@ -493,11 +476,33 @@ struct RadialArterialLineDetailCard: View {
 struct InternalJugularCVCDetailCard: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
+            // High-Definition Schematic with Pinch-to-Zoom
+            VStack(alignment: .leading, spacing: 6) {
+                HStack {
+                    Image(systemName: "hand.draw.fill")
+                        .foregroundColor(.purple)
+                        .font(.system(size: 10))
+                    Text("ULTRASOUND-GUIDED RIGHT IJV CENTRAL LINE")
+                        .font(.system(size: 10, weight: .heavy, design: .monospaced))
+                        .foregroundColor(.purple)
+                    Spacer()
+                    Text("Pinch to Zoom (1x - 5x)")
+                        .font(.system(size: 9, weight: .medium))
+                        .foregroundColor(ObsidianTheme.textMuted)
+                }
+                .padding(.horizontal, 4)
+                
+                ZoomablePlateImageView(imageName: "plate_bedside_cvc_line", contentHeight: 250)
+                    .cornerRadius(14)
+                    .overlay(RoundedRectangle(cornerRadius: 14).stroke(ObsidianTheme.borderSubtle, lineWidth: 1))
+            }
+            .padding(.horizontal)
+            
             VStack(alignment: .leading, spacing: 10) {
                 HStack {
                     Image(systemName: "point.topleft.down.to.point.bottomright.curvepath.fill")
                         .foregroundColor(.purple)
-                    Text("ULTRASOUND-GUIDED RIGHT IJV CENTRAL LINE")
+                    Text("SEDILLOT'S TRIANGLE & ULTRASOUND")
                         .font(.system(size: 12, weight: .black))
                         .foregroundColor(.purple)
                 }

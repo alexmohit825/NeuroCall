@@ -492,9 +492,21 @@ public enum AtlasCategory: String, CaseIterable {
     public var filteredPlates: [SurgicalPlateType] {
         switch self {
         case .all: return SurgicalPlateType.allCases
-        case .cranial: return [.pterional, .hemicraniectomy, .kochersEVD, .csdhBurrHole]
-        case .skullBase: return [.aneurysmClipping, .retrosigmoid, .endonasalSellar, .farLateral, .orbitozygomatic, .chiariDecompression]
-        case .spine: return [.acdf, .tlif, .harmsC1C2]
+        case .cranial: return [
+            .pterional, .craniotomyFTOZO, .craniotomyParietal, .craniotomyTemporal,
+            .craniotomySupraorbital, .craniotomyLateralSupraorbital, .craniotomyRetrosigmoidKeyhole,
+            .craniotomyInterhemispheric, .craniotomyMiniPterional, .hemicraniectomy,
+            .kochersEVD, .csdhBurrHole
+        ]
+        case .skullBase: return [
+            .aneurysmClipping, .retrosigmoid, .endonasalSellar, .farLateral,
+            .orbitozygomatic, .chiariDecompression
+        ]
+        case .spine: return [
+            .acdf, .tlif, .harmsC1C2, .lumbarFusionApproaches, .tlifSurgicalCorridor,
+            .c7t1Junction, .shuntFailureMatrix, .lumbarPseudomeningocele,
+            .distalShuntPseudocyst, .craniocervicalJunction
+        ]
         }
     }
 }
@@ -513,6 +525,23 @@ public enum SurgicalPlateType: String, CaseIterable {
     case chiariDecompression = "chiari_decompression"
     case harmsC1C2 = "harms_c1_c2"
     case csdhBurrHole = "csdh_burr_hole"
+    // MARK: - Master Craniotomy Bone Maps
+    case craniotomyFTOZO = "craniotomy_ft_ozo"
+    case craniotomyParietal = "craniotomy_parietal"
+    case craniotomyTemporal = "craniotomy_temporal"
+    case craniotomySupraorbital = "craniotomy_supraorbital"
+    case craniotomyLateralSupraorbital = "craniotomy_lateral_supraorbital"
+    case craniotomyRetrosigmoidKeyhole = "craniotomy_retrosigmoid_keyhole"
+    case craniotomyInterhemispheric = "craniotomy_interhemispheric"
+    case craniotomyMiniPterional = "craniotomy_mini_pterional"
+    // MARK: - Master Spine, CVJ & Shunts
+    case lumbarFusionApproaches = "lumbar_fusion_approaches"
+    case tlifSurgicalCorridor = "tlif_surgical_corridor"
+    case c7t1Junction = "c7_t1_junction"
+    case shuntFailureMatrix = "shunt_failure_matrix"
+    case lumbarPseudomeningocele = "lumbar_pseudomeningocele"
+    case distalShuntPseudocyst = "distal_shunt_pseudocyst"
+    case craniocervicalJunction = "craniocervical_junction"
     
     public var assetImageName: String? {
         switch self {
@@ -529,6 +558,21 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .chiariDecompression: return "plate_chiari_decompression"
         case .harmsC1C2: return "plate_harms_c1_c2"
         case .csdhBurrHole: return "plate_csdh_burr_hole"
+        case .craniotomyFTOZO: return "plate_craniotomy_ft_ozo"
+        case .craniotomyParietal: return "plate_craniotomy_parietal"
+        case .craniotomyTemporal: return "plate_craniotomy_temporal"
+        case .craniotomySupraorbital: return "plate_craniotomy_supraorbital"
+        case .craniotomyLateralSupraorbital: return "plate_craniotomy_lateral_supraorbital"
+        case .craniotomyRetrosigmoidKeyhole: return "plate_craniotomy_retrosigmoid"
+        case .craniotomyInterhemispheric: return "plate_craniotomy_interhemispheric"
+        case .craniotomyMiniPterional: return "plate_craniotomy_mini_pterional"
+        case .lumbarFusionApproaches: return "plate_spine_lumbar_fusion_approaches"
+        case .tlifSurgicalCorridor: return "plate_spine_tlif_surgical_corridor"
+        case .c7t1Junction: return "plate_spine_c7_t1_junction"
+        case .shuntFailureMatrix: return "plate_shunt_failure_matrix"
+        case .lumbarPseudomeningocele: return "plate_lumbar_pseudomeningocele"
+        case .distalShuntPseudocyst: return "plate_distal_shunt_pseudocyst"
+        case .craniocervicalJunction: return "plate_craniocervical_junction_atlas"
         }
     }
     
@@ -547,6 +591,21 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .chiariDecompression: return "Chiari I"
         case .harmsC1C2: return "Goel-Harms"
         case .csdhBurrHole: return "Chronic SDH"
+        case .craniotomyFTOZO: return "FT-OZO Bone"
+        case .craniotomyParietal: return "Parietal Map"
+        case .craniotomyTemporal: return "Temporal Map"
+        case .craniotomySupraorbital: return "Eyebrow Keyhole"
+        case .craniotomyLateralSupraorbital: return "Lat Supraorbital"
+        case .craniotomyRetrosigmoidKeyhole: return "Retrosig Map"
+        case .craniotomyInterhemispheric: return "Interhemispheric"
+        case .craniotomyMiniPterional: return "Minipterional"
+        case .lumbarFusionApproaches: return "Fusion Approaches"
+        case .tlifSurgicalCorridor: return "TLIF Corridor"
+        case .c7t1Junction: return "C7–T1 Biomechanics"
+        case .shuntFailureMatrix: return "Shunt Matrix"
+        case .lumbarPseudomeningocele: return "Pseudomeningocele"
+        case .distalShuntPseudocyst: return "Distal Pseudocyst"
+        case .craniocervicalJunction: return "CCJ Ligaments"
         }
     }
     
@@ -565,6 +624,21 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .chiariDecompression: return "Chiari I Malformation Decompression & Duraplasty"
         case .harmsC1C2: return "Posterior C1–C2 Fixation (Goel-Harms Construct)"
         case .csdhBurrHole: return "Chronic Subdural Hematoma: Diagnostic CT & Burr Hole Evacuation"
+        case .craniotomyFTOZO: return "Frontotemporal Orbitozygomatic (FT-OZO) 2-Piece Osteotomy"
+        case .craniotomyParietal: return "Parietal Craniotomy & Sagittal Sinus Safety Margins"
+        case .craniotomyTemporal: return "Subtemporal Flush Skull Base Exposure & Zygomatic Root"
+        case .craniotomySupraorbital: return "Supraorbital Eyebrow Minicraniotomy & Frontal Sinus Margins"
+        case .craniotomyLateralSupraorbital: return "Lateral Supraorbital Fronto-Sphenoid Keyhole"
+        case .craniotomyRetrosigmoidKeyhole: return "Retrosigmoid Keyhole & Transverse-Sigmoid Sinus Junction"
+        case .craniotomyInterhemispheric: return "Anterior Interhemispheric Parasagittal Corridor"
+        case .craniotomyMiniPterional: return "Minipterional Sphenoid Ridge Decompression Window"
+        case .lumbarFusionApproaches: return "Comparative Lumbar Fusion Corridors: PLIF vs TLIF vs ALIF vs XLIF vs OLIF"
+        case .tlifSurgicalCorridor: return "TLIF Surgical Corridor, Kambin's Triangle & Root Safety Zones"
+        case .c7t1Junction: return "Cervicothoracic (C7–T1) Junction Biomechanics & Instrumentation"
+        case .shuntFailureMatrix: return "Ventriculoperitoneal Shunt Diagnostic Algorithm & Failure Matrix"
+        case .lumbarPseudomeningocele: return "Lumbar Post-Op Pseudomeningocele & Dural Tear Fistula"
+        case .distalShuntPseudocyst: return "Distal Peritoneal Catheter Shunt Pseudocyst & Malfunction"
+        case .craniocervicalJunction: return "Craniocervical Junction (CCJ) Ligamentous Anatomy & Odontoid Complex"
         }
     }
     
@@ -583,6 +657,21 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .chiariDecompression: return "cross.fill"
         case .harmsC1C2: return "link"
         case .csdhBurrHole: return "drop.fill"
+        case .craniotomyFTOZO: return "eye.circle.fill"
+        case .craniotomyParietal: return "brain.head.profile"
+        case .craniotomyTemporal: return "ear"
+        case .craniotomySupraorbital: return "eye"
+        case .craniotomyLateralSupraorbital: return "arrow.up.right.diamond.fill"
+        case .craniotomyRetrosigmoidKeyhole: return "target"
+        case .craniotomyInterhemispheric: return "rectangle.split.2x1.fill"
+        case .craniotomyMiniPterional: return "shield.fill"
+        case .lumbarFusionApproaches: return "square.split.2x2.fill"
+        case .tlifSurgicalCorridor: return "figure.walk"
+        case .c7t1Junction: return "link.circle.fill"
+        case .shuntFailureMatrix: return "arrow.triangle.branch"
+        case .lumbarPseudomeningocele: return "drop.triangle.fill"
+        case .distalShuntPseudocyst: return "bandage.fill"
+        case .craniocervicalJunction: return "shield.checkered"
         }
     }
     
@@ -1147,6 +1236,211 @@ public enum SurgicalPlateType: String, CaseIterable {
                     surgicalPearl: "Thoroughly bipolar dural edges to inner bone rim; ensure outer membrane is fenestrated so subdural fluid drains freely without valve effect."
                 )
             ]
+        case .craniotomyFTOZO:
+            return [
+                SurgicalCallout(
+                    id: "ftozo_orbit",
+                    title: "Orbitozygomatic 2-Piece Bar",
+                    structureType: "OSTEOTOMY BOUNDARY",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.48,
+                    normalizedY: 0.52,
+                    description: "Detached orbital rim and zygomatic arch providing unobstructed sub-frontal and trans-sylvian viewing angle with zero brain retraction.",
+                    surgicalPearl: "Protect the supraorbital neurovascular bundle and reconstruct the orbital roof during closure to avoid pulsating enophthalmos."
+                ),
+                SurgicalCallout(
+                    id: "ftozo_sphenoid",
+                    title: "Sphenoid Ridge Flattening",
+                    structureType: "SKULL BASE BONE DECOMPRESSION",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.62,
+                    normalizedY: 0.45,
+                    description: "High-speed diamond burr drilling of the lesser sphenoid wing down to the meningo-orbital band.",
+                    surgicalPearl: "Copious irrigation prevents thermal injury to the underlying optic nerve inside the optic canal."
+                )
+            ]
+        case .craniotomyParietal:
+            return [
+                SurgicalCallout(
+                    id: "parietal_bone",
+                    title: "Parietal Bone Window",
+                    structureType: "BONE CRANIOTOMY",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.50,
+                    normalizedY: 0.46,
+                    description: "Rectangular or horse-shoe craniotomy centered over the angular/supramarginal gyri or parietal lobe mass.",
+                    surgicalPearl: "Maintain a 1.5 cm safe clearance from the superior sagittal sinus unless intentional sinus exposure is planned."
+                )
+            ]
+        case .craniotomyTemporal:
+            return [
+                SurgicalCallout(
+                    id: "temporal_craniotomy",
+                    title: "Subtemporal Corridor",
+                    structureType: "SKULL BASE BONE WINDOW",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.52,
+                    normalizedY: 0.55,
+                    description: "Low temporal craniotomy flush with the middle cranial fossa floor, unroofing the petrous apex.",
+                    surgicalPearl: "Avoid excessive upward temporal lobe retraction to prevent tearing of the vein of Labbé."
+                )
+            ]
+        case .craniotomySupraorbital:
+            return [
+                SurgicalCallout(
+                    id: "supraorbital_keyhole",
+                    title: "Eyebrow Minicraniotomy",
+                    structureType: "KEYHOLE APPROACH",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.50,
+                    normalizedY: 0.48,
+                    description: "2.0 x 2.5 cm bone window through eyebrow incision for anterior circulation and sellar pathology.",
+                    surgicalPearl: "Seal any entered frontal air sinus immediately with vascularized pericranial graft or muscle patch."
+                )
+            ]
+        case .craniotomyLateralSupraorbital:
+            return [
+                SurgicalCallout(
+                    id: "lat_supraorbital",
+                    title: "Lateral Supraorbital Bone Flap",
+                    structureType: "MINIMAL ACCESS CRANIOTOMY",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.48,
+                    normalizedY: 0.46,
+                    description: "Tailored fronto-sphenoidal window exposing the anterior sylvian fissure without full pterional temporalis mobilization.",
+                    surgicalPearl: "Preserves the frontalis branch of CN VII while offering direct microscopic trajectory to ACoA and PCoA."
+                )
+            ]
+        case .craniotomyRetrosigmoidKeyhole:
+            return [
+                SurgicalCallout(
+                    id: "retrosig_keyhole",
+                    title: "Asterion Craniectomy",
+                    structureType: "POSTERIOR FOSSA ENTRY",
+                    color: ObsidianTheme.neonRose,
+                    normalizedX: 0.54,
+                    normalizedY: 0.52,
+                    description: "Trephination placed inferomedial to the asterion exposing the transverse-sigmoid sinus knee.",
+                    surgicalPearl: "Wax mastoid air cells meticulously to eliminate post-operative CSF rhinorrhea via middle ear air cells."
+                )
+            ]
+        case .craniotomyInterhemispheric:
+            return [
+                SurgicalCallout(
+                    id: "interhemispheric_flap",
+                    title: "Parasagittal Bifrontal Window",
+                    structureType: "INTERHEMISPHERIC CORRIDOR",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.50,
+                    normalizedY: 0.42,
+                    description: "Crossing midline safely to unroof the falx and access the pericallosal arteries and corpus callosum.",
+                    surgicalPearl: "Preserve all anterior bridging veins draining into the superior sagittal sinus to avoid bifrontal venous infarction."
+                )
+            ]
+        case .craniotomyMiniPterional:
+            return [
+                SurgicalCallout(
+                    id: "minipterional_flap",
+                    title: "Sylvian Keyhole Window",
+                    structureType: "MINIMALLY INVASIVE CRANIOTOMY",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.52,
+                    normalizedY: 0.48,
+                    description: "Compact 3 cm craniotomy focused over the sphenoid ridge and anterior sylvian point.",
+                    surgicalPearl: "Minimizes temporalis muscle atrophy and mastication pain compared to traditional full pterional craniotomies."
+                )
+            ]
+        case .lumbarFusionApproaches:
+            return [
+                SurgicalCallout(
+                    id: "lumbar_approaches_grid",
+                    title: "Comparative Fusion Corridors",
+                    structureType: "SPINE SURGICAL PLANES",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.50,
+                    normalizedY: 0.48,
+                    description: "Axial plane visualization of PLIF (posterior), TLIF (transforaminal), ALIF (retroperitoneal), XLIF/LLIF (trans-psoas), and OLIF (ante-psoas).",
+                    surgicalPearl: "In XLIF/LLIF, continuous neuromonitoring of the lumbosacral plexus inside the psoas is mandatory to avoid femoral neuropathy."
+                )
+            ]
+        case .tlifSurgicalCorridor:
+            return [
+                SurgicalCallout(
+                    id: "kambin_triangle",
+                    title: "Kambin's Safe Triangle",
+                    structureType: "ANATOMICAL SAFE ZONE",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.45,
+                    normalizedY: 0.52,
+                    description: "Hypotenuse = exiting root; Base = superior border of lower pedicle; Height = traversing root / dural sac.",
+                    surgicalPearl: "Never retract the traversing nerve root medially beyond the midline of the dural tube to avoid traction radiculopathy."
+                )
+            ]
+        case .c7t1Junction:
+            return [
+                SurgicalCallout(
+                    id: "c7_t1_transition",
+                    title: "C7 Pedicle vs T1 Pedicle Screws",
+                    structureType: "SPINE INSTRUMENTATION",
+                    color: ObsidianTheme.neonRose,
+                    normalizedX: 0.48,
+                    normalizedY: 0.48,
+                    description: "High-stress transition zone from mobile lordotic cervical spine to rigid kyphotic thoracic cage.",
+                    surgicalPearl: "C7 lateral masses are thin; pedicle screw placement or C7–T1 cross-connector construct provides 300% greater pullout strength."
+                )
+            ]
+        case .shuntFailureMatrix:
+            return [
+                SurgicalCallout(
+                    id: "shunt_matrix_card",
+                    title: "Proximal vs Valve vs Distal Obstruction",
+                    structureType: "DIAGNOSTIC ALGORITHM",
+                    color: ObsidianTheme.neonRose,
+                    normalizedX: 0.50,
+                    normalizedY: 0.46,
+                    description: "Systematic differential evaluation: slit ventricles vs ventricular catheter choroid plexus ingrowth vs abdominal pseudocyst.",
+                    surgicalPearl: "A sluggishly refilling shunt reservoir confirms proximal obstruction; an uncompressible reservoir indicates valve or distal obstruction."
+                )
+            ]
+        case .lumbarPseudomeningocele:
+            return [
+                SurgicalCallout(
+                    id: "pseudomeningocele_sac",
+                    title: "Extradural CSF Fistula Collection",
+                    structureType: "POST-OP COMPLICATION",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.52,
+                    normalizedY: 0.50,
+                    description: "Encapsulated subfascial CSF fluid collection following incidental durotomy without primary water-tight repair.",
+                    surgicalPearl: "Surgical re-exploration with direct primary 5-0 Prolene dural closure, muscle graft, and subarachnoid drain diversion."
+                )
+            ]
+        case .distalShuntPseudocyst:
+            return [
+                SurgicalCallout(
+                    id: "distal_pseudocyst_sac",
+                    title: "Peritoneal Catheter Pseudocyst",
+                    structureType: "ABDOMINAL CT PATHOLOGY",
+                    color: ObsidianTheme.neonRose,
+                    normalizedX: 0.48,
+                    normalizedY: 0.54,
+                    description: "Fibrous encapsulation around the peritoneal catheter tip causing distal outflow blockage and recurrent hydrocephalus.",
+                    surgicalPearl: "Requires externalization of distal shunt tubing, CSF culture analysis, and conversion to ventriculoatrial (VA) or pleural shunt."
+                )
+            ]
+        case .craniocervicalJunction:
+            return [
+                SurgicalCallout(
+                    id: "ccj_ligaments",
+                    title: "Transverse & Alar Ligament Complex",
+                    structureType: "CRANIAL-CERVICAL STABILITY",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.50,
+                    normalizedY: 0.48,
+                    description: "Primary biomechanical restraints preventing atlantoaxial subluxation and brainstem compression by the odontoid peg.",
+                    surgicalPearl: "Anterior Atlantodental Interval (AADI) > 3 mm in adults (> 5 mm in children) confirms transverse ligament disruption requiring posterior C1-C2 fusion."
+                )
+            ]
         }
     }
     
@@ -1243,6 +1537,111 @@ public enum SurgicalPlateType: String, CaseIterable {
                 ApproachSequentialStep(stepNumber: 3, title: "Cruciate Durotomy & Evacuation", detail: "Bipolar outer dura and incise in cruciate fashion. Open outer subdural pseudomembrane to trigger spontaneous dark liquefied 'motor-oil' hematoma evacuation."),
                 ApproachSequentialStep(stepNumber: 4, title: "Saline Irrigation & Subdural Drain", detail: "Irrigate subdural space copiously with warm saline via soft catheter until effluent is clear. Pass clear silicone closed-system drain to gravity and close in layers.")
             ]
+        case .craniotomyFTOZO:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Bicoronal Scalp Flap", detail: "Bicoronal incision from root of zygoma to contralateral hairline. Subfascial temporalis dissection to protect facial nerve."),
+                ApproachSequentialStep(stepNumber: 2, title: "Orbitozygomatic Osteotomies", detail: "Cut 1: Zygomatic arch posterior root. Cut 2: Zygoma body. Cut 3: Orbital roof and lateral orbital rim. Free 2-piece bone flap."),
+                ApproachSequentialStep(stepNumber: 3, title: "Sphenoid Wing & Clinoid Decompression", detail: "Drill lesser sphenoid wing flush with orbital roof down to superior orbital fissure. Execute anterior clinoidectomy if needed."),
+                ApproachSequentialStep(stepNumber: 4, title: "Dural Opening & Corridor Exploration", detail: "C-shaped dural flap hinged on orbit. Direct flat viewing angle to basilar apex, opticocarotid triangle, and upper clivus.")
+            ]
+        case .craniotomyParietal:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Positioning & Stereotactic Navigation", detail: "Position patient with head neutral or slightly rotated. Register neuronavigation and map superior sagittal sinus."),
+                ApproachSequentialStep(stepNumber: 2, title: "Scalp Flap & Burr Holes", detail: "Horseshoe or linear scalp incision. Place burr holes 1.5 cm off midline to prevent sinus injury."),
+                ApproachSequentialStep(stepNumber: 3, title: "Parietal Bone Elevation", detail: "Turn craniotomy flap with craniotome. Wax bleeding diploic channels and place peripheral dural tack-up sutures."),
+                ApproachSequentialStep(stepNumber: 4, title: "Dural Incision & Cortical Navigation", detail: "U-shaped dural flap reflected toward sinus. Identify sulcal anatomy and execute lesionectomy.")
+            ]
+        case .craniotomyTemporal:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Question-Mark Scalp Incision", detail: "Curve incision from zygomatic arch, over ear, ending in temporal hairline. Incise temporalis muscle."),
+                ApproachSequentialStep(stepNumber: 2, title: "Temporal Bone Window", detail: "Low craniotomy with base flush to the zygomatic root and middle cranial fossa floor."),
+                ApproachSequentialStep(stepNumber: 3, title: "Subtemporal Elevation", detail: "Elevate temporal lobe extradurally or intradurally. Identify petrous ridge, arcuate eminence, and tentorial incisura."),
+                ApproachSequentialStep(stepNumber: 4, title: "Corridor Dissection", detail: "Aspirate CSF from basal cisterns to gain slack. Inspect basilar artery, PCA, and superior cerebellar artery.")
+            ]
+        case .craniotomySupraorbital:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Eyebrow Incision & Soft Tissue Release", detail: "Careful incision within eyebrow hairs. Preserve supraorbital and supratrochlear nerves."),
+                ApproachSequentialStep(stepNumber: 2, title: "Keyhole Trephination & Window", detail: "Burr hole at the keyhole / temporal line. Cut a 2.0 x 2.5 cm bone flap directly above orbital rim."),
+                ApproachSequentialStep(stepNumber: 3, title: "Anterior Skull Base Flattening", detail: "Drill orbital roof jugum ridges flush. Open dura in curvilinear shape along anterior skull base."),
+                ApproachSequentialStep(stepNumber: 4, title: "Subfrontal Navigation", detail: "Slack brain by opening chiasmatic cistern. Gain direct visualization of optic nerve, ICA, and anterior communicating complex.")
+            ]
+        case .craniotomyLateralSupraorbital:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Lateral Hairline Scalp Incision", detail: "Curvilinear frontotemporal incision just behind hairline, avoiding extensive facial nerve risk."),
+                ApproachSequentialStep(stepNumber: 2, title: "Fronto-Sphenoid Osteotomy", detail: "Compact craniotomy focused over the anterior sylvian fissure and sphenoid ridge."),
+                ApproachSequentialStep(stepNumber: 3, title: "Sphenoid Ridge Flattening", detail: "Drill lesser sphenoid wing to expand the corridor without orbital osteotomy."),
+                ApproachSequentialStep(stepNumber: 4, title: "Sylvian Fissure Dissection", detail: "Targeted opening of carotid and chiasmatic cisterns for aneurysm clipping or sellar lesion access.")
+            ]
+        case .craniotomyRetrosigmoidKeyhole:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Retromastoid Linear Incision", detail: "Vertical incision 2 cm behind mastoid notch. Dissect suboccipital muscles down to bone."),
+                ApproachSequentialStep(stepNumber: 2, title: "Asterion Trephine", detail: "Burr hole placed inferomedial to asterion. Enlarge craniectomy until transverse and sigmoid sinuses are delineated."),
+                ApproachSequentialStep(stepNumber: 3, title: "Dural Opening & Arachnoid Release", detail: "C-shaped dural incision hinged on the sigmoid sinus. Open lateral cerebello-medullary cistern to drain CSF."),
+                ApproachSequentialStep(stepNumber: 4, title: "CPA Inspection", detail: "Gently mobilize cerebellum. Dissect acousticofacial bundle, trigeminal nerve, and lower cranial nerves.")
+            ]
+        case .craniotomyInterhemispheric:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Coronal Scalp Incision", detail: "Bicoronal incision behind hairline. Reflect scalp anteriorly preserving pericranium."),
+                ApproachSequentialStep(stepNumber: 2, title: "Parasagittal Craniotomy", detail: "Bone flap centered across midline with burr holes directly over or flanking the superior sagittal sinus."),
+                ApproachSequentialStep(stepNumber: 3, title: "Falx & Dural Reflection", detail: "Open dura in bilateral or unilateral flaps hinged on the sinus. Place dural tacking sutures."),
+                ApproachSequentialStep(stepNumber: 4, title: "Interhemispheric Dissection", detail: "Sharply open arachnoid between frontal lobes, identifying callosomarginal and pericallosal arteries down to corpus callosum.")
+            ]
+        case .craniotomyMiniPterional:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Curvilinear Mini-Hairline Incision", detail: "Short 6 cm incision centered above zygomatic arch and anterior pterion."),
+                ApproachSequentialStep(stepNumber: 2, title: "3 cm Bone Window", detail: "Single burr hole at MacCarty keyhole. Turn a 3 cm bone flap centered over sphenoid ridge."),
+                ApproachSequentialStep(stepNumber: 3, title: "Focused Sphenoid Drilling", detail: "Drill lateral sphenoid wing to unroof anterior sylvian point."),
+                ApproachSequentialStep(stepNumber: 4, title: "Trans-Sylvian Access", detail: "Minimal dural opening; sharply split proximal sylvian fissure to clip MCA and ICA aneurysms.")
+            ]
+        case .lumbarFusionApproaches:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Posterior (PLIF / TLIF)", detail: "Prone position. Direct bilateral (PLIF) or unilateral (TLIF) facetectomy to enter disc space."),
+                ApproachSequentialStep(stepNumber: 2, title: "Anterior (ALIF)", detail: "Supine retroperitoneal or transperitoneal exposure of L5-S1 or L4-5 between great vessels."),
+                ApproachSequentialStep(stepNumber: 3, title: "Lateral Trans-Psoas (XLIF/LLIF)", detail: "Lateral decubitus. Retroperitoneal corridor splitting psoas muscle under real-time EMG neuromonitoring."),
+                ApproachSequentialStep(stepNumber: 4, title: "Oblique Anterior-to-Psoas (OLIF)", detail: "Corridor between aorta / IVC and psoas muscle, sparing lumbar plexus and psoas disruption.")
+            ]
+        case .tlifSurgicalCorridor:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Unilateral Facetectomy", detail: "Remove inferior and superior articular processes to expose the exiting root and disc annulus."),
+                ApproachSequentialStep(stepNumber: 2, title: "Identify Traversing & Exiting Roots", detail: "Delineate Kambin's triangle. Mobilize epidural veins and bipolar coagulate safely."),
+                ApproachSequentialStep(stepNumber: 3, title: "Annulotomy & Complete Discectomy", detail: "Incise disc annulus with #11 blade. Curette cartilaginous endplates completely down to bleeding bone."),
+                ApproachSequentialStep(stepNumber: 4, title: "Interbody Cage Insertion", detail: "Pack anterior disc space with autograft / DBM. Insert bulleted peek / titanium interbody cage obliquely across midline.")
+            ]
+        case .c7t1Junction:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Posterior Cervicothoracic Incision", detail: "Expose spinous processes and laminae from C5 down to T3. Identify C7 prominent spinous process."),
+                ApproachSequentialStep(stepNumber: 2, title: "C7 Pedicle Cannulation", detail: "Entry at junction of superior facet and lateral mass. Aim 25-30 degrees medial, parallel to superior endplate."),
+                ApproachSequentialStep(stepNumber: 3, title: "T1-T2 Thoracic Pedicle Screws", detail: "Entry at junction of superior facet and transverse process. Straight-forward or anatomical trajectory."),
+                ApproachSequentialStep(stepNumber: 4, title: "Rod Linkage & Reduction", detail: "Contour robust titanium rods matching cervical lordosis to thoracic kyphosis. Lock construct with cross-link.")
+            ]
+        case .shuntFailureMatrix:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Clinical & Radiological Evaluation", detail: "Assess for headache, lethargy, sunsetting eyes. Perform non-contrast head CT and shunt series radiographs."),
+                ApproachSequentialStep(stepNumber: 2, title: "Shunt Reservoir Puncture & Manometry", detail: "Aseptic prep. Tap reservoir with 25G butterfly needle. Measure opening pressure and send CSF for cells, protein, culture."),
+                ApproachSequentialStep(stepNumber: 3, title: "Flow & Patency Test", detail: "Compress distal limb to evaluate proximal ventricular backflow. Compress proximal limb to test distal abdominal outflow."),
+                ApproachSequentialStep(stepNumber: 4, title: "Targeted Surgical Revision", detail: "Ventricular catheter replacement for proximal failure; valve upgrade for overdrainage; laparoscopy for peritoneal pseudocyst.")
+            ]
+        case .lumbarPseudomeningocele:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Re-Exploration of Wound", detail: "Open prior incision. Evacuate subfascial CSF fluid collection and debride fibrous pseudocapsule."),
+                ApproachSequentialStep(stepNumber: 2, title: "Identify Dural Defect", detail: "Perform Valsalva maneuver to locate dural tear site. Carefully dissect any herniated cauda equina nerve rootlets."),
+                ApproachSequentialStep(stepNumber: 3, title: "Water-Tight Primary Dural Repair", detail: "Close defect primarily with running locking 5-0 or 6-0 Prolene or Nurolon suture. Apply muscle graft patch if needed."),
+                ApproachSequentialStep(stepNumber: 4, title: "Dural Sealant & Temporary Diversion", detail: "Cover suture line with polyethylene glycol hydrogel sealant (DuraSeal). Place lumbar subarachnoid drain for 72 hours.")
+            ]
+        case .distalShuntPseudocyst:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Abdominal Ultrasound & CT", detail: "Confirm encapsulated fluid collection surrounding peritoneal catheter tip."),
+                ApproachSequentialStep(stepNumber: 2, title: "Catheter Exteriorization", detail: "Make small abdominal incision, withdraw distal catheter from pseudocyst, and exteriorize to external drainage bag."),
+                ApproachSequentialStep(stepNumber: 3, title: "CSF Inoculation & Antibiotic Clearance", detail: "Send multiple CSF samples to rule out Cutibacterium acnes or Staphylococcus epidermidis infection."),
+                ApproachSequentialStep(stepNumber: 4, title: "Surgical Re-Routing", detail: "Once CSF is sterile, reposition catheter in opposite abdominal quadrant, pleural cavity (VP to VPL), or right atrium (VA shunt).")
+            ]
+        case .craniocervicalJunction:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Prone Concorde Positioning", detail: "Fix head in Mayfield skull clamp with slight cervical flexion to optimize atlantoaxial alignment."),
+                ApproachSequentialStep(stepNumber: 2, title: "Expose C1 Posterior Arch & C2 Lamina", detail: "Subperiosteal dissection of occiput, C1 posterior arch, and C2 lamina. Identify vertebral artery groove on C1."),
+                ApproachSequentialStep(stepNumber: 3, title: "Goel-Harms C1 Lateral Mass & C2 Pedicle Screws", detail: "Place C1 lateral mass screws through posterior arch or below arch. Insert C2 pedicle or pars screws."),
+                ApproachSequentialStep(stepNumber: 4, title: "Reduction & Autologous Bone Grafting", detail: "Reduce atlantoaxial subluxation under fluoroscopy. Decorticate bone and pack autologous cancellous bone graft.")
+            ]
         }
     }
     
@@ -1325,6 +1724,96 @@ public enum SurgicalPlateType: String, CaseIterable {
                 "Aggressive plunge of perforator through inner table causing acute cortical laceration or intraparenchymal hemorrhage",
                 "Rapid, precipitous intracranial decompression precipitating contralateral acute epidural hematoma or brainstem hemorrhage",
                 "Tension pneumocephalus from introducing large air volumes during irrigation or improper drain reservoir priming"
+            ]
+        case .craniotomyFTOZO:
+            return [
+                "Superior orbital fissure syndrome or blindness from excessive bone drilling heat",
+                "Permanent frontalis nerve palsy if failing interfascial dissection over temporalis",
+                "Orbital hematoma causing proptosis and acute optic nerve ischemia"
+            ]
+        case .craniotomyParietal:
+            return [
+                "Superior sagittal sinus laceration or air embolism during parasagittal drilling",
+                "Eloquent somatosensory / motor cortex infarction from venous congestion",
+                "Post-operative acute epidural hematoma under retracted bone edges"
+            ]
+        case .craniotomyTemporal:
+            return [
+                "Tearing of the vein of Labbé with catastrophic hemorrhagic temporal lobe venous infarction",
+                "Trigeminal ganglion or petrosal nerve injury causing severe facial numbness or dry eye",
+                "Middle meningeal artery avulsion at the foramen spinosum"
+            ]
+        case .craniotomySupraorbital:
+            return [
+                "Unrecognized frontal air sinus breach causing refractory CSF leak and meningitis",
+                "Supraorbital nerve transection causing permanent forehead numbness and neuralgia",
+                "Olfactory nerve avulsion from excessive anterior cranial fossa retraction"
+            ]
+        case .craniotomyLateralSupraorbital:
+            return [
+                "Lacrimal gland injury or orbital fat herniation obscuring surgical corridor",
+                "Optic canal or internal carotid artery injury during deep clinoid dissection",
+                "Dural laceration over thin sphenoid wing with uncontrollable venous oozing"
+            ]
+        case .craniotomyRetrosigmoidKeyhole:
+            return [
+                "Sigmoid sinus or transverse sinus tear during asterion burr hole drilling",
+                "Petrosal vein (Dandy) avulsion precipitating cerebellar hemorrhagic stroke",
+                "Facial nerve (CN VII) thermal or traction injury during acoustic tumor dissection"
+            ]
+        case .craniotomyInterhemispheric:
+            return [
+                "Bridging vein thrombosis causing bilateral venous infarction of motor cortex",
+                "Superior sagittal sinus tear with acute massive blood loss and air embolism",
+                "Pericallosal artery spasm or occlusion during distal ACA dissection"
+            ]
+        case .craniotomyMiniPterional:
+            return [
+                "Inadequate visualization of distal aneurysm neck due to narrow keyhole corridor",
+                "Middle cerebral artery (MCA) branch injury during tight sylvian split",
+                "Frontal branch facial nerve weakness from aggressive scalp retraction"
+            ]
+        case .lumbarFusionApproaches:
+            return [
+                "Lumbar plexus injury (femoral nerve) during trans-psoas lateral approach (XLIF/LLIF)",
+                "Iliac vessel laceration during anterior lumbar exposure (ALIF) causing exsanguination",
+                "Exiting nerve root injury in the foramen during transforaminal interbody placement (TLIF)"
+            ]
+        case .tlifSurgicalCorridor:
+            return [
+                "Conjoined nerve root anomaly transection mistaken for herniated disc fragment",
+                "Dural tear at exiting root axilla leading to refractory CSF fistula",
+                "Interbody cage migration into spinal canal causing acute cauda equina syndrome"
+            ]
+        case .c7t1Junction:
+            return [
+                "Vertebral artery injury during C7 pedicle cannulation (enters at C6 transverse foramen in 90%)",
+                "Construct pullout and junctional kyphosis if failing to extend fixation to rigid thoracic spine",
+                "T1 root injury causing intrinsic hand muscle weakness and claw deformity"
+            ]
+        case .shuntFailureMatrix:
+            return [
+                "Slit ventricle syndrome and low-pressure state leading to bilateral chronic subdural hematomas",
+                "Ascending meningitis or ventriculitis from colonized shunt hardware",
+                "Delayed catastrophic intracranial hypertension from unrecognized acute shunt obstruction"
+            ]
+        case .lumbarPseudomeningocele:
+            return [
+                "Cauda equina root entrapment within dural defect causing acute neurological deficit",
+                "Infected pseudomeningocele progressing to epidural abscess and meningitis",
+                "Tension pseudomeningocele with skin dehiscence and frank cutaneous CSF drainage"
+            ]
+        case .distalShuntPseudocyst:
+            return [
+                "Intra-abdominal sepsis or peritonitis from indolent low-virulence shunt infection",
+                "Intestinal perforation during peritoneal catheter placement or revision",
+                "Refractory hydrocephalus causing uncal or tonsillar herniation"
+            ]
+        case .craniocervicalJunction:
+            return [
+                "Brainstem or cervical cord transection during atlantoaxial reduction",
+                "Vertebral artery V3 segment injury during C1 lateral mass screw placement",
+                "Construct failure and cranial-cervical dislocation if transverse ligament is non-functional"
             ]
         }
     }
