@@ -1,0 +1,131 @@
+name: 📲 Build & Deploy NeuroCall Ad-Hoc Direct OTA
+
+on:
+  push:
+    branches: [ main ]
+    paths-ignore:
+      - 'worker/public/NeuroCall.ipa'
+      - 'README.md'
+      - '.gitignore'
+  workflow_dispatch:
+    inputs:
+      build_description:
+        description: 'Ad-Hoc Build Description'
+        required: false
+        default: 'Direct 1-Tap Safari OTA for Alex iPhone'
+
+concurrency:
+  group: 'neurocall-adhoc'
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-export:
+    name: 🍏 Compile, Sign & Export NeuroCall Ad-Hoc IPA
+    runs-on: macos-15
+    timeout-minutes: 35
+
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 🛠️ Select Xcode 16.x / iOS 18+ SDK
+        run: |
+          sudo xcode-select -s /Applications/Xcode_16.4.app || sudo xcode-select -s /Applications/Xcode_16.3.app || sudo xcode-select -s /Applications/Xcode.app
+          xcodebuild -version
+          swift --version
+
+      - name: ⚙️ Install XcodeGen
+        run: brew install xcodegen
+
+      - name: 🏗️ Generate Native Xcode Project with Dynamic Build Number
+        run: |
+          BUILD_NUM=$(( ${{ github.run_number }} + 25 ))
+          echo "Generating project with build number: $BUILD_NUM"
+          sed -i '' "s/CURRENT_PROJECT_VERSION: .*/CURRENT_PROJECT_VERSION: \"$BUILD_NUM\"/" project.yml
+          /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $BUILD_NUM" Info.plist || true
+          xcodegen generate
+
+      - name: 🔑 Configure App Store Connect API Credentials
+        env:
+          APP_STORE_CONNECT_PRIVATE_KEY: ${{ secrets.APP_STORE_CONNECT_PRIVATE_KEY }}
+        run: |
+          mkdir -p ~/.appstoreconnect/private_keys
+          printf "%s\n" "$APP_STORE_CONNECT_PRIVATE_KEY" > ~/.appstoreconnect/private_keys/AuthKey_38F6WA87DU.p8
+          chmod 600 ~/.appstoreconnect/private_keys/AuthKey_38F6WA87DU.p8
+
+      - name: 🚀 Compile & Export Ad-Hoc IPA
+        run: |
+          mkdir -p build/archive build/output
+          echo "Archiving NeuroCall release candidate..."
+          xcodebuild archive \
+            -project NeuroCall.xcodeproj \
+            -scheme NeuroCall \
+            -destination 'generic/platform=iOS' \
+            -sdk iphoneos \
+            -configuration Release \
+            -archivePath build/archive/NeuroCall.xcarchive \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO
+
+          echo "Embedding Ad-Hoc Entitlements (Anti-Leap 7 assertion)..."
+          cat > build/archive_entitlements.plist << 'EOF'
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+              <key>application-identifier</key>
+              <string>523MJL63MC.com.AlexMohit.Trephine</string>
+              <key>com.apple.developer.team-identifier</key>
+              <string>523MJL63MC</string>
+          </dict>
+          </plist>
+          EOF
+
+          codesign --force --sign - --entitlements build/archive_entitlements.plist build/archive/NeuroCall.xcarchive/Products/Applications/NeuroCall.app
+          codesign -d --entitlements :- build/archive/NeuroCall.xcarchive/Products/Applications/NeuroCall.app
+
+          echo "Exporting Ad-Hoc signed IPA for Alex's iPhone (00008150-001E7C892200401C)..."
+          xcodebuild -exportArchive \
+            -archivePath build/archive/NeuroCall.xcarchive \
+            -exportOptionsPlist ExportOptions-AdHoc.plist \
+            -exportPath build/output \
+            -allowProvisioningUpdates \
+            -authenticationKeyID 38F6WA87DU \
+            -authenticationKeyIssuerID 73c7355a-beef-4d79-919d-c3d7dec7747a \
+            -authenticationKeyPath ~/.appstoreconnect/private_keys/AuthKey_38F6WA87DU.p8
+
+          ls -la build/output
+          echo "✅ Exported NeuroCall.ipa successfully!"
+
+      - name: 📦 Upload NeuroCall Ad-Hoc IPA Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: NeuroCall-AdHoc-IPA
+          path: build/output/NeuroCall.ipa
+          retention-days: 14
+
+      - name: 🏷️ Release Ad-Hoc IPA to GitHub Releases
+        uses: softprops/action-gh-release@v2
+        if: success()
+        with:
+          tag_name: v1.0.0-adhoc
+          name: "NeuroCall Ad-Hoc Wireless OTA v1.0.0"
+          body: "Direct 1-Tap Safari OTA binary for registered iPhone (UDID: 00008150-001E7C892200401C). Valid for 365 days with zero TestFlight footprint."
+          files: build/output/NeuroCall.ipa
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 🌐 Stage Signed IPA for Safari OTA
+        run: |
+          mkdir -p worker/public
+          cp build/output/NeuroCall.ipa worker/public/NeuroCall.ipa
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add worker/public/NeuroCall.ipa
+          git commit -m "chore(ota): stage signed NeuroCall.ipa for Safari OTA [skip ci]" || echo "No changes to commit"
+          git push origin main || echo "Git push skipped"

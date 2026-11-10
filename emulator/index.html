@@ -2916,7 +2916,11 @@ ${input.value.trim()}`;
                 if (found) currentAtlasPlate = found;
             }
         }
-        // Initialize tab based on query param ?tab=consults or ?tab=atlas
+        // Initialize tab and sub-mode based on query params
+        const subParam = urlParams.get('sub');
+        if (subParam && ['brainstem', 'odontoid'].includes(subParam)) {
+            consultSubMode = subParam;
+        }
         const tabParam = urlParams.get('tab');
         if (tabParam && ['crisis', 'consults', 'bedside', 'calculators', 'atlas'].includes(tabParam)) {
             switchTab(tabParam);
