@@ -44,11 +44,42 @@ public struct PhotorealisticSurgicalAtlasView: View {
                 // Plate Carousel Selector Bar
                 plateSelectorBar
                 
+                // Persistent Primary Deck Navigation Bar (Never Falls Off)
+                primaryDeckNavBar
+                    .padding(.horizontal, 14)
+                
                 // Deep-Zoom High-Definition Plate Canvas
                 ZStack {
                     plateViewportCanvas
                     
-                    // Controls Overlay (Reset zoom + Pin toggle + Swipe Nav)
+                    // Persistent Floating Side Chevron Navigation Buttons
+                    HStack {
+                        Button(action: { selectAdjacentPlate(direction: -1) }) {
+                            Image(systemName: "chevron.left")
+                                .font(.system(size: 14, weight: .bold))
+                                .foregroundColor(.white)
+                                .frame(width: 36, height: 36)
+                                .background(Color.black.opacity(0.75))
+                                .clipShape(Circle())
+                                .overlay(Circle().stroke(ObsidianTheme.neonAmber.opacity(0.5), lineWidth: 1))
+                        }
+                        .padding(.leading, 8)
+                        
+                        Spacer()
+                        
+                        Button(action: { selectAdjacentPlate(direction: 1) }) {
+                            Image(systemName: "chevron.right")
+                                .font(.system(size: 14, weight: .bold))
+                                .foregroundColor(.white)
+                                .frame(width: 36, height: 36)
+                                .background(Color.black.opacity(0.75))
+                                .clipShape(Circle())
+                                .overlay(Circle().stroke(ObsidianTheme.neonAmber.opacity(0.5), lineWidth: 1))
+                        }
+                        .padding(.trailing, 8)
+                    }
+                    
+                    // Controls Overlay (Top title & pin toggle + Bottom swipe hint)
                     VStack {
                         topControlsBar
                         Spacer()
@@ -193,6 +224,53 @@ public struct PhotorealisticSurgicalAtlasView: View {
         }
     }
     
+    // MARK: - Persistent Deck Navigation Bar
+    private var primaryDeckNavBar: some View {
+        HStack(spacing: 12) {
+            Button(action: { selectAdjacentPlate(direction: -1) }) {
+                HStack(spacing: 6) {
+                    Image(systemName: "chevron.left")
+                        .font(.system(size: 12, weight: .black))
+                    Text("PREV")
+                        .font(.system(size: 11, weight: .black))
+                }
+                .foregroundColor(ObsidianTheme.neonAmber)
+                .frame(maxWidth: .infinity)
+                .frame(height: 42)
+                .background(ObsidianTheme.surfaceElevated)
+                .cornerRadius(10)
+                .overlay(RoundedRectangle(cornerRadius: 10).stroke(ObsidianTheme.neonAmber.opacity(0.4), lineWidth: 1.5))
+            }
+            
+            VStack(spacing: 2) {
+                if let idx = SurgicalPlateType.allCases.firstIndex(of: selectedPlate) {
+                    Text("PLATE \(idx + 1) OF \(SurgicalPlateType.allCases.count)")
+                        .font(.system(size: 12, weight: .black, design: .monospaced))
+                        .foregroundColor(ObsidianTheme.textPrimary)
+                }
+                Text("SWIPE ◀ ▶")
+                    .font(.system(size: 9, weight: .bold))
+                    .foregroundColor(ObsidianTheme.neonCyan)
+            }
+            .frame(width: 110)
+            
+            Button(action: { selectAdjacentPlate(direction: 1) }) {
+                HStack(spacing: 6) {
+                    Text("NEXT")
+                        .font(.system(size: 11, weight: .black))
+                    Image(systemName: "chevron.right")
+                        .font(.system(size: 12, weight: .black))
+                }
+                .foregroundColor(ObsidianTheme.neonAmber)
+                .frame(maxWidth: .infinity)
+                .frame(height: 42)
+                .background(ObsidianTheme.surfaceElevated)
+                .cornerRadius(10)
+                .overlay(RoundedRectangle(cornerRadius: 10).stroke(ObsidianTheme.neonAmber.opacity(0.4), lineWidth: 1.5))
+            }
+        }
+    }
+
     // MARK: - Top Controls Bar
     private var topControlsBar: some View {
         HStack {
@@ -302,43 +380,61 @@ public struct PhotorealisticSurgicalAtlasView: View {
             .scaleEffect(zoomScale)
             .offset(dragOffset)
             .gesture(
-                MagnificationGesture()
-                    .onChanged { val in
-                        let delta = val / lastZoomScale
-                        lastZoomScale = val
-                        let newScale = zoomScale * delta
-                        zoomScale = min(max(newScale, 1.0), 4.0)
-                    }
-                    .onEnded { _ in
-                        lastZoomScale = 1.0
-                    }
-            )
-            .simultaneousGesture(
-                DragGesture(minimumDistance: 20)
-                    .onChanged { val in
-                        if zoomScale > 1.05 {
-                            dragOffset = CGSize(
-                                width: lastDragOffset.width + val.translation.width,
-                                height: lastDragOffset.height + val.translation.height
-                            )
+                SimultaneousGesture(
+                    MagnificationGesture()
+                        .onChanged { val in
+                            let delta = val / lastZoomScale
+                            lastZoomScale = val
+                            let newScale = zoomScale * delta
+                            zoomScale = min(max(newScale, 1.0), 5.0)
                         }
-                    }
-                    .onEnded { val in
-                        if zoomScale > 1.05 {
-                            lastDragOffset = dragOffset
-                        } else {
-                            let dx = val.translation.width
-                            let dy = val.translation.height
-                            if abs(dx) > 45 && abs(dx) > abs(dy) * 1.2 {
-                                if dx < 0 {
-                                    selectAdjacentPlate(direction: 1)
-                                } else {
-                                    selectAdjacentPlate(direction: -1)
+                        .onEnded { _ in
+                            lastZoomScale = 1.0
+                            if zoomScale <= 1.05 {
+                                withAnimation(.spring()) {
+                                    zoomScale = 1.0
+                                    dragOffset = .zero
+                                    lastDragOffset = .zero
+                                }
+                            }
+                        },
+                    DragGesture(minimumDistance: 10)
+                        .onChanged { val in
+                            if zoomScale > 1.05 {
+                                // 2-finger or 1-finger smooth panning of zoomed image
+                                dragOffset = CGSize(
+                                    width: lastDragOffset.width + val.translation.width,
+                                    height: lastDragOffset.height + val.translation.height
+                                )
+                            }
+                        }
+                        .onEnded { val in
+                            if zoomScale > 1.05 {
+                                lastDragOffset = dragOffset
+                            } else {
+                                // Horizontal side-to-side swipe navigation
+                                let dx = val.translation.width
+                                let dy = val.translation.height
+                                if abs(dx) > 35 && abs(dx) > abs(dy) * 1.1 {
+                                    if dx < 0 {
+                                        selectAdjacentPlate(direction: 1)
+                                    } else {
+                                        selectAdjacentPlate(direction: -1)
+                                    }
                                 }
                             }
                         }
-                    }
+                )
             )
+            .onTapGesture(count: 2) {
+                // Double tap resets zoom and pan
+                HapticManager.impact(style: .medium)
+                withAnimation(.spring()) {
+                    zoomScale = 1.0
+                    dragOffset = .zero
+                    lastDragOffset = .zero
+                }
+            }
             .clipped()
         }
     }

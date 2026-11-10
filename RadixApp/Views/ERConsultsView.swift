@@ -37,6 +37,11 @@ public struct ERConsultsView: View {
                     // Clinical Triage & Acuity Badge
                     acuitySummaryCard
                     
+                    // Simplified Odontoid Quick-Triage Decision Matrix
+                    if selectedCategory == .spine && selectedSpineConsult == .odontoidFracture {
+                        odontoidDecisionMatrixCard
+                    }
+                    
                     // Stepwise Management Protocol (4 Phases)
                     stepwiseProtocolCard
                     
@@ -273,6 +278,102 @@ public struct ERConsultsView: View {
         .padding(.horizontal, 16)
     }
     
+    // MARK: - Simplified Odontoid Quick-Triage Decision Matrix Card
+    private var odontoidDecisionMatrixCard: some View {
+        VStack(alignment: .leading, spacing: 10) {
+            HStack {
+                Image(systemName: "triangle.fill")
+                    .foregroundColor(ObsidianTheme.neonAmber)
+                    .font(.system(size: 11))
+                Text("ANDERSON & D'ALONZO QUICK-TRIAGE MATRIX")
+                    .font(.system(size: 10, weight: .black))
+                    .tracking(1.4)
+                    .foregroundColor(ObsidianTheme.neonAmber)
+                Spacer()
+            }
+            
+            VStack(spacing: 8) {
+                // Type I
+                HStack(alignment: .top, spacing: 10) {
+                    Text("TYPE I")
+                        .font(.system(size: 10, weight: .heavy, design: .monospaced))
+                        .padding(.horizontal, 6)
+                        .padding(.vertical, 3)
+                        .background(ObsidianTheme.neonEmerald.opacity(0.2))
+                        .foregroundColor(ObsidianTheme.neonEmerald)
+                        .cornerRadius(4)
+                    
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("Dens Tip Avulsion (Alar Ligament)")
+                            .font(.system(size: 12, weight: .bold))
+                            .foregroundColor(ObsidianTheme.textPrimary)
+                        Text("Stable • >95% union with Miami J collar (6–8 wks) • Rule out AOD")
+                            .font(.system(size: 11, weight: .medium))
+                            .foregroundColor(ObsidianTheme.textSecondary)
+                    }
+                    Spacer()
+                }
+                .padding(8)
+                .background(ObsidianTheme.surfaceVoid.opacity(0.5))
+                .cornerRadius(8)
+                
+                // Type II
+                HStack(alignment: .top, spacing: 10) {
+                    Text("TYPE II")
+                        .font(.system(size: 10, weight: .heavy, design: .monospaced))
+                        .padding(.horizontal, 6)
+                        .padding(.vertical, 3)
+                        .background(ObsidianTheme.neonRed.opacity(0.2))
+                        .foregroundColor(ObsidianTheme.neonRed)
+                        .cornerRadius(4)
+                    
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("Dens Waist / Base (Watershed)")
+                            .font(.system(size: 12, weight: .bold))
+                            .foregroundColor(ObsidianTheme.neonRed)
+                        Text("High Nonunion (~60%) • Surgery if: Age ≥65, Shift >5 mm, or Tilt >10° • Ant. Screw vs Post. C1–C2 Harms")
+                            .font(.system(size: 11, weight: .medium))
+                            .foregroundColor(ObsidianTheme.textSecondary)
+                    }
+                    Spacer()
+                }
+                .padding(8)
+                .background(ObsidianTheme.neonRed.opacity(0.08))
+                .cornerRadius(8)
+                .overlay(RoundedRectangle(cornerRadius: 8).stroke(ObsidianTheme.neonRed.opacity(0.3), lineWidth: 1))
+                
+                // Type III
+                HStack(alignment: .top, spacing: 10) {
+                    Text("TYPE III")
+                        .font(.system(size: 10, weight: .heavy, design: .monospaced))
+                        .padding(.horizontal, 6)
+                        .padding(.vertical, 3)
+                        .background(ObsidianTheme.neonAmber.opacity(0.2))
+                        .foregroundColor(ObsidianTheme.neonAmber)
+                        .cornerRadius(4)
+                    
+                    VStack(alignment: .leading, spacing: 2) {
+                        Text("C2 Vertebral Body Extension")
+                            .font(.system(size: 12, weight: .bold))
+                            .foregroundColor(ObsidianTheme.textPrimary)
+                        Text("Cancellous Bone Bed • ~90% union with Miami J collar (10–12 wks)")
+                            .font(.system(size: 11, weight: .medium))
+                            .foregroundColor(ObsidianTheme.textSecondary)
+                    }
+                    Spacer()
+                }
+                .padding(8)
+                .background(ObsidianTheme.surfaceVoid.opacity(0.5))
+                .cornerRadius(8)
+            }
+        }
+        .padding(12)
+        .background(ObsidianTheme.surfaceElevated)
+        .cornerRadius(12)
+        .overlay(RoundedRectangle(cornerRadius: 12).stroke(ObsidianTheme.neonAmber.opacity(0.4), lineWidth: 1.5))
+        .padding(.horizontal, 16)
+    }
+
     // MARK: - Stepwise Emergency Protocol Card
     private var stepwiseProtocolCard: some View {
         VStack(alignment: .leading, spacing: 12) {
@@ -829,7 +930,7 @@ public enum SpineConsultType: String, CaseIterable {
         case .csfLeakSpine:
             return "Sagittal T2 MRI reveals large hyperintense dorsal subcutaneous fluid collection (pseudomeningocele) tracking through laminectomy defect and communicating with the intrathecal space."
         case .odontoidFracture:
-            return "Thin-slice cervical CT with coronal and sagittal reconstructions defines the fracture plane: Type I (alar tip avulsion), Type II (transverse waist watershed), Type III (body extension). Evaluate translation (>5 mm), angulation (>10 deg), and rule out craniocervical dissociation."
+            return "Thin-cut CT cervical spine (sag/cor): Type I (tip), Type II (waist watershed), Type III (body). Measure translation (>5 mm) & angulation (>10°). Stat CTA to rule out vertebral artery injury."
         }
     }
     
@@ -867,9 +968,9 @@ public enum SpineConsultType: String, CaseIterable {
             ]
         case .odontoidFracture:
             return [
-                "High-speed motor vehicle collision or ground-level fall in elderly with severe upper cervical pain",
-                "Occipital neuralgia radiating along C2 dermatome with severely restricted, painful cervical rotation",
-                "Myelopathy signs (brisk reflexes, Hoffman's, spasticity) if significant posterior dens displacement"
+                "Severe high cervical pain & C2 occipital neuralgia after trauma or elderly ground-level fall",
+                "Guarded posture with severely restricted, painful cervical rotation",
+                "Myelopathy signs (brisk reflexes, Hoffman's) if posterior dens displacement"
             ]
         }
     }
@@ -913,10 +1014,26 @@ public enum SpineConsultType: String, CaseIterable {
             ]
         case .odontoidFracture:
             return [
-                ConsultPhase(phaseNumber: 1, phaseTitle: "Rigid Cervical Immobilization", actionInstructions: "Apply rigid cervical collar (Miami J / Aspen) immediately. Maintain strict spine precautions; obtain thin-cut CT cervical spine and CTA neck to evaluate vertebral arteries."),
-                ConsultPhase(phaseNumber: 2, phaseTitle: "Classification & Union Triaging", actionInstructions: "Type I: 95-100% union with collar; rule out craniocervical dissociation. Type II: Watershed zone with 45-70% nonunion rate. Type III: 85-93% union nonoperatively via cancellous bone marrow bed."),
-                ConsultPhase(phaseNumber: 3, phaseTitle: "Type II Surgical Risk Stratification", actionInstructions: "Surgery strongly indicated for Type II if: age >= 50-65 years, translation > 5 mm, angulation > 10 degrees, posterior displacement, or tobacco use (nonunion >65% without surgery)."),
-                ConsultPhase(phaseNumber: 4, phaseTitle: "Operative Fixation Choice", actionInstructions: "Anterior Odontoid Screw if intact transverse ligament, non-osteoporotic, and acute (<6 mo). If osteoporotic, comminuted, or chronic: Posterior C1-C2 Goel-Harms fusion.")
+                ConsultPhase(
+                    phaseNumber: 1,
+                    phaseTitle: "Immediate Rigid Immobilization",
+                    actionInstructions: "Apply Miami J collar immediately. Maintain strict spine precautions; obtain stat thin-cut CT cervical spine + CTA neck."
+                ),
+                ConsultPhase(
+                    phaseNumber: 2,
+                    phaseTitle: "Type I (Dens Tip Avulsion)",
+                    actionInstructions: "Stable fracture (>95% union with rigid collar × 6–8 wks). Crucial rule-out: evaluate for associated craniocervical dissociation (AOD)."
+                ),
+                ConsultPhase(
+                    phaseNumber: 3,
+                    phaseTitle: "Type II (Transverse Waist)",
+                    actionInstructions: "Watershed nonunion zone (~60%). Surgery indicated if: age ≥65, translation >5 mm, or angulation >10°. Options: Anterior screw (young/intact ligament) vs Posterior C1–C2 Harms (elderly/osteoporotic)."
+                ),
+                ConsultPhase(
+                    phaseNumber: 4,
+                    phaseTitle: "Type III (C2 Vertebral Body)",
+                    actionInstructions: "Extends into vascular cancellous C2 body with high healing rate (>90%). Management: Rigid Miami J collar × 10–12 weeks."
+                )
             ]
         }
     }
@@ -955,9 +1072,9 @@ public enum SpineConsultType: String, CaseIterable {
             ]
         case .odontoidFracture:
             return [
-                "TREATING TYPE II ODONTOID FRACTURES CONSERVATIVELY IN ELDERLY PATIENTS WITH >5 MM DISPLACEMENT (nonunion rate exceeds 65-80% and halo vest carries high mortality in elderly)",
-                "Missing underlying craniocervical / atlanto-occipital dissociation (AOD) in patients presenting with Type I avulsion fractures",
-                "Attempting anterior odontoid screw fixation when the transverse atlantal ligament is ruptured, resulting in early catastrophic hardware failure"
+                "HALO VEST IN ELDERLY: High morbidity & mortality in geriatric patients; prefer surgical fixation or rigid Miami J collar.",
+                "CONSERVATIVE CARE FOR DISPLACED TYPE II: Nonunion rate exceeds 65-80% without surgery if displaced >5 mm or age ≥65.",
+                "ANTERIOR SCREW WITH RUPTURED TRANSVERSE LIGAMENT: Leads to construct failure; mandates posterior C1-C2 fusion instead."
             ]
         }
     }

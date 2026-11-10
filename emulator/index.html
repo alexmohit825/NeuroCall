@@ -235,23 +235,33 @@
 
         /* Top Navigator Bar inside phone */
         .top-nav-bar {
+            position: sticky;
+            top: 0;
+            z-index: 50;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 10px;
-            padding: 6px 10px;
+            background: rgba(10, 15, 30, 0.95);
+            backdrop-filter: blur(12px);
+            border: 1.5px solid rgba(245, 158, 11, 0.4);
+            border-radius: 12px;
+            padding: 8px 12px;
+            margin-bottom: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7);
         }
         .nav-btn {
-            background: rgba(245, 158, 11, 0.15);
-            border: 1px solid rgba(245, 158, 11, 0.3);
+            background: rgba(245, 158, 11, 0.2);
+            border: 1.5px solid #f59e0b;
             color: #f59e0b;
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-size: 11px;
-            font-weight: 700;
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 12px;
+            font-weight: 800;
             cursor: pointer;
+            min-height: 36px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
             transition: all 0.15s ease;
         }
         .nav-btn:hover {
@@ -338,25 +348,28 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            width: 32px;
-            height: 32px;
-            background: rgba(0, 0, 0, 0.65);
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            color: #fff;
+            width: 40px;
+            height: 40px;
+            background: rgba(0, 0, 0, 0.85);
+            border: 1.5px solid #f59e0b;
+            color: #f59e0b;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            z-index: 25;
-            font-size: 13px;
+            z-index: 35;
+            font-size: 16px;
+            font-weight: bold;
             transition: all 0.15s ease;
-            backdrop-filter: blur(6px);
+            backdrop-filter: blur(8px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.6);
         }
         .deck-nav-btn:hover {
             background: #f59e0b;
             color: #000;
             border-color: #f59e0b;
+            transform: translateY(-50%) scale(1.1);
         }
         .deck-nav-btn.prev-btn { left: 8px; }
         .deck-nav-btn.next-btn { right: 8px; }
@@ -1892,6 +1905,9 @@
         let showHerniationPupils = true;
         let zoomLevel = 1.0;
         let desktopZoomLevel = 1.0;
+        let panX = 0, panY = 0;
+        let desktopPanX = 0, desktopPanY = 0;
+        let consultSubMode = 'odontoid'; // default to simplified odontoid consult
         let activeCatalogFilter = 'All';
 
         function updateClock() {
@@ -1911,6 +1927,8 @@
             currentAtlasPlate = ATLAS_PLATES[(idx - 1 + ATLAS_PLATES.length) % ATLAS_PLATES.length];
             zoomLevel = 1.0;
             desktopZoomLevel = 1.0;
+            panX = 0; panY = 0;
+            desktopPanX = 0; desktopPanY = 0;
             if (currentTab === 'atlas') {
                 renderAtlasTab(document.getElementById('screen-container'));
             }
@@ -1923,6 +1941,8 @@
             currentAtlasPlate = ATLAS_PLATES[(idx + 1) % ATLAS_PLATES.length];
             zoomLevel = 1.0;
             desktopZoomLevel = 1.0;
+            panX = 0; panY = 0;
+            desktopPanX = 0; desktopPanY = 0;
             if (currentTab === 'atlas') {
                 renderAtlasTab(document.getElementById('screen-container'));
             }
@@ -1970,6 +1990,14 @@
             document.querySelectorAll('.thumb-filter-btn').forEach(b => b.classList.remove('active'));
             if (btn) btn.classList.add('active');
             renderThumbnails();
+
+            setTimeout(() => {
+                const phoneCanvas = document.querySelector('.canvas-area');
+                if (phoneCanvas) attachGestureHandlers(phoneCanvas, false);
+                const desktopCanvas = document.querySelector('.review-canvas');
+                if (desktopCanvas) attachGestureHandlers(desktopCanvas, true);
+            }, 50);
+
         }
 
         function renderThumbnails() {
@@ -2057,19 +2085,224 @@
             }
 
             renderThumbnails();
+
+            setTimeout(() => {
+                const phoneCanvas = document.querySelector('.canvas-area');
+                if (phoneCanvas) attachGestureHandlers(phoneCanvas, false);
+                const desktopCanvas = document.querySelector('.review-canvas');
+                if (desktopCanvas) attachGestureHandlers(desktopCanvas, true);
+            }, 50);
+
+        }
+
+
+        function updateViewportTransform() {
+            const img = document.getElementById('active-viewport-img');
+            if (img) {
+                img.style.transform = `translate(${panX}px, ${panY}px) scale(${zoomLevel})`;
+                img.style.cursor = zoomLevel > 1.05 ? 'grab' : 'default';
+            }
+        }
+
+        function updateDesktopHeroTransform() {
+            const img = document.getElementById('desktop-hero-img');
+            if (img) {
+                img.style.transform = `translate(${desktopPanX}px, ${desktopPanY}px) scale(${desktopZoomLevel})`;
+                img.style.cursor = desktopZoomLevel > 1.05 ? 'grab' : 'default';
+            }
+        }
+
+        function adjustZoom(delta) {
+            zoomLevel = Math.max(1.0, Math.min(4.5, zoomLevel + delta));
+            if (zoomLevel <= 1.02) {
+                panX = 0;
+                panY = 0;
+            }
+            updateViewportTransform();
+        }
+
+        function resetZoom() {
+            zoomLevel = 1.0;
+            panX = 0;
+            panY = 0;
+            updateViewportTransform();
         }
 
         function adjustDesktopZoom(delta) {
-            desktopZoomLevel = Math.max(0.5, Math.min(3.5, desktopZoomLevel + delta));
-            const img = document.getElementById('desktop-hero-img');
-            if (img) img.style.transform = `scale(${desktopZoomLevel})`;
+            desktopZoomLevel = Math.max(1.0, Math.min(4.5, desktopZoomLevel + delta));
+            if (desktopZoomLevel <= 1.02) {
+                desktopPanX = 0;
+                desktopPanY = 0;
+            }
+            updateDesktopHeroTransform();
         }
 
         function resetDesktopZoom() {
             desktopZoomLevel = 1.0;
-            const img = document.getElementById('desktop-hero-img');
-            if (img) img.style.transform = 'scale(1)';
+            desktopPanX = 0;
+            desktopPanY = 0;
+            updateDesktopHeroTransform();
         }
+
+        // Universal Gesture Engine: Touch Swipe, 2-Finger Pan/Zoom, and Mouse Drag
+        function attachGestureHandlers(element, isDesktop = false) {
+            if (!element || element._gestureAttached) return;
+            element._gestureAttached = true;
+            
+            let touchStartX = 0, touchStartY = 0;
+            let initialPinchDist = 0;
+            let initialPinchMidX = 0, initialPinchMidY = 0;
+            let initialPanX = 0, initialPanY = 0;
+            let initialScale = 1.0;
+            let isPinching = false;
+            let isDragging = false;
+            let dragStartX = 0, dragStartY = 0;
+
+            // Touch Start
+            element.addEventListener('touchstart', (e) => {
+                if (e.touches.length === 1) {
+                    touchStartX = e.touches[0].clientX;
+                    touchStartY = e.touches[0].clientY;
+                    const curZoom = isDesktop ? desktopZoomLevel : zoomLevel;
+                    if (curZoom > 1.05) {
+                        isDragging = true;
+                        dragStartX = e.touches[0].clientX;
+                        dragStartY = e.touches[0].clientY;
+                        initialPanX = isDesktop ? desktopPanX : panX;
+                        initialPanY = isDesktop ? desktopPanY : panY;
+                    }
+                } else if (e.touches.length === 2) {
+                    isPinching = true;
+                    isDragging = true;
+                    const x1 = e.touches[0].clientX, y1 = e.touches[0].clientY;
+                    const x2 = e.touches[1].clientX, y2 = e.touches[1].clientY;
+                    initialPinchDist = Math.hypot(x2 - x1, y2 - y1);
+                    initialPinchMidX = (x1 + x2) / 2;
+                    initialPinchMidY = (y1 + y2) / 2;
+                    initialScale = isDesktop ? desktopZoomLevel : zoomLevel;
+                    initialPanX = isDesktop ? desktopPanX : panX;
+                    initialPanY = isDesktop ? desktopPanY : panY;
+                    e.preventDefault();
+                }
+            }, { passive: false });
+
+            // Touch Move (2-Finger Pan & Pinch Zoom)
+            element.addEventListener('touchmove', (e) => {
+                if (e.touches.length === 2 && isPinching) {
+                    e.preventDefault();
+                    const x1 = e.touches[0].clientX, y1 = e.touches[0].clientY;
+                    const x2 = e.touches[1].clientX, y2 = e.touches[1].clientY;
+                    const currentDist = Math.hypot(x2 - x1, y2 - y1);
+                    const currentMidX = (x1 + x2) / 2;
+                    const currentMidY = (y1 + y2) / 2;
+
+                    const scaleFactor = currentDist / (initialPinchDist || 1);
+                    const targetScale = Math.max(1.0, Math.min(4.5, initialScale * scaleFactor));
+                    
+                    const dx = currentMidX - initialPinchMidX;
+                    const dy = currentMidY - initialPinchMidY;
+
+                    if (isDesktop) {
+                        desktopZoomLevel = targetScale;
+                        desktopPanX = initialPanX + dx;
+                        desktopPanY = initialPanY + dy;
+                        updateDesktopHeroTransform();
+                    } else {
+                        zoomLevel = targetScale;
+                        panX = initialPanX + dx;
+                        panY = initialPanY + dy;
+                        updateViewportTransform();
+                    }
+                } else if (e.touches.length === 1 && isDragging) {
+                    e.preventDefault();
+                    const dx = e.touches[0].clientX - dragStartX;
+                    const dy = e.touches[0].clientY - dragStartY;
+                    if (isDesktop) {
+                        desktopPanX = initialPanX + dx;
+                        desktopPanY = initialPanY + dy;
+                        updateDesktopHeroTransform();
+                    } else {
+                        panX = initialPanX + dx;
+                        panY = initialPanY + dy;
+                        updateViewportTransform();
+                    }
+                }
+            }, { passive: false });
+
+            // Touch End (Swipe navigation when not zoomed)
+            element.addEventListener('touchend', (e) => {
+                if (isPinching && e.touches.length < 2) {
+                    isPinching = false;
+                    return;
+                }
+                if (e.changedTouches.length === 1 && !isDragging) {
+                    const touchEndX = e.changedTouches[0].clientX;
+                    const touchEndY = e.changedTouches[0].clientY;
+                    const dx = touchEndX - touchStartX;
+                    const dy = touchEndY - touchStartY;
+                    const curZoom = isDesktop ? desktopZoomLevel : zoomLevel;
+                    if (curZoom <= 1.05 && Math.abs(dx) > 35 && Math.abs(dx) > Math.abs(dy) * 1.1) {
+                        if (dx < 0) {
+                            nextPlate();
+                        } else {
+                            prevPlate();
+                        }
+                    }
+                }
+                isDragging = false;
+            });
+
+            // Desktop Mouse Drag Panning
+            let isMouseDown = false;
+            let mouseStartX = 0, mouseStartY = 0;
+            let mousePanStartX = 0, mousePanStartY = 0;
+
+            element.addEventListener('mousedown', (e) => {
+                const curZoom = isDesktop ? desktopZoomLevel : zoomLevel;
+                if (curZoom > 1.05) {
+                    isMouseDown = true;
+                    mouseStartX = e.clientX;
+                    mouseStartY = e.clientY;
+                    mousePanStartX = isDesktop ? desktopPanX : panX;
+                    mousePanStartY = isDesktop ? desktopPanY : panY;
+                    element.style.cursor = 'grabbing';
+                    e.preventDefault();
+                }
+            });
+
+            window.addEventListener('mousemove', (e) => {
+                if (!isMouseDown) return;
+                const dx = e.clientX - mouseStartX;
+                const dy = e.clientY - mouseStartY;
+                if (isDesktop) {
+                    desktopPanX = mousePanStartX + dx;
+                    desktopPanY = mousePanStartY + dy;
+                    updateDesktopHeroTransform();
+                } else {
+                    panX = mousePanStartX + dx;
+                    panY = mousePanStartY + dy;
+                    updateViewportTransform();
+                }
+            });
+
+            window.addEventListener('mouseup', () => {
+                if (isMouseDown) {
+                    isMouseDown = false;
+                    const curZoom = isDesktop ? desktopZoomLevel : zoomLevel;
+                    element.style.cursor = curZoom > 1.05 ? 'grab' : 'default';
+                }
+            });
+
+            // Double click / tap to reset zoom
+            element.addEventListener('dblclick', () => {
+                if (isDesktop) {
+                    resetDesktopZoom();
+                } else {
+                    resetZoom();
+                }
+            });
+        }
+
 
         function copyPlateNote() {
             const input = document.getElementById('plate-feedback-input');
@@ -2603,8 +2836,13 @@ ${input.value.trim()}`;
                 if (found) currentAtlasPlate = found;
             }
         }
-        // Initialize default view
-        switchTab('atlas');
+        // Initialize tab based on query param ?tab=consults or ?tab=atlas
+        const tabParam = urlParams.get('tab');
+        if (tabParam && ['crisis', 'consults', 'bedside', 'calculators', 'atlas'].includes(tabParam)) {
+            switchTab(tabParam);
+        } else {
+            switchTab('atlas');
+        }
         updateDesktopReviewer();
     </script>
 </body>
