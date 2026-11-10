@@ -2010,7 +2010,7 @@
             grid.innerHTML = filtered.map(p => {
                 const idx = ATLAS_PLATES.indexOf(p);
                 const isActive = p.id === currentAtlasPlate.id;
-                const imgSrc = p.image.startsWith('assets/') ? p.image : 'assets/' + p.image;
+                const imgSrc = (p.image.startsWith('assets/') ? p.image : 'assets/' + p.image) + '?v=' + Date.now();
                 return `
                     <div class="thumb-card ${isActive ? 'active' : ''}" onclick="selectAtlasPlate('${p.id}')">
                         <div class="thumb-img-wrap">
@@ -2034,7 +2034,7 @@
 
             if (titleEl) titleEl.innerText = currentAtlasPlate.title;
             if (subEl) subEl.innerText = `PLATE ${idx + 1} OF ${ATLAS_PLATES.length} • ${currentAtlasPlate.category.toUpperCase()}`;
-            const imgSrc = currentAtlasPlate.image.startsWith('assets/') ? currentAtlasPlate.image : 'assets/' + currentAtlasPlate.image;
+            const imgSrc = (currentAtlasPlate.image.startsWith('assets/') ? currentAtlasPlate.image : 'assets/' + currentAtlasPlate.image) + '?v=' + Date.now();
             if (badgeEl) badgeEl.innerText = imgSrc;
             if (imgEl) {
                 imgEl.src = imgSrc;
@@ -2541,7 +2541,7 @@ ${input.value.trim()}`;
                         <div class="zoom-btn" onclick="resetZoom()">⟲</div>
                     </div>
                     <div class="canvas-area">
-                        <img id="active-viewport-img" src="${currentAtlasPlate.image.startsWith('assets/') ? currentAtlasPlate.image : 'assets/' + currentAtlasPlate.image}" alt="${currentAtlasPlate.title}" style="transform: scale(${zoomLevel})">
+                        <img id="active-viewport-img" src="${(currentAtlasPlate.image.startsWith('assets/') ? currentAtlasPlate.image : 'assets/' + currentAtlasPlate.image) + '?v=' + Date.now()}" alt="${currentAtlasPlate.title}" style="transform: scale(${zoomLevel})">
                         ${currentAtlasPlate.callouts.map(c => `
                             <div class="callout-pin" style="left: ${c.x}%; top: ${c.y}%;" title="${c.title}"></div>
                         `).join('')}
