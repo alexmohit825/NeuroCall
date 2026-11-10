@@ -23,166 +23,168 @@ public struct RostrocaudalBrainstemLadderView: View {
         ScrollView {
             VStack(spacing: 16) {
                 // Header
-                VStack(alignment: .leading, spacing: 4) {
-                    HStack {
+                VStack(alignment: .leading, spacing: 6) {
+                    HStack(spacing: 6) {
                         Circle().fill(statusColor).frame(width: 8, height: 8)
                         Text("ROSTROCAUDAL BRAINSTEM DETERIORATION")
                             .font(.system(size: 10, weight: .black))
-                            .tracking(1.6)
+                            .tracking(1.1)
                             .foregroundColor(statusColor)
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.75)
+                        Spacer(minLength: 4)
+                    }
+                    HStack(alignment: .firstTextBaseline) {
+                        Text("Brainstem Reflex Ladder")
+                            .font(.system(size: 20, weight: .bold))
+                            .foregroundColor(Color.white)
                         Spacer()
                         Text(statusBadgeText)
                             .font(.system(size: 11, weight: .bold))
-                            .padding(.horizontal, 10)
+                            .padding(.horizontal, 8)
                             .padding(.vertical, 4)
                             .background(statusColor.opacity(0.18))
                             .foregroundColor(statusColor)
                             .cornerRadius(6)
                             .overlay(RoundedRectangle(cornerRadius: 6).stroke(statusColor.opacity(0.4), lineWidth: 1))
                     }
-                    Text("Brainstem Reflex & Consciousness Ladder")
-                        .font(.system(size: 20, weight: .bold))
-                        .foregroundColor(Color.white)
                     Text("Plum & Posner Transtentorial Herniation Architecture")
                         .font(.system(size: 12, weight: .medium))
                         .foregroundColor(Color(red: 0.6, green: 0.65, blue: 0.75))
                 }
-                .padding(.horizontal)
+                .padding(.horizontal, 16)
                 .padding(.top, 8)
                 
-                // Vertical Anatomical Elevator Board
-                VStack(spacing: 0) {
-                    // Top Rostral Anchor
-                    HStack {
-                        Text("ROSTRAL (Higher Brain)")
-                            .font(.system(size: 11, weight: .black))
-                            .foregroundColor(Color(red: 0.5, green: 0.55, blue: 0.65))
-                        Spacer()
-                    }
-                    .padding(.horizontal, 16)
-                    .padding(.top, 14)
-                    
-                    // Stages Stack
-                    ZStack {
-                        // Central Descent Arrow Line
-                        VStack(spacing: 0) {
-                            Rectangle()
-                                .fill(stageIndex > 0 ? Color.red : Color(red: 0.25, green: 0.28, blue: 0.35))
-                                .frame(width: 3, height: CGFloat(stageIndex) * 54)
-                            if stageIndex > 0 {
-                                Image(systemName: "arrowtriangle.down.fill")
-                                    .font(.system(size: 10))
-                                    .foregroundColor(.red)
-                            }
-                            Spacer()
-                        }
-                        .padding(.top, 20)
-                        
-                        // Stage Nodes
-                        VStack(spacing: 10) {
-                            stageRow(
-                                index: 1,
-                                anatomicalLevel: "Thalamus / Hypothalamus",
-                                reflexTrigger: "Pupillary Dilation / Sympathetic",
-                                stageName: "Diencephalic Stage"
-                            )
-                            stageRow(
-                                index: 2,
-                                anatomicalLevel: "Upper Brainstem",
-                                reflexTrigger: "Pupillary Light Reflex (CN II/III)",
-                                stageName: "Midbrain Stage"
-                            )
-                            stageRow(
-                                index: 3,
-                                anatomicalLevel: "Middle Brainstem",
-                                reflexTrigger: "Corneal & Dolls Reflex (CN V/VII/VIII)",
-                                stageName: "Pons Stage"
-                            )
-                            stageRow(
-                                index: 4,
-                                anatomicalLevel: "Lower Brainstem (Upper)",
-                                reflexTrigger: "Gag & Carinal Cough (CN IX/X)",
-                                stageName: "Upper Medulla Stage"
-                            )
-                            stageRow(
-                                index: 5,
-                                anatomicalLevel: "Terminal Brainstem",
-                                reflexTrigger: "Apnea Test / Respiratory Drive",
-                                stageName: "Low Medulla (Brain Death)"
-                            )
-                        }
-                        .padding(.vertical, 12)
-                    }
-                    
-                    // Bottom Caudal Anchor
-                    HStack {
-                        Text("CAUDAL (Spinal Cord Junction)")
-                            .font(.system(size: 11, weight: .black))
-                            .foregroundColor(Color(red: 0.5, green: 0.55, blue: 0.65))
-                        Spacer()
-                    }
-                    .padding(.horizontal, 16)
-                    .padding(.bottom, 14)
-                }
-                .background(Color(red: 0.08, green: 0.09, blue: 0.12))
-                .cornerRadius(16)
-                .overlay(RoundedRectangle(cornerRadius: 16).stroke(Color.white.opacity(0.08), lineWidth: 1))
-                .padding(.horizontal)
-                
-                // Dynamic Clinical Triad Readout Strip
-                HStack(spacing: 12) {
-                    clinicalReadoutCard(
-                        title: "Pupil Response",
-                        value: currentPupilText,
-                        icon: "eye.fill"
-                    )
-                    clinicalReadoutCard(
-                        title: "Motor Pattern",
-                        value: currentMotorText,
-                        icon: "figure.walk"
-                    )
-                    clinicalReadoutCard(
-                        title: "Respiration",
-                        value: currentRespirationText,
-                        icon: "lungs.fill"
-                    )
-                }
-                .padding(.horizontal)
-                
-                // Interactive Progression Slider
+                // Interactive Progression Slider (Placed near top for immediate thumb control)
                 VStack(alignment: .leading, spacing: 8) {
                     HStack {
-                        Text("Rostrocaudal Collapse Progression Depth")
+                        Text("Collapse Progression Depth")
                             .font(.system(size: 12, weight: .bold))
                             .foregroundColor(Color(red: 0.85, green: 0.88, blue: 0.95))
                         Spacer()
                         Text(sliderLevelLabel)
-                            .font(.system(size: 13, weight: .black, design: .monospaced))
+                            .font(.system(size: 12, weight: .black, design: .monospaced))
                             .foregroundColor(statusColor)
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.8)
                     }
                     
                     Slider(value: $progressionDepth, in: 0...5, step: 1)
                         .tint(statusColor)
+                    
+                    HStack {
+                        Text("0 Intact")
+                        Spacer()
+                        Text("1 Dien")
+                        Spacer()
+                        Text("2 Mid")
+                        Spacer()
+                        Text("3 Pons")
+                        Spacer()
+                        Text("4 Med")
+                        Spacer()
+                        Text("5 Apnea")
+                    }
+                    .font(.system(size: 9, weight: .bold, design: .monospaced))
+                    .foregroundColor(Color(red: 0.55, green: 0.6, blue: 0.7))
                 }
-                .padding(14)
+                .padding(12)
                 .background(Color(red: 0.11, green: 0.13, blue: 0.18))
                 .cornerRadius(12)
-                .padding(.horizontal)
+                .padding(.horizontal, 16)
                 
                 // Overlay Mode Toggle
-                VStack(alignment: .leading, spacing: 8) {
-                    Text("Visualization Overlay Mode")
-                        .font(.system(size: 11, weight: .bold))
-                        .foregroundColor(Color(red: 0.55, green: 0.6, blue: 0.7))
-                    
-                    Picker("Mode", selection: $overlayMode) {
-                        ForEach(VisualizationMode.allCases, id: \.self) { mode in
-                            Text(mode.rawValue).tag(mode)
-                        }
+                Picker("Mode", selection: $overlayMode) {
+                    ForEach(VisualizationMode.allCases, id: \.self) { mode in
+                        Text(mode.rawValue).tag(mode)
                     }
-                    .pickerStyle(.segmented)
                 }
-                .padding(.horizontal)
+                .pickerStyle(.segmented)
+                .padding(.horizontal, 16)
+                
+                // Vertical Anatomical Elevator Board (100% Fluid iPhone Width)
+                VStack(spacing: 8) {
+                    HStack {
+                        Text("ROSTRAL (Cortex / Thalamus)")
+                            .font(.system(size: 10, weight: .black))
+                            .foregroundColor(Color(red: 0.5, green: 0.55, blue: 0.65))
+                        Spacer()
+                        Text(overlayMode == .anatomicalRegions ? "ANATOMICAL LEVEL" : "REFLEX CORRELATE")
+                            .font(.system(size: 9, weight: .bold))
+                            .foregroundColor(Color(red: 0.45, green: 0.5, blue: 0.6))
+                    }
+                    .padding(.horizontal, 12)
+                    .padding(.top, 10)
+                    
+                    VStack(spacing: 8) {
+                        stageRow(
+                            index: 1,
+                            anatomicalLevel: "Thalamus / Hypothalamus",
+                            reflexTrigger: "Pupillary Dilation / Sympathetic",
+                            stageName: "1. Diencephalic"
+                        )
+                        stageRow(
+                            index: 2,
+                            anatomicalLevel: "Upper Brainstem (Tectum)",
+                            reflexTrigger: "Pupillary Light Reflex (CN II/III)",
+                            stageName: "2. Midbrain"
+                        )
+                        stageRow(
+                            index: 3,
+                            anatomicalLevel: "Middle Brainstem (Basis Pontis)",
+                            reflexTrigger: "Corneal & Oculocephalic (CN V/VII/VIII)",
+                            stageName: "3. Pons"
+                        )
+                        stageRow(
+                            index: 4,
+                            anatomicalLevel: "Upper Medulla (Glossopharyngeal)",
+                            reflexTrigger: "Gag & Carinal Cough (CN IX/X)",
+                            stageName: "4. Upper Medulla"
+                        )
+                        stageRow(
+                            index: 5,
+                            anatomicalLevel: "Low Medulla (VRG / Pre-Bötzinger)",
+                            reflexTrigger: "Apnea Test / Respiratory Drive",
+                            stageName: "5. Low Medulla"
+                        )
+                    }
+                    .padding(.horizontal, 10)
+                    
+                    HStack {
+                        Text("CAUDAL (Foramen Magnum / C1)")
+                            .font(.system(size: 10, weight: .black))
+                            .foregroundColor(Color(red: 0.5, green: 0.55, blue: 0.65))
+                        Spacer()
+                    }
+                    .padding(.horizontal, 12)
+                    .padding(.bottom, 10)
+                }
+                .background(Color(red: 0.08, green: 0.09, blue: 0.12))
+                .cornerRadius(14)
+                .overlay(RoundedRectangle(cornerRadius: 14).stroke(Color.white.opacity(0.08), lineWidth: 1))
+                .padding(.horizontal, 16)
+                
+                // Dynamic Clinical Triad Readout Strip (Fluid 3-Card Layout)
+                VStack(spacing: 8) {
+                    clinicalReadoutCard(
+                        title: "PUPILLARY RESPONSE (CN II / III / SYMPATHETIC)",
+                        value: currentPupilText,
+                        icon: "eye.fill"
+                    )
+                    HStack(spacing: 8) {
+                        clinicalReadoutCard(
+                            title: "MOTOR POSTURING",
+                            value: currentMotorText,
+                            icon: "figure.walk"
+                        )
+                        clinicalReadoutCard(
+                            title: "RESPIRATORY PATTERN",
+                            value: currentRespirationText,
+                            icon: "lungs.fill"
+                        )
+                    }
+                }
+                .padding(.horizontal, 16)
                 
                 Spacer(minLength: 24)
             }
@@ -190,64 +192,52 @@ public struct RostrocaudalBrainstemLadderView: View {
         .background(Color(red: 0.04, green: 0.05, blue: 0.07))
     }
     
-    // MARK: - Stage Node Row
+    // MARK: - Responsive Stage Node Row (Fits 100% within 375pt-430pt iPhone width)
     private func stageRow(index: Int, anatomicalLevel: String, reflexTrigger: String, stageName: String) -> some View {
         let isCollapsed = stageIndex >= index
         let isCurrentFront = stageIndex == index
-        let leftLabel = overlayMode == .anatomicalRegions ? anatomicalLevel : reflexTrigger
+        let subtitleLabel = overlayMode == .anatomicalRegions ? anatomicalLevel : reflexTrigger
         
-        return HStack(spacing: 12) {
-            Text(leftLabel)
-                .font(.system(size: 11, weight: .semibold))
-                .foregroundColor(Color(red: 0.55, green: 0.6, blue: 0.7))
-                .frame(width: 140, alignment: .trailing)
-                .lineLimit(2)
+        return HStack(spacing: 10) {
+            // Left Vertical Indicator Dot + Connector
+            Circle()
+                .fill(isCollapsed ? Color.white : Color(red: 0.3, green: 0.35, blue: 0.45))
+                .frame(width: 8, height: 8)
             
-            // Central Capsule
-            HStack {
-                Circle()
-                    .fill(isCollapsed ? Color.white : Color(red: 0.3, green: 0.35, blue: 0.45))
-                    .frame(width: 6, height: 6)
-                
-                Spacer()
-                
+            // Center Stage Name & Subtitle (Fluid width)
+            VStack(alignment: .leading, spacing: 2) {
                 Text(stageName)
-                    .font(.system(size: 12, weight: .bold))
-                    .foregroundColor(isCollapsed ? Color.white : Color(red: 0.6, green: 0.65, blue: 0.75))
-                
-                Spacer()
-                
-                Circle()
-                    .fill(isCollapsed ? Color.white : Color(red: 0.3, green: 0.35, blue: 0.45))
-                    .frame(width: 6, height: 6)
+                    .font(.system(size: 13, weight: .bold))
+                    .foregroundColor(isCollapsed ? Color.white : Color(red: 0.85, green: 0.88, blue: 0.94))
+                    .lineLimit(1)
+                Text(subtitleLabel)
+                    .font(.system(size: 11, weight: .medium))
+                    .foregroundColor(isCollapsed ? Color.white.opacity(0.88) : Color(red: 0.55, green: 0.6, blue: 0.7))
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.8)
             }
-            .padding(.horizontal, 12)
-            .padding(.vertical, 8)
-            .frame(width: 180)
-            .background(
-                RoundedRectangle(cornerRadius: 10)
-                    .fill(isCollapsed ? stageColor(index: index) : Color(red: 0.12, green: 0.14, blue: 0.19))
-            )
-            .overlay(
-                RoundedRectangle(cornerRadius: 10)
-                    .stroke(isCurrentFront ? Color.white : (isCollapsed ? stageColor(index: index).opacity(0.8) : Color.white.opacity(0.06)), lineWidth: isCurrentFront ? 2 : 1)
-            )
+            .frame(maxWidth: .infinity, alignment: .leading)
             
-            // State Tag
-            HStack(spacing: 4) {
-                if isCollapsed {
-                    Text("▼ COLLAPSED")
-                        .font(.system(size: 10, weight: .black))
-                        .foregroundColor(stageColor(index: index))
-                } else {
-                    Text("✓ FUNCTIONAL")
-                        .font(.system(size: 10, weight: .black))
-                        .foregroundColor(Color.green)
-                }
-            }
-            .frame(width: 100, alignment: .leading)
+            // Right Status Pill
+            Text(isCollapsed ? "▼ COLLAPSED" : "✓ INTACT")
+                .font(.system(size: 9, weight: .black))
+                .padding(.horizontal, 7)
+                .padding(.vertical, 4)
+                .background(isCollapsed ? Color.black.opacity(0.28) : Color.green.opacity(0.14))
+                .foregroundColor(isCollapsed ? Color.white : Color.green)
+                .cornerRadius(6)
+                .fixedSize(horizontal: true, vertical: false)
         }
-        .padding(.horizontal, 10)
+        .padding(.horizontal, 12)
+        .padding(.vertical, 9)
+        .background(
+            RoundedRectangle(cornerRadius: 10)
+                .fill(isCollapsed ? stageColor(index: index) : Color(red: 0.12, green: 0.14, blue: 0.19))
+        )
+        .overlay(
+            RoundedRectangle(cornerRadius: 10)
+                .stroke(isCurrentFront ? Color.white : (isCollapsed ? stageColor(index: index).opacity(0.8) : Color.white.opacity(0.06)), lineWidth: isCurrentFront ? 2 : 1)
+        )
     }
     
     // MARK: - Clinical Readout Card

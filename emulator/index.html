@@ -1907,7 +1907,7 @@
         let desktopZoomLevel = 1.0;
         let panX = 0, panY = 0;
         let desktopPanX = 0, desktopPanY = 0;
-        let consultSubMode = 'odontoid'; // default to simplified odontoid consult
+        let consultSubMode = 'brainstem'; // default to Brainstem Reflex Ladder
         let activeCatalogFilter = 'All';
 
         function updateClock() {
@@ -2700,64 +2700,156 @@ ${input.value.trim()}`;
         }
 
         // --- TAB 2: ER CONSULTS & BRAINSTEM REFLEX SLIDER ---
+        let bsStageIndex = 2; // Default to Stage 2 (Midbrain) for clear visual preview
+        let bsOverlayMode = 'anatomical'; // 'anatomical' or 'reflex'
+
+        const BS_LADDER_DATA = [
+            { stage: 0, badge: "Status: Fully Awake", sliderLabel: "0 - Fully Intact", color: "#22d3ee", pupil: "Normal, Reactive (3-4mm)", motor: "Normal / Purposeful", resp: "Normal Eupnea" },
+            { stage: 1, name: "1. Diencephalic", anat: "Thalamus / Hypothalamus", reflex: "Pupillary Dilation / Sympathetic", badge: "Herniation: Stage 1", sliderLabel: "1 - Diencephalic Stage", color: "#f97316", pupil: "Small, Reactive (1.5-2.5mm)", motor: "Decorticate (Flexion)", resp: "Cheyne-Stokes breathing" },
+            { stage: 2, name: "2. Midbrain", anat: "Upper Brainstem (Tectum)", reflex: "Pupillary Light Reflex (CN II/III)", badge: "Herniation: Stage 2", sliderLabel: "2 - Midbrain Stage", color: "#ef4444", pupil: "Mid-position, Fixed (5-6mm)", motor: "Decerebrate (Extension)", resp: "Central Hyperventilation" },
+            { stage: 3, name: "3. Pons", anat: "Middle Brainstem (Basis Pontis)", reflex: "Corneal & Oculocephalic (CN V/VII/VIII)", badge: "Herniation: Stage 3", sliderLabel: "3 - Pons Stage", color: "#dc2626", pupil: "Pinpoint, Fixed (1-2mm)", motor: "Flaccid / Weak Extension", resp: "Apneustic / Cluster" },
+            { stage: 4, name: "4. Upper Medulla", anat: "Upper Medulla (Glossopharyngeal)", reflex: "Gag & Carinal Cough (CN IX/X)", badge: "Herniation: Stage 4", sliderLabel: "4 - Upper Medulla Stage", color: "#b91c1c", pupil: "Dilated, Fixed", motor: "Flaccid, No Response", resp: "Ataxic (Biot's) breathing" },
+            { stage: 5, name: "5. Low Medulla", anat: "Low Medulla (Pre-Bötzinger)", reflex: "Apnea Test / Respiratory Drive", badge: "Status: Brain Death", sliderLabel: "5 - Low Medulla (Apnea)", color: "#991b1b", pupil: "Fully Dilated, Fixed (7-9mm)", motor: "Completely Flaccid", resp: "Apnea (Respiratory arrest)" }
+        ];
+
+        function setConsultSubMode(mode) {
+            consultSubMode = mode;
+            renderConsultsTab(document.getElementById('screen-container'));
+        }
+
+        function setBsOverlayMode(mode) {
+            bsOverlayMode = mode;
+            renderConsultsTab(document.getElementById('screen-container'));
+        }
+
+        function updateBrainstemStage(val) {
+            bsStageIndex = parseInt(val, 10);
+            renderConsultsTab(document.getElementById('screen-container'));
+        }
+
         function renderConsultsTab(container) {
+            const cur = BS_LADDER_DATA[bsStageIndex] || BS_LADDER_DATA[0];
+            const rungs = BS_LADDER_DATA.slice(1);
+
             let html = `
                 <div class="app-header">
                     <div class="header-pill" style="color: #f59e0b;">ER NEUROSURGERY CONSULTS & TRIAGE</div>
-                    <div class="header-title">Brainstem Reflex Ladder</div>
-                    <div class="header-desc">Rostrocaudal collapse progression, pupillary reflexes, motor posturing, and brain death criteria.</div>
+                    <div class="header-title">${consultSubMode === 'brainstem' ? 'Brainstem Reflex Ladder' : 'Odontoid Fracture Triage'}</div>
+                    <div class="header-desc">Rapid bedside neuro-localization and spine consult decision matrices.</div>
                 </div>
 
-                <div class="clinical-card" style="border-color: rgba(245, 158, 11, 0.4);">
-                    <div class="card-header" style="color: #f59e0b;">
-                        <span>⚡</span> 5-STAGE ROSTROCAUDAL COLLAPSE SLIDER
-                    </div>
-                    <div style="font-size: 11px; color: #cbd5e1; line-height: 1.5;">
-                        Evaluate progressive brainstem herniation from diencephalic depression down to medullary collapse:
-                    </div>
-                    <div style="margin: 8px 0;">
-                        <input type="range" id="bs-slider" min="1" max="5" value="1" step="1" oninput="updateBrainstemStage(this.value)" style="width: 100%; accent-color: #f59e0b; cursor: pointer;">
-                        <div style="display: flex; justify-content: space-between; font-size: 9px; color: #94a3b8; font-family: 'JetBrains Mono', monospace; margin-top: 4px;">
-                            <span>INTACT</span>
-                            <span>DIENCEPHALIC</span>
-                            <span>MIDBRAIN</span>
-                            <span>PONS</span>
-                            <span>MEDULLA</span>
+                <!-- Sub-Mode Switcher -->
+                <div style="display: flex; gap: 6px; margin-bottom: 10px;">
+                    <button onclick="setConsultSubMode('brainstem')" style="flex: 1; padding: 7px 6px; border-radius: 8px; border: 1px solid ${consultSubMode === 'brainstem' ? '#38bdf8' : 'rgba(255,255,255,0.1)'}; background: ${consultSubMode === 'brainstem' ? 'rgba(56,189,248,0.18)' : 'rgba(15,23,42,0.8)'}; color: ${consultSubMode === 'brainstem' ? '#38bdf8' : '#94a3b8'}; font-size: 10px; font-weight: 800; cursor: pointer;">
+                        🧠 Brainstem Ladder
+                    </button>
+                    <button onclick="setConsultSubMode('odontoid')" style="flex: 1; padding: 7px 6px; border-radius: 8px; border: 1px solid ${consultSubMode === 'odontoid' ? '#f59e0b' : 'rgba(255,255,255,0.1)'}; background: ${consultSubMode === 'odontoid' ? 'rgba(245,158,11,0.18)' : 'rgba(15,23,42,0.8)'}; color: ${consultSubMode === 'odontoid' ? '#f59e0b' : '#94a3b8'}; font-size: 10px; font-weight: 800; cursor: pointer;">
+                        🦴 Odontoid Matrix
+                    </button>
+                </div>
+
+                ${consultSubMode === 'brainstem' ? `
+                    <!-- Slider Control Card -->
+                    <div class="clinical-card" style="border-color: ${cur.color}55; padding: 10px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                            <span style="font-size: 10px; font-weight: 800; color: #e2e8f0;">Collapse Progression Depth</span>
+                            <span style="font-size: 10px; font-weight: 900; color: ${cur.color}; font-family: 'JetBrains Mono', monospace;">${cur.sliderLabel}</span>
+                        </div>
+                        <input type="range" id="bs-slider" min="0" max="5" value="${bsStageIndex}" step="1" oninput="updateBrainstemStage(this.value)" style="width: 100%; accent-color: ${cur.color}; cursor: pointer;">
+                        <div style="display: flex; justify-content: space-between; font-size: 8px; color: #94a3b8; font-family: 'JetBrains Mono', monospace; margin-top: 3px;">
+                            <span>0 Intact</span>
+                            <span>1 Dien</span>
+                            <span>2 Mid</span>
+                            <span>3 Pons</span>
+                            <span>4 Med</span>
+                            <span>5 Apnea</span>
                         </div>
                     </div>
-                    <div id="bs-stage-card" style="background: rgba(0,0,0,0.5); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 10px; padding: 10px;">
-                        <div id="bs-stage-title" style="font-size: 13px; font-weight: 800; color: #f59e0b;">STAGE 1: CORTICAL / INTACT BRAINSTEM</div>
-                        <div id="bs-stage-desc" style="font-size: 11px; color: #cbd5e1; margin-top: 4px;">Normal pupillary light reflex (CN II/III), brisk corneal reflexes (CN V/VII), intact oculocephalic / vestibulo-ocular reflexes (CN VIII/III/VI).</div>
-                    </div>
-                </div>
 
-                <div class="clinical-card">
-                    <div class="card-header" style="color: #38bdf8;">
-                        <span>📋</span> ATTENDING SBAR BRIEFING CHECKLIST
+                    <!-- Overlay Mode Segmented Toggle -->
+                    <div style="display: flex; background: rgba(255,255,255,0.05); border-radius: 8px; padding: 2px; margin-bottom: 8px;">
+                        <button onclick="setBsOverlayMode('anatomical')" style="flex: 1; padding: 5px; border: none; border-radius: 6px; font-size: 9px; font-weight: 700; cursor: pointer; background: ${bsOverlayMode === 'anatomical' ? '#334155' : 'transparent'}; color: ${bsOverlayMode === 'anatomical' ? '#fff' : '#94a3b8'};">Anatomical Regions</button>
+                        <button onclick="setBsOverlayMode('reflex')" style="flex: 1; padding: 5px; border: none; border-radius: 6px; font-size: 9px; font-weight: 700; cursor: pointer; background: ${bsOverlayMode === 'reflex' ? '#334155' : 'transparent'}; color: ${bsOverlayMode === 'reflex' ? '#fff' : '#94a3b8'};">Key Reflex Triggers</button>
                     </div>
-                    <div style="font-size: 11px; color: #cbd5e1; line-height: 1.5;">
-                        • <strong>Situation:</strong> Age, Mechanism, GCS score, Pupil exam (size/reactivity).<br>
-                        • <strong>Background:</strong> Anticoagulation status, baseline functional independence.<br>
-                        • <strong>Assessment:</strong> CT findings: Hematoma volume, midline shift (mm), basal cistern effacement.<br>
-                        • <strong>Recommendation:</strong> OR decompressive craniectomy vs ICP monitor vs medical tier osmotherapy.
+
+                    <!-- 5-Stage Visual Brainstem Elevator (100% Fluid Mobile Fit) -->
+                    <div class="clinical-card" style="padding: 10px; gap: 6px;">
+                        <div style="display: flex; justify-content: space-between; font-size: 8px; font-weight: 800; color: #64748b; letter-spacing: 0.5px;">
+                            <span>ROSTRAL (CORTEX / THALAMUS)</span>
+                            <span>${bsOverlayMode === 'anatomical' ? 'ANATOMICAL LEVEL' : 'REFLEX CORRELATE'}</span>
+                        </div>
+                        ${rungs.map(r => {
+                            const collapsed = bsStageIndex >= r.stage;
+                            const isFront = bsStageIndex === r.stage;
+                            const sub = bsOverlayMode === 'anatomical' ? r.anat : r.reflex;
+                            return `
+                                <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 7px 10px; border-radius: 8px; background: ${collapsed ? r.color : 'rgba(30,41,59,0.75)'}; border: ${isFront ? '2px solid #fff' : '1px solid rgba(255,255,255,0.08)'};">
+                                    <div style="display: flex; align-items: center; gap: 8px; min-width: 0; flex: 1;">
+                                        <span style="width: 7px; height: 7px; border-radius: 50%; background: ${collapsed ? '#fff' : '#475569'}; flex-shrink: 0;"></span>
+                                        <div style="min-width: 0; flex: 1;">
+                                            <div style="font-size: 11px; font-weight: 800; color: #fff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${r.name}</div>
+                                            <div style="font-size: 9px; color: ${collapsed ? 'rgba(255,255,255,0.9)' : '#94a3b8'}; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${sub}</div>
+                                        </div>
+                                    </div>
+                                    <span style="font-size: 8px; font-weight: 900; padding: 3px 6px; border-radius: 5px; background: ${collapsed ? 'rgba(0,0,0,0.3)' : 'rgba(34,197,94,0.15)'}; color: ${collapsed ? '#fff' : '#4ade80'}; flex-shrink: 0;">
+                                        ${collapsed ? '▼ COLLAPSED' : '✓ INTACT'}
+                                    </span>
+                                </div>
+                            `;
+                        }).join('')}
+                        <div style="font-size: 8px; font-weight: 800; color: #64748b; letter-spacing: 0.5px;">
+                            CAUDAL (FORAMEN MAGNUM / C1)
+                        </div>
                     </div>
-                </div>
+
+                    <!-- Dynamic Clinical Triad Readout -->
+                    <div style="display: flex; flex-direction: column; gap: 6px;">
+                        <div class="clinical-card" style="padding: 8px 10px; gap: 2px;">
+                            <div style="font-size: 8px; font-weight: 800; color: #94a3b8;">👁️ PUPILLARY RESPONSE (CN II / III / SYMPATHETIC)</div>
+                            <div style="font-size: 11px; font-weight: 800; color: #fff;">${cur.pupil}</div>
+                        </div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px;">
+                            <div class="clinical-card" style="padding: 8px 10px; gap: 2px;">
+                                <div style="font-size: 8px; font-weight: 800; color: #94a3b8;">🏃 MOTOR POSTURING</div>
+                                <div style="font-size: 10px; font-weight: 800; color: #fff;">${cur.motor}</div>
+                            </div>
+                            <div class="clinical-card" style="padding: 8px 10px; gap: 2px;">
+                                <div style="font-size: 8px; font-weight: 800; color: #94a3b8;">🫁 RESPIRATION</div>
+                                <div style="font-size: 10px; font-weight: 800; color: #fff;">${cur.resp}</div>
+                            </div>
+                        </div>
+                    </div>
+                ` : `
+                    <!-- Simplified Odontoid Quick-Triage Matrix -->
+                    <div class="clinical-card" style="gap: 8px;">
+                        <div class="card-header" style="color: #f59e0b;">
+                            <span>🦴</span> ANDERSON & D'ALONZO QUICK-TRIAGE
+                        </div>
+                        <div style="padding: 8px 10px; border-radius: 8px; background: rgba(34,197,94,0.1); border: 1px solid rgba(34,197,94,0.35);">
+                            <div style="display: flex; justify-content: space-between; font-size: 11px; font-weight: 800; color: #4ade80;">
+                                <span>TYPE I — Apical Tip Avulsion</span>
+                                <span>&gt;95% Union</span>
+                            </div>
+                            <div style="font-size: 10px; color: #cbd5e1; margin-top: 3px;">Rigid cervical collar (Miami J) × 6–8 wks. Rule out occipital-cervical dissociation.</div>
+                        </div>
+                        <div style="padding: 8px 10px; border-radius: 8px; background: rgba(239,68,68,0.12); border: 1px solid rgba(239,68,68,0.4);">
+                            <div style="display: flex; justify-content: space-between; font-size: 11px; font-weight: 800; color: #f87171;">
+                                <span>TYPE II — Base / Waist (Watershed)</span>
+                                <span>30–85% Nonunion</span>
+                            </div>
+                            <div style="font-size: 10px; color: #cbd5e1; margin-top: 3px;"><strong>Surgical Fixation</strong> if displacement &gt;5 mm, angulation &gt;10°, or age ≥65 yrs. Posterior C1–C2 Goel-Harms vs Anterior Odontoid Screw.</div>
+                        </div>
+                        <div style="padding: 8px 10px; border-radius: 8px; background: rgba(56,189,248,0.1); border: 1px solid rgba(56,189,248,0.35);">
+                            <div style="display: flex; justify-content: space-between; font-size: 11px; font-weight: 800; color: #38bdf8;">
+                                <span>TYPE III — C2 Cancellous Body</span>
+                                <span>85–90% Union</span>
+                            </div>
+                            <div style="font-size: 10px; color: #cbd5e1; margin-top: 3px;">Vascular cancellous bone bed. Rigid cervical collar or Halo vest × 8–12 wks.</div>
+                        </div>
+                    </div>
+                `}
             `;
             container.innerHTML = html;
-        }
-
-        const BS_STAGES = [
-            { title: "STAGE 1: CORTICAL / INTACT BRAINSTEM", desc: "Brisk pupillary light reflex (CN II/III), intact corneal reflex (CN V/VII), intact doll's eyes (oculocephalic). Purposive motor response." },
-            { title: "STAGE 2: EARLY DIENCEPHALIC DEPRESSION", desc: "Small, sluggishly reactive pupils (3 mm). Sighs / yawning respirations. Decorticate motor flexion (rubrospinal activation) to noxious stimuli." },
-            { title: "STAGE 3: MIDBRAIN HERNIATION (UNRESTRICTED CN III)", desc: "Unilateral or bilateral mid-position, fixed unreactive pupils (5-6 mm). Cheyne-Stokes respirations. Decerebrate extensor posturing (vestibulospinal uninhibited)." },
-            { title: "STAGE 4: PONTINE EXTENSION", desc: "Pinpoint fixed pupils (1-2 mm, sympathetic disruption). Central neurogenic hyperventilation. Complete loss of horizontal vestibulo-ocular reflexes." },
-            { title: "STAGE 5: MEDULLARY COLLAPSE / BRAIN DEATH", desc: "Bilateral widely dilated fixed pupils (8-9 mm). Ataxic / agonal respirations progressing to apnea. Flaccid quadriparesis with absent cranial nerve reflexes." }
-        ];
-
-        function updateBrainstemStage(val) {
-            const stage = BS_STAGES[parseInt(val) - 1];
-            document.getElementById('bs-stage-title').innerText = stage.title;
-            document.getElementById('bs-stage-desc').innerText = stage.desc;
         }
 
         // --- TAB 4: CALCULATORS TAB ---
@@ -2790,18 +2882,6 @@ ${input.value.trim()}`;
                 </div>
             `;
             container.innerHTML = html;
-        }
-
-        function adjustZoom(delta) {
-            zoomLevel = Math.max(0.8, Math.min(3.0, zoomLevel + delta));
-            const img = document.getElementById('active-viewport-img');
-            if (img) img.style.transform = `scale(${zoomLevel})`;
-        }
-
-        function resetZoom() {
-            zoomLevel = 1.0;
-            const img = document.getElementById('active-viewport-img');
-            if (img) img.style.transform = 'scale(1)';
         }
 
         function jumpToBedside(id) {
