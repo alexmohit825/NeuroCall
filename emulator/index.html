@@ -1500,7 +1500,7 @@
       {
         "title": "Vertebral Artery V3 Segment",
         "type": "VASCULAR CORRIDOR",
-        "desc": "Vertebral artery slung with vessel loop over C1 groove.",
+        "desc": "Vertebral artery V3 segment elevated and mobilized medially using Penfield #4 probe over C1 groove.",
         "pearl": "Drill posterior 1/3 of occipital condyle for flat skull base trajectory without brainstem retraction.",
         "x": 52,
         "y": 54
@@ -1525,7 +1525,7 @@
       {
         "num": 3,
         "title": "Vertebral Artery Mobilization",
-        "detail": "Sharply release fibrous collar, sling V3 loop, and mobilize artery inferiorly."
+        "detail": "Sharply release fibrous collar and gently mobilize V3 loop medially with Penfield #4 dissector."
       },
       {
         "num": 4,
@@ -1533,7 +1533,7 @@
         "detail": "Drill posterior 1/3 of occipital condyle. Open dura along skull base floor."
       }
     ],
-    "curatedStatus": "Metallic Micro-Probe Retracting V3 Medially"
+    "curatedStatus": "Penfield #4 Dissector Elevating V3 Medially"
   },
   {
     "id": "chiari_decompression",
@@ -1623,7 +1623,7 @@
         "detail": "Reduce atlantoaxial subluxation under fluoroscopy. Decorticate bone and pack autologous cancellous bone graft."
       }
     ],
-    "curatedStatus": "Bilateral Vertebral Artery in Foramen Transversarium"
+    "curatedStatus": "Pure Ligamentous & Bony Anatomy (Artery Removed)"
   },
   {
     "id": "harms_c1_c2",
@@ -2058,7 +2058,7 @@
                 let stepsHtml = (currentAtlasPlate.steps || []).map(s => `
                     <div style="display: flex; gap: 10px; margin-bottom: 8px; font-size: 12px; line-height: 1.4;">
                         <span style="color: #38bdf8; font-weight: 800;">${s.num}.</span>
-                        <div><strong style="color: #f1f5f9;">${s.title}:</strong> <span style="color: #94a3b8;">${s.desc}</span></div>
+                        <div><strong style="color: #f1f5f9;">${s.title}:</strong> <span style="color: #94a3b8;">${s.detail || s.desc || ''}</span></div>
                     </div>
                 `).join('');
 

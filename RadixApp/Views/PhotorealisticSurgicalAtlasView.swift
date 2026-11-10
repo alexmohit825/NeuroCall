@@ -893,7 +893,7 @@ public enum SurgicalPlateType: String, CaseIterable {
                     color: ObsidianTheme.neonRose,
                     normalizedX: 0.52,
                     normalizedY: 0.54,
-                    description: "Vertebral artery slung with vessel loop over C1 groove.",
+                    description: "Vertebral artery V3 segment elevated and mobilized medially using Penfield #4 probe over C1 groove.",
                     surgicalPearl: "Drill posterior 1/3 of occipital condyle for flat skull base trajectory without brainstem retraction."
                 )
             ]
@@ -1251,7 +1251,7 @@ public enum SurgicalPlateType: String, CaseIterable {
                 ApproachSequentialStep(
                     stepNumber: 3,
                     title: "Vertebral Artery Mobilization",
-                    detail: "Sharply release fibrous collar, sling V3 loop, and mobilize artery inferiorly."
+                    detail: "Sharply release fibrous collar and gently mobilize V3 loop medially with Penfield #4 dissector."
                 ),
                 ApproachSequentialStep(
                     stepNumber: 4,
