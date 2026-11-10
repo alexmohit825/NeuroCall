@@ -20,6 +20,7 @@ public enum ObsidianTheme {
     public static let neonRose = Color(red: 0.95, green: 0.25, blue: 0.35)
     public static let neonAmber = Color(red: 1.00, green: 0.62, blue: 0.04)
     public static let neonGreen = Color(red: 0.20, green: 0.84, blue: 0.29)
+    public static let neonEmerald = Color(red: 0.06, green: 0.78, blue: 0.48)
     public static let neonCyan = Color(red: 0.00, green: 0.88, blue: 1.00)
     public static let neonPurple = Color(red: 0.70, green: 0.35, blue: 0.95)
     public static let neonBlue = Color(red: 0.18, green: 0.52, blue: 1.00)
