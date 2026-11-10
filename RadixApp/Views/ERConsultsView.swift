@@ -22,26 +22,30 @@ public struct ERConsultsView: View {
                 // Header Banner
                 headerBanner
                 
-                // Cranial vs Spine Category Selector
+                // Category Selector (Cranial / Spine / Brainstem)
                 categorySelectorBar
                 
-                // Consult Case Pills Carousel
-                consultPillsCarousel
-                
-                // Radiographic Viewport Canvas
-                consultRadiographCanvas
-                
-                // Clinical Triage & Acuity Badge
-                acuitySummaryCard
-                
-                // Stepwise Management Protocol (4 Phases)
-                stepwiseProtocolCard
-                
-                // Catastrophic Pitfalls & Hazard Avoidance
-                catastrophicPitfallsCard
-                
-                // SBAR Attending Call Briefing Trigger
-                sbarCallBriefingButton
+                if selectedCategory == .brainstem {
+                    RostrocaudalBrainstemLadderView()
+                } else {
+                    // Consult Case Pills Carousel
+                    consultPillsCarousel
+                    
+                    // Radiographic Viewport Canvas
+                    consultRadiographCanvas
+                    
+                    // Clinical Triage & Acuity Badge
+                    acuitySummaryCard
+                    
+                    // Stepwise Management Protocol (4 Phases)
+                    stepwiseProtocolCard
+                    
+                    // Catastrophic Pitfalls & Hazard Avoidance
+                    catastrophicPitfallsCard
+                    
+                    // SBAR Attending Call Briefing Trigger
+                    sbarCallBriefingButton
+                }
                 
                 Spacer(minLength: 40)
             }
@@ -464,11 +468,13 @@ struct ERConsultSbarSheet: View {
 public enum ConsultCategory: String, CaseIterable {
     case cranial = "cranial"
     case spine = "spine"
+    case brainstem = "brainstem"
     
     public var title: String {
         switch self {
         case .cranial: return "CRANIAL ER CONSULTS"
         case .spine: return "SPINE ER CONSULTS"
+        case .brainstem: return "BRAINSTEM LADDER"
         }
     }
     
@@ -476,6 +482,7 @@ public enum ConsultCategory: String, CaseIterable {
         switch self {
         case .cranial: return "brain.head.profile"
         case .spine: return "figure.walk"
+        case .brainstem: return "waveform.path.ecg"
         }
     }
     
@@ -483,6 +490,7 @@ public enum ConsultCategory: String, CaseIterable {
         switch self {
         case .cranial: return ObsidianTheme.neonCyan
         case .spine: return ObsidianTheme.neonAmber
+        case .brainstem: return Color.orange
         }
     }
 }

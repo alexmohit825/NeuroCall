@@ -29,3 +29,8 @@ dist-ssr
 !.dev.vars.example
 .env*
 !.env.example
+
+emulator/master_gallery/
+emulator/downloads_review/
+emulator/gallery/
+emulator/*.png

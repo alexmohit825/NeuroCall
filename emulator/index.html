@@ -1,0 +1,2611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuroCall — Live Build 101</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=SF+Pro+Display:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+        body {
+            background: #05070c;
+            color: #f1f5f9;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            overflow-x: hidden;
+        }
+        
+        .workspace {
+            display: flex;
+            gap: 32px;
+            align-items: flex-start;
+            max-width: 1600px;
+            width: 100%;
+            justify-content: center;
+        }
+
+        /* iPhone 16 Pro Frame Mockup */
+        .phone-wrapper {
+            position: relative;
+            width: 393px;
+            height: 852px;
+            background: #000;
+            border-radius: 54px;
+            box-shadow: 
+                0 0 0 4px #262a35,
+                0 0 0 8px #0f131a,
+                0 25px 50px -12px rgba(0, 0, 0, 0.8),
+                0 0 80px rgba(56, 189, 248, 0.15);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            border: 4px solid #1e2430;
+            flex-shrink: 0;
+        }
+
+        /* Dynamic Island */
+        .dynamic-island {
+            position: absolute;
+            top: 11px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 124px;
+            height: 35px;
+            background: #000;
+            border-radius: 20px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 12px;
+            box-shadow: 0 0 2px rgba(255, 255, 255, 0.1);
+        }
+        .camera-lens {
+            width: 11px;
+            height: 11px;
+            background: #090e17;
+            border-radius: 50%;
+            border: 1.5px solid #151e2e;
+            position: relative;
+        }
+        .camera-lens::after {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 4px;
+            height: 4px;
+            background: rgba(56, 189, 248, 0.4);
+            border-radius: 50%;
+        }
+        .sensor {
+            width: 8px;
+            height: 8px;
+            background: #090d14;
+            border-radius: 50%;
+        }
+
+        /* Status Bar */
+        .status-bar {
+            height: 52px;
+            padding: 14px 28px 0 28px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 14px;
+            font-weight: 600;
+            z-index: 900;
+            color: #fff;
+            background: rgba(6, 9, 14, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        }
+        .status-icons {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+            font-size: 12px;
+        }
+
+        /* Phone Screen Content */
+        .screen-content {
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 12px 16px 84px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            background: #06090e;
+        }
+        .screen-content::-webkit-scrollbar {
+            width: 4px;
+        }
+        .screen-content::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 4px;
+        }
+
+        /* Bottom Tab Bar */
+        .tab-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 76px;
+            background: rgba(11, 15, 25, 0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            justify-content: space-around;
+            padding-top: 8px;
+            z-index: 1000;
+        }
+        .tab-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+            color: #64748b;
+            font-size: 10px;
+            font-weight: 600;
+            transition: color 0.15s ease, transform 0.1s ease;
+            user-select: none;
+            width: 68px;
+        }
+        .tab-item:active {
+            transform: scale(0.94);
+        }
+        .tab-item.active {
+            color: #38bdf8;
+        }
+        .tab-item.active-amber {
+            color: #f59e0b;
+        }
+        .tab-item svg {
+            width: 20px;
+            height: 20px;
+        }
+        .home-indicator {
+            position: absolute;
+            bottom: 6px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 134px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.6);
+            border-radius: 3px;
+            z-index: 1010;
+        }
+
+        /* Header UI */
+        .app-header {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .header-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 9px;
+            font-weight: 900;
+            letter-spacing: 1.5px;
+            color: #38bdf8;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .header-pill::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #38bdf8;
+            box-shadow: 0 0 8px #38bdf8;
+        }
+        .header-pill.amber {
+            color: #f59e0b;
+        }
+        .header-pill.amber::before {
+            background: #f59e0b;
+            box-shadow: 0 0 8px #f59e0b;
+        }
+        .header-title {
+            font-size: 19px;
+            font-weight: 800;
+            color: #f8fafc;
+            line-height: 1.2;
+        }
+        .header-desc {
+            font-size: 11px;
+            color: #94a3b8;
+            line-height: 1.4;
+        }
+
+        /* Top Navigator Bar inside phone */
+        .top-nav-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            padding: 6px 10px;
+        }
+        .nav-btn {
+            background: rgba(245, 158, 11, 0.15);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            color: #f59e0b;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+        .nav-btn:hover {
+            background: rgba(245, 158, 11, 0.3);
+            color: #fff;
+        }
+        .nav-counter {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            font-weight: 800;
+            color: #f8fafc;
+        }
+
+        /* Horizontal Selector Bar */
+        .pill-scroll {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 4px;
+            margin: 0 -16px;
+            padding: 0 16px 4px 16px;
+            scrollbar-width: none;
+        }
+        .pill-scroll::-webkit-scrollbar {
+            display: none;
+        }
+        .pill-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #94a3b8;
+            padding: 6px 12px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 700;
+            white-space: nowrap;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.15s ease;
+        }
+        .pill-btn:hover {
+            border-color: rgba(255, 255, 255, 0.25);
+            color: #fff;
+        }
+        .pill-btn.active {
+            background: rgba(56, 189, 248, 0.15);
+            border-color: #38bdf8;
+            color: #38bdf8;
+        }
+        .pill-btn.amber.active {
+            background: rgba(245, 158, 11, 0.15);
+            border-color: #f59e0b;
+            color: #f59e0b;
+        }
+
+        /* Viewport Card */
+        .viewport-card {
+            background: #000;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        }
+        .canvas-area {
+            height: 270px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: radial-gradient(circle at center, #111827 0%, #000000 100%);
+            overflow: hidden;
+        }
+        .canvas-area img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            user-select: none;
+            pointer-events: none;
+        }
+        .deck-nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 32px;
+            height: 32px;
+            background: rgba(0, 0, 0, 0.65);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 25;
+            font-size: 13px;
+            transition: all 0.15s ease;
+            backdrop-filter: blur(6px);
+        }
+        .deck-nav-btn:hover {
+            background: #f59e0b;
+            color: #000;
+            border-color: #f59e0b;
+        }
+        .deck-nav-btn.prev-btn { left: 8px; }
+        .deck-nav-btn.next-btn { right: 8px; }
+
+        .callout-pin {
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #ef4444;
+            border: 2px solid #fff;
+            box-shadow: 0 0 12px #ef4444;
+            transform: translate(-50%, -50%);
+            cursor: pointer;
+            animation: pulse-pin 2s infinite;
+        }
+        @keyframes pulse-pin {
+            0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+            70% { box-shadow: 0 0 0 8px rgba(239, 68, 68, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+        }
+        .zoom-controls {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            display: flex;
+            gap: 4px;
+            z-index: 10;
+        }
+        .zoom-btn {
+            width: 26px;
+            height: 26px;
+            background: rgba(0, 0, 0, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            backdrop-filter: blur(8px);
+        }
+        .zoom-btn:hover {
+            background: #38bdf8;
+            color: #000;
+        }
+        .plate-caption {
+            background: rgba(11, 15, 25, 0.95);
+            padding: 8px 12px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            font-size: 10px;
+            font-weight: 700;
+            color: #38bdf8;
+            font-family: 'JetBrains Mono', monospace;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Clinical Cards */
+        .clinical-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            padding: 12px 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .card-header {
+            font-size: 11px;
+            font-weight: 800;
+            color: #38bdf8;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .step-row {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+        }
+        .step-num {
+            width: 18px;
+            height: 18px;
+            background: #38bdf8;
+            color: #000;
+            border-radius: 50%;
+            font-size: 10px;
+            font-weight: 900;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .step-text {
+            font-size: 11px;
+            color: #cbd5e1;
+            line-height: 1.45;
+        }
+        .step-text strong {
+            color: #fff;
+        }
+        
+        .hazard-box {
+            background: rgba(239, 68, 68, 0.08);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            border-radius: 12px;
+            padding: 12px;
+            font-size: 11px;
+            color: #fca5a5;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .hazard-box strong {
+            color: #ef4444;
+            font-weight: 800;
+        }
+
+        /* Right Desktop Review Console */
+        .review-panel {
+            flex: 1;
+            background: #0b0f19;
+            border: 1px solid #1e293b;
+            border-radius: 24px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            max-width: 760px;
+            min-width: 520px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+        }
+        .brand-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #1e293b;
+            padding-bottom: 14px;
+        }
+        .brand-title {
+            font-size: 22px;
+            font-weight: 900;
+            color: #38bdf8;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .build-badge {
+            background: rgba(56, 189, 248, 0.15);
+            color: #38bdf8;
+            border: 1px solid rgba(56, 189, 248, 0.3);
+            font-size: 10px;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-weight: 800;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .status-badge-green {
+            background: rgba(34, 197, 94, 0.15);
+            color: #4ade80;
+            border: 1px solid rgba(34, 197, 94, 0.3);
+            font-size: 10px;
+            padding: 3px 10px;
+            border-radius: 999px;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Mode Switcher Tabs */
+        .mode-toggle {
+            display: flex;
+            background: #070a12;
+            border: 1px solid #1e293b;
+            border-radius: 12px;
+            padding: 4px;
+            gap: 4px;
+        }
+        .mode-btn {
+            flex: 1;
+            padding: 8px 12px;
+            border-radius: 8px;
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            font-size: 12px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            text-align: center;
+        }
+        .mode-btn.active {
+            background: #f59e0b;
+            color: #000;
+            box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+        }
+        .mode-btn.active-blue {
+            background: #38bdf8;
+            color: #000;
+            box-shadow: 0 2px 8px rgba(56, 189, 248, 0.3);
+        }
+
+        /* Large Master Reviewer Deck */
+        .review-hero {
+            background: #06090e;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-radius: 18px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+        }
+        .review-hero-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        .review-plate-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: #f8fafc;
+        }
+        .review-plate-sub {
+            font-size: 11px;
+            color: #f59e0b;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            margin-top: 2px;
+        }
+        .review-file-badge {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #94a3b8;
+            font-size: 10px;
+            font-family: 'JetBrains Mono', monospace;
+            padding: 4px 8px;
+            border-radius: 6px;
+        }
+        .review-canvas {
+            height: 380px;
+            background: #000;
+            border: 1px solid #1e293b;
+            border-radius: 14px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .review-canvas img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            transition: transform 0.2s ease;
+        }
+        .review-hero-nav {
+            display: flex;
+            gap: 10px;
+            justify-content: space-between;
+        }
+        .hero-nav-btn {
+            flex: 1;
+            padding: 10px 16px;
+            border-radius: 10px;
+            background: rgba(245, 158, 11, 0.15);
+            border: 1px solid rgba(245, 158, 11, 0.35);
+            color: #f59e0b;
+            font-size: 13px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .hero-nav-btn:hover {
+            background: #f59e0b;
+            color: #000;
+        }
+
+        /* 28-Plate Visual Thumbnail Strip */
+        .thumb-catalog {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .thumb-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .thumb-title {
+            font-size: 12px;
+            font-weight: 800;
+            color: #cbd5e1;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .thumb-filters {
+            display: flex;
+            gap: 6px;
+        }
+        .thumb-filter-btn {
+            background: #0e1526;
+            border: 1px solid #1e293b;
+            color: #94a3b8;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .thumb-filter-btn.active {
+            background: #f59e0b;
+            color: #000;
+            border-color: #f59e0b;
+        }
+        .thumb-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            max-height: 220px;
+            overflow-y: auto;
+            padding-right: 4px;
+        }
+        .thumb-grid::-webkit-scrollbar {
+            width: 4px;
+        }
+        .thumb-grid::-webkit-scrollbar-thumb {
+            background: #1e293b;
+            border-radius: 4px;
+        }
+        .thumb-card {
+            background: #070a12;
+            border: 1px solid #1e293b;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.15s ease;
+        }
+        .thumb-card:hover {
+            border-color: #f59e0b;
+            transform: translateY(-2px);
+        }
+        .thumb-card.active {
+            border: 2px solid #f59e0b;
+            box-shadow: 0 0 12px rgba(245, 158, 11, 0.4);
+        }
+        .thumb-img-wrap {
+            height: 65px;
+            background: #000;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .thumb-img-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .thumb-label {
+            padding: 4px 6px;
+            font-size: 9px;
+            font-weight: 700;
+            color: #cbd5e1;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        /* Note Scratchpad */
+        .notes-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid #1e293b;
+            border-radius: 14px;
+            padding: 12px 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .notes-header {
+            font-size: 11px;
+            font-weight: 800;
+            color: #f59e0b;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .notes-input {
+            width: 100%;
+            background: #06090e;
+            border: 1px solid #1e293b;
+            color: #f8fafc;
+            border-radius: 8px;
+            padding: 8px 10px;
+            font-size: 12px;
+            font-family: inherit;
+            resize: vertical;
+            min-height: 48px;
+        }
+        .notes-input:focus {
+            outline: none;
+            border-color: #f59e0b;
+        }
+        .notes-copy-btn {
+            align-self: flex-end;
+            background: rgba(245, 158, 11, 0.15);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            color: #f59e0b;
+            font-size: 10px;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .notes-copy-btn:hover {
+            background: #f59e0b;
+            color: #000;
+        }
+
+        /* Jumps Mode Section */
+        .jump-section {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .jump-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .jump-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 8px;
+        }
+        .jump-btn {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            color: #f1f5f9;
+            padding: 10px 12px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.15s ease;
+        }
+        .jump-btn:hover {
+            background: rgba(56, 189, 248, 0.1);
+            border-color: #38bdf8;
+            color: #38bdf8;
+            transform: translateY(-1px);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="workspace">
+        <!-- iPhone 16 Pro Mockup -->
+        <div class="phone-wrapper">
+            <!-- Dynamic Island -->
+            <div class="dynamic-island">
+                <div class="camera-lens"></div>
+                <div class="sensor"></div>
+            </div>
+
+            <!-- iOS Status Bar -->
+            <div class="status-bar">
+                <span id="live-clock">17:53</span>
+                <div class="status-icons">
+                    <span>5G</span>
+                    <span>•••</span>
+                    <span>100%</span>
+                </div>
+            </div>
+
+            <!-- Dynamic App Viewport Content -->
+            <div class="screen-content" id="screen-container">
+                <!-- Injected via JavaScript -->
+            </div>
+
+            <!-- Bottom 5-Tab Bar -->
+            <div class="tab-bar">
+                <div class="tab-item active" onclick="switchTab('crisis')" id="tab-crisis">
+                    <svg fill="currentColor" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-1 11h-4v4h-4v-4H6v-4h4V6h4v4h4v4z"/></svg>
+                    <span>2 AM Crisis</span>
+                </div>
+                <div class="tab-item" onclick="switchTab('consults')" id="tab-consults">
+                    <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 16h-2v-2h2v2zm0-4h-2V7h2v7z"/></svg>
+                    <span>Consults</span>
+                </div>
+                <div class="tab-item" onclick="switchTab('bedside')" id="tab-bedside">
+                    <svg fill="currentColor" viewBox="0 0 24 24"><path d="M19 2H5c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-7 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm6 13H6v-1.4c0-2 4-3.1 6-3.1s6 1.1 6 3.1V18z"/></svg>
+                    <span>Bedside</span>
+                </div>
+                <div class="tab-item" onclick="switchTab('calculators')" id="tab-calculators">
+                    <svg fill="currentColor" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-6 2h5v3h-5V5zm-6 0h4v3H7V5zm0 5h4v3H7v-3zm6 0h5v3h-5v-3zm-6 5h4v3H7v-3zm6 0h5v3h-5v-3z"/></svg>
+                    <span>Calculators</span>
+                </div>
+                <div class="tab-item active-amber" onclick="switchTab('atlas')" id="tab-atlas">
+                    <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+                    <span>Atlas (19)</span>
+                </div>
+            </div>
+
+            <!-- Home Bar Indicator -->
+            <div class="home-indicator"></div>
+        </div>
+
+        <!-- Right Side Desktop Control Console -->
+        <div class="review-panel">
+            <div class="brand-header">
+                <div class="brand-title">
+                    NeuroCall
+                    <span class="build-badge">BUILD 101</span>
+                </div>
+                <div class="status-badge-green">● LIVE VERIFIED</div>
+            </div>
+
+            <!-- View Mode Switcher -->
+            <div class="mode-toggle">
+                <button class="mode-btn active" id="mode-btn-atlas" onclick="switchConsoleMode('atlas')">
+                    📖 Curated Atlas Review Studio (19 Plates)
+                </button>
+                <button class="mode-btn" id="mode-btn-jumps" onclick="switchConsoleMode('jumps')">
+                    ⚡ Quick Navigation & Bedside Jumps
+                </button>
+            </div>
+
+            <!-- Mode 1: Atlas Review Studio -->
+            <div id="console-atlas-view" style="display: flex; flex-direction: column; gap: 16px;">
+                <!-- Active Hero Plate Card -->
+                <div class="review-hero">
+                    <div class="review-hero-meta">
+                        <div>
+                            <div class="review-plate-title" id="desktop-plate-title">Anterior Circulation Aneurysm Clipping</div>
+                            <div class="review-plate-sub" id="desktop-plate-sub">PLATE 1 OF 19 • SKULL BASE & VASCULAR</div>
+                        </div>
+                        <div style="display: flex; gap: 8px; align-items: center;">
+                            <span id="desktop-curated-badge" style="background: rgba(16, 185, 129, 0.15); border: 1px solid #10b981; color: #34d399; font-size: 11px; font-weight: 700; padding: 4px 10px; border-radius: 6px; letter-spacing: 0.3px;">Curated Master</span>
+                            <div class="review-file-badge" id="desktop-file-badge">assets/plate_aneurysm.jpg</div>
+                        </div>
+                    </div>
+
+                    <!-- Canvas -->
+                    <div class="review-canvas">
+                        <img id="desktop-hero-img" src="assets/plate_aneurysm.jpg" alt="Active Plate">
+                        <div class="zoom-controls">
+                            <div class="zoom-btn" onclick="adjustDesktopZoom(0.3)">+</div>
+                            <div class="zoom-btn" onclick="adjustDesktopZoom(-0.3)">-</div>
+                            <div class="zoom-btn" onclick="resetDesktopZoom()">⟲</div>
+                        </div>
+                    </div>
+
+                    <!-- Hero Navigation Buttons -->
+                    <div class="review-hero-nav">
+                        <button class="hero-nav-btn" onclick="prevPlate()">
+                            ◀ Previous Plate (←)
+                        </button>
+                        <button class="hero-nav-btn" onclick="nextPlate()">
+                            Next Plate (→) ▶
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 28-Plate Visual Thumbnail Strip -->
+                <div class="thumb-catalog">
+                    <div class="thumb-header">
+                        <div class="thumb-title">19 Curated Master Plates</div>
+                        <div class="thumb-filters">
+                            <button class="thumb-filter-btn active" onclick="filterCatalog('All', this)">All (19)</button>
+                            <button class="thumb-filter-btn" onclick="filterCatalog('Craniotomies & Trauma', this)">Craniotomies (6)</button>
+                            <button class="thumb-filter-btn" onclick="filterCatalog('Skull Base & Vascular', this)">Skull Base (5)</button>
+                            <button class="thumb-filter-btn" onclick="filterCatalog('Spine & CVJ', this)">Spine & CVJ (8)</button>
+                        </div>
+                    </div>
+                    <div class="thumb-grid" id="desktop-thumb-grid">
+                        <!-- Populated via JS -->
+                    </div>
+                </div>
+
+                <!-- Plate Feedback Scratchpad -->
+                <!-- Detailed Callouts & Operative Steps Panel -->
+                <div style="background: rgba(15, 23, 42, 0.85); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 16px; margin-top: 4px;">
+                    <div id="desktop-plate-details"></div>
+                </div>
+
+                <div class="notes-card">
+                    <div class="notes-header">
+                        <span>📝 DR. MOHIT'S RECOMMENDATIONS FOR THIS PLATE</span>
+                        <span id="notes-plate-id" style="font-family: 'JetBrains Mono'; font-size: 10px; color: #94a3b8;">plate_pterional_3d</span>
+                    </div>
+                    <textarea class="notes-input" id="plate-feedback-input" placeholder="Type recommendation or change requests for this plate (e.g. adjust bone boundaries, dural colors, or operative pearls)..."></textarea>
+                    <button class="notes-copy-btn" onclick="copyPlateNote()">📋 Copy Recommendation</button>
+                </div>
+            </div>
+
+            <!-- Mode 2: Quick Navigation & Bedside Jumps -->
+            <div id="console-jumps-view" style="display: none; flex-direction: column; gap: 18px;">
+                <div style="font-size: 13px; color: #94a3b8; line-height: 1.5;">
+                    Jump directly to any tab, bedside hardware guide, or emergency triage protocol in the live emulator:
+                </div>
+
+                <div class="jump-section">
+                    <div class="jump-label">Bedside Hardware Suites (Tab 3)</div>
+                    <div class="jump-grid">
+                        <button class="jump-btn" onclick="jumpToBedside('evd')">⚡ Kocher's EVD</button>
+                        <button class="jump-btn" onclick="jumpToBedside('camino_bolt')">⚡ Camino Bolt & Waves</button>
+                        <button class="jump-btn" onclick="jumpToBedside('lumbar_puncture')">⚡ Lumbar Puncture (LP)</button>
+                        <button class="jump-btn" onclick="jumpToBedside('lumbar_drain')">⚡ Lumbar Drain</button>
+                        <button class="jump-btn" onclick="jumpToBedside('art_line')">⚡ Radial Arterial Line</button>
+                        <button class="jump-btn" onclick="jumpToBedside('cvc_line')">⚡ Ultrasound IJV CVC</button>
+                    </div>
+                </div>
+
+                <div class="jump-section">
+                    <div class="jump-label">Emergency Triage (Tab 1 & Tab 2)</div>
+                    <div class="jump-grid">
+                        <button class="jump-btn" onclick="jumpToCrisisUncal()">🚨 Uncal & Herniation Pupils</button>
+                        <button class="jump-btn" onclick="jumpToCrisis('EDH')">🚨 Epidural Hematoma (EDH)</button>
+                        <button class="jump-btn" onclick="jumpToCrisis('SDH')">🚨 Subdural Hematoma (SDH)</button>
+                        <button class="jump-btn" onclick="switchTab('consults')">🧠 Brainstem Reflex Ladder</button>
+                        <button class="jump-btn" onclick="switchTab('calculators')">🧮 Osmotherapy & Scoring</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const ATLAS_PLATES = [
+  {
+    "id": "aneurysm_clipping",
+    "title": "Anterior Circulation Aneurysm Clipping",
+    "shortTitle": "Aneurysm Clip",
+    "category": "Skull Base & Vascular",
+    "image": "assets/plate_aneurysm.jpg",
+    "callouts": [
+      {
+        "title": "PComA Aneurysm & Dome",
+        "type": "VASCULAR LESION",
+        "desc": "Saccular aneurysm originating from supraclinoid ICA posterolateral wall.",
+        "pearl": "Dissect neck 360 degrees to preserve PComA patency and free CN III.",
+        "x": 55,
+        "y": 44
+      },
+      {
+        "title": "Yasargil Titanium Clip",
+        "type": "SURGICAL IMPLANT",
+        "desc": "Permanent mini-clip with parallel opposing blades across aneurysm neck.",
+        "pearl": "Inspect both blade tips to verify no perforator entrapment.",
+        "x": 59,
+        "y": 49
+      },
+      {
+        "title": "Internal Carotid Artery (ICA)",
+        "type": "PARENT ARTERY",
+        "desc": "Supraclinoid ICA trunk providing proximal control before aneurysm manipulation.",
+        "pearl": "Establish early proximal control in carotid cistern before dome dissection.",
+        "x": 48,
+        "y": 47
+      }
+    ],
+    "hazards": [
+      "Premature intraoperative rupture prior to gaining proximal vascular control",
+      "Inadvertent occlusion of critical branching perforators (e.g. Heubner's or anterior choroidal)",
+      "Residual aneurysm neck dog-ear resulting in catastrophic delayed rebleed"
+    ],
+    "steps": [
+      {
+        "num": 1,
+        "title": "Pterional Craniotomy & Proximal Control",
+        "detail": "Reflect scalp, turn craniotomy, flatten sphenoid ridge. Open carotid cistern early for proximal ICA control."
+      },
+      {
+        "num": 2,
+        "title": "Sylvian Fissure Dissection",
+        "detail": "Sharply unroof Sylvian fissure distal-to-proximal, releasing frontal from temporal operculum without brain retractors."
+      },
+      {
+        "num": 3,
+        "title": "Dissect Parent Vessels & Neck",
+        "detail": "Expose parent trunk and outflow branches. Dissect aneurysm neck 360 degrees, identifying perforators on back wall."
+      },
+      {
+        "num": 4,
+        "title": "Clip Application & Flow Validation",
+        "detail": "Apply permanent Yasargil clip across neck. Confirm parent vessel patency and complete dome occlusion via micro-Doppler or ICG."
+      }
+    ],
+    "curatedStatus": "Curated Master"
+  },
+  {
+    "id": "pterional_fissure",
+    "title": "Pterional Sylvian Fissure Dissection & Opercular Planes",
+    "shortTitle": "Sylvian Fissure",
+    "category": "Skull Base & Vascular",
+    "image": "assets/plate_pterional_fissure.jpg",
+    "callouts": [
+      {
+        "title": "Sylvian Stem & Superficial Sylvian Veins",
+        "type": "MICROSURGICAL ARACNOID PLANE",
+        "desc": "Division between pars triangularis/orbitalis and superior temporal gyrus.",
+        "pearl": "Dissect strictly on the frontal side of the superficial Sylvian vein to avoid temporal venous infarction.",
+        "x": 52,
+        "y": 46
+      }
+    ],
+    "hazards": [
+      "Avulsion of superficial Sylvian vein draining into sphenoparietal sinus",
+      "Overzealous bipolar coagulation on MCA bifurcations causing hemispheric stroke",
+      "Brain retraction ischemia if arachnoid cisternal drainage is incomplete"
+    ],
+    "steps": [
+      {
+        "num": 1,
+        "title": "Identify Distal Sylvian Fissure",
+        "detail": "Locate anterior ascending and horizontal rami of Sylvian fissure under high magnification."
+      },
+      {
+        "num": 2,
+        "title": "Arachnoid Release",
+        "detail": "Sharply split arachnoid using micro-scissors, following frontal operculum."
+      },
+      {
+        "num": 3,
+        "title": "Cisternal CSF Aspiration",
+        "detail": "Aspirate CSF from carotid and chiasmatic cisterns to achieve spontaneous brain slack."
+      },
+      {
+        "num": 4,
+        "title": "Deep MCA Bifurcation Exposure",
+        "detail": "Expose M1 trunk, bifurcation, and M2 branches without self-retaining blade pressure."
+      }
+    ],
+    "curatedStatus": "Sylvian Fissure Dissection (Curated)"
+  },
+  {
+    "id": "craniotomy_bifrontal",
+    "title": "Bifrontal 3D Skull Model & Anterior Cranial Fossa",
+    "shortTitle": "Bifrontal 3D",
+    "category": "Craniotomies & Trauma",
+    "image": "assets/plate_bifrontal_3d.jpg",
+    "callouts": [
+      {
+        "title": "Bifrontal Osteotomy & Midline Sinus Clearance",
+        "type": "CRANIAL MAP",
+        "desc": "Extended bifrontal craniotomy crossing midline with unroofed superior sagittal sinus ligation.",
+        "pearl": "Seal frontal sinus mucosa meticulously with pericranial flap to eliminate CSF rhinorrhea.",
+        "x": 50,
+        "y": 42
+      }
+    ],
+    "hazards": [
+      "Frontal sinus mucosal breach leading to late mucocele and intracranial abscess",
+      "Bilateral olfactory nerve transection with permanent anosmia",
+      "Superior sagittal sinus laceration with catastrophic air embolism or exsanguination"
+    ],
+    "steps": [
+      {
+        "num": 1,
+        "title": "Coronal Scalp Flap & Pericranial Harvest",
+        "detail": "Bicoronal skin incision with subgaleal dissection, harvesting long vascularized pericranium for skull base repair."
+      },
+      {
+        "num": 2,
+        "title": "Bifrontal Craniotomy",
+        "detail": "Place burr holes flanking sagittal sinus and at bilateral keyholes. Turn single or bilateral frontal flap flush with orbital roofs."
+      },
+      {
+        "num": 3,
+        "title": "Frontal Sinus Cranialization",
+        "detail": "Exenterate all mucosa from frontal sinus with diamond burr. Seal sinus ducts with muscle and fibrin glue, covered by pericranial flap."
+      },
+      {
+        "num": 4,
+        "title": "Dural Reflection & Subfrontal Access",
+        "detail": "Ligate sagittal sinus rostrally. Divide falx cerebri for expansive bilateral access to tuberculum sellae and olfactory groove."
+      }
+    ],
+    "curatedStatus": "Bifrontal Anterior Cranial Fossa 3D"
+  },
+  {
+    "id": "craniotomy_parietal",
+    "title": "Parietal Craniotomy & Sagittal Sinus Safety Margins",
+    "shortTitle": "Parietal Map",
+    "category": "Craniotomies & Trauma",
+    "image": "assets/plate_craniotomy_parietal.jpg",
+    "callouts": [
+      {
+        "title": "Parietal Bone Window",
+        "type": "BONE CRANIOTOMY",
+        "desc": "Rectangular or horseshoe craniotomy centered over parietal lobe mass.",
+        "pearl": "Maintain 1.5 cm safe clearance from superior sagittal sinus unless sinus exposure planned.",
+        "x": 50,
+        "y": 46
+      }
+    ],
+    "hazards": [
+      "Superior sagittal sinus laceration or air embolism during parasagittal drilling",
+      "Eloquent somatosensory / motor cortex infarction from venous congestion",
+      "Post-operative acute epidural hematoma under retracted bone edges"
+    ],
+    "steps": [
+      {
+        "num": 1,
+        "title": "Positioning & Neuronavigation",
+        "detail": "Register neuronavigation and map superior sagittal sinus and motor strip."
+      },
+      {
+        "num": 2,
+        "title": "Scalp Flap & Burr Holes",
+        "detail": "Horseshoe or linear scalp incision. Place burr holes 1.5 cm off midline to prevent sinus injury."
+      },
+      {
+        "num": 3,
+        "title": "Parietal Bone Elevation",
+        "detail": "Turn craniotomy flap with craniotome. Wax bleeding diploic channels and place peripheral dural tack-up sutures."
+      },
+      {
+        "num": 4,
+        "title": "Dural Incision & Cortical Navigation",
+        "detail": "U-shaped dural flap reflected toward sinus. Identify sulcal anatomy and execute lesionectomy."
+      }
+    ],
+    "curatedStatus": "8K Photo-Ready Master (Pristine Diplo\u00eb)"
+  },
+  {
+    "id": "craniotomy_temporal",
+    "title": "Subtemporal Flush Skull Base Exposure & Zygomatic Root",
+    "shortTitle": "Temporal Map",
+    "category": "Craniotomies & Trauma",
+    "image": "assets/plate_craniotomy_temporal.jpg",
+    "callouts": [
+      {
+        "title": "Subtemporal Corridor",
+        "type": "SKULL BASE BONE WINDOW",
+        "desc": "Low temporal craniotomy flush with middle cranial fossa floor, unroofing petrous apex.",
+        "pearl": "Avoid excessive upward temporal lobe retraction to prevent tearing vein of Labb\u00e9.",
+        "x": 52,
+        "y": 55
+      }
+    ],
+    "hazards": [
+      "Tearing of vein of Labb\u00e9 with catastrophic hemorrhagic temporal lobe venous infarction",
+      "Trigeminal ganglion or petrosal nerve injury causing severe facial numbness or dry eye",
+      "Middle meningeal artery avulsion at the foramen spinosum"
+    ],
+    "steps": [
+      {
+        "num": 1,
+        "title": "Question-Mark Scalp Incision",
+        "detail": "Curve incision from zygomatic arch, over ear, ending in temporal hairline. Incise temporalis muscle."
+      },
+      {
+        "num": 2,
+        "title": "Temporal Bone Window",
+        "detail": "Low craniotomy with base flush to zygomatic root and middle cranial fossa floor."
+      },
+      {
+        "num": 3,
+        "title": "Subtemporal Elevation",
+        "detail": "Elevate temporal lobe extradurally or intradurally. Identify petrous ridge, arcuate eminence, and tentorial incisura."
+      },
+      {
+        "num": 4,
+        "title": "Corridor Dissection",
+        "detail": "Aspirate CSF from basal cisterns to gain slack. Inspect basilar artery, PCA, and superior cerebellar artery."
+      }
+    ],
+    "curatedStatus": "8K Photo-Ready Master (Subtemporal Flush)"
+  },
+  {
+    "id": "retrosigmoid_3d",
+    "title": "Retrosigmoid 3D Skull Model & Sinus Topography",
+    "shortTitle": "Retrosig 3D",
+    "category": "Craniotomies & Trauma",
+    "image": "assets/plate_retrosigmoid_3d.jpg",
+    "callouts": [
+      {
+        "title": "Transverse-Sigmoid Junction Knee",
+        "type": "VENOUS SINUS BOUNDARY",
+        "desc": "Posterior-superior bony margins defining the safe limits of the retrosigmoid craniotomy.",
+        "pearl": "Skeletonize but do not compress the sinuses; maintain continuous irrigation.",
+        "x": 52,
+        "y": 48
+      }
+    ],
+    "hazards": [
+      "Direct laceration of sigmoid sinus during mastoid emissary vein coagulation",
+      "Venous air embolism if bone edges are not waxed immediately upon exposure"
+    ],
+    "steps": [
+      {
+        "num": 1,
+        "title": "Bony Landmarks",
+        "detail": "Identify asterion, inion, and mastoid tip under 3D anatomical guidance."
+      },
+      {
+        "num": 2,
+        "title": "Burr Hole & Kerf",
+        "detail": "Place burr hole below transverse sinus; trace craniectomy along sinus edges."
+      },
+      {
+        "num": 3,
+        "title": "Mastoid Waxing",
+        "detail": "Bone wax all opened mastoid air cells to ensure zero CSF fistula pathway."
+      },
+      {
+        "num": 4,
+        "title": "Dural Margin Tack-up",
+        "detail": "Place perimeter dural sutures to prevent epidural hematoma accumulation."
+      }
+    ],
+    "curatedStatus": "Caudal Retromastoid Osteotomy (Healed Asterion)"
+  },
+  {
+    "id": "retrosigmoid_dissection",
+    "title": "Retrosigmoid CPA Dissection & Acousticofacial Bundle",
+    "shortTitle": "Retrosig Dissection",
+    "category": "Skull Base & Vascular",
+    "image": "assets/plate_retrosigmoid_dissection.jpg",
+    "callouts": [
+      {
+        "title": "Acousticofacial Bundle (CN VII/VIII)",
+        "type": "CRANIAL NERVES",
+        "desc": "Facial nerve anterior and cochleovestibular nerve posterior entering internal auditory meatus.",
+        "pearl": "Stimulate facial nerve with monopolar probe before tumor capsule debulking.",
+        "x": 54,
+        "y": 48
+      }
+    ],
+    "hazards": [
+      "Avulsion of petrosal vein of Dandy precipitating life-threatening cerebellar hemorrhagic venous infarction",
+      "Excessive stretch or thermal coagulation near CN VII/VIII causing permanent facial palsy or deafness"
+    ],
+    "steps": [
+      {
+        "num": 1,
+        "title": "Cisterna Magna Drainage",
+        "detail": "Open arachnoid over lateral cisterna magna to release CSF and allow spontaneous cerebellar relaxation."
+      },
+      {
+        "num": 2,
+        "title": "Identify CN VII/VIII Complex",
+        "detail": "Follow brainstem lateral surface to root exit zone of facial and vestibulocochlear nerves."
+      },
+      {
+        "num": 3,
+        "title": "Internal Auditory Canal Unroofing",
+        "detail": "Drill posterior lip of IAC under saline cooling, preserving labyrinth."
+      },
+      {
+        "num": 4,
+        "title": "Microsurgical Tumor Separation",
+        "detail": "Sharp dissection in the arachnoid plane between tumor capsule and neural bundles."
+      }
+    ],
+    "curatedStatus": "Authentic Master (10 Labeled CPA Callouts)"
+  },
+  {
+    "id": "hemicraniectomy",
+    "title": "Decompressive Hemicraniectomy & Expansile Duroplasty",
+    "shortTitle": "Hemicraniectomy",
+    "category": "Craniotomies & Trauma",
+    "image": "assets/plate_hemicraniectomy.jpg",
+    "callouts": [
+      {
+        "title": "Decompressed Brain Herniation",
+        "type": "DECOMPRESSION",
+        "desc": "Edematous hemisphere expanding outward into duraplasty space relieving tentorial shift.",
+        "pearl": "Minimum 12 x 15 cm bone window; bone must be drilled flush to middle cranial fossa floor.",
+        "x": 50,
+        "y": 48
+      }
+    ],
+    "hazards": [
+      "Inadequate bone flap (<12 cm) causing brain herniation against rigid bone edges and venous infarction",
+      "Superior sagittal sinus or transverse sinus tear during rapid flap elevation",
+      "Delayed sinking skin flap syndrome / trephined syndrome requiring early cranioplasty"
+    ],
+    "steps": [
+      {
+        "num": 1,
+        "title": "Reverse Question-Mark Incision",
+        "detail": "Large Kempe incision originating at zygoma, curving 2 cm off midline, turning behind ear."
+      },
+      {
+        "num": 2,
+        "title": "Large Craniectomy (>12x15 cm)",
+        "detail": "Turn large fronto-temporo-parietal bone flap. Nibble temporal squama flush to middle cranial fossa floor."
+      },
+      {
+        "num": 3,
+        "title": "Expansile Duroplasty",
+        "detail": "Open dura in stellate or C-shaped fashion. Sew generous patch graft (pericranium, bovine, or synthetic)."
+      },
+      {
+        "num": 4,
+        "title": "Closure & Bone Storage",
+        "detail": "Store bone flap in sub-zero freezer or abdominal pocket. Close galea and skin without tension."
+      }
+    ],
+    "curatedStatus": "Decompressive Hemicraniectomy Master"
+  },
+  {
+    "id": "csdh_burr_hole",
+    "title": "Chronic Subdural Hematoma: Diagnostic CT & Burr Hole Evacuation",
+    "shortTitle": "Chronic SDH",
+    "category": "Craniotomies & Trauma",
+    "image": "assets/plate_csdh_burr_hole.jpg",
+    "callouts": [
+      {
+        "title": "Hypodense CSDH Fluid",
+        "type": "SUBDURAL HEMATOMA FLUID",
+        "desc": "Liquefied chronic motor-oil subdural fluid collection exerting mass effect on hemisphere.",
+        "pearl": "Gentle warm saline irrigation without excessive pressure prevents acute rebleeding from neomembranes.",
+        "x": 30,
+        "y": 40
+      },
+      {
+        "title": "14 mm Circular Burr Hole",
+        "type": "OPERATIVE CORRIDOR",
+        "desc": "Neurosurgical circular burr hole placed over parietal boss / frontal convexity.",
+        "pearl": "Inspect diploic cancellous marrow for hemostasis with bone wax before incising dura.",
+        "x": 76,
+        "y": 42
+      }
+    ],
+    "hazards": [
+      "Acute epidural or tension pneumocephalus following rapid evacuation without irrigation",
+      "Bridging vein rupture or neomembrane tear causing catastrophic acute-on-chronic subdural bleeding",
+      "Subdural empyema or bacterial seeding from unsterile closed drainage systems"
+    ],
+    "steps": [
+      {
+        "num": 1,
+        "title": "Localization & Scalp Incision",
+        "detail": "Position supine with head turned. Make a 3 cm linear scalp incision over parietal boss."
+      },
+      {
+        "num": 2,
+        "title": "14 mm Burr Hole Craniostomy",
+        "detail": "Perforate skull with high-speed cranial perforator. Ensure outer table, diploe, and inner plate are unroofed."
+      },
+      {
+        "num": 3,
+        "title": "Cruciate Durotomy & Evacuation",
+        "detail": "Bipolar outer dura and incise in cruciate fashion. Motor-oil subdural fluid egresses under pressure."
+      },
+      {
+        "num": 4,
+        "title": "Saline Irrigation & Subdural Drain",
+        "detail": "Irrigate subdural space copiously with warm saline until effluent is clear. Pass closed drain to gravity."
+      }
+    ],
+    "curatedStatus": "CSDH Diagnostic CT & Burr Hole"
+  },
+  {
+    "id": "endonasal_sellar",
+    "title": "Endoscopic Endonasal Sellar Corridor",
+    "shortTitle": "Endonasal Sellar",
+    "category": "Skull Base & Vascular",
+    "image": "assets/plate_endonasal_sellar.jpg",
+    "callouts": [
+      {
+        "title": "Sellar Floor & Pituitary",
+        "type": "SELLA TURCICA",
+        "desc": "Sellar dura unroofed exposing pituitary gland and adenoma capsule.",
+        "pearl": "Identify carotid prominences and opticocarotid recesses with Doppler prior to durotomy.",
+        "x": 50,
+        "y": 50
+      }
+    ],
+    "hazards": [
+      "Internal carotid artery laceration at carotid protuberance / siphon with massive exsanguination",
+      "High-flow CSF leak and pneumocephalus from diaphragma sellae tear",
+      "Optic chiasm thermal injury or devascularization causing bilateral temporal hemianopia"
+    ],
+    "steps": [
+      {
+        "num": 1,
+        "title": "Nasal Stage & Binostril Access",
+        "detail": "Decongest nasal cavity, lateralize middle turbinates, harvest vascularized nasoseptal flap if high CSF leak risk."
+      },
+      {
+        "num": 2,
+        "title": "Sphenoidotomy & Mucosal Stripping",
+        "detail": "Identify sphenoid ostia, widely open anterior sphenoid wall, identify sellar floor, clival recess, and carotid prominences."
+      },
+      {
+        "num": 3,
+        "title": "Sellar Dural Opening & Tumor Resection",
+        "detail": "Thin sellar bone with micro-drill, unroof floor, cruciate dural opening, deliver pituitary adenoma using ring curettes."
+      },
+      {
+        "num": 4,
+        "title": "Multilayer Reconstruction",
+        "detail": "Inspect diaphragma sellae for CSF leaks. Reconstruct skull base with collagen sponge, fat graft, and nasoseptal flap."
+      }
+    ],
+    "curatedStatus": "High-Contrast Readable Callouts"
+  },
+  {
+    "id": "far_lateral",
+    "title": "Far-Lateral Suboccipital Transcondylar Approach",
+    "shortTitle": "Far-Lateral",
+    "category": "Skull Base & Vascular",
+    "image": "assets/plate_far_lateral.jpg",
+    "callouts": [
+      {
+        "title": "Vertebral Artery V3 Segment",
+        "type": "VASCULAR CORRIDOR",
+        "desc": "Vertebral artery slung with vessel loop over C1 groove.",
+        "pearl": "Drill posterior 1/3 of occipital condyle for flat skull base trajectory without brainstem retraction.",
+        "x": 52,
+        "y": 54
+      }
+    ],
+    "hazards": [
+      "Vertebral artery V3 laceration or dissection causing brainstem stroke",
+      "Lower cranial nerve (CN IX, X, XI, XII) injury causing vocal cord paralysis or dysphagia",
+      "Craniocervical instability if >50% of occipital condyle is removed"
+    ],
+    "steps": [
+      {
+        "num": 1,
+        "title": "Suboccipital Craniectomy & C1 Laminectomy",
+        "detail": "Perform retrosigmoid suboccipital craniectomy to foramen magnum rim. Execute lateral C1 hemilaminectomy."
+      },
+      {
+        "num": 2,
+        "title": "Unroofing Foramen Transversarium",
+        "detail": "Use a 2 mm diamond burr under continuous irrigation to thin and remove bridge of C1 foramen transversarium."
+      },
+      {
+        "num": 3,
+        "title": "Vertebral Artery Mobilization",
+        "detail": "Sharply release fibrous collar, sling V3 loop, and mobilize artery inferiorly."
+      },
+      {
+        "num": 4,
+        "title": "Partial Condylectomy & Dural Opening",
+        "detail": "Drill posterior 1/3 of occipital condyle. Open dura along skull base floor."
+      }
+    ],
+    "curatedStatus": "Metallic Micro-Probe Retracting V3 Medially"
+  },
+  {
+    "id": "chiari_decompression",
+    "title": "Chiari I Malformation Decompression & Duraplasty",
+    "shortTitle": "Chiari I",
+    "category": "Skull Base & Vascular",
+    "image": "assets/plate_chiari_decompression.jpg",
+    "callouts": [
+      {
+        "title": "Herniated Cerebellar Tonsils",
+        "type": "PATHOLOGY",
+        "desc": "Peg-like tonsillar descent >5 mm below foramen magnum into cervical canal.",
+        "pearl": "C1 laminectomy and foramen magnum decompression restore CSF flow at obex.",
+        "x": 50,
+        "y": 45
+      }
+    ],
+    "hazards": [
+      "PICA loop or vertebral artery injury during suboccipital foramen magnum rim drilling",
+      "Refractory pseudomeningocele or CSF leak from inadequate water-tight duraplasty closure",
+      "Aseptic or chemical meningitis from blood breakdown products in cisterna magna"
+    ],
+    "steps": [
+      {
+        "num": 1,
+        "title": "Midline Suboccipital Incision",
+        "detail": "Incision from inion down to C2 spinous process. Dissect suboccipital muscles down to occiput and C1 arch."
+      },
+      {
+        "num": 2,
+        "title": "Suboccipital Craniectomy & C1 Laminectomy",
+        "detail": "Remove 3x3 cm suboccipital bone window including foramen magnum posterior rim. Excise C1 posterior arch."
+      },
+      {
+        "num": 3,
+        "title": "Y-Shaped Dural Opening",
+        "detail": "Open dura in Y-shape with base inferior. Inspect arachnoid over tonsils and foramen of Magendie."
+      },
+      {
+        "num": 4,
+        "title": "Water-Tight Patch Duraplasty",
+        "detail": "Suture generous pericardial or collagen duraplasty patch with running locked 5-0 suture to enlarge cisterna magna."
+      }
+    ],
+    "curatedStatus": "Chiari I Decompression & Duraplasty"
+  },
+  {
+    "id": "craniocervical_junction",
+    "title": "Craniocervical Junction (CCJ) Ligamentous Anatomy & Odontoid Complex",
+    "shortTitle": "CCJ Ligaments",
+    "category": "Spine & CVJ",
+    "image": "assets/plate_craniocervical_junction_atlas.jpg",
+    "callouts": [
+      {
+        "title": "Transverse & Alar Ligament Complex",
+        "type": "CRANIAL-CERVICAL STABILITY",
+        "desc": "Primary biomechanical restraints preventing atlantoaxial subluxation and brainstem compression by odontoid peg.",
+        "pearl": "Anterior Atlantodental Interval (AADI) > 3 mm in adults (> 5 mm in children) confirms transverse ligament disruption requiring posterior C1-C2 fusion.",
+        "x": 50,
+        "y": 48
+      }
+    ],
+    "hazards": [
+      "Brainstem or cervical cord transection during atlantoaxial reduction",
+      "Vertebral artery V3 segment injury during C1 lateral mass screw placement",
+      "Construct failure and cranial-cervical dislocation if transverse ligament is non-functional"
+    ],
+    "steps": [
+      {
+        "num": 1,
+        "title": "Prone Concorde Positioning",
+        "detail": "Fix head in Mayfield skull clamp with slight cervical flexion to optimize atlantoaxial alignment."
+      },
+      {
+        "num": 2,
+        "title": "Expose C1 Posterior Arch & C2 Lamina",
+        "detail": "Subperiosteal dissection of occiput, C1 posterior arch, and C2 lamina. Identify vertebral artery groove on C1."
+      },
+      {
+        "num": 3,
+        "title": "Goel-Harms C1 Lateral Mass & C2 Pedicle Screws",
+        "detail": "Place C1 lateral mass screws through posterior arch or below arch. Insert C2 pedicle or pars screws."
+      },
+      {
+        "num": 4,
+        "title": "Reduction & Autologous Bone Grafting",
+        "detail": "Reduce atlantoaxial subluxation under fluoroscopy. Decorticate bone and pack autologous cancellous bone graft."
+      }
+    ],
+    "curatedStatus": "Bilateral Vertebral Artery in Foramen Transversarium"
+  },
+  {
+    "id": "harms_c1_c2",
+    "title": "Posterior C1\u2013C2 Fixation (Goel-Harms Construct)",
+    "shortTitle": "Goel-Harms",
+    "category": "Spine & CVJ",
+    "image": "assets/plate_harms_c1_c2.jpg",
+    "callouts": [
+      {
+        "title": "C1 Lateral Mass Screws",
+        "type": "SPINE FIXATION",
+        "desc": "Polyaxial screws placed directly into C1 lateral mass below posterior arch.",
+        "pearl": "Protect C2 ganglion and venous plexus; control bleeding with bipolar and hemostatic matrix.",
+        "x": 48,
+        "y": 44
+      }
+    ],
+    "hazards": [
+      "Vertebral artery injury at C1 groove or C2 transverse foramen causing cerebellum/brainstem stroke",
+      "C2 nerve root injury causing severe intractable occipital neuralgia",
+      "Spinal cord contusion or quadriparesis during reduction of displaced odontoid fracture"
+    ],
+    "steps": [
+      {
+        "num": 1,
+        "title": "Exposure of C1-C2 Complex",
+        "detail": "Expose posterior arch of C1, C2 lamina, and bilateral atlantoaxial facet joints under fluoroscopy."
+      },
+      {
+        "num": 2,
+        "title": "C1 Lateral Mass Screw Placement",
+        "detail": "Retract C2 nerve root inferiorly. Cannulate C1 lateral mass targeting anterior arch under lateral fluoro."
+      },
+      {
+        "num": 3,
+        "title": "C2 Pedicle or Pars Screws",
+        "detail": "Entry at superior medial quadrant of C2 pars/pedicle, aimed 25-30 degrees medial and 20 degrees cephalad."
+      },
+      {
+        "num": 4,
+        "title": "Rod Assembly & Bone Grafting",
+        "detail": "Connect polyaxial screw heads with pre-contoured titanium rods. Decorticate bone and pack autograft."
+      }
+    ],
+    "curatedStatus": "Posterior C1\u2013C2 Goel-Harms Fixation"
+  },
+  {
+    "id": "c7_t1_junction",
+    "title": "Cervicothoracic (C7\u2013T1) Junction Biomechanics & Instrumentation",
+    "shortTitle": "C7\u2013T1 Biomechanics",
+    "category": "Spine & CVJ",
+    "image": "assets/plate_spine_c7_t1_junction.png",
+    "callouts": [
+      {
+        "title": "C7 Pedicle vs T1 Pedicle Screws",
+        "type": "SPINE INSTRUMENTATION",
+        "desc": "High-stress transition zone from mobile lordotic cervical spine to rigid kyphotic thoracic cage.",
+        "pearl": "C7 lateral masses are thin; pedicle screw placement or C7\u2013T1 cross-connector construct provides 300% greater pullout strength.",
+        "x": 48,
+        "y": 48
+      }
+    ],
+    "hazards": [
+      "Vertebral artery injury during C7 pedicle cannulation (enters at C6 transverse foramen in 90%)",
+      "Construct pullout and junctional kyphosis if failing to extend fixation to rigid thoracic spine",
+      "T1 root injury causing intrinsic hand muscle weakness and claw deformity"
+    ],
+    "steps": [
+      {
+        "num": 1,
+        "title": "Posterior Cervicothoracic Incision",
+        "detail": "Expose spinous processes and laminae from C5 down to T3. Identify C7 prominent spinous process."
+      },
+      {
+        "num": 2,
+        "title": "C7 Pedicle Cannulation",
+        "detail": "Entry at junction of superior facet and lateral mass. Aim 25-30 degrees medial, parallel to superior endplate."
+      },
+      {
+        "num": 3,
+        "title": "T1-T2 Thoracic Pedicle Screws",
+        "detail": "Entry at junction of superior facet and transverse process. Straight-forward or anatomical trajectory."
+      },
+      {
+        "num": 4,
+        "title": "Rod Linkage & Reduction",
+        "detail": "Contour robust titanium rods matching cervical lordosis to thoracic kyphosis. Lock construct with cross-link."
+      }
+    ],
+    "curatedStatus": "C7\u2013T1 Biomechanics & Sagittal Contour"
+  },
+  {
+    "id": "lumbar_fusion_approaches",
+    "title": "Comparative Lumbar Fusion Corridors: PLIF vs TLIF vs ALIF vs XLIF vs OLIF",
+    "shortTitle": "Fusion Approaches",
+    "category": "Spine & CVJ",
+    "image": "assets/plate_spine_lumbar_fusion_approaches.png",
+    "callouts": [
+      {
+        "title": "Comparative Fusion Corridors",
+        "type": "SPINE SURGICAL PLANES",
+        "desc": "Axial plane visualization of PLIF, TLIF, ALIF, XLIF/LLIF, and OLIF.",
+        "pearl": "In XLIF/LLIF, continuous neuromonitoring of lumbosacral plexus inside psoas is mandatory.",
+        "x": 50,
+        "y": 48
+      }
+    ],
+    "hazards": [
+      "Lumbar plexus injury (femoral nerve) during trans-psoas lateral approach (XLIF/LLIF)",
+      "Iliac vessel laceration during anterior lumbar exposure (ALIF) causing exsanguination",
+      "Exiting nerve root injury in foramen during transforaminal interbody placement (TLIF)"
+    ],
+    "steps": [
+      {
+        "num": 1,
+        "title": "Posterior (PLIF / TLIF)",
+        "detail": "Prone position. Direct bilateral (PLIF) or unilateral (TLIF) facetectomy to enter disc space."
+      },
+      {
+        "num": 2,
+        "title": "Anterior (ALIF)",
+        "detail": "Supine retroperitoneal or transperitoneal exposure of L5-S1 or L4-5 between great vessels."
+      },
+      {
+        "num": 3,
+        "title": "Lateral Trans-Psoas (XLIF/LLIF)",
+        "detail": "Lateral decubitus. Retroperitoneal corridor splitting psoas muscle under real-time EMG neuromonitoring."
+      },
+      {
+        "num": 4,
+        "title": "Oblique Anterior-to-Psoas (OLIF)",
+        "detail": "Corridor between aorta / IVC and psoas muscle, sparing lumbar plexus and psoas disruption."
+      }
+    ],
+    "curatedStatus": "Comparative 5-Corridor Lumbar Fusion"
+  },
+  {
+    "id": "tlif_corridor",
+    "title": "TLIF Surgical Corridor, Kambin's Triangle & Root Safety Zones",
+    "shortTitle": "TLIF Corridor",
+    "category": "Spine & CVJ",
+    "image": "assets/plate_spine_tlif_surgical_corridor.png",
+    "callouts": [
+      {
+        "title": "Kambin's Safe Triangle",
+        "type": "ANATOMICAL SAFE ZONE",
+        "desc": "Hypotenuse = exiting root; Base = lower pedicle; Height = traversing root / dural sac.",
+        "pearl": "Never retract traversing nerve root medially beyond midline of dural tube.",
+        "x": 45,
+        "y": 52
+      }
+    ],
+    "hazards": [
+      "Conjoined nerve root anomaly transection mistaken for herniated disc fragment",
+      "Dural tear at exiting root axilla leading to refractory CSF fistula",
+      "Interbody cage migration into spinal canal causing acute cauda equina syndrome"
+    ],
+    "steps": [
+      {
+        "num": 1,
+        "title": "Unilateral Facetectomy",
+        "detail": "Remove inferior and superior articular processes to expose exiting root and disc annulus."
+      },
+      {
+        "num": 2,
+        "title": "Identify Traversing & Exiting Roots",
+        "detail": "Delineate Kambin's triangle. Mobilize epidural veins and bipolar coagulate safely."
+      },
+      {
+        "num": 3,
+        "title": "Annulotomy & Complete Discectomy",
+        "detail": "Incise disc annulus with #11 blade. Curette cartilaginous endplates completely down to bleeding bone."
+      },
+      {
+        "num": 4,
+        "title": "Interbody Cage Insertion",
+        "detail": "Pack anterior disc space with autograft / DBM. Insert bulleted peek / titanium interbody cage obliquely across midline."
+      }
+    ],
+    "curatedStatus": "TLIF Kambin Triangle & Root Safety Zones"
+  },
+  {
+    "id": "tlif",
+    "title": "L4\u2013L5 Transforaminal Lumbar Interbody Fusion (TLIF)",
+    "shortTitle": "L4-5 TLIF",
+    "category": "Spine & CVJ",
+    "image": "assets/plate_tlif.jpg",
+    "callouts": [
+      {
+        "title": "Interbody Fusion Cage",
+        "type": "IMPLANT",
+        "desc": "Bulleted PEEK cage packed with autologous bone placed across anterior disc space.",
+        "pearl": "Thoroughly curette endplates without violating subchondral bone to prevent cage subsidence.",
+        "x": 52,
+        "y": 50
+      }
+    ],
+    "hazards": [
+      "Exiting nerve root injury in neural foramen from overzealous cranial retraction or cage impact",
+      "Dural tear at lateral thecal sac margin resulting in refractory CSF leak and postural headache",
+      "Anterior vascular injury (iliac vessels / aorta) from plunging discectomy instruments"
+    ],
+    "steps": [
+      {
+        "num": 1,
+        "title": "Pedicle Screw Placement",
+        "detail": "Cannulate L4 and L5 pedicles with standard open or percutaneous MIS techniques under fluoroscopy."
+      },
+      {
+        "num": 2,
+        "title": "Unilateral Facetectomy",
+        "detail": "Resect inferior articular process of L4 and superior articular process of L5 exposing foramen."
+      },
+      {
+        "num": 3,
+        "title": "Discectomy & Endplate Preparation",
+        "detail": "Incise annulus in Kambin's triangle. Completely evacuate disc with pituitary rongeurs and curettes."
+      },
+      {
+        "num": 4,
+        "title": "Interbody Cage Insertion & Rod Fixation",
+        "detail": "Insert PEEK/titanium cage into anterior disc space. Place bilateral rods and compress for lordosis."
+      }
+    ],
+    "curatedStatus": "L4\u2013L5 TLIF Interbody & Pedicle Screws"
+  },
+  {
+    "id": "acdf",
+    "title": "Anterior Cervical Discectomy & Fusion (ACDF)",
+    "shortTitle": "ACDF",
+    "category": "Spine & CVJ",
+    "image": "assets/plate_acdf.jpg",
+    "callouts": [
+      {
+        "title": "Cervical Interbody Cage & Plate",
+        "type": "ANTERIOR IMPLANT",
+        "desc": "Interbody spacer in disc space backed by anterior cervical locking plate.",
+        "pearl": "Maintain medial esophagus and trachea retraction; avoid uncal lateral drift near vertebral artery.",
+        "x": 50,
+        "y": 48
+      }
+    ],
+    "hazards": [
+      "Esophageal perforation from aggressive blunt or sharp blade retractor placement",
+      "Recurrent laryngeal nerve traction injury causing permanent vocal cord paralysis and hoarseness",
+      "Vertebral artery injury from lateral drilling beyond the uncinate processes"
+    ],
+    "steps": [
+      {
+        "num": 1,
+        "title": "Smith-Robinson Transverse Incision",
+        "detail": "Skin crease incision over target disc. Dissect plane between sternocleidomastoid and visceral sheath."
+      },
+      {
+        "num": 2,
+        "title": "Longus Colli Elevation & Retractor Placement",
+        "detail": "Elevate longus colli bilaterally. Seat toothed Cloward retractor blades under muscle bellies."
+      },
+      {
+        "num": 3,
+        "title": "Complete Discectomy & PLL Resection",
+        "detail": "Evacuate disc down to posterior longitudinal ligament (PLL). Resect PLL to decompress thecal sac."
+      },
+      {
+        "num": 4,
+        "title": "Interbody Cage & Anterior Plate Fixation",
+        "detail": "Insert interbody spacer packed with allograft. Apply anterior titanium cervical plate with locking screws."
+      }
+    ],
+    "curatedStatus": "Anterior Cervical Discectomy & Fusion"
+  }
+];
+
+        let currentTab = 'atlas';
+        let currentBedside = 'evd';
+        let currentAtlasCategory = 'All Plates';
+        let currentAtlasPlate = ATLAS_PLATES[0]; // Plate 1 Aneurysm default
+        let currentCrisis = 'Uncal';
+        let showHerniationPupils = true;
+        let zoomLevel = 1.0;
+        let desktopZoomLevel = 1.0;
+        let activeCatalogFilter = 'All';
+
+        function updateClock() {
+            const now = new Date();
+            let hours = now.getHours();
+            let minutes = now.getMinutes();
+            if (hours < 10) hours = "0" + hours;
+            if (minutes < 10) minutes = "0" + minutes;
+            document.getElementById('live-clock').innerText = hours + ":" + minutes;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        function prevPlate(e) {
+            if (e) e.stopPropagation();
+            const idx = ATLAS_PLATES.indexOf(currentAtlasPlate);
+            currentAtlasPlate = ATLAS_PLATES[(idx - 1 + ATLAS_PLATES.length) % ATLAS_PLATES.length];
+            zoomLevel = 1.0;
+            desktopZoomLevel = 1.0;
+            if (currentTab === 'atlas') {
+                renderAtlasTab(document.getElementById('screen-container'));
+            }
+            updateDesktopReviewer();
+        }
+
+        function nextPlate(e) {
+            if (e) e.stopPropagation();
+            const idx = ATLAS_PLATES.indexOf(currentAtlasPlate);
+            currentAtlasPlate = ATLAS_PLATES[(idx + 1) % ATLAS_PLATES.length];
+            zoomLevel = 1.0;
+            desktopZoomLevel = 1.0;
+            if (currentTab === 'atlas') {
+                renderAtlasTab(document.getElementById('screen-container'));
+            }
+            updateDesktopReviewer();
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.target.tagName === 'TEXTAREA' || e.target.tagName === 'INPUT') return;
+            if (e.key === 'ArrowRight' || e.key === ']') nextPlate();
+            if (e.key === 'ArrowLeft' || e.key === '[') prevPlate();
+        });
+
+        
+        // Keyboard arrow navigation for rapid plate review
+        window.addEventListener('keydown', (e) => {
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+            if (e.key === 'ArrowLeft') {
+                prevPlate();
+            } else if (e.key === 'ArrowRight') {
+                nextPlate();
+            }
+        });
+
+        function switchConsoleMode(mode) {
+            const btnAtlas = document.getElementById('mode-btn-atlas');
+            const btnJumps = document.getElementById('mode-btn-jumps');
+            const viewAtlas = document.getElementById('console-atlas-view');
+            const viewJumps = document.getElementById('console-jumps-view');
+
+            if (mode === 'atlas') {
+                btnAtlas.classList.add('active');
+                btnJumps.classList.remove('active-blue');
+                viewAtlas.style.display = 'flex';
+                viewJumps.style.display = 'none';
+            } else {
+                btnAtlas.classList.remove('active');
+                btnJumps.classList.add('active-blue');
+                viewAtlas.style.display = 'none';
+                viewJumps.style.display = 'flex';
+            }
+        }
+
+        function filterCatalog(category, btn) {
+            activeCatalogFilter = category;
+            document.querySelectorAll('.thumb-filter-btn').forEach(b => b.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+            renderThumbnails();
+        }
+
+        function renderThumbnails() {
+            const grid = document.getElementById('desktop-thumb-grid');
+            if (!grid) return;
+            const filtered = activeCatalogFilter === 'All' 
+                ? ATLAS_PLATES 
+                : ATLAS_PLATES.filter(p => p.category === activeCatalogFilter);
+
+            grid.innerHTML = filtered.map(p => {
+                const idx = ATLAS_PLATES.indexOf(p);
+                const isActive = p.id === currentAtlasPlate.id;
+                const imgSrc = p.image.startsWith('assets/') ? p.image : 'assets/' + p.image;
+                return `
+                    <div class="thumb-card ${isActive ? 'active' : ''}" onclick="selectAtlasPlate('${p.id}')">
+                        <div class="thumb-img-wrap">
+                            <img src="${imgSrc}" alt="${p.shortTitle}">
+                        </div>
+                        <div class="thumb-label">#${idx + 1} ${p.shortTitle}</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function updateDesktopReviewer() {
+            const idx = ATLAS_PLATES.indexOf(currentAtlasPlate);
+            const titleEl = document.getElementById('desktop-plate-title');
+            const subEl = document.getElementById('desktop-plate-sub');
+            const badgeEl = document.getElementById('desktop-file-badge');
+            const imgEl = document.getElementById('desktop-hero-img');
+            const noteIdEl = document.getElementById('notes-plate-id');
+            const statusEl = document.getElementById('desktop-curated-badge');
+            const detailsEl = document.getElementById('desktop-plate-details');
+
+            if (titleEl) titleEl.innerText = currentAtlasPlate.title;
+            if (subEl) subEl.innerText = `PLATE ${idx + 1} OF ${ATLAS_PLATES.length} • ${currentAtlasPlate.category.toUpperCase()}`;
+            const imgSrc = currentAtlasPlate.image.startsWith('assets/') ? currentAtlasPlate.image : 'assets/' + currentAtlasPlate.image;
+            if (badgeEl) badgeEl.innerText = imgSrc;
+            if (imgEl) {
+                imgEl.src = imgSrc;
+                imgEl.style.transform = `scale(${desktopZoomLevel})`;
+            }
+            if (noteIdEl) noteIdEl.innerText = currentAtlasPlate.id;
+            if (statusEl) statusEl.innerText = currentAtlasPlate.curatedStatus || 'Curated Master';
+
+            if (detailsEl) {
+                let calloutsHtml = (currentAtlasPlate.callouts || []).map(c => `
+                    <div style="background: rgba(30,41,59,0.7); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 10px; margin-bottom: 8px;">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 4px;">
+                            <span style="font-weight: 700; color: #38bdf8; font-size: 13px;">📍 ${c.title}</span>
+                            <span style="font-size: 10px; color: #f59e0b; background: rgba(245,158,11,0.15); padding: 2px 6px; border-radius: 4px; font-weight: 600;">${c.type || 'STRUCTURE'}</span>
+                        </div>
+                        <div style="font-size: 12px; color: #cbd5e1; line-height: 1.4;">${c.desc || ''}</div>
+                        ${c.pearl ? `<div style="font-size: 11px; color: #fde047; margin-top: 6px; padding-left: 8px; border-left: 2px solid #eab308;">💡 <em>${c.pearl}</em></div>` : ''}
+                    </div>
+                `).join('');
+
+                let stepsHtml = (currentAtlasPlate.steps || []).map(s => `
+                    <div style="display: flex; gap: 10px; margin-bottom: 8px; font-size: 12px; line-height: 1.4;">
+                        <span style="color: #38bdf8; font-weight: 800;">${s.num}.</span>
+                        <div><strong style="color: #f1f5f9;">${s.title}:</strong> <span style="color: #94a3b8;">${s.desc}</span></div>
+                    </div>
+                `).join('');
+
+                let hazardsHtml = (currentAtlasPlate.hazards || []).map(h => `
+                    <li style="color: #f87171; font-size: 12px; margin-bottom: 4px; line-height: 1.3;">⚠️ ${h}</li>
+                `).join('');
+
+                detailsEl.innerHTML = `
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                        <div>
+                            <div style="font-size: 11px; font-weight: 800; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">📌 Anatomical Callouts & Pearls (${(currentAtlasPlate.callouts || []).length})</div>
+                            ${calloutsHtml || '<div style="color: #64748b; font-size: 12px;">No callouts pinned.</div>'}
+                        </div>
+                        <div>
+                            <div style="font-size: 11px; font-weight: 800; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">⚡ Sequential Operative Steps</div>
+                            ${stepsHtml || '<div style="color: #64748b; font-size: 12px;">Standard corridor dissection.</div>'}
+                            ${hazardsHtml ? `
+                                <div style="font-size: 11px; font-weight: 800; color: #ef4444; text-transform: uppercase; letter-spacing: 0.5px; margin-top: 14px; margin-bottom: 6px;">🛑 Catastrophic Hazards</div>
+                                <ul style="margin: 0; padding-left: 14px;">${hazardsHtml}</ul>
+                            ` : ''}
+                        </div>
+                    </div>
+                `;
+            }
+
+            renderThumbnails();
+        }
+
+        function adjustDesktopZoom(delta) {
+            desktopZoomLevel = Math.max(0.5, Math.min(3.5, desktopZoomLevel + delta));
+            const img = document.getElementById('desktop-hero-img');
+            if (img) img.style.transform = `scale(${desktopZoomLevel})`;
+        }
+
+        function resetDesktopZoom() {
+            desktopZoomLevel = 1.0;
+            const img = document.getElementById('desktop-hero-img');
+            if (img) img.style.transform = 'scale(1)';
+        }
+
+        function copyPlateNote() {
+            const input = document.getElementById('plate-feedback-input');
+            const idx = ATLAS_PLATES.indexOf(currentAtlasPlate) + 1;
+            const text = `Plate #${idx} [${currentAtlasPlate.title}] (${currentAtlasPlate.id}):
+${input.value.trim()}`;
+            navigator.clipboard.writeText(text).then(() => {
+                alert(`Copied recommendation for Plate #${idx} to clipboard!`);
+            });
+        }
+
+        function switchTab(tab) {
+            currentTab = tab;
+            document.querySelectorAll('.tab-item').forEach(el => {
+                el.classList.remove('active');
+                el.classList.remove('active-amber');
+            });
+            const activeTabEl = document.getElementById('tab-' + tab);
+            if (activeTabEl) {
+                if (tab === 'atlas') {
+                    activeTabEl.classList.add('active-amber');
+                    switchConsoleMode('atlas');
+                } else {
+                    activeTabEl.classList.add('active');
+                }
+            }
+
+            const container = document.getElementById('screen-container');
+            zoomLevel = 1.0;
+
+            if (tab === 'bedside') {
+                renderBedsideTab(container);
+            } else if (tab === 'atlas') {
+                renderAtlasTab(container);
+            } else if (tab === 'crisis') {
+                renderCrisisTab(container);
+            } else if (tab === 'calculators') {
+                renderCalculatorsTab(container);
+            } else if (tab === 'consults') {
+                renderConsultsTab(container);
+            }
+        }
+
+        // --- TAB 3: BEDSIDE HARDWARE SUITE ---
+        const BEDSIDE_ITEMS = [
+            {
+                id: 'evd',
+                title: "Kocher's EVD",
+                subtitle: 'Frontal Ventriculostomy',
+                image: 'assets/plate_bedside_evd.png',
+                caption: "KOCHER'S POINT VENTRICULOSTOMY TRAJECTORY",
+                steps: [
+                    { num: '1', title: 'Burr Hole Localization', detail: "<strong>1 cm anterior to coronal suture</strong>, <strong>2.5 - 3.0 cm lateral to midline</strong> (mid-pupillary line)." },
+                    { num: '2', title: 'Coronal Plane Target', detail: "Aimed strictly toward the <strong>Ipsilateral Medial Canthus</strong> (inner eye corner)." },
+                    { num: '3', title: 'Sagittal Plane Target', detail: "Perpendicular to skull curvature, aimed toward the <strong>External Auditory Meatus (Tragus)</strong>." },
+                    { num: '4', title: 'Depth Warning Limit', detail: "CSF flash typically at <strong>4.5 - 5.0 cm</strong>. <strong>NEVER advance beyond 6.0 cm</strong> from outer cortex!" }
+                ],
+                contra: "• Transducer Reference: Level chamber strictly to the <strong>Tragus</strong> (Foramen of Monro proxy).<br>• Never flush forcefully toward brain parenchyma!"
+            },
+            {
+                id: 'camino_bolt',
+                title: 'Camino Bolt & ICP Waves',
+                subtitle: 'Parenchymal Probe & Lundberg',
+                image: 'assets/plate_bedside_camino_bolt.png',
+                caption: "CAMINO BOLT PLACEMENT & WAVEFORM ATLAS",
+                steps: [
+                    { num: '1', title: 'Bolt Insertion Protocol', detail: "Drill perpendicular to skull with safety collar set to <strong>1.0 cm</strong>. Perforate dura with 18G needle; screw skull bolt snugly into bone." },
+                    { num: '2', title: 'Probe Depth & Zeroing', detail: "Advance fiberoptic parenchymal probe <strong>1.5 to 2.0 cm into white matter</strong>. Zero sensor prior to brain insertion." },
+                    { num: '3', title: 'Lundberg A (Plateau) Waves', detail: "50-100 mmHg spike lasting 5-20 min. <strong>CRITICAL:</strong> Terminal intracranial decompensation. Immediate rescue required!" }
+                ],
+                contra: "• Scalp infection at drill site.<br>• Severe uncorrected coagulopathy."
+            },
+            {
+                id: 'lumbar_puncture',
+                title: 'Lumbar Puncture (LP)',
+                subtitle: 'L3-L4 / L4-L5 Manometry',
+                image: 'assets/plate_bedside_lumbar_puncture.png',
+                caption: "LUMBAR PUNCTURE ANATOMY & MANOMETRY",
+                steps: [
+                    { num: '1', title: 'Interspace Localization', detail: "Palpate superior iliac crests (Tuffier's line) identifying <strong>L4 spinous process</strong>. Target <strong>L3-L4</strong> or <strong>L4-L5</strong> interspace." },
+                    { num: '2', title: 'Needle Trajectory & Bevel', detail: "Aim 20G or 22G Quincke needle <strong>10-15 degrees cephalad</strong> toward umbilicus. Bevel facing <strong>sagittal / lateral</strong> to separate longitudinal dural fibers." },
+                    { num: '3', title: 'Opening Pressure Manometry', detail: "Legs must be <strong>relaxed / straightened</strong> before reading manometer. Normal OP: <strong>10 - 20 cm H2O</strong> (>25 cm elevated)." }
+                ],
+                contra: "• Intracranial mass lesion with midline shift or effaced basilar cisterns (Brain herniation risk!)<br>• Severe coagulopathy: Platelets < 50k, INR > 1.4 (Spinal epidural hematoma risk)"
+            },
+            {
+                id: 'lumbar_drain',
+                title: 'Lumbar Drain',
+                subtitle: 'CSF Diversion for Leaks',
+                image: 'assets/plate_bedside_lumbar_drain.png',
+                caption: "LUMBAR SUBARACHNOID CATHETER INSERTION",
+                steps: [
+                    { num: '1', title: 'Tuohy Needle Insertion', detail: "14G Tuohy needle at L3-L4 or L4-L5 with bevel directed <strong>strictly cephalad</strong>." },
+                    { num: '2', title: 'Catheter Depth', detail: "Advance catheter <strong>8 - 10 cm into subarachnoid space</strong>. Free CSF flow verifies correct position." },
+                    { num: '3', title: 'Drainage Protocol', detail: "Target drainage rate: <strong>10 - 15 mL/hour</strong>. Clamp drain prior to patient standing or transfers." }
+                ],
+                contra: "• Non-communicating obstructive hydrocephalus.<br>• Unchecked rapid overdrainage leading to intracranial hypotension and subdural hematomas."
+            },
+            {
+                id: 'art_line',
+                title: 'Radial Arterial Line',
+                subtitle: 'Continuous MAP Monitoring',
+                image: 'assets/plate_bedside_art_line.png',
+                caption: "RADIAL ARTERY CANNULATION & ALLEN'S TEST",
+                steps: [
+                    { num: '1', title: "Modified Allen\'s Test", detail: "Verify collateral palmar arch perfusion via ulnar artery before radial cannulation." },
+                    { num: '2', title: 'Wrist Extension', detail: "Dorsiflex wrist 30-45 degrees over roll. Palpate radial artery 1-2 cm proximal to wrist crease." },
+                    { num: '3', title: 'Over-the-Wire Cannulation', detail: "Enter at 30-45 degree angle. Advance guidewire without resistance; slide 20G catheter over wire." }
+                ],
+                contra: "• Absent ulnar collateral circulation.<br>• Raynaud's or severe peripheral vascular compromise."
+            },
+            {
+                id: 'cvc_line',
+                title: 'Ultrasound IJV CVC',
+                subtitle: 'Central Venous Access',
+                image: 'assets/plate_bedside_cvc_line.png',
+                caption: "INTERNAL JUGULAR VEIN ANATOMY & CVC CANNULATION",
+                steps: [
+                    { num: '1', title: 'Sonographic Triad', detail: "Identify non-pulsatile, thin-walled, easily collapsible IJV lateral to carotid artery under dynamic ultrasound." },
+                    { num: '2', title: 'Trendelenburg Positioning', detail: "Place patient in 15 degree Trendelenburg to engorge IJV and minimize air embolism risk." },
+                    { num: '3', title: 'Seldinger Cannulation', detail: "Cannulate under direct real-time sonographic needle-tip visualization. Verify venous blood before dilation." }
+                ],
+                contra: "• Local cellulitis over neck.<br>• Ipsilateral thrombosis of internal jugular vein."
+            }
+        ];
+
+        function renderBedsideTab(container) {
+            const proc = BEDSIDE_ITEMS.find(i => i.id === currentBedside) || BEDSIDE_ITEMS[0];
+
+            let html = `
+                <div class="app-header">
+                    <div class="header-pill">BEDSIDE PROCEDURAL ATLAS & HARDWARE</div>
+                    <div class="header-title">Neurosurgical Procedures</div>
+                    <div class="header-desc">High-definition anatomical schematics, trajectory rules, transducer leveling, and emergency troubleshooting.</div>
+                </div>
+
+                <div class="pill-scroll">
+                    ${BEDSIDE_ITEMS.map(i => `
+                        <div class="pill-btn ${i.id === currentBedside ? 'active' : ''}" onclick="selectBedside('${i.id}')">
+                            ${i.title}
+                        </div>
+                    `).join('')}
+                </div>
+
+                <div class="viewport-card">
+                    <div class="deck-nav-btn prev-btn" onclick="prevBedside(event)">◀</div>
+                    <div class="deck-nav-btn next-btn" onclick="nextBedside(event)">▶</div>
+                    <div class="zoom-controls">
+                        <div class="zoom-btn" onclick="adjustZoom(0.3)">+</div>
+                        <div class="zoom-btn" onclick="adjustZoom(-0.3)">-</div>
+                        <div class="zoom-btn" onclick="resetZoom()">⟲</div>
+                    </div>
+                    <div class="canvas-area">
+                        <img id="active-viewport-img" src="${proc.image}" alt="${proc.title}" style="transform: scale(${zoomLevel})">
+                    </div>
+                    <div class="plate-caption">
+                        <span>${proc.caption}</span>
+                        <span style="font-size: 8px; color: #94a3b8;">1x - 4x ZOOM</span>
+                    </div>
+                </div>
+
+                <div class="clinical-card">
+                    <div class="card-header">
+                        <span>⚡</span> PROCEDURAL STEPS & TRAJECTORY
+                    </div>
+                    ${proc.steps.map(s => `
+                        <div class="step-row">
+                            <div class="step-num">${s.num}</div>
+                            <div class="step-text"><strong>${s.title}:</strong> ${s.detail}</div>
+                        </div>
+                    `).join('')}
+                </div>
+
+                <div class="hazard-box">
+                    <strong>⚠️ CRITICAL CONTRAINDICATIONS & WARNINGS</strong>
+                    <div>${proc.contra}</div>
+                </div>
+            `;
+            container.innerHTML = html;
+        }
+
+        function selectBedside(id) {
+            currentBedside = id;
+            zoomLevel = 1.0;
+            renderBedsideTab(document.getElementById('screen-container'));
+        }
+
+        function prevBedside(e) {
+            if (e) e.stopPropagation();
+            const idx = BEDSIDE_ITEMS.findIndex(i => i.id === currentBedside);
+            const nextIdx = (idx - 1 + BEDSIDE_ITEMS.length) % BEDSIDE_ITEMS.length;
+            selectBedside(BEDSIDE_ITEMS[nextIdx].id);
+        }
+
+        function nextBedside(e) {
+            if (e) e.stopPropagation();
+            const idx = BEDSIDE_ITEMS.findIndex(i => i.id === currentBedside);
+            const nextIdx = (idx + 1) % BEDSIDE_ITEMS.length;
+            selectBedside(BEDSIDE_ITEMS[nextIdx].id);
+        }
+
+        // --- TAB 5: SURGICAL ATLAS (28 PLATES) ---
+        let atlasSectionMode = 'callouts';
+
+        function setAtlasSection(mode) {
+            atlasSectionMode = mode;
+            renderAtlasTab(document.getElementById('screen-container'), false);
+        }
+
+        function renderAtlasTab(container, resetScroll = true) {
+            if (resetScroll && container) container.scrollTop = 0;
+            const idx = ATLAS_PLATES.indexOf(currentAtlasPlate);
+            const categories = ['All Plates', 'Craniotomies & Trauma', 'Skull Base & Vascular', 'Spine & CVJ'];
+
+            let html = `
+                <div class="app-header">
+                    <div class="header-pill amber">STUDIO-GRADE SURGICAL ATLAS</div>
+                    <div class="header-title">${currentAtlasPlate.title}</div>
+                    <div class="header-desc">${currentAtlasPlate.category.toUpperCase()} • 19 MASTER PLATES</div>
+                </div>
+
+                <!-- Top Phone Navigation Bar -->
+                <div class="top-nav-bar">
+                    <button class="nav-btn" onclick="prevPlate(event)">◀ Prev</button>
+                    <div class="nav-counter">PLATE ${idx + 1} / ${ATLAS_PLATES.length}</div>
+                    <button class="nav-btn" onclick="nextPlate(event)">Next ▶</button>
+                </div>
+
+                <!-- Main Viewport Canvas -->
+                <div class="viewport-card">
+                    <div class="deck-nav-btn prev-btn" onclick="prevPlate(event)">◀</div>
+                    <div class="deck-nav-btn next-btn" onclick="nextPlate(event)">▶</div>
+                    <div class="zoom-controls">
+                        <div class="zoom-btn" onclick="adjustZoom(0.3)">+</div>
+                        <div class="zoom-btn" onclick="adjustZoom(-0.3)">-</div>
+                        <div class="zoom-btn" onclick="resetZoom()">⟲</div>
+                    </div>
+                    <div class="canvas-area">
+                        <img id="active-viewport-img" src="${currentAtlasPlate.image.startsWith('assets/') ? currentAtlasPlate.image : 'assets/' + currentAtlasPlate.image}" alt="${currentAtlasPlate.title}" style="transform: scale(${zoomLevel})">
+                        ${currentAtlasPlate.callouts.map(c => `
+                            <div class="callout-pin" style="left: ${c.x}%; top: ${c.y}%;" title="${c.title}"></div>
+                        `).join('')}
+                    </div>
+                    <div class="plate-caption">
+                        <span>${currentAtlasPlate.shortTitle.toUpperCase()}</span>
+                        <span style="font-size: 8px; color: #f59e0b;">PINNED CALLOUTS</span>
+                    </div>
+                </div>
+
+                <!-- Section Toggle Bar inside Phone -->
+                <div style="display: flex; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 2px;">
+                    <button style="flex: 1; padding: 6px; border: none; border-radius: 6px; font-size: 10px; font-weight: 700; cursor: pointer; transition: all 0.15s ease; background: ${atlasSectionMode === 'callouts' ? '#f59e0b' : 'transparent'}; color: ${atlasSectionMode === 'callouts' ? '#000' : '#94a3b8'};" onclick="setAtlasSection('callouts')">
+                        📍 Callouts & Pearls
+                    </button>
+                    <button style="flex: 1; padding: 6px; border: none; border-radius: 6px; font-size: 10px; font-weight: 700; cursor: pointer; transition: all 0.15s ease; background: ${atlasSectionMode === 'steps' ? '#38bdf8' : 'transparent'}; color: ${atlasSectionMode === 'steps' ? '#000' : '#94a3b8'};" onclick="setAtlasSection('steps')">
+                        ⚡ Operative Steps & Hazards
+                    </button>
+                </div>
+
+                ${atlasSectionMode === 'callouts' ? `
+                    <!-- Callout Card -->
+                    <div class="clinical-card">
+                        <div class="card-header" style="color: #f59e0b;">
+                            <span>📍</span> CALLOUT: ${currentAtlasPlate.callouts[0]?.title || 'Anatomical Structure'}
+                        </div>
+                        <div style="font-size: 11px; color: #cbd5e1; line-height: 1.45;">
+                            ${currentAtlasPlate.callouts[0]?.desc || ''}
+                        </div>
+                        <div style="font-size: 10px; color: #f59e0b; font-weight: 600;">
+                            💡 Surgical Pearl: ${currentAtlasPlate.callouts[0]?.pearl || ''}
+                        </div>
+                    </div>
+                ` : `
+                    <!-- Steps Card -->
+                    <div class="clinical-card">
+                        <div class="card-header" style="color: #38bdf8;">
+                            <span>⚡</span> SEQUENTIAL OPERATIVE STEPS
+                        </div>
+                        ${currentAtlasPlate.steps.map(s => `
+                            <div class="step-row">
+                                <div class="step-num" style="background: #f59e0b;">${s.num}</div>
+                                <div class="step-text"><strong>${s.title}:</strong> ${s.detail}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+
+                    <!-- Hazards Box -->
+                    <div class="hazard-box">
+                        <strong>⚠️ CATASTROPHIC OPERATIVE HAZARDS</strong>
+                        ${currentAtlasPlate.hazards.map(h => `<div>• ${h}</div>`).join('')}
+                    </div>
+                `}
+            `;
+            container.innerHTML = html;
+        }
+
+        function selectAtlasCategory(cat) {
+            currentAtlasCategory = cat;
+            const filtered = cat === 'All Plates' ? ATLAS_PLATES : ATLAS_PLATES.filter(p => p.category === cat);
+            if (filtered.length > 0 && !filtered.includes(currentAtlasPlate)) {
+                currentAtlasPlate = filtered[0];
+            }
+            zoomLevel = 1.0;
+            desktopZoomLevel = 1.0;
+            renderAtlasTab(document.getElementById('screen-container'));
+            updateDesktopReviewer();
+        }
+
+        function selectAtlasPlate(id) {
+            currentAtlasPlate = ATLAS_PLATES.find(p => p.id === id) || ATLAS_PLATES[0];
+            zoomLevel = 1.0;
+            desktopZoomLevel = 1.0;
+            renderAtlasTab(document.getElementById('screen-container'));
+            updateDesktopReviewer();
+        }
+
+        // --- TAB 1: 2 AM CRISIS TAB ---
+        function renderCrisisTab(container) {
+            const emergencies = ['EDH', 'SDH', 'Uncal', 'Posterior Fossa'];
+            let activeImage = 'assets/plate_ct_uncal.jpg';
+            if (currentCrisis === 'EDH') activeImage = 'assets/plate_ct_edh.jpg';
+            if (currentCrisis === 'SDH') activeImage = 'assets/plate_ct_sdh.jpg';
+            if (currentCrisis === 'Posterior Fossa') activeImage = 'assets/plate_ct_post_fossa.jpg';
+
+            let html = `
+                <div class="app-header">
+                    <div class="header-pill" style="color: #ef4444;">2 AM CRISIS PROTOCOL & TRIAGE</div>
+                    <div class="header-title">${currentCrisis} Herniation Emergency</div>
+                    <div class="header-desc">Zero-delay surgical thresholds, real-time osmotherapy dosing, and BTF decompressive protocols.</div>
+                </div>
+
+                <div class="pill-scroll">
+                    ${emergencies.map(e => `
+                        <div class="pill-btn ${e === currentCrisis ? 'active' : ''}" onclick="selectCrisis('${e}')">
+                            ${e} Emergency
+                        </div>
+                    `).join('')}
+                </div>
+
+                <div class="viewport-card">
+                    <div class="zoom-controls">
+                        <div class="zoom-btn" onclick="adjustZoom(0.3)">+</div>
+                        <div class="zoom-btn" onclick="adjustZoom(-0.3)">-</div>
+                        <div class="zoom-btn" onclick="resetZoom()">⟲</div>
+                    </div>
+                    <div class="canvas-area">
+                        <img id="active-viewport-img" src="${showHerniationPupils ? 'assets/plate_herniation_pupils.png' : activeImage}" alt="${currentCrisis}" style="transform: scale(${zoomLevel})">
+                    </div>
+                    <div class="plate-caption">
+                        <span>${showHerniationPupils ? 'ROSTROCAUDAL PUPILS & HERNIATION' : currentCrisis + ' HIGH-RESOLUTION CT'}</span>
+                        <button onclick="toggleHerniationPlate()" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 2px 6px; border-radius: 4px; font-size: 8px; cursor: pointer;">
+                            ${showHerniationPupils ? 'SHOW CT' : 'SHOW PUPILS'}
+                        </button>
+                    </div>
+                </div>
+
+                <div class="clinical-card">
+                    <div class="card-header" style="color: #ef4444;">
+                        <span>🚨</span> BTF SURGICAL EVACUATION THRESHOLDS
+                    </div>
+                    <div style="font-size: 11px; color: #cbd5e1; line-height: 1.5;">
+                        ${currentCrisis === 'Uncal' ? 
+                            '• Immediate decompressive craniectomy & tentorial unroofing indicated if unilateral fixed dilated pupil occurs with mass lesion.<br>• Administer 23.4% hypertonic saline 30 mL push or 1g/kg Mannitol immediately.' :
+                            (currentCrisis === 'EDH' ? 
+                            '• Volume > 30 cm³ requires immediate surgical evacuation regardless of GCS.<br>• GCS < 9 with anisocoria mandates urgent burr hole / craniotomy.' :
+                            '• Subdural thickness > 10 mm or midline shift > 5 mm requires emergent decompressive hemicraniectomy regardless of patient GCS.')
+                        }
+                    </div>
+                </div>
+
+                <div class="clinical-card">
+                    <div class="card-header" style="color: #38bdf8;">
+                        <span>🩸</span> ANTICOAGULATION REVERSAL PROTOCOL
+                    </div>
+                    <div style="font-size: 11px; color: #cbd5e1; line-height: 1.6;">
+                        • <strong>Warfarin (Coumadin):</strong> 4-Factor PCC (Kcentra) 25-50 units/kg IV + Vitamin K 10 mg IV slow push.<br>
+                        • <strong>DOAC (Apixaban / Rivaroxaban):</strong> Andexanet alfa (Andexxa) bolus + infusion OR 4F-PCC 50 u/kg.<br>
+                        • <strong>Dabigatran (Pradaxa):</strong> Idarucizumab (Praxbind) 5g IV (two 2.5g doses).
+                    </div>
+                </div>
+            `;
+            container.innerHTML = html;
+        }
+
+        function selectCrisis(c) {
+            currentCrisis = c;
+            zoomLevel = 1.0;
+            renderCrisisTab(document.getElementById('screen-container'));
+        }
+
+        function toggleHerniationPlate() {
+            showHerniationPupils = !showHerniationPupils;
+            zoomLevel = 1.0;
+            renderCrisisTab(document.getElementById('screen-container'));
+        }
+
+        // --- TAB 2: ER CONSULTS & BRAINSTEM REFLEX SLIDER ---
+        function renderConsultsTab(container) {
+            let html = `
+                <div class="app-header">
+                    <div class="header-pill" style="color: #f59e0b;">ER NEUROSURGERY CONSULTS & TRIAGE</div>
+                    <div class="header-title">Brainstem Reflex Ladder</div>
+                    <div class="header-desc">Rostrocaudal collapse progression, pupillary reflexes, motor posturing, and brain death criteria.</div>
+                </div>
+
+                <div class="clinical-card" style="border-color: rgba(245, 158, 11, 0.4);">
+                    <div class="card-header" style="color: #f59e0b;">
+                        <span>⚡</span> 5-STAGE ROSTROCAUDAL COLLAPSE SLIDER
+                    </div>
+                    <div style="font-size: 11px; color: #cbd5e1; line-height: 1.5;">
+                        Evaluate progressive brainstem herniation from diencephalic depression down to medullary collapse:
+                    </div>
+                    <div style="margin: 8px 0;">
+                        <input type="range" id="bs-slider" min="1" max="5" value="1" step="1" oninput="updateBrainstemStage(this.value)" style="width: 100%; accent-color: #f59e0b; cursor: pointer;">
+                        <div style="display: flex; justify-content: space-between; font-size: 9px; color: #94a3b8; font-family: 'JetBrains Mono', monospace; margin-top: 4px;">
+                            <span>INTACT</span>
+                            <span>DIENCEPHALIC</span>
+                            <span>MIDBRAIN</span>
+                            <span>PONS</span>
+                            <span>MEDULLA</span>
+                        </div>
+                    </div>
+                    <div id="bs-stage-card" style="background: rgba(0,0,0,0.5); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 10px; padding: 10px;">
+                        <div id="bs-stage-title" style="font-size: 13px; font-weight: 800; color: #f59e0b;">STAGE 1: CORTICAL / INTACT BRAINSTEM</div>
+                        <div id="bs-stage-desc" style="font-size: 11px; color: #cbd5e1; margin-top: 4px;">Normal pupillary light reflex (CN II/III), brisk corneal reflexes (CN V/VII), intact oculocephalic / vestibulo-ocular reflexes (CN VIII/III/VI).</div>
+                    </div>
+                </div>
+
+                <div class="clinical-card">
+                    <div class="card-header" style="color: #38bdf8;">
+                        <span>📋</span> ATTENDING SBAR BRIEFING CHECKLIST
+                    </div>
+                    <div style="font-size: 11px; color: #cbd5e1; line-height: 1.5;">
+                        • <strong>Situation:</strong> Age, Mechanism, GCS score, Pupil exam (size/reactivity).<br>
+                        • <strong>Background:</strong> Anticoagulation status, baseline functional independence.<br>
+                        • <strong>Assessment:</strong> CT findings: Hematoma volume, midline shift (mm), basal cistern effacement.<br>
+                        • <strong>Recommendation:</strong> OR decompressive craniectomy vs ICP monitor vs medical tier osmotherapy.
+                    </div>
+                </div>
+            `;
+            container.innerHTML = html;
+        }
+
+        const BS_STAGES = [
+            { title: "STAGE 1: CORTICAL / INTACT BRAINSTEM", desc: "Brisk pupillary light reflex (CN II/III), intact corneal reflex (CN V/VII), intact doll's eyes (oculocephalic). Purposive motor response." },
+            { title: "STAGE 2: EARLY DIENCEPHALIC DEPRESSION", desc: "Small, sluggishly reactive pupils (3 mm). Sighs / yawning respirations. Decorticate motor flexion (rubrospinal activation) to noxious stimuli." },
+            { title: "STAGE 3: MIDBRAIN HERNIATION (UNRESTRICTED CN III)", desc: "Unilateral or bilateral mid-position, fixed unreactive pupils (5-6 mm). Cheyne-Stokes respirations. Decerebrate extensor posturing (vestibulospinal uninhibited)." },
+            { title: "STAGE 4: PONTINE EXTENSION", desc: "Pinpoint fixed pupils (1-2 mm, sympathetic disruption). Central neurogenic hyperventilation. Complete loss of horizontal vestibulo-ocular reflexes." },
+            { title: "STAGE 5: MEDULLARY COLLAPSE / BRAIN DEATH", desc: "Bilateral widely dilated fixed pupils (8-9 mm). Ataxic / agonal respirations progressing to apnea. Flaccid quadriparesis with absent cranial nerve reflexes." }
+        ];
+
+        function updateBrainstemStage(val) {
+            const stage = BS_STAGES[parseInt(val) - 1];
+            document.getElementById('bs-stage-title').innerText = stage.title;
+            document.getElementById('bs-stage-desc').innerText = stage.desc;
+        }
+
+        // --- TAB 4: CALCULATORS TAB ---
+        function renderCalculatorsTab(container) {
+            let html = `
+                <div class="app-header">
+                    <div class="header-pill" style="color: #38bdf8;">NEUROSURGICAL CALCULATORS & DOSING</div>
+                    <div class="header-title">Clinical Grading & Osmotherapy</div>
+                    <div class="header-desc">Rapid bedside GCS, WFNS, Hunt & Hess, Fisher, ICH score, and hypertonic sodium deficit calculator.</div>
+                </div>
+
+                <div class="clinical-card">
+                    <div class="card-header" style="color: #38bdf8;">
+                        <span>🧮</span> GLASGOW COMA SCALE (GCS)
+                    </div>
+                    <div style="font-size: 11px; color: #cbd5e1; line-height: 1.5;">
+                        Quick total: Eye (1-4) + Verbal (1-5) + Motor (1-6). GCS ≤ 8 mandates immediate endotracheal intubation.
+                    </div>
+                </div>
+
+                <div class="clinical-card">
+                    <div class="card-header" style="color: #f59e0b;">
+                        <span>🧪</span> 3% HYPERTONIC SALINE DOSING (BTF TIER 2)
+                    </div>
+                    <div style="font-size: 11px; color: #cbd5e1; line-height: 1.5;">
+                        • <strong>Emergency Bolus:</strong> 250 mL of 3% NaCl IV over 15-20 minutes.<br>
+                        • <strong>Continuous Infusion:</strong> 0.5 - 1.5 mL/kg/hr targeting Serum Na <strong>150 - 155 mEq/L</strong> and Osmolality < 320 mOsm/kg.<br>
+                        • <strong>23.4% Rescue:</strong> 30 mL IV slow push over 10 min for refractory uncal crisis.
+                    </div>
+                </div>
+            `;
+            container.innerHTML = html;
+        }
+
+        function adjustZoom(delta) {
+            zoomLevel = Math.max(0.8, Math.min(3.0, zoomLevel + delta));
+            const img = document.getElementById('active-viewport-img');
+            if (img) img.style.transform = `scale(${zoomLevel})`;
+        }
+
+        function resetZoom() {
+            zoomLevel = 1.0;
+            const img = document.getElementById('active-viewport-img');
+            if (img) img.style.transform = 'scale(1)';
+        }
+
+        function jumpToBedside(id) {
+            switchTab('bedside');
+            selectBedside(id);
+        }
+
+        function jumpToAtlasPlate(id) {
+            switchTab('atlas');
+            selectAtlasPlate(id);
+        }
+
+        function jumpToCrisisUncal() {
+            switchTab('crisis');
+            selectCrisis('Uncal');
+        }
+
+        function jumpToCrisis(c) {
+            switchTab('crisis');
+            selectCrisis(c);
+        }
+
+        // Check for URL query parameter: ?plate=6 or ?plate=retrosigmoid_3d or hash #plate=11
+        const urlParams = new URLSearchParams(window.location.search);
+        const plateParam = urlParams.get('plate') || window.location.hash.replace('#', '');
+        if (plateParam) {
+            const plateNum = parseInt(plateParam.replace('plate=', ''), 10);
+            if (!isNaN(plateNum) && plateNum >= 1 && plateNum <= ATLAS_PLATES.length) {
+                currentAtlasPlate = ATLAS_PLATES[plateNum - 1];
+            } else {
+                const found = ATLAS_PLATES.find(p => p.id === plateParam || p.id === plateParam.replace('plate=', ''));
+                if (found) currentAtlasPlate = found;
+            }
+        }
+        // Initialize default view
+        switchTab('atlas');
+        updateDesktopReviewer();
+    </script>
+</body>
+</html>
