@@ -589,7 +589,7 @@ public enum AtlasCategory: String, CaseIterable {
         switch self {
         case .all: return SurgicalPlateType.allCases
         case .cranial: return [
-            .craniotomyBifrontal, .craniotomyParietal, .craniotomyTemporal,
+            .craniotomyPterional, .craniotomyBifrontal, .craniotomyParietal, .craniotomyTemporal,
             .retrosigmoid3D, .hemicraniectomy, .csdhBurrHole
         ]
         case .skullBase: return [
@@ -608,6 +608,7 @@ public enum AtlasCategory: String, CaseIterable {
 public enum SurgicalPlateType: String, CaseIterable {
     case aneurysmClipping = "aneurysm_clipping"
     case pterionalFissure = "pterional_fissure"
+    case craniotomyPterional = "craniotomy_pterional"
     case craniotomyBifrontal = "craniotomy_bifrontal"
     case craniotomyParietal = "craniotomy_parietal"
     case craniotomyTemporal = "craniotomy_temporal"
@@ -630,6 +631,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         switch self {
         case .aneurysmClipping: return "plate_aneurysm"
         case .pterionalFissure: return "plate_pterional_fissure"
+        case .craniotomyPterional: return "plate_pterional_craniotomy"
         case .craniotomyBifrontal: return "plate_bifrontal_3d"
         case .craniotomyParietal: return "plate_craniotomy_parietal"
         case .craniotomyTemporal: return "plate_craniotomy_temporal"
@@ -654,6 +656,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         switch self {
         case .aneurysmClipping: return "Aneurysm Clip"
         case .pterionalFissure: return "Sylvian Fissure"
+        case .craniotomyPterional: return "Pterional Flap"
         case .craniotomyBifrontal: return "Bifrontal 3D"
         case .craniotomyParietal: return "Parietal Map"
         case .craniotomyTemporal: return "Temporal Map"
@@ -678,6 +681,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         switch self {
         case .aneurysmClipping: return "Anterior Circulation Aneurysm Clipping"
         case .pterionalFissure: return "Pterional Sylvian Fissure Dissection & Opercular Planes"
+        case .craniotomyPterional: return "Pterional (Frontotemporal) Craniotomy & Sphenoid Ridge"
         case .craniotomyBifrontal: return "Bifrontal 3D Skull Model & Anterior Cranial Fossa"
         case .craniotomyParietal: return "Parietal Craniotomy & Sagittal Sinus Safety Margins"
         case .craniotomyTemporal: return "Subtemporal Flush Skull Base Exposure & Zygomatic Root"
@@ -702,6 +706,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         switch self {
         case .aneurysmClipping: return "bolt.horizontal.fill"
         case .pterionalFissure: return "brain.head.profile"
+        case .craniotomyPterional: return "shield.lefthalf.filled"
         case .craniotomyBifrontal: return "face.dashed"
         case .craniotomyParietal: return "cross.case.fill"
         case .craniotomyTemporal: return "ear"
@@ -768,6 +773,29 @@ public enum SurgicalPlateType: String, CaseIterable {
                     normalizedY: 0.46,
                     description: "Division between pars triangularis/orbitalis and superior temporal gyrus.",
                     surgicalPearl: "Dissect strictly on the frontal side of the superficial Sylvian vein to avoid temporal venous infarction."
+                )
+            ]
+        case .craniotomyPterional:
+            return [
+                SurgicalCallout(
+                    id: "craniotomy_pterional_1",
+                    title: "MacCarty Keyhole & Frontozygomatic Junction",
+                    structureType: "KEYHOLE LANDMARK",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.61,
+                    normalizedY: 0.43,
+                    description: "Strategic burr hole just posterior to the frontozygomatic junction straddling the orbital roof.",
+                    surgicalPearl: "Superior half exposes anterior cranial fossa dura; inferior half exposes periorbita."
+                ),
+                SurgicalCallout(
+                    id: "craniotomy_pterional_2",
+                    title: "Sphenoid Ridge & Sylvian Corridor",
+                    structureType: "SKULL BASE DRILLING",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.67,
+                    normalizedY: 0.49,
+                    description: "Lesser wing of sphenoid drilled flush to the meningo-orbital band separating frontal and temporal lobes.",
+                    surgicalPearl: "Flatten the sphenoid ridge completely so the microscope views the carotid cistern without brain retraction."
                 )
             ]
         case .craniotomyBifrontal:
@@ -1050,6 +1078,29 @@ public enum SurgicalPlateType: String, CaseIterable {
                     stepNumber: 4,
                     title: "Deep MCA Bifurcation Exposure",
                     detail: "Expose M1 trunk, bifurcation, and M2 branches without self-retaining blade pressure."
+                )
+            ]
+        case .craniotomyPterional:
+            return [
+                ApproachSequentialStep(
+                    stepNumber: 1,
+                    title: "Curvilinear Scalp Flap & Interfascial Dissection",
+                    detail: "Standard curvilinear incision behind hairline from zygomatic root to midline. Perform interfascial/subfascial temporalis dissection to preserve the frontalis branch of CN VII."
+                ),
+                ApproachSequentialStep(
+                    stepNumber: 2,
+                    title: "MacCarty Keyhole & Basal Burr Holes",
+                    detail: "Place MacCarty keyhole behind frontozygomatic suture, plus temporal root and frontal burr holes; turn frontotemporal bone flap."
+                ),
+                ApproachSequentialStep(
+                    stepNumber: 3,
+                    title: "Sphenoid Ridge Flattening",
+                    detail: "Use high-speed diamond and cutting burrs to flatten lateral sphenoid wing flush down to superior orbital fissure and meningo-orbital band."
+                ),
+                ApproachSequentialStep(
+                    stepNumber: 4,
+                    title: "Semicircular Dural Reflection",
+                    detail: "Open dura in C-shaped flap over Sylvian fissure, reflected anteriorly over the orbital rim and secured with tenting sutures."
                 )
             ]
         case .craniotomyBifrontal:
@@ -1459,6 +1510,12 @@ public enum SurgicalPlateType: String, CaseIterable {
                 "Avulsion of superficial Sylvian vein draining into sphenoparietal sinus",
                 "Overzealous bipolar coagulation on MCA bifurcations causing hemispheric stroke",
                 "Brain retraction ischemia if arachnoid cisternal drainage is incomplete"
+            ]
+        case .craniotomyPterional:
+            return [
+                "Frontalis branch of facial nerve (CN VII) injury if temporalis fascia is violated less than 1.5 cm above zygomatic arch",
+                "Orbital roof violation or periorbital fat herniation during aggressive MacCarty keyhole placement",
+                "Frontal sinus breach at anterior medial flap edge leading to delayed CSF rhinorrhea"
             ]
         case .craniotomyBifrontal:
             return [

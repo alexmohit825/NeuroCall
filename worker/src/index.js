@@ -71,24 +71,12 @@ export default {
 
     // 2. Direct IPA Binary Route (Handles any casing: /NeuroCall.ipa, /neurocall.ipa, etc.)
     if (normPath === '/neurocall.ipa' || normPath.endsWith('.ipa')) {
-      if (env.ASSETS) {
-        try {
-          const ipaReq = new Request(new URL('/NeuroCall.ipa', url.origin), request);
-          const assetResp = await env.ASSETS.fetch(ipaReq);
-          if (assetResp.status === 200) {
-            const headers = new Headers(assetResp.headers);
-            headers.set('Content-Type', 'application/octet-stream');
-            headers.set('Content-Disposition', 'attachment; filename="NeuroCall.ipa"');
-            headers.set('Cache-Control', 'no-store, no-cache, must-revalidate');
-            return new Response(assetResp.body, { status: 200, headers });
-          }
-        } catch (_) {}
-      }
-
-      // Live Fallback: Stream directly from GitHub repository raw blob or release
-      const rawGithubUrl = 'https://raw.githubusercontent.com/alexmohit825/NeuroCall/main/worker/public/NeuroCall.ipa';
+      const releaseUrl = 'https://github.com/alexmohit825/NeuroCall/releases/download/v1.0.0-adhoc/NeuroCall.ipa';
       try {
-        const ghResp = await fetch(rawGithubUrl);
+        const ghResp = await fetch(releaseUrl, {
+          redirect: 'follow',
+          headers: { 'User-Agent': 'NeuroCall-OTA-Worker' }
+        });
         if (ghResp.ok) {
           const headers = new Headers(ghResp.headers);
           headers.set('Content-Type', 'application/octet-stream');
@@ -96,7 +84,9 @@ export default {
           headers.set('Cache-Control', 'no-store, no-cache, must-revalidate');
           return new Response(ghResp.body, { status: 200, headers });
         }
-      } catch (_) {}
+      } catch (err) {
+        return new Response(`Error streaming release binary: ${err.message}`, { status: 502 });
+      }
 
       return new Response('NeuroCall.ipa is currently compiling in the cloud pipeline. Please refresh in ~2 minutes.', {
         status: 503,

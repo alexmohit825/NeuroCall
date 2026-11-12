@@ -34,3 +34,4 @@ emulator/master_gallery/
 emulator/downloads_review/
 emulator/gallery/
 emulator/*.png
+worker/public/*.ipa
