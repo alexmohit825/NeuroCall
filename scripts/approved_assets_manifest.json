@@ -1,5 +1,5 @@
 {
-  "count": 136,
+  "count": 138,
   "hashes": {
     "Assets.xcassets/AppIcon.appiconset/AppIcon.png": "d9e95d18bde056c8f0eb9127fff0ace1fb14dfb9060f8a8341f06952c13f1f36",
     "Assets.xcassets/plate_acdf.imageset/plate_acdf.jpg": "314e7ab8b6d9f03d1322947a095373768537de15899667edbfc10c80755cf6f5",
@@ -136,6 +136,8 @@
     "emulator/assets/plate_spine_tumor_compression.jpg": "cd870b2d563a3d3ef28f63bc93f4ae7531e54331a46e201c3fd6a0010ae02229",
     "emulator/assets/plate_tlif.jpg": "3adab4e464ad0783bb03355f92ea5d686bfc4b91a658d3050ee976104edba74a",
     "Assets.xcassets/plate_pterional_craniotomy.imageset/plate_pterional_craniotomy.jpg": "c0dc814a4fab9187946f1ee91d290c7bb7ea11d39adb7c8a7bb752675ee5b6d2",
-    "emulator/assets/plate_pterional_craniotomy.jpg": "c0dc814a4fab9187946f1ee91d290c7bb7ea11d39adb7c8a7bb752675ee5b6d2"
+    "emulator/assets/plate_pterional_craniotomy.jpg": "c0dc814a4fab9187946f1ee91d290c7bb7ea11d39adb7c8a7bb752675ee5b6d2",
+    "Assets.xcassets/plate_neonate_fontanelle_evd.imageset/plate_neonate_fontanelle_evd.jpg": "2b2bea487b86cd3396856d33d4f9ace011bc2e523aa4aa9d8edae58232d6cbc6",
+    "emulator/assets/plate_neonate_fontanelle_evd.jpg": "2b2bea487b86cd3396856d33d4f9ace011bc2e523aa4aa9d8edae58232d6cbc6"
   }
 }

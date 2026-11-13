@@ -590,7 +590,7 @@ public enum AtlasCategory: String, CaseIterable {
         case .all: return SurgicalPlateType.allCases
         case .cranial: return [
             .craniotomyPterional, .craniotomyBifrontal, .craniotomyParietal, .craniotomyTemporal,
-            .retrosigmoid3D, .hemicraniectomy, .csdhBurrHole
+            .retrosigmoid3D, .hemicraniectomy, .csdhBurrHole, .neonateFontanelleEVD
         ]
         case .skullBase: return [
             .aneurysmClipping, .pterionalFissure, .retrosigmoidDissection,
@@ -616,6 +616,7 @@ public enum SurgicalPlateType: String, CaseIterable {
     case retrosigmoidDissection = "retrosigmoid_dissection"
     case hemicraniectomy = "hemicraniectomy"
     case csdhBurrHole = "csdh_burr_hole"
+    case neonateFontanelleEVD = "neonate_fontanelle_evd"
     case endonasalSellar = "endonasal_sellar"
     case farLateral = "far_lateral"
     case chiariDecompression = "chiari_decompression"
@@ -639,6 +640,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .retrosigmoidDissection: return "plate_retrosigmoid_dissection"
         case .hemicraniectomy: return "plate_hemicraniectomy"
         case .csdhBurrHole: return "plate_csdh_burr_hole"
+        case .neonateFontanelleEVD: return "plate_neonate_fontanelle_evd"
         case .endonasalSellar: return "plate_endonasal_sellar"
         case .farLateral: return "plate_far_lateral"
         case .chiariDecompression: return "plate_chiari_decompression"
@@ -664,6 +666,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .retrosigmoidDissection: return "Retrosig Dissection"
         case .hemicraniectomy: return "Hemicraniectomy"
         case .csdhBurrHole: return "Chronic SDH"
+        case .neonateFontanelleEVD: return "Fontanelle EVD"
         case .endonasalSellar: return "Endonasal Sellar"
         case .farLateral: return "Far-Lateral"
         case .chiariDecompression: return "Chiari I"
@@ -689,6 +692,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .retrosigmoidDissection: return "Retrosigmoid CPA Dissection & Acousticofacial Bundle"
         case .hemicraniectomy: return "Decompressive Hemicraniectomy & Expansile Duroplasty"
         case .csdhBurrHole: return "Chronic Subdural Hematoma: Diagnostic CT & Burr Hole Evacuation"
+        case .neonateFontanelleEVD: return "Placing EVD through open fontanelle in neonate"
         case .endonasalSellar: return "Endoscopic Endonasal Sellar Corridor"
         case .farLateral: return "Far-Lateral Suboccipital Transcondylar Approach"
         case .chiariDecompression: return "Chiari I Malformation Decompression & Duraplasty"
@@ -714,6 +718,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .retrosigmoidDissection: return "waveform.path.ecg"
         case .hemicraniectomy: return "shield.slash.fill"
         case .csdhBurrHole: return "target"
+        case .neonateFontanelleEVD: return "cross.vial.fill"
         case .endonasalSellar: return "mouth"
         case .farLateral: return "tortoiseshell.fill"
         case .chiariDecompression: return "brain"
@@ -897,6 +902,39 @@ public enum SurgicalPlateType: String, CaseIterable {
                     normalizedY: 0.42,
                     description: "Neurosurgical circular burr hole placed over parietal boss / frontal convexity.",
                     surgicalPearl: "Inspect diploic cancellous marrow for hemostasis with bone wax before incising dura."
+                )
+            ]
+        case .neonateFontanelleEVD:
+            return [
+                SurgicalCallout(
+                    id: "neonate_evd_1",
+                    title: "Anterior Fontanelle Lateral Angle",
+                    structureType: "CRANIAL ENTRY POINT",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.28,
+                    normalizedY: 0.42,
+                    description: "Rhomboid anterior fontanelle at junction of coronal, sagittal, and metopic sutures. Catheter is introduced at the far lateral angle along coronal suture.",
+                    surgicalPearl: "Entering at the far lateral angle of the fontanelle avoids the superior sagittal sinus medially and stays safely anterior to the motor strip."
+                ),
+                SurgicalCallout(
+                    id: "neonate_evd_2",
+                    title: "Subgaleal Reservoir & Access Device",
+                    structureType: "SUBCUTANEOUS HARDWARE",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.54,
+                    normalizedY: 0.18,
+                    description: "Subcutaneous Rickham reservoir or EVD access chamber seated flat over parietal pericranium.",
+                    surgicalPearl: "Seat reservoir flat over intact pericranium away from skin puncture/incision sites to prevent hardware erosion or CSF leakage."
+                ),
+                SurgicalCallout(
+                    id: "neonate_evd_3",
+                    title: "Frontal Horn Ventricular Catheter",
+                    structureType: "VENTRICULAR TARGET",
+                    color: ObsidianTheme.neonEmerald,
+                    normalizedX: 0.79,
+                    normalizedY: 0.38,
+                    description: "Perforated silastic catheter passing into dilated frontal horn anterior to the foramen of Monro.",
+                    surgicalPearl: "Target depth is typically 2.5–3.5 cm from skin in neonates; keep tip strictly anterior to Monro to avoid choroid plexus occlusion."
                 )
             ]
         case .endonasalSellar:
@@ -1264,6 +1302,29 @@ public enum SurgicalPlateType: String, CaseIterable {
                     detail: "Irrigate subdural space copiously with warm saline until effluent is clear. Pass closed drain to gravity."
                 )
             ]
+        case .neonateFontanelleEVD:
+            return [
+                ApproachSequentialStep(
+                    stepNumber: 1,
+                    title: "Positioning & Fontanelle Palpation",
+                    detail: "Position infant supine with head midline or turned 45 degrees. Delineate the rhomboid anterior fontanelle, coronal suture, and sagittal midline under sterile prep."
+                ),
+                ApproachSequentialStep(
+                    stepNumber: 2,
+                    title: "Puncture Site & Angle Selection",
+                    detail: "Identify the far lateral angle of the anterior fontanelle along the coronal suture (at least 1.5–2.0 cm off midline) to safely clear the superior sagittal sinus."
+                ),
+                ApproachSequentialStep(
+                    stepNumber: 3,
+                    title: "Perpendicular Ventricular Cannulation",
+                    detail: "Direct the neonatal ventricular catheter perpendicular to the skull surface toward the ipsilateral medial canthus / tragus to a depth of 2.5–3.5 cm until pulsatile CSF flows freely."
+                ),
+                ApproachSequentialStep(
+                    stepNumber: 4,
+                    title: "Hardware Connection & Pressure Calibration",
+                    detail: "Connect catheter to subgaleal reservoir or external drainage system, anchor catheter with soft suture, verify opening pressure, and dress sterilely."
+                )
+            ]
         case .endonasalSellar:
             return [
                 ApproachSequentialStep(
@@ -1556,6 +1617,12 @@ public enum SurgicalPlateType: String, CaseIterable {
                 "Acute epidural or tension pneumocephalus following rapid evacuation without irrigation",
                 "Bridging vein rupture or neomembrane tear causing catastrophic acute-on-chronic subdural bleeding",
                 "Subdural empyema or bacterial seeding from unsterile closed drainage systems"
+            ]
+        case .neonateFontanelleEVD:
+            return [
+                "Superior sagittal sinus laceration from entering too close to midline within central fontanelle",
+                "Choroid plexus avulsion and intraventricular hemorrhage from over-advancing catheter beyond 3.5 cm",
+                "Pneumocephalus or acute ventricular collapse / subdural hematoma from sudden unbraked CSF decompression"
             ]
         case .endonasalSellar:
             return [

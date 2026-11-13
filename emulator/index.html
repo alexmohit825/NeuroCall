@@ -888,7 +888,7 @@
                 </div>
                 <div class="tab-item active-amber" onclick="switchTab('atlas')" id="tab-atlas">
                     <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
-                    <span>Atlas (20)</span>
+                    <span>Atlas (21)</span>
                 </div>
             </div>
 
@@ -909,7 +909,7 @@
             <!-- View Mode Switcher -->
             <div class="mode-toggle">
                 <button class="mode-btn active" id="mode-btn-atlas" onclick="switchConsoleMode('atlas')">
-                    📖 Curated Atlas Review Studio (20 Plates)
+                    📖 Curated Atlas Review Studio (21 Plates)
                 </button>
                 <button class="mode-btn" id="mode-btn-jumps" onclick="switchConsoleMode('jumps')">
                     ⚡ Quick Navigation & Bedside Jumps
@@ -955,10 +955,10 @@
                 <!-- 28-Plate Visual Thumbnail Strip -->
                 <div class="thumb-catalog">
                     <div class="thumb-header">
-                        <div class="thumb-title">20 Curated Master Plates</div>
+                        <div class="thumb-title">21 Curated Master Plates</div>
                         <div class="thumb-filters">
-                            <button class="thumb-filter-btn active" onclick="filterCatalog('All', this)">All (20)</button>
-                            <button class="thumb-filter-btn" onclick="filterCatalog('Craniotomies & Trauma', this)">Craniotomies (7)</button>
+                            <button class="thumb-filter-btn active" onclick="filterCatalog('All', this)">All (21)</button>
+                            <button class="thumb-filter-btn" onclick="filterCatalog('Craniotomies & Trauma', this)">Craniotomies (8)</button>
                             <button class="thumb-filter-btn" onclick="filterCatalog('Skull Base & Vascular', this)">Skull Base (5)</button>
                             <button class="thumb-filter-btn" onclick="filterCatalog('Spine & CVJ', this)">Spine & CVJ (8)</button>
                         </div>
@@ -1497,6 +1497,67 @@
       }
     ],
     "curatedStatus": "CSDH Diagnostic CT & Burr Hole"
+  },
+  {
+    "id": "neonate_fontanelle_evd",
+    "title": "Placing EVD through open fontanelle in neonate",
+    "shortTitle": "Fontanelle EVD",
+    "category": "Craniotomies & Trauma",
+    "image": "assets/plate_neonate_fontanelle_evd.jpg",
+    "callouts": [
+      {
+        "title": "Anterior Fontanelle Lateral Angle",
+        "type": "CRANIAL ENTRY POINT",
+        "desc": "Rhomboid anterior fontanelle at junction of coronal, sagittal, and metopic sutures. Catheter is introduced at the far lateral angle along coronal suture.",
+        "pearl": "Entering at the far lateral angle of the fontanelle avoids the superior sagittal sinus medially and stays safely anterior to the motor strip.",
+        "x": 28,
+        "y": 42
+      },
+      {
+        "title": "Subgaleal Reservoir & Access Device",
+        "type": "SUBCUTANEOUS HARDWARE",
+        "desc": "Subcutaneous Rickham reservoir or EVD access chamber seated flat over parietal pericranium.",
+        "pearl": "Seat reservoir flat over intact pericranium away from skin puncture/incision sites to prevent hardware erosion or CSF leakage.",
+        "x": 54,
+        "y": 18
+      },
+      {
+        "title": "Frontal Horn Ventricular Catheter",
+        "type": "VENTRICULAR TARGET",
+        "desc": "Perforated silastic catheter passing into dilated frontal horn anterior to the foramen of Monro.",
+        "pearl": "Target depth is typically 2.5–3.5 cm from skin in neonates; keep tip strictly anterior to Monro to avoid choroid plexus occlusion.",
+        "x": 79,
+        "y": 38
+      }
+    ],
+    "hazards": [
+      "Superior sagittal sinus laceration from entering too close to midline within central fontanelle",
+      "Choroid plexus avulsion and intraventricular hemorrhage from over-advancing catheter beyond 3.5 cm",
+      "Pneumocephalus or acute ventricular collapse / subdural hematoma from sudden unbraked CSF decompression"
+    ],
+    "steps": [
+      {
+        "num": 1,
+        "title": "Positioning & Fontanelle Palpation",
+        "detail": "Position infant supine with head midline or rotated 45 degrees. Delineate the rhomboid anterior fontanelle, coronal suture, and sagittal midline under sterile prep."
+      },
+      {
+        "num": 2,
+        "title": "Puncture Site & Entry Selection",
+        "detail": "Identify the far lateral angle of the anterior fontanelle along the coronal suture (at least 1.5–2.0 cm off midline) to safely clear the superior sagittal sinus."
+      },
+      {
+        "num": 3,
+        "title": "Perpendicular Ventricular Cannulation",
+        "detail": "Direct the neonatal ventricular catheter perpendicular to the skull surface toward the ipsilateral medial canthus / tragus to a depth of 2.5–3.5 cm until pulsatile CSF flows freely."
+      },
+      {
+        "num": 4,
+        "title": "Hardware Connection & Pressure Calibration",
+        "detail": "Connect catheter to subgaleal reservoir or external drainage system, anchor catheter with soft suture, verify opening pressure, and dress sterilely."
+      }
+    ],
+    "curatedStatus": "User-Verified Plate"
   },
   {
     "id": "endonasal_sellar",
