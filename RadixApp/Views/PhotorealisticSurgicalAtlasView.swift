@@ -589,7 +589,7 @@ public enum AtlasCategory: String, CaseIterable {
         switch self {
         case .all: return SurgicalPlateType.allCases
         case .cranial: return [
-            .craniotomyPterional, .craniotomyBifrontal, .craniotomyParietal, .craniotomyTemporal,
+            .craniotomyPterional, .craniotomyFtOzo, .craniotomyBifrontal, .craniotomyParietal, .craniotomyTemporal,
             .retrosigmoid3D, .hemicraniectomy, .csdhBurrHole, .neonateFontanelleEVD
         ]
         case .skullBase: return [
@@ -609,6 +609,7 @@ public enum SurgicalPlateType: String, CaseIterable {
     case aneurysmClipping = "aneurysm_clipping"
     case pterionalFissure = "pterional_fissure"
     case craniotomyPterional = "craniotomy_pterional"
+    case craniotomyFtOzo = "craniotomy_ft_ozo"
     case craniotomyBifrontal = "craniotomy_bifrontal"
     case craniotomyParietal = "craniotomy_parietal"
     case craniotomyTemporal = "craniotomy_temporal"
@@ -634,6 +635,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .aneurysmClipping: return "plate_aneurysm"
         case .pterionalFissure: return "plate_pterional_fissure"
         case .craniotomyPterional: return "plate_pterional_craniotomy"
+        case .craniotomyFtOzo: return "plate_craniotomy_ft_ozo"
         case .craniotomyBifrontal: return "plate_bifrontal_3d"
         case .craniotomyParietal: return "plate_craniotomy_parietal"
         case .craniotomyTemporal: return "plate_craniotomy_temporal"
@@ -661,6 +663,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .aneurysmClipping: return "Aneurysm Clip"
         case .pterionalFissure: return "Sylvian Fissure"
         case .craniotomyPterional: return "Pterional Flap"
+        case .craniotomyFtOzo: return "FT-OZO 3D"
         case .craniotomyBifrontal: return "Bifrontal 3D"
         case .craniotomyParietal: return "Parietal Map"
         case .craniotomyTemporal: return "Temporal Map"
@@ -688,6 +691,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .aneurysmClipping: return "Anterior Circulation Aneurysm Clipping"
         case .pterionalFissure: return "Pterional Sylvian Fissure Dissection & Opercular Planes"
         case .craniotomyPterional: return "Pterional (Frontotemporal) Craniotomy & Sphenoid Ridge"
+        case .craniotomyFtOzo: return "Fronto-Temporal Orbitozygomatic (FT-OZO) Craniotomy"
         case .craniotomyBifrontal: return "Bifrontal 3D Skull Model & Anterior Cranial Fossa"
         case .craniotomyParietal: return "Parietal Craniotomy & Sagittal Sinus Safety Margins"
         case .craniotomyTemporal: return "Subtemporal Flush Skull Base Exposure & Zygomatic Root"
@@ -715,6 +719,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .aneurysmClipping: return "bolt.horizontal.fill"
         case .pterionalFissure: return "brain.head.profile"
         case .craniotomyPterional: return "shield.lefthalf.filled"
+        case .craniotomyFtOzo: return "eye.circle.fill"
         case .craniotomyBifrontal: return "face.dashed"
         case .craniotomyParietal: return "cross.case.fill"
         case .craniotomyTemporal: return "ear"
@@ -806,6 +811,49 @@ public enum SurgicalPlateType: String, CaseIterable {
                     normalizedY: 0.49,
                     description: "Lesser wing of sphenoid drilled flush to the meningo-orbital band separating frontal and temporal lobes.",
                     surgicalPearl: "Flatten the sphenoid ridge completely so the microscope views the carotid cistern without brain retraction."
+                )
+            ]
+        case .craniotomyFtOzo:
+            return [
+                SurgicalCallout(
+                    id: "ft_ozo_1",
+                    title: "Orbital Rim & Roof Osteotomy",
+                    structureType: "SKULL BASE OSTEOTOMY",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.58,
+                    normalizedY: 0.45,
+                    description: "Supraorbital margin and anterior orbital roof resected with preserved periorbita to widen the subfrontal trajectory.",
+                    surgicalPearl: "Pre-plate the orbital rim before osteotomy to guarantee anatomic aesthetic realignment and prevent enophthalmos upon closure."
+                ),
+                SurgicalCallout(
+                    id: "ft_ozo_2",
+                    title: "Zygomatic Arch Resection",
+                    structureType: "ZYGOMATIC CORRIDOR",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.38,
+                    normalizedY: 0.60,
+                    description: "Zygomatic arch divided at the malar eminence anteriorly and articular tubercle posteriorly, mobilizing the temporalis muscle inferiorly.",
+                    surgicalPearl: "Perform careful subfascial or interfascial dissection to safeguard the frontalis branches of the facial nerve (CN VII)."
+                ),
+                SurgicalCallout(
+                    id: "ft_ozo_3",
+                    title: "Frontotemporal Calvarial Flap",
+                    structureType: "CALVARIAL OSTEOTOMY",
+                    color: ObsidianTheme.neonRose,
+                    normalizedX: 0.35,
+                    normalizedY: 0.22,
+                    description: "Primary frontotemporal bone flap unroofing the anterior cranial fossa and sphenoid ridge.",
+                    surgicalPearl: "Drilling the sphenoid ridge flush provides a flat anterolateral corridor requiring minimal to zero frontal lobe retraction."
+                ),
+                SurgicalCallout(
+                    id: "ft_ozo_4",
+                    title: "Fronto-Orbital & Sylvian Opercular Exposure",
+                    structureType: "MICROSURGICAL EXPOSURE",
+                    color: ObsidianTheme.neonEmerald,
+                    normalizedX: 0.32,
+                    normalizedY: 0.36,
+                    description: "Frontal and temporal opercula and anterior Sylvian fissure exposed under an ultra-low, multi-angled trajectory.",
+                    surgicalPearl: "Provides the shortest surgical working distance to basilar apex, paraclinoid, and high AComA aneurysms."
                 )
             ]
         case .craniotomyBifrontal:
@@ -1197,6 +1245,29 @@ public enum SurgicalPlateType: String, CaseIterable {
                     stepNumber: 4,
                     title: "Semicircular Dural Reflection",
                     detail: "Open dura in C-shaped flap over Sylvian fissure, reflected anteriorly over the orbital rim and secured with tenting sutures."
+                )
+            ]
+        case .craniotomyFtOzo:
+            return [
+                ApproachSequentialStep(
+                    stepNumber: 1,
+                    title: "Scalp Incision & Interfascial Dissection",
+                    detail: "Curvilinear question-mark incision behind hairline. Perform meticulous interfascial temporalis dissection to preserve frontalis branch of CN VII."
+                ),
+                ApproachSequentialStep(
+                    stepNumber: 2,
+                    title: "Two-Piece or One-Piece Osteotomy",
+                    detail: "Elevate standard pterional bone flap first, then perform orbital roof, lateral orbital wall, and zygomatic arch cuts with protected periorbita."
+                ),
+                ApproachSequentialStep(
+                    stepNumber: 3,
+                    title: "Sphenoid Ridge & Orbit Flattening",
+                    detail: "Drill remaining lesser sphenoid wing down to superior orbital fissure and smooth orbital roof to achieve completely flush skull base corridor."
+                ),
+                ApproachSequentialStep(
+                    stepNumber: 4,
+                    title: "Durotomy & Basal Cisternal CSF Slack",
+                    detail: "Open dura in curvilinear fashion hinged inferiorly. Open carotid and chiasmatic cisterns early to obtain complete brain slack without retractor pressure."
                 )
             ]
         case .craniotomyBifrontal:
@@ -1658,6 +1729,12 @@ public enum SurgicalPlateType: String, CaseIterable {
                 "Frontalis branch of facial nerve (CN VII) injury if temporalis fascia is violated less than 1.5 cm above zygomatic arch",
                 "Orbital roof violation or periorbital fat herniation during aggressive MacCarty keyhole placement",
                 "Frontal sinus breach at anterior medial flap edge leading to delayed CSF rhinorrhea"
+            ]
+        case .craniotomyFtOzo:
+            return [
+                "Frontal branch of facial nerve (CN VII) neuropraxia or transection from unlayered temporalis fascia dissection",
+                "Periorbital laceration with retrobulbar hematoma, globe injury, or optic nerve traction during orbital cuts",
+                "Delayed enophthalmos, vertical diplopia, or severe cosmetic asymmetry from inadequate rigid orbital frame reconstruction"
             ]
         case .craniotomyBifrontal:
             return [

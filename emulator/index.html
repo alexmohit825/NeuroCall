@@ -888,7 +888,7 @@
                 </div>
                 <div class="tab-item active-amber" onclick="switchTab('atlas')" id="tab-atlas">
                     <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
-                    <span>Atlas (22)</span>
+                    <span>Atlas (23)</span>
                 </div>
             </div>
 
@@ -909,7 +909,7 @@
             <!-- View Mode Switcher -->
             <div class="mode-toggle">
                 <button class="mode-btn active" id="mode-btn-atlas" onclick="switchConsoleMode('atlas')">
-                    📖 Curated Atlas Review Studio (22 Plates)
+                    📖 Curated Atlas Review Studio (23 Plates)
                 </button>
                 <button class="mode-btn" id="mode-btn-jumps" onclick="switchConsoleMode('jumps')">
                     ⚡ Quick Navigation & Bedside Jumps
@@ -955,10 +955,10 @@
                 <!-- 28-Plate Visual Thumbnail Strip -->
                 <div class="thumb-catalog">
                     <div class="thumb-header">
-                        <div class="thumb-title">22 Curated Master Plates</div>
+                        <div class="thumb-title">23 Curated Master Plates</div>
                         <div class="thumb-filters">
-                            <button class="thumb-filter-btn active" onclick="filterCatalog('All', this)">All (22)</button>
-                            <button class="thumb-filter-btn" onclick="filterCatalog('Craniotomies & Trauma', this)">Craniotomies (8)</button>
+                            <button class="thumb-filter-btn active" onclick="filterCatalog('All', this)">All (23)</button>
+                            <button class="thumb-filter-btn" onclick="filterCatalog('Craniotomies & Trauma', this)">Craniotomies (9)</button>
                             <button class="thumb-filter-btn" onclick="filterCatalog('Skull Base & Vascular', this)">Skull Base (6)</button>
                             <button class="thumb-filter-btn" onclick="filterCatalog('Spine & CVJ', this)">Spine & CVJ (8)</button>
                         </div>
@@ -1177,6 +1177,75 @@
     ],
     "curatedStatus": "User-Verified Plate"
   },
+{
+  "id": "craniotomy_ft_ozo",
+  "title": "Fronto-Temporal Orbitozygomatic (FT-OZO) Craniotomy",
+  "shortTitle": "FT-OZO 3D",
+  "category": "Craniotomies & Trauma",
+  "image": "assets/plate_craniotomy_ft_ozo.jpg",
+  "callouts": [
+    {
+      "title": "Orbital Rim & Roof Osteotomy",
+      "type": "SKULL BASE OSTEOTOMY",
+      "desc": "Supraorbital margin and anterior orbital roof resected with preserved periorbita to widen the subfrontal trajectory.",
+      "pearl": "Pre-plate the orbital rim before osteotomy to guarantee anatomic aesthetic realignment and prevent enophthalmos upon closure.",
+      "x": 58,
+      "y": 45
+    },
+    {
+      "title": "Zygomatic Arch Resection",
+      "type": "ZYGOMATIC CORRIDOR",
+      "desc": "Zygomatic arch divided at the malar eminence anteriorly and articular tubercle posteriorly, mobilizing the temporalis muscle inferiorly.",
+      "pearl": "Perform careful subfascial or interfascial dissection to safeguard the frontalis branches of the facial nerve (CN VII).",
+      "x": 38,
+      "y": 60
+    },
+    {
+      "title": "Frontotemporal Calvarial Flap",
+      "type": "CALVARIAL OSTEOTOMY",
+      "desc": "Primary frontotemporal bone flap unroofing the anterior cranial fossa and sphenoid ridge.",
+      "pearl": "Drilling the sphenoid ridge flush provides a flat anterolateral corridor requiring minimal to zero frontal lobe retraction.",
+      "x": 35,
+      "y": 22
+    },
+    {
+      "title": "Fronto-Orbital & Sylvian Opercular Exposure",
+      "type": "MICROSURGICAL EXPOSURE",
+      "desc": "Frontal and temporal opercula and anterior Sylvian fissure exposed under an ultra-low, multi-angled trajectory.",
+      "pearl": "Provides the shortest surgical working distance to basilar apex, paraclinoid, and high AComA aneurysms.",
+      "x": 32,
+      "y": 36
+    }
+  ],
+  "hazards": [
+    "Frontal branch of facial nerve (CN VII) neuropraxia or transection from unlayered temporalis fascia dissection",
+    "Periorbital laceration with retrobulbar hematoma, globe injury, or optic nerve traction during orbital cuts",
+    "Delayed enophthalmos, vertical diplopia, or severe cosmetic asymmetry from inadequate rigid orbital frame reconstruction"
+  ],
+  "steps": [
+    {
+      "num": 1,
+      "title": "Scalp Incision & Interfascial Dissection",
+      "detail": "Curvilinear question-mark incision behind hairline. Perform meticulous interfascial temporalis dissection to preserve frontalis branch of CN VII."
+    },
+    {
+      "num": 2,
+      "title": "Two-Piece or One-Piece Osteotomy",
+      "detail": "Elevate standard pterional bone flap first, then perform orbital roof, lateral orbital wall, and zygomatic arch cuts with protected periorbita."
+    },
+    {
+      "num": 3,
+      "title": "Sphenoid Ridge & Orbit Flattening",
+      "detail": "Drill remaining lesser sphenoid wing down to superior orbital fissure and smooth orbital roof to achieve completely flush skull base corridor."
+    },
+    {
+      "num": 4,
+      "title": "Durotomy & Basal Cisternal CSF Slack",
+      "detail": "Open dura in curvilinear fashion hinged inferiorly. Open carotid and chiasmatic cisterns early to obtain complete brain slack without retractor pressure."
+    }
+  ],
+  "curatedStatus": "Fronto-Temporal Orbitozygomatic Master"
+},
   {
     "id": "craniotomy_bifrontal",
     "title": "Bifrontal 3D Skull Model & Anterior Cranial Fossa",
