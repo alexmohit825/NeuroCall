@@ -888,7 +888,7 @@
                 </div>
                 <div class="tab-item active-amber" onclick="switchTab('atlas')" id="tab-atlas">
                     <svg fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
-                    <span>Atlas (21)</span>
+                    <span>Atlas (22)</span>
                 </div>
             </div>
 
@@ -909,7 +909,7 @@
             <!-- View Mode Switcher -->
             <div class="mode-toggle">
                 <button class="mode-btn active" id="mode-btn-atlas" onclick="switchConsoleMode('atlas')">
-                    📖 Curated Atlas Review Studio (21 Plates)
+                    📖 Curated Atlas Review Studio (22 Plates)
                 </button>
                 <button class="mode-btn" id="mode-btn-jumps" onclick="switchConsoleMode('jumps')">
                     ⚡ Quick Navigation & Bedside Jumps
@@ -955,11 +955,11 @@
                 <!-- 28-Plate Visual Thumbnail Strip -->
                 <div class="thumb-catalog">
                     <div class="thumb-header">
-                        <div class="thumb-title">21 Curated Master Plates</div>
+                        <div class="thumb-title">22 Curated Master Plates</div>
                         <div class="thumb-filters">
-                            <button class="thumb-filter-btn active" onclick="filterCatalog('All', this)">All (21)</button>
+                            <button class="thumb-filter-btn active" onclick="filterCatalog('All', this)">All (22)</button>
                             <button class="thumb-filter-btn" onclick="filterCatalog('Craniotomies & Trauma', this)">Craniotomies (8)</button>
-                            <button class="thumb-filter-btn" onclick="filterCatalog('Skull Base & Vascular', this)">Skull Base (5)</button>
+                            <button class="thumb-filter-btn" onclick="filterCatalog('Skull Base & Vascular', this)">Skull Base (6)</button>
                             <button class="thumb-filter-btn" onclick="filterCatalog('Spine & CVJ', this)">Spine & CVJ (8)</button>
                         </div>
                     </div>
@@ -2008,7 +2008,84 @@
       }
     ],
     "curatedStatus": "Anterior Cervical Discectomy & Fusion"
-  }
+  },
+{
+  "id": "sylvian_fissure_distal_split",
+  "title": "Splitting of distal anterior sylvian fissure",
+  "shortTitle": "Sylvian Split",
+  "category": "Skull Base & Vascular",
+  "image": "assets/plate_sylvian_fissure_distal_split.jpg",
+  "callouts": [
+    {
+      "title": "Micro-Scissors Arachnoid Division",
+      "type": "MICROSURGICAL DISSECTION",
+      "desc": "Fine micro-scissors sharply dividing taut arachnoid trabeculae under tension.",
+      "pearl": "Always sharply divide arachnoid under gentle counter-traction; never tear or avulse arachnoid blindly near bridging vessels.",
+      "x": 58,
+      "y": 58
+    },
+    {
+      "title": "Suction Counter-Traction",
+      "type": "SURGICAL INSTRUMENTATION",
+      "desc": "Fine micro-suction providing lateral counter-traction on thick arachnoid bands.",
+      "pearl": "Keep suction tip anchored on a cottonoid or thick arachnoid band, never directly aspirating delicate pial surfaces.",
+      "x": 28,
+      "y": 58
+    },
+    {
+      "title": "Internal Carotid Artery (ICA)",
+      "type": "PARENT ARTERY IN DEPTH",
+      "desc": "Crimson supraclinoid internal carotid artery emerging in the deep cisternal corridor.",
+      "pearl": "Early cistern opening releases CSF, relaxes the frontal lobe, and secures proximal arterial control.",
+      "x": 58,
+      "y": 35
+    },
+    {
+      "title": "Optic Nerve (CN II)",
+      "type": "CRANIAL NERVE IN DEPTH",
+      "desc": "Glistening pale white optic nerve traveling toward the optic canal.",
+      "pearl": "Preserve delicate pial vessels and avoid heat conduction from bipolar forceps near the optic apparatus.",
+      "x": 49,
+      "y": 30
+    },
+    {
+      "title": "Superficial Sylvian Veins",
+      "type": "VENOUS DRAINAGE",
+      "desc": "Superficial Sylvian venous trunk protected on the temporal operculum with flanking cottonoids.",
+      "pearl": "Maintain dissection strictly on the frontal side of the superficial Sylvian vein to protect temporal outflow.",
+      "x": 72,
+      "y": 44
+    }
+  ],
+  "hazards": [
+    "Laceration or avulsion of the internal carotid artery (ICA) or M1 trunk from tearing arachnoid blindly in cisternal depth",
+    "Temporal lobe venous infarction or malignant edema from coagulating or avulsing the main superficial Sylvian venous trunk",
+    "Direct mechanical or thermal injury to the optic nerve (CN II) or ophthalmic artery during deep cisternal exposure"
+  ],
+  "steps": [
+    {
+      "num": 1,
+      "title": "Identify Distal Sylvian Fissure",
+      "detail": "Locate anterior ascending and horizontal rami of Sylvian fissure under high magnification between frontal and temporal opercula."
+    },
+    {
+      "num": 2,
+      "title": "Sharply Fenestrate Arachnoid",
+      "detail": "Use fine micro-scissors to sharply incise arachnoid bands while applying gentle suction counter-traction."
+    },
+    {
+      "num": 3,
+      "title": "Preserve Venous Architecture",
+      "detail": "Mobilize superficial Sylvian veins toward the temporal lobe, dissecting strictly on their frontal aspect."
+    },
+    {
+      "num": 4,
+      "title": "Deep Cisternal CSF Release",
+      "detail": "Open opticocarotid cistern in depth, visualizing CN II and supraclinoid ICA to achieve natural brain relaxation."
+    }
+  ],
+  "curatedStatus": "Intraoperative Microdissection Master"
+}
 ];
 
         let currentTab = 'atlas';

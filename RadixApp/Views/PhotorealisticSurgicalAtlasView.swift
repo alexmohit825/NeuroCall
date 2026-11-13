@@ -593,7 +593,7 @@ public enum AtlasCategory: String, CaseIterable {
             .retrosigmoid3D, .hemicraniectomy, .csdhBurrHole, .neonateFontanelleEVD
         ]
         case .skullBase: return [
-            .aneurysmClipping, .pterionalFissure, .retrosigmoidDissection,
+            .aneurysmClipping, .pterionalFissure, .sylvianFissureDistalSplit, .retrosigmoidDissection,
             .endonasalSellar, .farLateral
         ]
         case .spine: return [
@@ -617,6 +617,7 @@ public enum SurgicalPlateType: String, CaseIterable {
     case hemicraniectomy = "hemicraniectomy"
     case csdhBurrHole = "csdh_burr_hole"
     case neonateFontanelleEVD = "neonate_fontanelle_evd"
+    case sylvianFissureDistalSplit = "sylvian_fissure_distal_split"
     case endonasalSellar = "endonasal_sellar"
     case farLateral = "far_lateral"
     case chiariDecompression = "chiari_decompression"
@@ -641,6 +642,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .hemicraniectomy: return "plate_hemicraniectomy"
         case .csdhBurrHole: return "plate_csdh_burr_hole"
         case .neonateFontanelleEVD: return "plate_neonate_fontanelle_evd"
+        case .sylvianFissureDistalSplit: return "plate_sylvian_fissure_distal_split"
         case .endonasalSellar: return "plate_endonasal_sellar"
         case .farLateral: return "plate_far_lateral"
         case .chiariDecompression: return "plate_chiari_decompression"
@@ -667,6 +669,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .hemicraniectomy: return "Hemicraniectomy"
         case .csdhBurrHole: return "Chronic SDH"
         case .neonateFontanelleEVD: return "Fontanelle EVD"
+        case .sylvianFissureDistalSplit: return "Sylvian Split"
         case .endonasalSellar: return "Endonasal Sellar"
         case .farLateral: return "Far-Lateral"
         case .chiariDecompression: return "Chiari I"
@@ -693,6 +696,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .hemicraniectomy: return "Decompressive Hemicraniectomy & Expansile Duroplasty"
         case .csdhBurrHole: return "Chronic Subdural Hematoma: Diagnostic CT & Burr Hole Evacuation"
         case .neonateFontanelleEVD: return "Placing EVD through open fontanelle in neonate"
+        case .sylvianFissureDistalSplit: return "Splitting of distal anterior sylvian fissure"
         case .endonasalSellar: return "Endoscopic Endonasal Sellar Corridor"
         case .farLateral: return "Far-Lateral Suboccipital Transcondylar Approach"
         case .chiariDecompression: return "Chiari I Malformation Decompression & Duraplasty"
@@ -719,6 +723,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .hemicraniectomy: return "shield.slash.fill"
         case .csdhBurrHole: return "target"
         case .neonateFontanelleEVD: return "cross.vial.fill"
+        case .sylvianFissureDistalSplit: return "scissors"
         case .endonasalSellar: return "mouth"
         case .farLateral: return "tortoiseshell.fill"
         case .chiariDecompression: return "brain"
@@ -935,6 +940,59 @@ public enum SurgicalPlateType: String, CaseIterable {
                     normalizedY: 0.38,
                     description: "Perforated silastic catheter passing into dilated frontal horn anterior to the foramen of Monro.",
                     surgicalPearl: "Target depth is typically 2.5–3.5 cm from skin in neonates; keep tip strictly anterior to Monro to avoid choroid plexus occlusion."
+                )
+            ]
+        case .sylvianFissureDistalSplit:
+            return [
+                SurgicalCallout(
+                    id: "sylvian_distal_1",
+                    title: "Micro-Scissors Arachnoid Division",
+                    structureType: "MICROSURGICAL DISSECTION",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.58,
+                    normalizedY: 0.58,
+                    description: "Fine micro-scissors sharply dividing taut arachnoid trabeculae under tension.",
+                    surgicalPearl: "Always sharply divide arachnoid under gentle counter-traction; never tear or avulse arachnoid blindly near bridging vessels."
+                ),
+                SurgicalCallout(
+                    id: "sylvian_distal_2",
+                    title: "Suction Counter-Traction",
+                    structureType: "SURGICAL INSTRUMENTATION",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.28,
+                    normalizedY: 0.58,
+                    description: "Fine micro-suction providing lateral counter-traction on thick arachnoid bands.",
+                    surgicalPearl: "Keep suction tip anchored on a cottonoid or thick arachnoid band, never directly aspirating delicate pial surfaces."
+                ),
+                SurgicalCallout(
+                    id: "sylvian_distal_3",
+                    title: "Internal Carotid Artery (ICA)",
+                    structureType: "PARENT ARTERY IN DEPTH",
+                    color: ObsidianTheme.neonRose,
+                    normalizedX: 0.58,
+                    normalizedY: 0.35,
+                    description: "Crimson supraclinoid internal carotid artery emerging in the deep cisternal corridor.",
+                    surgicalPearl: "Early cistern opening releases CSF, relaxes the frontal lobe, and secures proximal arterial control."
+                ),
+                SurgicalCallout(
+                    id: "sylvian_distal_4",
+                    title: "Optic Nerve (CN II)",
+                    structureType: "CRANIAL NERVE IN DEPTH",
+                    color: ObsidianTheme.neonEmerald,
+                    normalizedX: 0.49,
+                    normalizedY: 0.30,
+                    description: "Glistening pale white optic nerve traveling toward the optic canal.",
+                    surgicalPearl: "Preserve delicate pial vessels and avoid heat conduction from bipolar forceps near the optic apparatus."
+                ),
+                SurgicalCallout(
+                    id: "sylvian_distal_5",
+                    title: "Superficial Sylvian Veins",
+                    structureType: "VENOUS DRAINAGE",
+                    color: ObsidianTheme.neonPurple,
+                    normalizedX: 0.72,
+                    normalizedY: 0.44,
+                    description: "Superficial Sylvian venous trunk protected on the temporal operculum with flanking cottonoids.",
+                    surgicalPearl: "Maintain dissection strictly on the frontal side of the superficial Sylvian vein to protect temporal outflow."
                 )
             ]
         case .endonasalSellar:
@@ -1325,6 +1383,29 @@ public enum SurgicalPlateType: String, CaseIterable {
                     detail: "Connect catheter to subgaleal reservoir or external drainage system, anchor catheter with soft suture, verify opening pressure, and dress sterilely."
                 )
             ]
+        case .sylvianFissureDistalSplit:
+            return [
+                ApproachSequentialStep(
+                    stepNumber: 1,
+                    title: "Identify Distal Sylvian Fissure",
+                    detail: "Locate anterior ascending and horizontal rami of Sylvian fissure under high magnification between frontal and temporal opercula."
+                ),
+                ApproachSequentialStep(
+                    stepNumber: 2,
+                    title: "Sharply Fenestrate Arachnoid",
+                    detail: "Use fine micro-scissors to sharply incise arachnoid bands while applying gentle suction counter-traction."
+                ),
+                ApproachSequentialStep(
+                    stepNumber: 3,
+                    title: "Preserve Venous Architecture",
+                    detail: "Mobilize superficial Sylvian veins toward the temporal lobe, dissecting strictly on their frontal aspect."
+                ),
+                ApproachSequentialStep(
+                    stepNumber: 4,
+                    title: "Deep Cisternal CSF Release",
+                    detail: "Open opticocarotid cistern in depth, visualizing CN II and supraclinoid ICA to achieve natural brain relaxation."
+                )
+            ]
         case .endonasalSellar:
             return [
                 ApproachSequentialStep(
@@ -1623,6 +1704,12 @@ public enum SurgicalPlateType: String, CaseIterable {
                 "Superior sagittal sinus laceration from entering too close to midline within central fontanelle",
                 "Choroid plexus avulsion and intraventricular hemorrhage from over-advancing catheter beyond 3.5 cm",
                 "Pneumocephalus or acute ventricular collapse / subdural hematoma from sudden unbraked CSF decompression"
+            ]
+        case .sylvianFissureDistalSplit:
+            return [
+                "Laceration or avulsion of the internal carotid artery (ICA) or M1 trunk from tearing arachnoid blindly in cisternal depth",
+                "Temporal lobe venous infarction or malignant edema from coagulating or avulsing the main superficial Sylvian venous trunk",
+                "Direct mechanical or thermal injury to the optic nerve (CN II) or ophthalmic artery during deep cisternal exposure"
             ]
         case .endonasalSellar:
             return [
