@@ -599,7 +599,7 @@ public enum AtlasCategory: String, CaseIterable {
         case .spine: return [
             .chiariDecompression, .craniocervicalJunction, .harmsC1C2,
             .c7t1Junction, .lumbarFusionApproaches, .tlifCorridor,
-            .tlif, .acdf
+            .tlif, .acdf, .lumbarLateralRecessStenosis
         ]
         }
     }
@@ -630,6 +630,7 @@ public enum SurgicalPlateType: String, CaseIterable {
     case tlifCorridor = "tlif_corridor"
     case tlif = "tlif"
     case acdf = "acdf"
+    case lumbarLateralRecessStenosis = "lumbar_lateral_recess_stenosis"
 
     public var assetImageName: String? {
         switch self {
@@ -657,6 +658,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .tlifCorridor: return "plate_spine_tlif_surgical_corridor"
         case .tlif: return "plate_tlif"
         case .acdf: return "plate_acdf"
+        case .lumbarLateralRecessStenosis: return "plate_lumbar_lateral_recess_stenosis"
         }
     }
 
@@ -686,6 +688,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .tlifCorridor: return "TLIF Corridor"
         case .tlif: return "L4-5 TLIF"
         case .acdf: return "ACDF"
+        case .lumbarLateralRecessStenosis: return "Lateral Recess Stenosis"
         }
     }
 
@@ -715,6 +718,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .tlifCorridor: return "TLIF Surgical Corridor, Kambin's Triangle & Root Safety Zones"
         case .tlif: return "L4–L5 Transforaminal Lumbar Interbody Fusion (TLIF)"
         case .acdf: return "Anterior Cervical Discectomy & Fusion (ACDF)"
+        case .lumbarLateralRecessStenosis: return "Lumbar Lateral Recess Stenosis: Pathoanatomy & Decompression"
         }
     }
 
@@ -744,6 +748,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .tlifCorridor: return "triangle.fill"
         case .tlif: return "cube.transparent.fill"
         case .acdf: return "arrow.up.and.down.circle.fill"
+        case .lumbarLateralRecessStenosis: return "arrow.triangle.pull"
         }
     }
 
@@ -1341,6 +1346,99 @@ public enum SurgicalPlateType: String, CaseIterable {
                     surgicalPearl: "Maintain medial esophagus and trachea retraction; avoid uncal lateral drift near vertebral artery."
                 )
             ]
+        case .lumbarLateralRecessStenosis:
+            return [
+                SurgicalCallout(
+                    id: "lumbar_recess_1",
+                    title: "Thecal Sac & Cauda Equina (Normal)",
+                    structureType: "NEURAL CANAL",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.25,
+                    normalizedY: 0.48,
+                    description: "Generous central canal enclosing free-floating cauda equina nerve rootlets with normal CSF cushion and zero circumferential compression.",
+                    surgicalPearl: "Normal lumbar canal AP diameter exceeds 12-15 mm with cross-sectional area > 100 mm²."
+                ),
+                SurgicalCallout(
+                    id: "lumbar_recess_2",
+                    title: "Normal Traversing Root (Lateral Recess)",
+                    structureType: "TRAVERSING ROOT",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.35,
+                    normalizedY: 0.50,
+                    description: "Spinal nerve root coursing smoothly through the lateral recess (entrance zone) beneath the medial edge of the superior articular process.",
+                    surgicalPearl: "Normal lateral recess depth measured between posterior vertebral body and anterior SAP is >= 5 mm (< 3 mm is diagnostic of stenosis)."
+                ),
+                SurgicalCallout(
+                    id: "lumbar_recess_3",
+                    title: "Normal Intervertebral Disc Complex",
+                    structureType: "DISC MATRIX",
+                    color: Color.blue.opacity(0.8),
+                    normalizedX: 0.25,
+                    normalizedY: 0.22,
+                    description: "Concentric lamellae of annulus fibrosus encircling well-hydrated central nucleus pulposus without posterior contour bulging.",
+                    surgicalPearl: "An intact posterior longitudinal ligament and annulus provide an unyielding flat anterior border for the lateral recess."
+                ),
+                SurgicalCallout(
+                    id: "lumbar_recess_4",
+                    title: "Normal Ligamentum Flavum",
+                    structureType: "POSTERIOR LIGAMENT",
+                    color: Color.yellow.opacity(0.8),
+                    normalizedX: 0.25,
+                    normalizedY: 0.61,
+                    description: "Elastic yellow ligament spanning interlaminar space, attaching to anterior inferior border of superior lamina and superior border of inferior lamina.",
+                    surgicalPearl: "Normal thickness is 2–4 mm. Hypertrophy > 4–5 mm is a primary driver of acquired subarticular stenosis."
+                ),
+                SurgicalCallout(
+                    id: "lumbar_recess_5",
+                    title: "Compressed Traversing Nerve Root (Entrapment)",
+                    structureType: "DANGER / PATHOLOGY",
+                    color: ObsidianTheme.neonRed,
+                    normalizedX: 0.77,
+                    normalizedY: 0.52,
+                    description: "Severely flattened, ischemic traversing nerve root pinned within the narrowed lateral recess between the hypertrophied SAP and the posterolateral disc-osteophyte complex.",
+                    surgicalPearl: "Produces classical radiculopathy matching the traversing root (e.g., L5 radiculopathy at L4-L5 level) with pain exacerbated during lumbar extension."
+                ),
+                SurgicalCallout(
+                    id: "lumbar_recess_6",
+                    title: "Hypertrophied Superior Articular Process (SAP)",
+                    structureType: "FACET ARTHROPATHY",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.84,
+                    normalizedY: 0.57,
+                    description: "Marked osteoarthritic hypertrophy and medial osteophytic spurring of the superior articular process encroaching into the subarticular gutter.",
+                    surgicalPearl: "Under-cutting medial facetectomy unroofs the root while preserving the lateral >50% of the facet joint to maintain mechanical stability."
+                ),
+                SurgicalCallout(
+                    id: "lumbar_recess_7",
+                    title: "Ligamentum Flavum Hypertrophy & Buckling",
+                    structureType: "POSTERIOR COMPRESSION",
+                    color: ObsidianTheme.neonRed,
+                    normalizedX: 0.71,
+                    normalizedY: 0.59,
+                    description: "Massive fibrocartilaginous thickening (>6 mm) and anterior buckling of the ligamentum flavum severely narrowing the dorsal epidural space.",
+                    surgicalPearl: "Flavectomy must be carried out laterally until the medial edge of the pedicle is palpated with a Kerrison rongeur or blunt ball-tip probe."
+                ),
+                SurgicalCallout(
+                    id: "lumbar_recess_8",
+                    title: "Broad-Based Disc-Osteophyte Bulge",
+                    structureType: "VENTRAL PATHOLOGY",
+                    color: Color.purple.opacity(0.8),
+                    normalizedX: 0.78,
+                    normalizedY: 0.42,
+                    description: "Degenerative desiccation, loss of disc height, and broad-based posterolateral annular bulging contributing to floor elevation of the lateral recess.",
+                    surgicalPearl: "Floor elevation reduces vertical clearance of the exiting/traversing corridors; osteophyte shelf resection or discectomy restores canal volume."
+                ),
+                SurgicalCallout(
+                    id: "lumbar_recess_9",
+                    title: "Constricted Thecal Sac & Redundant Roots",
+                    structureType: "CENTRAL COMPRESSION",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.65,
+                    normalizedY: 0.49,
+                    description: "Compressed, deformed thecal sac with crowded, tortuous cauda equina nerve rootlets (redundant root sign).",
+                    surgicalPearl: "Circumferential decompression restores robust dural pulsatility; absence of pulsation implies residual cranial or caudal stenosis."
+                )
+            ]
         }
     }
 
@@ -1898,6 +1996,34 @@ public enum SurgicalPlateType: String, CaseIterable {
                     detail: "Insert interbody spacer packed with allograft. Apply anterior titanium cervical plate with locking screws."
                 )
             ]
+        case .lumbarLateralRecessStenosis:
+            return [
+                ApproachSequentialStep(
+                    stepNumber: 1,
+                    title: "Posterior Exposure & Interlaminar Window",
+                    detail: "Standard midline incision and subperiosteal exposure of the target lamina and medial facet joint. Self-retaining retractors positioned."
+                ),
+                ApproachSequentialStep(
+                    stepNumber: 2,
+                    title: "Laminotomy & Ligamentum Flavum Detachment",
+                    detail: "Inferior hemilaminectomy of cranial lamina using a high-speed matchstick burr and Kerrison rongeur, exposing the cranial insertion of ligamentum flavum."
+                ),
+                ApproachSequentialStep(
+                    stepNumber: 3,
+                    title: "Medial Facetectomy & SAP Undercutting",
+                    detail: "Resection of the medial 1/3 to 1/2 of the superior articular process with a 45-degree angled Kerrison, unroofing the lateral recess."
+                ),
+                ApproachSequentialStep(
+                    stepNumber: 4,
+                    title: "Lateral Flavectomy & Decompression",
+                    detail: "Complete excision of the lateral deep leaf of ligamentum flavum, unroofing the traversing nerve root from its thecal take-off to the pedicle."
+                ),
+                ApproachSequentialStep(
+                    stepNumber: 5,
+                    title: "Pedicle Palpation & Root Mobilization",
+                    detail: "Murphy ball-tip probe swept along the medial border of the pedicle confirming 360-degree freedom of the traversing nerve root."
+                )
+            ]
         }
     }
 
@@ -2044,6 +2170,13 @@ public enum SurgicalPlateType: String, CaseIterable {
                 "Esophageal perforation from aggressive blunt or sharp blade retractor placement",
                 "Recurrent laryngeal nerve traction injury causing permanent vocal cord paralysis and hoarseness",
                 "Vertebral artery injury from lateral drilling beyond the uncinate processes"
+            ]
+        case .lumbarLateralRecessStenosis:
+            return [
+                "Dural laceration / incidental durotomy at the congested axilla of the traversing root or lateral dural margin",
+                "Over-retraction neuropraxia of the chronically ischemic, swollen nerve root during subarticular exploration",
+                "Excessive facet joint resection (>50%) causing post-operative spinal instability, spondylolisthesis, and persistent mechanical back pain",
+                "Wrong-level decompression due to reliance on external anatomic landmarks without confirmatory intraoperative fluoroscopy"
             ]
         }
     }
