@@ -1,5 +1,5 @@
 {
-  "count": 139,
+  "count": 140,
   "hashes": {
     "Assets.xcassets/AppIcon.appiconset/AppIcon.png": "d9e95d18bde056c8f0eb9127fff0ace1fb14dfb9060f8a8341f06952c13f1f36",
     "Assets.xcassets/plate_acdf.imageset/plate_acdf.jpg": "314e7ab8b6d9f03d1322947a095373768537de15899667edbfc10c80755cf6f5",
@@ -139,6 +139,7 @@
     "emulator/assets/plate_pterional_craniotomy.jpg": "c0dc814a4fab9187946f1ee91d290c7bb7ea11d39adb7c8a7bb752675ee5b6d2",
     "Assets.xcassets/plate_neonate_fontanelle_evd.imageset/plate_neonate_fontanelle_evd.jpg": "2b2bea487b86cd3396856d33d4f9ace011bc2e523aa4aa9d8edae58232d6cbc6",
     "emulator/assets/plate_neonate_fontanelle_evd.jpg": "2b2bea487b86cd3396856d33d4f9ace011bc2e523aa4aa9d8edae58232d6cbc6",
-    "Assets.xcassets/plate_sylvian_fissure_distal_split.imageset/plate_sylvian_fissure_distal_split.jpg": "6c202cf0b35fdd1d1b7353fff731f64c8e59ea42cb08ec74b6a88dd523e483fe"
+    "Assets.xcassets/plate_sylvian_fissure_distal_split.imageset/plate_sylvian_fissure_distal_split.jpg": "6c202cf0b35fdd1d1b7353fff731f64c8e59ea42cb08ec74b6a88dd523e483fe",
+    "Assets.xcassets/plate_suboccipital_craniectomy_cisterna_magna.imageset/plate_suboccipital_craniectomy_cisterna_magna.jpg": "b0380010176eddf437406b209db19084b8fd5e4a29c4c114b17095435a37c254"
   }
 }

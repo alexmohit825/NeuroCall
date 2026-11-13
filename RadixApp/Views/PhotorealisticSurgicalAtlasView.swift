@@ -590,7 +590,7 @@ public enum AtlasCategory: String, CaseIterable {
         case .all: return SurgicalPlateType.allCases
         case .cranial: return [
             .craniotomyPterional, .craniotomyFtOzo, .craniotomyBifrontal, .craniotomyParietal, .craniotomyTemporal,
-            .retrosigmoid3D, .hemicraniectomy, .csdhBurrHole, .neonateFontanelleEVD
+            .retrosigmoid3D, .suboccipitalCraniectomy, .hemicraniectomy, .csdhBurrHole, .neonateFontanelleEVD
         ]
         case .skullBase: return [
             .aneurysmClipping, .pterionalFissure, .sylvianFissureDistalSplit, .retrosigmoidDissection,
@@ -614,6 +614,7 @@ public enum SurgicalPlateType: String, CaseIterable {
     case craniotomyParietal = "craniotomy_parietal"
     case craniotomyTemporal = "craniotomy_temporal"
     case retrosigmoid3D = "retrosigmoid_3d"
+    case suboccipitalCraniectomy = "suboccipital_craniectomy"
     case retrosigmoidDissection = "retrosigmoid_dissection"
     case hemicraniectomy = "hemicraniectomy"
     case csdhBurrHole = "csdh_burr_hole"
@@ -640,6 +641,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .craniotomyParietal: return "plate_craniotomy_parietal"
         case .craniotomyTemporal: return "plate_craniotomy_temporal"
         case .retrosigmoid3D: return "plate_retrosigmoid_3d"
+        case .suboccipitalCraniectomy: return "plate_suboccipital_craniectomy_cisterna_magna"
         case .retrosigmoidDissection: return "plate_retrosigmoid_dissection"
         case .hemicraniectomy: return "plate_hemicraniectomy"
         case .csdhBurrHole: return "plate_csdh_burr_hole"
@@ -668,6 +670,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .craniotomyParietal: return "Parietal Map"
         case .craniotomyTemporal: return "Temporal Map"
         case .retrosigmoid3D: return "Retrosig 3D"
+        case .suboccipitalCraniectomy: return "Suboccipital Craniectomy"
         case .retrosigmoidDissection: return "Retrosig Dissection"
         case .hemicraniectomy: return "Hemicraniectomy"
         case .csdhBurrHole: return "Chronic SDH"
@@ -696,6 +699,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .craniotomyParietal: return "Parietal Craniotomy & Sagittal Sinus Safety Margins"
         case .craniotomyTemporal: return "Subtemporal Flush Skull Base Exposure & Zygomatic Root"
         case .retrosigmoid3D: return "Retrosigmoid 3D Skull Model & Sinus Topography"
+        case .suboccipitalCraniectomy: return "Suboccipital Craniectomy with cisterna Magna"
         case .retrosigmoidDissection: return "Retrosigmoid CPA Dissection & Acousticofacial Bundle"
         case .hemicraniectomy: return "Decompressive Hemicraniectomy & Expansile Duroplasty"
         case .csdhBurrHole: return "Chronic Subdural Hematoma: Diagnostic CT & Burr Hole Evacuation"
@@ -724,6 +728,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .craniotomyParietal: return "cross.case.fill"
         case .craniotomyTemporal: return "ear"
         case .retrosigmoid3D: return "circle.grid.cross"
+        case .suboccipitalCraniectomy: return "circle.hexagonpath.fill"
         case .retrosigmoidDissection: return "waveform.path.ecg"
         case .hemicraniectomy: return "shield.slash.fill"
         case .csdhBurrHole: return "target"
@@ -906,6 +911,59 @@ public enum SurgicalPlateType: String, CaseIterable {
                     normalizedY: 0.48,
                     description: "Posterior-superior bony margins defining the safe limits of the retrosigmoid craniotomy.",
                     surgicalPearl: "Skeletonize but do not compress the sinuses; maintain continuous irrigation."
+                )
+            ]
+        case .suboccipitalCraniectomy:
+            return [
+                SurgicalCallout(
+                    id: "suboccipital_1",
+                    title: "Cisterna Magna Arachnoid Fenestration",
+                    structureType: "MICROSURGICAL ARACHNOID DISSECTION",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.65,
+                    normalizedY: 0.72,
+                    description: "Fine micro-scissors and micro-forceps sharply opening the thick, translucent arachnoid membrane of the cisterna magna.",
+                    surgicalPearl: "Sharply fenestrating the cisterna magna releases high-volume CSF, achieving profound posterior fossa brain relaxation before cerebellar manipulation."
+                ),
+                SurgicalCallout(
+                    id: "suboccipital_2",
+                    title: "Posterior Inferior Cerebellar Artery (PICA)",
+                    structureType: "VASCULAR ANATOMY",
+                    color: ObsidianTheme.neonRose,
+                    normalizedX: 0.35,
+                    normalizedY: 0.55,
+                    description: "Tortuous PICA caudal loops (tonsillomedullary & telovelotonsillar segments) coursing around the lower pole of the cerebellar tonsils.",
+                    surgicalPearl: "Preserve all brainstem perforating branches arising from the anterior and lateral medullary segments of PICA; coagulating PICA can cause lateral medullary (Wallenberg) syndrome."
+                ),
+                SurgicalCallout(
+                    id: "suboccipital_3",
+                    title: "Cerebellar Tonsils & Retractor Protection",
+                    structureType: "POSTERIOR FOSSA PARENCHYMA",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.28,
+                    normalizedY: 0.62,
+                    description: "Inferior cerebellar tonsils flanked by cerebellar hemispheres, protected with a cottonoid-padded retractor.",
+                    surgicalPearl: "Avoid excessive or unpadded retraction on the cerebellar tonsils to prevent brainstem transmission pressure or fourth ventricular floor distortion."
+                ),
+                SurgicalCallout(
+                    id: "suboccipital_4",
+                    title: "Inferior Cerebellar Vermis & Vermian Veins",
+                    structureType: "MIDLINE POSTERIOR FOSSA",
+                    color: ObsidianTheme.neonEmerald,
+                    normalizedX: 0.50,
+                    normalizedY: 0.22,
+                    description: "Midline inferior cerebellar vermis with superficial inferior vermian veins draining superiorly toward the straight sinus/torcular.",
+                    surgicalPearl: "In the telovelar approach, opening the cerebellomedullary fissure allows access to the fourth ventricle without splitting the vermis, avoiding cerebellar mutism."
+                ),
+                SurgicalCallout(
+                    id: "suboccipital_5",
+                    title: "Suboccipital Craniectomy Margin & Dural Tenting",
+                    structureType: "OSTEOTOMY & DURAL EXPOSURE",
+                    color: ObsidianTheme.neonPurple,
+                    normalizedX: 0.50,
+                    normalizedY: 0.95,
+                    description: "Inferior suboccipital bone edge unroofing the foramen magnum rim with dural stay sutures under radial tension.",
+                    surgicalPearl: "Completely unroof the posterior lip of the foramen magnum and excise the posterior atlanto-occipital membrane to relieve CCJ compression."
                 )
             ]
         case .retrosigmoidDissection:
@@ -1362,6 +1420,29 @@ public enum SurgicalPlateType: String, CaseIterable {
                     detail: "Place perimeter dural sutures to prevent epidural hematoma accumulation."
                 )
             ]
+        case .suboccipitalCraniectomy:
+            return [
+                ApproachSequentialStep(
+                    stepNumber: 1,
+                    title: "Patient Positioning & Suboccipital Craniectomy",
+                    detail: "Position prone with Mayfield fixation in neutral or slight cervical flexion. Perform midline suboccipital craniectomy unroofing foramen magnum rim."
+                ),
+                ApproachSequentialStep(
+                    stepNumber: 2,
+                    title: "Y-Shaped Durotomy & Dural Tenting",
+                    detail: "Open dura in a Y-shaped or stellate fashion based on the transverse sinus / foramen magnum; secure with radial stay sutures for panoramic exposure."
+                ),
+                ApproachSequentialStep(
+                    stepNumber: 3,
+                    title: "Cisterna Magna Arachnoid Fenestration",
+                    detail: "Identify thick arachnoid over cisterna magna; sharply incise with micro-scissors and aspirate CSF to induce spontaneous posterior fossa brain slack."
+                ),
+                ApproachSequentialStep(
+                    stepNumber: 4,
+                    title: "PICA Dissection & Telovelar Corridor",
+                    detail: "Microdissect arachnoid bands around PICA caudal loop and cerebellar tonsil; elevate tonsil superolaterally to access fourth ventricular floor."
+                )
+            ]
         case .retrosigmoidDissection:
             return [
                 ApproachSequentialStep(
@@ -1758,6 +1839,12 @@ public enum SurgicalPlateType: String, CaseIterable {
             return [
                 "Direct laceration of sigmoid sinus during mastoid emissary vein coagulation",
                 "Venous air embolism if bone edges are not waxed immediately upon exposure"
+            ]
+        case .suboccipitalCraniectomy:
+            return [
+                "PICA loop laceration or perforator avulsion causing lateral medullary (Wallenberg) syndrome or massive posterior fossa hematoma",
+                "Brainstem compression or bradycardia from excessive anterior retraction against the dorsal medulla and obex",
+                "Vertebral artery V3 laceration at the lateral margins of the foramen magnum or C1 posterior arch during suboccipital decompression"
             ]
         case .retrosigmoidDissection:
             return [
