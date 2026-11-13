@@ -969,14 +969,64 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .retrosigmoidDissection:
             return [
                 SurgicalCallout(
-                    id: "retrosigmoid_dissection_1",
-                    title: "Acousticofacial Bundle (CN VII/VIII)",
-                    structureType: "CRANIAL NERVES",
+                    id: "cpa_cn_v",
+                    title: "Trigeminal Nerve (CN V)",
+                    structureType: "UPPER NEUROVASCULAR COMPLEX",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.70,
+                    normalizedY: 0.30,
+                    description: "Stout sensory and motor root of CN V traveling anterosuperiorly toward Meckel's cave.",
+                    surgicalPearl: "Gentle cerebellar relaxation avoids stretch on the sensory root; identify and preserve the superior petrosal vein superiorly."
+                ),
+                SurgicalCallout(
+                    id: "cpa_cn_vii_viii",
+                    title: "Acousticofacial Bundle (CN VII & VIII)",
+                    structureType: "MIDDLE NEUROVASCULAR COMPLEX",
                     color: ObsidianTheme.neonCyan,
-                    normalizedX: 0.54,
-                    normalizedY: 0.48,
-                    description: "Facial nerve anterior and cochleovestibular nerve posterior entering internal auditory meatus.",
-                    surgicalPearl: "Stimulate facial nerve with monopolar probe before tumor capsule debulking."
+                    normalizedX: 0.65,
+                    normalizedY: 0.52,
+                    description: "Facial nerve (anterior-inferior) and vestibulocochlear nerve (posterior-superior) coursing toward internal acoustic meatus.",
+                    surgicalPearl: "Motor facial nerve (CN VII) lies anterior and rostral; continuous intraoperative facial electromyography (EMG) is mandatory."
+                ),
+                SurgicalCallout(
+                    id: "cpa_aica",
+                    title: "Anterior Inferior Cerebellar Artery (AICA)",
+                    structureType: "ARTERIAL ANATOMY",
+                    color: ObsidianTheme.neonRose,
+                    normalizedX: 0.58,
+                    normalizedY: 0.52,
+                    description: "Meatal loop of AICA coursing between and around CN VII/VIII, giving off the labyrinthine (internal auditory) artery.",
+                    surgicalPearl: "Never coagulate the meatal loop of AICA; sacrifice or vasospasm causes lateral pontine infarction and complete ipsilateral deafness."
+                ),
+                SurgicalCallout(
+                    id: "cpa_vein_dandy",
+                    title: "Superior Petrosal Vein (Vein of Dandy)",
+                    structureType: "VENOUS DRAINAGE",
+                    color: ObsidianTheme.neonBlue,
+                    normalizedX: 0.51,
+                    normalizedY: 0.33,
+                    description: "Prominent blue petrosal venous trunk draining anterior cerebellar hemisphere and brainstem into the superior petrosal sinus.",
+                    surgicalPearl: "Avoid routine coagulation or avulsion of large petrosal veins; loss of primary petrosal drainage can trigger cerebellar hemorrhagic venous infarction."
+                ),
+                SurgicalCallout(
+                    id: "cpa_lower_cns",
+                    title: "Lower Cranial Nerves (CN IX, X, XI)",
+                    structureType: "LOWER NEUROVASCULAR COMPLEX",
+                    color: ObsidianTheme.neonEmerald,
+                    normalizedX: 0.68,
+                    normalizedY: 0.80,
+                    description: "Glossopharyngeal, vagus, and spinal accessory nerve rootlets traveling inferiorly toward the jugular foramen.",
+                    surgicalPearl: "Dissection around the lower cranial nerves must be strictly sharp without blunt traction to prevent vocal cord paralysis or severe dysphagia."
+                ),
+                SurgicalCallout(
+                    id: "cpa_choroid_luschka",
+                    title: "Choroid Plexus of Foramen of Luschka",
+                    structureType: "ANATOMICAL KEYHOLE LANDMARK",
+                    color: ObsidianTheme.neonPurple,
+                    normalizedX: 0.45,
+                    normalizedY: 0.68,
+                    description: "Tuft of choroid plexus emerging from the lateral aperture (foramen of Luschka) inferior to the cerebellar flocculus.",
+                    surgicalPearl: "The choroid plexus at the foramen of Luschka is the constant anatomical landmark identifying the root exit zone of CN VII and CN IX."
                 )
             ]
         case .hemicraniectomy:
