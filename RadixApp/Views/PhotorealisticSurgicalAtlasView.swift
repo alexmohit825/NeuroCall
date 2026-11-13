@@ -1177,14 +1177,64 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .farLateral:
             return [
                 SurgicalCallout(
-                    id: "far_lateral_1",
-                    title: "Vertebral Artery V3 Segment",
+                    id: "fl_v3_loop",
+                    title: "Vertebral Artery (V3 Horizontal Loop)",
                     structureType: "VASCULAR CORRIDOR",
                     color: ObsidianTheme.neonRose,
+                    normalizedX: 0.50,
+                    normalizedY: 0.50,
+                    description: "Horizontal suboccipital V3 segment of the vertebral artery mobilized medially off the C1 groove with a vessel loop.",
+                    surgicalPearl: "Subperiosteal dissection along the posterior arch of C1 avoids entering the dense perivertebral venous plexus, preventing heavy venous bleeding."
+                ),
+                SurgicalCallout(
+                    id: "fl_dural_ring",
+                    title: "Vertebral Artery Dural Entry Ring",
+                    structureType: "DURAL ENTRY CORRIDOR",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.62,
+                    normalizedY: 0.44,
+                    description: "Vertebral artery piercing the dura mater and arachnoid into the intradural posterior fossa compartment.",
+                    surgicalPearl: "Leave a 2 mm dural cuff around the vertebral artery during durotomy to ensure water-tight closure and prevent postoperative CSF fistula."
+                ),
+                SurgicalCallout(
+                    id: "fl_condyle",
+                    title: "Occipital Condyle Resection Zone",
+                    structureType: "SKULL BASE OSTEOTOMY",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.50,
+                    normalizedY: 0.35,
+                    description: "Partial condylectomy of the posterior-medial third of the occipital condyle for an ultra-flat subfrontal viewing angle.",
+                    surgicalPearl: "Resecting no more than the posterior 1/3 to 1/2 of the condyle preserves craniocervical biomechanical stability without requiring posterior fusion."
+                ),
+                SurgicalCallout(
+                    id: "fl_durotomy_line",
+                    title: "Curvilinear / Hockey-Stick Durotomy",
+                    structureType: "DURAL INCISION LINE",
+                    color: ObsidianTheme.neonPurple,
+                    normalizedX: 0.70,
+                    normalizedY: 0.38,
+                    description: "Red dashed dural incision line curving from suboccipital dura down to cervical dural midline, crossing posterior to VA cuff.",
+                    surgicalPearl: "Hinging the dural flap medially protects the brainstem and upper cervical cord while providing an unobstructed line of sight to the anterior foramen magnum."
+                ),
+                SurgicalCallout(
+                    id: "fl_c2_drg",
+                    title: "C2 Dorsal Root Ganglion & Root",
+                    structureType: "NEURAL STRUCTURE",
+                    color: ObsidianTheme.neonEmerald,
                     normalizedX: 0.52,
-                    normalizedY: 0.54,
-                    description: "Vertebral artery V3 segment elevated and mobilized medially using Penfield #4 probe over C1 groove.",
-                    surgicalPearl: "Drill posterior 1/3 of occipital condyle for flat skull base trajectory without brainstem retraction."
+                    normalizedY: 0.72,
+                    description: "C2 dorsal root ganglion and nerve root emerging between the C1 posterior arch and C2 lamina.",
+                    surgicalPearl: "Sacrificing or excessively coagulating C2 causes permanent occipital numbness; preserve C2 whenever possible during exposure."
+                ),
+                SurgicalCallout(
+                    id: "fl_muscle_flap",
+                    title: "Lateral Suboccipital Muscular Flap",
+                    structureType: "MUSCULAR CORRIDOR",
+                    color: ObsidianTheme.neonBlue,
+                    normalizedX: 0.15,
+                    normalizedY: 0.40,
+                    description: "Retracted suboccipital muscle bundle (splenius capitis, longissimus capitis, suboccipital triangle) mobilized laterally.",
+                    surgicalPearl: "Maintain anatomical fascial layers during lateral muscle reflection to ensure an anatomical, leak-proof muscular closure."
                 )
             ]
         case .chiariDecompression:
