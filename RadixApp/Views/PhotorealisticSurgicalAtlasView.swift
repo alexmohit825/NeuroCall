@@ -665,7 +665,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .aneurysmClipping: return "Aneurysm Clip"
         case .pterionalFissure: return "Sylvian Fissure"
         case .craniotomyPterional: return "Pterional Flap"
-        case .craniotomyFtOzo: return "FT-OZO 3D"
+        case .craniotomyFtOzo: return "Two-Piece FT-OZO"
         case .craniotomyBifrontal: return "Bifrontal 3D"
         case .craniotomyParietal: return "Parietal Map"
         case .craniotomyTemporal: return "Temporal Map"
@@ -694,7 +694,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .aneurysmClipping: return "Anterior Circulation Aneurysm Clipping"
         case .pterionalFissure: return "Pterional Sylvian Fissure Dissection & Opercular Planes"
         case .craniotomyPterional: return "Pterional (Frontotemporal) Craniotomy & Sphenoid Ridge"
-        case .craniotomyFtOzo: return "Fronto-Temporal Orbitozygomatic (FT-OZO) Craniotomy"
+        case .craniotomyFtOzo: return "Fronto-Temporal Orbitozygomatic (FT-OZO) Craniotomy: Two-Piece Technique"
         case .craniotomyBifrontal: return "Bifrontal 3D Skull Model & Anterior Cranial Fossa"
         case .craniotomyParietal: return "Parietal Craniotomy & Sagittal Sinus Safety Margins"
         case .craniotomyTemporal: return "Subtemporal Flush Skull Base Exposure & Zygomatic Root"
@@ -821,44 +821,54 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .craniotomyFtOzo:
             return [
                 SurgicalCallout(
-                    id: "ft_ozo_1",
-                    title: "Orbital Rim & Roof Osteotomy",
-                    structureType: "SKULL BASE OSTEOTOMY",
+                    id: "ft_ozo_piece_2",
+                    title: "Orbitozygomatic Bar (Piece 2)",
+                    structureType: "OSTEOTOMY PIECE 2",
                     color: ObsidianTheme.neonCyan,
-                    normalizedX: 0.58,
-                    normalizedY: 0.45,
-                    description: "Supraorbital margin and anterior orbital roof resected with preserved periorbita to widen the subfrontal trajectory.",
-                    surgicalPearl: "Pre-plate the orbital rim before osteotomy to guarantee anatomic aesthetic realignment and prevent enophthalmos upon closure."
-                ),
-                SurgicalCallout(
-                    id: "ft_ozo_2",
-                    title: "Zygomatic Arch Resection",
-                    structureType: "ZYGOMATIC CORRIDOR",
-                    color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.38,
-                    normalizedY: 0.60,
-                    description: "Zygomatic arch divided at the malar eminence anteriorly and articular tubercle posteriorly, mobilizing the temporalis muscle inferiorly.",
-                    surgicalPearl: "Perform careful subfascial or interfascial dissection to safeguard the frontalis branches of the facial nerve (CN VII)."
-                ),
-                SurgicalCallout(
-                    id: "ft_ozo_3",
-                    title: "Frontotemporal Calvarial Flap",
-                    structureType: "CALVARIAL OSTEOTOMY",
-                    color: ObsidianTheme.neonRose,
-                    normalizedX: 0.35,
+                    normalizedX: 0.78,
                     normalizedY: 0.22,
-                    description: "Primary frontotemporal bone flap unroofing the anterior cranial fossa and sphenoid ridge.",
-                    surgicalPearl: "Drilling the sphenoid ridge flush provides a flat anterolateral corridor requiring minimal to zero frontal lobe retraction."
+                    description: "Free orbitozygomatic bone piece comprising supraorbital rim, anterior orbital roof, lateral orbital wall, and zygomatic arch.",
+                    surgicalPearl: "Pre-plate the orbital rim and zygoma before osteotomy to guarantee anatomic aesthetic realignment and prevent enophthalmos upon closure."
                 ),
                 SurgicalCallout(
-                    id: "ft_ozo_4",
-                    title: "Fronto-Orbital & Sylvian Opercular Exposure",
-                    structureType: "MICROSURGICAL EXPOSURE",
+                    id: "ft_ozo_piece_1",
+                    title: "Frontotemporal Flap (Piece 1)",
+                    structureType: "OSTEOTOMY PIECE 1",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.76,
+                    normalizedY: 0.68,
+                    description: "Primary frontotemporal calvarial bone flap elevated first, crossing the coronal suture toward the sphenoid ridge.",
+                    surgicalPearl: "Turning the calvarial flap first allows direct visualization and protection of the anterior and middle cranial fossa dura during the orbital cuts."
+                ),
+                SurgicalCallout(
+                    id: "ft_ozo_defect",
+                    title: "Cranial Defect & Skull Base Exposure",
+                    structureType: "OSTEOTOMY DEFECT",
+                    color: ObsidianTheme.neonRose,
+                    normalizedX: 0.28,
+                    normalizedY: 0.35,
+                    description: "Combined calvarial and orbital defect exposing the anterior skull base and sphenoid ridge without bony overhang.",
+                    surgicalPearl: "Flattening the orbital roof and sphenoid wing provides a flush, 20–30 degree upward subfrontal viewing angle without brain retraction."
+                ),
+                SurgicalCallout(
+                    id: "ft_ozo_malar_arch",
+                    title: "Malar & Zygomatic Arch Cuts",
+                    structureType: "ZYGOMATIC OSTEOTOMY",
                     color: ObsidianTheme.neonEmerald,
                     normalizedX: 0.32,
-                    normalizedY: 0.36,
-                    description: "Frontal and temporal opercula and anterior Sylvian fissure exposed under an ultra-low, multi-angled trajectory.",
-                    surgicalPearl: "Provides the shortest surgical working distance to basilar apex, paraclinoid, and high AComA aneurysms."
+                    normalizedY: 0.57,
+                    description: "Anterior osteotomy through the malar eminence and posterior cut flush with the articular tubercle of the temporal bone.",
+                    surgicalPearl: "Dissect the temporalis muscle interfascial fat pad meticulously to protect the frontal branches of the facial nerve (CN VII)."
+                ),
+                SurgicalCallout(
+                    id: "ft_ozo_supraorbital",
+                    title: "Supraorbital Margin & Roof Cut",
+                    structureType: "ORBITAL OSTEOTOMY",
+                    color: ObsidianTheme.neonPurple,
+                    normalizedX: 0.42,
+                    normalizedY: 0.38,
+                    description: "Supraorbital rim cut medial to the supraorbital notch/foramen with protected intraorbital periorbita.",
+                    surgicalPearl: "Release the supraorbital neurovascular bundle from its notch or osteotomize the foramen to mobilize the nerve without tension."
                 )
             ]
         case .craniotomyBifrontal:
