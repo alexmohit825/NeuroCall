@@ -215,8 +215,31 @@ public struct ERConsultsView: View {
     }
     
     // MARK: - Radiographic Viewport Canvas
+    private func selectAdjacentConsult(direction: Int) {
+        HapticManager.impact(style: .light)
+        withAnimation(.easeInOut(duration: 0.22)) {
+            if selectedCategory == .cranial {
+                let all = CranialConsultType.allCases
+                guard let idx = all.firstIndex(of: selectedCranialConsult) else { return }
+                let nextIdx = (idx + direction + all.count) % all.count
+                selectedCranialConsult = all[nextIdx]
+            } else if selectedCategory == .spine {
+                let all = SpineConsultType.allCases
+                guard let idx = all.firstIndex(of: selectedSpineConsult) else { return }
+                let nextIdx = (idx + direction + all.count) % all.count
+                selectedSpineConsult = all[nextIdx]
+            }
+        }
+    }
+
     private var consultRadiographCanvas: some View {
-        ZoomablePlateImageView(imageName: currentImageName, contentHeight: 340)
+        ZoomablePlateImageView(
+            imageName: currentImageName,
+            contentHeight: 340,
+            onSwipeNext: { selectAdjacentConsult(direction: 1) },
+            onSwipePrevious: { selectAdjacentConsult(direction: -1) },
+            panelLabel: currentConsultTitle
+        )
             .background(Color.black)
             .cornerRadius(16)
             .overlay(RoundedRectangle(cornerRadius: 16).stroke(ObsidianTheme.borderSubtle, lineWidth: 1.5))

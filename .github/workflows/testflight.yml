@@ -1,9 +1,8 @@
 name: NeuroCall PC-to-TestFlight Pipeline
 
 on:
-  # push trigger disabled per Dr. Mohit mandate: Do not send to TestFlight until all atlas additions are finished
-  # push:
-  #   branches: [ main ]
+  push:
+    branches: [ main ]
   workflow_dispatch:
 
 concurrency:

@@ -401,10 +401,14 @@ public struct PhotorealisticSurgicalAtlasView: View {
                     DragGesture(minimumDistance: 10)
                         .onChanged { val in
                             if zoomScale > 1.05 {
-                                // 2-finger or 1-finger smooth panning of zoomed image
+                                // 2-finger or 1-finger smooth panning of zoomed image side-to-side and up/down
+                                let maxOffsetX = (geo.size.width * (zoomScale - 1)) / 2 + 50
+                                let maxOffsetY = (geo.size.height * (zoomScale - 1)) / 2 + 50
+                                let proposedX = lastDragOffset.width + val.translation.width
+                                let proposedY = lastDragOffset.height + val.translation.height
                                 dragOffset = CGSize(
-                                    width: lastDragOffset.width + val.translation.width,
-                                    height: lastDragOffset.height + val.translation.height
+                                    width: min(max(proposedX, -maxOffsetX), maxOffsetX),
+                                    height: min(max(proposedY, -maxOffsetY), maxOffsetY)
                                 )
                             }
                         }
@@ -412,7 +416,7 @@ public struct PhotorealisticSurgicalAtlasView: View {
                             if zoomScale > 1.05 {
                                 lastDragOffset = dragOffset
                             } else {
-                                // Horizontal side-to-side swipe navigation
+                                // Horizontal side-to-side swipe navigation ahead and back
                                 let dx = val.translation.width
                                 let dy = val.translation.height
                                 if abs(dx) > 35 && abs(dx) > abs(dy) * 1.1 {
@@ -427,12 +431,20 @@ public struct PhotorealisticSurgicalAtlasView: View {
                 )
             )
             .onTapGesture(count: 2) {
-                // Double tap resets zoom and pan
+                // Double tap toggles 2.5x zoom vs reset
                 HapticManager.impact(style: .medium)
-                withAnimation(.spring()) {
-                    zoomScale = 1.0
-                    dragOffset = .zero
-                    lastDragOffset = .zero
+                withAnimation(.spring(response: 0.3, dampingFraction: 0.8)) {
+                    if zoomScale > 1.05 {
+                        zoomScale = 1.0
+                        lastZoomScale = 1.0
+                        dragOffset = .zero
+                        lastDragOffset = .zero
+                    } else {
+                        zoomScale = 2.5
+                        lastZoomScale = 2.5
+                        dragOffset = .zero
+                        lastDragOffset = .zero
+                    }
                 }
             }
             .clipped()

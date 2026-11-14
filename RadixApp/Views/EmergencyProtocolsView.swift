@@ -210,28 +210,28 @@ public struct EmergencyProtocolsView: View {
             CTViewportView(
                 imageName: currentCTImageName,
                 emergencyTitle: thresholdSpec.title,
-                isSurgical: isSurgicalCandidate
-            )
-            .gesture(
-                DragGesture(minimumDistance: 35)
-                    .onEnded { value in
-                        let emergencies = ["EDH", "SDH", "Uncal", "Posterior Fossa"]
-                        guard let currentIndex = emergencies.firstIndex(of: selectedEmergency) else { return }
-                        if value.translation.width < -40 && currentIndex < emergencies.count - 1 {
-                            HapticManager.impact(style: .medium)
-                            withAnimation(.easeInOut(duration: 0.22)) {
-                                selectedEmergency = emergencies[currentIndex + 1]
-                                if selectedEmergency == "Uncal" {
-                                    pupilStatus = "Unilateral Blown / Fixed (Uncal Herniation)"
-                                }
-                            }
-                        } else if value.translation.width > 40 && currentIndex > 0 {
-                            HapticManager.impact(style: .medium)
-                            withAnimation(.easeInOut(duration: 0.22)) {
-                                selectedEmergency = emergencies[currentIndex - 1]
+                isSurgical: isSurgicalCandidate,
+                onSwipeNext: {
+                    let emergencies = ["EDH", "SDH", "Uncal", "Posterior Fossa"]
+                    guard let currentIndex = emergencies.firstIndex(of: selectedEmergency) else { return }
+                    if currentIndex < emergencies.count - 1 {
+                        withAnimation(.easeInOut(duration: 0.22)) {
+                            selectedEmergency = emergencies[currentIndex + 1]
+                            if selectedEmergency == "Uncal" {
+                                pupilStatus = "Unilateral Blown / Fixed (Uncal Herniation)"
                             }
                         }
                     }
+                },
+                onSwipePrevious: {
+                    let emergencies = ["EDH", "SDH", "Uncal", "Posterior Fossa"]
+                    guard let currentIndex = emergencies.firstIndex(of: selectedEmergency) else { return }
+                    if currentIndex > 0 {
+                        withAnimation(.easeInOut(duration: 0.22)) {
+                            selectedEmergency = emergencies[currentIndex - 1]
+                        }
+                    }
+                }
             )
             
             Text(anatomicalPearlText)
@@ -557,6 +557,8 @@ struct CTViewportView: View {
     let imageName: String
     let emergencyTitle: String
     let isSurgical: Bool
+    var onSwipeNext: (() -> Void)? = nil
+    var onSwipePrevious: (() -> Void)? = nil
     @State private var showHerniationDynamics = false
     
     var activeImage: String {
@@ -568,8 +570,14 @@ struct CTViewportView: View {
     
     var body: some View {
         ZStack {
-            ZoomablePlateImageView(imageName: activeImage, contentHeight: 320)
-                .cornerRadius(16)
+            ZoomablePlateImageView(
+                imageName: activeImage,
+                contentHeight: 320,
+                onSwipeNext: onSwipeNext,
+                onSwipePrevious: onSwipePrevious,
+                panelLabel: emergencyTitle
+            )
+            .cornerRadius(16)
             
             // Toggle for Uncal Herniation & Pupil Dynamics
             if imageName == "plate_ct_uncal" {
