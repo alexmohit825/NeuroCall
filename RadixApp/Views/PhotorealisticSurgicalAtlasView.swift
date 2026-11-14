@@ -379,74 +379,16 @@ public struct PhotorealisticSurgicalAtlasView: View {
             }
             .scaleEffect(zoomScale)
             .offset(dragOffset)
-            .gesture(
-                SimultaneousGesture(
-                    MagnificationGesture()
-                        .onChanged { val in
-                            let delta = val / lastZoomScale
-                            lastZoomScale = val
-                            let newScale = zoomScale * delta
-                            zoomScale = min(max(newScale, 1.0), 5.0)
-                        }
-                        .onEnded { _ in
-                            lastZoomScale = 1.0
-                            if zoomScale <= 1.05 {
-                                withAnimation(.spring()) {
-                                    zoomScale = 1.0
-                                    dragOffset = .zero
-                                    lastDragOffset = .zero
-                                }
-                            }
-                        },
-                    DragGesture(minimumDistance: 10)
-                        .onChanged { val in
-                            if zoomScale > 1.05 {
-                                // 2-finger or 1-finger smooth panning of zoomed image side-to-side and up/down
-                                let maxOffsetX = (geo.size.width * (zoomScale - 1)) / 2 + 50
-                                let maxOffsetY = (geo.size.height * (zoomScale - 1)) / 2 + 50
-                                let proposedX = lastDragOffset.width + val.translation.width
-                                let proposedY = lastDragOffset.height + val.translation.height
-                                dragOffset = CGSize(
-                                    width: min(max(proposedX, -maxOffsetX), maxOffsetX),
-                                    height: min(max(proposedY, -maxOffsetY), maxOffsetY)
-                                )
-                            }
-                        }
-                        .onEnded { val in
-                            if zoomScale > 1.05 {
-                                lastDragOffset = dragOffset
-                            } else {
-                                // Horizontal side-to-side swipe navigation ahead and back
-                                let dx = val.translation.width
-                                let dy = val.translation.height
-                                if abs(dx) > 35 && abs(dx) > abs(dy) * 1.1 {
-                                    if dx < 0 {
-                                        selectAdjacentPlate(direction: 1)
-                                    } else {
-                                        selectAdjacentPlate(direction: -1)
-                                    }
-                                }
-                            }
-                        }
+            .overlay(
+                MultiTouchPanZoomOverlay(
+                    scale: $zoomScale,
+                    offset: $dragOffset,
+                    maxScale: 5.0,
+                    allowHorizontalSwipe: true,
+                    onSwipeNext: { selectAdjacentPlate(direction: 1) },
+                    onSwipePrevious: { selectAdjacentPlate(direction: -1) }
                 )
             )
-            .onTapGesture(count: 2) {
-                // Double tap toggles 2.5x zoom vs reset
-                HapticManager.impact(style: .medium)
-                withAnimation(.spring(response: 0.3, dampingFraction: 0.8)) {
-                    if zoomScale > 1.05 {
-                        zoomScale = 1.0
-                        lastZoomScale = 1.0
-                        dragOffset = .zero
-                        lastDragOffset = .zero
-                    } else {
-                        zoomScale = 2.5
-                        lastZoomScale = 2.5
-                        dragOffset = .zero
-                        lastDragOffset = .zero
-                    }
-                }
-            }
             .clipped()
         }
     }
