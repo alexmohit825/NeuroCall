@@ -1,0 +1,21 @@
+{
+  "images": [
+    {
+      "filename": "plate_033_supraorbital_eyebrow_keyhole_craniotomy.jpg",
+      "idiom": "universal",
+      "scale": "1x"
+    },
+    {
+      "idiom": "universal",
+      "scale": "2x"
+    },
+    {
+      "idiom": "universal",
+      "scale": "3x"
+    }
+  ],
+  "info": {
+    "author": "xcode",
+    "version": 1
+  }
+}

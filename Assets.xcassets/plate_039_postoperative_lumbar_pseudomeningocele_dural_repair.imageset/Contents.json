@@ -1,0 +1,21 @@
+{
+  "images": [
+    {
+      "filename": "plate_039_postoperative_lumbar_pseudomeningocele_dural_repair.jpg",
+      "idiom": "universal",
+      "scale": "1x"
+    },
+    {
+      "idiom": "universal",
+      "scale": "2x"
+    },
+    {
+      "idiom": "universal",
+      "scale": "3x"
+    }
+  ],
+  "info": {
+    "author": "xcode",
+    "version": 1
+  }
+}
