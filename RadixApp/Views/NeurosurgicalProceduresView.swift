@@ -50,31 +50,21 @@ public struct NeurosurgicalProceduresView: View {
                 Group {
                     switch selectedProcedure {
                     case "evd":
-                        EVDDetailCard()
+                        EVDDetailCard(onSwipeNext: { selectAdjacent(direction: 1) }, onSwipePrevious: { selectAdjacent(direction: -1) })
                     case "camino_bolt":
-                        CaminoBoltDetailCard()
+                        CaminoBoltDetailCard(onSwipeNext: { selectAdjacent(direction: 1) }, onSwipePrevious: { selectAdjacent(direction: -1) })
                     case "lumbar_puncture":
-                        LumbarPunctureDetailCard()
+                        LumbarPunctureDetailCard(onSwipeNext: { selectAdjacent(direction: 1) }, onSwipePrevious: { selectAdjacent(direction: -1) })
                     case "lumbar_drain":
-                        LumbarDrainDetailCard()
+                        LumbarDrainDetailCard(onSwipeNext: { selectAdjacent(direction: 1) }, onSwipePrevious: { selectAdjacent(direction: -1) })
                     case "art_line":
-                        RadialArterialLineDetailCard()
+                        RadialArterialLineDetailCard(onSwipeNext: { selectAdjacent(direction: 1) }, onSwipePrevious: { selectAdjacent(direction: -1) })
                     case "cvc_line":
-                        InternalJugularCVCDetailCard()
+                        InternalJugularCVCDetailCard(onSwipeNext: { selectAdjacent(direction: 1) }, onSwipePrevious: { selectAdjacent(direction: -1) })
                     default:
-                        EVDDetailCard()
+                        EVDDetailCard(onSwipeNext: { selectAdjacent(direction: 1) }, onSwipePrevious: { selectAdjacent(direction: -1) })
                     }
                 }
-                .gesture(
-                    DragGesture(minimumDistance: 35)
-                        .onEnded { value in
-                            if value.translation.width < -40 {
-                                selectAdjacent(direction: 1)
-                            } else if value.translation.width > 40 {
-                                selectAdjacent(direction: -1)
-                            }
-                        }
-                )
                 
                 Spacer(minLength: 32)
             }
@@ -140,6 +130,8 @@ public struct NeurosurgicalProceduresView: View {
 
 // MARK: - 1. EVD Kocher's Point Card
 struct EVDDetailCard: View {
+    var onSwipeNext: (() -> Void)? = nil
+    var onSwipePrevious: (() -> Void)? = nil
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
             // High-Definition Schematic with Pinch-to-Zoom
@@ -158,7 +150,7 @@ struct EVDDetailCard: View {
                 }
                 .padding(.horizontal, 4)
                 
-                ZoomablePlateImageView(imageName: "plate_bedside_evd", contentHeight: 250)
+                ZoomablePlateImageView(imageName: "plate_bedside_evd", contentHeight: 250, onSwipeNext: onSwipeNext, onSwipePrevious: onSwipePrevious, panelLabel: "Kocher's EVD")
                     .cornerRadius(14)
                     .overlay(RoundedRectangle(cornerRadius: 14).stroke(ObsidianTheme.borderSubtle, lineWidth: 1))
             }
@@ -217,6 +209,8 @@ struct EVDDetailCard: View {
 
 // MARK: - 2. Camino Bolt & ICP Waveforms Card
 struct CaminoBoltDetailCard: View {
+    var onSwipeNext: (() -> Void)? = nil
+    var onSwipePrevious: (() -> Void)? = nil
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
             // High-Definition Schematic with Pinch-to-Zoom
@@ -235,7 +229,7 @@ struct CaminoBoltDetailCard: View {
                 }
                 .padding(.horizontal, 4)
                 
-                ZoomablePlateImageView(imageName: "plate_bedside_camino_bolt", contentHeight: 250)
+                ZoomablePlateImageView(imageName: "plate_bedside_camino_bolt", contentHeight: 250, onSwipeNext: onSwipeNext, onSwipePrevious: onSwipePrevious, panelLabel: "Camino Bolt & ICP")
                     .cornerRadius(14)
                     .overlay(RoundedRectangle(cornerRadius: 14).stroke(ObsidianTheme.borderSubtle, lineWidth: 1))
             }
@@ -282,6 +276,8 @@ struct CaminoBoltDetailCard: View {
 
 // MARK: - 3. Lumbar Puncture Card
 struct LumbarPunctureDetailCard: View {
+    var onSwipeNext: (() -> Void)? = nil
+    var onSwipePrevious: (() -> Void)? = nil
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
             // High-Definition Schematic with Pinch-to-Zoom
@@ -300,7 +296,7 @@ struct LumbarPunctureDetailCard: View {
                 }
                 .padding(.horizontal, 4)
                 
-                ZoomablePlateImageView(imageName: "plate_bedside_lumbar_puncture", contentHeight: 250)
+                ZoomablePlateImageView(imageName: "plate_bedside_lumbar_puncture", contentHeight: 250, onSwipeNext: onSwipeNext, onSwipePrevious: onSwipePrevious, panelLabel: "Lumbar Puncture")
                     .cornerRadius(14)
                     .overlay(RoundedRectangle(cornerRadius: 14).stroke(ObsidianTheme.borderSubtle, lineWidth: 1))
             }
@@ -355,6 +351,8 @@ struct LumbarPunctureDetailCard: View {
 
 // MARK: - 4. Lumbar Drain Card
 struct LumbarDrainDetailCard: View {
+    var onSwipeNext: (() -> Void)? = nil
+    var onSwipePrevious: (() -> Void)? = nil
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
             // High-Definition Schematic with Pinch-to-Zoom
@@ -373,7 +371,7 @@ struct LumbarDrainDetailCard: View {
                 }
                 .padding(.horizontal, 4)
                 
-                ZoomablePlateImageView(imageName: "plate_bedside_lumbar_drain", contentHeight: 250)
+                ZoomablePlateImageView(imageName: "plate_bedside_lumbar_drain", contentHeight: 250, onSwipeNext: onSwipeNext, onSwipePrevious: onSwipePrevious, panelLabel: "Lumbar Drain")
                     .cornerRadius(14)
                     .overlay(RoundedRectangle(cornerRadius: 14).stroke(ObsidianTheme.borderSubtle, lineWidth: 1))
             }
@@ -424,6 +422,8 @@ struct LumbarDrainDetailCard: View {
 
 // MARK: - 5. Radial Arterial Line Card
 struct RadialArterialLineDetailCard: View {
+    var onSwipeNext: (() -> Void)? = nil
+    var onSwipePrevious: (() -> Void)? = nil
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
             // High-Definition Schematic with Pinch-to-Zoom
@@ -442,7 +442,7 @@ struct RadialArterialLineDetailCard: View {
                 }
                 .padding(.horizontal, 4)
                 
-                ZoomablePlateImageView(imageName: "plate_bedside_art_line", contentHeight: 250)
+                ZoomablePlateImageView(imageName: "plate_bedside_art_line", contentHeight: 250, onSwipeNext: onSwipeNext, onSwipePrevious: onSwipePrevious, panelLabel: "Radial Art Line")
                     .cornerRadius(14)
                     .overlay(RoundedRectangle(cornerRadius: 14).stroke(ObsidianTheme.borderSubtle, lineWidth: 1))
             }
@@ -474,6 +474,8 @@ struct RadialArterialLineDetailCard: View {
 
 // MARK: - 6. Internal Jugular CVC Card
 struct InternalJugularCVCDetailCard: View {
+    var onSwipeNext: (() -> Void)? = nil
+    var onSwipePrevious: (() -> Void)? = nil
     var body: some View {
         VStack(alignment: .leading, spacing: 14) {
             // High-Definition Schematic with Pinch-to-Zoom
@@ -492,7 +494,7 @@ struct InternalJugularCVCDetailCard: View {
                 }
                 .padding(.horizontal, 4)
                 
-                ZoomablePlateImageView(imageName: "plate_bedside_cvc_line", contentHeight: 250)
+                ZoomablePlateImageView(imageName: "plate_bedside_cvc_line", contentHeight: 250, onSwipeNext: onSwipeNext, onSwipePrevious: onSwipePrevious, panelLabel: "Ultrasound CVC")
                     .cornerRadius(14)
                     .overlay(RoundedRectangle(cornerRadius: 14).stroke(ObsidianTheme.borderSubtle, lineWidth: 1))
             }

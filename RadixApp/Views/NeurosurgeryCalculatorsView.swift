@@ -9,6 +9,8 @@ import SwiftUI
 public struct NeurosurgeryCalculatorsView: View {
     @State private var selectedCalculator = "cpp"
     @State private var isShowingDisclaimer = false
+    @State private var calcScale: CGFloat = 1.0
+    @State private var lastCalcScale: CGFloat = 1.0
     @Environment(\.requestReview) var requestReview
     @Environment(\.openURL) var openURL
     @State private var hasRated = false
@@ -203,6 +205,72 @@ public struct NeurosurgeryCalculatorsView: View {
                         )
                     default:
                         CPPCalculatorView(map: $mapInput, icp: $icpInput, cpp: calculatedCPP)
+                    }
+                }
+                .scaleEffect(calcScale, anchor: .top)
+                .gesture(
+                    MagnificationGesture()
+                        .onChanged { val in
+                            let delta = val / lastCalcScale
+                            lastCalcScale = val
+                            let newScale = calcScale * delta
+                            calcScale = min(max(newScale, 1.0), 3.0)
+                        }
+                        .onEnded { _ in
+                            lastCalcScale = 1.0
+                            if calcScale <= 1.05 {
+                                withAnimation(.spring()) {
+                                    calcScale = 1.0
+                                }
+                            }
+                        }
+                )
+                .onTapGesture(count: 2) {
+                    HapticManager.impact(style: .medium)
+                    withAnimation(.spring(response: 0.3, dampingFraction: 0.8)) {
+                        if calcScale > 1.05 {
+                            calcScale = 1.0
+                            lastCalcScale = 1.0
+                        } else {
+                            calcScale = 1.6
+                            lastCalcScale = 1.6
+                        }
+                    }
+                }
+                .overlay(alignment: .topTrailing) {
+                    if calcScale > 1.05 {
+                        HStack(spacing: 6) {
+                            Text("\(String(format: "%.1f", calcScale))x")
+                                .font(.system(size: 11, weight: .black, design: .monospaced))
+                                .foregroundColor(ObsidianTheme.neonAmber)
+                                .padding(.horizontal, 8)
+                                .padding(.vertical, 4)
+                                .background(Color.black.opacity(0.85))
+                                .cornerRadius(6)
+                            
+                            Button(action: {
+                                HapticManager.impact(style: .light)
+                                withAnimation(.spring(response: 0.3, dampingFraction: 0.8)) {
+                                    calcScale = 1.0
+                                    lastCalcScale = 1.0
+                                }
+                            }) {
+                                HStack(spacing: 4) {
+                                    Image(systemName: "arrow.counterclockwise")
+                                        .font(.system(size: 11, weight: .bold))
+                                    Text("Reset")
+                                        .font(.system(size: 10, weight: .bold))
+                                }
+                                .foregroundColor(.white)
+                                .padding(.horizontal, 8)
+                                .padding(.vertical, 5)
+                                .background(Color.black.opacity(0.85))
+                                .cornerRadius(8)
+                                .overlay(RoundedRectangle(cornerRadius: 8).stroke(ObsidianTheme.neonAmber.opacity(0.5), lineWidth: 1))
+                            }
+                        }
+                        .padding(.top, -10)
+                        .padding(.trailing, 10)
                     }
                 }
                 .padding(.horizontal)
