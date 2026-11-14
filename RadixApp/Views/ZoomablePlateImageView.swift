@@ -64,81 +64,16 @@ public struct ZoomablePlateImageView: View {
                     .scaledToFit()
                     .scaleEffect(scale)
                     .offset(offset)
-                    .gesture(
-                        SimultaneousGesture(
-                            // 1. Pinch to Zoom Gesture (1.0x to 5.0x)
-                            MagnificationGesture()
-                                .onChanged { value in
-                                    let delta = value / lastScale
-                                    lastScale = value
-                                    let newScale = scale * delta
-                                    scale = min(max(newScale, 1.0), 5.0)
-                                }
-                                .onEnded { _ in
-                                    lastScale = 1.0
-                                    if scale <= 1.05 {
-                                        resetZoom()
-                                    }
-                                },
-                            // 2. Drag Gesture: Pan when zoomed, Swipe when unzoomed
-                            DragGesture(minimumDistance: 10)
-                                .onChanged { value in
-                                    if isZoomed {
-                                        // Panning zoomed image side-to-side and up/down
-                                        let maxOffsetX = (geo.size.width * (scale - 1)) / 2 + 50
-                                        let maxOffsetY = (geo.size.height * (scale - 1)) / 2 + 50
-                                        let proposedX = lastOffset.width + value.translation.width
-                                        let proposedY = lastOffset.height + value.translation.height
-                                        offset = CGSize(
-                                            width: min(max(proposedX, -maxOffsetX), maxOffsetX),
-                                            height: min(max(proposedY, -maxOffsetY), maxOffsetY)
-                                        )
-                                    } else {
-                                        // Slight dynamic resistance when dragging unzoomed
-                                        dragTranslation = value.translation.width
-                                    }
-                                }
-                                .onEnded { value in
-                                    if isZoomed {
-                                        lastOffset = offset
-                                    } else {
-                                        // Side-to-side horizontal swipe navigation
-                                        let dx = value.translation.width
-                                        let dy = value.translation.height
-                                        if abs(dx) > 35 && abs(dx) > abs(dy) * 1.1 {
-                                            if dx < 0 {
-                                                // Swiped Left -> Navigate Ahead
-                                                if let onSwipeNext = onSwipeNext {
-                                                    HapticManager.impact(style: .medium)
-                                                    onSwipeNext()
-                                                }
-                                            } else {
-                                                // Swiped Right -> Navigate Back
-                                                if let onSwipePrevious = onSwipePrevious {
-                                                    HapticManager.impact(style: .medium)
-                                                    onSwipePrevious()
-                                                }
-                                            }
-                                        }
-                                        dragTranslation = 0
-                                    }
-                                }
+                    .overlay(
+                        MultiTouchPanZoomOverlay(
+                            scale: $scale,
+                            offset: $offset,
+                            maxScale: 5.0,
+                            allowHorizontalSwipe: true,
+                            onSwipeNext: onSwipeNext,
+                            onSwipePrevious: onSwipePrevious
                         )
                     )
-                    // Double Tap Gesture: Toggle 2.5x Zoom vs Reset
-                    .onTapGesture(count: 2) {
-                        HapticManager.impact(style: .medium)
-                        withAnimation(.spring(response: 0.3, dampingFraction: 0.8)) {
-                            if isZoomed {
-                                resetZoom()
-                            } else {
-                                scale = 2.5
-                                lastScale = 2.5
-                                offset = .zero
-                                lastOffset = .zero
-                            }
-                        }
-                    }
                 
                 // Persistent Side Chevron Navigation Buttons (when unzoomed and callbacks provided)
                 if !isZoomed && (onSwipePrevious != nil || onSwipeNext != nil) {
