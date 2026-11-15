@@ -148,41 +148,41 @@ public struct DeveloperPortfolioView: View {
                     .overlay(RoundedRectangle(cornerRadius: 12).stroke(ObsidianTheme.neonAmber.opacity(0.4), lineWidth: 1))
                     .padding(.horizontal)
                     
-                    // Rate NeuroCall Action (Unlocks 5-Rating Search Algorithm Multiplier)
+                    // Rate & Review NeuroCall (Compliant with App Store Guideline 5.6.1)
                     VStack(alignment: .leading, spacing: 10) {
                         HStack {
                             Image(systemName: "star.fill")
-                                .foregroundColor(.yellow)
-                            Text("SUPPORT APP DISCOVERABILITY")
+                                .foregroundColor(ObsidianTheme.neonAmber)
+                            Text("RATE & REVIEW NEUROCALL")
                                 .font(.system(size: 11, weight: .black))
-                                .foregroundColor(.yellow)
+                                .foregroundColor(ObsidianTheme.neonAmber)
                         }
                         
-                        Text("Apple requires an initial cohort of 5-star ratings before newly published apps index prominently in search results. Please rate NeuroCall:")
+                        Text("Your professional feedback directly supports ongoing anatomical updates, new operative corridors, and resident reference tools:")
                             .font(.system(size: 12, weight: .regular))
                             .foregroundColor(ObsidianTheme.textSecondary)
                         
                         Button(action: {
-                            HapticManager.impact(style: .heavy)
+                            HapticManager.impact(style: .medium)
                             requestReview()
                             hasRequestedReview = true
                         }) {
                             HStack {
-                                Image(systemName: hasRequestedReview ? "checkmark.circle.fill" : "star.leadinghalf.filled")
-                                Text(hasRequestedReview ? "Thank You for Rating!" : "Leave a 5-Star Rating")
+                                Image(systemName: hasRequestedReview ? "checkmark.circle.fill" : "star.bubble.fill")
+                                Text(hasRequestedReview ? "Thank You for Your Review!" : "Rate on the App Store")
                             }
                             .font(.system(size: 14, weight: .bold))
                             .foregroundColor(.black)
                             .frame(maxWidth: .infinity)
                             .padding(.vertical, 10)
-                            .background(Color.yellow)
+                            .background(ObsidianTheme.neonAmber)
                             .cornerRadius(10)
                         }
                     }
                     .padding(14)
                     .background(Color(red: 0.14, green: 0.16, blue: 0.18))
                     .cornerRadius(12)
-                    .overlay(RoundedRectangle(cornerRadius: 12).stroke(Color.yellow.opacity(0.3), lineWidth: 1))
+                    .overlay(RoundedRectangle(cornerRadius: 12).stroke(ObsidianTheme.neonAmber.opacity(0.3), lineWidth: 1))
                     .padding(.horizontal)
                     
                     // Published Apps List
