@@ -95,4 +95,28 @@ final class NeuroCallTests: XCTestCase {
         ichScore += 1 // Age > 80
         XCTAssertEqual(ichScore, 6, "Maximum ICH Score must equal 6")
     }
+
+    // MARK: - Test 5: Verify Surgical Atlas Domain and Sub-Section Organization (Zero Mixed Anatomy)
+    func testAtlasDomainAndSubSectionOrganization() {
+        // Assert exactly 22 Cranial plates and 20 Spine plates
+        XCTAssertEqual(AtlasDomain.cranial.plates.count, 22, "Cranial domain must contain exactly 22 plates")
+        XCTAssertEqual(AtlasDomain.spine.plates.count, 20, "Spine domain must contain exactly 20 plates")
+
+        // Assert all 42 plates belong to a valid sub-section and domain
+        var allObserved: Set<SurgicalPlateType> = []
+        for domain in AtlasDomain.allCases {
+            for sub in domain.subSections {
+                XCTAssertFalse(sub.plates.isEmpty, "Sub-section \(sub.rawValue) must have plates")
+                XCTAssertEqual(sub.domain, domain, "Sub-section \(sub.rawValue) must match domain \(domain.rawValue)")
+                for plate in sub.plates {
+                    XCTAssertEqual(plate.domain, domain, "Plate \(plate.shortTitle) domain mismatch")
+                    XCTAssertEqual(plate.subSection, sub, "Plate \(plate.shortTitle) sub-section mismatch")
+                    allObserved.insert(plate)
+                }
+            }
+        }
+
+        XCTAssertEqual(allObserved.count, 42, "All 42 plates must be accounted for across sub-sections with zero duplicates")
+        XCTAssertEqual(allObserved, Set(SurgicalPlateType.allCases), "The set of categorized plates must match allCases exactly")
+    }
 }

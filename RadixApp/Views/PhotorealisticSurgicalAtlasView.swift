@@ -6,8 +6,9 @@ import SwiftUI
 // Deep micro-zoom (1.0x to 4.0x), interactive pinned callouts, danger zone overlays, and tactical protocols.
 
 public struct PhotorealisticSurgicalAtlasView: View {
-    @State private var selectedCategory: AtlasCategory = .all
-    @State private var selectedPlate: SurgicalPlateType = .plate001
+    @State private var selectedDomain: AtlasDomain = .cranial
+    @State private var selectedSubSection: AtlasSubSection? = nil
+    @State private var selectedPlate: SurgicalPlateType = .plate017
     @State private var zoomScale: CGFloat = 1.0
     @State private var lastZoomScale: CGFloat = 1.0
     @State private var dragOffset: CGSize = .zero
@@ -18,17 +19,25 @@ public struct PhotorealisticSurgicalAtlasView: View {
     
     public init() {}
     
+    private var currentFilteredPlates: [SurgicalPlateType] {
+        if let sub = selectedSubSection {
+            return sub.plates
+        } else {
+            return selectedDomain.plates
+        }
+    }
+    
     private func selectAdjacentPlate(direction: Int) {
-        let all = SurgicalPlateType.allCases
-        guard let idx = all.firstIndex(of: selectedPlate) else { return }
-        let nextIdx = (idx + direction + all.count) % all.count
+        let plates = currentFilteredPlates
+        guard !plates.isEmpty, let idx = plates.firstIndex(of: selectedPlate) else { return }
+        let nextIdx = (idx + direction + plates.count) % plates.count
         HapticManager.impact(style: .light)
         withAnimation(.easeInOut(duration: 0.22)) {
-            selectedPlate = all[nextIdx]
+            selectedPlate = plates[nextIdx]
             zoomScale = 1.0
             dragOffset = .zero
             lastDragOffset = .zero
-            selectedCallout = all[nextIdx].callouts.first
+            selectedCallout = plates[nextIdx].callouts.first
         }
     }
     
@@ -38,8 +47,11 @@ public struct PhotorealisticSurgicalAtlasView: View {
                 // Header
                 atlasHeader
                 
-                // Atlas Pillar Category Selector
-                categorySelectorBar
+                // Primary Dual-Pillar Domain Selector (Cranial vs Spine)
+                domainSelectorBar
+                
+                // Sub-Specialty Anatomical Section Selector
+                subSectionSelectorBar
                 
                 // Plate Carousel Selector Bar
                 plateSelectorBar
@@ -127,8 +139,8 @@ public struct PhotorealisticSurgicalAtlasView: View {
                         .foregroundColor(ObsidianTheme.neonAmber)
                 }
                 Spacer()
-                if let idx = SurgicalPlateType.allCases.firstIndex(of: selectedPlate) {
-                    Text("PLATE \(idx + 1) / \(SurgicalPlateType.allCases.count) • SWIPE ◀ ▶")
+                if let idx = currentFilteredPlates.firstIndex(of: selectedPlate) {
+                    Text("\(selectedPlate.domain.shortTitle) • \(idx + 1)/\(currentFilteredPlates.count) ◀ ▶")
                         .font(.system(size: 10, weight: .bold, design: .monospaced))
                         .foregroundColor(ObsidianTheme.neonCyan)
                         .padding(.horizontal, 8)
@@ -148,17 +160,54 @@ public struct PhotorealisticSurgicalAtlasView: View {
         .padding(.horizontal, 16)
     }
     
-    // MARK: - Category Selector Bar
-    private var categorySelectorBar: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 8) {
-                ForEach(AtlasCategory.allCases, id: \.self) { cat in
+    // MARK: - Primary Dual-Pillar Domain Selector (Cranial vs Spine)
+    private var domainSelectorBar: some View {
+        HStack(spacing: 8) {
+            ForEach(AtlasDomain.allCases) { domain in
+                Button(action: {
+                    HapticManager.impact(style: .light)
+                    withAnimation(.easeInOut(duration: 0.2)) {
+                        selectedDomain = domain
+                        selectedSubSection = nil
+                        if let first = domain.plates.first {
+                            selectedPlate = first
+                            zoomScale = 1.0
+                            dragOffset = .zero
+                            lastDragOffset = .zero
+                            selectedCallout = first.callouts.first
+                        }
+                    }
+                }) {
+                    HStack(spacing: 6) {
+                        Text(domain.rawValue)
+                            .font(.system(size: 11, weight: .black))
+                    }
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 10)
+                    .background(selectedDomain == domain ? ObsidianTheme.neonAmber : ObsidianTheme.surfaceElevated)
+                    .foregroundColor(selectedDomain == domain ? .black : ObsidianTheme.textSecondary)
+                    .cornerRadius(10)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 10)
+                            .stroke(selectedDomain == domain ? ObsidianTheme.neonAmber : ObsidianTheme.borderSubtle, lineWidth: 1.5)
+                    )
+                }
+            }
+        }
+        .padding(.horizontal, 14)
+    }
+
+    // MARK: - Sub-Specialty Anatomical Section Selector
+    private var subSectionSelectorBar: some View {
+        ScrollViewReader { proxy in
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack(spacing: 8) {
+                    // "All" chip for current domain
                     Button(action: {
                         HapticManager.impact(style: .light)
                         withAnimation(.easeInOut(duration: 0.2)) {
-                            selectedCategory = cat
-                            let filtered = cat.filteredPlates
-                            if !filtered.contains(selectedPlate), let first = filtered.first {
+                            selectedSubSection = nil
+                            if !selectedDomain.plates.contains(selectedPlate), let first = selectedDomain.plates.first {
                                 selectedPlate = first
                                 zoomScale = 1.0
                                 dragOffset = .zero
@@ -167,18 +216,64 @@ public struct PhotorealisticSurgicalAtlasView: View {
                             }
                         }
                     }) {
-                        Text(cat.rawValue)
-                            .font(.system(size: 11, weight: .bold))
+                        HStack(spacing: 5) {
+                            Image(systemName: "square.grid.2x2.fill")
+                                .font(.system(size: 10, weight: .bold))
+                            Text("All \(selectedDomain == .cranial ? "Cranial" : "Spine") (\(selectedDomain.plateCount))")
+                                .font(.system(size: 11, weight: .bold))
+                        }
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 7)
+                        .background(selectedSubSection == nil ? ObsidianTheme.neonCyan.opacity(0.2) : ObsidianTheme.surfaceGlass)
+                        .foregroundColor(selectedSubSection == nil ? ObsidianTheme.neonCyan : ObsidianTheme.textSecondary)
+                        .cornerRadius(8)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 8)
+                                .stroke(selectedSubSection == nil ? ObsidianTheme.neonCyan : ObsidianTheme.borderSubtle, lineWidth: 1)
+                        )
+                    }
+                    
+                    // Sub-sections
+                    ForEach(selectedDomain.subSections) { sub in
+                        Button(action: {
+                            HapticManager.impact(style: .light)
+                            withAnimation(.easeInOut(duration: 0.2)) {
+                                selectedSubSection = sub
+                                if !sub.plates.contains(selectedPlate), let first = sub.plates.first {
+                                   selectedPlate = first
+                                   zoomScale = 1.0
+                                   dragOffset = .zero
+                                   lastDragOffset = .zero
+                                   selectedCallout = first.callouts.first
+                                }
+                            }
+                        }) {
+                            HStack(spacing: 5) {
+                                Image(systemName: sub.iconName)
+                                    .font(.system(size: 10, weight: .bold))
+                                Text("\(sub.rawValue) (\(sub.plates.count))")
+                                    .font(.system(size: 11, weight: .bold))
+                            }
                             .padding(.horizontal, 12)
-                            .padding(.vertical, 6)
-                            .background(selectedCategory == cat ? ObsidianTheme.neonAmber : ObsidianTheme.surfaceGlass)
-                            .foregroundColor(selectedCategory == cat ? .black : ObsidianTheme.textSecondary)
+                            .padding(.vertical, 7)
+                            .background(selectedSubSection == sub ? ObsidianTheme.neonAmber.opacity(0.2) : ObsidianTheme.surfaceGlass)
+                            .foregroundColor(selectedSubSection == sub ? ObsidianTheme.neonAmber : ObsidianTheme.textSecondary)
                             .cornerRadius(8)
-                            .overlay(RoundedRectangle(cornerRadius: 8).stroke(selectedCategory == cat ? ObsidianTheme.neonAmber : ObsidianTheme.borderSubtle, lineWidth: 1))
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 8)
+                                    .stroke(selectedSubSection == sub ? ObsidianTheme.neonAmber : ObsidianTheme.borderSubtle, lineWidth: 1)
+                            )
+                        }
+                        .id(sub)
                     }
                 }
+                .padding(.horizontal, 14)
             }
-            .padding(.horizontal, 16)
+            .onChange(of: selectedPlate) { newPlate in
+                withAnimation(.easeInOut(duration: 0.2)) {
+                    proxy.scrollTo(newPlate.subSection, anchor: .center)
+                }
+            }
         }
     }
 
@@ -187,7 +282,7 @@ public struct PhotorealisticSurgicalAtlasView: View {
         ScrollViewReader { proxy in
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 8) {
-                    ForEach(selectedCategory.filteredPlates, id: \.self) { plate in
+                    ForEach(currentFilteredPlates, id: \.self) { plate in
                         Button(action: {
                             HapticManager.impact(style: .light)
                             withAnimation(.easeInOut(duration: 0.2)) {
@@ -243,16 +338,17 @@ public struct PhotorealisticSurgicalAtlasView: View {
             }
             
             VStack(spacing: 2) {
-                if let idx = SurgicalPlateType.allCases.firstIndex(of: selectedPlate) {
-                    Text("PLATE \(idx + 1) OF \(SurgicalPlateType.allCases.count)")
+                if let idx = currentFilteredPlates.firstIndex(of: selectedPlate) {
+                    Text("PLATE \(idx + 1) OF \(currentFilteredPlates.count)")
                         .font(.system(size: 12, weight: .black, design: .monospaced))
                         .foregroundColor(ObsidianTheme.textPrimary)
                 }
-                Text("SWIPE ◀ ▶")
-                    .font(.system(size: 9, weight: .bold))
-                    .foregroundColor(ObsidianTheme.neonCyan)
+                Text(selectedPlate.subSection.rawValue.uppercased())
+                    .font(.system(size: 8, weight: .black))
+                    .foregroundColor(ObsidianTheme.neonAmber)
+                    .lineLimit(1)
             }
-            .frame(width: 110)
+            .frame(width: 140)
             
             Button(action: { selectAdjacentPlate(direction: 1) }) {
                 HStack(spacing: 6) {
@@ -274,13 +370,27 @@ public struct PhotorealisticSurgicalAtlasView: View {
     // MARK: - Top Controls Bar
     private var topControlsBar: some View {
         HStack {
-            Text(selectedPlate.title)
-                .font(.system(size: 11, weight: .bold))
-                .foregroundColor(ObsidianTheme.textPrimary)
-                .padding(.horizontal, 8)
-                .padding(.vertical, 4)
-                .background(Color.black.opacity(0.8))
-                .cornerRadius(6)
+            VStack(alignment: .leading, spacing: 2) {
+                HStack(spacing: 4) {
+                    Text(selectedPlate.domain == .cranial ? "CRANIAL" : "SPINE")
+                        .font(.system(size: 8, weight: .black))
+                        .foregroundColor(ObsidianTheme.neonAmber)
+                    Text("•")
+                        .font(.system(size: 8, weight: .bold))
+                        .foregroundColor(ObsidianTheme.textMuted)
+                    Text(selectedPlate.subSection.rawValue.uppercased())
+                        .font(.system(size: 8, weight: .bold))
+                        .foregroundColor(ObsidianTheme.neonCyan)
+                }
+                Text(selectedPlate.title)
+                    .font(.system(size: 11, weight: .bold))
+                    .foregroundColor(ObsidianTheme.textPrimary)
+                    .lineLimit(1)
+            }
+            .padding(.horizontal, 8)
+            .padding(.vertical, 4)
+            .background(Color.black.opacity(0.85))
+            .cornerRadius(6)
             
             Spacer()
             
@@ -532,24 +642,116 @@ public struct PhotorealisticSurgicalAtlasView: View {
 }
 
 // MARK: - Data Models
+public enum AtlasDomain: String, CaseIterable, Identifiable {
+    case cranial = "🧠 CRANIAL & SKULL BASE (22)"
+    case spine = "🦴 SPINE & CVJ (20)"
+    
+    public var id: String { rawValue }
+    
+    public var shortTitle: String {
+        switch self {
+        case .cranial: return "🧠 CRANIAL"
+        case .spine: return "🦴 SPINE"
+        }
+    }
+    
+    public var plateCount: Int {
+        switch self {
+        case .cranial: return 22
+        case .spine: return 20
+        }
+    }
+    
+    public var subSections: [AtlasSubSection] {
+        switch self {
+        case .cranial:
+            return [.anteriorSkullBase, .convexityTrauma, .posteriorFossa, .vascularVentricular]
+        case .spine:
+            return [.craniovertebral, .cervical, .thoracicOncology, .lumbarMIS, .deformitySalvage]
+        }
+    }
+    
+    public var plates: [SurgicalPlateType] {
+        subSections.flatMap { $0.plates }
+    }
+}
+
+public enum AtlasSubSection: String, CaseIterable, Identifiable {
+    // Cranial (4 sub-sections)
+    case anteriorSkullBase = "Anterior Skull Base"
+    case convexityTrauma = "Convexity & Trauma"
+    case posteriorFossa = "Posterior Fossa"
+    case vascularVentricular = "Vascular & Ventricular"
+    
+    // Spine (5 sub-sections)
+    case craniovertebral = "Craniovertebral Junction"
+    case cervical = "Cervical Spine"
+    case thoracicOncology = "Thoracic & Oncology"
+    case lumbarMIS = "Lumbar & MIS Corridors"
+    case deformitySalvage = "Deformity & Salvage"
+    
+    public var id: String { rawValue }
+    
+    public var domain: AtlasDomain {
+        switch self {
+        case .anteriorSkullBase, .convexityTrauma, .posteriorFossa, .vascularVentricular:
+            return .cranial
+        case .craniovertebral, .cervical, .thoracicOncology, .lumbarMIS, .deformitySalvage:
+            return .spine
+        }
+    }
+    
+    public var iconName: String {
+        switch self {
+        case .anteriorSkullBase: return "eye.circle.fill"
+        case .convexityTrauma: return "brain.head.profile"
+        case .posteriorFossa: return "circle.grid.cross.fill"
+        case .vascularVentricular: return "cross.vial.fill"
+        case .craniovertebral: return "link.circle.fill"
+        case .cervical: return "figure.stand"
+        case .thoracicOncology: return "shield.lefthalf.filled"
+        case .lumbarMIS: return "square.stack.3d.down.right.fill"
+        case .deformitySalvage: return "arrow.triangle.merge"
+        }
+    }
+    
+    public var plates: [SurgicalPlateType] {
+        switch self {
+        case .anteriorSkullBase:
+            return [.plate017, .plate009, .plate012, .plate008, .plate005, .plate033, .plate030]
+        case .convexityTrauma:
+            return [.plate018, .plate016, .plate019, .plate021, .plate025]
+        case .posteriorFossa:
+            return [.plate010, .plate020, .plate004, .plate003, .plate006, .plate022]
+        case .vascularVentricular:
+            return [.plate002, .plate027, .plate040, .plate041]
+        case .craniovertebral:
+            return [.plate001, .plate013, .plate014, .plate035]
+        case .cervical:
+            return [.plate015, .plate031, .plate034, .plate042]
+        case .thoracicOncology:
+            return [.plate026, .plate036, .plate038]
+        case .lumbarMIS:
+            return [.plate011, .plate007, .plate037, .plate029, .plate028, .plate032]
+        case .deformitySalvage:
+            return [.plate023, .plate024, .plate039]
+        }
+    }
+}
+
 public enum AtlasCategory: String, CaseIterable {
     case all = "All Plates (42)"
-    case cranial = "Cranial & Trauma (15)"
-    case skullBase = "Skull Base & Vascular (7)"
-    case spine = "Spine & Deformity (20)"
+    case cranial = "Cranial & Skull Base (22)"
+    case spine = "Spine & CVJ (20)"
 
     public var filteredPlates: [SurgicalPlateType] {
         switch self {
         case .all:
-            return SurgicalPlateType.allCases
+            return AtlasDomain.cranial.plates + AtlasDomain.spine.plates
         case .cranial:
-            return [                .plate002, .plate003, .plate008, .plate009, .plate012, .plate016, .plate017, .plate018,
-                .plate019, .plate021, .plate022, .plate025, .plate027, .plate040, .plate041            ]
-        case .skullBase:
-            return [                .plate004, .plate005, .plate006, .plate010, .plate020, .plate030, .plate033            ]
+            return AtlasDomain.cranial.plates
         case .spine:
-            return [                .plate001, .plate007, .plate011, .plate013, .plate014, .plate015, .plate023, .plate024, .plate026, .plate028,
-                .plate029, .plate031, .plate032, .plate034, .plate035, .plate036, .plate037, .plate038, .plate039, .plate042            ]
+            return AtlasDomain.spine.plates
         }
     }
 }
@@ -596,6 +798,19 @@ public enum SurgicalPlateType: String, CaseIterable {
     case plate040 = "plate_040_aneurysmal_subarachnoid_hemorrhage"
     case plate041 = "plate_041_ganglionic_ich_intraventricular_hemorrhage"
     case plate042 = "plate_042_cervical_spondylotic_myelopathy"
+
+    public var subSection: AtlasSubSection {
+        for section in AtlasSubSection.allCases {
+            if section.plates.contains(self) {
+                return section
+            }
+        }
+        return .anteriorSkullBase
+    }
+    
+    public var domain: AtlasDomain {
+        subSection.domain
+    }
 
     public var plateNumber: Int {
         switch self {
