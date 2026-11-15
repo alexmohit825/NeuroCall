@@ -1,0 +1,52 @@
+name: 🧪 NeuroCall Automated iOS Simulator Pre-Flight CI
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  run-simulator-tests:
+    name: 🧪 Run Automated iOS Simulator Test Suite
+    runs-on: macos-15
+    timeout-minutes: 20
+
+    steps:
+      - name: 📥 Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 🛠️ Select Xcode 26.x (iOS 26+ SDK)
+        run: |
+          echo "Selecting Xcode 26.x..."
+          sudo xcode-select -s /Applications/Xcode_26.3.0.app || sudo xcode-select -s /Applications/Xcode_26.3.app || sudo xcode-select -s /Applications/Xcode_26.app || sudo xcode-select -s /Applications/Xcode.app
+          xcodebuild -version
+          swift --version
+
+      - name: ⚙️ Install XcodeGen
+        run: brew install xcodegen
+
+      - name: 🏗️ Generate Native Xcode Project with Tests
+        run: |
+          sed -i '' "s/CURRENT_PROJECT_VERSION: .*/CURRENT_PROJECT_VERSION: "1"/" project.yml
+          xcodegen generate
+
+      - name: 🧪 Execute Automated XCTest Suite on iPhone 16 Simulator
+        run: |
+          echo "=========================================================="
+          echo "🧪 BOOTING IPHONE 16 SIMULATOR & TESTING ALL 42 PLATES"
+          echo "=========================================================="
+          xcodebuild test \
+            -project NeuroCall.xcodeproj \
+            -scheme NeuroCall \
+            -destination 'platform=iOS Simulator,name=iPhone 16' \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO
+          echo "=========================================================="
+          echo "✅ TEST RUN COMPLETE: ALL PLATES & LOGIC VERIFIED"
+          echo "=========================================================="

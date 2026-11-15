@@ -50,6 +50,8 @@ public struct MultiTouchPanZoomOverlay: UIViewRepresentable {
 
         // 1. Pinch Gesture (1.0x to maxScale)
         let pinch = UIPinchGestureRecognizer(target: context.coordinator, action: #selector(Coordinator.handlePinch(_:)))
+        pinch.cancelsTouchesInView = false
+        pinch.delaysTouchesBegan = false
         pinch.delegate = context.coordinator
         view.addGestureRecognizer(pinch)
 
@@ -57,6 +59,8 @@ public struct MultiTouchPanZoomOverlay: UIViewRepresentable {
         let pan = UIPanGestureRecognizer(target: context.coordinator, action: #selector(Coordinator.handlePan(_:)))
         pan.minimumNumberOfTouches = 1
         pan.maximumNumberOfTouches = 2
+        pan.cancelsTouchesInView = false
+        pan.delaysTouchesBegan = false
         pan.delegate = context.coordinator
         view.addGestureRecognizer(pan)
 
@@ -64,12 +68,16 @@ public struct MultiTouchPanZoomOverlay: UIViewRepresentable {
         let twoFingerTap = UITapGestureRecognizer(target: context.coordinator, action: #selector(Coordinator.handleTwoFingerTap(_:)))
         twoFingerTap.numberOfTouchesRequired = 2
         twoFingerTap.numberOfTapsRequired = 1
+        twoFingerTap.cancelsTouchesInView = false
+        twoFingerTap.delaysTouchesBegan = false
         twoFingerTap.delegate = context.coordinator
         view.addGestureRecognizer(twoFingerTap)
 
         // 4. Double Tap (1-Finger) Quick-Zoom
         let doubleTap = UITapGestureRecognizer(target: context.coordinator, action: #selector(Coordinator.handleDoubleTap(_:)))
         doubleTap.numberOfTapsRequired = 2
+        doubleTap.cancelsTouchesInView = false
+        doubleTap.delaysTouchesBegan = false
         doubleTap.delegate = context.coordinator
         view.addGestureRecognizer(doubleTap)
 

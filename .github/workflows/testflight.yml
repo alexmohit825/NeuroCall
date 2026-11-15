@@ -57,6 +57,21 @@ jobs:
             --apiKey 38F6WA87DU \
             --apiIssuer 73c7355a-beef-4d79-919d-c3d7dec7747a
 
+      - name: 🧪 Run Automated iOS Simulator Pre-Flight Test Suite
+        run: |
+          echo "=========================================================="
+          echo "🧪 BOOTING IPHONE 16 SIMULATOR & TESTING ALL 42 PLATES"
+          echo "=========================================================="
+          xcodebuild test \
+            -project NeuroCall.xcodeproj \
+            -scheme NeuroCall \
+            -destination 'platform=iOS Simulator,name=iPhone 16' \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO
+          echo "=========================================================="
+          echo "✅ ALL 42 PLATES & TESTS PASSED [READY FOR ARCHIVE]"
+          echo "=========================================================="
+
       - name: 🚀 Archive Release Candidate for App Store
         run: |
           mkdir -p build/archive

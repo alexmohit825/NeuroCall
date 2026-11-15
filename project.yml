@@ -36,3 +36,16 @@ targets:
         PRODUCT_NAME: NeuroCall
         INFOPLIST_FILE: Info.plist
         TARGETED_DEVICE_FAMILY: "1,2"
+
+  NeuroCallTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: Tests
+    dependencies:
+      - target: NeuroCall
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.AlexMohit.TrephineTests
+        PRODUCT_NAME: NeuroCallTests
+        GENERATE_INFOPLIST_FILE: YES
