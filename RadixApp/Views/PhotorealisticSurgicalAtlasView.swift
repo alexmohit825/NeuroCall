@@ -734,15 +734,15 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
         case .lumbarMIS:
             return [.plate011, .plate007, .plate037, .plate029, .plate028, .plate032]
         case .deformitySalvage:
-            return [.plate023, .plate024, .plate039]
+            return [.plate023, .plate024, .plate039, .plate046]
         }
     }
 }
 
 public enum AtlasCategory: String, CaseIterable {
-    case all = "All Plates (45)"
+    case all = "All Plates (46)"
     case cranial = "Cranial & Skull Base (23)"
-    case spine = "Spine & CVJ (22)"
+    case spine = "Spine & CVJ (23)"
 
     public var filteredPlates: [SurgicalPlateType] {
         switch self {
@@ -801,6 +801,7 @@ public enum SurgicalPlateType: String, CaseIterable {
     case plate043 = "plate_043_pediatric_atlantoaxial_rotatory_subluxation"
     case plate044 = "plate_044_hangmans_fracture_levine_edwards"
     case plate045 = "plate_045_brain_herniation_syndromes"
+    case plate046 = "plate_046_tethered_cord_lipomyelomeningocele"
 
     public var subSection: AtlasSubSection {
         for section in AtlasSubSection.allCases {
@@ -862,6 +863,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate043: return 43
         case .plate044: return 44
         case .plate045: return 45
+        case .plate046: return 46
         }
     }
 
@@ -916,6 +918,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate043: return "43: Pediatric AARS"
         case .plate044: return "44: Hangman's C2"
         case .plate045: return "45: Herniation Types"
+        case .plate046: return "46: Spinal Dysraphism"
         }
     }
 
@@ -966,6 +969,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate043: return "Pediatric Atlantoaxial Rotatory Subluxation (AARS) & Fielding Classification"
         case .plate044: return "Hangman's Fracture (Traumatic C2 Spondylolisthesis) & Levine-Edwards Classification"
         case .plate045: return "The 4 Classical Brain Herniation Syndromes"
+        case .plate046: return "Lumbosacral Spinal Dysraphism & Tethered Cord Spectrum"
         }
     }
 
@@ -1016,6 +1020,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate043: return "arrow.triangle.2.circlepath.circle.fill"
         case .plate044: return "cross.case.fill"
         case .plate045: return "brain.head.profile"
+        case .plate046: return "figure.child"
         }
     }
 
@@ -1686,6 +1691,49 @@ public enum SurgicalPlateType: String, CaseIterable {
                     surgicalPearl: "Lumbar puncture is STRICTLY CONTRAINDICATED in the presence of mass effect due to the catastrophic risk of precipitating fatal tonsillar coning."
                 )
             ]
+        case .plate046:
+            return [
+                SurgicalCallout(
+                    id: "plate_046_1",
+                    title: "Normal Conus & Slender Filum",
+                    structureType: "NORMAL LUMBOSACRAL ANATOMY",
+                    color: Color.green,
+                    normalizedX: 0.125,
+                    normalizedY: 0.40,
+                    description: "Conus medullaris tapers normally and terminates at L1–L2. Slender filum terminale (<2 mm) with vertically draping cauda equina rootlets. Posterior bony elements, fascia, and overlying skin are intact.",
+                    surgicalPearl: "Normal conus level must be confirmed by counting down from T12/ribs or up from S1 to avoid misidentifying low-lying cord on sagittal MRI."
+                ),
+                SurgicalCallout(
+                    id: "plate_046_2",
+                    title: "Filar Lipoma (Tethered Cord)",
+                    structureType: "OCCULT SPINAL DYSRAPHISM",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.375,
+                    normalizedY: 0.65,
+                    description: "Conus medullaris pathologically low-lying (descending to L4–L5). Thickened, bright golden-yellow fibroadipose filum (>2 mm) tethering the conus under mechanical traction with taut horizontal nerve roots.",
+                    surgicalPearl: "Microsurgical sectioning of the fatty filum immediately relaxes traction. Intraoperative nerve stimulation must confirm absent motor response before bipolaring and transecting the filum."
+                ),
+                SurgicalCallout(
+                    id: "plate_046_3",
+                    title: "Lipomyelomeningocele",
+                    structureType: "CLOSED SPINAL DYSRAPHISM",
+                    color: Color.orange,
+                    normalizedX: 0.625,
+                    normalizedY: 0.50,
+                    description: "Spina bifida with dorsal laminar defect (L4–S2) beneath intact skin (subcutaneous fatty dome). Subcutaneous lipoma enters the spinal canal through the fascial defect and fuses directly into the dorsal aspect of the tethered placode.",
+                    surgicalPearl: "NEVER attempt complete resection of the lipoma into cord tissue; debulk only the extraneous mass and untether the placode. Aggressive parenchymal resection causes permanent paraplegia or neurogenic bladder."
+                ),
+                SurgicalCallout(
+                    id: "plate_046_4",
+                    title: "Open Myelomeningocele",
+                    structureType: "SPINA BIFIDA APERTA",
+                    color: Color.red,
+                    normalizedX: 0.875,
+                    normalizedY: 0.48,
+                    description: "Failure of primary neurulation with complete absence of posterior bony arches, fascia, and skin. Exposed, raw, highly vascular neural placode elevated on a fluid-filled arachnoid sac with ventral nerve roots traversing the cystic cavity.",
+                    surgicalPearl: "Demands urgent neonatal repair within 24–48 hours to prevent ventriculitis and ascending meningitis. Reconstitute neural placode into a tube (tubulation) and perform watertight multilayered closure."
+                )
+            ]
         }
     }
 
@@ -1964,6 +2012,13 @@ public enum SurgicalPlateType: String, CaseIterable {
                 ApproachSequentialStep(stepNumber: 3, title: "Ventricular Drainage (EVD)", detail: "Immediate placement of external ventricular drain (EVD) at Kocher's point if acute obstructive hydrocephalus is present to release supratentorial CSF pressure."),
                 ApproachSequentialStep(stepNumber: 4, title: "Emergent Decompressive Surgery", detail: "Immediate craniotomy/craniectomy to evacuate mass lesion (EDH/SDH/ICH) or wide Decompressive Hemicraniectomy with expansile duraplasty. Suboccipital craniectomy for tonsillar herniation.")
             ]
+        case .plate046:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Neuromonitoring & Prone Positioning", detail: "Continuous intraoperative SSEP, MEP, and multichannel electromyography (anal sphincter, bilateral lower extremity motor roots). Avoid muscle relaxants after intubation."),
+                ApproachSequentialStep(stepNumber: 2, title: "Normal-to-Abnormal Surgical Exposure", detail: "Expose normal rostral lamina one level above the defect. Perform laminotomy/laminectomy in pristine anatomy to identify normal dura and conus before tracing into the dysraphic zone."),
+                ApproachSequentialStep(stepNumber: 3, title: "Microsurgical Untethering & Placode Preservation", detail: "For filar lipoma: bipolar and transect the filum below the conus. For lipomyelomeningocele: subtotal lipoma debulking, untethering placode from dura without invading cord parenchyma, and soft-tissue placode tubulation."),
+                ApproachSequentialStep(stepNumber: 4, title: "Expansile Watertight Duraplasty & Flap Closure", detail: "Perform wide, tension-free expansile duraplasty (pericranial/collagen graft) to provide a spacious CSF reservoir that prevents retethering. Layered myofascial and fasciocutaneous closure.")
+            ]
         }
     }
 
@@ -2196,6 +2251,12 @@ public enum SurgicalPlateType: String, CaseIterable {
                 "LUMBAR PUNCTURE IS STRICTLY CONTRAINDICATED: In patients with intracranial mass effect or midline shift, lumbar puncture creates a pressure gradient that precipitates fatal tonsillar coning.",
                 "KERNOHAN'S NOTCH PHENOMENON: In uncal herniation, contralateral cerebral peduncle compression produces paradoxical IPSILATERAL hemiparesis; always decompress the side of the dilated pupil and CT lesion.",
                 "DURET HEMORRHAGE IRREVERSIBILITY: Symmetrical rostrocaudal brainstem shift shears basilar paramedian perforating arteries; once Duret hemorrhages occur on CT/MRI, brainstem death is imminent."
+            ]
+        case .plate046:
+            return [
+                "NEVER CHASE LIPOMA INTO NEURAL PLACODE PARENCHYMA: Subtotal debulking is the standard of care; resecting fat within functional cord tissue causes irreversible lower extremity motor deficits and permanent neurogenic bowel/bladder.",
+                "INTRAOPERATIVE NERVE STIMULATION IS MANDATORY: An anomalous low-lying functional nerve root can simulate or travel adherent to the filum or transitional lipoma; never divide any tissue without direct bipolar/monopolar stimulation.",
+                "EMERGENT 24–48 HOUR REPAIR IN OPEN MYELOMENINGOCELE: Exposed neural placode lacks protective epidermal barriers; delayed surgical closure risks bacterial ventriculitis, meningitis, and rapidly progressive hydrocephalus."
             ]
         }
     }
