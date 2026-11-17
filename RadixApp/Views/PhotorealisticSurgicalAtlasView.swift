@@ -644,7 +644,7 @@ public struct PhotorealisticSurgicalAtlasView: View {
 // MARK: - Data Models
 public enum AtlasDomain: String, CaseIterable, Identifiable {
     case cranial = "🧠 CRANIAL & SKULL BASE (22)"
-    case spine = "🦴 SPINE & CVJ (20)"
+    case spine = "🦴 SPINE & CVJ (21)"
     
     public var id: String { rawValue }
     
@@ -658,7 +658,7 @@ public enum AtlasDomain: String, CaseIterable, Identifiable {
     public var plateCount: Int {
         switch self {
         case .cranial: return 22
-        case .spine: return 20
+        case .spine: return 21
         }
     }
     
@@ -726,7 +726,7 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
         case .vascularVentricular:
             return [.plate002, .plate027, .plate040, .plate041]
         case .craniovertebral:
-            return [.plate001, .plate013, .plate014, .plate035]
+            return [.plate001, .plate013, .plate014, .plate035, .plate043]
         case .cervical:
             return [.plate015, .plate031, .plate034, .plate042]
         case .thoracicOncology:
@@ -740,9 +740,9 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
 }
 
 public enum AtlasCategory: String, CaseIterable {
-    case all = "All Plates (42)"
+    case all = "All Plates (43)"
     case cranial = "Cranial & Skull Base (22)"
-    case spine = "Spine & CVJ (20)"
+    case spine = "Spine & CVJ (21)"
 
     public var filteredPlates: [SurgicalPlateType] {
         switch self {
@@ -798,6 +798,7 @@ public enum SurgicalPlateType: String, CaseIterable {
     case plate040 = "plate_040_aneurysmal_subarachnoid_hemorrhage"
     case plate041 = "plate_041_ganglionic_ich_intraventricular_hemorrhage"
     case plate042 = "plate_042_cervical_spondylotic_myelopathy"
+    case plate043 = "plate_043_pediatric_atlantoaxial_rotatory_subluxation"
 
     public var subSection: AtlasSubSection {
         for section in AtlasSubSection.allCases {
@@ -856,6 +857,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate040: return 40
         case .plate041: return 41
         case .plate042: return 42
+        case .plate043: return 43
         }
     }
 
@@ -907,6 +909,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate040: return "40: Aneurysmal SAH"
         case .plate041: return "41: Ganglionic ICH & IVH"
         case .plate042: return "42: Cervical Myelopathy"
+        case .plate043: return "43: Pediatric AARS"
         }
     }
 
@@ -954,6 +957,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate040: return "Acute Aneurysmal Subarachnoid Hemorrhage (SAH) & Acute Hydrocephalus"
         case .plate041: return "Hypertensive Ganglionic Intracerebral Hemorrhage (ICH) & Intraventricular Extension (IVH)"
         case .plate042: return "Cervical Spondylotic Myelopathy (CSM) & Multilevel Canal Stenosis"
+        case .plate043: return "Pediatric Atlantoaxial Rotatory Subluxation (AARS) & Fielding Classification"
         }
     }
 
@@ -1001,6 +1005,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate040: return "bolt.horizontal.fill"
         case .plate041: return "drop.fill"
         case .plate042: return "lines.measurement.horizontal"
+        case .plate043: return "arrow.triangle.2.circlepath.circle.fill"
         }
     }
 
@@ -1552,6 +1557,39 @@ public enum SurgicalPlateType: String, CaseIterable {
                     surgicalPearl: "Verified Frank Netter publication-grade neurosurgical anatomy."
                 )
             ]
+        case .plate043:
+            return [
+                SurgicalCallout(
+                    id: "plate_043_1",
+                    title: "Cock-Robin Torticollis Presentation",
+                    structureType: "CLINICAL HALLMARK",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.18,
+                    normalizedY: 0.45,
+                    description: "Head tilted toward ipsilateral shoulder with chin rotated toward contralateral shoulder. Contralateral SCM in reactive spasm (opposing deformity), distinguishing AARS from congenital muscular torticollis.",
+                    surgicalPearl: "Often triggered by Grisel's syndrome (pharyngovertebral venous hyperemia after URI / ENT surgery) or minor sports trauma."
+                ),
+                SurgicalCallout(
+                    id: "plate_043_2",
+                    title: "C1–C2 Rotatory Lock & Subluxation",
+                    structureType: "BONY KINEMATICS",
+                    color: Color.red,
+                    normalizedX: 0.65,
+                    normalizedY: 0.42,
+                    description: "C1 ring rotated 25°–30° on C2. One C1 lateral mass subluxates anteriorly onto the anterior slope of C2 superior articular facet (exposing cartilage); contralateral mass displaced posteriorly.",
+                    surgicalPearl: "Diagnostic Gold Standard: Dynamic Cervical 3D-CT (head turned left, neutral, right) showing non-reducing fixed C1–C2 rotational angle."
+                ),
+                SurgicalCallout(
+                    id: "plate_043_3",
+                    title: "Fielding Classification & TAL Sling",
+                    structureType: "STABILIZING LIGAMENTS",
+                    color: Color.cyan,
+                    normalizedX: 0.58,
+                    normalizedY: 0.35,
+                    description: "Type I: Rotatory fixation without anterior shift (AADI ≤ 3 mm, TAL intact). Type II: 3–5 mm anterior translation (TAL deficient). Type III: > 5 mm bilateral shift. Type IV: Posterior subluxation.",
+                    surgicalPearl: "Intact Transverse Atlantal Ligament preserves upper canal diameter, protecting the spinal cord from compression in Type I."
+                )
+            ]
         }
     }
 
@@ -1809,6 +1847,13 @@ public enum SurgicalPlateType: String, CaseIterable {
                 ApproachSequentialStep(stepNumber: 2, title: "Microsurgical Dissection", detail: "Perform precise decompression / reconstruction under magnification."),
                 ApproachSequentialStep(stepNumber: 3, title: "Hemostasis & Closure", detail: "Verify watertight dural integrity and layered anatomical closure.")
             ]
+        case .plate043:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Acute Phase (< 1–2 Weeks)", detail: "Soft cervical collar, strict bed rest, analgesia, NSAIDs, and muscle relaxants (diazepam). >80% spontaneous resolution rate."),
+                ApproachSequentialStep(stepNumber: 2, title: "Subacute Phase (2–4 Weeks)", detail: "Inpatient continuous cervical halter traction (5–7 lbs) with mild neck extension until reduction confirmed on lateral C-spine. Rigid collar / Minerva brace for 4–6 weeks."),
+                ApproachSequentialStep(stepNumber: 3, title: "Chronic (> 1 Month) / Failed Traction", detail: "Halo-gravity traction under conscious sedation with fluoroscopic monitoring. If reduction achieved, immobilize in Halo vest for 8–12 weeks."),
+                ApproachSequentialStep(stepNumber: 4, title: "Surgical Goel-Harms Fusion (Refractory/Type III–IV)", detail: "Posterior C1–C2 instrumental fusion (C1 lateral mass and C2 pedicle/pars screws) indicated for irreducible deformity, recurrence, neurologic deficit, or Fielding Type III/IV (AADI > 5 mm).")
+            ]
         }
     }
 
@@ -2023,6 +2068,12 @@ public enum SurgicalPlateType: String, CaseIterable {
             return [
                 "Preserve critical neurovascular boundaries and perforating vessels.",
                 "Verify rigid construct alignment and complete decompression before closure."
+            ]
+        case .plate043:
+            return [
+                "Never attempt forceful manual manipulation or sudden rotational cracking under anesthesia without traction; high risk of dens displacement or fatal cervicomedullary injury.",
+                "Distinguish AARS from Congenital Muscular Torticollis: in AARS, the tight/spastic SCM is CONTRALATERAL to head tilt; in congenital torticollis, tight SCM is IPSILATERAL.",
+                "Fielding Type III (>5 mm anterior displacement) and Type IV carry high risk of cord compression and transverse ligament rupture; halo reduction and prompt surgical fusion are mandatory."
             ]
         }
     }
