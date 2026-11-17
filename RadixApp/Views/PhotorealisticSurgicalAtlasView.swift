@@ -644,7 +644,7 @@ public struct PhotorealisticSurgicalAtlasView: View {
 // MARK: - Data Models
 public enum AtlasDomain: String, CaseIterable, Identifiable {
     case cranial = "🧠 CRANIAL & SKULL BASE (22)"
-    case spine = "🦴 SPINE & CVJ (21)"
+    case spine = "🦴 SPINE & CVJ (22)"
     
     public var id: String { rawValue }
     
@@ -658,7 +658,7 @@ public enum AtlasDomain: String, CaseIterable, Identifiable {
     public var plateCount: Int {
         switch self {
         case .cranial: return 22
-        case .spine: return 21
+        case .spine: return 22
         }
     }
     
@@ -728,7 +728,7 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
         case .craniovertebral:
             return [.plate001, .plate013, .plate014, .plate035, .plate043]
         case .cervical:
-            return [.plate015, .plate031, .plate034, .plate042]
+            return [.plate015, .plate031, .plate034, .plate042, .plate044]
         case .thoracicOncology:
             return [.plate026, .plate036, .plate038]
         case .lumbarMIS:
@@ -740,9 +740,9 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
 }
 
 public enum AtlasCategory: String, CaseIterable {
-    case all = "All Plates (43)"
+    case all = "All Plates (44)"
     case cranial = "Cranial & Skull Base (22)"
-    case spine = "Spine & CVJ (21)"
+    case spine = "Spine & CVJ (22)"
 
     public var filteredPlates: [SurgicalPlateType] {
         switch self {
@@ -799,6 +799,7 @@ public enum SurgicalPlateType: String, CaseIterable {
     case plate041 = "plate_041_ganglionic_ich_intraventricular_hemorrhage"
     case plate042 = "plate_042_cervical_spondylotic_myelopathy"
     case plate043 = "plate_043_pediatric_atlantoaxial_rotatory_subluxation"
+    case plate044 = "plate_044_hangmans_fracture_levine_edwards"
 
     public var subSection: AtlasSubSection {
         for section in AtlasSubSection.allCases {
@@ -858,6 +859,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate041: return 41
         case .plate042: return 42
         case .plate043: return 43
+        case .plate044: return 44
         }
     }
 
@@ -910,6 +912,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate041: return "41: Ganglionic ICH & IVH"
         case .plate042: return "42: Cervical Myelopathy"
         case .plate043: return "43: Pediatric AARS"
+        case .plate044: return "44: Hangman's C2"
         }
     }
 
@@ -958,6 +961,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate041: return "Hypertensive Ganglionic Intracerebral Hemorrhage (ICH) & Intraventricular Extension (IVH)"
         case .plate042: return "Cervical Spondylotic Myelopathy (CSM) & Multilevel Canal Stenosis"
         case .plate043: return "Pediatric Atlantoaxial Rotatory Subluxation (AARS) & Fielding Classification"
+        case .plate044: return "Hangman's Fracture (Traumatic C2 Spondylolisthesis) & Levine-Edwards Classification"
         }
     }
 
@@ -1006,6 +1010,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate041: return "drop.fill"
         case .plate042: return "lines.measurement.horizontal"
         case .plate043: return "arrow.triangle.2.circlepath.circle.fill"
+        case .plate044: return "cross.case.fill"
         }
     }
 
@@ -1590,6 +1595,49 @@ public enum SurgicalPlateType: String, CaseIterable {
                     surgicalPearl: "Intact Transverse Atlantal Ligament preserves upper canal diameter, protecting the spinal cord from compression in Type I."
                 )
             ]
+        case .plate044:
+            return [
+                SurgicalCallout(
+                    id: "plate_044_1",
+                    title: "Type I: Nondisplaced Pars Fracture",
+                    structureType: "STABLE INJURY",
+                    color: Color.green,
+                    normalizedX: 0.13,
+                    normalizedY: 0.50,
+                    description: "Vertical bilateral C2 pars fracture with < 3 mm anterior translation and 0° angulation. C2–C3 disc and ALL/PLL are completely intact. Stable injury.",
+                    surgicalPearl: "Managed non-operatively with rigid cervical collar (Miami J/Aspen) for 8–12 weeks. >95% osseous union rate."
+                ),
+                SurgicalCallout(
+                    id: "plate_044_2",
+                    title: "Type II: Displaced with Disc Rupture",
+                    structureType: "UNSTABLE TRANSLATION",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.38,
+                    normalizedY: 0.50,
+                    description: "Hyperextension-rebound flexion. Anterior displacement > 3 mm over C3 with moderate angulation (< 10°). C2–C3 disc ruptured with stripped PLL.",
+                    surgicalPearl: "Requires inpatient traction reduction (5–10 lbs) under fluoroscopy, followed by Halo vest for 12 weeks or anterior C2–C3 ACDF."
+                ),
+                SurgicalCallout(
+                    id: "plate_044_3",
+                    title: "Type IIA: Flexion-Distraction (Traction Hazard)",
+                    structureType: "CRITICAL DANGER TRAP",
+                    color: Color.red,
+                    normalizedX: 0.63,
+                    normalizedY: 0.50,
+                    description: "Severe kyphotic angulation (> 10°) with minimal/no translation. Wide posterior C2–C3 disc gaping with intact ALL anterior hinge.",
+                    surgicalPearl: "TRACTION IS STRICTLY CONTRAINDICATED: Longitudinal pull causes catastrophic cord distraction. Treat with gentle extension reduction without traction."
+                ),
+                SurgicalCallout(
+                    id: "plate_044_4",
+                    title: "Type III: Bilateral Locked Facets",
+                    structureType: "GROSS INSTABILITY",
+                    color: Color.purple,
+                    normalizedX: 0.88,
+                    normalizedY: 0.50,
+                    description: "Severe displacement and angulation combined with bilateral jumped/locked C2–C3 facet dislocation. Complete disruption of all disc and ligamentous restraints.",
+                    surgicalPearl: "Closed reduction rarely succeeds. Requires urgent open posterior reduction of locked facets + C2–C3 instrumented fusion."
+                )
+            ]
         }
     }
 
@@ -1854,6 +1902,13 @@ public enum SurgicalPlateType: String, CaseIterable {
                 ApproachSequentialStep(stepNumber: 3, title: "Chronic (> 1 Month) / Failed Traction", detail: "Halo-gravity traction under conscious sedation with fluoroscopic monitoring. If reduction achieved, immobilize in Halo vest for 8–12 weeks."),
                 ApproachSequentialStep(stepNumber: 4, title: "Surgical Goel-Harms Fusion (Refractory/Type III–IV)", detail: "Posterior C1–C2 instrumental fusion (C1 lateral mass and C2 pedicle/pars screws) indicated for irreducible deformity, recurrence, neurologic deficit, or Fielding Type III/IV (AADI > 5 mm).")
             ]
+        case .plate044:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Type I: Conservative Immobilization", detail: "Rigid cervical collar (Miami J or Aspen) for 8–12 weeks with serial upright lateral radiographs. High union rate (>95%)."),
+                ApproachSequentialStep(stepNumber: 2, title: "Type II: Closed Reduction & Halo", detail: "Inpatient closed cervical traction reduction (5–10 lbs) under fluoroscopy until alignment restored, then immobilization in Halo vest for 12 weeks. ACDF if unstable."),
+                ApproachSequentialStep(stepNumber: 3, title: "Type IIA: Extension Reduction (NO TRACTION)", detail: "Cervical traction is strictly CONTRAINDICATED. Perform gentle closed reduction in neck extension without traction under fluoroscopy, then Halo vest or anterior C2–C3 ACDF."),
+                ApproachSequentialStep(stepNumber: 4, title: "Type III: Open Reduction & Instrumented Fusion", detail: "Urgent open posterior reduction of locked C2–C3 facets via midline corridor, followed by C2–C3 posterior instrumentation/fusion (C2 pedicle/pars screws to C3 lateral mass) ± anterior C2–C3 ACDF.")
+            ]
         }
     }
 
@@ -2074,6 +2129,12 @@ public enum SurgicalPlateType: String, CaseIterable {
                 "Never attempt forceful manual manipulation or sudden rotational cracking under anesthesia without traction; high risk of dens displacement or fatal cervicomedullary injury.",
                 "Distinguish AARS from Congenital Muscular Torticollis: in AARS, the tight/spastic SCM is CONTRALATERAL to head tilt; in congenital torticollis, tight SCM is IPSILATERAL.",
                 "Fielding Type III (>5 mm anterior displacement) and Type IV carry high risk of cord compression and transverse ligament rupture; halo reduction and prompt surgical fusion are mandatory."
+            ]
+        case .plate044:
+            return [
+                "NEVER APPLY CERVICAL TRACTION TO TYPE IIA: Traction causes catastrophic gapping of the avulsed posterior disc space and severe spinal cord traction injury.",
+                "Verify vertebral artery patency on CTA: bilateral C2 pars fractures pass directly adjacent to the C2 transverse foramina, with risk of traumatic dissection or thrombosis.",
+                "Do not attempt aggressive closed reduction in Type III: jumped C2–C3 facets are locked by bone; closed manipulation risks neurological injury. Proceed directly to open reduction."
             ]
         }
     }
