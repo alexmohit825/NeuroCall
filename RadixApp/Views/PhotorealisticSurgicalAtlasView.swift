@@ -643,7 +643,7 @@ public struct PhotorealisticSurgicalAtlasView: View {
 
 // MARK: - Data Models
 public enum AtlasDomain: String, CaseIterable, Identifiable {
-    case cranial = "🧠 CRANIAL & SKULL BASE (22)"
+    case cranial = "🧠 CRANIAL & SKULL BASE (23)"
     case spine = "🦴 SPINE & CVJ (22)"
     
     public var id: String { rawValue }
@@ -657,7 +657,7 @@ public enum AtlasDomain: String, CaseIterable, Identifiable {
     
     public var plateCount: Int {
         switch self {
-        case .cranial: return 22
+        case .cranial: return 23
         case .spine: return 22
         }
     }
@@ -720,7 +720,7 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
         case .anteriorSkullBase:
             return [.plate017, .plate009, .plate012, .plate008, .plate005, .plate033, .plate030]
         case .convexityTrauma:
-            return [.plate018, .plate016, .plate019, .plate021, .plate025]
+            return [.plate018, .plate016, .plate019, .plate021, .plate025, .plate045]
         case .posteriorFossa:
             return [.plate010, .plate020, .plate004, .plate003, .plate006, .plate022]
         case .vascularVentricular:
@@ -740,8 +740,8 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
 }
 
 public enum AtlasCategory: String, CaseIterable {
-    case all = "All Plates (44)"
-    case cranial = "Cranial & Skull Base (22)"
+    case all = "All Plates (45)"
+    case cranial = "Cranial & Skull Base (23)"
     case spine = "Spine & CVJ (22)"
 
     public var filteredPlates: [SurgicalPlateType] {
@@ -800,6 +800,7 @@ public enum SurgicalPlateType: String, CaseIterable {
     case plate042 = "plate_042_cervical_spondylotic_myelopathy"
     case plate043 = "plate_043_pediatric_atlantoaxial_rotatory_subluxation"
     case plate044 = "plate_044_hangmans_fracture_levine_edwards"
+    case plate045 = "plate_045_brain_herniation_syndromes"
 
     public var subSection: AtlasSubSection {
         for section in AtlasSubSection.allCases {
@@ -860,6 +861,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate042: return 42
         case .plate043: return 43
         case .plate044: return 44
+        case .plate045: return 45
         }
     }
 
@@ -913,6 +915,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate042: return "42: Cervical Myelopathy"
         case .plate043: return "43: Pediatric AARS"
         case .plate044: return "44: Hangman's C2"
+        case .plate045: return "45: Herniation Types"
         }
     }
 
@@ -962,6 +965,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate042: return "Cervical Spondylotic Myelopathy (CSM) & Multilevel Canal Stenosis"
         case .plate043: return "Pediatric Atlantoaxial Rotatory Subluxation (AARS) & Fielding Classification"
         case .plate044: return "Hangman's Fracture (Traumatic C2 Spondylolisthesis) & Levine-Edwards Classification"
+        case .plate045: return "The 4 Classical Brain Herniation Syndromes"
         }
     }
 
@@ -1011,6 +1015,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate042: return "lines.measurement.horizontal"
         case .plate043: return "arrow.triangle.2.circlepath.circle.fill"
         case .plate044: return "cross.case.fill"
+        case .plate045: return "brain.head.profile"
         }
     }
 
@@ -1638,6 +1643,49 @@ public enum SurgicalPlateType: String, CaseIterable {
                     surgicalPearl: "Closed reduction rarely succeeds. Requires urgent open posterior reduction of locked facets + C2–C3 instrumented fusion."
                 )
             ]
+        case .plate045:
+            return [
+                SurgicalCallout(
+                    id: "plate_045_1",
+                    title: "Subfalcine (Cingulate) Herniation",
+                    structureType: "DURAL NOTCH DISPLACEMENT",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.25,
+                    normalizedY: 0.25,
+                    description: "Cingulate gyrus wedged beneath the inferior free margin of the rigid falx cerebri. Compresses pericallosal and callosomarginal ACA branches, causing contralateral lower-extremity paresis.",
+                    surgicalPearl: "Often early and clinically silent until severe ACA ischemia ensues. High risk of converting to secondary uncal herniation."
+                ),
+                SurgicalCallout(
+                    id: "plate_045_2",
+                    title: "Uncal (Lateral Transtentorial) Herniation",
+                    structureType: "INCISURAL HERNIATION",
+                    color: Color.red,
+                    normalizedX: 0.75,
+                    normalizedY: 0.25,
+                    description: "Medial temporal uncus herniates over the sharp tentorial edge. Compresses ipsilateral CN III (blown pupil), PCA (hemianopia), and contralateral cerebral peduncle (Kernohan's notch false localizing sign).",
+                    surgicalPearl: "Immediate neurosurgical emergency: demands osmotherapy bolus and emergent surgical decompression within minutes."
+                ),
+                SurgicalCallout(
+                    id: "plate_045_3",
+                    title: "Central Transtentorial (Duret Hemorrhages)",
+                    structureType: "ROSTROCAUDAL DISPLACEMENT",
+                    color: Color.purple,
+                    normalizedX: 0.25,
+                    normalizedY: 0.75,
+                    description: "Bilateral downward displacement of diencephalon and midbrain. Mechanical traction shears basilar paramedian perforators, producing fatal Duret brainstem hemorrhages.",
+                    surgicalPearl: "Progressive rostrocaudal deterioration: small reactive pupils become midposition fixed; decorticate rigidity progresses to decerebrate posturing."
+                ),
+                SurgicalCallout(
+                    id: "plate_045_4",
+                    title: "Tonsillar Herniation ('Coning')",
+                    structureType: "FORAMEN MAGNUM CONING",
+                    color: Color.red,
+                    normalizedX: 0.75,
+                    normalizedY: 0.75,
+                    description: "Cerebellar tonsils impacted > 5 mm through the foramen magnum, compressing the dorsal medulla oblongata (cardiorespiratory center). Causes Cushing's triad and sudden apnea.",
+                    surgicalPearl: "Lumbar puncture is STRICTLY CONTRAINDICATED in the presence of mass effect due to the catastrophic risk of precipitating fatal tonsillar coning."
+                )
+            ]
         }
     }
 
@@ -1909,6 +1957,13 @@ public enum SurgicalPlateType: String, CaseIterable {
                 ApproachSequentialStep(stepNumber: 3, title: "Type IIA: Extension Reduction (NO TRACTION)", detail: "Cervical traction is strictly CONTRAINDICATED. Perform gentle closed reduction in neck extension without traction under fluoroscopy, then Halo vest or anterior C2–C3 ACDF."),
                 ApproachSequentialStep(stepNumber: 4, title: "Type III: Open Reduction & Instrumented Fusion", detail: "Urgent open posterior reduction of locked C2–C3 facets via midline corridor, followed by C2–C3 posterior instrumentation/fusion (C2 pedicle/pars screws to C3 lateral mass) ± anterior C2–C3 ACDF.")
             ]
+        case .plate045:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Hyperosmolar Resuscitation", detail: "Immediate IV bolus of 3% Hypertonic Saline (250–500 mL over 15 min) or 20% Mannitol (1 g/kg IV) to re-establish osmotic pressure gradient and reduce brain volume."),
+                ApproachSequentialStep(stepNumber: 2, title: "Temporizing Hyperventilation Bridge", detail: "Brief controlled mechanical hyperventilation targeting PaCO2 30–35 mmHg to induce cerebral vasoconstriction. Strictly a temporizing bridge to immediate surgical theater."),
+                ApproachSequentialStep(stepNumber: 3, title: "Ventricular Drainage (EVD)", detail: "Immediate placement of external ventricular drain (EVD) at Kocher's point if acute obstructive hydrocephalus is present to release supratentorial CSF pressure."),
+                ApproachSequentialStep(stepNumber: 4, title: "Emergent Decompressive Surgery", detail: "Immediate craniotomy/craniectomy to evacuate mass lesion (EDH/SDH/ICH) or wide Decompressive Hemicraniectomy with expansile duraplasty. Suboccipital craniectomy for tonsillar herniation.")
+            ]
         }
     }
 
@@ -2135,6 +2190,12 @@ public enum SurgicalPlateType: String, CaseIterable {
                 "NEVER APPLY CERVICAL TRACTION TO TYPE IIA: Traction causes catastrophic gapping of the avulsed posterior disc space and severe spinal cord traction injury.",
                 "Verify vertebral artery patency on CTA: bilateral C2 pars fractures pass directly adjacent to the C2 transverse foramina, with risk of traumatic dissection or thrombosis.",
                 "Do not attempt aggressive closed reduction in Type III: jumped C2–C3 facets are locked by bone; closed manipulation risks neurological injury. Proceed directly to open reduction."
+            ]
+        case .plate045:
+            return [
+                "LUMBAR PUNCTURE IS STRICTLY CONTRAINDICATED: In patients with intracranial mass effect or midline shift, lumbar puncture creates a pressure gradient that precipitates fatal tonsillar coning.",
+                "KERNOHAN'S NOTCH PHENOMENON: In uncal herniation, contralateral cerebral peduncle compression produces paradoxical IPSILATERAL hemiparesis; always decompress the side of the dilated pupil and CT lesion.",
+                "DURET HEMORRHAGE IRREVERSIBILITY: Symmetrical rostrocaudal brainstem shift shears basilar paramedian perforating arteries; once Duret hemorrhages occur on CT/MRI, brainstem death is imminent."
             ]
         }
     }
