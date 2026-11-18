@@ -728,7 +728,7 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
         case .craniovertebral:
             return [.plate001, .plate013, .plate014, .plate035, .plate043, .plate047, .plate049]
         case .cervical:
-            return [.plate015, .plate031, .plate034, .plate042, .plate044]
+            return [.plate015, .plate031, .plate034, .plate042, .plate044, .plate050]
         case .thoracicOncology:
             return [.plate026, .plate036, .plate038, .plate048]
         case .lumbarMIS:
@@ -740,9 +740,9 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
 }
 
 public enum AtlasCategory: String, CaseIterable {
-    case all = "All Plates (49)"
+    case all = "All Plates (50)"
     case cranial = "Cranial & Skull Base (23)"
-    case spine = "Spine & CVJ (26)"
+    case spine = "Spine & CVJ (27)"
 
     public var filteredPlates: [SurgicalPlateType] {
         switch self {
@@ -805,6 +805,7 @@ public enum SurgicalPlateType: String, CaseIterable {
     case plate047 = "plate_047_retro_odontoid_pseudotumor"
     case plate048 = "plate_048_spinal_dural_avf"
     case plate049 = "plate_049_jefferson_burst_fracture"
+    case plate050 = "plate_050_cervical_opll"
 
     public var subSection: AtlasSubSection {
         for section in AtlasSubSection.allCases {
@@ -870,6 +871,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate047: return 47
         case .plate048: return 48
         case .plate049: return 49
+        case .plate050: return 50
         }
     }
 
@@ -928,6 +930,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate047: return "47: Retro-Odontoid"
         case .plate048: return "48: Spinal Dural AVF"
         case .plate049: return "49: Jefferson C1"
+        case .plate050: return "50: Cervical OPLL"
         }
     }
 
@@ -982,6 +985,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate047: return "C1–C2 Retro-Odontoid Pseudotumor (Pannus) & Goel-Harms Fixation"
         case .plate048: return "Spinal Dural Arteriovenous Fistula (sDAVF) & Microsurgical Clip Ligation"
         case .plate049: return "Jefferson Fracture of the Atlas (C1) & The Rule of Spence"
+        case .plate050: return "Cervical Ossification of Posterior Longitudinal Ligament (OPLL) & 8K Multi-Modality Correlation"
         }
     }
 
@@ -1036,6 +1040,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate047: return "shield.lefthalf.filled"
         case .plate048: return "waveform.path.ecg"
         case .plate049: return "triangle.circle.fill"
+        case .plate050: return "cylinder.split.1x2.fill"
         }
     }
 
@@ -1878,6 +1883,50 @@ public enum SurgicalPlateType: String, CaseIterable {
                     surgicalPearl: "Posterior C1–C2 Goel-Harms instrumented fusion (C1 lateral mass to C2 pedicle/pars screws) provides immediate rigid biomechanical stability and high fusion rates."
                 )
             ]
+
+        case .plate050:
+            return [
+                SurgicalCallout(
+                    id: "plate_050_1",
+                    title: "Midsagittal OPLL & Cord Tenting",
+                    structureType: "CONTINUOUS TSUYAMA OPLL",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.15,
+                    normalizedY: 0.45,
+                    description: "Dense continuous ivory ossified mass extending along the posterior borders of C2–C5, causing critical anterior cord indentation (>60% canal occupancy) and severe focal cord narrowing.",
+                    surgicalPearl: "Tsuyama continuous type has the highest rate of progression and severe compressive myelopathy; canal occupancy >60% strongly favors direct anterior resection/floating or combined 360° stabilization."
+                ),
+                SurgicalCallout(
+                    id: "plate_050_2",
+                    title: "Intramedullary Myelomalacia Core",
+                    structureType: "COMPRESSIVE CORD ISCHEMIA",
+                    color: Color.red,
+                    normalizedX: 0.18,
+                    normalizedY: 0.50,
+                    description: "Focal pale ischemic core within the central gray and anterior white columns at the apex of compression (C3–C4), representing irreversible or semi-reversible cord edema, gliosis, and microvascular ischemia.",
+                    surgicalPearl: "Preoperative focal intramedullary T2 hyperintensity coupled with T1 hypointensity (double-signal sign) correlates with poorer neurological recovery and calls for prompt surgical decompression."
+                ),
+                SurgicalCallout(
+                    id: "plate_050_3",
+                    title: "8K Bone CT & K-Line Analysis",
+                    structureType: "K-LINE (-) / CANAL OCCUPANCY >65%",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.48,
+                    normalizedY: 0.45,
+                    description: "Thin-cut bone window CT confirms thick, uninterrupted retrovertebral ossification. The K-line (line connecting mid-canal C2 to C7) is touched and breached by the OPLL apex (K-line negative), indicating that indirect posterior decompression alone will leave persistent cord tenting.",
+                    surgicalPearl: "In K-line negative patients, posterior laminoplasty alone fails to achieve backward cord drift; anterior corpectomy (ACCF) or posterior lordosis restoration + anterior release is required."
+                ),
+                SurgicalCallout(
+                    id: "plate_050_4",
+                    title: "8K T2-MRI Subarachnoid Effacement",
+                    structureType: "COMPLETE CSF BLOCKS & CORD PINCH",
+                    color: Color.green,
+                    normalizedX: 0.82,
+                    normalizedY: 0.45,
+                    description: "3T Sagittal T2 MRI demonstrates total loss of anterior and posterior subarachnoid CSF envelopes across C3–C5 with conspicuous high-signal intramedullary myelomalacia at C3–C4. Normal CSF columns are preserved at C1–C2 and C6–T1.",
+                    surgicalPearl: "Evaluate thin-cut axial CT for the 'C-sign' or 'double-layer sign' (dural ossification). When dura is ossified into the OPLL, aggressive resection tears the dura; the anterior floating technique with diamond burr prevents CSF fistula."
+                )
+            ]
         }
     }
 
@@ -2184,6 +2233,14 @@ public enum SurgicalPlateType: String, CaseIterable {
                 ApproachSequentialStep(stepNumber: 3, title: "Closed Halo-Gravity Traction Reduction", detail: "For unstable burst fractures with splayed lateral masses (overhang ≥ 7.0 mm), apply Gardner-Wells tongs or Halo traction under serial fluoroscopic guidance to pull the splayed lateral masses back inward and restore articular alignment."),
                 ApproachSequentialStep(stepNumber: 4, title: "Posterior C1–C2 Instrumented Arthrodesis (Goel-Harms)", detail: "Perform posterior C1–C2 instrumentation using bilateral C1 lateral mass screws and C2 pedicle/pars screws connected with longitudinal titanium rods. Decorticate C1 posterior elements and C2 lamina, placing autologous morselized bone graft for permanent arthrodesis.")
             ]
+
+        case .plate050:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Preoperative Multimodal Planning & K-Line Assessment", detail: "Evaluate sagittal bone CT and T2 MRI. Measure Canal Occupying Ratio (COR) and draw the K-line (mid-canal C2 to C7). If COR > 60% or K-line is negative, plan direct anterior corpectomy (ACCF) or 360° circumspinal reconstruction rather than posterior laminoplasty alone."),
+                ApproachSequentialStep(stepNumber: 2, title: "Anterior Exposure & Multilevel Corpectomy (Smith-Robinson)", detail: "Transverse or longitudinal skin crease incision along medial border of SCM. Dissect through pretracheal fascia between carotid sheath laterally and trachea/esophagus medially. Perform discectomies above and below the ossified bodies (e.g. C3–C5). Use high-speed diamond burr under microscopic magnification to resect the anterior vertebral bodies."),
+                ApproachSequentialStep(stepNumber: 3, title: "The OPLL 'Floating' Technique (Preserving Ossified Dura)", detail: "Thin the dense retrovertebral OPLL mass with a 2–3 mm diamond burr under copious irrigation until it becomes paper-thin and translucent. Using micro-curettes or diamond burr, isolate the lateral boundaries of the OPLL. Allow the floating ossified island to pulsate and drift anteriorly on the intact ventral dura without aggressively peeling it off."),
+                ApproachSequentialStep(stepNumber: 4, title: "Titanium Mesh Cage & 360° Posterior Instrumentation", detail: "Measure and contour a vertical titanium mesh cage packed with autologous cancellous bone graft. Seat securely into the corpectomy trough and secure with an anterior cervical plate. For multi-level corpectomies (≥2 levels) or poor bone quality, perform posterior lateral mass screw-rod fixation (C3–C6) to prevent cage dislodgement and achieve 100% fusion.")
+            ]
         }
     }
 
@@ -2440,6 +2497,13 @@ public enum SurgicalPlateType: String, CaseIterable {
                 "MISSING OCCULT TAL RUPTURE: Up to 15% of open-mouth plain X-rays underestimate lateral mass overhang due to radiographic magnification errors; thin-cut coronal CT or MRI is mandatory to prevent unrecognized instability and late myelopathy.",
                 "OVER-DISTRACTION DURING TRACTION: Never apply aggressive traction in patients with concurrent, unrecognized atlanto-occipital dissociation (AOD); always calculate the Powers ratio and CCI (condyle-C1 interval) before initiating cervical traction.",
                 "VERTEBRAL ARTERY INJURY DURING C1 LATERAL MASS SCREW PLACEMENT: The vertebral artery grooves the superior surface of the C1 posterior arch immediately above the lateral mass; stay strictly on the inferior border of the C1 arch and visualize the medial wall of the lateral mass."
+            ]
+
+        case .plate050:
+            return [
+                "CATASTROPHIC DURAL TEAR FROM PEELING DURAL OSSIFICATION: In continuous OPLL, up to 30% of cases exhibit dural ossification (DO / double-layer sign on axial CT) where the OPLL has penetrated and replaced the dura mater. Never grab or peel the ossified mass with Kerrison rongeurs; always thin it with a diamond burr and float it on pulsating arachnoid to avoid giant dural defects, pseudomeningocele, and subarachnoid hemorrhage.",
+                "VERTEBRAL ARTERY LACERATION DURING LATERAL CORPECTOMY: The uncinate processes mark the absolute lateral safety boundary (~15-18 mm total width). Exceeding the lateral margin of the uncinates into the transverse foramen risks catastrophic laceration of the V2 vertebral artery; maintain strictly midline orientation with fluoroscopic guidance.",
+                "EARLY GRAFT DISLODGEMENT IN MULTI-LEVEL ACCF WITHOUT POSTERIOR REINFORCEMENT: A 2-level or 3-level anterior cervical corpectomy has a high pseudarthrosis and cage kick-out rate (up to 30%) with anterior plating alone. Always reinforce multi-level corpectomy constructs with posterior instrumented arthrodesis (360° stabilization)."
             ]
         }
     }
