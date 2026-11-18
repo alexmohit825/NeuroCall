@@ -730,7 +730,7 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
         case .cervical:
             return [.plate015, .plate031, .plate034, .plate042, .plate044]
         case .thoracicOncology:
-            return [.plate026, .plate036, .plate038]
+            return [.plate026, .plate036, .plate038, .plate048]
         case .lumbarMIS:
             return [.plate011, .plate007, .plate037, .plate029, .plate028, .plate032]
         case .deformitySalvage:
@@ -740,9 +740,9 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
 }
 
 public enum AtlasCategory: String, CaseIterable {
-    case all = "All Plates (47)"
+    case all = "All Plates (48)"
     case cranial = "Cranial & Skull Base (23)"
-    case spine = "Spine & CVJ (24)"
+    case spine = "Spine & CVJ (25)"
 
     public var filteredPlates: [SurgicalPlateType] {
         switch self {
@@ -803,6 +803,7 @@ public enum SurgicalPlateType: String, CaseIterable {
     case plate045 = "plate_045_brain_herniation_syndromes"
     case plate046 = "plate_046_tethered_cord_lipomyelomeningocele"
     case plate047 = "plate_047_retro_odontoid_pseudotumor"
+    case plate048 = "plate_048_spinal_dural_avf"
 
     public var subSection: AtlasSubSection {
         for section in AtlasSubSection.allCases {
@@ -866,6 +867,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate045: return 45
         case .plate046: return 46
         case .plate047: return 47
+        case .plate048: return 48
         }
     }
 
@@ -922,6 +924,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate045: return "45: Herniation Types"
         case .plate046: return "46: Spinal Dysraphism"
         case .plate047: return "47: Retro-Odontoid"
+        case .plate048: return "48: Spinal Dural AVF"
         }
     }
 
@@ -974,6 +977,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate045: return "The 4 Classical Brain Herniation Syndromes"
         case .plate046: return "Lumbosacral Spinal Dysraphism & Tethered Cord Spectrum"
         case .plate047: return "C1–C2 Retro-Odontoid Pseudotumor (Pannus) & Goel-Harms Fixation"
+        case .plate048: return "Spinal Dural Arteriovenous Fistula (sDAVF) & Microsurgical Clip Ligation"
         }
     }
 
@@ -1026,6 +1030,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate045: return "brain.head.profile"
         case .plate046: return "figure.child"
         case .plate047: return "shield.lefthalf.filled"
+        case .plate048: return "waveform.path.ecg"
         }
     }
 
@@ -1782,6 +1787,49 @@ public enum SurgicalPlateType: String, CaseIterable {
                     surgicalPearl: "MRI at 6 to 12 months post-fixation routinely confirms over 90% to 100% volumetric reduction of the retro-odontoid pannus without requiring any anterior decompression."
                 )
             ]
+        case .plate048:
+            return [
+                SurgicalCallout(
+                    id: "plate_048_1",
+                    title: "Normal Dorsal Microvasculature",
+                    structureType: "PHYSIOLOGICAL DRAINAGE",
+                    color: Color.green,
+                    normalizedX: 0.125,
+                    normalizedY: 0.35,
+                    description: "Slender, straight, non-dilated posterior median spinal vein (cobalt blue) with a delicate coronal venous plexus. Normal radicular vein draining smoothly through the lateral dural sleeve into the epidural venous plexus. Normal cord caliber.",
+                    surgicalPearl: "Normal spinal venous drainage is low-pressure and valveless; cord perfusion depends entirely on the arteriovenous pressure gradient."
+                ),
+                SurgicalCallout(
+                    id: "plate_048_2",
+                    title: "Arterialized Serpentine Veins & Foix-Alajouanine",
+                    structureType: "CONGESTIVE MYELOPATHY",
+                    color: Color.red,
+                    normalizedX: 0.375,
+                    normalizedY: 0.35,
+                    description: "Fistulous nidus inside the dural root sleeve shunts high-pressure arterial blood retrogradely into the coronal venous plexus. Grossly dilated, hyper-convoluted, serpentine arterialized veins and severe congestive cord swelling (Foix-Alajouanine myelopathy).",
+                    surgicalPearl: "Presents insidiously with ascending lower extremity paraparesis, sensory level, and sphincter dysfunction, frequently misdiagnosed as lumbar spinal stenosis or transverse myelitis."
+                ),
+                SurgicalCallout(
+                    id: "plate_048_3",
+                    title: "Intraoperative ICG Videoangiography",
+                    structureType: "MICROSURGICAL LOCALIZATION",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.625,
+                    normalizedY: 0.40,
+                    description: "Under high microscope magnification, intense arterial-phase fluorescence reveals the radiculomeningeal arterial feeder entering the dural sleeve and shunting directly into the single arterialized medullary bridging vein before cord capillaries fill.",
+                    surgicalPearl: "ICG videoangiography definitively differentiates the pathological arterialized draining vein from adjacent normal radicular veins."
+                ),
+                SurgicalCallout(
+                    id: "plate_048_4",
+                    title: "Micro-Clip Interruption & Decompression",
+                    structureType: "DEFINITIVE SURGICAL CURE",
+                    color: Color.blue,
+                    normalizedX: 0.875,
+                    normalizedY: 0.35,
+                    description: "A single titanium aneurysm micro-clip placed across the arterialized bridging vein right at its dural exit immediately halts the shunt. The serpentine dorsal veins instantly collapse, darken to blue, and de-arterialize; the cord begins rapid decongestion.",
+                    surgicalPearl: "NEVER resect or coagulate the engorged veins on the cord surface (causes fatal venous infarction); simple interruption of the single bridging vein at the dura cures the fistula."
+                )
+            ]
         }
     }
 
@@ -2074,6 +2122,13 @@ public enum SurgicalPlateType: String, CaseIterable {
                 ApproachSequentialStep(stepNumber: 3, title: "Goel-Harms Screw Instrumentation", detail: "Under fluoroscopic guidance, place bilateral C1 lateral mass screws (entry at center of posterior C1 lateral mass, directed 10-15° cephalad and slightly convergent). Place C2 pedicle screws (or pars screws if high-riding vertebral artery present). Connect with contoured titanium rods."),
                 ApproachSequentialStep(stepNumber: 4, title: "Posterior Decortication & Arthrodesis", detail: "Thoroughly decorticate the posterior arch of C1, superior lamina of C2, and C1-C2 facet joints. Pack morselized autologous bone graft across the decorticated bed. Close in anatomical layers. Do NOT attempt anterior mass resection.")
             ]
+        case .plate048:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Spinal DSA Localization & Hemilaminectomy", detail: "Preoperative catheter spinal DSA maps the exact intercostal/lumbar feeding pedicle. Prone positioning under general anesthesia without systemic hypotension. Perform a targeted unilateral hemilaminectomy / laminotomy at the fistula level."),
+                ApproachSequentialStep(stepNumber: 2, title: "Dural Opening & Microvascular Exposure", detail: "Perform a paramedian linear dural incision over the lateral margin of the cord and nerve root sleeve. Place fine silk dural stay sutures. Identify the arterialized red serpentine coronal veins and the bridging vein entering the dural cuff."),
+                ApproachSequentialStep(stepNumber: 3, title: "ICG Videoangiography Confirmation", detail: "Administer IV Indocyanine Green (ICG). High-magnification microscope videoangiography confirms early arterial transit through the dural feeder into the bridging vein, confirming the exact fistula point before cord parenchymal filling."),
+                ApproachSequentialStep(stepNumber: 4, title: "Micro-Clip Application & Vessel Division", detail: "Apply a permanent titanium aneurysm micro-clip across the arterialized bridging vein flush against the inner dural layer. Bipolar coagulate and sharply transect the vein between the clip and dura. Confirm immediate collapse and darkening of coronal veins.")
+            ]
         }
     }
 
@@ -2318,6 +2373,12 @@ public enum SurgicalPlateType: String, CaseIterable {
                 "AVOID NECK EXTENSION DURING INTUBATION: Extension narrows the retro-odontoid space and drives the pannus backward directly into the medulla, risking acute respiratory arrest or quadriplegia; awake fiberoptic intubation in neutral position is mandatory.",
                 "HIGH-RIDING VERTEBRAL ARTERY DISRUPTION: Always review preoperative CTA/MRA for a high-riding C2 vertebral artery or persistent intersegmental artery; if the C2 pedicle internal height is < 4 mm, place C2 translaminar or pars screws instead of pedicle screws to prevent fatal arterial laceration.",
                 "UNNECESSARY ANTERIOR SURGICAL MORBIDITY: Do not perform transoral, transnasal, or transcervical anterior odontoid resection; posterior stabilization alone induces spontaneous regression in >95% of cases without the high risk of pharyngeal contamination and CSF fistula."
+            ]
+        case .plate048:
+            return [
+                "NEVER COAGULATE OR RESECT SURFACE CORONAL VEINS: The serpentine dorsal veins are normal draining channels engorged by high pressure; coagulating or resecting them causes acute, catastrophic, irreversible spinal cord venous infarction and permanent flaccid paraplegia.",
+                "RULE OUT ARTERY OF ADAMKIEWICZ ON DSA: Always perform superselective angiography of the feeding intercostal/lumbar artery to verify that the anterior spinal artery (radiculomedullary artery of Adamkiewicz) does NOT originate from the same pedicle before embolization or surgical clipping.",
+                "AVOID SYSTEMIC HYPOTENSION: Congested, edematous spinal cord has critically compromised capillary perfusion; keep mean arterial pressure (MAP) > 85 mmHg throughout surgery and early postoperative recovery to prevent watershed ischemia."
             ]
         }
     }
