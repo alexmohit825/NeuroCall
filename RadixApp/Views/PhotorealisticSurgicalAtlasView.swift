@@ -724,7 +724,7 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
         case .posteriorFossa:
             return [.plate010, .plate020, .plate004, .plate003, .plate006, .plate022]
         case .vascularVentricular:
-            return [.plate002, .plate027, .plate040, .plate041]
+            return [.plate002, .plate027, .plate040, .plate041, .plate051]
         case .craniovertebral:
             return [.plate001, .plate013, .plate014, .plate035, .plate043, .plate047, .plate049]
         case .cervical:
@@ -740,8 +740,8 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
 }
 
 public enum AtlasCategory: String, CaseIterable {
-    case all = "All Plates (50)"
-    case cranial = "Cranial & Skull Base (23)"
+    case all = "All Plates (51)"
+    case cranial = "Cranial & Skull Base (24)"
     case spine = "Spine & CVJ (27)"
 
     public var filteredPlates: [SurgicalPlateType] {
@@ -806,6 +806,7 @@ public enum SurgicalPlateType: String, CaseIterable {
     case plate048 = "plate_048_spinal_dural_avf"
     case plate049 = "plate_049_jefferson_burst_fracture"
     case plate050 = "plate_050_cervical_opll"
+    case plate051 = "plate_051_mma_embolization_csdh"
 
     public var subSection: AtlasSubSection {
         for section in AtlasSubSection.allCases {
@@ -872,6 +873,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate048: return 48
         case .plate049: return 49
         case .plate050: return 50
+        case .plate051: return 51
         }
     }
 
@@ -931,6 +933,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate048: return "48: Spinal Dural AVF"
         case .plate049: return "49: Jefferson C1"
         case .plate050: return "50: Cervical OPLL"
+        case .plate051: return "51: MMA Embolization"
         }
     }
 
@@ -986,6 +989,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate048: return "Spinal Dural Arteriovenous Fistula (sDAVF) & Microsurgical Clip Ligation"
         case .plate049: return "Jefferson Fracture of the Atlas (C1) & The Rule of Spence"
         case .plate050: return "Cervical Ossification of Posterior Longitudinal Ligament (OPLL) & 8K Multi-Modality Correlation"
+        case .plate051: return "Middle Meningeal Artery (MMA) Embolization for Chronic Subdural Hematoma"
         }
     }
 
@@ -1041,6 +1045,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate048: return "waveform.path.ecg"
         case .plate049: return "triangle.circle.fill"
         case .plate050: return "cylinder.split.1x2.fill"
+        case .plate051: return "waveform.path.ecg"
         }
     }
 
@@ -1927,6 +1932,60 @@ public enum SurgicalPlateType: String, CaseIterable {
                     surgicalPearl: "Evaluate thin-cut axial CT for the 'C-sign' or 'double-layer sign' (dural ossification). When dura is ossified into the OPLL, aggressive resection tears the dura; the anterior floating technique with diamond burr prevents CSF fistula."
                 )
             ]
+
+        case .plate051:
+            return [
+                SurgicalCallout(
+                    id: "plate_051_1",
+                    title: "MMA Trunk & Foramen Spinosum",
+                    structureType: "SKULL BASE ARTERIAL CONDUIT",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.22,
+                    normalizedY: 0.65,
+                    description: "Ascending branch from the internal maxillary artery entering through foramen spinosum, serving as the coaxial conduit for microcatheter navigation.",
+                    surgicalPearl: "Confirm catheter position distal to the petrosal branch to prevent facial nerve (CN VII) ischemia and palsy from embolic reflux."
+                ),
+                SurgicalCallout(
+                    id: "plate_051_2",
+                    title: "Superselective MMA Catheterization",
+                    structureType: "MICRO-TARGETED CORRIDOR",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.29,
+                    normalizedY: 0.44,
+                    description: "Superselective navigation of a 0.0165\" microcatheter into the posterior (parietal) MMA branch feeding the hypervascular outer neomembrane of the chronic subdural collection.",
+                    surgicalPearl: "Target the dominant branch supplying the thickest neo-membranes; bilateral embolization is indicated for bilateral cSDH or crossing midline convexity collections."
+                ),
+                SurgicalCallout(
+                    id: "plate_051_3",
+                    title: "Onyx Liquid Embolic Membrane Cast",
+                    structureType: "DEEP ARTERIOLAR PENETRATION",
+                    color: Color.yellow,
+                    normalizedX: 0.41,
+                    normalizedY: 0.29,
+                    description: "Dendritic cast of black liquid embolic (Onyx-18 / Squid) penetrating and occluding the friable, hypervascular capillary network (inner dural plexus) of the outer hematoma membrane.",
+                    surgicalPearl: "Liquid embolic provides durable penetration into the microvasculature, shutting down inflammatory exudation and eliminating the cycle of recurrent microhemorrhage."
+                ),
+                SurgicalCallout(
+                    id: "plate_051_4",
+                    title: "Chronic Subdural Liquefied Collection",
+                    structureType: "DEGRADED CRUDE-OIL HEMORRHAGE",
+                    color: Color.red,
+                    normalizedX: 0.38,
+                    normalizedY: 0.14,
+                    description: "Chronic encapsulated subdural fluid with degraded liquefied blood products causing significant hemispheric mass effect and cortical indentation.",
+                    surgicalPearl: "MMA embolization can be used standalone for asymptomatic/mildly symptomatic cSDH (halting expansion and driving resorption) or as an adjunct following burr hole drainage to cut recurrence from 15-20% down to <3%."
+                ),
+                SurgicalCallout(
+                    id: "plate_051_5",
+                    title: "Longitudinal CT Resolution Correlation",
+                    structureType: "PRE-OP MASS EFFECT VS COMPLETE RESOLUTION",
+                    color: Color.green,
+                    normalizedX: 0.85,
+                    normalizedY: 0.50,
+                    description: "Panel B demonstrates marked pre-procedure mass effect with sulcal effacement and midline shift. Panel C confirms complete spontaneous hematoma resorption, hemispheric re-expansion, and midline recentering following MMA embolization.",
+                    surgicalPearl: "Groundbreaking Level 1 evidence (EMBOLISE, STEM, MEMBRANE trials) establishes MMA embolization as a definitive therapy drastically reducing recurrence and reoperation rates."
+                )
+            ]
         }
     }
 
@@ -2241,6 +2300,14 @@ public enum SurgicalPlateType: String, CaseIterable {
                 ApproachSequentialStep(stepNumber: 3, title: "The OPLL 'Floating' Technique (Preserving Ossified Dura)", detail: "Thin the dense retrovertebral OPLL mass with a 2–3 mm diamond burr under copious irrigation until it becomes paper-thin and translucent. Using micro-curettes or diamond burr, isolate the lateral boundaries of the OPLL. Allow the floating ossified island to pulsate and drift anteriorly on the intact ventral dura without aggressively peeling it off."),
                 ApproachSequentialStep(stepNumber: 4, title: "Titanium Mesh Cage & 360° Posterior Instrumentation", detail: "Measure and contour a vertical titanium mesh cage packed with autologous cancellous bone graft. Seat securely into the corpectomy trough and secure with an anterior cervical plate. For multi-level corpectomies (≥2 levels) or poor bone quality, perform posterior lateral mass screw-rod fixation (C3–C6) to prevent cage dislodgement and achieve 100% fusion.")
             ]
+
+        case .plate051:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Vascular Access & Diagnostic Angiography", detail: "Obtain radial or femoral arterial access. Advance a 5F or 6F guide catheter into the external carotid artery (ECA). Perform high-resolution biplane digital subtraction angiography (DSA) of the MMA to map frontal and parietal branches, identify the neomembrane blush, and rule out dangerous ophthalmic or petrosal anastomoses."),
+                ApproachSequentialStep(stepNumber: 2, title: "Superselective Microcatheter Navigation", detail: "Under biplane fluoroscopic roadmap guidance, navigate a 0.0165\" microcatheter over a 0.008\"–0.010\" steerable microwire past foramen spinosum. Selectively cannulate the posterior and/or anterior MMA branches supplying the cSDH membrane, positioning the tip distal to the petrosal branch."),
+                ApproachSequentialStep(stepNumber: 3, title: "Provocative Testing & Embolic Preparation", detail: "Perform microcatheter superselective angiogram ('micro-run') to confirm true membrane blush and verify absence of orbital/lacrimal or cranial nerve collaterals. Flush with DMSO if using Onyx, or prime microcatheter if using particle slurry (150–250 μm PVA particles)."),
+                ApproachSequentialStep(stepNumber: 4, title: "Controlled Liquid Embolic / Particle Infusion", detail: "Infuse liquid embolic (Onyx-18 / Squid) slowly under continuous subtracted fluoroscopy, creating a proximal plug and forcing embolic material distally into the neomembrane capillary network. Terminate injection once dense capillary casting and branch truncation are achieved without proximal reflux.")
+            ]
         }
     }
 
@@ -2504,6 +2571,13 @@ public enum SurgicalPlateType: String, CaseIterable {
                 "CATASTROPHIC DURAL TEAR FROM PEELING DURAL OSSIFICATION: In continuous OPLL, up to 30% of cases exhibit dural ossification (DO / double-layer sign on axial CT) where the OPLL has penetrated and replaced the dura mater. Never grab or peel the ossified mass with Kerrison rongeurs; always thin it with a diamond burr and float it on pulsating arachnoid to avoid giant dural defects, pseudomeningocele, and subarachnoid hemorrhage.",
                 "VERTEBRAL ARTERY LACERATION DURING LATERAL CORPECTOMY: The uncinate processes mark the absolute lateral safety boundary (~15-18 mm total width). Exceeding the lateral margin of the uncinates into the transverse foramen risks catastrophic laceration of the V2 vertebral artery; maintain strictly midline orientation with fluoroscopic guidance.",
                 "EARLY GRAFT DISLODGEMENT IN MULTI-LEVEL ACCF WITHOUT POSTERIOR REINFORCEMENT: A 2-level or 3-level anterior cervical corpectomy has a high pseudarthrosis and cage kick-out rate (up to 30%) with anterior plating alone. Always reinforce multi-level corpectomy constructs with posterior instrumented arthrodesis (360° stabilization)."
+            ]
+
+        case .plate051:
+            return [
+                "IRREVERSIBLE BLINDNESS VIA MENINGO-OPHTHALMIC ANASTOMOSIS: The anterior MMA can connect with the ophthalmic artery via the superior orbital fissure or recurrent meningeal branch. Always perform high-magnification roadmap angiography; embolic reflux or forward migration into the ophthalmic artery causes instant, catastrophic central retinal artery occlusion and permanent monocular blindness.",
+                "FACIAL NERVE PALSY VIA PETROSAL BRANCH: The petrosal branch of the MMA supplies the facial nerve (CN VII) in the Fallopian canal / geniculate ganglion. Always advance the microcatheter tip DISTAL to the petrosal branch takeoff before injecting liquid embolic or particles; embolization of the petrosal artery causes acute, permanent peripheral facial palsy (Bell's palsy).",
+                "PROXIMAL REFLUX INTO MAXILLARY OR CAROTID ARTERY: Never push liquid embolic aggressively against resistance. Maintain continuous fluoroscopic visualization of the catheter tip to prevent reflux back into the internal maxillary artery or external carotid system, which can cause skin necrosis, jaw claudication, or distal stroke."
             ]
         }
     }
