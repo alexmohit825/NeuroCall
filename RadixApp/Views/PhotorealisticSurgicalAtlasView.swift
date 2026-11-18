@@ -726,7 +726,7 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
         case .vascularVentricular:
             return [.plate002, .plate027, .plate040, .plate041]
         case .craniovertebral:
-            return [.plate001, .plate013, .plate014, .plate035, .plate043, .plate047]
+            return [.plate001, .plate013, .plate014, .plate035, .plate043, .plate047, .plate049]
         case .cervical:
             return [.plate015, .plate031, .plate034, .plate042, .plate044]
         case .thoracicOncology:
@@ -740,9 +740,9 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
 }
 
 public enum AtlasCategory: String, CaseIterable {
-    case all = "All Plates (48)"
+    case all = "All Plates (49)"
     case cranial = "Cranial & Skull Base (23)"
-    case spine = "Spine & CVJ (25)"
+    case spine = "Spine & CVJ (26)"
 
     public var filteredPlates: [SurgicalPlateType] {
         switch self {
@@ -804,6 +804,7 @@ public enum SurgicalPlateType: String, CaseIterable {
     case plate046 = "plate_046_tethered_cord_lipomyelomeningocele"
     case plate047 = "plate_047_retro_odontoid_pseudotumor"
     case plate048 = "plate_048_spinal_dural_avf"
+    case plate049 = "plate_049_jefferson_burst_fracture"
 
     public var subSection: AtlasSubSection {
         for section in AtlasSubSection.allCases {
@@ -868,6 +869,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate046: return 46
         case .plate047: return 47
         case .plate048: return 48
+        case .plate049: return 49
         }
     }
 
@@ -925,6 +927,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate046: return "46: Spinal Dysraphism"
         case .plate047: return "47: Retro-Odontoid"
         case .plate048: return "48: Spinal Dural AVF"
+        case .plate049: return "49: Jefferson C1"
         }
     }
 
@@ -978,6 +981,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate046: return "Lumbosacral Spinal Dysraphism & Tethered Cord Spectrum"
         case .plate047: return "C1–C2 Retro-Odontoid Pseudotumor (Pannus) & Goel-Harms Fixation"
         case .plate048: return "Spinal Dural Arteriovenous Fistula (sDAVF) & Microsurgical Clip Ligation"
+        case .plate049: return "Jefferson Fracture of the Atlas (C1) & The Rule of Spence"
         }
     }
 
@@ -1031,6 +1035,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate046: return "figure.child"
         case .plate047: return "shield.lefthalf.filled"
         case .plate048: return "waveform.path.ecg"
+        case .plate049: return "triangle.circle.fill"
         }
     }
 
@@ -1830,6 +1835,49 @@ public enum SurgicalPlateType: String, CaseIterable {
                     surgicalPearl: "NEVER resect or coagulate the engorged veins on the cord surface (causes fatal venous infarction); simple interruption of the single bridging vein at the dura cures the fistula."
                 )
             ]
+        case .plate049:
+            return [
+                SurgicalCallout(
+                    id: "plate_049_1",
+                    title: "Normal C1 Ring & Intact TAL",
+                    structureType: "PHYSIOLOGICAL ALIGNMENT",
+                    color: Color.green,
+                    normalizedX: 0.125,
+                    normalizedY: 0.20,
+                    description: "Intact, continuous C1 ring with stout Transverse Atlantal Ligament (TAL) holding the C2 dens tightly against the anterior arch. Superior axial view shows generous canal space; anterior coronal view demonstrates flush lateral masses (0 mm overhang).",
+                    surgicalPearl: "Normal lateral atlantodental intervals (LADI) are strictly symmetric; combined lateral mass overhang is 0 mm."
+                ),
+                SurgicalCallout(
+                    id: "plate_049_2",
+                    title: "Stable Burst (TAL Intact, Overhang < 6.9 mm)",
+                    structureType: "STABLE JEFFERSON (DICKMAN I)",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.375,
+                    normalizedY: 0.20,
+                    description: "4-part burst fracture through the anterior and posterior arches. The Transverse Atlantal Ligament remains 100% intact, preventing lateral mass splaying. Combined lateral mass overhang on coronal view is strictly < 6.9 mm. Spinal cord is uncompromised.",
+                    surgicalPearl: "Stable fractures with intact TAL can be treated conservatively in a rigid cervical collar (Miami J / Aspen) or Halo-vest for 8–12 weeks."
+                ),
+                SurgicalCallout(
+                    id: "plate_049_3",
+                    title: "Unstable Burst (TAL Ruptured, Overhang ≥ 7 mm)",
+                    structureType: "UNSTABLE JEFFERSON (DICKMAN II)",
+                    color: Color.red,
+                    normalizedX: 0.625,
+                    normalizedY: 0.20,
+                    description: "Severe comminuted burst with mid-substance rupture and shredding of the Transverse Atlantal Ligament. Both lateral masses splay widely outward (> 7 mm combined overhang, positive Rule of Spence). The dens retropulses into the canal, indenting the spinal cord.",
+                    surgicalPearl: "Combined lateral mass overhang ≥ 7.0 mm on open-mouth view or coronal CT proves TAL disruption, indicating gross mechanical instability requiring surgical stabilization."
+                ),
+                SurgicalCallout(
+                    id: "plate_049_4",
+                    title: "Anatomical Reduction & Arthrodesis",
+                    structureType: "SURGICAL REDUCTION & RESTORATION",
+                    color: Color.blue,
+                    normalizedX: 0.875,
+                    normalizedY: 0.20,
+                    description: "Closed traction reduction or posterior instrumented reduction brings the splayed lateral masses back inward. Coronal overhang is eliminated (0 mm overhang), the C1 ring circumference is restored, and the cervical spinal cord is fully decompressed.",
+                    surgicalPearl: "Posterior C1–C2 Goel-Harms instrumented fusion (C1 lateral mass to C2 pedicle/pars screws) provides immediate rigid biomechanical stability and high fusion rates."
+                )
+            ]
         }
     }
 
@@ -2129,6 +2177,13 @@ public enum SurgicalPlateType: String, CaseIterable {
                 ApproachSequentialStep(stepNumber: 3, title: "ICG Videoangiography Confirmation", detail: "Administer IV Indocyanine Green (ICG). High-magnification microscope videoangiography confirms early arterial transit through the dural feeder into the bridging vein, confirming the exact fistula point before cord parenchymal filling."),
                 ApproachSequentialStep(stepNumber: 4, title: "Micro-Clip Application & Vessel Division", detail: "Apply a permanent titanium aneurysm micro-clip across the arterialized bridging vein flush against the inner dural layer. Bipolar coagulate and sharply transect the vein between the clip and dura. Confirm immediate collapse and darkening of coronal veins.")
             ]
+        case .plate049:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Diagnostic Imaging & Rule of Spence Measurement", detail: "Obtain thin-cut cervical CT with coronal reconstructions and open-mouth radiograph. Measure combined bilateral overhang of C1 lateral masses over C2 (Rule of Spence). Perform MRI to evaluate mid-substance vs. avulsive TAL tear (Dickman classification)."),
+                ApproachSequentialStep(stepNumber: 2, title: "Conservative Protocol for Stable Burst (< 6.9 mm)", detail: "For isolated C1 burst fractures with intact TAL (overhang < 6.9 mm), immobilize in a rigid cervical orthosis (Miami J) or Halo vest for 8–12 weeks with dynamic flexion-extension radiographs at completion to verify stability."),
+                ApproachSequentialStep(stepNumber: 3, title: "Closed Halo-Gravity Traction Reduction", detail: "For unstable burst fractures with splayed lateral masses (overhang ≥ 7.0 mm), apply Gardner-Wells tongs or Halo traction under serial fluoroscopic guidance to pull the splayed lateral masses back inward and restore articular alignment."),
+                ApproachSequentialStep(stepNumber: 4, title: "Posterior C1–C2 Instrumented Arthrodesis (Goel-Harms)", detail: "Perform posterior C1–C2 instrumentation using bilateral C1 lateral mass screws and C2 pedicle/pars screws connected with longitudinal titanium rods. Decorticate C1 posterior elements and C2 lamina, placing autologous morselized bone graft for permanent arthrodesis.")
+            ]
         }
     }
 
@@ -2379,6 +2434,12 @@ public enum SurgicalPlateType: String, CaseIterable {
                 "NEVER COAGULATE OR RESECT SURFACE CORONAL VEINS: The serpentine dorsal veins are normal draining channels engorged by high pressure; coagulating or resecting them causes acute, catastrophic, irreversible spinal cord venous infarction and permanent flaccid paraplegia.",
                 "RULE OUT ARTERY OF ADAMKIEWICZ ON DSA: Always perform superselective angiography of the feeding intercostal/lumbar artery to verify that the anterior spinal artery (radiculomedullary artery of Adamkiewicz) does NOT originate from the same pedicle before embolization or surgical clipping.",
                 "AVOID SYSTEMIC HYPOTENSION: Congested, edematous spinal cord has critically compromised capillary perfusion; keep mean arterial pressure (MAP) > 85 mmHg throughout surgery and early postoperative recovery to prevent watershed ischemia."
+            ]
+        case .plate049:
+            return [
+                "MISSING OCCULT TAL RUPTURE: Up to 15% of open-mouth plain X-rays underestimate lateral mass overhang due to radiographic magnification errors; thin-cut coronal CT or MRI is mandatory to prevent unrecognized instability and late myelopathy.",
+                "OVER-DISTRACTION DURING TRACTION: Never apply aggressive traction in patients with concurrent, unrecognized atlanto-occipital dissociation (AOD); always calculate the Powers ratio and CCI (condyle-C1 interval) before initiating cervical traction.",
+                "VERTEBRAL ARTERY INJURY DURING C1 LATERAL MASS SCREW PLACEMENT: The vertebral artery grooves the superior surface of the C1 posterior arch immediately above the lateral mass; stay strictly on the inferior border of the C1 arch and visualize the medial wall of the lateral mass."
             ]
         }
     }
