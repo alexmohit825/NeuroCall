@@ -726,7 +726,7 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
         case .vascularVentricular:
             return [.plate002, .plate027, .plate040, .plate041]
         case .craniovertebral:
-            return [.plate001, .plate013, .plate014, .plate035, .plate043]
+            return [.plate001, .plate013, .plate014, .plate035, .plate043, .plate047]
         case .cervical:
             return [.plate015, .plate031, .plate034, .plate042, .plate044]
         case .thoracicOncology:
@@ -740,9 +740,9 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
 }
 
 public enum AtlasCategory: String, CaseIterable {
-    case all = "All Plates (46)"
+    case all = "All Plates (47)"
     case cranial = "Cranial & Skull Base (23)"
-    case spine = "Spine & CVJ (23)"
+    case spine = "Spine & CVJ (24)"
 
     public var filteredPlates: [SurgicalPlateType] {
         switch self {
@@ -802,6 +802,7 @@ public enum SurgicalPlateType: String, CaseIterable {
     case plate044 = "plate_044_hangmans_fracture_levine_edwards"
     case plate045 = "plate_045_brain_herniation_syndromes"
     case plate046 = "plate_046_tethered_cord_lipomyelomeningocele"
+    case plate047 = "plate_047_retro_odontoid_pseudotumor"
 
     public var subSection: AtlasSubSection {
         for section in AtlasSubSection.allCases {
@@ -864,6 +865,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate044: return 44
         case .plate045: return 45
         case .plate046: return 46
+        case .plate047: return 47
         }
     }
 
@@ -919,6 +921,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate044: return "44: Hangman's C2"
         case .plate045: return "45: Herniation Types"
         case .plate046: return "46: Spinal Dysraphism"
+        case .plate047: return "47: Retro-Odontoid"
         }
     }
 
@@ -970,6 +973,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate044: return "Hangman's Fracture (Traumatic C2 Spondylolisthesis) & Levine-Edwards Classification"
         case .plate045: return "The 4 Classical Brain Herniation Syndromes"
         case .plate046: return "Lumbosacral Spinal Dysraphism & Tethered Cord Spectrum"
+        case .plate047: return "C1–C2 Retro-Odontoid Pseudotumor (Pannus) & Goel-Harms Fixation"
         }
     }
 
@@ -1021,6 +1025,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate044: return "cross.case.fill"
         case .plate045: return "brain.head.profile"
         case .plate046: return "figure.child"
+        case .plate047: return "shield.lefthalf.filled"
         }
     }
 
@@ -1734,6 +1739,49 @@ public enum SurgicalPlateType: String, CaseIterable {
                     surgicalPearl: "Demands urgent neonatal repair within 24–48 hours to prevent ventriculitis and ascending meningitis. Reconstitute neural placode into a tube (tubulation) and perform watertight multilayered closure."
                 )
             ]
+        case .plate047:
+            return [
+                SurgicalCallout(
+                    id: "plate_047_1",
+                    title: "Normal C1–C2 Anatomy & Wide CSF Cistern",
+                    structureType: "NORMAL CRANIOCERVICAL ALIGNMENT",
+                    color: Color.green,
+                    normalizedX: 0.125,
+                    normalizedY: 0.35,
+                    description: "Freestanding oval C1 anterior arch, intact conical dens, and C1 posterior arch ring. Wide perimedullary and prepontine subarachnoid space (CSF) cushioning an uncompressed brainstem and spinal cord. AADI is strictly < 3 mm.",
+                    surgicalPearl: "Anterior atlantodental interval (AADI) > 3 mm in adults is pathognomonic of transverse atlantal ligament incompetency and atlantoaxial instability."
+                ),
+                SurgicalCallout(
+                    id: "plate_047_2",
+                    title: "Retro-Odontoid Pannus & Crowned Dens",
+                    structureType: "PATHOLOGICAL PSEUDOTUMOR",
+                    color: Color.red,
+                    normalizedX: 0.375,
+                    normalizedY: 0.35,
+                    description: "Crowned dens with multi-lobulated calcific deposits at the dens tip. A bulky, fleshy retro-odontoid pseudotumor mass expands into the spinal canal. The cord is caught in a pincer between the anterior pannus and forward-shifted C1 posterior arch, with focal intramedullary myelomalacia.",
+                    surgicalPearl: "Pannus develops as an inflammatory fibrocartilaginous pseudotumor secondary to repetitive atlantoaxial micromotion (seen in CPPD, rheumatoid arthritis, or chronic non-union)."
+                ),
+                SurgicalCallout(
+                    id: "plate_047_3",
+                    title: "Rigid Goel-Harms Fixation In Situ",
+                    structureType: "POSTERIOR C1-C2 ARTHRODESIS",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.625,
+                    normalizedY: 0.40,
+                    description: "Posterior titanium C1 lateral mass screw (angled 10-15° cephalad) connected via a longitudinal rod to a C2 pedicle screw (angled 25-30° cephalad). Vascularized morselized autograft packed between C1 and C2. The retro-odontoid mass is deliberately left in situ without anterior resection.",
+                    surgicalPearl: "Direct transoral or transnasal resection carries up to a 10% risk of CSF leak and fatal meningitis. Posterior stabilization alone reliably cures the condition."
+                ),
+                SurgicalCallout(
+                    id: "plate_047_4",
+                    title: "Spontaneous Involution & Solid Bony Fusion",
+                    structureType: "12-MONTH POST-OP ARTHRODESIS",
+                    color: Color.blue,
+                    normalizedX: 0.875,
+                    normalizedY: 0.35,
+                    description: "The pseudotumor pannus has completely regressed and disappeared following elimination of mechanical micromotion. The prepontine and premedullary CSF space has fully reopened, the spinal cord has re-expanded, and the posterior bone graft has consolidated into a solid bony bridge.",
+                    surgicalPearl: "MRI at 6 to 12 months post-fixation routinely confirms over 90% to 100% volumetric reduction of the retro-odontoid pannus without requiring any anterior decompression."
+                )
+            ]
         }
     }
 
@@ -2019,6 +2067,13 @@ public enum SurgicalPlateType: String, CaseIterable {
                 ApproachSequentialStep(stepNumber: 3, title: "Microsurgical Untethering & Placode Preservation", detail: "For filar lipoma: bipolar and transect the filum below the conus. For lipomyelomeningocele: subtotal lipoma debulking, untethering placode from dura without invading cord parenchyma, and soft-tissue placode tubulation."),
                 ApproachSequentialStep(stepNumber: 4, title: "Expansile Watertight Duraplasty & Flap Closure", detail: "Perform wide, tension-free expansile duraplasty (pericranial/collagen graft) to provide a spacious CSF reservoir that prevents retethering. Layered myofascial and fasciocutaneous closure.")
             ]
+        case .plate047:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Awake Fiberoptic Intubation & Neutral Positioning", detail: "Perform awake fiberoptic intubation strictly maintaining neutral cervical alignment; avoid any neck extension which can precipitate fatal cervicomedullary compression. Secure Mayfield pin headrest and confirm baseline MEP/SSEP signals."),
+                ApproachSequentialStep(stepNumber: 2, title: "C1-C2 Posterior Exposure & Venous Hemostasis", detail: "Midline suboccipital-to-C3 exposure. Cautiously skeletonize C1 posterior arch and lateral masses, controlling profuse bleeding from the peri-ganglionic C1-C2 venous plexus with bipolar cautery, thrombin-soaked gelfoam, and cottonoid compression."),
+                ApproachSequentialStep(stepNumber: 3, title: "Goel-Harms Screw Instrumentation", detail: "Under fluoroscopic guidance, place bilateral C1 lateral mass screws (entry at center of posterior C1 lateral mass, directed 10-15° cephalad and slightly convergent). Place C2 pedicle screws (or pars screws if high-riding vertebral artery present). Connect with contoured titanium rods."),
+                ApproachSequentialStep(stepNumber: 4, title: "Posterior Decortication & Arthrodesis", detail: "Thoroughly decorticate the posterior arch of C1, superior lamina of C2, and C1-C2 facet joints. Pack morselized autologous bone graft across the decorticated bed. Close in anatomical layers. Do NOT attempt anterior mass resection.")
+            ]
         }
     }
 
@@ -2257,6 +2312,12 @@ public enum SurgicalPlateType: String, CaseIterable {
                 "NEVER CHASE LIPOMA INTO NEURAL PLACODE PARENCHYMA: Subtotal debulking is the standard of care; resecting fat within functional cord tissue causes irreversible lower extremity motor deficits and permanent neurogenic bowel/bladder.",
                 "INTRAOPERATIVE NERVE STIMULATION IS MANDATORY: An anomalous low-lying functional nerve root can simulate or travel adherent to the filum or transitional lipoma; never divide any tissue without direct bipolar/monopolar stimulation.",
                 "EMERGENT 24–48 HOUR REPAIR IN OPEN MYELOMENINGOCELE: Exposed neural placode lacks protective epidermal barriers; delayed surgical closure risks bacterial ventriculitis, meningitis, and rapidly progressive hydrocephalus."
+            ]
+        case .plate047:
+            return [
+                "AVOID NECK EXTENSION DURING INTUBATION: Extension narrows the retro-odontoid space and drives the pannus backward directly into the medulla, risking acute respiratory arrest or quadriplegia; awake fiberoptic intubation in neutral position is mandatory.",
+                "HIGH-RIDING VERTEBRAL ARTERY DISRUPTION: Always review preoperative CTA/MRA for a high-riding C2 vertebral artery or persistent intersegmental artery; if the C2 pedicle internal height is < 4 mm, place C2 translaminar or pars screws instead of pedicle screws to prevent fatal arterial laceration.",
+                "UNNECESSARY ANTERIOR SURGICAL MORBIDITY: Do not perform transoral, transnasal, or transcervical anterior odontoid resection; posterior stabilization alone induces spontaneous regression in >95% of cases without the high risk of pharyngeal contamination and CSF fistula."
             ]
         }
     }
