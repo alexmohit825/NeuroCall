@@ -722,7 +722,7 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
         case .convexityTrauma:
             return [.plate018, .plate016, .plate019, .plate021, .plate025, .plate045]
         case .posteriorFossa:
-            return [.plate010, .plate020, .plate004, .plate003, .plate006, .plate022]
+            return [.plate010, .plate020, .plate004, .plate003, .plate006, .plate022, .plate052]
         case .vascularVentricular:
             return [.plate002, .plate027, .plate040, .plate041, .plate051]
         case .craniovertebral:
@@ -740,8 +740,8 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
 }
 
 public enum AtlasCategory: String, CaseIterable {
-    case all = "All Plates (51)"
-    case cranial = "Cranial & Skull Base (24)"
+    case all = "All Plates (52)"
+    case cranial = "Cranial & Skull Base (25)"
     case spine = "Spine & CVJ (27)"
 
     public var filteredPlates: [SurgicalPlateType] {
@@ -807,6 +807,7 @@ public enum SurgicalPlateType: String, CaseIterable {
     case plate049 = "plate_049_jefferson_burst_fracture"
     case plate050 = "plate_050_cervical_opll"
     case plate051 = "plate_051_mma_embolization_csdh"
+    case plate052 = "plate_052_vestibular_schwannoma"
 
     public var subSection: AtlasSubSection {
         for section in AtlasSubSection.allCases {
@@ -874,6 +875,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate049: return 49
         case .plate050: return 50
         case .plate051: return 51
+        case .plate052: return 52
         }
     }
 
@@ -934,6 +936,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate049: return "49: Jefferson C1"
         case .plate050: return "50: Cervical OPLL"
         case .plate051: return "51: MMA Embolization"
+        case .plate052: return "52: Acoustic Neuroma"
         }
     }
 
@@ -990,6 +993,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate049: return "Jefferson Fracture of the Atlas (C1) & The Rule of Spence"
         case .plate050: return "Cervical Ossification of Posterior Longitudinal Ligament (OPLL) & 8K Multi-Modality Correlation"
         case .plate051: return "Middle Meningeal Artery (MMA) Embolization for Chronic Subdural Hematoma"
+        case .plate052: return "Vestibular Schwannoma (Acoustic Neuroma) — Retrosigmoid Microsurgical Anatomy & 3T MRI"
         }
     }
 
@@ -1046,6 +1050,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate049: return "triangle.circle.fill"
         case .plate050: return "cylinder.split.1x2.fill"
         case .plate051: return "waveform.path.ecg"
+        case .plate052: return "ear"
         }
     }
 
@@ -1986,6 +1991,60 @@ public enum SurgicalPlateType: String, CaseIterable {
                     surgicalPearl: "Groundbreaking Level 1 evidence (EMBOLISE, STEM, MEMBRANE trials) establishes MMA embolization as a definitive therapy drastically reducing recurrence and reoperation rates."
                 )
             ]
+
+        case .plate052:
+            return [
+                SurgicalCallout(
+                    id: "plate_052_1",
+                    title: "Safe Intracapsular Debulking Zone",
+                    structureType: "AVASCULAR POSTERIOR CAPSULE",
+                    color: Color.green,
+                    normalizedX: 0.34,
+                    normalizedY: 0.42,
+                    description: "The posterior tumor capsule directly facing the retrosigmoid surgeon is completely free of cranial nerves. This is the mandated entry point for initial capsular incision and internal ultrasonic debulking (CUSA), safely gutting the tumor core before dissecting the capsule.",
+                    surgicalPearl: "Never dissect the tumor capsule circumferentially before central debulking; gutting the core collapses the tumor inward, transforming high-tension traction on CN VII into a relaxed, dissectible arachnoid plane."
+                ),
+                SurgicalCallout(
+                    id: "plate_052_2",
+                    title: "Facial Nerve (CN VII) Ventral Trajectory",
+                    structureType: "HIDDEN VENTRAL CAPSULE & SEVEN-UP RULE",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.42,
+                    normalizedY: 0.28,
+                    description: "In >95% of cases, CN VII is splayed and attenuated into a paper-thin ribbon adhering to the deep anterior/ventral capsule, heading to the anterior-superior quadrant of the IAC fundus (anterior to Bill\'s bar, superior to transverse crest).",
+                    surgicalPearl: "Identify CN VII at the two anatomical anchors: medially at the brainstem root exit zone (pontomedullary junction anterior to the choroid plexus of Luschka) and laterally at the IAC fundus; never search for the nerve in the mid-capsular stretched zone."
+                ),
+                SurgicalCallout(
+                    id: "plate_052_3",
+                    title: "Drilled Porus Acusticus & IAC Fundus",
+                    structureType: "INTERNAL AUDITORY CANAL UNROOFING",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.55,
+                    normalizedY: 0.38,
+                    description: "The posterior wall of the IAC is unroofed with a high-speed diamond burr under continuous cold saline irrigation to prevent thermal injury to CN VII, exposing the lateral tumor cone and the transverse crest/Bill\'s bar.",
+                    surgicalPearl: "Limit bone drilling to the medial 8–10 mm of the posterior wall; lateral drilling beyond the fundus breaches the posterior semicircular canal and vestibule, causing irreversible sensorineural deafness."
+                ),
+                SurgicalCallout(
+                    id: "plate_052_4",
+                    title: "AICA Loop & Lower Cranial Nerves",
+                    structureType: "CPA CISTERNAL NEUROVASCULAR BOUNDARY",
+                    color: Color.red,
+                    normalizedX: 0.38,
+                    normalizedY: 0.75,
+                    description: "The crimson AICA meatal loop courses along the inferior-medial tumor capsule, while lower cranial nerves (CN IX, X, XI) cross the caudal pole toward the jugular foramen.",
+                    surgicalPearl: "Preserve the labyrinthine (internal auditory) artery branching off AICA; inadvertent coagulation causes immediate ipsilateral hearing loss even with an intact cochlear nerve."
+                ),
+                SurgicalCallout(
+                    id: "plate_052_5",
+                    title: "Axial 3T T1-Contrast MRI Correlation",
+                    structureType: "KOOS GRADE IV ICE-CREAM CONE TUMOR",
+                    color: Color.yellow,
+                    normalizedX: 0.85,
+                    normalizedY: 0.52,
+                    description: "Diagnostic 3T T1 post-contrast MRI confirms a 3.5 cm vividly enhancing right CPA mass widening the internal auditory canal with significant brainstem indentation, middle cerebellar peduncle compression, and 4th ventricle effacement.",
+                    surgicalPearl: "Koos Grade IV tumors with brainstem compression carry significant surgical risk; subtotal resection with facial nerve anatomically preserved followed by stereotactic radiosurgery (SRS) is a proven strategy when capsule is densely adherent."
+                )
+            ]
         }
     }
 
@@ -2308,6 +2367,14 @@ public enum SurgicalPlateType: String, CaseIterable {
                 ApproachSequentialStep(stepNumber: 3, title: "Provocative Testing & Embolic Preparation", detail: "Perform microcatheter superselective angiogram ('micro-run') to confirm true membrane blush and verify absence of orbital/lacrimal or cranial nerve collaterals. Flush with DMSO if using Onyx, or prime microcatheter if using particle slurry (150–250 μm PVA particles)."),
                 ApproachSequentialStep(stepNumber: 4, title: "Controlled Liquid Embolic / Particle Infusion", detail: "Infuse liquid embolic (Onyx-18 / Squid) slowly under continuous subtracted fluoroscopy, creating a proximal plug and forcing embolic material distally into the neomembrane capillary network. Terminate injection once dense capillary casting and branch truncation are achieved without proximal reflux.")
             ]
+
+        case .plate052:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Retrosigmoid Craniectomy & CSF Drainage", detail: "Park-bench or lateral decubitus position with head flexed and rotated 15° to contralateral side. Curvilinear or lazy-S incision behind the mastoid. Retrosigmoid craniectomy exposes the inferior margin of the transverse sinus and posterior edge of the sigmoid sinus. Open dura in a C-shaped flap; immediately release CSF from the cisterna magna to achieve a completely relaxed, slack cerebellum without retraction injury."),
+                ApproachSequentialStep(stepNumber: 2, title: "Tumor Exposure & Capsular Mapping", detail: "Place a Greenberg retractor blade to gently support the petrosal cerebellar surface. Incise the arachnoid over the posterior tumor dome. Identify the AICA meatal loop and lower cranial nerves along the caudal pole. Map the posterior capsule with a handheld monopolar nerve stimulator (0.05–0.2 mA) to confirm the complete absence of a displaced facial nerve."),
+                ApproachSequentialStep(stepNumber: 3, title: "Posterior Capsular Incision & Intracapsular Debulking", detail: "Perform an elliptical capsular opening in the safe, avascular posterior center using micro-scissors or bipolar. Use the ultrasonic aspirator (CUSA) to systematically core out the tumor interior, working from central to lateral. As the tumor mass collapses inward, the arachnoid dissection planes loosen."),
+                ApproachSequentialStep(stepNumber: 4, title: "IAC Unroofing & Facial Nerve Preservation at the Fundus", detail: "Reflect the dural flap over the petrous bone. Under continuous irrigation, drill the posterior lip of the porus acusticus with a 2–3 mm diamond burr, unroofing the lateral 8 mm of the IAC. Identify Bill\'s bar and the transverse crest at the fundus. Dissect the lateral tumor cone from the facial nerve in the anterior-superior quadrant, following CN VII medially back to the brainstem.")
+            ]
         }
     }
 
@@ -2578,6 +2645,13 @@ public enum SurgicalPlateType: String, CaseIterable {
                 "IRREVERSIBLE BLINDNESS VIA MENINGO-OPHTHALMIC ANASTOMOSIS: The anterior MMA can connect with the ophthalmic artery via the superior orbital fissure or recurrent meningeal branch. Always perform high-magnification roadmap angiography; embolic reflux or forward migration into the ophthalmic artery causes instant, catastrophic central retinal artery occlusion and permanent monocular blindness.",
                 "FACIAL NERVE PALSY VIA PETROSAL BRANCH: The petrosal branch of the MMA supplies the facial nerve (CN VII) in the Fallopian canal / geniculate ganglion. Always advance the microcatheter tip DISTAL to the petrosal branch takeoff before injecting liquid embolic or particles; embolization of the petrosal artery causes acute, permanent peripheral facial palsy (Bell's palsy).",
                 "PROXIMAL REFLUX INTO MAXILLARY OR CAROTID ARTERY: Never push liquid embolic aggressively against resistance. Maintain continuous fluoroscopic visualization of the catheter tip to prevent reflux back into the internal maxillary artery or external carotid system, which can cause skin necrosis, jaw claudication, or distal stroke."
+            ]
+
+        case .plate052:
+            return [
+                "FACIAL NERVE TRANSECTION IN UNRECOGNIZED ANTERIOR DISPLACEMENT: Never perform circumferential sharp dissection along the anterior tumor capsule early in the operation. CN VII is paper-thin and visually indistinguishable from tumor capsule under tension; always debulk the core first and identify CN VII at the brainstem REZ and IAC fundus before attempting capsule mobilization.",
+                "LABYRINTHINE BREACH CAUSING PERMANENT SENSORINEURAL DEAFNESS: Over-drilling the lateral posterior wall of the IAC (>10 mm) will violate the posterior semicircular canal or vestibule. Always maintain orientation relative to the common crus and endolymphatic duct; once the fundus is reached, stop drilling.",
+                "TEARING THE SUPERIOR PETROSAL VEIN (VEIN OF DANDY): Excessive or abrupt retraction on the superior cerebellum can tear the vein of Dandy at its junction with the superior petrosal sinus, causing torrential, difficult-to-control venous hemorrhage and risk of cerebellar venous infarction."
             ]
         }
     }
