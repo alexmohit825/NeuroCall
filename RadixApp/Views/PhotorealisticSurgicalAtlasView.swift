@@ -740,7 +740,7 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
 }
 
 public enum AtlasCategory: String, CaseIterable {
-    case all = "All Plates (54)"
+    case all = "All Plates (55)"
     case cranial = "Cranial & Skull Base (25)"
     case spine = "Spine & CVJ (27)"
 
@@ -810,6 +810,7 @@ public enum SurgicalPlateType: String, CaseIterable {
     case plate052 = "plate_052_vestibular_schwannoma"
     case plate053 = "plate_053_normal_pressure_hydrocephalus"
     case plate054 = "plate_054_thoracic_olf_sato"
+    case plate055 = "plate_055_petroclival_meningioma_kawase"
 
     public var subSection: AtlasSubSection {
         for section in AtlasSubSection.allCases {
@@ -880,6 +881,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate052: return 52
         case .plate053: return 53
         case .plate054: return 54
+        case .plate055: return 55
         }
     }
 
@@ -943,6 +945,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate052: return "52: Acoustic Neuroma"
         case .plate053: return "53: NPH & DESH Sign"
         case .plate054: return "54: Thoracic OLF"
+        case .plate055: return "55: Petroclival Meningioma"
         }
     }
 
@@ -1002,6 +1005,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate052: return "Vestibular Schwannoma (Acoustic Neuroma) — Retrosigmoid Microsurgical Anatomy & 3T MRI"
         case .plate053: return "Normal Pressure Hydrocephalus (NPH) & The DESH Sign — Multimodal Imaging & Programmable Shunt"
         case .plate054: return "Thoracic Ossification of the Ligamentum Flavum (T-OLF) & Sato Classification — Multi-Modality Correlation & Floating Decompression"
+        case .plate055: return "Petroclival Meningioma & The Kawase Approach (Anterior Petrosectomy) — Multi-Planar 3T MRI & Trans-Tentorial Resection"
         }
     }
 
@@ -1061,6 +1065,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate052: return "ear"
         case .plate053: return "brain.head.profile"
         case .plate054: return "waveform.path.ecg"
+        case .plate055: return "brain.head.profile"
         }
     }
 
@@ -2002,7 +2007,50 @@ public enum SurgicalPlateType: String, CaseIterable {
                 )
             ]
 
-                        case .plate054:
+                                case .plate055:
+            return [
+                SurgicalCallout(
+                    id: "plate_055_1",
+                    title: "Kawase's Rhomboid Triangle & Petrous Apex",
+                    structureType: "ANTERIOR PETROSECTOMY BONE WINDOW",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.52,
+                    normalizedY: 0.45,
+                    description: "Bounded anterolaterally by GSPN/V3, posterolaterally by the arcuate eminence (superior semicircular canal), medially by the superior petrosal sinus (SPS), and anteromedially by Meckel's cave. Drilling this triangle opens a direct 10–12 mm extradural corridor to the posterior fossa dura medial to the IAC.",
+                    surgicalPearl: "Drilling must remain strictly medial to the GSPN and anterior to the arcuate eminence to protect the cochlea and vestibular labyrinth."
+                ),
+                SurgicalCallout(
+                    id: "plate_055_2",
+                    title: "Horizontal Petrous ICA & GSPN",
+                    structureType: "VASCULAR DANGER ZONE",
+                    color: Color.red,
+                    normalizedX: 0.48,
+                    normalizedY: 0.32,
+                    description: "The horizontal segment of the petrous internal carotid artery lies directly deep to the GSPN. In up to 30% of patients, the carotid canal roof is dehiscent.",
+                    surgicalPearl: "Elevate the middle fossa dura strictly from posterior to anterior; anterior-to-posterior dissection can snag a dehiscent ICA or avulse the GSPN from the geniculate ganglion, causing facial palsy."
+                ),
+                SurgicalCallout(
+                    id: "plate_055_3",
+                    title: "Subsurface Cochlea & Labyrinth Protection",
+                    structureType: "AUDITORY SPARING ZONE",
+                    color: Color.blue,
+                    normalizedX: 0.54,
+                    normalizedY: 0.72,
+                    description: "The cochlea is hidden in the bone within the apex between the GSPN, geniculate ganglion, and internal auditory canal fundus. The superior semicircular canal lies directly under the arcuate eminence.",
+                    surgicalPearl: "Never drill lateral to the line connecting the facial hiatus to the IAC fundus; violation of the otic capsule causes immediate permanent sensorineural hearing loss."
+                ),
+                SurgicalCallout(
+                    id: "plate_055_4",
+                    title: "Tentorial Division & Trochlear Nerve (CN IV) Sparing",
+                    structureType: "TRANS-TENTORIAL CORRIDOR",
+                    color: Color.green,
+                    normalizedX: 0.88,
+                    normalizedY: 0.18,
+                    description: "The superior petrosal sinus is clipped and divided. The tentorium is incised from the petrous ridge toward the incisura, directed strictly posterior to the dural entry of CN IV.",
+                    surgicalPearl: "Directing the tentorial cut posterior to the incisural entry of CN IV prevents superior oblique denervation and debilitating vertical diplopia."
+                )
+            ]
+        case .plate054:
             return [
                 SurgicalCallout(
                     id: "plate_054_1",
@@ -2464,7 +2512,50 @@ public enum SurgicalPlateType: String, CaseIterable {
                 ApproachSequentialStep(stepNumber: 4, title: "Controlled Liquid Embolic / Particle Infusion", detail: "Infuse liquid embolic (Onyx-18 / Squid) slowly under continuous subtracted fluoroscopy, creating a proximal plug and forcing embolic material distally into the neomembrane capillary network. Terminate injection once dense capillary casting and branch truncation are achieved without proximal reflux.")
             ]
 
-                        case .plate054:
+                                case .plate055:
+            return [
+                SurgicalCallout(
+                    id: "plate_055_1",
+                    title: "Kawase's Rhomboid Triangle & Petrous Apex",
+                    structureType: "ANTERIOR PETROSECTOMY BONE WINDOW",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.52,
+                    normalizedY: 0.45,
+                    description: "Bounded anterolaterally by GSPN/V3, posterolaterally by the arcuate eminence (superior semicircular canal), medially by the superior petrosal sinus (SPS), and anteromedially by Meckel's cave. Drilling this triangle opens a direct 10–12 mm extradural corridor to the posterior fossa dura medial to the IAC.",
+                    surgicalPearl: "Drilling must remain strictly medial to the GSPN and anterior to the arcuate eminence to protect the cochlea and vestibular labyrinth."
+                ),
+                SurgicalCallout(
+                    id: "plate_055_2",
+                    title: "Horizontal Petrous ICA & GSPN",
+                    structureType: "VASCULAR DANGER ZONE",
+                    color: Color.red,
+                    normalizedX: 0.48,
+                    normalizedY: 0.32,
+                    description: "The horizontal segment of the petrous internal carotid artery lies directly deep to the GSPN. In up to 30% of patients, the carotid canal roof is dehiscent.",
+                    surgicalPearl: "Elevate the middle fossa dura strictly from posterior to anterior; anterior-to-posterior dissection can snag a dehiscent ICA or avulse the GSPN from the geniculate ganglion, causing facial palsy."
+                ),
+                SurgicalCallout(
+                    id: "plate_055_3",
+                    title: "Subsurface Cochlea & Labyrinth Protection",
+                    structureType: "AUDITORY SPARING ZONE",
+                    color: Color.blue,
+                    normalizedX: 0.54,
+                    normalizedY: 0.72,
+                    description: "The cochlea is hidden in the bone within the apex between the GSPN, geniculate ganglion, and internal auditory canal fundus. The superior semicircular canal lies directly under the arcuate eminence.",
+                    surgicalPearl: "Never drill lateral to the line connecting the facial hiatus to the IAC fundus; violation of the otic capsule causes immediate permanent sensorineural hearing loss."
+                ),
+                SurgicalCallout(
+                    id: "plate_055_4",
+                    title: "Tentorial Division & Trochlear Nerve (CN IV) Sparing",
+                    structureType: "TRANS-TENTORIAL CORRIDOR",
+                    color: Color.green,
+                    normalizedX: 0.88,
+                    normalizedY: 0.18,
+                    description: "The superior petrosal sinus is clipped and divided. The tentorium is incised from the petrous ridge toward the incisura, directed strictly posterior to the dural entry of CN IV.",
+                    surgicalPearl: "Directing the tentorial cut posterior to the incisural entry of CN IV prevents superior oblique denervation and debilitating vertical diplopia."
+                )
+            ]
+        case .plate054:
             return [
                 SurgicalCallout(
                     id: "plate_054_1",
@@ -2829,7 +2920,50 @@ public enum SurgicalPlateType: String, CaseIterable {
                 "PROXIMAL REFLUX INTO MAXILLARY OR CAROTID ARTERY: Never push liquid embolic aggressively against resistance. Maintain continuous fluoroscopic visualization of the catheter tip to prevent reflux back into the internal maxillary artery or external carotid system, which can cause skin necrosis, jaw claudication, or distal stroke."
             ]
 
-                        case .plate054:
+                                case .plate055:
+            return [
+                SurgicalCallout(
+                    id: "plate_055_1",
+                    title: "Kawase's Rhomboid Triangle & Petrous Apex",
+                    structureType: "ANTERIOR PETROSECTOMY BONE WINDOW",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.52,
+                    normalizedY: 0.45,
+                    description: "Bounded anterolaterally by GSPN/V3, posterolaterally by the arcuate eminence (superior semicircular canal), medially by the superior petrosal sinus (SPS), and anteromedially by Meckel's cave. Drilling this triangle opens a direct 10–12 mm extradural corridor to the posterior fossa dura medial to the IAC.",
+                    surgicalPearl: "Drilling must remain strictly medial to the GSPN and anterior to the arcuate eminence to protect the cochlea and vestibular labyrinth."
+                ),
+                SurgicalCallout(
+                    id: "plate_055_2",
+                    title: "Horizontal Petrous ICA & GSPN",
+                    structureType: "VASCULAR DANGER ZONE",
+                    color: Color.red,
+                    normalizedX: 0.48,
+                    normalizedY: 0.32,
+                    description: "The horizontal segment of the petrous internal carotid artery lies directly deep to the GSPN. In up to 30% of patients, the carotid canal roof is dehiscent.",
+                    surgicalPearl: "Elevate the middle fossa dura strictly from posterior to anterior; anterior-to-posterior dissection can snag a dehiscent ICA or avulse the GSPN from the geniculate ganglion, causing facial palsy."
+                ),
+                SurgicalCallout(
+                    id: "plate_055_3",
+                    title: "Subsurface Cochlea & Labyrinth Protection",
+                    structureType: "AUDITORY SPARING ZONE",
+                    color: Color.blue,
+                    normalizedX: 0.54,
+                    normalizedY: 0.72,
+                    description: "The cochlea is hidden in the bone within the apex between the GSPN, geniculate ganglion, and internal auditory canal fundus. The superior semicircular canal lies directly under the arcuate eminence.",
+                    surgicalPearl: "Never drill lateral to the line connecting the facial hiatus to the IAC fundus; violation of the otic capsule causes immediate permanent sensorineural hearing loss."
+                ),
+                SurgicalCallout(
+                    id: "plate_055_4",
+                    title: "Tentorial Division & Trochlear Nerve (CN IV) Sparing",
+                    structureType: "TRANS-TENTORIAL CORRIDOR",
+                    color: Color.green,
+                    normalizedX: 0.88,
+                    normalizedY: 0.18,
+                    description: "The superior petrosal sinus is clipped and divided. The tentorium is incised from the petrous ridge toward the incisura, directed strictly posterior to the dural entry of CN IV.",
+                    surgicalPearl: "Directing the tentorial cut posterior to the incisural entry of CN IV prevents superior oblique denervation and debilitating vertical diplopia."
+                )
+            ]
+        case .plate054:
             return [
                 SurgicalCallout(
                     id: "plate_054_1",
