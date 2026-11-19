@@ -740,7 +740,7 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
 }
 
 public enum AtlasCategory: String, CaseIterable {
-    case all = "All Plates (56)"
+    case all = "All Plates (57)"
     case cranial = "Cranial & Skull Base (25)"
     case spine = "Spine & CVJ (27)"
 
@@ -812,6 +812,7 @@ public enum SurgicalPlateType: String, CaseIterable {
     case plate054 = "plate_054_thoracic_olf_sato"
     case plate055 = "plate_055_petroclival_meningioma_kawase"
     case plate056 = "plate_056_brain_avm_spetzler_martin"
+    case plate057 = "plate_057_trigeminal_neuralgia_mvd"
 
     public var subSection: AtlasSubSection {
         for section in AtlasSubSection.allCases {
@@ -884,6 +885,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate054: return 54
         case .plate055: return 55
         case .plate056: return 56
+        case .plate057: return 57
         }
     }
 
@@ -949,6 +951,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate054: return "54: Thoracic OLF"
         case .plate055: return "55: Petroclival Meningioma"
         case .plate056: return "56: Brain AVM"
+        case .plate057: return "57: Trigeminal Neuralgia"
         }
     }
 
@@ -1010,6 +1013,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate054: return "Thoracic Ossification of the Ligamentum Flavum (T-OLF) & Sato Classification — Multi-Modality Correlation & Floating Decompression"
         case .plate055: return "Petroclival Meningioma & The Kawase Approach (Anterior Petrosectomy) — Multi-Planar 3T MRI & Trans-Tentorial Resection"
         case .plate056: return "Brain Arteriovenous Malformation (AVM) & Spetzler-Martin Classification — Hemodynamics, Cortical Eloquence & Circumdissection Protocol"
+        case .plate057: return "Trigeminal Neuralgia & Jannetta Microvascular Decompression (MVD) — High-Resolution 3T FIESTA, Keyhole Corridor & Multi-Modal Transposition"
         }
     }
 
@@ -1071,6 +1075,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate054: return "waveform.path.ecg"
         case .plate055: return "brain.head.profile"
         case .plate056: return "waveform.path.ecg"
+        case .plate057: return "bolt.fill"
         }
     }
 

@@ -965,7 +965,50 @@ extension SurgicalPlateType {
                 )
             ]
 
-                                        case .plate056:
+                                                case .plate057:
+            return [
+                SurgicalCallout(
+                    id: "plate_057_1",
+                    title: "3T FIESTA Prepontine Cistern & REZ Neurovascular Conflict",
+                    structureType: "HIGH-RESOLUTION 3T NEUROIMAGING",
+                    color: Color.red,
+                    normalizedX: 0.15,
+                    normalizedY: 0.28,
+                    description: "Axial 3T FIESTA/CISS MRI demonstrates a sharp, hypointense vascular loop of the superior cerebellar artery (SCA) impinging directly onto the root entry zone (REZ) of the left trigeminal nerve at the Obersteiner-Redlich transition zone.",
+                    surgicalPearl: "High-resolution 3D steady-state sequences (FIESTA/CISS) correlate with intraoperative findings in >95% of patients, confirming cross-compression and focal nerve indentation."
+                ),
+                SurgicalCallout(
+                    id: "plate_057_2",
+                    title: "Park-Bench Positioning & Keyhole Craniectomy",
+                    structureType: "SURGICAL POSITIONING & BONE WINDOW",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.15,
+                    normalizedY: 0.78,
+                    description: "Park-bench/lateral position with vertex flexed and rotated 10–15° contralaterally. A small quarter-sized (2.0–2.5 cm) craniectomy is placed flush against the inferior edge of the transverse sinus and posterior border of the sigmoid sinus.",
+                    surgicalPearl: "Placing the bone window flush with the sinus confluence eliminates the need for brain retraction, providing an unobstructed suboccipital corridor along the tentorial surface."
+                ),
+                SurgicalCallout(
+                    id: "plate_057_3",
+                    title: "Trigeminal REZ & Superior Petrosal Vein (Dandy) Preservation",
+                    structureType: "CPA NEUROVASCULAR ARCHITECTURE",
+                    color: Color.blue,
+                    normalizedX: 0.48,
+                    normalizedY: 0.45,
+                    description: "CN V emerges from the mid-pons and courses toward Meckel's cave. The SCA loop compresses the nerve rostrally and medially. The superior petrosal vein (Vein of Dandy) courses laterally into the superior petrosal sinus and must be meticulously preserved.",
+                    surgicalPearl: "Never coagulate or divide the main superior petrosal vein trunk indiscriminately; sacrifice can trigger catastrophic cerebellar venous infarction, brainstem swelling, and hearing loss."
+                ),
+                SurgicalCallout(
+                    id: "plate_057_4",
+                    title: "Multi-Modal Decompression: Interposition & Transposition",
+                    structureType: "JANNETTA DECOMPRESSION MODALITIES",
+                    color: Color.green,
+                    normalizedX: 0.82,
+                    normalizedY: 0.40,
+                    description: "Offloading the REZ can be achieved via: (1) Classic shredded Teflon interposition pledgets, (2) Teflon felt anchor transposition to petrous dura, or (3) Dural/pericranial sling transposition anchoring the SCA to the tentorium with micro-sutures.",
+                    surgicalPearl: "Transposition using a tentorial sling completely mobilizes the vessel away without foreign material resting on the nerve, reducing long-term Teflon granuloma or recurrence."
+                )
+            ]
+        case .plate056:
             return [
                 SurgicalCallout(
                     id: "plate_056_1",
@@ -1513,7 +1556,14 @@ extension SurgicalPlateType {
                 ApproachSequentialStep(stepNumber: 4, title: "Controlled Liquid Embolic / Particle Infusion", detail: "Infuse liquid embolic (Onyx-18 / Squid) slowly under continuous subtracted fluoroscopy, creating a proximal plug and forcing embolic material distally into the neomembrane capillary network. Terminate injection once dense capillary casting and branch truncation are achieved without proximal reflux.")
             ]
 
-                                        case .plate056:
+                                                case .plate057:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Positioning & Retrosigmoid Keyhole Exposure", detail: "Park-bench or lateral position in 3-pin Mayfield headholder. Vertical retroauricular incision 5 mm medial to asterion. Small 2.5 cm craniectomy unroofing the transverse-sigmoid sinus junction. Open dura in curvilinear fashion based on the sinuses."),
+                ApproachSequentialStep(stepNumber: 2, title: "Cisternal CSF Drainage & Supracerebellar Corridor", detail: "Open the lateral cerebellomedullary cistern to drain CSF and achieve full cerebellar relaxation. Advance along the superior petrosal cerebellar surface without brain retractors. Gently release arachnoid trabeculae over the petrosal fissure."),
+                ApproachSequentialStep(stepNumber: 3, title: "Neurovascular Exploration & Vein of Dandy Preservation", detail: "Identify the acoustic-facial bundle (CN VII/VIII) caudally, then look superiorly to expose CN V. Identify the superior petrosal vein (Vein of Dandy) and mobilize it atraumatically without coagulation. Dissect the offending arterial loop (SCA or AICA) free from the trigeminal root entry zone."),
+                ApproachSequentialStep(stepNumber: 4, title: "Multi-Modal Decompression & Watertight Dural Closure", detail: "Mobilize the vessel off the nerve root. Perform decompression via shredded Teflon felt interposition, Teflon bridge transposition, or tentorial dural sling. Inspect to ensure vessel remains widely patent with zero contact on CN V. Perform watertight dural closure with running monofilament suture to prevent CSF leak.")
+            ]
+        case .plate056:
             return [
                 ApproachSequentialStep(stepNumber: 1, title: "Preoperative Diagnostic DSA & Superselective Embolization", detail: "Perform biplane 3D rotational DSA to map all feeding pedicles (ACA, MCA, PCA), identify associated intranidal/feeder flow aneurysms, and characterize superficial vs. deep venous drainage paths (vein of Galen, basal vein of Rosenthal). Perform superselective Onyx/PHIL liquid embolic embolization to devascularize deep, inaccessible perforating feeders."),
                 ApproachSequentialStep(stepNumber: 2, title: "Tailored Craniotomy & Circumferential Pial Incision", detail: "Fashion a generous bone flap centered over the nidus with wide margins around the planned corridor. Open dura with base toward sinus. Map cortical eloquence with somatosensory evoked potentials (SSEP) and direct cortical stimulation. Make a circumferential pial incision around the nidus in non-eloquent sulci along the yellow-brown hemosiderin ring."),
@@ -1892,7 +1942,14 @@ extension SurgicalPlateType {
                 "PROXIMAL REFLUX INTO MAXILLARY OR CAROTID ARTERY: Never push liquid embolic aggressively against resistance. Maintain continuous fluoroscopic visualization of the catheter tip to prevent reflux back into the internal maxillary artery or external carotid system, which can cause skin necrosis, jaw claudication, or distal stroke."
             ]
 
-                                        case .plate056:
+                                                case .plate057:
+            return [
+                "SUPERIOR PETROSAL VEIN (VEIN OF DANDY) AVULSION & VENOUS INFARCTION: Coagulating or abruptly tearing the large superior petrosal vein trunk can trigger devastating cerebellar hemorrhagic infarction, brainstem edema, and posterior fossa herniation. The vein must be preserved whenever possible; if minor tributary sacrifice is mandatory, the main drainage trunk into the superior petrosal sinus must remain patent.",
+                "AUDITORY NERVE (CN VIII) TRACTION & SENSORINEURAL DEAFNESS: Excessive or sudden retraction on the cerebellum directly stretches the vestibulocochlear nerve (CN VIII) as it enters the internal acoustic meatus. Continuous intraoperative Brainstem Auditory Evoked Potential (BAEP) monitoring is mandatory; latency shifts >0.5 ms or amplitude loss >50% require immediate retractor release and irrigation.",
+                "SCA KINKING OR THROMBOSIS & BRAINSTEM STROKE: Over-mobilizing or sharply bending the superior cerebellar artery loop during transposition can cause arterial kinking, intimal dissection, or acute thrombosis. Infarction of the superior cerebellum and dorsal midbrain leads to severe ataxia, Horner syndrome, and pontine ischemia. Always confirm pulsatile, unkinked arterial flow following decompression.",
+                "POSTOPERATIVE CSF LEAK & PSEUDOMENINGOCELE: The retrosigmoid keyhole approach requires meticulous watertight dural closure. Any unclosed dural defect allows CSF to track into the neck and retroauricular soft tissues, forming an intractable pseudomeningocele or CSF cutaneous fistula with high risk of meningitis. Augment closure with autologous fascia, pericranium, or dural substitute and fibrin sealant."
+            ]
+        case .plate056:
             return [
                 "PREMATURE VENOUS OCCLUSION & EXPLOSIVE NIDUS RUPTURE: Occluding or tearing the primary draining vein before completing circumferential arterial devascularization abruptly eliminates outflow while high-pressure arterial inflow continues. The nidus balloons instantly and suffers explosive intraoperative blowout. Hemorrhage from an un-devascularized AVM bed is torrential and frequently fatal. The draining vein must remain untouched until the nidus is fully devascularized and the vein darkens.",
                 "EN-PASSAGE ARTERIAL CLIPPING & REMOTE CEREBRAL INFARCTION: Arteries running along or adjacent to the AVM nidus may be feeding normal distal cortex ('en-passage' vessels) rather than terminating in the malformation. Inadvertently clipping or coagulating an en-passage artery causes profound remote ischemic stroke and permanent neurological deficit. Every vessel must be dissected under high magnification to confirm its terminal entrance into the nidus before division.",
