@@ -740,7 +740,7 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
 }
 
 public enum AtlasCategory: String, CaseIterable {
-    case all = "All Plates (52)"
+    case all = "All Plates (53)"
     case cranial = "Cranial & Skull Base (25)"
     case spine = "Spine & CVJ (27)"
 
@@ -808,6 +808,7 @@ public enum SurgicalPlateType: String, CaseIterable {
     case plate050 = "plate_050_cervical_opll"
     case plate051 = "plate_051_mma_embolization_csdh"
     case plate052 = "plate_052_vestibular_schwannoma"
+    case plate053 = "plate_053_normal_pressure_hydrocephalus"
 
     public var subSection: AtlasSubSection {
         for section in AtlasSubSection.allCases {
@@ -876,6 +877,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate050: return 50
         case .plate051: return 51
         case .plate052: return 52
+        case .plate053: return 53
         }
     }
 
@@ -937,6 +939,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate050: return "50: Cervical OPLL"
         case .plate051: return "51: MMA Embolization"
         case .plate052: return "52: Acoustic Neuroma"
+        case .plate053: return "53: NPH & DESH Sign"
         }
     }
 
@@ -994,6 +997,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate050: return "Cervical Ossification of Posterior Longitudinal Ligament (OPLL) & 8K Multi-Modality Correlation"
         case .plate051: return "Middle Meningeal Artery (MMA) Embolization for Chronic Subdural Hematoma"
         case .plate052: return "Vestibular Schwannoma (Acoustic Neuroma) — Retrosigmoid Microsurgical Anatomy & 3T MRI"
+        case .plate053: return "Normal Pressure Hydrocephalus (NPH) & The DESH Sign — Multimodal Imaging & Programmable Shunt"
         }
     }
 
@@ -1051,6 +1055,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate050: return "cylinder.split.1x2.fill"
         case .plate051: return "waveform.path.ecg"
         case .plate052: return "ear"
+        case .plate053: return "brain.head.profile"
         }
     }
 
@@ -1992,6 +1997,49 @@ public enum SurgicalPlateType: String, CaseIterable {
                 )
             ]
 
+                case .plate053:
+            return [
+                SurgicalCallout(
+                    id: "plate_053_1",
+                    title: "The DESH Sign & Callosal Angle < 90°",
+                    structureType: "CORONAL MRI HALLMARK",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.42,
+                    normalizedY: 0.24,
+                    description: "Disproportionately Enlarged Subarachnoid Space Hydrocephalus (DESH) is characterized by cavernous Sylvian fissures, severe parasagittal high-convexity sulcal crowding ('vertex crowding'), and an acute callosal angle < 90° (measuring 68° vs. > 110° in ex-vacuo atrophy).",
+                    surgicalPearl: "DESH has >80% positive predictive value for shunt responsiveness; diffuse cortical sulcal enlargement across the vertex signifies Alzheimer atrophy, where shunting confers zero benefit and high subdural risk."
+                ),
+                SurgicalCallout(
+                    id: "plate_053_2",
+                    title: "The Evans Index (> 0.30)",
+                    structureType: "AXIAL VENTRICULOMEGALY CALIPER",
+                    color: Color.blue,
+                    normalizedX: 0.16,
+                    normalizedY: 0.28,
+                    description: "Ratio of the maximum frontal horn transverse diameter (48 mm) to the maximum inner biparietal skull diameter at the same axial level (137 mm), yielding an Evans Index of 0.35 (> 0.30 threshold). Faint periventricular halos represent transependymal CSF resorption.",
+                    surgicalPearl: "The Evans Index is a mandatory screening metric for ventriculomegaly, but must always be paired with coronal DESH to prevent shunting patients with neurodegenerative cortical atrophy."
+                ),
+                SurgicalCallout(
+                    id: "plate_053_3",
+                    title: "Kocher's Point Frontal Trajectory",
+                    structureType: "BURR HOLE ENTRY SITE",
+                    color: Color.green,
+                    normalizedX: 0.74,
+                    normalizedY: 0.16,
+                    description: "Right frontal burr hole located 1 cm anterior to the coronal suture and 2.5–3.0 cm lateral to midline in the mid-pupillary line. Trajectory perpendicular to cranial curvature aimed towards the medial canthus of the ipsilateral eye and external auditory meatus.",
+                    surgicalPearl: "Never plunge beyond 5.5–6.0 cm from the outer cortex; the ventricular catheter tip must remain cleanly inside the frontal horn anterior to the foramen of Monro."
+                ),
+                SurgicalCallout(
+                    id: "plate_053_4",
+                    title: "Programmable Valve & Gravitational Anti-Siphon Unit",
+                    structureType: "RETROAURICULAR HARDWARE",
+                    color: Color.orange,
+                    normalizedX: 0.94,
+                    normalizedY: 0.28,
+                    description: "Adjustable differential-pressure valve (Codman Hakim / Strata) coupled in series with an inline gravitational anti-siphon unit containing vertical tantalum weight balls that engage automatically when the patient stands.",
+                    surgicalPearl: "The gravitational unit prevents posture-dependent low-pressure over-drainage, virtually eliminating the 15–20% historical risk of chronic subdural hematomas in elderly NPH patients."
+                )
+            ]
         case .plate052:
             return [
                 SurgicalCallout(
@@ -2368,6 +2416,49 @@ public enum SurgicalPlateType: String, CaseIterable {
                 ApproachSequentialStep(stepNumber: 4, title: "Controlled Liquid Embolic / Particle Infusion", detail: "Infuse liquid embolic (Onyx-18 / Squid) slowly under continuous subtracted fluoroscopy, creating a proximal plug and forcing embolic material distally into the neomembrane capillary network. Terminate injection once dense capillary casting and branch truncation are achieved without proximal reflux.")
             ]
 
+                case .plate053:
+            return [
+                SurgicalCallout(
+                    id: "plate_053_1",
+                    title: "The DESH Sign & Callosal Angle < 90°",
+                    structureType: "CORONAL MRI HALLMARK",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.42,
+                    normalizedY: 0.24,
+                    description: "Disproportionately Enlarged Subarachnoid Space Hydrocephalus (DESH) is characterized by cavernous Sylvian fissures, severe parasagittal high-convexity sulcal crowding ('vertex crowding'), and an acute callosal angle < 90° (measuring 68° vs. > 110° in ex-vacuo atrophy).",
+                    surgicalPearl: "DESH has >80% positive predictive value for shunt responsiveness; diffuse cortical sulcal enlargement across the vertex signifies Alzheimer atrophy, where shunting confers zero benefit and high subdural risk."
+                ),
+                SurgicalCallout(
+                    id: "plate_053_2",
+                    title: "The Evans Index (> 0.30)",
+                    structureType: "AXIAL VENTRICULOMEGALY CALIPER",
+                    color: Color.blue,
+                    normalizedX: 0.16,
+                    normalizedY: 0.28,
+                    description: "Ratio of the maximum frontal horn transverse diameter (48 mm) to the maximum inner biparietal skull diameter at the same axial level (137 mm), yielding an Evans Index of 0.35 (> 0.30 threshold). Faint periventricular halos represent transependymal CSF resorption.",
+                    surgicalPearl: "The Evans Index is a mandatory screening metric for ventriculomegaly, but must always be paired with coronal DESH to prevent shunting patients with neurodegenerative cortical atrophy."
+                ),
+                SurgicalCallout(
+                    id: "plate_053_3",
+                    title: "Kocher's Point Frontal Trajectory",
+                    structureType: "BURR HOLE ENTRY SITE",
+                    color: Color.green,
+                    normalizedX: 0.74,
+                    normalizedY: 0.16,
+                    description: "Right frontal burr hole located 1 cm anterior to the coronal suture and 2.5–3.0 cm lateral to midline in the mid-pupillary line. Trajectory perpendicular to cranial curvature aimed towards the medial canthus of the ipsilateral eye and external auditory meatus.",
+                    surgicalPearl: "Never plunge beyond 5.5–6.0 cm from the outer cortex; the ventricular catheter tip must remain cleanly inside the frontal horn anterior to the foramen of Monro."
+                ),
+                SurgicalCallout(
+                    id: "plate_053_4",
+                    title: "Programmable Valve & Gravitational Anti-Siphon Unit",
+                    structureType: "RETROAURICULAR HARDWARE",
+                    color: Color.orange,
+                    normalizedX: 0.94,
+                    normalizedY: 0.28,
+                    description: "Adjustable differential-pressure valve (Codman Hakim / Strata) coupled in series with an inline gravitational anti-siphon unit containing vertical tantalum weight balls that engage automatically when the patient stands.",
+                    surgicalPearl: "The gravitational unit prevents posture-dependent low-pressure over-drainage, virtually eliminating the 15–20% historical risk of chronic subdural hematomas in elderly NPH patients."
+                )
+            ]
         case .plate052:
             return [
                 ApproachSequentialStep(stepNumber: 1, title: "Retrosigmoid Craniectomy & CSF Drainage", detail: "Park-bench or lateral decubitus position with head flexed and rotated 15° to contralateral side. Curvilinear or lazy-S incision behind the mastoid. Retrosigmoid craniectomy exposes the inferior margin of the transverse sinus and posterior edge of the sigmoid sinus. Open dura in a C-shaped flap; immediately release CSF from the cisterna magna to achieve a completely relaxed, slack cerebellum without retraction injury."),
@@ -2647,6 +2738,49 @@ public enum SurgicalPlateType: String, CaseIterable {
                 "PROXIMAL REFLUX INTO MAXILLARY OR CAROTID ARTERY: Never push liquid embolic aggressively against resistance. Maintain continuous fluoroscopic visualization of the catheter tip to prevent reflux back into the internal maxillary artery or external carotid system, which can cause skin necrosis, jaw claudication, or distal stroke."
             ]
 
+                case .plate053:
+            return [
+                SurgicalCallout(
+                    id: "plate_053_1",
+                    title: "The DESH Sign & Callosal Angle < 90°",
+                    structureType: "CORONAL MRI HALLMARK",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.42,
+                    normalizedY: 0.24,
+                    description: "Disproportionately Enlarged Subarachnoid Space Hydrocephalus (DESH) is characterized by cavernous Sylvian fissures, severe parasagittal high-convexity sulcal crowding ('vertex crowding'), and an acute callosal angle < 90° (measuring 68° vs. > 110° in ex-vacuo atrophy).",
+                    surgicalPearl: "DESH has >80% positive predictive value for shunt responsiveness; diffuse cortical sulcal enlargement across the vertex signifies Alzheimer atrophy, where shunting confers zero benefit and high subdural risk."
+                ),
+                SurgicalCallout(
+                    id: "plate_053_2",
+                    title: "The Evans Index (> 0.30)",
+                    structureType: "AXIAL VENTRICULOMEGALY CALIPER",
+                    color: Color.blue,
+                    normalizedX: 0.16,
+                    normalizedY: 0.28,
+                    description: "Ratio of the maximum frontal horn transverse diameter (48 mm) to the maximum inner biparietal skull diameter at the same axial level (137 mm), yielding an Evans Index of 0.35 (> 0.30 threshold). Faint periventricular halos represent transependymal CSF resorption.",
+                    surgicalPearl: "The Evans Index is a mandatory screening metric for ventriculomegaly, but must always be paired with coronal DESH to prevent shunting patients with neurodegenerative cortical atrophy."
+                ),
+                SurgicalCallout(
+                    id: "plate_053_3",
+                    title: "Kocher's Point Frontal Trajectory",
+                    structureType: "BURR HOLE ENTRY SITE",
+                    color: Color.green,
+                    normalizedX: 0.74,
+                    normalizedY: 0.16,
+                    description: "Right frontal burr hole located 1 cm anterior to the coronal suture and 2.5–3.0 cm lateral to midline in the mid-pupillary line. Trajectory perpendicular to cranial curvature aimed towards the medial canthus of the ipsilateral eye and external auditory meatus.",
+                    surgicalPearl: "Never plunge beyond 5.5–6.0 cm from the outer cortex; the ventricular catheter tip must remain cleanly inside the frontal horn anterior to the foramen of Monro."
+                ),
+                SurgicalCallout(
+                    id: "plate_053_4",
+                    title: "Programmable Valve & Gravitational Anti-Siphon Unit",
+                    structureType: "RETROAURICULAR HARDWARE",
+                    color: Color.orange,
+                    normalizedX: 0.94,
+                    normalizedY: 0.28,
+                    description: "Adjustable differential-pressure valve (Codman Hakim / Strata) coupled in series with an inline gravitational anti-siphon unit containing vertical tantalum weight balls that engage automatically when the patient stands.",
+                    surgicalPearl: "The gravitational unit prevents posture-dependent low-pressure over-drainage, virtually eliminating the 15–20% historical risk of chronic subdural hematomas in elderly NPH patients."
+                )
+            ]
         case .plate052:
             return [
                 "FACIAL NERVE TRANSECTION IN UNRECOGNIZED ANTERIOR DISPLACEMENT: Never perform circumferential sharp dissection along the anterior tumor capsule early in the operation. CN VII is paper-thin and visually indistinguishable from tumor capsule under tension; always debulk the core first and identify CN VII at the brainstem REZ and IAC fundus before attempting capsule mobilization.",
