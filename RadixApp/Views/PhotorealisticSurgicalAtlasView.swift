@@ -740,7 +740,7 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
 }
 
 public enum AtlasCategory: String, CaseIterable {
-    case all = "All Plates (53)"
+    case all = "All Plates (54)"
     case cranial = "Cranial & Skull Base (25)"
     case spine = "Spine & CVJ (27)"
 
@@ -809,6 +809,7 @@ public enum SurgicalPlateType: String, CaseIterable {
     case plate051 = "plate_051_mma_embolization_csdh"
     case plate052 = "plate_052_vestibular_schwannoma"
     case plate053 = "plate_053_normal_pressure_hydrocephalus"
+    case plate054 = "plate_054_thoracic_olf_sato"
 
     public var subSection: AtlasSubSection {
         for section in AtlasSubSection.allCases {
@@ -878,6 +879,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate051: return 51
         case .plate052: return 52
         case .plate053: return 53
+        case .plate054: return 54
         }
     }
 
@@ -940,6 +942,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate051: return "51: MMA Embolization"
         case .plate052: return "52: Acoustic Neuroma"
         case .plate053: return "53: NPH & DESH Sign"
+        case .plate054: return "54: Thoracic OLF"
         }
     }
 
@@ -998,6 +1001,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate051: return "Middle Meningeal Artery (MMA) Embolization for Chronic Subdural Hematoma"
         case .plate052: return "Vestibular Schwannoma (Acoustic Neuroma) — Retrosigmoid Microsurgical Anatomy & 3T MRI"
         case .plate053: return "Normal Pressure Hydrocephalus (NPH) & The DESH Sign — Multimodal Imaging & Programmable Shunt"
+        case .plate054: return "Thoracic Ossification of the Ligamentum Flavum (T-OLF) & Sato Classification — Multi-Modality Correlation & Floating Decompression"
         }
     }
 
@@ -1056,6 +1060,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate051: return "waveform.path.ecg"
         case .plate052: return "ear"
         case .plate053: return "brain.head.profile"
+        case .plate054: return "waveform.path.ecg"
         }
     }
 
@@ -1997,7 +2002,50 @@ public enum SurgicalPlateType: String, CaseIterable {
                 )
             ]
 
-                case .plate053:
+                        case .plate054:
+            return [
+                SurgicalCallout(
+                    id: "plate_054_1",
+                    title: "The Sato Axial Classification",
+                    structureType: "AXIAL CT & MRI SPECTRUM",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.18,
+                    normalizedY: 0.42,
+                    description: "Progression from Type I (Lateral capsular), Type II (Extended interlaminar), Type III (Diffuse laminar), to Type IV/V (Fused nodular beak). In Type V, massive bilateral cauliflower ossification meets in the midline, pinching the cord into a thin transverse crescent with >60% canal compromise.",
+                    surgicalPearl: "Type IV and V have high incidence of dural ossification (tram-track sign); attempting circumferential dissection without thinning will tear the dura."
+                ),
+                SurgicalCallout(
+                    id: "plate_054_2",
+                    title: "The Floating Island / Thin-Shell Technique",
+                    structureType: "MICROSURGICAL PROTOCOL",
+                    color: Color.green,
+                    normalizedX: 0.88,
+                    normalizedY: 0.45,
+                    description: "Bilateral pedicle troughs are cut down to the inner cortex with an ultrasonic bone scalpel. The central ossified mass is thinned to a translucent paper-thin shell with a diamond burr and left floating on pulsating dura, avoiding violent peeling from adherent dura.",
+                    surgicalPearl: "The floating shell expands outward with restored CSF pulsation; dissecting fused bone off ossified dura is unnecessary and causes giant pseudomeningoceles."
+                ),
+                SurgicalCallout(
+                    id: "plate_054_3",
+                    title: "Zero-Plunging Under-Shelf Mandate",
+                    structureType: "CRITICAL SAFETY ZONE",
+                    color: Color.red,
+                    normalizedX: 0.88,
+                    normalizedY: 0.22,
+                    description: "Strict prohibition against inserting Kerrison rongeur footplates underneath the ossified ligament shelf. The thoracic canal has zero reserve volume; sliding any footplate under the shelf exerts immediate focal compression onto the ischemic thoracic cord.",
+                    surgicalPearl: "All bone resection must be strictly extra-cavitary (from superficial to deep) using diamond burrs or ultrasonic aspirators until the bone is eggshell thin."
+                ),
+                SurgicalCallout(
+                    id: "plate_054_4",
+                    title: "Sagittal Patterns & Compressive Myelomalacia",
+                    structureType: "LONGITUDINAL MORPHOLOGY",
+                    color: Color.blue,
+                    normalizedX: 0.52,
+                    normalizedY: 0.32,
+                    description: "Sagittal categorization into Circumscribed (focal T10–T11 beak), Continuous (multi-level bridge), and Intermittent (skip lesions). The focal hyperintense T2 intramedullary signal at the apex denotes severe ischemic myelopathy.",
+                    surgicalPearl: "The lower thoracic junction (T10–L1) experiences maximum mechanical torque, making it the most frequent and severe site of symptomatic T-OLF."
+                )
+            ]
+        case .plate053:
             return [
                 SurgicalCallout(
                     id: "plate_053_1",
@@ -2416,7 +2464,50 @@ public enum SurgicalPlateType: String, CaseIterable {
                 ApproachSequentialStep(stepNumber: 4, title: "Controlled Liquid Embolic / Particle Infusion", detail: "Infuse liquid embolic (Onyx-18 / Squid) slowly under continuous subtracted fluoroscopy, creating a proximal plug and forcing embolic material distally into the neomembrane capillary network. Terminate injection once dense capillary casting and branch truncation are achieved without proximal reflux.")
             ]
 
-                case .plate053:
+                        case .plate054:
+            return [
+                SurgicalCallout(
+                    id: "plate_054_1",
+                    title: "The Sato Axial Classification",
+                    structureType: "AXIAL CT & MRI SPECTRUM",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.18,
+                    normalizedY: 0.42,
+                    description: "Progression from Type I (Lateral capsular), Type II (Extended interlaminar), Type III (Diffuse laminar), to Type IV/V (Fused nodular beak). In Type V, massive bilateral cauliflower ossification meets in the midline, pinching the cord into a thin transverse crescent with >60% canal compromise.",
+                    surgicalPearl: "Type IV and V have high incidence of dural ossification (tram-track sign); attempting circumferential dissection without thinning will tear the dura."
+                ),
+                SurgicalCallout(
+                    id: "plate_054_2",
+                    title: "The Floating Island / Thin-Shell Technique",
+                    structureType: "MICROSURGICAL PROTOCOL",
+                    color: Color.green,
+                    normalizedX: 0.88,
+                    normalizedY: 0.45,
+                    description: "Bilateral pedicle troughs are cut down to the inner cortex with an ultrasonic bone scalpel. The central ossified mass is thinned to a translucent paper-thin shell with a diamond burr and left floating on pulsating dura, avoiding violent peeling from adherent dura.",
+                    surgicalPearl: "The floating shell expands outward with restored CSF pulsation; dissecting fused bone off ossified dura is unnecessary and causes giant pseudomeningoceles."
+                ),
+                SurgicalCallout(
+                    id: "plate_054_3",
+                    title: "Zero-Plunging Under-Shelf Mandate",
+                    structureType: "CRITICAL SAFETY ZONE",
+                    color: Color.red,
+                    normalizedX: 0.88,
+                    normalizedY: 0.22,
+                    description: "Strict prohibition against inserting Kerrison rongeur footplates underneath the ossified ligament shelf. The thoracic canal has zero reserve volume; sliding any footplate under the shelf exerts immediate focal compression onto the ischemic thoracic cord.",
+                    surgicalPearl: "All bone resection must be strictly extra-cavitary (from superficial to deep) using diamond burrs or ultrasonic aspirators until the bone is eggshell thin."
+                ),
+                SurgicalCallout(
+                    id: "plate_054_4",
+                    title: "Sagittal Patterns & Compressive Myelomalacia",
+                    structureType: "LONGITUDINAL MORPHOLOGY",
+                    color: Color.blue,
+                    normalizedX: 0.52,
+                    normalizedY: 0.32,
+                    description: "Sagittal categorization into Circumscribed (focal T10–T11 beak), Continuous (multi-level bridge), and Intermittent (skip lesions). The focal hyperintense T2 intramedullary signal at the apex denotes severe ischemic myelopathy.",
+                    surgicalPearl: "The lower thoracic junction (T10–L1) experiences maximum mechanical torque, making it the most frequent and severe site of symptomatic T-OLF."
+                )
+            ]
+        case .plate053:
             return [
                 SurgicalCallout(
                     id: "plate_053_1",
@@ -2738,7 +2829,50 @@ public enum SurgicalPlateType: String, CaseIterable {
                 "PROXIMAL REFLUX INTO MAXILLARY OR CAROTID ARTERY: Never push liquid embolic aggressively against resistance. Maintain continuous fluoroscopic visualization of the catheter tip to prevent reflux back into the internal maxillary artery or external carotid system, which can cause skin necrosis, jaw claudication, or distal stroke."
             ]
 
-                case .plate053:
+                        case .plate054:
+            return [
+                SurgicalCallout(
+                    id: "plate_054_1",
+                    title: "The Sato Axial Classification",
+                    structureType: "AXIAL CT & MRI SPECTRUM",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.18,
+                    normalizedY: 0.42,
+                    description: "Progression from Type I (Lateral capsular), Type II (Extended interlaminar), Type III (Diffuse laminar), to Type IV/V (Fused nodular beak). In Type V, massive bilateral cauliflower ossification meets in the midline, pinching the cord into a thin transverse crescent with >60% canal compromise.",
+                    surgicalPearl: "Type IV and V have high incidence of dural ossification (tram-track sign); attempting circumferential dissection without thinning will tear the dura."
+                ),
+                SurgicalCallout(
+                    id: "plate_054_2",
+                    title: "The Floating Island / Thin-Shell Technique",
+                    structureType: "MICROSURGICAL PROTOCOL",
+                    color: Color.green,
+                    normalizedX: 0.88,
+                    normalizedY: 0.45,
+                    description: "Bilateral pedicle troughs are cut down to the inner cortex with an ultrasonic bone scalpel. The central ossified mass is thinned to a translucent paper-thin shell with a diamond burr and left floating on pulsating dura, avoiding violent peeling from adherent dura.",
+                    surgicalPearl: "The floating shell expands outward with restored CSF pulsation; dissecting fused bone off ossified dura is unnecessary and causes giant pseudomeningoceles."
+                ),
+                SurgicalCallout(
+                    id: "plate_054_3",
+                    title: "Zero-Plunging Under-Shelf Mandate",
+                    structureType: "CRITICAL SAFETY ZONE",
+                    color: Color.red,
+                    normalizedX: 0.88,
+                    normalizedY: 0.22,
+                    description: "Strict prohibition against inserting Kerrison rongeur footplates underneath the ossified ligament shelf. The thoracic canal has zero reserve volume; sliding any footplate under the shelf exerts immediate focal compression onto the ischemic thoracic cord.",
+                    surgicalPearl: "All bone resection must be strictly extra-cavitary (from superficial to deep) using diamond burrs or ultrasonic aspirators until the bone is eggshell thin."
+                ),
+                SurgicalCallout(
+                    id: "plate_054_4",
+                    title: "Sagittal Patterns & Compressive Myelomalacia",
+                    structureType: "LONGITUDINAL MORPHOLOGY",
+                    color: Color.blue,
+                    normalizedX: 0.52,
+                    normalizedY: 0.32,
+                    description: "Sagittal categorization into Circumscribed (focal T10–T11 beak), Continuous (multi-level bridge), and Intermittent (skip lesions). The focal hyperintense T2 intramedullary signal at the apex denotes severe ischemic myelopathy.",
+                    surgicalPearl: "The lower thoracic junction (T10–L1) experiences maximum mechanical torque, making it the most frequent and severe site of symptomatic T-OLF."
+                )
+            ]
+        case .plate053:
             return [
                 SurgicalCallout(
                     id: "plate_053_1",
