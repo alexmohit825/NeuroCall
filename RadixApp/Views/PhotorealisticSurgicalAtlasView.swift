@@ -740,7 +740,7 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
 }
 
 public enum AtlasCategory: String, CaseIterable {
-    case all = "All Plates (55)"
+    case all = "All Plates (56)"
     case cranial = "Cranial & Skull Base (25)"
     case spine = "Spine & CVJ (27)"
 
@@ -811,6 +811,7 @@ public enum SurgicalPlateType: String, CaseIterable {
     case plate053 = "plate_053_normal_pressure_hydrocephalus"
     case plate054 = "plate_054_thoracic_olf_sato"
     case plate055 = "plate_055_petroclival_meningioma_kawase"
+    case plate056 = "plate_056_brain_avm_spetzler_martin"
 
     public var subSection: AtlasSubSection {
         for section in AtlasSubSection.allCases {
@@ -882,6 +883,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate053: return 53
         case .plate054: return 54
         case .plate055: return 55
+        case .plate056: return 56
         }
     }
 
@@ -946,6 +948,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate053: return "53: NPH & DESH Sign"
         case .plate054: return "54: Thoracic OLF"
         case .plate055: return "55: Petroclival Meningioma"
+        case .plate056: return "56: Brain AVM"
         }
     }
 
@@ -1006,6 +1009,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate053: return "Normal Pressure Hydrocephalus (NPH) & The DESH Sign — Multimodal Imaging & Programmable Shunt"
         case .plate054: return "Thoracic Ossification of the Ligamentum Flavum (T-OLF) & Sato Classification — Multi-Modality Correlation & Floating Decompression"
         case .plate055: return "Petroclival Meningioma & The Kawase Approach (Anterior Petrosectomy) — Multi-Planar 3T MRI & Trans-Tentorial Resection"
+        case .plate056: return "Brain Arteriovenous Malformation (AVM) & Spetzler-Martin Classification — Hemodynamics, Cortical Eloquence & Circumdissection Protocol"
         }
     }
 
@@ -1066,6 +1070,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate053: return "brain.head.profile"
         case .plate054: return "waveform.path.ecg"
         case .plate055: return "brain.head.profile"
+        case .plate056: return "waveform.path.ecg"
         }
     }
 
@@ -2007,7 +2012,50 @@ public enum SurgicalPlateType: String, CaseIterable {
                 )
             ]
 
-                                case .plate055:
+                                        case .plate056:
+            return [
+                SurgicalCallout(
+                    id: "plate_056_1",
+                    title: "Direct Arteriovenous Shunt & High-Flow Angiopathy",
+                    structureType: "HEMODYNAMIC SHUNT ARCHITECTURE",
+                    color: Color.red,
+                    normalizedX: 0.16,
+                    normalizedY: 0.35,
+                    description: "Absence of the intervening high-resistance capillary bed creates a low-resistance, high-flow arteriovenous fistula. Massive arterial runoff into thin-walled, arterialized draining veins drives progressive venous ectasia, turbulent shear stress, and recruitment of hypertrophied feeding arteries.",
+                    surgicalPearl: "High-flow shunting induces chronic hypoperfusion in adjacent normal brain (cerebral steal), making surrounding parenchyma exquisitely susceptible to ischemia or hyperemic breakthrough."
+                ),
+                SurgicalCallout(
+                    id: "plate_056_2",
+                    title: "Spetzler-Martin Grading System & Eloquence Mapping",
+                    structureType: "SURGICAL RISK CLASSIFICATION",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.50,
+                    normalizedY: 0.40,
+                    description: "Three-tier anatomical risk scoring: Nidus Size (<3 cm = 1, 3–6 cm = 2, >6 cm = 3); Eloquence of adjacent brain (Non-eloquent = 0, Eloquent = 1: motor, sensory, language, visual, thalamus, internal capsule, brainstem); Venous Drainage (Superficial only = 0, Deep components = 1). Total Grade I–V correlates directly with surgical morbidity and mortality.",
+                    surgicalPearl: "Grades I and II are ideal microsurgical candidates (<3% deficit); Grade III represents a mixed management dilemma often requiring staged embolization; Grades IV and V carry prohibitive surgical morbidity and are usually managed conservatively."
+                ),
+                SurgicalCallout(
+                    id: "plate_056_3",
+                    title: "Circumferential Feeder Dissection (The 'Vein Last' Rule)",
+                    structureType: "MICROSURGICAL CARDINAL AXIOM",
+                    color: Color.blue,
+                    normalizedX: 0.84,
+                    normalizedY: 0.35,
+                    description: "Microsurgical circumdissection advances 360° along the gliotic hemosiderin border plane. Pial and sulcal feeders are individually skeletonized, bipolared, and divided at the nidus margin while strictly preserving the main arterialized draining vein.",
+                    surgicalPearl: "The cardinal rule of AVM surgery: NEVER occlude the primary draining vein prematurely. Premature venous occlusion transforms the high-flow shunt into a closed pressure cooker, triggering immediate catastrophic intraoperative explosive rupture."
+                ),
+                SurgicalCallout(
+                    id: "plate_056_4",
+                    title: "Dry Resection Bed & En-Passage Vessel Preservation",
+                    structureType: "POST-RESECTION GLIOTIC MARGIN",
+                    color: Color.green,
+                    normalizedX: 0.86,
+                    normalizedY: 0.82,
+                    description: "Following circumferential isolation and devascularization, the nidus softens and shifts from pulsating scarlet to dark burgundy. The primary draining vein is only then clipped and divided, enabling en-bloc removal and revealing a completely dry, hemosiderin-stained parenchymal bed.",
+                    surgicalPearl: "Vessels of passage ('en-passage' arteries) traversing adjacent brain to normal tissue must be meticulously spared; clipping an en-passage artery causes remote hemispheric infarction."
+                )
+            ]
+        case .plate055:
             return [
                 SurgicalCallout(
                     id: "plate_055_1",
@@ -2512,48 +2560,19 @@ public enum SurgicalPlateType: String, CaseIterable {
                 ApproachSequentialStep(stepNumber: 4, title: "Controlled Liquid Embolic / Particle Infusion", detail: "Infuse liquid embolic (Onyx-18 / Squid) slowly under continuous subtracted fluoroscopy, creating a proximal plug and forcing embolic material distally into the neomembrane capillary network. Terminate injection once dense capillary casting and branch truncation are achieved without proximal reflux.")
             ]
 
-                                case .plate055:
+                                        case .plate056:
             return [
-                SurgicalCallout(
-                    id: "plate_055_1",
-                    title: "Kawase's Rhomboid Triangle & Petrous Apex",
-                    structureType: "ANTERIOR PETROSECTOMY BONE WINDOW",
-                    color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.52,
-                    normalizedY: 0.45,
-                    description: "Bounded anterolaterally by GSPN/V3, posterolaterally by the arcuate eminence (superior semicircular canal), medially by the superior petrosal sinus (SPS), and anteromedially by Meckel's cave. Drilling this triangle opens a direct 10–12 mm extradural corridor to the posterior fossa dura medial to the IAC.",
-                    surgicalPearl: "Drilling must remain strictly medial to the GSPN and anterior to the arcuate eminence to protect the cochlea and vestibular labyrinth."
-                ),
-                SurgicalCallout(
-                    id: "plate_055_2",
-                    title: "Horizontal Petrous ICA & GSPN",
-                    structureType: "VASCULAR DANGER ZONE",
-                    color: Color.red,
-                    normalizedX: 0.48,
-                    normalizedY: 0.32,
-                    description: "The horizontal segment of the petrous internal carotid artery lies directly deep to the GSPN. In up to 30% of patients, the carotid canal roof is dehiscent.",
-                    surgicalPearl: "Elevate the middle fossa dura strictly from posterior to anterior; anterior-to-posterior dissection can snag a dehiscent ICA or avulse the GSPN from the geniculate ganglion, causing facial palsy."
-                ),
-                SurgicalCallout(
-                    id: "plate_055_3",
-                    title: "Subsurface Cochlea & Labyrinth Protection",
-                    structureType: "AUDITORY SPARING ZONE",
-                    color: Color.blue,
-                    normalizedX: 0.54,
-                    normalizedY: 0.72,
-                    description: "The cochlea is hidden in the bone within the apex between the GSPN, geniculate ganglion, and internal auditory canal fundus. The superior semicircular canal lies directly under the arcuate eminence.",
-                    surgicalPearl: "Never drill lateral to the line connecting the facial hiatus to the IAC fundus; violation of the otic capsule causes immediate permanent sensorineural hearing loss."
-                ),
-                SurgicalCallout(
-                    id: "plate_055_4",
-                    title: "Tentorial Division & Trochlear Nerve (CN IV) Sparing",
-                    structureType: "TRANS-TENTORIAL CORRIDOR",
-                    color: Color.green,
-                    normalizedX: 0.88,
-                    normalizedY: 0.18,
-                    description: "The superior petrosal sinus is clipped and divided. The tentorium is incised from the petrous ridge toward the incisura, directed strictly posterior to the dural entry of CN IV.",
-                    surgicalPearl: "Directing the tentorial cut posterior to the incisural entry of CN IV prevents superior oblique denervation and debilitating vertical diplopia."
-                )
+                ApproachSequentialStep(stepNumber: 1, title: "Preoperative Diagnostic DSA & Superselective Embolization", detail: "Perform biplane 3D rotational DSA to map all feeding pedicles (ACA, MCA, PCA), identify associated intranidal/feeder flow aneurysms, and characterize superficial vs. deep venous drainage paths (vein of Galen, basal vein of Rosenthal). Perform superselective Onyx/PHIL liquid embolic embolization to devascularize deep, inaccessible perforating feeders."),
+                ApproachSequentialStep(stepNumber: 2, title: "Tailored Craniotomy & Circumferential Pial Incision", detail: "Fashion a generous bone flap centered over the nidus with wide margins around the planned corridor. Open dura with base toward sinus. Map cortical eloquence with somatosensory evoked potentials (SSEP) and direct cortical stimulation. Make a circumferential pial incision around the nidus in non-eloquent sulci along the yellow-brown hemosiderin ring."),
+                ApproachSequentialStep(stepNumber: 3, title: "Feeder Skeletonization, En-Passage Sparing & Centripetal Dissection", detail: "Systematically work around the circumference (superficial to deep, non-eloquent before eloquent border). Skeletonize feeding arteries right at their nidus entrance, bipolar coagulate, and divide with micro-scissors. Meticulously distinguish true terminal feeders from en-passage vessels supplying distal normal brain. Dissect strictly in the gliotic plane, keeping instruments out of the nidus interior."),
+                ApproachSequentialStep(stepNumber: 4, title: "Late Venous Ligation, En-Bloc Resection & Hemodynamic Breakthrough Monitoring", detail: "Once all arterial feeders are occluded, confirm that the primary draining vein turns dark blue and pulsatility ceases. Double-clip and divide the main draining vein. Deliver the devascularized nidus en-bloc. Inspect the resection cavity for residual nidus shunts under high magnification and indocyanine green (ICG) videoangiography. Maintain strict normotensive/hypotensive MAP targets postoperatively to prevent normal perfusion pressure breakthrough (NPPB).")
+            ]
+        case .plate055:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Subtemporal Craniotomy & Extradural Exposure", detail: "Park-bench or lateral decubitus position. Low temporal craniotomy flush with the middle cranial fossa floor. Gently elevate middle fossa dura from posterior to anterior under lumbar CSF drainage, identifying the arcuate eminence, GSPN, and foramen ovale (V3). Place Greenberg retractor."),
+                ApproachSequentialStep(stepNumber: 2, title: "Kawase Triangle Delineation & Petrous Apex Drilling", detail: "Identify Kawase's rhomboid: GSPN anterolaterally, arcuate eminence posterolaterally, SPS medially, Meckel's cave anteromedially. Under continuous cold irrigation, drill petrous apex with diamond burrs, unroofing the posterior fossa dura from Meckel's cave to the internal acoustic meatus while preserving the cochlea and horizontal ICA."),
+                ApproachSequentialStep(stepNumber: 3, title: "SPS Ligation & Tentorial Incision", detail: "Bipolar coagulate, clip, and sharply divide the superior petrosal sinus. Incise the tentorium from the petrous apex toward the tentorial incisura, carefully aiming posterior to the entrance of CN IV. Reflect tentorial flaps to unite middle and posterior cranial fossae into a single wide corridor."),
+                ApproachSequentialStep(stepNumber: 4, title: "Trans-Tentorial Tumor Resection & Neurovascular Sparing", detail: "Incise the posterior fossa dura. Identify the petroclival meningioma capsule and devascularize clival feeding branches. Core out the central tumor mass with the ultrasonic aspirator (CUSA). Dissect tumor from the splayed trigeminal nerve (CN V), basilar artery, SCA, CN VI at Dorello's canal, and CN VII/VIII at the IAC.")
             ]
         case .plate054:
             return [
@@ -2920,48 +2939,19 @@ public enum SurgicalPlateType: String, CaseIterable {
                 "PROXIMAL REFLUX INTO MAXILLARY OR CAROTID ARTERY: Never push liquid embolic aggressively against resistance. Maintain continuous fluoroscopic visualization of the catheter tip to prevent reflux back into the internal maxillary artery or external carotid system, which can cause skin necrosis, jaw claudication, or distal stroke."
             ]
 
-                                case .plate055:
+                                        case .plate056:
             return [
-                SurgicalCallout(
-                    id: "plate_055_1",
-                    title: "Kawase's Rhomboid Triangle & Petrous Apex",
-                    structureType: "ANTERIOR PETROSECTOMY BONE WINDOW",
-                    color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.52,
-                    normalizedY: 0.45,
-                    description: "Bounded anterolaterally by GSPN/V3, posterolaterally by the arcuate eminence (superior semicircular canal), medially by the superior petrosal sinus (SPS), and anteromedially by Meckel's cave. Drilling this triangle opens a direct 10–12 mm extradural corridor to the posterior fossa dura medial to the IAC.",
-                    surgicalPearl: "Drilling must remain strictly medial to the GSPN and anterior to the arcuate eminence to protect the cochlea and vestibular labyrinth."
-                ),
-                SurgicalCallout(
-                    id: "plate_055_2",
-                    title: "Horizontal Petrous ICA & GSPN",
-                    structureType: "VASCULAR DANGER ZONE",
-                    color: Color.red,
-                    normalizedX: 0.48,
-                    normalizedY: 0.32,
-                    description: "The horizontal segment of the petrous internal carotid artery lies directly deep to the GSPN. In up to 30% of patients, the carotid canal roof is dehiscent.",
-                    surgicalPearl: "Elevate the middle fossa dura strictly from posterior to anterior; anterior-to-posterior dissection can snag a dehiscent ICA or avulse the GSPN from the geniculate ganglion, causing facial palsy."
-                ),
-                SurgicalCallout(
-                    id: "plate_055_3",
-                    title: "Subsurface Cochlea & Labyrinth Protection",
-                    structureType: "AUDITORY SPARING ZONE",
-                    color: Color.blue,
-                    normalizedX: 0.54,
-                    normalizedY: 0.72,
-                    description: "The cochlea is hidden in the bone within the apex between the GSPN, geniculate ganglion, and internal auditory canal fundus. The superior semicircular canal lies directly under the arcuate eminence.",
-                    surgicalPearl: "Never drill lateral to the line connecting the facial hiatus to the IAC fundus; violation of the otic capsule causes immediate permanent sensorineural hearing loss."
-                ),
-                SurgicalCallout(
-                    id: "plate_055_4",
-                    title: "Tentorial Division & Trochlear Nerve (CN IV) Sparing",
-                    structureType: "TRANS-TENTORIAL CORRIDOR",
-                    color: Color.green,
-                    normalizedX: 0.88,
-                    normalizedY: 0.18,
-                    description: "The superior petrosal sinus is clipped and divided. The tentorium is incised from the petrous ridge toward the incisura, directed strictly posterior to the dural entry of CN IV.",
-                    surgicalPearl: "Directing the tentorial cut posterior to the incisural entry of CN IV prevents superior oblique denervation and debilitating vertical diplopia."
-                )
+                "PREMATURE VENOUS OCCLUSION & EXPLOSIVE NIDUS RUPTURE: Occluding or tearing the primary draining vein before completing circumferential arterial devascularization abruptly eliminates outflow while high-pressure arterial inflow continues. The nidus balloons instantly and suffers explosive intraoperative blowout. Hemorrhage from an un-devascularized AVM bed is torrential and frequently fatal. The draining vein must remain untouched until the nidus is fully devascularized and the vein darkens.",
+                "EN-PASSAGE ARTERIAL CLIPPING & REMOTE CEREBRAL INFARCTION: Arteries running along or adjacent to the AVM nidus may be feeding normal distal cortex ('en-passage' vessels) rather than terminating in the malformation. Inadvertently clipping or coagulating an en-passage artery causes profound remote ischemic stroke and permanent neurological deficit. Every vessel must be dissected under high magnification to confirm its terminal entrance into the nidus before division.",
+                "NORMAL PERFUSION PRESSURE BREAKTHROUGH (NPPB): Chronic low-resistance shunting chronically deprives the surrounding cerebral capillary beds, causing maximal vasodilation and loss of normal autoregulatory tone. Following sudden AVM resection and restoration of normal perfusion pressure, the paralyzed capillary beds cannot vasoconstrict, resulting in massive brain swelling, petechial hemorrhages, and fatal hyperemic edema. Prevent with strict postoperative blood pressure control (SBP < 100–110 mmHg) and propofol sedation.",
+                "RESIDUAL NIDUS FRAGMENT & POSTOPERATIVE INTRACEREBRAL HEMATOMA: Leaving even a minute microscopic fragment of patent nidus connected to high-pressure arterial inflow carries an exorbitant rebleeding rate—higher than an untreated AVM. The altered post-resection venous outflow dynamics cause residual shunts to rupture during the immediate recovery phase. Always verify complete total obliteration with intraoperative ICG videoangiography and urgent post-op catheter DSA."
+            ]
+        case .plate055:
+            return [
+                "COCHLEAR VIOLATION & PERMANENT SENSORINEURAL DEAFNESS: The cochlea lies in the bone directly lateral to the petrous apex, between the GSPN and the IAC fundus. Drifting lateral to the labyrinthine segment of the facial canal or deep to the geniculate ganglion breaches the cochlea, causing irreversible deafness. Always define and respect the safe medial drilling boundary.",
+                "PETROUS INTERNAL CAROTID ARTERY (ICA) LACERATION: The horizontal petrous ICA lies immediately beneath the GSPN, with bony dehiscence in up to 30% of patients. Anterior-to-posterior dural traction or blind diamond burr drilling over the GSPN can tear the carotid wall, resulting in catastrophic skull base hemorrhage requiring emergency balloon occlusion or bypass.",
+                "VEIN OF LABBÉ AVULSION & VENOUS HEMORRHAGIC INFARCTION: Excessive or prolonged subtemporal brain retraction exerts severe traction on the vein of Labbé as it enters the transverse sinus. Tearing or thrombosis of Labbé causes devastating temporal lobe hemorrhagic infarction, cerebral edema, aphasia, and intractable intracranial hypertension. Keep retractor pressure minimal and release intermittently.",
+                "TROCHLEAR NERVE (CN IV) TRANSECTION DURING TENTORIAL DIVISION: Angling the tentorial incision too far anteriorly cuts the trochlear nerve as it enters its dural sleeve at the tentorial incisura. Always visualize the free tentorial edge and direct the incision strictly posterior to CN IV to avoid vertical diplopia."
             ]
         case .plate054:
             return [
