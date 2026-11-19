@@ -965,7 +965,50 @@ extension SurgicalPlateType {
                 )
             ]
 
-                                                        case .plate058:
+                                                                case .plate059:
+            return [
+                SurgicalCallout(
+                    id: "plate_059_1",
+                    title: "Knosp Cavernous Sinus Classification & Tangent Lines",
+                    structureType: "SURGICAL RESECTABILITY MATRIX",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.16,
+                    normalizedY: 0.65,
+                    description: "Based on coronal T1 contrast MRI: Medial line (Grade 0/1 boundary), Inter-carotid line (Grade 2 boundary), and Lateral line (Grade 3/4 boundary). Grade 3A projects into the superior cavernous compartment above the horizontal ICA; Grade 3B into the inferior compartment; Grade 4 completely encases the ICA (360°).",
+                    surgicalPearl: "Grades 0–2 achieve >90% biochemical and gross-total resection via standard transsellar corridor; Grades 3–4 require extended transcavernous/transpterygoid corridors or planned residual adjuvant stereotactic radiosurgery."
+                ),
+                SurgicalCallout(
+                    id: "plate_059_2",
+                    title: "Chiasmatic Elevation & Bitemporal Hemianopsia",
+                    structureType: "CORONAL 3T MRI CORRIDOR",
+                    color: Color.red,
+                    normalizedX: 0.16,
+                    normalizedY: 0.22,
+                    description: "Suprasellar tumor extension stretches and thins the optic chiasm upward into a characteristic convex crescent. Compression of crossing decussating nasal retinal fibers causes classic bitemporal hemianopsia.",
+                    surgicalPearl: "Decompressing the central tumor debulking core allows the suprasellar capsule and chiasm to descend, restoring optic nerve perfusion and visual field deficits."
+                ),
+                SurgicalCallout(
+                    id: "plate_059_3",
+                    title: "Endoscopic Sphenoid Bony Landmarks & OCR Keyhole",
+                    structureType: "SURGICAL SKULL BASE LANDMARKS",
+                    color: Color.blue,
+                    normalizedX: 0.48,
+                    normalizedY: 0.40,
+                    description: "Visualizes the sellar floor, tuberculum sellae, planum sphenoidale, and clivus. Bilaterally, the optic protuberance and parasellar/paraclival carotid protuberances converge at the medial and lateral opticocarotid recesses (OCR).",
+                    surgicalPearl: "The medial OCR corresponds internally to the optic strut, precisely demarking the junction between the optic nerve superiorly and the paraclinoid internal carotid artery inferiorly."
+                ),
+                SurgicalCallout(
+                    id: "plate_059_4",
+                    title: "Extracapsular Pseudocapsule Dissection & Hadad Flap",
+                    structureType: "ENDOSCOPIC RESECTION & RECONSTRUCTION",
+                    color: Color.green,
+                    normalizedX: 0.82,
+                    normalizedY: 0.40,
+                    description: "Dissecting in the clean cleavage plane between the tumor pseudocapsule and sellar dura maximizes complete removal while preserving normal compressed pituitary gland tissue. Multilayer closure is reinforced with a pedicled vascularized nasoseptal (Hadad-Bassagasteguy) flap.",
+                    surgicalPearl: "Extracapsular pseudocapsule dissection significantly increases rates of endocrine biochemical remission in functioning adenomas (Cushing's, acromegaly) compared to piecemeal curettage alone."
+                )
+            ]
+        case .plate058:
             return [
                 SurgicalCallout(
                     id: "plate_058_1",
@@ -1599,7 +1642,14 @@ extension SurgicalPlateType {
                 ApproachSequentialStep(stepNumber: 4, title: "Controlled Liquid Embolic / Particle Infusion", detail: "Infuse liquid embolic (Onyx-18 / Squid) slowly under continuous subtracted fluoroscopy, creating a proximal plug and forcing embolic material distally into the neomembrane capillary network. Terminate injection once dense capillary casting and branch truncation are achieved without proximal reflux.")
             ]
 
-                                                        case .plate058:
+                                                                case .plate059:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Nasal Preparation & Vascularized Hadad Flap Harvest", detail: "Oxymetazoline topical decongestion. Right nasoseptal (Hadad-Bassagasteguy) flap harvested along the nasal septum pedicled on the posterior septal artery. Flap stored in the choana/maxillary sinus for late skull base reconstruction. Right middle turbinate outfractured or resected; posterior septostomy created for two-nostril four-handed binostril instrumentation."),
+                ApproachSequentialStep(stepNumber: 2, title: "Sphenoidotomy, Mucosal Stripping & Anatomical Landmark Identification", detail: "Wide bilateral sphenoidotomies down to the sphenoid floor. Rostrum of the sphenoid drilled flat. Intersphenoid septations resected with diamond burrs. Drill sphenoid mucosa to expose the sellar floor, tuberculum sellae, clival indentation, optic protuberances, and parasellar carotid protuberances with the medial/lateral OCR."),
+                ApproachSequentialStep(stepNumber: 3, title: "Sellar Floor Osteotomy, Dural Cruciate Opening & Pseudocapsule Dissection", detail: "Thinned sellar bone unroofed between bilateral cavernous sinuses. Bipolar coagulate intercavernous sinuses. Cruciate incision of the sellar dura. Identify the cleavage plane between the adenoma pseudocapsule and sellar dura. Core out the adenoma center with ring curettes, then gently mobilize the pseudocapsule off the compressed hypophysis."),
+                ApproachSequentialStep(stepNumber: 4, title: "Diaphragma Sellae Inspection, Multilayer Closure & Flap Inlay", detail: "Verify complete tumor clearance with 30° and 45° angled endoscopes. Watch for the translucent diaphragma sellae to descend into the empty sella without CSF leakage. Perform multilayer reconstruction with collagen matrix inlay, bioresorbable rigid buttress, and lay the vascularized Hadad nasoseptal flap across the denuded sphenoid floor secured with fibrin sealant.")
+            ]
+        case .plate058:
             return [
                 ApproachSequentialStep(stepNumber: 1, title: "Emergent Diagnostic Workup & Broad-Spectrum Antibiotic Cover", detail: "Urgent whole-spine contrast-enhanced MRI (T1 post-gadolinium and T2/STIR). Obtain blood cultures immediately (2 sets from separate sites). Initiate empiric broad-spectrum intravenous coverage (vancomycin plus 3rd/4th generation cephalosporin) immediately after cultures or upon skin incision."),
                 ApproachSequentialStep(stepNumber: 2, title: "Targeted Posterior Laminectomy & Purulence Identification", detail: "Prone positioning on Jackson table with chest bolsters to minimize epidural venous pressure. Perform a targeted laminectomy at the epicenter of maximal cord compression or purulent burden. Carefully excise ligamentum flavum to expose the dorsal epidural space without durotomy."),
@@ -1992,7 +2042,14 @@ extension SurgicalPlateType {
                 "PROXIMAL REFLUX INTO MAXILLARY OR CAROTID ARTERY: Never push liquid embolic aggressively against resistance. Maintain continuous fluoroscopic visualization of the catheter tip to prevent reflux back into the internal maxillary artery or external carotid system, which can cause skin necrosis, jaw claudication, or distal stroke."
             ]
 
-                                                        case .plate058:
+                                                                case .plate059:
+            return [
+                "INTERNAL CAROTID ARTERY (ICA) INJURY IN PARASELLAR CORRIDOR: Drifting lateral to the parasellar carotid protuberance or over-drilling in Knosp Grade 3–4 tumors can lacerate the cavernous ICA, causing torrential arterial hemorrhage (up to 1000 mL/min). Maintain continuous navigation and Doppler ultrasound; in the event of injury, pack with muscle/Floseal and prepare for emergent endovascular balloon/stent occlusion.",
+                "POSTOPERATIVE CSF RHINORRHEA & BACTERIAL MENINGITIS: High-flow intraoperative CSF leaks occur when suprasellar dissection tears the fragile diaphragma sellae or arachnoid membrane. Failure to reconstruct the skull base with a vascularized nasoseptal flap and rigid buttress results in persistent CSF fistula, pneumocephalus, and life-threatening meningitis.",
+                "OPTIC APPARATUS DEVASCULARIZATION & POSTOPERATIVE BLINDNESS: Vigorous pulling on the suprasellar tumor capsule or aggressive electrocautery near the tuberculum sellae can injure the superior hypophyseal arteries or optic chiasm, leading to catastrophic postoperative visual loss. Keep dissection sharp and directly on the tumor pseudocapsule under angled visualization.",
+                "DIABETES INSIPIDUS & ANTERIOR PANHYPOPITUITARISM: Mistaking compressed normal pituitary gland or traction on the pituitary stalk (infundibulum) during suprasellar curettage causes permanent diabetes insipidus, adipsic hypernatremia, and lifelong panhypopituitarism. Carefully distinguish normal orange-tan pituitary gland tissue from friable whitish-pink adenoma."
+            ]
+        case .plate058:
             return [
                 "ACCIDENTAL DUROTOMY & IATROGENIC PURULENT MENINGITIS: The dura adjacent to an epidural abscess is severely inflamed, hyperemic, and friable. Tearing the dura introduces virulent bacteria (MRSA, gram-negative rods) into the subarachnoid space, converting an extradural infection into fulminant bacterial meningitis and subdural empyema. Dissect strictly with non-traumatic instruments and repair any defect immediately with a muscle patch and fibrin sealant.",
                 "EXTENSIVE MULTI-LEVEL LAMINECTOMY & IATROGENIC POST-SURGICAL KYPHOSIS: Performing multi-level complete laminectomies across 4–6 thoracic segments in the setting of discitis/osteomyelitis destroys posterior tension band stability, leading to severe progressive post-laminectomy kyphosis and delayed cord compression. Utilize targeted skip laminectomies with catheter-directed irrigation to preserve facet joints and spinous processes.",
