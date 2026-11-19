@@ -740,7 +740,7 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
 }
 
 public enum AtlasCategory: String, CaseIterable {
-    case all = "All Plates (57)"
+    case all = "All Plates (58)"
     case cranial = "Cranial & Skull Base (25)"
     case spine = "Spine & CVJ (27)"
 
@@ -813,6 +813,7 @@ public enum SurgicalPlateType: String, CaseIterable {
     case plate055 = "plate_055_petroclival_meningioma_kawase"
     case plate056 = "plate_056_brain_avm_spetzler_martin"
     case plate057 = "plate_057_trigeminal_neuralgia_mvd"
+    case plate058 = "plate_058_spinal_epidural_abscess"
 
     public var subSection: AtlasSubSection {
         for section in AtlasSubSection.allCases {
@@ -886,6 +887,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate055: return 55
         case .plate056: return 56
         case .plate057: return 57
+        case .plate058: return 58
         }
     }
 
@@ -952,6 +954,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate055: return "55: Petroclival Meningioma"
         case .plate056: return "56: Brain AVM"
         case .plate057: return "57: Trigeminal Neuralgia"
+        case .plate058: return "58: Epidural Abscess"
         }
     }
 
@@ -1014,6 +1017,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate055: return "Petroclival Meningioma & The Kawase Approach (Anterior Petrosectomy) — Multi-Planar 3T MRI & Trans-Tentorial Resection"
         case .plate056: return "Brain Arteriovenous Malformation (AVM) & Spetzler-Martin Classification — Hemodynamics, Cortical Eloquence & Circumdissection Protocol"
         case .plate057: return "Trigeminal Neuralgia & Jannetta Microvascular Decompression (MVD) — High-Resolution 3T FIESTA, Keyhole Corridor & Multi-Modal Transposition"
+        case .plate058: return "Spinal Epidural Abscess (SEA) & Phlegmon — Contrast MRI, Spondylodiscitis & Catheter Decompression Protocol"
         }
     }
 
@@ -1076,6 +1080,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate055: return "brain.head.profile"
         case .plate056: return "waveform.path.ecg"
         case .plate057: return "bolt.fill"
+        case .plate058: return "cross.circle.fill"
         }
     }
 

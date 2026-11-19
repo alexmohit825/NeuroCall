@@ -965,7 +965,50 @@ extension SurgicalPlateType {
                 )
             ]
 
-                                                case .plate057:
+                                                        case .plate058:
+            return [
+                SurgicalCallout(
+                    id: "plate_058_1",
+                    title: "Cervicothoracic Spondylodiscitis & Multi-Segment Epidural Spread",
+                    structureType: "CONTRAST-ENHANCED T1 MRI",
+                    color: Color.red,
+                    normalizedX: 0.15,
+                    normalizedY: 0.35,
+                    description: "Mid-thoracic disc space collapse, endplate erosions, and inflammatory bone marrow edema. Extensive ventral and dorsal epidural mass tracks continuously over multiple segments, causing high-grade circumferential cord effacement.",
+                    surgicalPearl: "Whole-spine MRI screening is mandatory in all suspected SEA patients; up to 20% harbor synchronous non-contiguous skip lesions elsewhere in the neuraxis."
+                ),
+                SurgicalCallout(
+                    id: "plate_058_2",
+                    title: "Phlegmon vs. Mature Liquid Abscess Triad",
+                    structureType: "DIAGNOSTIC PATHOLOGY CORRELATION",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.25,
+                    normalizedY: 0.25,
+                    description: "Early vascularized phlegmon demonstrates homogeneous, solid enhancement without an evacuatable pus collection. Mature abscess forms an irregular, hypervascular enhancing rim encapsulating a central necrotic, non-enhancing purulent core.",
+                    surgicalPearl: "Solid phlegmon in neurologically intact patients can be managed non-operatively with targeted culture-directed intravenous antibiotics, whereas mature liquid abscess with neural deficit demands emergent surgical drainage."
+                ),
+                SurgicalCallout(
+                    id: "plate_058_3",
+                    title: "Batson's Plexus & Epidural Space Infection Vector",
+                    structureType: "ANATOMICAL INFECTION DISSEMINATION",
+                    color: Color.blue,
+                    normalizedX: 0.48,
+                    normalizedY: 0.45,
+                    description: "Hematogenous seeding traverses the valveless vertebral venous plexus of Batson, disseminating into the dorsal and ventral epidural fat spaces. Disc necrosis bursts through the PLL, creating circumferential inflammatory compression.",
+                    surgicalPearl: "The dorsal epidural space contains abundant loose, vascularized adipose tissue, permitting unobstructed rostral-caudal infection migration across several vertebral levels."
+                ),
+                SurgicalCallout(
+                    id: "plate_058_4",
+                    title: "Catheter-Directed Epidural Lavage & Hardware Sparing",
+                    structureType: "MINIMALLY INVASIVE EVACUATION TECHNIQUE",
+                    color: Color.green,
+                    normalizedX: 0.82,
+                    normalizedY: 0.40,
+                    description: "Through a targeted single- or two-level laminectomy, frank purulence is evacuated. A soft pediatric feeding/silastic catheter is threaded into the un-laminectomized rostral/caudal canal for gentle pulsed antibiotic saline irrigation, completely decompressing the dural sac.",
+                    surgicalPearl: "Avoid routine instrumentation in frank purulence unless gross biomechanical instability or kyphotic collapse is present; bacterial biofilm on titanium hardware causes persistent, recalcitrant infection."
+                )
+            ]
+        case .plate057:
             return [
                 SurgicalCallout(
                     id: "plate_057_1",
@@ -1556,7 +1599,14 @@ extension SurgicalPlateType {
                 ApproachSequentialStep(stepNumber: 4, title: "Controlled Liquid Embolic / Particle Infusion", detail: "Infuse liquid embolic (Onyx-18 / Squid) slowly under continuous subtracted fluoroscopy, creating a proximal plug and forcing embolic material distally into the neomembrane capillary network. Terminate injection once dense capillary casting and branch truncation are achieved without proximal reflux.")
             ]
 
-                                                case .plate057:
+                                                        case .plate058:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Emergent Diagnostic Workup & Broad-Spectrum Antibiotic Cover", detail: "Urgent whole-spine contrast-enhanced MRI (T1 post-gadolinium and T2/STIR). Obtain blood cultures immediately (2 sets from separate sites). Initiate empiric broad-spectrum intravenous coverage (vancomycin plus 3rd/4th generation cephalosporin) immediately after cultures or upon skin incision."),
+                ApproachSequentialStep(stepNumber: 2, title: "Targeted Posterior Laminectomy & Purulence Identification", detail: "Prone positioning on Jackson table with chest bolsters to minimize epidural venous pressure. Perform a targeted laminectomy at the epicenter of maximal cord compression or purulent burden. Carefully excise ligamentum flavum to expose the dorsal epidural space without durotomy."),
+                ApproachSequentialStep(stepNumber: 3, title: "Gentle Pus Evacuation & Deep Gram Stain / Cultures", detail: "Aspirate thick purulent fluid collection with gentle Frazier suction; collect generous samples directly into aerobic, anaerobic, fungal, and acid-fast culture vials. Dissect inflammatory granulation tissue off the glistening thecal sac, keeping the dura strictly un-incised to prevent iatrogenic subdural empyema."),
+                ApproachSequentialStep(stepNumber: 4, title: "Catheter-Directed Multi-Level Lavage & Closed-Suction Drainage", detail: "Pass a soft silastic or pediatric feeding catheter (6–8 Fr) gently into the anterior and posterior epidural spaces above and below the laminectomy window. Copiously irrigate with warm saline until returns are crystal clear. Verify vigorous restored dural pulsations. Place a multi-perforated closed-suction drain in the epidural space and close fascia in layers.")
+            ]
+        case .plate057:
             return [
                 ApproachSequentialStep(stepNumber: 1, title: "Positioning & Retrosigmoid Keyhole Exposure", detail: "Park-bench or lateral position in 3-pin Mayfield headholder. Vertical retroauricular incision 5 mm medial to asterion. Small 2.5 cm craniectomy unroofing the transverse-sigmoid sinus junction. Open dura in curvilinear fashion based on the sinuses."),
                 ApproachSequentialStep(stepNumber: 2, title: "Cisternal CSF Drainage & Supracerebellar Corridor", detail: "Open the lateral cerebellomedullary cistern to drain CSF and achieve full cerebellar relaxation. Advance along the superior petrosal cerebellar surface without brain retractors. Gently release arachnoid trabeculae over the petrosal fissure."),
@@ -1942,7 +1992,14 @@ extension SurgicalPlateType {
                 "PROXIMAL REFLUX INTO MAXILLARY OR CAROTID ARTERY: Never push liquid embolic aggressively against resistance. Maintain continuous fluoroscopic visualization of the catheter tip to prevent reflux back into the internal maxillary artery or external carotid system, which can cause skin necrosis, jaw claudication, or distal stroke."
             ]
 
-                                                case .plate057:
+                                                        case .plate058:
+            return [
+                "ACCIDENTAL DUROTOMY & IATROGENIC PURULENT MENINGITIS: The dura adjacent to an epidural abscess is severely inflamed, hyperemic, and friable. Tearing the dura introduces virulent bacteria (MRSA, gram-negative rods) into the subarachnoid space, converting an extradural infection into fulminant bacterial meningitis and subdural empyema. Dissect strictly with non-traumatic instruments and repair any defect immediately with a muscle patch and fibrin sealant.",
+                "EXTENSIVE MULTI-LEVEL LAMINECTOMY & IATROGENIC POST-SURGICAL KYPHOSIS: Performing multi-level complete laminectomies across 4–6 thoracic segments in the setting of discitis/osteomyelitis destroys posterior tension band stability, leading to severe progressive post-laminectomy kyphosis and delayed cord compression. Utilize targeted skip laminectomies with catheter-directed irrigation to preserve facet joints and spinous processes.",
+                "DELAYED SURGICAL DECOMPRESSION & IRREVERSIBLE ISCHEMIC PARAPLEGIA: Spinal cord injury in SEA is dual-mechanism: mechanical compression plus septic thrombophlebitis of spinal veins and anterior spinal artery ischemia. Patients progressing from radicular pain to motor weakness must be operated on emergently within 24 hours of deficit onset; delaying surgery beyond 24–36 hours yields a <10% recovery rate.",
+                "PREMATURE INSTRUMENTATION IN GROSS PURULENCE & BIOFILM RECALCITRANCE: Placing pedicle screws and rods directly into an active, uncontrolled purulent epidural collection leads to rapid bacterial colonization, irreversible glycocalyx biofilm formation, and hardware loosening. Reserve posterior instrumentation for cases with documented mechanical instability or after adequate infection clearance."
+            ]
+        case .plate057:
             return [
                 "SUPERIOR PETROSAL VEIN (VEIN OF DANDY) AVULSION & VENOUS INFARCTION: Coagulating or abruptly tearing the large superior petrosal vein trunk can trigger devastating cerebellar hemorrhagic infarction, brainstem edema, and posterior fossa herniation. The vein must be preserved whenever possible; if minor tributary sacrifice is mandatory, the main drainage trunk into the superior petrosal sinus must remain patent.",
                 "AUDITORY NERVE (CN VIII) TRACTION & SENSORINEURAL DEAFNESS: Excessive or sudden retraction on the cerebellum directly stretches the vestibulocochlear nerve (CN VIII) as it enters the internal acoustic meatus. Continuous intraoperative Brainstem Auditory Evoked Potential (BAEP) monitoring is mandatory; latency shifts >0.5 ms or amplitude loss >50% require immediate retractor release and irrigation.",
