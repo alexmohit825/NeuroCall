@@ -724,7 +724,7 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
         case .posteriorFossa:
             return [.plate010, .plate020, .plate004, .plate003, .plate006, .plate022, .plate052, .plate057]
         case .vascularVentricular:
-            return [.plate002, .plate027, .plate040, .plate041, .plate051, .plate053, .plate056, .plate060, .plate061, .plate062, .plate063, .plate065]
+            return [.plate002, .plate027, .plate040, .plate041, .plate051, .plate053, .plate056, .plate060, .plate061, .plate062, .plate063, .plate065, .plate067]
         case .craniovertebral:
             return [.plate001, .plate013, .plate014, .plate035, .plate043, .plate047, .plate049]
         case .cervical:
@@ -740,8 +740,8 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
 }
 
 public enum AtlasCategory: String, CaseIterable {
-    case all = "All Plates (66)"
-    case cranial = "Cranial & Skull Base (36)"
+    case all = "All Plates (67)"
+    case cranial = "Cranial & Skull Base (37)"
     case spine = "Spine & CVJ (30)"
 
     public var filteredPlates: [SurgicalPlateType] {
@@ -822,6 +822,7 @@ public enum SurgicalPlateType: String, CaseIterable {
     case plate064 = "plate_064_spinal_intramedullary_ependymoma"
     case plate065 = "plate_065_third_ventricle_colloid_cyst"
     case plate066 = "plate_066_olfactory_groove_meningioma"
+    case plate067 = "plate_067_pica_vertebral_aneurysm_clipping"
 
     public var subSection: AtlasSubSection {
         for section in AtlasSubSection.allCases {
@@ -904,6 +905,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate064: return 64
         case .plate065: return 65
         case .plate066: return 66
+        case .plate067: return 67
         }
     }
 
@@ -979,6 +981,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate064: return "64: Cervical Ependymoma"
         case .plate065: return "65: Colloid Cyst"
         case .plate066: return "66: Olfactory Groove"
+        case .plate067: return "67: PICA-VA Aneurysm"
         }
     }
 
@@ -1050,6 +1053,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate064: return "Cervical Spinal Intramedullary Ependymoma — 3T MRI, Hemosiderin Cap Sign, Midline Myelotomy & En-Bloc Resection"
         case .plate065: return "Third Ventricle Colloid Cyst & Transcallosal Approach — 3D Neuroimaging, Ventricular Corridors & Capsule Resection"
         case .plate066: return "Olfactory Groove Meningioma & Bifrontal Transbasal Resection — 3D Contrast MRI, Extradural Devascularization & CUSA Debulking"
+        case .plate067: return "PICA & Vertebral Artery Aneurysm & Far-Lateral Transcondylar Clipping — 3D Angiography, Suboccipital Triangle, Condylectomy & Lower CN Sparing"
         }
     }
 
@@ -1121,6 +1125,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate064: return "cylinder.split.1x2.fill"
         case .plate065: return "circle.hexagongrid.fill"
         case .plate066: return "eye.circle.fill"
+        case .plate067: return "waveform.path.ecg"
         }
     }
 

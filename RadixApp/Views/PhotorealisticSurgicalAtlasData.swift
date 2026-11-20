@@ -965,6 +965,50 @@ extension SurgicalPlateType {
                 )
             ]
 
+                                                                        case .plate067:
+            return [
+                SurgicalCallout(
+                    id: "plate_067_1",
+                    title: "3D CT Angiography & Condylar Resection Biomechanics",
+                    structureType: "ANGIOPATHOLOGY & SKULL BASE BIOMECHANICS",
+                    color: Color.red,
+                    normalizedX: 0.16,
+                    normalizedY: 0.50,
+                    description: "Panel A shows 3D CT angiography of the left vertebral artery (VA) ascending from horizontal V3 into intradural V4, giving off the anterior spinal artery (ASA) and basilar artery. A saccular aneurysm arises at the VA-PICA junction, projecting posterolaterally toward the lower cranial nerves. PICA segments (anterior medullary, lateral medullary, tonsillomedullary) loop gracefully. Bottom inset contrasts the narrow ~60° retrocondylar viewing angle against the flat ~90° corridor achieved by resecting the posterior 1/3 of the occipital condyle, opening a 30° wider surgical window without brainstem retraction.",
+                    surgicalPearl: "Partial condylectomy (posterior 1/3) provides a flat, shallow corridor directly along the anterior surface of the medulla. It converts a deep, high-risk traction corridor into a direct, line-of-sight exposure of the aneurysm neck."
+                ),
+                SurgicalCallout(
+                    id: "plate_067_2",
+                    title: "Far-Lateral Suboccipital Triangle & Condylar Drilling",
+                    structureType: "EXTRADURAL V3 & SKULL BASE EXPOSURE",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.50,
+                    normalizedY: 0.38,
+                    description: "Panel B illustrates the far-lateral transcondylar approach via a retroauricular hockey-stick incision. Layered muscular reflection exposes the suboccipital triangle (rectus capitis posterior major, superior oblique, and inferior oblique). The V3 horizontal segment of the vertebral artery loops across the C1 posterior arch groove, enveloped by a dense suboccipital venous plexus. Bony resection encompasses lateral suboccipital craniectomy unroofing the sigmoid sinus down to the jugular bulb, C1 lateral hemilaminectomy, and high-speed diamond burr drilling of the posterior 1/3 of the occipital condyle, preserving the hypoglossal canal.",
+                    surgicalPearl: "The V3 segment must be identified and mobilized early. Bipolar coagulation and hemostatic packing (Surgiflo) of the suboccipital venous plexus prevents air embolism and maintains a bloodless field during condylar drilling."
+                ),
+                SurgicalCallout(
+                    id: "plate_067_3",
+                    title: "16× Microsurgical Corridor, Lower CNs & PICA Clipping",
+                    structureType: "INTRADURAL MICROSURGERY & PERFUSION RECONSTRUCTION",
+                    color: Color.blue,
+                    normalizedX: 0.82,
+                    normalizedY: 0.38,
+                    description: "Panel C operating microscope view under 16× magnification. The medulla, olive, and preolivary/postolivary sulci are pristine. CN XII rootlets emerge from the preolivary sulcus, while CN IX, X, and XI cascade through the postolivary sulcus toward the jugular foramen. A curved mini-Yasargil titanium clip reconstructs the aneurysm neck at the VA-PICA junction, preserving the parent V4 lumen and PICA origin. A micro-Doppler probe confirms robust downstream pulsatile flow in the PICA (>20 cm/s).",
+                    surgicalPearl: "PICA aneurysms are intimately intertwined with the rootlets of CN IX, X, and XI. Dissect the arachnoid bands sharply around these rootlets rather than retracting them; blunt traction causes severe postoperative vocal cord paralysis and dysphagia."
+                ),
+                SurgicalCallout(
+                    id: "plate_067_4",
+                    title: "Intraoperative Neuromonitoring & Condylar Safety Rule",
+                    structureType: "NEUROMONITORING & CRANIOCERVICAL BIOMECHANICS",
+                    color: Color.green,
+                    normalizedX: 0.50,
+                    normalizedY: 0.88,
+                    description: "Dual insets: Inset 1 displays continuous intraoperative MEP, SSEP, and free-running/triggered EMG for the lower cranial nerves (CN X vocal cord, CN XII tongue, CN XI trapezius). Inset 2 details the Condylar Safety Rule: resecting up to 1/3–50% of the occipital condyle preserves craniocervical stability; resections >50% mandate upfront occipitocervical fusion to prevent postoperative basilar invagination.",
+                    surgicalPearl: "Strictly adhere to the 50% condylectomy limit. Routine far-lateral transcondylar approaches require drilling only the posterior-medial 1/3 of the condyle to obtain an unobstructed flat view of the anterior medulla."
+                )
+            ]
+
                                                                         case .plate066:
             return [
                 SurgicalCallout(
@@ -1949,6 +1993,16 @@ case .plate059:
                 ApproachSequentialStep(stepNumber: 4, title: "Controlled Liquid Embolic / Particle Infusion", detail: "Infuse liquid embolic (Onyx-18 / Squid) slowly under continuous subtracted fluoroscopy, creating a proximal plug and forcing embolic material distally into the neomembrane capillary network. Terminate injection once dense capillary casting and branch truncation are achieved without proximal reflux.")
             ]
 
+                                                                        case .plate067:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Positioning & Retroauricular Hockey-Stick Incision", detail: "Patient placed in the park-bench or three-quarters prone position with the head secured in a 3-point Mayfield headholder, rotated 30° contralaterally and vertex flexed 15° to open the craniocervical gutter. A retroauricular inverted hockey-stick incision begins at the mastoid tip, curves superiorly above the superior nuchal line, and courses caudally along the midline down to C3."),
+                ApproachSequentialStep(stepNumber: 2, title: "Layered Muscular Reflection & Suboccipital Triangle Isolation", detail: "Reflect the sternocleidomastoid, splenius capitis, and longissimus capitis muscles anterolaterally. Identify and meticulously dissect the deep suboccipital triangle bounded by rectus capitis posterior major, superior oblique, and inferior oblique muscles, exposing the fatty-venous envelope surrounding the vertebral artery."),
+                ApproachSequentialStep(stepNumber: 3, title: "Extradural V3 Vertebral Artery Mobilization & Venous Hemostasis", detail: "Identify the horizontal V3 segment of the vertebral artery as it crosses the condylar groove on the superior aspect of the C1 posterior arch. Bipolar coagulate and pack the dense suboccipital venous plexus with hemostatic flowable gelatin matrix. Skeletonize the V3 periosteal sheath, preparing it for atraumatic mobilization."),
+                ApproachSequentialStep(stepNumber: 4, title: "Far-Lateral Craniectomy, C1 Arch Resection & Partial Condylectomy", detail: "Perform a lateral suboccipital craniectomy unroofing the sigmoid-transverse junction down to the jugular bulb. Resect the lateral half of the posterior arch of C1 (hemilaminectomy). Using a 3 mm diamond burr under continuous cold saline irrigation, resect the posterior-medial one-third (1/3) of the occipital condyle, maintaining condylar stability while visualizing the superiorly located hypoglossal canal."),
+                ApproachSequentialStep(stepNumber: 5, title: "C-Shaped Dural Opening & Trans-Condylar Cisternal Exposure", detail: "Perform a curved, C-shaped dural incision hinged laterally along the sigmoid sinus and dural ring of the vertebral artery. Sharply open the thick arachnoid membrane of the cisterna magna, releasing CSF to achieve complete posterior fossa relaxation. Visualize the V4 segment entering intradurally across the fibrous dural ring."),
+                ApproachSequentialStep(stepNumber: 6, title: "Aneurysm Dissection, Titanium Clipping & Micro-Doppler Verification", detail: "Under 16× magnification, trace the V4 segment along the anterolateral medulla. Identify the preolivary CN XII rootlets and postolivary CN IX, X, XI rootlets. Meticulously dissect arachnoid bands to free the aneurysm neck at the VA-PICA junction. Apply an appropriately contoured curved mini-Yasargil titanium clip across the neck, strictly sparing the parent VA lumen and the distinct origin of the PICA. Perform micro-Doppler interrogation on the distal PICA to confirm robust pulsatile arterial flow (>20 cm/s).")
+            ]
+
                                                                         case .plate066:
             return [
                 ApproachSequentialStep(stepNumber: 1, title: "Positioning & Low Bifrontal Craniotomy", detail: "Patient supine with head elevated 15° and neck slightly extended. Coronal or bicoronal incision behind hairline; meticulously harvest a large, vascularized anterior pericranial flap pedicled on supraorbital and supratrochlear arteries. Perform a low bifrontal craniotomy placed flush with the orbital roofs and nasion to eliminate brain retraction, exenterating the frontal sinus with mucosal stripping and cranialization."),
@@ -2416,6 +2470,14 @@ case .plate059:
                 "IRREVERSIBLE BLINDNESS VIA MENINGO-OPHTHALMIC ANASTOMOSIS: The anterior MMA can connect with the ophthalmic artery via the superior orbital fissure or recurrent meningeal branch. Always perform high-magnification roadmap angiography; embolic reflux or forward migration into the ophthalmic artery causes instant, catastrophic central retinal artery occlusion and permanent monocular blindness.",
                 "FACIAL NERVE PALSY VIA PETROSAL BRANCH: The petrosal branch of the MMA supplies the facial nerve (CN VII) in the Fallopian canal / geniculate ganglion. Always advance the microcatheter tip DISTAL to the petrosal branch takeoff before injecting liquid embolic or particles; embolization of the petrosal artery causes acute, permanent peripheral facial palsy (Bell's palsy).",
                 "PROXIMAL REFLUX INTO MAXILLARY OR CAROTID ARTERY: Never push liquid embolic aggressively against resistance. Maintain continuous fluoroscopic visualization of the catheter tip to prevent reflux back into the internal maxillary artery or external carotid system, which can cause skin necrosis, jaw claudication, or distal stroke."
+            ]
+
+                                                                        case .plate067:
+            return [
+                "VERTEBRAL ARTERY (V3/V4) LACERATION DURING CONDYLAR DRILLING OR DURAL RING MOBILIZATION: High-speed diamond burr drilling of the occipital condyle or aggressive mobilization of the fibrous dural ring can tear the vertebral artery wall, triggering torrential arterial bleeding in a confined skull base trough. Always skeletonize the periosteal sheath of V3 under direct vision and maintain temporary proximal clipping access at the C1 groove.",
+                "LOWER CRANIAL NERVE (CN IX, X, XI) TRACTION & POSTOPERATIVE BULBAR PALSY: The rootlets of CN IX, X, and XI lie directly over the VA-PICA junction. Excessive mechanical retraction, stretching, or thermal injury causes devastating postoperative bulbar palsy (vocal cord paralysis, loss of gag reflex, intractable aspiration pneumonia, and dependence on tracheostomy/gastrostomy). Always monitor continuous vocal cord EMG and dissect arachnoid bands sharply without nerve traction.",
+                "PICA OCCLUSION OR MEDULLARY PERFORATOR SACRIFICE (WALLENBERG SYNDROME): Applying an aneurysm clip that compromises the PICA origin or avulses lateral medullary perforators precipitates lateral medullary infarction (Wallenberg syndrome: ipsilateral ataxia, Horner syndrome, facial numbness, contralateral loss of pain/temperature, and severe dysphagia). Always confirm distal PICA patency with micro-Doppler (>20 cm/s) and ICG videoangiography.",
+                "CRANIOCERVICAL INSTABILITY FROM EXCESSIVE CONDYLECTOMY (>50%): Resecting more than 50% of the occipital condyle disrupts the atlanto-occipital joint facet, leading to craniocervical junction instability, progressive neck pain, odontoid upward migration, and basilar invagination. Limit condylar resection strictly to the posterior-medial 1/3; if >50% resection is mandatory, perform upfront occipitocervical fusion (Occiput–C2)."
             ]
 
                                                                         case .plate066:
