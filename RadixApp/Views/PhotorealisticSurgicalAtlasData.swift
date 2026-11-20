@@ -965,7 +965,50 @@ extension SurgicalPlateType {
                 )
             ]
 
-                                                                case .plate059:
+                                                                        case .plate060:
+            return [
+                SurgicalCallout(
+                    id: "plate_060_1",
+                    title: "Suzuki Staging & 'Puff of Smoke' Basal Angioarchitecture",
+                    structureType: "PATHOLOGICAL ANGIOGRAPHY & STAGING",
+                    color: Color.red,
+                    normalizedX: 0.17,
+                    normalizedY: 0.40,
+                    description: "Chronic progressive stenosis/occlusion of the terminal supraclinoid ICA (carotid fork) triggering extensive lenticulostriate and thalamoperforating collateral telangiectasias at the skull base ('moyamoya' or puff of smoke). Progresses from early bifurcation narrowing (Stage I) through florid basal collaterals (Stage III) to complete ICA occlusion and dependence on ECA vault collaterals (Stage VI).",
+                    surgicalPearl: "Fragile moyamoya collateral microvessels are prone to microaneurysm formation and rupture, causing catastrophic adult intracerebral/intraventricular hemorrhage. Revascularization reduces hemodynamic stress on these fragile basal networks."
+                ),
+                SurgicalCallout(
+                    id: "plate_060_2",
+                    title: "STA-MCA End-to-Side Micro-Anastomosis (16× Magnification)",
+                    structureType: "MICROSURGICAL BYPASS FIELD",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.52,
+                    normalizedY: 0.35,
+                    description: "Direct end-to-side anastomosis between the donor superficial temporal artery (STA, ~1.5–2.0 mm caliber) and recipient cortical middle cerebral artery (M4 / angular branch, ~1.0 mm caliber). A green rubber contrast sheet elevates the vessel. Paired temporary micro-clips isolate a 5–7 mm recipient segment with a 1.5–2.0 mm linear arteriotomy.",
+                    surgicalPearl: "Fish-mouth the donor STA tip at 45° to match the oval arteriotomy and prevent anastomotic stenosis. Place foundational heel and toe 10-0 nylon anchor sutures first, followed by 5–6 interrupted 10-0 monofilament sutures per side with intimal eversion."
+                ),
+                SurgicalCallout(
+                    id: "plate_060_3",
+                    title: "EDAS (Encephalo-Duro-Arterio-Synangiosis) Indirect Revascularization",
+                    structureType: "INDIRECT SYNANGIOSIS CORRIDOR",
+                    color: Color.blue,
+                    normalizedX: 0.84,
+                    normalizedY: 0.42,
+                    description: "The intact, pulsating parietal branch of the STA is mobilized with a wide (~1 cm) galea-periosteal cuff along 7–8 cm. Through a linear dural slit with micro-fenestrated arachnoid, the adventitia of the artery and galeal cuff are anchored flush against the bare ischemic cerebral cortex using interrupted 8-0 nylon dural sutures.",
+                    surgicalPearl: "Maintain continuous anterograde flow through the intact STA; do not cauterize or strip the perivascular adventitia, which carries critical VEGF and bFGF angiogenic factors essential for spontaneous transdural neovascular sprouting over 3–6 months."
+                ),
+                SurgicalCallout(
+                    id: "plate_060_4",
+                    title: "Intraoperative ICG Videoangiography & Flow Verification",
+                    structureType: "FLOW HEMODYNAMICS & PATENCY",
+                    color: Color.green,
+                    normalizedX: 0.25,
+                    normalizedY: 0.88,
+                    description: "Fluorescent infrared videoangiography confirms instantaneous bypass patency: bright intravascular dye surges through the STA donor and briskly fills both proximal (retrograde) and distal (anterograde) M4 cortical branches with zero anastomotic leak, stenosis, or intraluminal thrombus.",
+                    surgicalPearl: "Use a 1.5 mm transit-time microvascular ultrasonic flow probe (Charbel probe) to measure quantitative flow (cut-flow index >0.5, flow >20 mL/min). An abrupt flow drop indicates anastomotic kink, intimal flap, or micro-thrombus requiring immediate heparinized saline flush and revision."
+                )
+            ]
+case .plate059:
             return [
                 SurgicalCallout(
                     id: "plate_059_1",
@@ -1642,7 +1685,16 @@ extension SurgicalPlateType {
                 ApproachSequentialStep(stepNumber: 4, title: "Controlled Liquid Embolic / Particle Infusion", detail: "Infuse liquid embolic (Onyx-18 / Squid) slowly under continuous subtracted fluoroscopy, creating a proximal plug and forcing embolic material distally into the neomembrane capillary network. Terminate injection once dense capillary casting and branch truncation are achieved without proximal reflux.")
             ]
 
-                                                                case .plate059:
+                                                                        case .plate060:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Superficial Temporal Artery (STA) Mapping & Harvest", detail: "Preoperative Doppler mapping of frontal and parietal STA branches. Perform a curvilinear incision over the parietal branch; meticulous micro-dissection preserving a 1 cm galea-periosteal cuff for EDAS and isolating the distal donor branch with 2 mm adventitial cuff for direct bypass."),
+                ApproachSequentialStep(stepNumber: 2, title: "Craniotomy & Cortical Recipient Selection", detail: "Perform an oval frontotemporal craniotomy centering over the angular gyrus / distal Sylvian fissure. Open the dura under the microscope; identify a pristine M4 recipient cortical MCA branch (>1.0 mm caliber) free of atherosclerotic plaque or bifurcations."),
+                ApproachSequentialStep(stepNumber: 3, title: "Vessel Preparation & Temporary Occlusion", detail: "Place a green rubber dam beneath the recipient M4. Flush the donor STA lumen with heparinized saline (100 U/mL) and bevel the tip at 45° (fish-mouthing). Apply paired temporary microvascular clips to the M4; perform a 1.5–2.0 mm linear micro-arteriotomy with micro-knife and micro-scissors."),
+                ApproachSequentialStep(stepNumber: 4, title: "Microsurgical End-to-Side Anastomosis", detail: "Place heel and toe 10-0 monofilament nylon anchoring sutures. Execute 5–6 interrupted 10-0 nylon sutures on the deep (posterior) wall, then anterior wall with full-thickness intimal purchase and knot exteriorization. Remove temporary clips (recipient first, then donor) and confirm brisk pulsation."),
+                ApproachSequentialStep(stepNumber: 5, title: "EDAS Indirect Synangiosis & Dural Inversion", detail: "Create a 7–8 cm linear dural slit along the intact proximal STA trajectory. Fenestrate the arachnoid membrane across multiple gyri. Suture the galeal cuff of the pulsating STA to the dural edges with interrupted 8-0 nylon, laying the vessel flush against the ischemic pia-arachnoid. Invert dural leaflets beneath bone edges."),
+                ApproachSequentialStep(stepNumber: 6, title: "Patency Verification & Hemodynamic Closure", detail: "Perform ICG videoangiography and quantitative microvascular flow probe measurement (>20 mL/min). Secure generous bony beveling at STA entry/exit craniotomy margins to prevent arterial compression during bone flap replacement. Close galea and skin loosely without compressive dressings.")
+            ]
+case .plate059:
             return [
                 ApproachSequentialStep(stepNumber: 1, title: "Nasal Preparation & Vascularized Hadad Flap Harvest", detail: "Oxymetazoline topical decongestion. Right nasoseptal (Hadad-Bassagasteguy) flap harvested along the nasal septum pedicled on the posterior septal artery. Flap stored in the choana/maxillary sinus for late skull base reconstruction. Right middle turbinate outfractured or resected; posterior septostomy created for two-nostril four-handed binostril instrumentation."),
                 ApproachSequentialStep(stepNumber: 2, title: "Sphenoidotomy, Mucosal Stripping & Anatomical Landmark Identification", detail: "Wide bilateral sphenoidotomies down to the sphenoid floor. Rostrum of the sphenoid drilled flat. Intersphenoid septations resected with diamond burrs. Drill sphenoid mucosa to expose the sellar floor, tuberculum sellae, clival indentation, optic protuberances, and parasellar carotid protuberances with the medial/lateral OCR."),
@@ -2042,7 +2094,14 @@ extension SurgicalPlateType {
                 "PROXIMAL REFLUX INTO MAXILLARY OR CAROTID ARTERY: Never push liquid embolic aggressively against resistance. Maintain continuous fluoroscopic visualization of the catheter tip to prevent reflux back into the internal maxillary artery or external carotid system, which can cause skin necrosis, jaw claudication, or distal stroke."
             ]
 
-                                                                case .plate059:
+                                                                        case .plate060:
+            return [
+                "HYPERPERFUSION SYNDROME & INTRACEREBRAL HEMORRHAGE: Sudden high-volume hemodynamic restoration into chronically ischemic, auto-dysregulated cerebral capillary beds can cause capillary blowout, focal brain edema, seizures, and catastrophic hemorrhagic transformation. Maintain strict postoperative systolic blood pressure control (SBP 110–130 mmHg) and serial neurological exams.",
+                "DONOR ARTERY KINKING, COMPRESSION, OR THROMBOSIS: Over-tightening scalp closure, inadequate craniotomy bone groove beveling, or compressive postoperative head dressings can compress or kink the donor STA, causing immediate graft thrombosis. Ensure wide bone gouges at entry/exit sites and avoid circular head bandages.",
+                "TEMPORARY ISCHEMIC STROKE DURING RECIPIENT CLAMPING: Prolonged temporary occlusion of the cortical M4 recipient (>20–30 minutes) without collateral back-flow can cause permanent cortical infarction and focal neurological deficits (expressive aphasia or hand weakness). Limit clamp time (<20 min), maintain systemic normotension, and administer IV burst-suppression neuroprotection (propofol) during clamping.",
+                "WATERSHED SHIFT & PROGRESSIVE ISCHEMIA: Competitive flow from a high-flow bypass can alter watershed hemodynamics, precipitating retrograde thrombosis of pre-existing fragile moyamoya collaterals before indirect neovascularization matures. Monitor with continuous arterial line and avoid aggressive hyperventilation or hypocapnia."
+            ]
+case .plate059:
             return [
                 "INTERNAL CAROTID ARTERY (ICA) INJURY IN PARASELLAR CORRIDOR: Drifting lateral to the parasellar carotid protuberance or over-drilling in Knosp Grade 3–4 tumors can lacerate the cavernous ICA, causing torrential arterial hemorrhage (up to 1000 mL/min). Maintain continuous navigation and Doppler ultrasound; in the event of injury, pack with muscle/Floseal and prepare for emergent endovascular balloon/stent occlusion.",
                 "POSTOPERATIVE CSF RHINORRHEA & BACTERIAL MENINGITIS: High-flow intraoperative CSF leaks occur when suprasellar dissection tears the fragile diaphragma sellae or arachnoid membrane. Failure to reconstruct the skull base with a vascularized nasoseptal flap and rigid buttress results in persistent CSF fistula, pneumocephalus, and life-threatening meningitis.",
