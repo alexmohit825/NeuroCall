@@ -965,6 +965,50 @@ extension SurgicalPlateType {
                 )
             ]
 
+                                                                        case .plate064:
+            return [
+                SurgicalCallout(
+                    id: "plate_064_1",
+                    title: "3T MRI Pathoanatomy & The Hemosiderin Cap Sign",
+                    structureType: "MRI DIAGNOSTICS & POLAR CAPS",
+                    color: Color.red,
+                    normalizedX: 0.16,
+                    normalizedY: 0.50,
+                    description: "Sagittal T1 contrast MRI demonstrates a well-circumscribed, homogeneously enhancing central intramedullary cervical mass (C4–C6) flanked by rostral and caudal polar syrinx cysts. Sagittal T2WI reveals the pathognomonic 'hemosiderin cap sign' (jet-black hypointense rims capping superior and inferior poles from chronic microhemorrhages). Axial cutaway contrasts central encapsulated ependymoma against infiltrative astrocytoma.",
+                    surgicalPearl: "The presence of polar syrinx cysts and T2 hemosiderin caps is highly predictive of ependymoma over astrocytoma, indicating a surgically cleavable capsule that permits gross total resection with curative potential."
+                ),
+                SurgicalCallout(
+                    id: "plate_064_2",
+                    title: "Posterior Cervical Exposure & Posterior Median Sulcus Myelotomy",
+                    structureType: "POSTERIOR MYELOTOMY CORRIDOR",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.50,
+                    normalizedY: 0.38,
+                    description: "Multi-level posterior cervical exposure (C3–C6 laminectomy) with dura opened mid-dorsally. Symmetrically swollen cord with engorged coronal venous plexus. A diamond micro-knife incises the avascular posterior median sulcus strictly between the dorsal columns (fasciculus gracilis and cuneatus). Fine 6-0/7-0 monofilament pial stay sutures gently tent the posterior columns open to expose the reddish-tan encapsulated tumor.",
+                    surgicalPearl: "Always identify the dorsal median sulcus by inspecting the convergence of posterior surface micro-vessels or using a dorsal column mapping probe. Incising off-midline into the fasciculus cuneatus causes severe ipsilateral posterior column sensory ataxia and loss of proprioception."
+                ),
+                SurgicalCallout(
+                    id: "plate_064_3",
+                    title: "Gliotic Cleavage Dissection & En-Bloc Resection Bed",
+                    structureType: "EN-BLOC RESECTION & ASA SPARING",
+                    color: Color.blue,
+                    normalizedX: 0.82,
+                    normalizedY: 0.38,
+                    description: "High-magnification (16×) view demonstrating the distinct gliotic cleavage plane separating the encapsulated reddish-tan ependymoma from normal white matter tracts. Polar mobilization allows the tumor to be rolled en-bloc from rostral to caudal while tiny ventral feeding sulcal branches from the Anterior Spinal Artery (ASA) are coagulated and divided, leaving an empty, glistening resection bed.",
+                    surgicalPearl: "Never apply forceful traction or use gross internal debulking if the tumor can be delivered en-bloc. Ventral feeders must be coagulated precisely on the tumor capsule to avoid thermal or traction injury to the main ASA trunk running on the anterior median fissure floor."
+                ),
+                SurgicalCallout(
+                    id: "plate_064_4",
+                    title: "Real-Time IONM (D-Wave/MEP/SSEP) & Histopathology",
+                    structureType: "NEUROMONITORING & WHO GRADE II HISTOLOGY",
+                    color: Color.green,
+                    normalizedX: 0.50,
+                    normalizedY: 0.88,
+                    description: "Dual insets: Inset 1 (IONM) displays continuous Epidural D-Wave, Transcranial MEP, and SSEP monitoring. D-wave amplitude preservation >50% confirms intact functional corticospinal tracts and predicts preserved long-term ambulation. Inset 2 (H&E 40×) illustrates classic perivascular pseudorosettes and true ependymal rosettes on a dense fibrillary glial background (WHO Grade II).",
+                    surgicalPearl: "D-wave monitoring is the single most reliable predictor of permanent motor deficits in intramedullary surgery. If TcMEP is lost but D-wave remains >50%, surgery can safely proceed with high confidence of full motor recovery within weeks."
+                )
+            ]
+
                                                                         case .plate063:
             return [
                 SurgicalCallout(
@@ -1817,6 +1861,16 @@ case .plate059:
                 ApproachSequentialStep(stepNumber: 4, title: "Controlled Liquid Embolic / Particle Infusion", detail: "Infuse liquid embolic (Onyx-18 / Squid) slowly under continuous subtracted fluoroscopy, creating a proximal plug and forcing embolic material distally into the neomembrane capillary network. Terminate injection once dense capillary casting and branch truncation are achieved without proximal reflux.")
             ]
 
+                                                                        case .plate064:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Positioning & Neurophysiological Baseline Setup", detail: "Prone positioning with head secured in 3-point Mayfield clamp; neck in neutral or mild flexion without jugular venous compression. Establish baseline Somatosensory Evoked Potentials (SSEP), Transcranial Motor Evoked Potentials (TcMEP), and epidural D-wave recording electrodes placed caudal to the surgical level."),
+                ApproachSequentialStep(stepNumber: 2, title: "Posterior Cervical Laminectomy (C3–C6)", detail: "Midline posterior cervical skin incision; meticulous subperiosteal dissection of paraspinal muscles exposing laminae of C3 to C6. Multi-level laminectomy performed with high-speed burr and Kerrison rongeurs, widely unroofing the swollen thecal sac past the superior and inferior tumoral margins."),
+                ApproachSequentialStep(stepNumber: 3, title: "Midline Durotomy & Dorsal Column Topographical Mapping", detail: "Linear midline dural opening under the operating microscope, tethered laterally with 4-0 silk stay sutures. Retract arachnoid sharply. Symmetrically swollen cord with engorged coronal veins. Identify the posterior median sulcus by following posterior surface microvascular convergence and confirming bilateral symmetry between dorsal root entry zones (DREZ)."),
+                ApproachSequentialStep(stepNumber: 4, title: "Posterior Median Sulcus Myelotomy & Pial Stay Tenting", detail: "Use a diamond micro-knife to incise the avascular midline posterior median raphe strictly between the fasciculus gracilis and cuneatus. Avoid unipolar cautery. Place fine 6-0 or 7-0 monofilament pial stay sutures on the myelotomy edges and anchor them to the lateral dura, gently splaying open the dorsal columns to expose the reddish-tan tumor capsule."),
+                ApproachSequentialStep(stepNumber: 5, title: "Polar Mobilization & Ventral Feeder Coagulation", detail: "Identify the rostral and caudal tumor poles, which often communicate with cystic syrinx cavities. Develop the distinct gliotic cleavage plane using micro-dissectors. Gently elevate the tumor from rostral-to-caudal; identify, bipolar coagulate, and divide fine ventral sulcal feeding branches from the Anterior Spinal Artery (ASA) directly on the tumor capsule, preserving the main ASA trunk on the anterior median fissure floor."),
+                ApproachSequentialStep(stepNumber: 6, title: "En-Bloc Tumor Delivery & Multimodal Neuromonitoring Closure", detail: "Deliver the encapsulated ependymoma en-bloc. Inspect the clean, glistening intramedullary resection cavity for complete hemostasis. Verify intact D-wave amplitude (>50%) and MEPs. Release pial stay sutures, allowing posterior columns to re-approximate spontaneously. Perform running watertight dural closure reinforced with collagen dural matrix.")
+            ]
+
                                                                         case .plate063:
             return [
                 ApproachSequentialStep(stepNumber: 1, title: "Positioning & Right Orbitozygomatic / Low Pterional Craniotomy", detail: "Supine in 3-point Mayfield clamp; head rotated 30° contralaterally and vertex extended 15° to open the subtemporal-orbital trajectory. Frontotemporal curvilinear incision. Low pterional or two-piece orbitozygomatic craniotomy; extensive diamond burr drilling of the sphenoid ridge down to the meningo-orbital band, with unroofing of the superior orbital fissure to flatten the subfrontal approach vector."),
@@ -2254,6 +2308,14 @@ case .plate059:
                 "IRREVERSIBLE BLINDNESS VIA MENINGO-OPHTHALMIC ANASTOMOSIS: The anterior MMA can connect with the ophthalmic artery via the superior orbital fissure or recurrent meningeal branch. Always perform high-magnification roadmap angiography; embolic reflux or forward migration into the ophthalmic artery causes instant, catastrophic central retinal artery occlusion and permanent monocular blindness.",
                 "FACIAL NERVE PALSY VIA PETROSAL BRANCH: The petrosal branch of the MMA supplies the facial nerve (CN VII) in the Fallopian canal / geniculate ganglion. Always advance the microcatheter tip DISTAL to the petrosal branch takeoff before injecting liquid embolic or particles; embolization of the petrosal artery causes acute, permanent peripheral facial palsy (Bell's palsy).",
                 "PROXIMAL REFLUX INTO MAXILLARY OR CAROTID ARTERY: Never push liquid embolic aggressively against resistance. Maintain continuous fluoroscopic visualization of the catheter tip to prevent reflux back into the internal maxillary artery or external carotid system, which can cause skin necrosis, jaw claudication, or distal stroke."
+            ]
+
+                                                                        case .plate064:
+            return [
+                "OFF-MIDLINE MYELOTOMY & SEVERE POSTERIOR COLUMN SENSORY ATAXIA: Incising lateral to the true posterior median sulcus into the fasciculus gracilis or cuneatus transects ascending proprioceptive and vibratory fibers, resulting in devastating permanent sensory ataxia, pseudoathetosis of the hands, and loss of joint position sense. Always identify the true avascular midline raphe and confirm symmetry between bilateral DREZ.",
+                "INJURY TO THE ANTERIOR SPINAL ARTERY (ASA) & ANTERIOR SPINAL CORD INFARCTION: The main trunk of the ASA runs along the floor of the anterior median fissure directly ventral to the tumor capsule. Aggressive traction, deep bipolar coagulation, or blind scissor cuts along the anterior tumor bed can lacerate or thrombose the ASA, precipitating catastrophic anterior spinal cord infarction and permanent complete quadriplegia.",
+                "OVER-TRACTION ON SPAYED DORSAL COLUMNS & QUADRIPLEGIA: Applying high-tension mechanical retractors or excessively tight pial stay sutures to splay the dorsal columns compresses the adjacent lateral corticospinal tracts. Always monitor continuous epidural D-waves; if D-wave amplitude drops >50%, immediately release pial stay sutures and pause surgical manipulation until electrophysiological recovery occurs.",
+                "CONFUSING INFILTRATIVE ASTROCYTOMA FOR EPENDYMOMA: Attempting radical en-bloc resection in an infiltrative astrocytoma without a clear capsule destroys viable spinal cord tracts, causing irreversible neurological deficit. If a distinct gliotic cleavage plane cannot be identified under 16× magnification, abort en-bloc resection, perform gentle debulking/biopsy, and halt before violating normal white matter."
             ]
 
                                                                         case .plate063:

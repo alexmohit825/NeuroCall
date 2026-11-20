@@ -728,7 +728,7 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
         case .craniovertebral:
             return [.plate001, .plate013, .plate014, .plate035, .plate043, .plate047, .plate049]
         case .cervical:
-            return [.plate015, .plate031, .plate034, .plate042, .plate044, .plate050]
+            return [.plate015, .plate031, .plate034, .plate042, .plate044, .plate050, .plate064]
         case .thoracicOncology:
             return [.plate026, .plate036, .plate038, .plate048, .plate054, .plate058]
         case .lumbarMIS:
@@ -740,9 +740,9 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
 }
 
 public enum AtlasCategory: String, CaseIterable {
-    case all = "All Plates (63)"
+    case all = "All Plates (64)"
     case cranial = "Cranial & Skull Base (34)"
-    case spine = "Spine & CVJ (29)"
+    case spine = "Spine & CVJ (30)"
 
     public var filteredPlates: [SurgicalPlateType] {
         switch self {
@@ -819,6 +819,7 @@ public enum SurgicalPlateType: String, CaseIterable {
     case plate061 = "plate_061_acoma_aneurysm_clipping"
     case plate062 = "plate_062_mca_bifurcation_aneurysm_clipping"
     case plate063 = "plate_063_basilar_apex_aneurysm_clipping"
+    case plate064 = "plate_064_spinal_intramedullary_ependymoma"
 
     public var subSection: AtlasSubSection {
         for section in AtlasSubSection.allCases {
@@ -898,6 +899,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate061: return 61
         case .plate062: return 62
         case .plate063: return 63
+        case .plate064: return 64
         }
     }
 
@@ -970,6 +972,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate061: return "61: AComA Aneurysm"
         case .plate062: return "62: MCA Bifurcation"
         case .plate063: return "63: Basilar Apex"
+        case .plate064: return "64: Cervical Ependymoma"
         }
     }
 
@@ -1038,6 +1041,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate061: return "Anterior Communicating Artery (AComA) Aneurysm & Microsurgical Pterional Clipping — 3D Angiopathology, Projection Profiles & Gyrus Rectus Corridor"
         case .plate062: return "Middle Cerebral Artery (MCA) Bifurcation Aneurysm & Microsurgical Clipping — Catheter DSA, Transsylvian Exposure & Multi-Clip Reconstruction"
         case .plate063: return "Basilar Apex (Tip) Aneurysm & Microsurgical Clipping — Angiopathology, Bifurcation Height & Trans-Liliequist Corridor"
+        case .plate064: return "Cervical Spinal Intramedullary Ependymoma — 3T MRI, Hemosiderin Cap Sign, Midline Myelotomy & En-Bloc Resection"
         }
     }
 
@@ -1106,6 +1110,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate061: return "bolt.horizontal.fill"
         case .plate062: return "arrow.triangle.branch"
         case .plate063: return "arrow.triangle.branch"
+        case .plate064: return "cylinder.split.1x2.fill"
         }
     }
 
