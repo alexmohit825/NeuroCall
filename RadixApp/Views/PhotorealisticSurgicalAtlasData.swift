@@ -965,6 +965,50 @@ extension SurgicalPlateType {
                 )
             ]
 
+                                                                        case .plate062:
+            return [
+                SurgicalCallout(
+                    id: "plate_062_1",
+                    title: "Catheter DSA Angioarchitecture & M1 Lenticulostriate Anatomy",
+                    structureType: "ANGIOGRAPHY & BRANCHING CLASSIFICATION",
+                    color: Color.red,
+                    normalizedX: 0.17,
+                    normalizedY: 0.38,
+                    description: "Right internal carotid catheter DSA (lateral/oblique view) displaying the horizontal sphenoidal M1 trunk, fine candle-flame lateral lenticulostriate perforating arteries (LsA) arising from the dorsal aspect of M1, and a saccular aneurysm at the MCA bifurcation (limen insulae) dividing into superior (frontal) and inferior (temporal) M2 trunks.",
+                    surgicalPearl: "Preoperative 4-vessel angiography or high-resolution 3D rotational DSA is mandatory to identify early branching (e.g. early anterior temporal artery mimicking bifurcation) and to map the relationship of the lateral lenticulostriate arteries, which supply the posterior limb of the internal capsule."
+                ),
+                SurgicalCallout(
+                    id: "plate_062_2",
+                    title: "Right Pterional Transsylvian Exposure & Distal-to-Proximal Corridor",
+                    structureType: "MICROSURGICAL OPERATIVE CORRIDOR",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.50,
+                    normalizedY: 0.38,
+                    description: "Right frontotemporal pterional craniotomy with sphenoid ridge drilled flat to the meningo-orbital band. Frontal and temporal opercula are gently separated with self-retaining retractor blades across the Sylvian fissure. Superficial Sylvian veins are preserved on the temporal bank. A temporary clip is placed on the horizontal M1 trunk for proximal hemodynamic control during bifurcation dissection.",
+                    surgicalPearl: "The distal-to-proximal transsylvian approach traces M2 opercular branches retrograde down to the bifurcation, which minimizes frontal lobe retraction. Always apply temporary clips on M1 only after identifying and sparing all dorsal lenticulostriate perforators."
+                ),
+                SurgicalCallout(
+                    id: "plate_062_3",
+                    title: "16× Multi-Clip Tandem Reconstruction & Sac Incision",
+                    structureType: "TANDEM CLIP RECONSTRUCTION & EXCLUSION",
+                    color: Color.blue,
+                    normalizedX: 0.82,
+                    normalizedY: 0.38,
+                    description: "High-magnification (16×) view of the MCA bifurcation. A complex, broad-based aneurysm neck is reconstructed using multiple interlocking titanium Yasargil/Sugita clips applied in tandem. The excluded aneurysm sac is sharply incised and decompressed, proving complete flow obliteration. Both superior M2 (frontal motor) and inferior M2 (temporal language) trunks remain widely patent.",
+                    surgicalPearl: "In broad-necked MCA aneurysms, a single straight clip risks dog-ear residual or stenosis of the daughter trunks. Applying a tandem or fenestrated clip construct reconstructs the native arterial carina. Puncturing or incising the dome confirms complete exclusion before releasing temporary clips."
+                ),
+                SurgicalCallout(
+                    id: "plate_062_4",
+                    title: "Intraoperative ICG Videoangiography & Micro-Doppler Verification",
+                    structureType: "FLOW PATENCY & EXCLUSION CONFIRMATION",
+                    color: Color.green,
+                    normalizedX: 0.50,
+                    normalizedY: 0.88,
+                    description: "Dual-modality flow verification: Inset 1 (ICG videoangiography) confirms complete exclusion of the aneurysm sac (jet black non-filling void) with robust fluorescent green filling in M1, lenticulostriates, and both M2 daughter branches. Inset 2 (Micro-Doppler) confirms high-velocity laminar flow in both Superior M2 (Vmean = 28 cm/s) and Inferior M2 (Vmean = 32 cm/s).",
+                    surgicalPearl: "Micro-Doppler flow measurement (>20 cm/s in both M2 branches) provides instant verification that clip blades have not kinked or narrowed either outflow trunk. Stenosis of the superior M2 causes contralateral hand/face weakness and motor aphasia; stenosis of the inferior M2 causes Wernicke aphasia and superior quadrantanopia."
+                )
+            ]
+
                                                                         case .plate061:
             return [
                 SurgicalCallout(
@@ -1729,6 +1773,16 @@ case .plate059:
                 ApproachSequentialStep(stepNumber: 4, title: "Controlled Liquid Embolic / Particle Infusion", detail: "Infuse liquid embolic (Onyx-18 / Squid) slowly under continuous subtracted fluoroscopy, creating a proximal plug and forcing embolic material distally into the neomembrane capillary network. Terminate injection once dense capillary casting and branch truncation are achieved without proximal reflux.")
             ]
 
+                                                                        case .plate062:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Positioning & Right Pterional Craniotomy", detail: "Supine with head pinned in 3-point Mayfield clamp, rotated 30° contralaterally and extended 15° to place the Sylvian fissure horizontal in the operating field. Curvilinear frontotemporal incision. Standard pterional craniotomy; extradural high-speed diamond drilling of the sphenoid ridge down to the meningo-orbital band to maximize anterior subtemporal line of sight."),
+                ApproachSequentialStep(stepNumber: 2, title: "Dural Opening & Distal-to-Proximal Sylvian Fissure Dissection", detail: "C-shaped dural opening based on sphenoid ridge. Open the Sylvian fissure using the distal-first technique: incise the arachnoid along the anterior Sylvian cleft between the frontal and temporal opercula. Dissect superficial Sylvian veins toward the temporal bank. Gently separate opercula with self-retaining retractor blades lined with moist cottonoids."),
+                ApproachSequentialStep(stepNumber: 3, title: "Early M2 Identification & Retrorun to Bifurcation", detail: "Identify the distal opercular branches of the superior (frontal) and inferior (temporal) M2 trunks within the insular cleft. Trace these daughter trunks proximally down to the limen insulae to expose the MCA bifurcation and the base of the aneurysm dome without initial retraction on the fragile aneurysm sac."),
+                ApproachSequentialStep(stepNumber: 4, title: "Proximal M1 Skeletonization & Temporary Hemodynamic Control", detail: "Trace M1 proximally into the sphenoidal compartment. Identify and meticulously dissect the fine lateral lenticulostriate perforating micro-arteries arising from the dorsal aspect of M1. Clear an adventitial landing zone on M1 proximal to the lenticulostriates and place a mini temporary clip for hemodynamic softening of the aneurysm dome."),
+                ApproachSequentialStep(stepNumber: 5, title: "360° Neck Circumdissection & Daughter Branch Mobilization", detail: "Perform complete circumferential micro-dissection of the aneurysm neck. Separate the neck cleanly from the carina and both M2 origins using fine micro-hooks and curved dissectors. Confirm that no lenticulostriate or early temporal branch is adherent to the posterior wall of the sac."),
+                ApproachSequentialStep(stepNumber: 6, title: "Tandem Multi-Clip Reconstruction & Multimodal Patency Verification", detail: "Apply a tandem construct of straight/curved or fenestrated titanium Yasargil clips across the broad neck to reconstruct the native bifurcation lumen. Sharply puncture or incise the aneurysm dome to prove complete flow exclusion and relief of mass effect. Remove the temporary M1 clip. Execute ICG videoangiography and micro-Doppler interrogation to verify patent, symmetric flow (>20 cm/s) in both superior and inferior M2 trunks.")
+            ]
+
                                                                         case .plate061:
             return [
                 ApproachSequentialStep(stepNumber: 1, title: "Positioning, Pterional Craniotomy & Sphenoid Ridge Flattening", detail: "Supine with head rotated 30°–45° contralaterally, vertex extended 10°–15° to align the Sylvian fissure vertical. Curvilinear frontotemporal question-mark incision behind hairline. Standard pterional craniotomy; high-speed diamond drilling of the sphenoid ridge down to the meningo-orbital band to unroof the superior orbital fissure and provide an uninhibited, flat subfrontal trajectory."),
@@ -2146,6 +2200,14 @@ case .plate059:
                 "IRREVERSIBLE BLINDNESS VIA MENINGO-OPHTHALMIC ANASTOMOSIS: The anterior MMA can connect with the ophthalmic artery via the superior orbital fissure or recurrent meningeal branch. Always perform high-magnification roadmap angiography; embolic reflux or forward migration into the ophthalmic artery causes instant, catastrophic central retinal artery occlusion and permanent monocular blindness.",
                 "FACIAL NERVE PALSY VIA PETROSAL BRANCH: The petrosal branch of the MMA supplies the facial nerve (CN VII) in the Fallopian canal / geniculate ganglion. Always advance the microcatheter tip DISTAL to the petrosal branch takeoff before injecting liquid embolic or particles; embolization of the petrosal artery causes acute, permanent peripheral facial palsy (Bell's palsy).",
                 "PROXIMAL REFLUX INTO MAXILLARY OR CAROTID ARTERY: Never push liquid embolic aggressively against resistance. Maintain continuous fluoroscopic visualization of the catheter tip to prevent reflux back into the internal maxillary artery or external carotid system, which can cause skin necrosis, jaw claudication, or distal stroke."
+            ]
+
+                                                                        case .plate062:
+            return [
+                "STENOSIS OR OCCLUSION OF THE SUPERIOR OR INFERIOR M2 DAUGHTER TRUNKS: Applying a clip that impinges on either M2 origin or compromises the bifurcation carina causes massive MCA branch infarction. Occlusion of the superior M2 causes contralateral faciobrachial hemiplegia and motor (Broca) aphasia; occlusion of the inferior M2 causes sensory (Wernicke) aphasia and homonymous superior quadrantanopia. Always verify symmetric high-velocity flow (>20 cm/s) with micro-Doppler.",
+                "INADVERTENT INJURY OR CLIPPING OF LATERAL LENTICULOSTRIATE ARTERIES: Lateral lenticulostriates arise from the dorsal aspect of distal M1 and can adhere to the posterior neck of the aneurysm. Inadvertent clipping or bipolar coagulation of these end-arteries results in acute infarction of the posterior limb of the internal capsule and putamen, causing irreversible dense contralateral hemiplegia.",
+                "PREMATURE INTRAOPERATIVE RUPTURE DURING DISTAL SYLVIAN SPLIT: In laterally pointing or broad-necked MCA aneurysms, the dome often embeds deeply into the superior temporal gyrus or frontal operculum. Forceful blunt separation of the opercula tears the adherent dome before proximal M1 control is established. Always dissect along the distal M2 branches down to the neck with micro-suction and sharp arachnoid release, maintaining proximal M1 temporary control ready.",
+                "RESIDUAL ANEURYSM DOG-EAR FROM BROAD-NECK TENSION: Broad-necked MCA aneurysms are prone to clip blade slippage or residual neck dog-ears if a single straight clip is forced across the wide base. An untreated dog-ear leads to rapid aneurysm regrowth or delayed rupture. Always utilize tandem, curved, or fenestrated multi-clip constructs to completely reconstruct the carina."
             ]
 
                                                                         case .plate061:
