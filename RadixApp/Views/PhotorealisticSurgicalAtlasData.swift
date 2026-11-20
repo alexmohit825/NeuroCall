@@ -965,6 +965,50 @@ extension SurgicalPlateType {
                 )
             ]
 
+                                                                        case .plate063:
+            return [
+                SurgicalCallout(
+                    id: "plate_063_1",
+                    title: "Vertebral DSA & Basilar Bifurcation Height Classification",
+                    structureType: "ANGIOGRAPHY & HEIGHT CLASSIFICATION",
+                    color: Color.red,
+                    normalizedX: 0.16,
+                    normalizedY: 0.55,
+                    description: "Catheter DSA (Towne's/RAO view) demonstrating the vertebral confluence, basilar trunk, AICA, SCA, and saccular basilar apex aneurysm between bilateral P1 PCAs. Correlative sagittal classification defines 3 tiers relative to the dorsum sellae: Normal Apex (within 5 mm above dorsum sellae), High-Riding Apex (>5–10 mm above clinoid, invaginating third ventricle), and Low-Riding Apex (below posterior clinoid, hidden behind clivus).",
+                    surgicalPearl: "Bifurcation height dictates surgical strategy: a normal apex is accessible via standard transsylvian/pterional corridors; a high-riding apex requires an orbitocranial or subtemporal approach with posterior clinoidectomy; a low-riding apex requires a transcavernous or anterior petrosectomy (Kawase) approach."
+                ),
+                SurgicalCallout(
+                    id: "plate_063_2",
+                    title: "Right Pterional Transsylvian & Trans-Liliequist Corridor",
+                    structureType: "MICROSURGICAL OPERATIVE CORRIDOR",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.50,
+                    normalizedY: 0.38,
+                    description: "Right pterional transsylvian exposure with flattened sphenoid ridge and reflected dural apron. Carotid-oculomotor and opticocarotid triangles are opened following division of both carotid and diencephalic leaves of Liliequist's membrane. A temporary clip is applied on the mid-basilar trunk below the SCA origins for proximal hemodynamic control. The oculomotor nerve (CN III) is cleanly mobilized between P1 and SCA.",
+                    surgicalPearl: "CN III is the sentinel landmark of the upper basilar complex, passing precisely between P1 above and SCA below. Gentle mobilization without traction prevents post-operative third nerve palsy (ptosis, mydriasis, and down-and-out diplopia)."
+                ),
+                SurgicalCallout(
+                    id: "plate_063_3",
+                    title: "16× Interpeduncular Dissection & Permanent Clip Application",
+                    structureType: "CLIP RECONSTRUCTION & PERFORATOR SPARING",
+                    color: Color.blue,
+                    normalizedX: 0.81,
+                    normalizedY: 0.38,
+                    description: "High-magnification (16×) view of the interpeduncular fossa. A curved titanium Yasargil/Sugita clip is placed flush across the basilar neck parallel to the P1-P1 plane, completely excluding the aneurysm with visible collapse and purplish darkening of the sac. Complete preservation of bilateral P1s, SCAs, CN III, and the critical posterior thalamoperforators.",
+                    surgicalPearl: "Meticulous microscopic inspection behind the basilar apex is required before and after clip closure. The posterior thalamoperforating micro-arteries (paramedian mesencephalic branches) supply the midbrain and thalami; inadvertent clipping causes devastating coma, akinetic mutism, or bilateral paramedian thalamic infarction."
+                ),
+                SurgicalCallout(
+                    id: "plate_063_4",
+                    title: "Intraoperative ICG Videoangiography & Micro-Doppler Verification",
+                    structureType: "FLOW PATENCY & EXCLUSION CONFIRMATION",
+                    color: Color.green,
+                    normalizedX: 0.50,
+                    normalizedY: 0.88,
+                    description: "Dual-modality flow verification: Inset 1 (ICG videoangiography) confirms complete exclusion of the basilar tip aneurysm (jet black non-filling void) with robust fluorescent green flow in the basilar trunk, bilateral SCAs, P1s, and posterior thalamoperforators. Inset 2 (Micro-Doppler) confirms high-velocity laminar flow in P1 (V ≈ 32 cm/s, >25 cm/s patency threshold).",
+                    surgicalPearl: "Micro-Doppler interrogation of both P1 branches and both SCAs confirms that the clip blades have not kinked or stenosed the posterior circulation outflow. Symmetric laminar flow eliminates the risk of occipital and brainstem infarction."
+                )
+            ]
+
                                                                         case .plate062:
             return [
                 SurgicalCallout(
@@ -1773,6 +1817,16 @@ case .plate059:
                 ApproachSequentialStep(stepNumber: 4, title: "Controlled Liquid Embolic / Particle Infusion", detail: "Infuse liquid embolic (Onyx-18 / Squid) slowly under continuous subtracted fluoroscopy, creating a proximal plug and forcing embolic material distally into the neomembrane capillary network. Terminate injection once dense capillary casting and branch truncation are achieved without proximal reflux.")
             ]
 
+                                                                        case .plate063:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Positioning & Right Orbitozygomatic / Low Pterional Craniotomy", detail: "Supine in 3-point Mayfield clamp; head rotated 30° contralaterally and vertex extended 15° to open the subtemporal-orbital trajectory. Frontotemporal curvilinear incision. Low pterional or two-piece orbitozygomatic craniotomy; extensive diamond burr drilling of the sphenoid ridge down to the meningo-orbital band, with unroofing of the superior orbital fissure to flatten the subfrontal approach vector."),
+                ApproachSequentialStep(stepNumber: 2, title: "Wide Sylvian Split & Carotid-Oculomotor Corridor Opening", detail: "C-shaped dural opening. Meticulously split the Sylvian fissure from distal-to-proximal, liberating the frontal and temporal lobes. Open the optico-carotid and carotid-oculomotor triangles. Trace the posterior communicating artery (PComA) posteromedially toward its confluence with the P1 segment of the posterior cerebral artery."),
+                ApproachSequentialStep(stepNumber: 3, title: "Sharp Division of Liliequist's Membrane", detail: "Under high magnification, sharply divide both the carotid and diencephalic leaves of Liliequist's membrane. Evacuate CSF from the prepontine and interpeduncular cisterns to achieve complete neurovascular relaxation. Identify the oculomotor nerve (CN III) entering the roof of the cavernous sinus."),
+                ApproachSequentialStep(stepNumber: 4, title: "Basilar Trunk Isolation & Temporary Clip Security", detail: "Follow the basilar artery trunk inferiorly into the prepontine space. Identify the bilateral superior cerebellar arteries (SCA). Clear an adventitial landing zone on the mid-basilar trunk below the SCAs. Place a mini temporary titanium clip (clamp time strictly <5–10 min under mild hypothermia / burst-suppression neuroprotection) to soften the aneurysm dome."),
+                ApproachSequentialStep(stepNumber: 5, title: "Interpeduncular Circumdissection & Thalamoperforator Sparing", detail: "Dissect the aneurysm neck 360° within the interpeduncular fossa. Separate bilateral P1 segments laterally. Use micro-mirrors and angled micro-dissectors to inspect the posterior wall of the basilar apex, meticulously teasing all posterior thalamoperforating micro-arteries (paramedian mesencephalic branches) off the back of the aneurysm neck."),
+                ApproachSequentialStep(stepNumber: 6, title: "Permanent Clip Application & Multimodal Verification", detail: "Select a curved, angled, or fenestrated titanium Sugita/Yasargil clip. Apply clip blades flush across the neck parallel to the P1-P1 plane, verifying blade tips extend cleanly into clear space without kinking either P1 or pinching posterior thalamoperforators. Remove temporary basilar clip. Puncture dome to confirm decompression. Verify patency with ICG videoangiography and micro-Doppler (>25 cm/s in bilateral P1s).")
+            ]
+
                                                                         case .plate062:
             return [
                 ApproachSequentialStep(stepNumber: 1, title: "Positioning & Right Pterional Craniotomy", detail: "Supine with head pinned in 3-point Mayfield clamp, rotated 30° contralaterally and extended 15° to place the Sylvian fissure horizontal in the operating field. Curvilinear frontotemporal incision. Standard pterional craniotomy; extradural high-speed diamond drilling of the sphenoid ridge down to the meningo-orbital band to maximize anterior subtemporal line of sight."),
@@ -2200,6 +2254,14 @@ case .plate059:
                 "IRREVERSIBLE BLINDNESS VIA MENINGO-OPHTHALMIC ANASTOMOSIS: The anterior MMA can connect with the ophthalmic artery via the superior orbital fissure or recurrent meningeal branch. Always perform high-magnification roadmap angiography; embolic reflux or forward migration into the ophthalmic artery causes instant, catastrophic central retinal artery occlusion and permanent monocular blindness.",
                 "FACIAL NERVE PALSY VIA PETROSAL BRANCH: The petrosal branch of the MMA supplies the facial nerve (CN VII) in the Fallopian canal / geniculate ganglion. Always advance the microcatheter tip DISTAL to the petrosal branch takeoff before injecting liquid embolic or particles; embolization of the petrosal artery causes acute, permanent peripheral facial palsy (Bell's palsy).",
                 "PROXIMAL REFLUX INTO MAXILLARY OR CAROTID ARTERY: Never push liquid embolic aggressively against resistance. Maintain continuous fluoroscopic visualization of the catheter tip to prevent reflux back into the internal maxillary artery or external carotid system, which can cause skin necrosis, jaw claudication, or distal stroke."
+            ]
+
+                                                                        case .plate063:
+            return [
+                "AVULSION OR OCCLUSION OF POSTERIOR THALAMOPERFORATING ARTERIES: The posterior thalamoperforators (paramedian mesencephalic arteries) originate from the posterior wall of the basilar apex and bilateral P1s, supplying the midbrain, reticular activating system, and paramedian thalami. Inadvertent clipping or traction on these micro-vessels causes catastrophic midbrain infarction, permanent coma, locked-in syndrome, or bilateral thalamic necrosis (Percheron-type deficit). Always inspect behind the neck before final clip closure.",
+                "STENOSIS OR COMPRESSION OF BILATERAL P1 POSTERIOR CEREBRAL ARTERIES: Applying a clip that impinges on either P1 origin compromises the PCA territory, causing occipital infarction with permanent homonymous hemianopia and temporal lobe ischemia. Always interrogate both P1 branches with micro-Doppler (>25 cm/s) and ICG videoangiography.",
+                "OCULOMOTOR NERVE (CN III) TRACTION PALSY: CN III passes directly between P1 and SCA and is vulnerable to retractor pressure or surgical manipulation. Excessive mechanical stretch causes complete third nerve palsy with severe ptosis, pupillary mydriasis, and external ophthalmoplegia (down-and-out eye). Minimize traction and dissect arachnoid bands sharply around the nerve.",
+                "PREMATURE BASILAR APEX RUPTURE DURING LILIEQUIST DIVISION: Basilar tip aneurysm domes can adhere densely to the diencephalic membrane of Liliequist or invaginate the floor of the third ventricle. Blunt dissection or rapid CSF drainage can precipitate catastrophic intraoperative rupture before basilar trunk control is secured. Always expose the basilar trunk and establish proximal temporary control below the SCAs prior to manipulating the dome."
             ]
 
                                                                         case .plate062:
