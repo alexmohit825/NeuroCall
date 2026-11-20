@@ -724,7 +724,7 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
         case .posteriorFossa:
             return [.plate010, .plate020, .plate004, .plate003, .plate006, .plate022, .plate052, .plate057]
         case .vascularVentricular:
-            return [.plate002, .plate027, .plate040, .plate041, .plate051, .plate053, .plate056, .plate060]
+            return [.plate002, .plate027, .plate040, .plate041, .plate051, .plate053, .plate056, .plate060, .plate061]
         case .craniovertebral:
             return [.plate001, .plate013, .plate014, .plate035, .plate043, .plate047, .plate049]
         case .cervical:
@@ -740,8 +740,8 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
 }
 
 public enum AtlasCategory: String, CaseIterable {
-    case all = "All Plates (60)"
-    case cranial = "Cranial & Skull Base (31)"
+    case all = "All Plates (61)"
+    case cranial = "Cranial & Skull Base (32)"
     case spine = "Spine & CVJ (29)"
 
     public var filteredPlates: [SurgicalPlateType] {
@@ -816,6 +816,7 @@ public enum SurgicalPlateType: String, CaseIterable {
     case plate058 = "plate_058_spinal_epidural_abscess"
     case plate059 = "plate_059_pituitary_macroadenoma_knosp"
     case plate060 = "plate_060_moyamoya_revascularization"
+    case plate061 = "plate_061_acoma_aneurysm_clipping"
 
     public var subSection: AtlasSubSection {
         for section in AtlasSubSection.allCases {
@@ -892,6 +893,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate058: return 58
         case .plate059: return 59
         case .plate060: return 60
+        case .plate061: return 61
         }
     }
 
@@ -961,6 +963,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate058: return "58: Epidural Abscess"
         case .plate059: return "59: Pituitary Macroadenoma"
         case .plate060: return "60: Moyamoya Revascularization"
+        case .plate061: return "61: AComA Aneurysm"
         }
     }
 
@@ -1026,6 +1029,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate058: return "Spinal Epidural Abscess (SEA) & Phlegmon — Contrast MRI, Spondylodiscitis & Catheter Decompression Protocol"
         case .plate059: return "Pituitary Macroadenoma & Endoscopic Endonasal Approach — Coronal 3T MRI, Knosp Matrix & Hadad Flap Reconstruction"
         case .plate060: return "Moyamoya Disease & Dual-Mechanism Cerebral Revascularization — Direct STA-MCA Bypass & Indirect EDAS Synangiosis"
+        case .plate061: return "Anterior Communicating Artery (AComA) Aneurysm & Microsurgical Pterional Clipping — 3D Angiopathology, Projection Profiles & Gyrus Rectus Corridor"
         }
     }
 
@@ -1091,6 +1095,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate058: return "cross.circle.fill"
         case .plate059: return "eye.fill"
         case .plate060: return "arrow.triangle.branch"
+        case .plate061: return "bolt.horizontal.fill"
         }
     }
 

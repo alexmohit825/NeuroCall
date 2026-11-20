@@ -965,6 +965,50 @@ extension SurgicalPlateType {
                 )
             ]
 
+                                                                        case .plate061:
+            return [
+                SurgicalCallout(
+                    id: "plate_061_1",
+                    title: "AComA Aneurysm 4-Projection Classification & CTA MIP",
+                    structureType: "ANGIOGRAPHIC MORPHOLOGY & CTA",
+                    color: Color.red,
+                    normalizedX: 0.16,
+                    normalizedY: 0.55,
+                    description: "Axial CTA MIP and four canonical projection profiles: (a) Anteroinferior (projects toward prechiasmatic cistern/optic chiasm; prone to rupture during initial frontal lobe retraction), (b) Superior/Interhemispheric (projects upward between bilateral A2s), (c) Posterosuperior (projects toward lamina terminalis/hypothalamus; high perforator risk), and (d) Complex/Inferior-Dorsal (adherent to dorsal chiasm).",
+                    surgicalPearl: "Preoperative 3D CTA and rotational DSA define the dominant feeding A1 (present in >80% of AComA aneurysms due to asymmetric circle of Willis flow dynamics). Pterional craniotomy is chosen on the side of the dominant A1 to secure early proximal control."
+                ),
+                SurgicalCallout(
+                    id: "plate_061_2",
+                    title: "Right Pterional Transsylvian Approach & Gyrus Rectus Corridor",
+                    structureType: "MICROSURGICAL OPERATIVE CORRIDOR",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.50,
+                    normalizedY: 0.38,
+                    description: "Right frontotemporal pterional craniotomy with sphenoid ridge drilled flat to the meningo-orbital band. The Sylvian fissure is widely split, releasing CSF from the carotid-optic cistern. A temporary clip is placed on the dominant Right A1 for proximal hemodynamic protection. A minimal 5 mm subpial resection of the gyrus rectus medial to the olfactory tract exposes the AComA complex and contralateral A1/A2 without brain retraction injury.",
+                    surgicalPearl: "Subpial gyrus rectus resection must remain strictly medial to the olfactory tract and anterior to the anterior communicating artery to avoid damaging the olfactory striae, optic chiasm, or hypothalamic nuclei. Preserving the pial cuff prevents venous infarction."
+                ),
+                SurgicalCallout(
+                    id: "plate_061_3",
+                    title: "16× Microdissection & Permanent Yasargil Clip Application",
+                    structureType: "CLIP RECONSTRUCTION & PERFORATOR SPARING",
+                    color: Color.blue,
+                    normalizedX: 0.81,
+                    normalizedY: 0.38,
+                    description: "High-magnification (16×) view showing 360° circumferential skeletonization of the aneurysm neck. A titanium Sugita/Yasargil spring clip completely occludes the neck flush with the parent AComA vessel, causing visible collapse and darkening of the excluded sac. Complete preservation of bilateral A2 trunks, the Recurrent Artery of Heubner (RAH), and posterior hypothalamic/chiasmatic perforating micro-arterioles.",
+                    surgicalPearl: "The clip blades must span 1–2 mm beyond the far neck margin to ensure complete closure without leaving a residual neck dog-ear. Meticulously inspect the tips behind the neck to confirm that the contralateral A2, Heubner's artery, and hypothalamic perforators are completely free before releasing proximal temporary clips."
+                ),
+                SurgicalCallout(
+                    id: "plate_061_4",
+                    title: "Intraoperative ICG Videoangiography & Micro-Doppler Verification",
+                    structureType: "FLOW PATENCY & EXCLUSION CONFIRMATION",
+                    color: Color.green,
+                    normalizedX: 0.50,
+                    normalizedY: 0.88,
+                    description: "Dual-modality intraoperative hemodynamic verification: Inset 1 (ICG videoangiography) confirms complete exclusion of the aneurysm (jet black non-filling void) with robust fluorescent green flow in bilateral A1, A2, and recurrent artery of Heubner. Inset 2 (Micro-Doppler) verifies pulsatile laminar flow (>15 cm/s, measured at 24 cm/s) across both A2 segments.",
+                    surgicalPearl: "Always perform microscopic inspection combined with ICG and micro-Doppler interrogation of both A2 branches before final closure. Inadvertent kinking or occlusion of an A2 trunk causes profound anterior cerebral artery territory infarction, leading to lower extremity diplegia, abulia, and mutism."
+                )
+            ]
+
                                                                         case .plate060:
             return [
                 SurgicalCallout(
@@ -1685,6 +1729,16 @@ case .plate059:
                 ApproachSequentialStep(stepNumber: 4, title: "Controlled Liquid Embolic / Particle Infusion", detail: "Infuse liquid embolic (Onyx-18 / Squid) slowly under continuous subtracted fluoroscopy, creating a proximal plug and forcing embolic material distally into the neomembrane capillary network. Terminate injection once dense capillary casting and branch truncation are achieved without proximal reflux.")
             ]
 
+                                                                        case .plate061:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Positioning, Pterional Craniotomy & Sphenoid Ridge Flattening", detail: "Supine with head rotated 30°–45° contralaterally, vertex extended 10°–15° to align the Sylvian fissure vertical. Curvilinear frontotemporal question-mark incision behind hairline. Standard pterional craniotomy; high-speed diamond drilling of the sphenoid ridge down to the meningo-orbital band to unroof the superior orbital fissure and provide an uninhibited, flat subfrontal trajectory."),
+                ApproachSequentialStep(stepNumber: 2, title: "Dural Opening & Transsylvian Cisternal Dissection", detail: "C-shaped dural flap reflected anteriorly over the sphenoid ridge. Open the Sylvian fissure sharply from lateral to medial, preserving superficial Sylvian veins. Drain CSF from the opticocarotid and chiasmatic cisterns for complete brain relaxation without mechanical brain retractors."),
+                ApproachSequentialStep(stepNumber: 3, title: "Early Proximal Hemodynamic Control (Dominant A1)", detail: "Trace the supraclinoid ICA to its terminal bifurcation into M1 and A1. Follow the dominant A1 segment medially across the optic nerve. Clear an adventitial landing zone on the proximal A1 and place a mini temporary titanium clip (clamp time strictly <10–15 min with burst-suppression neuroprotection) to soften the aneurysm dome."),
+                ApproachSequentialStep(stepNumber: 4, title: "Gyrus Rectus Subpial Resection", detail: "Identify the olfactory tract on the frontal orbital surface. Perform a precise, minimal 5 mm subpial resection of the gyrus rectus strictly medial to the olfactory tract using bipolar cautery and micro-suction. Enter the interhemispheric fissure to directly visualize the contralateral A1, bilateral A2 origins, and the anterior face of the AComA complex without excessive frontal lobe retraction."),
+                ApproachSequentialStep(stepNumber: 5, title: "Circumferential Neck Dissection & Perforator Preservation", detail: "Dissect the aneurysm neck 360° off parent vessels. Identify and mobilize the Recurrent Artery of Heubner (RAH) tracking laterally. Gently tease delicate chiasmatic and hypothalamic perforators off the posterior neck and aneurysm dome using micro-hooks and diamond micro-dissectors."),
+                ApproachSequentialStep(stepNumber: 6, title: "Permanent Clip Application & Multimodal Verification", detail: "Select an appropriate straight, curved, or fenestrated titanium aneurysm clip. Apply clip blades flush across the neck parallel to the AComA parent axis, confirming blade tips extend 1–2 mm into clear space. Puncture or coagulate the dome to confirm complete depressurization. Remove the temporary A1 clip. Perform ICG videoangiography and micro-Doppler interrogation to verify patent bilateral A2 flow (>15 cm/s) and complete dome exclusion.")
+            ]
+
                                                                         case .plate060:
             return [
                 ApproachSequentialStep(stepNumber: 1, title: "Superficial Temporal Artery (STA) Mapping & Harvest", detail: "Preoperative Doppler mapping of frontal and parietal STA branches. Perform a curvilinear incision over the parietal branch; meticulous micro-dissection preserving a 1 cm galea-periosteal cuff for EDAS and isolating the distal donor branch with 2 mm adventitial cuff for direct bypass."),
@@ -2092,6 +2146,14 @@ case .plate059:
                 "IRREVERSIBLE BLINDNESS VIA MENINGO-OPHTHALMIC ANASTOMOSIS: The anterior MMA can connect with the ophthalmic artery via the superior orbital fissure or recurrent meningeal branch. Always perform high-magnification roadmap angiography; embolic reflux or forward migration into the ophthalmic artery causes instant, catastrophic central retinal artery occlusion and permanent monocular blindness.",
                 "FACIAL NERVE PALSY VIA PETROSAL BRANCH: The petrosal branch of the MMA supplies the facial nerve (CN VII) in the Fallopian canal / geniculate ganglion. Always advance the microcatheter tip DISTAL to the petrosal branch takeoff before injecting liquid embolic or particles; embolization of the petrosal artery causes acute, permanent peripheral facial palsy (Bell's palsy).",
                 "PROXIMAL REFLUX INTO MAXILLARY OR CAROTID ARTERY: Never push liquid embolic aggressively against resistance. Maintain continuous fluoroscopic visualization of the catheter tip to prevent reflux back into the internal maxillary artery or external carotid system, which can cause skin necrosis, jaw claudication, or distal stroke."
+            ]
+
+                                                                        case .plate061:
+            return [
+                "INTRAOPERATIVE ANEURYSM RUPTURE DURING FRONTAL LOBE ELEVATION: In anterior-inferior projecting AComA aneurysms, the dome adheres to the optic chiasm and tuberculum sellae dura; premature frontal lobe traction tears the thin-walled dome before proximal control is established. Never elevate the frontal lobe aggressively; always split the Sylvian fissure and establish proximal A1 control before dissecting the chiasmatic cistern.",
+                "OCCLUSION OR KINKING OF BILATERAL A2 ARTERIES: Applying a clip that bites across the AComA-A2 junction or causes secondary torque on the A2 origins results in catastrophic anterior cerebral artery (ACA) infarction, leading to profound bilateral lower-extremity paraparesis (bilateral leg paralysis), urinary incontinence, and severe abulia/akinetic mutism. Verify bilateral A2 patency with micro-Doppler (>15 cm/s) and ICG.",
+                "AVULSION OF HYPOTHALAMIC & CHIASMATIC PERFORATORS: Posteriorly projecting AComA aneurysms adhere to fine, end-arterial hypothalamic branches supplying the optic chiasm, suprachiasmatic nucleus, and anterior hypothalamus. Clip encroachment or coagulation of these micro-vessels triggers severe short-term memory loss (Korsakoff-like amnesia), electrolyte crises (diabetes insipidus), and hyperthermic autonomic storms.",
+                "ISCHEMIC INJURY TO THE RECURRENT ARTERY OF HEUBNER (RAH): Inadvertent clipping or thermal injury to the RAH (which arises near the A1-A2 junction and courses laterally to the anterior perforated substance) causes caudate head and anterior internal capsule infarction, manifesting as contralateral faciobrachial hemiparesis and dysarthria."
             ]
 
                                                                         case .plate060:
