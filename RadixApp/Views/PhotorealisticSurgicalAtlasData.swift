@@ -965,6 +965,50 @@ extension SurgicalPlateType {
                 )
             ]
 
+                                                                        case .plate065:
+            return [
+                SurgicalCallout(
+                    id: "plate_065_1",
+                    title: "Pre/Post-Op Imaging & Coronal Ventricular Corridors",
+                    structureType: "NEUROIMAGING & APPROACH CORRIDORS",
+                    color: Color.red,
+                    normalizedX: 0.16,
+                    normalizedY: 0.50,
+                    description: "Preoperative non-contrast CT demonstrates a well-circumscribed hyperdense round mass centered at the foramen of Monro causing acute biventricular obstructive hydrocephalus. Preoperative T1 MRI shows a hyperintense/isointense mucinous cyst; postoperative CT confirms complete excision and ventriculomegaly resolution. Coronal schematic illustrates the 3 third ventricular corridors: (1) Transforaminal, (2) Interforniceal, and (3) Transchoroidal (subchoroidal).",
+                    surgicalPearl: "CT hyperdensity reflects high protein and mucin viscosity within the cyst, which often resists needle aspiration and requires sharp fenestration and micro-curettage. Preoperative imaging must assess fornix splaying to select between transforaminal and interforniceal entry."
+                ),
+                SurgicalCallout(
+                    id: "plate_065_2",
+                    title: "Right Transcallosal Exposure & Foramen of Monro Anatomy",
+                    structureType: "INTRAVENTRICULAR MICROSURGICAL ANATOMY",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.50,
+                    normalizedY: 0.38,
+                    description: "Right frontoparietal parasagittal craniotomy with interhemispheric corridor along the falx. Limited 1.5–2.0 cm anterior callosotomy between pericallosal arteries entering the right lateral ventricle. Definitive intraventricular landmarks: pearly-white septum pellucidum with the vertical septal vein medially, arching ivory fornix column, thalamostriate vein coursing to the venous angle, glomerular choroid plexus along the choroidal fissure, and the yellowish-amber colloid cyst bulging through the foramen.",
+                    surgicalPearl: "Limiting anterior callosotomy to <2.0 cm strictly anterior to the coronal suture prevents disconnection syndromes (interhemispheric transfer deficits). Sparing bridging veins entering the superior sagittal sinus avoids hemorrhagic venous infarction of the motor strip."
+                ),
+                SurgicalCallout(
+                    id: "plate_065_3",
+                    title: "16× Cyst Evacuation, Capsule Dissection & Restored Foramen",
+                    structureType: "4-STEP CYST RESECTION & FORAMEN RESTORATION",
+                    color: Color.blue,
+                    normalizedX: 0.82,
+                    normalizedY: 0.38,
+                    description: "Progressive 4-step microsurgical sequence: (1) Cyst fenestration and micro-aspiration of viscous mucinous contents; (2) Capsule mobilization peeling the fibrous wall off the third ventricle roof; (3) Preservation of bilateral forniceal columns and deep internal cerebral veins in the velum interpositum; (4) Widely patent, communicating bilateral foramina of Monro restoring normal cerebrospinal fluid dynamics.",
+                    surgicalPearl: "Never pull vigorously on the cyst capsule where it adheres to the third ventricular roof; the internal cerebral veins run immediately adjacent within the velum interpositum. Cauterizing the capsule gently shrinks it away from the deep venous system without risking torrential deep intraventricular hemorrhage."
+                ),
+                SurgicalCallout(
+                    id: "plate_065_4",
+                    title: "H&E Neuropathology & Forniceal / Venous Angle Safety",
+                    structureType: "NEUROPATHOLOGY & SAFETY PROTOCOL",
+                    color: Color.green,
+                    normalizedX: 0.50,
+                    normalizedY: 0.88,
+                    description: "Dual insets: Inset 1 (H&E 40×) illustrates a fibrovascular connective tissue cyst wall lined by a single layer of ciliated columnar and mucin-secreting epithelial cells with PAS-positive mucin droplets. Inset 2 (Venous Angle Safety) demonstrates micro-Doppler interrogation of the internal cerebral veins and outlines safety mandates: avoiding bilateral forniceal traction (>1–2 mm) and preserving the thalamostriate vein.",
+                    surgicalPearl: "Bilateral forniceal traction or thermal injury causes devastating, irreversible anterograde amnesia (inability to form new memories, Korsakoff-like syndrome). Occluding the thalamostriate vein risks venous infarction of the caudate and thalamus (drowsiness, mutism, hemiplegia)."
+                )
+            ]
+
                                                                         case .plate064:
             return [
                 SurgicalCallout(
@@ -1861,6 +1905,16 @@ case .plate059:
                 ApproachSequentialStep(stepNumber: 4, title: "Controlled Liquid Embolic / Particle Infusion", detail: "Infuse liquid embolic (Onyx-18 / Squid) slowly under continuous subtracted fluoroscopy, creating a proximal plug and forcing embolic material distally into the neomembrane capillary network. Terminate injection once dense capillary casting and branch truncation are achieved without proximal reflux.")
             ]
 
+                                                                        case .plate065:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Positioning & Right Frontoparietal Parasagittal Craniotomy", detail: "Patient supine with head elevated 30° and neck flexed 15° in neutral rotation to orient the anterior interhemispheric fissure vertical. Right frontoparietal parasagittal craniotomy crossing the midline slightly to expose the superior sagittal sinus (SSS) margin, placed 2/3 anterior and 1/3 posterior to the coronal suture."),
+                ApproachSequentialStep(stepNumber: 2, title: "Dural Opening & Interhemispheric Transcallosal Dissection", detail: "U-shaped dural flap reflected medially over the SSS. Gravity-assisted interhemispheric approach along the falx cerebri, strictly preserving bridging frontoparietal draining veins. Release CSF from the pericallosal cistern. Gently retract the right cingulate gyrus to expose the glistening white corpus callosum flanked by bilateral pericallosal arteries."),
+                ApproachSequentialStep(stepNumber: 3, title: "Limited Anterior Callosotomy (<2.0 cm)", detail: "Separate the pericallosal arteries. Perform a 1.5–2.0 cm longitudinal anterior callosotomy through the raphe of the corpus callosum strictly anterior to the coronal suture using bipolar cautery and micro-suction. Penetrate the callosal body into the right lateral ventricle, avoiding deeper penetration into the septum."),
+                ApproachSequentialStep(stepNumber: 4, title: "Intraventricular Orientation & Foramen of Monro Exposure", detail: "Confirm orientation by identifying the pearly-white septum pellucidum medially, arching fornix column, choroid plexus, and the thalamostriate vein converging at the venous angle. Visualize the bulging, yellowish-amber colloid cyst dome protruding through the dilated foramen of Monro."),
+                ApproachSequentialStep(stepNumber: 5, title: "Cyst Fenestration, Content Aspiration & Capsule Dissection", detail: "Puncture the avascular dome with a micro-knife. Evacuate thick, viscous mucinous contents using a 3-French micro-suction tube and ring curette to deflate the mass. Gently mobilize the cyst capsule with micro-forceps, developing the fine arachnoid plane separating the capsule from the roof of the third ventricle and internal cerebral veins without forceful traction."),
+                ApproachSequentialStep(stepNumber: 6, title: "Hemostasis, Foraminal Patency Verification & Closure", detail: "Confirm complete gross total capsule excision and verify bilateral widely patent foramina of Monro with clear CSF communication into the third ventricle. Inspect the intact forniceal pillars and confirm patency of the internal cerebral and thalamostriate veins with micro-Doppler. Fill ventricles with warm lactated Ringer's solution, close dura watertight, and secure bone flap.")
+            ]
+
                                                                         case .plate064:
             return [
                 ApproachSequentialStep(stepNumber: 1, title: "Positioning & Neurophysiological Baseline Setup", detail: "Prone positioning with head secured in 3-point Mayfield clamp; neck in neutral or mild flexion without jugular venous compression. Establish baseline Somatosensory Evoked Potentials (SSEP), Transcranial Motor Evoked Potentials (TcMEP), and epidural D-wave recording electrodes placed caudal to the surgical level."),
@@ -2308,6 +2362,14 @@ case .plate059:
                 "IRREVERSIBLE BLINDNESS VIA MENINGO-OPHTHALMIC ANASTOMOSIS: The anterior MMA can connect with the ophthalmic artery via the superior orbital fissure or recurrent meningeal branch. Always perform high-magnification roadmap angiography; embolic reflux or forward migration into the ophthalmic artery causes instant, catastrophic central retinal artery occlusion and permanent monocular blindness.",
                 "FACIAL NERVE PALSY VIA PETROSAL BRANCH: The petrosal branch of the MMA supplies the facial nerve (CN VII) in the Fallopian canal / geniculate ganglion. Always advance the microcatheter tip DISTAL to the petrosal branch takeoff before injecting liquid embolic or particles; embolization of the petrosal artery causes acute, permanent peripheral facial palsy (Bell's palsy).",
                 "PROXIMAL REFLUX INTO MAXILLARY OR CAROTID ARTERY: Never push liquid embolic aggressively against resistance. Maintain continuous fluoroscopic visualization of the catheter tip to prevent reflux back into the internal maxillary artery or external carotid system, which can cause skin necrosis, jaw claudication, or distal stroke."
+            ]
+
+                                                                        case .plate065:
+            return [
+                "BILATERAL FORNIX INJURY & PERMANENT ANTEROGRADE AMNESIA: Excessive mechanical traction, blunt dissection, or bipolar thermal injury across the forniceal pillars causes irreversible bilateral fornix transection, resulting in profound permanent anterograde amnesia (inability to form new memories / severe Korsakoff-like syndrome). Limit retraction to unilateral gentle elevation (<1–2 mm) and never apply unipolar cautery near the forniceal columns.",
+                "THALAMOSTRIATE VEIN COAGULATION & BASAL GANGLIA INFARCTION: Coagulating or avulsing the thalamostriate vein at the venous angle causes severe venous hypertension and hemorrhagic infarction of the caudate head and anterior thalamus, manifesting as hemiplegia, somnolence, abulia, and hyperthermia. Always preserve the thalamostriate and septal veins converging into the internal cerebral veins.",
+                "INTERNAL CEREBRAL VEIN (ICV) LACERATION IN VELUM INTERPOSITUM: Aggressive upward pulling on the cyst capsule adherent to the roof of the third ventricle tears the paired internal cerebral veins, triggering torrential deep intraventricular hemorrhage with catastrophic tamponade and high mortality. Always sharply dissect the capsule from the third ventricle roof under continuous microscopic visualization.",
+                "POSTERIOR CALLOSOTOMY EXTENSION & INTERHEMISPHERIC DISCONNECTION: Extending the anterior callosotomy >2.0–2.5 cm posteriorly into the splenium or midbody causes interhemispheric disconnection syndrome (left-hand apraxia, alexia without agraphia, tactile anomia). Always verify that the callosotomy is restricted strictly anterior to the coronal suture."
             ]
 
                                                                         case .plate064:

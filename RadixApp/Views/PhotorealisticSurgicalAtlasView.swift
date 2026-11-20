@@ -724,7 +724,7 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
         case .posteriorFossa:
             return [.plate010, .plate020, .plate004, .plate003, .plate006, .plate022, .plate052, .plate057]
         case .vascularVentricular:
-            return [.plate002, .plate027, .plate040, .plate041, .plate051, .plate053, .plate056, .plate060, .plate061, .plate062, .plate063]
+            return [.plate002, .plate027, .plate040, .plate041, .plate051, .plate053, .plate056, .plate060, .plate061, .plate062, .plate063, .plate065]
         case .craniovertebral:
             return [.plate001, .plate013, .plate014, .plate035, .plate043, .plate047, .plate049]
         case .cervical:
@@ -740,8 +740,8 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
 }
 
 public enum AtlasCategory: String, CaseIterable {
-    case all = "All Plates (64)"
-    case cranial = "Cranial & Skull Base (34)"
+    case all = "All Plates (65)"
+    case cranial = "Cranial & Skull Base (35)"
     case spine = "Spine & CVJ (30)"
 
     public var filteredPlates: [SurgicalPlateType] {
@@ -820,6 +820,7 @@ public enum SurgicalPlateType: String, CaseIterable {
     case plate062 = "plate_062_mca_bifurcation_aneurysm_clipping"
     case plate063 = "plate_063_basilar_apex_aneurysm_clipping"
     case plate064 = "plate_064_spinal_intramedullary_ependymoma"
+    case plate065 = "plate_065_third_ventricle_colloid_cyst"
 
     public var subSection: AtlasSubSection {
         for section in AtlasSubSection.allCases {
@@ -900,6 +901,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate062: return 62
         case .plate063: return 63
         case .plate064: return 64
+        case .plate065: return 65
         }
     }
 
@@ -973,6 +975,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate062: return "62: MCA Bifurcation"
         case .plate063: return "63: Basilar Apex"
         case .plate064: return "64: Cervical Ependymoma"
+        case .plate065: return "65: Colloid Cyst"
         }
     }
 
@@ -1042,6 +1045,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate062: return "Middle Cerebral Artery (MCA) Bifurcation Aneurysm & Microsurgical Clipping — Catheter DSA, Transsylvian Exposure & Multi-Clip Reconstruction"
         case .plate063: return "Basilar Apex (Tip) Aneurysm & Microsurgical Clipping — Angiopathology, Bifurcation Height & Trans-Liliequist Corridor"
         case .plate064: return "Cervical Spinal Intramedullary Ependymoma — 3T MRI, Hemosiderin Cap Sign, Midline Myelotomy & En-Bloc Resection"
+        case .plate065: return "Third Ventricle Colloid Cyst & Transcallosal Approach — 3D Neuroimaging, Ventricular Corridors & Capsule Resection"
         }
     }
 
@@ -1111,6 +1115,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate062: return "arrow.triangle.branch"
         case .plate063: return "arrow.triangle.branch"
         case .plate064: return "cylinder.split.1x2.fill"
+        case .plate065: return "circle.hexagongrid.fill"
         }
     }
 
