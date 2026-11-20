@@ -965,6 +965,50 @@ extension SurgicalPlateType {
                 )
             ]
 
+                                                                        case .plate066:
+            return [
+                SurgicalCallout(
+                    id: "plate_066_1",
+                    title: "3T Contrast MRI & Skull Base Lesion Comparison",
+                    structureType: "ANTERIOR SKULL BASE NEUROIMAGING",
+                    color: Color.red,
+                    normalizedX: 0.16,
+                    normalizedY: 0.50,
+                    description: "Sagittal 3T contrast MRI demonstrates a giant (~6 cm) homogeneously enhancing subfrontal olfactory groove meningioma with hyperostotic downward remodeling into the ethmoid sinus. Displaces the frontal lobe superiorly/posteriorly and drapes bilateral A2 ACA trunks over the posterior dome. Bottom inset contrasts olfactory groove meningiomas (push optic chiasm down/back) against tuberculum sellae meningiomas (push optic chiasm up/lateral).",
+                    surgicalPearl: "The displacement of the optic chiasm is the defining anatomical difference: olfactory groove tumors arise anterior to the chiasm and push it posteroinferiorly, whereas tuberculum sellae tumors arise directly beneath the chiasm and elevate it. Draped ACAs require patient extracapsular microdissection."
+                ),
+                SurgicalCallout(
+                    id: "plate_066_2",
+                    title: "Bifrontal Exposure & Extradural Devascularization",
+                    structureType: "EXTRADURAL DEVASCULARIZATION CORRIDOR",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.50,
+                    normalizedY: 0.38,
+                    description: "Low bifrontal craniotomy drilled flush with orbital roofs and nasion. A large vascularized pericranial flap is preserved and reflected anteriorly. Extradural elevation of frontal dura exposes the crista galli, cribriform plate, and planum sphenoidale. Bipolar cautery divides the anterior ethmoidal artery at the fronto-ethmoidal suture and posterior ethmoidal artery near the optic canal, cutting off >80% of tumor vascularity before durotomy.",
+                    surgicalPearl: "Extradural coagulation of the anterior and posterior ethmoidal arteries is the hallmark of the transbasal approach. Devascularizing the tumor from its skull base attachments converts a high-tension, vascular tumor into a soft, ischemic, easily aspirable mass."
+                ),
+                SurgicalCallout(
+                    id: "plate_066_3",
+                    title: "16× CUSA Debulking, ACA Sparing & Simpson Grade I Repair",
+                    structureType: "INTRADURAL MICROSURGERY & SKULL BASE REPAIR",
+                    color: Color.blue,
+                    normalizedX: 0.82,
+                    normalizedY: 0.38,
+                    description: "16× operating microscope view. Ultrasonic aspiration (CUSA) hollows out the firm fibrous core of the meningioma, collapsing the capsule inward away from frontal cortex. Extracapsular arachnoid dissection mobilizes and preserves the draped bilateral A2 ACAs and frontopolar branches, decompressing the optic apparatus. Simpson Grade I reconstruction removes hyperostotic crista galli and cribriform floor, sealed with the vascularized pericranial flap and fibrin glue.",
+                    surgicalPearl: "Always dissect in the arachnoid cleavage plane. The ACAs and their frontopolar branches are separated from the tumor by an intact arachnoid layer; pulling or coagulating on the tumor capsule blindly risks anterior cerebral artery thrombosis and profound bilateral frontal lobe infarction."
+                ),
+                SurgicalCallout(
+                    id: "plate_066_4",
+                    title: "Meningothelial Neuropathology & CSF Leak Protocol",
+                    structureType: "NEUROPATHOLOGY & MULTILAYER CLOSURE",
+                    color: Color.green,
+                    normalizedX: 0.50,
+                    normalizedY: 0.88,
+                    description: "Dual insets: Inset 1 (H&E 40×) illustrates classic WHO Grade I meningothelial/transitional meningioma showing syncytial cell lobules, intranuclear pseudo-inclusions, and laminated calcified Psammoma bodies. Inset 2 (Anterior Skull Base Protocol) details the 6-point checklist for permanent CSF leak prevention: extradural devvascularization, hyperostotic bone drilling, vascularized pericranial flap buttress, watertight closure, and fibrin sealant.",
+                    surgicalPearl: "The vascularized pericranial flap is the single most effective barrier against postoperative CSF rhinorrhea and ascending bacterial meningitis. Never sacrifice or desiccate the pericranium during initial scalp opening."
+                )
+            ]
+
                                                                         case .plate065:
             return [
                 SurgicalCallout(
@@ -1905,6 +1949,16 @@ case .plate059:
                 ApproachSequentialStep(stepNumber: 4, title: "Controlled Liquid Embolic / Particle Infusion", detail: "Infuse liquid embolic (Onyx-18 / Squid) slowly under continuous subtracted fluoroscopy, creating a proximal plug and forcing embolic material distally into the neomembrane capillary network. Terminate injection once dense capillary casting and branch truncation are achieved without proximal reflux.")
             ]
 
+                                                                        case .plate066:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Positioning & Low Bifrontal Craniotomy", detail: "Patient supine with head elevated 15° and neck slightly extended. Coronal or bicoronal incision behind hairline; meticulously harvest a large, vascularized anterior pericranial flap pedicled on supraorbital and supratrochlear arteries. Perform a low bifrontal craniotomy placed flush with the orbital roofs and nasion to eliminate brain retraction, exenterating the frontal sinus with mucosal stripping and cranialization."),
+                ApproachSequentialStep(stepNumber: 2, title: "Extradural Subfrontal Mobilization & Dural Elevation", detail: "Under microscope illumination, peel the frontal dura extradurally off the orbital roofs and planum sphenoidale from anterior to posterior toward the crista galli, maintaining an intact dural envelope to contain CSF."),
+                ApproachSequentialStep(stepNumber: 3, title: "Extradural Ethmoidal Devascularization", detail: "Identify the anterior and posterior ethmoidal arteries as they exit their respective foramina along the fronto-ethmoidal suture. Coagulate with bipolar cautery and divide these vessels extradurally, cutting off >80% of the primary dural feeding supply to the meningioma base prior to dural opening."),
+                ApproachSequentialStep(stepNumber: 4, title: "Dural Opening & CUSA Internal Cavitation", detail: "Incise the frontal dura transversely parallel to the skull base. Ligate or clip the anterior sagittal sinus. Immediately enter the firm, fleshy meningioma capsule and perform aggressive internal debulking with an ultrasonic aspirator (CUSA) and micro-curettes, converting the tense spherical mass into a pliable, collapsible shell."),
+                ApproachSequentialStep(stepNumber: 5, title: "Extracapsular Dissection & ACA / Optic Sparing", detail: "Under high magnification, mobilize the deflated tumor capsule. Identify and preserve the arachnoid dissection plane separating the posterior capsule from draped A2 anterior cerebral artery (ACA) trunks, frontopolar branches, optic nerves, and the displaced optic chiasm. Strip the capsule off adherent neurovascular structures without pulling."),
+                ApproachSequentialStep(stepNumber: 6, title: "Simpson Grade I Resection & Pericranial Flap Skull Base Reconstruction", detail: "Complete tumor excision; drill the hyperostotic crista galli and involved cribriform plate with a diamond burr down to healthy bone (Simpson Grade I). Reconstruct the cribriform/ethmoid floor defect by rotating the vascularized pericranial flap over the anterior skull base, securing it watertight with sutures and fibrin sealant.")
+            ]
+
                                                                         case .plate065:
             return [
                 ApproachSequentialStep(stepNumber: 1, title: "Positioning & Right Frontoparietal Parasagittal Craniotomy", detail: "Patient supine with head elevated 30° and neck flexed 15° in neutral rotation to orient the anterior interhemispheric fissure vertical. Right frontoparietal parasagittal craniotomy crossing the midline slightly to expose the superior sagittal sinus (SSS) margin, placed 2/3 anterior and 1/3 posterior to the coronal suture."),
@@ -2362,6 +2416,14 @@ case .plate059:
                 "IRREVERSIBLE BLINDNESS VIA MENINGO-OPHTHALMIC ANASTOMOSIS: The anterior MMA can connect with the ophthalmic artery via the superior orbital fissure or recurrent meningeal branch. Always perform high-magnification roadmap angiography; embolic reflux or forward migration into the ophthalmic artery causes instant, catastrophic central retinal artery occlusion and permanent monocular blindness.",
                 "FACIAL NERVE PALSY VIA PETROSAL BRANCH: The petrosal branch of the MMA supplies the facial nerve (CN VII) in the Fallopian canal / geniculate ganglion. Always advance the microcatheter tip DISTAL to the petrosal branch takeoff before injecting liquid embolic or particles; embolization of the petrosal artery causes acute, permanent peripheral facial palsy (Bell's palsy).",
                 "PROXIMAL REFLUX INTO MAXILLARY OR CAROTID ARTERY: Never push liquid embolic aggressively against resistance. Maintain continuous fluoroscopic visualization of the catheter tip to prevent reflux back into the internal maxillary artery or external carotid system, which can cause skin necrosis, jaw claudication, or distal stroke."
+            ]
+
+                                                                        case .plate066:
+            return [
+                "ANTERIOR CEREBRAL ARTERY (ACA) LACERATION / BIFRONTAL INFARCTION: The A2 segments of bilateral anterior cerebral arteries and frontopolar branches are frequently draped or encased over the posterior-superior tumor capsule. Blunt traction or careless cautery can tear or occlude the A2 trunks, causing catastrophic bifrontal infarction, profound akinetic mutism, abulia, and paraplegia. Always dissect strictly within the arachnoid plane under high magnification.",
+                "POSTOPERATIVE CSF RHINORRHEA & ASCENDING MENINGITIS: Olfactory groove resection penetrates the cribriform plate and ethmoid air cells. Failure to reconstruct a watertight barrier leads to intractable CSF rhinorrhea, pneumocephalus, and life-threatening polymicrobial bacterial meningitis. Always harvest a generous vascularized pericranial flap, drill hyperostotic bone, and perform multilayer skull base closure with fibrin glue.",
+                "OPTIC CHIASM DEFRAGMENTATION & TRACTION BLINDNESS: Giant olfactory groove meningiomas displace the optic nerves and chiasm inferoposteriorly into the tuberculum/chiasmatic sulcus. Excessive posterior tumor traction or injury to superior hypophyseal / ophthalmic perforators causes immediate, irreversible bilateral optic atrophy and total visual loss.",
+                "AGGRESSIVE SUBFRONTAL RETRACTION & HYPOTHALAMIC CONTUSION: Applying heavy fixed blade retractors to the frontal lobes rather than performing low basal bone removal and internal debulking precipitates severe frontal contusion, brain edema, and hypothalamic dysfunction (hyperthermia, diabetes insipidus, altered mental status). Always rely on low bone removal and internal CUSA cavitation to collapse the tumor."
             ]
 
                                                                         case .plate065:
