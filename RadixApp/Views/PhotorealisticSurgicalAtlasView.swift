@@ -728,7 +728,7 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
         case .craniovertebral:
             return [.plate001, .plate013, .plate014, .plate035, .plate043, .plate047, .plate049]
         case .cervical:
-            return [.plate015, .plate031, .plate034, .plate042, .plate044, .plate050, .plate064, .plate076]
+            return [.plate015, .plate031, .plate034, .plate042, .plate044, .plate050, .plate064, .plate076, .plate080]
         case .thoracicOncology:
             return [.plate026, .plate036, .plate038, .plate048, .plate054, .plate058, .plate068, .plate072, .plate073, .plate078]
         case .lumbarMIS:
@@ -740,9 +740,9 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
 }
 
 public enum AtlasCategory: String, CaseIterable {
-    case all = "All Plates (79)"
+    case all = "All Plates (80)"
     case cranial = "Cranial & Skull Base (42)"
-    case spine = "Spine & CVJ (37)"
+    case spine = "Spine & CVJ (38)"
 
     public var filteredPlates: [SurgicalPlateType] {
         switch self {
@@ -835,6 +835,7 @@ public enum SurgicalPlateType: String, CaseIterable {
     case plate077 = "plate_077_brainstem_tectal_cavernoma"
     case plate078 = "plate_078_thoracolumbar_burst_fracture"
     case plate079 = "plate_079_stn_dbs_parkinsons"
+    case plate080 = "plate_080_cervical_expansile_laminoplasty"
 
     public var subSection: AtlasSubSection {
         for section in AtlasSubSection.allCases {
@@ -930,6 +931,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate077: return 77
         case .plate078: return 78
         case .plate079: return 79
+        case .plate080: return 80
         }
     }
 
@@ -1018,6 +1020,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate077: return "77: Tectal Cavernoma"
         case .plate078: return "78: Burst Fracture Fixation"
         case .plate079: return "79: STN DBS (Parkinson's)"
+        case .plate080: return "80: Cervical Laminoplasty"
         }
     }
 
@@ -1102,6 +1105,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate077: return "Brainstem / Tectal Cavernous Malformation (Zabramski Type II) — Supracerebellar Corridor, Infracollicular Entry Zone & DVA Sparing"
         case .plate078: return "Thoracolumbar Burst Fracture (AO Spine A3/A4) — Short-Segment Fixation, Intermediate Screws & Ligamentotaxis"
         case .plate079: return "Subthalamic Nucleus (STN) Deep Brain Stimulation (DBS) — Stereotactic Trajectory, MER Bursting & Directional Lead Placement"
+        case .plate080: return "Cervical Expansile Laminoplasty — Open-Door (Hirabayashi) vs. French-Door (Kurokawa), K-Line & C5 Palsy Prevention"
         }
     }
 
@@ -1186,6 +1190,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate077: return "circle.grid.cross.fill"
         case .plate078: return "burst.fill"
         case .plate079: return "waveform.path.ecg"
+        case .plate080: return "door.left.hand.open"
         }
     }
 

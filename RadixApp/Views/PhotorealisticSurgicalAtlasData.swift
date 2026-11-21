@@ -965,6 +965,50 @@ extension SurgicalPlateType {
                 )
             ]
 
+        case .plate080:
+            return [
+                SurgicalCallout(
+                    id: "plate_080_1",
+                    title: "Neuroimaging, K-Line Biomechanics & Cord Drift",
+                    structureType: "SAGITTAL CT/MRI & FUJIYOSHI K-LINE MATRIX",
+                    color: Color.red,
+                    normalizedX: 0.16,
+                    normalizedY: 0.50,
+                    description: "Panel A establishes radiological indications and biomechanics. Sagittal bone CT demonstrates continuous-type OPLL from C2 to C6 with preserved subaxial lordosis (Cobb > 12°). Sagittal T2 MRI shows severe cord compression, circumferential CSF obliteration, and intramedullary myelomalacia at C4–C5. The K-Line Assessment Matrix contrasts K-line (+) [OPLL does not breach the line connecting C2 and C7 canal midpoints in lordosis, enabling >3–4 mm posterior cord drift -> laminoplasty indicated] against K-line (-) [kyphosis or massive OPLL crosses K-line, preventing cord drift -> contraindication]. Axial biomechanical comparisons detail how Open-Door (>30° tilt, >40% canal area expansion) and French-Door (symmetrical midline split with trapezoidal spacer) decompress the cord away from ventral osteophytes.",
+                    surgicalPearl: "The K-line is the supreme prognostic determinant: laminoplasty on a K-line negative or kyphotic cervical spine is an anatomical error, resulting in zero posterior cord drift and persistent neurological decline."
+                ),
+                SurgicalCallout(
+                    id: "plate_080_2",
+                    title: "Operative Exposure & The Two Cardinal Techniques",
+                    structureType: "C2/C7 MUSCLE SPARING, OPEN-DOOR VS. FRENCH-DOOR",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.50,
+                    normalizedY: 0.40,
+                    description: "Panel B illustrates prone Mayfield positioning (avoiding hyperflexion to protect the myelopathic cord) and cardinal paraspinal muscle preservation: strictly sparing the deep semispinalis cervicis insertion on the C2 bifid process and the C7 muscular attachments to eliminate postoperative swan-neck kyphosis and axial pain. Detailed high-magnification insets contrast the two techniques: (1) Open-Door (Hirabayashi): 3 mm diamond burr full bicortical osteotomy at the open-side lamina-facet junction with ligamentum flavum division, plus contralateral unicortical hinge trough thinned down to pliable inner cortex, elevating the roof by 4–5 mm; and (2) French-Door (Kurokawa): midline sagittal trough splitting spinous processes down to dura, combined with bilateral lateral unicortical gutters opening symmetrically like double doors.",
+                    surgicalPearl: "Detaching the semispinalis cervicis tendon from C2 destroys the primary dynamic extensor tendon of the neck, precipitating delayed progressive kyphosis in up to 30% of patients."
+                ),
+                SurgicalCallout(
+                    id: "plate_080_3",
+                    title: "16× Reconstruction & C5 Tethering Prevention",
+                    structureType: "C3–C7 TITANIUM MINIPLATES & C4–C5 FORAMINOTOMY",
+                    color: Color.blue,
+                    normalizedX: 0.83,
+                    normalizedY: 0.40,
+                    description: "Panel C showcases a 16× microsurgical field spanning C3 to C7. Exactly 5 low-profile titanium laminoplasty miniplates bridge the open osteotomy gap from elevated laminae to lateral masses, each secured with 4 self-tapping screws (2 on lateral mass, 2 on lamina). A widely decompressed, pulsatile thecal sac is visible with epidural venous oozing controlled using fine bipolar cautery and hemostatic matrix. Insets illustrate: (1) French-Door reconstruction with a trapezoidal hydroxyapatite ceramic spacer maintaining midline expansion, and (2) The C5 Root Tethering Mechanism: C5 has the shortest horizontal trajectory; excessive posterior cord drift (>4–5 mm) creates traction against the superior articular process (SAP), precipitating delayed deltoid/biceps paresis. Prophylactic microscopic keyhole foraminotomy at C4–C5 unroofs the foramen and eliminates root traction.",
+                    surgicalPearl: "Performing a prophylactic microscopic keyhole foraminotomy unroofing the superior articular process at C4–C5 reduces the incidence of delayed C5 motor palsy from ~10% down to <1%."
+                ),
+                SurgicalCallout(
+                    id: "plate_080_4",
+                    title: "The Three Cardinal Rules & Postoperative Protocols",
+                    structureType: "SURGICAL MANDATES & COMPLICATION SURVEILLANCE",
+                    color: Color.green,
+                    normalizedX: 0.50,
+                    normalizedY: 0.90,
+                    description: "Bottom panels codify The Three Cardinal Rules: (1) The Lordosis & K-Line Mandate (operate strictly on lordotic spines with positive K-line); (2) Strict C2 & C7 Muscular Preservation (sparing extensor insertions); and (3) Controlled Hinge Thinning with Rigid Miniplate Fixation (eliminating spring-back re-closure). Management protocols detail daily deltoid/biceps motor surveillance, subfascial closed-suction drainage to prevent epidural hematoma, and immediate unbraced/soft-collar mobilization on postoperative day 1 to prevent muscular disuse atrophy.",
+                    surgicalPearl: "Rigid titanium miniplate fixation provides immediate biomechanical stability, making prolonged rigid collars unnecessary and dramatically reducing chronic axial neck stiffness."
+                )
+            ]
+
         case .plate079:
             return [
                 SurgicalCallout(
@@ -2521,6 +2565,15 @@ case .plate059:
                 ApproachSequentialStep(stepNumber: 4, title: "Controlled Liquid Embolic / Particle Infusion", detail: "Infuse liquid embolic (Onyx-18 / Squid) slowly under continuous subtracted fluoroscopy, creating a proximal plug and forcing embolic material distally into the neomembrane capillary network. Terminate injection once dense capillary casting and branch truncation are achieved without proximal reflux.")
             ]
 
+        case .plate080:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Prone Mayfield Positioning & C2/C7 Muscle-Sparing Exposure", detail: "Position the patient prone on chest rolls with the head secured in a Mayfield 3-pin clamp in a neutral or slightly flexed posture, strictly avoiding hyperflexion to protect the stenotic cord and prevent venous congestion. Perform a midline posterior cervical incision from C2 to C7. Subperiosteally elevate the paraspinal musculature strictly out to the medial facet margins, taking meticulous care to spare the semispinalis cervicis tendon insertion on the prominent C2 spinous process and preserving the posterior muscular sleeve of C7."),
+                ApproachSequentialStep(stepNumber: 2, title: "Hinge Selection & Trough Preparation (Hirabayashi vs. Kurokawa)", detail: "For Open-Door (Hirabayashi): Designate the open side (typically the side with greater clinical radicular symptoms or worse foraminal stenosis) and the hinge side. For French-Door (Kurokawa): Prepare the spinous processes for midline sagittal division. Using a high-speed 2.5–3.0 mm diamond burr under continuous cold saline irrigation, mark the osteotomy boundaries along the lamina-facet junctions bilaterally from C3 through C7."),
+                ApproachSequentialStep(stepNumber: 3, title: "Osteotomy Execution (Bicortical Open Trough vs. Midline Split)", detail: "In Open-Door: Thin the hinge gutter through the dorsal cortex, stopping when the inner cortex becomes pliable, thin, and bleeding (greenstick hinge). Drill the open gutter completely through the dorsal and ventral cortices to expose the blue-gray dura beneath. Excise cranial (C2–C3) and caudal (C7–T1) ligamentum flavum attachments using 1–2 mm Kerrison rongeurs. In French-Door: Drill a midline trough splitting the spinous processes and laminae sagitally down to dura, combined with bilateral lateral unicortical hinge troughs."),
+                ApproachSequentialStep(stepNumber: 4, title: "Laminar Roof Elevation & Prophylactic C4–C5 Foraminotomy", detail: "Gently elevate the laminar door(s) by 4–5 mm using a micro-dissector, observing spontaneous posterior pulsation and expansion of the thecal sac. If excessive posterior cord drift (>4 mm) or severe pre-existing C5 foraminal narrowing is identified, perform a prophylactic microscopic keyhole foraminotomy unroofing the superior articular process at C4–C5 to decompress the C5 root and eliminate traction neuropraxia. Control epidural venous oozing along the open gutter with bipolar cautery and hemostatic matrix."),
+                ApproachSequentialStep(stepNumber: 5, title: "Rigid Miniplate Fixation, Drain Placement & Multilayer Closure", detail: "In Open-Door: Contour and secure low-profile titanium laminoplasty miniplates across C3, C4, C5, C6, and C7, anchoring each plate with 4 self-tapping cortical screws (2 into the lateral mass and 2 into the laminar edge) to guarantee permanent canal patency. In French-Door: Secure trapezoidal hydroxyapatite ceramic blocks or titanium claw plates in the midline gap. Place a subfascial closed-suction drain to prevent compressive epidural hematoma. Meticulously re-approximate the deep paraspinal fascia in watertight layers.")
+            ]
+
         case .plate079:
             return [
                 ApproachSequentialStep(stepNumber: 1, title: "Stereotactic Frame Application & Multimodal CT-MRI Co-Registration", detail: "Under local scalp anesthesia, securely fix the Leksell G-frame or Vantage frame parallel to the orbitomeatal line (OML) ensuring zero pitch, yaw, or roll asymmetry. Perform a high-resolution stereotactic 3D bone CT scan with fiducial localization box and co-register rigidly to preoperative 3T FGATIR and T2-weighted MRI volumes. Define the mid-commissural point (MCP), AC-PC line, and calculate stereotactic coordinates for the bilateral dorsolateral motor STN (X = 11.5–12.5 mm lateral, Y = 2.0–3.0 mm posterior to MCP, Z = 4.0–5.0 mm inferior to AC-PC)."),
@@ -3106,6 +3159,14 @@ case .plate059:
                 "IRREVERSIBLE BLINDNESS VIA MENINGO-OPHTHALMIC ANASTOMOSIS: The anterior MMA can connect with the ophthalmic artery via the superior orbital fissure or recurrent meningeal branch. Always perform high-magnification roadmap angiography; embolic reflux or forward migration into the ophthalmic artery causes instant, catastrophic central retinal artery occlusion and permanent monocular blindness.",
                 "FACIAL NERVE PALSY VIA PETROSAL BRANCH: The petrosal branch of the MMA supplies the facial nerve (CN VII) in the Fallopian canal / geniculate ganglion. Always advance the microcatheter tip DISTAL to the petrosal branch takeoff before injecting liquid embolic or particles; embolization of the petrosal artery causes acute, permanent peripheral facial palsy (Bell's palsy).",
                 "PROXIMAL REFLUX INTO MAXILLARY OR CAROTID ARTERY: Never push liquid embolic aggressively against resistance. Maintain continuous fluoroscopic visualization of the catheter tip to prevent reflux back into the internal maxillary artery or external carotid system, which can cause skin necrosis, jaw claudication, or distal stroke."
+            ]
+
+        case .plate080:
+            return [
+                "POST-LAMINOPLASTY KYPHOTIC DEFORMITY & LOSS OF CORD DRIFT VIA C2 MUSCLE DETACHMENT: Stripping the semispinalis cervicis tendon off the C2 spinous process or operating on a pre-existing kyphotic cervical spine (K-line negative) causes severe progressive post-laminoplasty swan-neck kyphosis and intractable axial neck pain. In a kyphotic spine, the decompressed cord remains tethered against ventral OPLL/disc ridges, leading to irreversible neurological deterioration.",
+                "DELAYED C5 MOTOR PALSY VIA ROOT TRACTION NEUROPRAXIA: Excessive posterior spinal cord drift (>4–5 mm) creates acute mechanical traction on the short, horizontally oriented C5 nerve rootlets against the superior articular process. This manifests on postoperative days 2–4 as sudden, severe deltoid and biceps paralysis (5–10% incidence). Always perform prophylactic keyhole unroofing of the C4–C5 neural foramen in high-risk patients.",
+                "HINGE FRACTURE, DISPLACEMENT & CANAL RE-CLOSURE VIA COMPLETE BICORTICAL CUTTING: Over-drilling the hinge trough through the inner ventral cortex results in complete bicortical laminar fracture. An unstable, floating hinge can buckle inward into the spinal canal directly contusing the cord, or cause spring-back collapse of the laminoplasty roof with catastrophic canal re-stenosis. Never violate the inner cortex and always secure rigid titanium miniplates.",
+                "COMPRESSIVE EPIDURAL HEMATOMA & QUADRIPLEGIA VIA INADEQUATE HEMOSTASIS: The lateral open gutter cuts across extensive epidural venous plexuses surrounding the dural sac. Inadequate bipolar coagulative control or omitting a subfascial closed-suction drain permits rapid postoperative epidural hematoma accumulation under the elevated laminae, causing acute cord compression, quadriplegia, and emergency re-exploration."
             ]
 
         case .plate079:
