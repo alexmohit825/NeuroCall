@@ -732,7 +732,7 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
         case .thoracicOncology:
             return [.plate026, .plate036, .plate038, .plate048, .plate054, .plate058, .plate068, .plate072, .plate073, .plate078]
         case .lumbarMIS:
-            return [.plate011, .plate007, .plate037, .plate029, .plate028, .plate032]
+            return [.plate011, .plate007, .plate037, .plate029, .plate028, .plate032, .plate083]
         case .deformitySalvage:
             return [.plate023, .plate024, .plate039, .plate046, .plate071, .plate075, .plate081]
         }
@@ -740,9 +740,9 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
 }
 
 public enum AtlasCategory: String, CaseIterable {
-    case all = "All Plates (82)"
+    case all = "All Plates (83)"
     case cranial = "Cranial & Skull Base (43)"
-    case spine = "Spine & CVJ (39)"
+    case spine = "Spine & CVJ (40)"
 
     public var filteredPlates: [SurgicalPlateType] {
         switch self {
@@ -838,6 +838,7 @@ public enum SurgicalPlateType: String, CaseIterable {
     case plate080 = "plate_080_cervical_expansile_laminoplasty"
     case plate081 = "plate_081_adult_scoliosis_spinopelvic_realignment"
     case plate082 = "plate_082_fourth_ventricle_tumor_telovelar_approach"
+    case plate083 = "plate_083_full_endoscopic_transforaminal_lumbar_discectomy"
 
     public var subSection: AtlasSubSection {
         for section in AtlasSubSection.allCases {
@@ -936,6 +937,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate080: return 80
         case .plate081: return 81
         case .plate082: return 82
+        case .plate083: return 83
         }
     }
 
@@ -1027,6 +1029,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate080: return "80: Cervical Laminoplasty"
         case .plate081: return "81: Adult Scoliosis & S2AI"
         case .plate082: return "82: Telovelar 4th Ventricle"
+        case .plate083: return "83: Endoscopic Discectomy"
         }
     }
 
@@ -1114,6 +1117,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate080: return "Cervical Expansile Laminoplasty — Open-Door (Hirabayashi) vs. French-Door (Kurokawa), K-Line & C5 Palsy Prevention"
         case .plate081: return "Adult Scoliosis & Spinopelvic Realignment — Long-Segment Fusion (T10 to Pelvis), Ponte Osteotomies & S2AI Screws"
         case .plate082: return "Fourth Ventricle Tumor & The Telovelar Approach — Vermis-Sparing Exposure, Tonsillar Mobilization & Rhomboid Fossa Preservation"
+        case .plate083: return "Full-Endoscopic Transforaminal Lumbar Discectomy — Kambin's Triangle, SAP Foraminoplasty & Endoscopic Fragmentectomy"
         }
     }
 
@@ -1201,6 +1205,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate080: return "door.left.hand.open"
         case .plate081: return "arrow.triangle.merge"
         case .plate082: return "triangle.circle.fill"
+        case .plate083: return "scope"
         }
     }
 

@@ -965,6 +965,50 @@ extension SurgicalPlateType {
                 )
             ]
 
+        case .plate083:
+            return [
+                SurgicalCallout(
+                    id: "plate_083_1",
+                    title: "Diagnostic MRI & Kambin's Triangle Geometry",
+                    structureType: "AXIAL/SAGITTAL T2 MRI & KAMBIN ANATOMICAL BORDERS",
+                    color: Color.red,
+                    normalizedX: 0.16,
+                    normalizedY: 0.50,
+                    description: "Panel 1 establishes radiological indications and the safe transforaminal corridor. Axial T2 MRI (L4–L5) demonstrates an extruded paracentral/foraminal disc fragment compressing the traversing L5 nerve root and impinging the exiting L4 root within the neural foramen. Kambin's Triangle defines the safe posterolateral access window to the disc without retracting the thecal sac: (1) Hypotenuse: exiting L4 nerve root running anterolaterally; (2) Base: superior endplate of L5; and (3) Height: traversing L5 nerve root and lateral thecal sac.",
+                    surgicalPearl: "Kambin's triangle is a strict boundary-defined corridor. Staying within the safe zone prevents dural puncture and permanent motor radiculopathy, while avoiding the exiting root prevents severe post-discectomy dysesthesia."
+                ),
+                SurgicalCallout(
+                    id: "plate_083_2",
+                    title: "Docking & SAP Foraminoplasty Engine",
+                    structureType: "POSTEROLATERAL TRAJECTORY & CROWN REAMER UNDERCUTTING",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.50,
+                    normalizedY: 0.50,
+                    description: "Panel 2 details the transforaminal approach vector (35°–45° from horizontal, skin entry 8–10 cm from midline). Crown reamers perform targeted foraminoplasty by undercutting only the ventral and inferior non-articulating tip of the Superior Articular Process (SAP), widening the foraminal aperture. The beveled working cannula is docked firmly at the ventral facet border with the bevel oriented dorsolaterally to act as a rigid mechanical shield protecting the exiting L4 nerve root.",
+                    surgicalPearl: "Never ream the dorsal facet joint or pars interarticularis; undercutting only the ventral tip of the SAP enlarges the foramen while preserving 100% of segmental biomechanical stability."
+                ),
+                SurgicalCallout(
+                    id: "plate_083_3",
+                    title: "HD Endoscopic Intra-Canal Decompression",
+                    structureType: "ENDOSCOPIC VISUALIZATION, FRAGMENTECTOMY & RF HEMOSTASIS",
+                    color: Color.green,
+                    normalizedX: 0.82,
+                    normalizedY: 0.50,
+                    description: "Panel 3 illustrates the high-definition circular endoscopic operative view under continuous saline irrigation. Micro-pituitary rongeurs extract a pearly-white extruded nucleus pulposus fragment from the epidural space through the annular defect. The pulsating, glistening thecal sac and traversing L5 root are completely decompressed medially with visible microvascular pulsations, while radiofrequency (RF) bipolar probes achieve meticulous hemostasis without thermal injury to neural elements.",
+                    surgicalPearl: "Always inspect the traversing nerve root from the pedicle above to the pedicle below. A free, mobile root with brisk arterial pulsations confirms complete fragment extraction and adequate decompression."
+                ),
+                SurgicalCallout(
+                    id: "plate_083_4",
+                    title: "Three Concise Resident Pearls",
+                    structureType: "OPERATIVE SAFETY & IRRIGATIVE PHYSICS",
+                    color: Color.blue,
+                    normalizedX: 0.50,
+                    normalizedY: 0.90,
+                    description: "Bottom bar highlights three essential surgical rules: (1) Exiting Root Protection: Keep cannula bevel directed toward the SAP to shield the nerve from instruments; (2) SAP Foraminoplasty: Under-ream only the ventral SAP tip to protect the facet joint; and (3) Fluid Dynamics: Maintain gentle gravity saline irrigation (<30 mmHg) to clear bone dust without causing epidural intracranial hypertension.",
+                    surgicalPearl: "High-pressure mechanical irrigation pumps (>50–60 mmHg) risk driving fluid through occult dural tears into the subarachnoid space, precipitating acute intracranial hypertension and seizures."
+                )
+            ]
+
         case .plate082:
             return [
                 SurgicalCallout(
@@ -2653,6 +2697,15 @@ case .plate059:
                 ApproachSequentialStep(stepNumber: 4, title: "Controlled Liquid Embolic / Particle Infusion", detail: "Infuse liquid embolic (Onyx-18 / Squid) slowly under continuous subtracted fluoroscopy, creating a proximal plug and forcing embolic material distally into the neomembrane capillary network. Terminate injection once dense capillary casting and branch truncation are achieved without proximal reflux.")
             ]
 
+        case .plate083:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Prone Positioning & Fluoroscopic Trajectory Mapping", detail: "Position the patient prone on a radiolucent Wilson frame or Jackson table. Under biplane fluoroscopy, mark the midline and identify the L4–L5 disc space. Measure 8–10 cm laterally and plan an entry angle 35°–45° from the horizontal plane directed towards the medial pedicular line on AP and the posterior vertebral body line on lateral."),
+                ApproachSequentialStep(stepNumber: 2, title: "18G Needle Insertion & Discography / Methylene Blue Staining", detail: "Advance an 18G spinal needle under fluoroscopic guidance into Kambin's triangle, docking at the Superior Articular Process (SAP) before sliding into the posterior disc space. Inject a mixture of radiopaque contrast and methylene blue (Chromodiscography) to selectively stain the degenerated, herniated nucleus pulposus blue."),
+                ApproachSequentialStep(stepNumber: 3, title: "Guidewire Exchange & Crown Reamer Foraminoplasty", detail: "Pass a nitinol guidewire through the needle and perform a 7 mm skin incision. Advance progressive pencil-point dilators down to the ventral SAP. Introduce crown reamers over the dilator to undercut the ventral tip of the SAP, enlarging the bony foramen under fluoroscopic monitoring."),
+                ApproachSequentialStep(stepNumber: 4, title: "Beveled Working Cannula Docking & Endoscope Introduction", detail: "Advance the beveled working sleeve over the dilator, anchoring its tip at the ventral facet border with the bevel rotated dorsolaterally to shield the exiting nerve root. Introduce the 30° wide-angle spinal endoscope and establish continuous low-pressure (<30 mmHg) saline irrigation."),
+                ApproachSequentialStep(stepNumber: 5, title: "Endoscopic Fragmentectomy & Traversing Root Decompression", detail: "Under direct high-definition visualization, clear fibrous tissue with radiofrequency bipolar probes. Grasp and extract the blue-stained extruded disc fragment using micro-pituitary rongeurs. Inspect the traversing root and dural sac to confirm robust pulsation and unrestricted mobility.")
+            ]
+
         case .plate082:
             return [
                 ApproachSequentialStep(stepNumber: 1, title: "Concorde / Prone Positioning & Midline Suboccipital Craniotomy", detail: "Position the patient prone with the head flexed in a three-pin Mayfield fixation device (maintaining two finger-breadths between chin and sternum to ensure jugular venous drainage). Perform a midline suboccipital incision from external occipital protuberance (inion) to C2 spinous process. Perform a suboccipital craniotomy from transverse sinuses down to the foramen magnum with C1 posterior arch resection."),
@@ -3265,6 +3318,14 @@ case .plate059:
                 "IRREVERSIBLE BLINDNESS VIA MENINGO-OPHTHALMIC ANASTOMOSIS: The anterior MMA can connect with the ophthalmic artery via the superior orbital fissure or recurrent meningeal branch. Always perform high-magnification roadmap angiography; embolic reflux or forward migration into the ophthalmic artery causes instant, catastrophic central retinal artery occlusion and permanent monocular blindness.",
                 "FACIAL NERVE PALSY VIA PETROSAL BRANCH: The petrosal branch of the MMA supplies the facial nerve (CN VII) in the Fallopian canal / geniculate ganglion. Always advance the microcatheter tip DISTAL to the petrosal branch takeoff before injecting liquid embolic or particles; embolization of the petrosal artery causes acute, permanent peripheral facial palsy (Bell's palsy).",
                 "PROXIMAL REFLUX INTO MAXILLARY OR CAROTID ARTERY: Never push liquid embolic aggressively against resistance. Maintain continuous fluoroscopic visualization of the catheter tip to prevent reflux back into the internal maxillary artery or external carotid system, which can cause skin necrosis, jaw claudication, or distal stroke."
+            ]
+
+        case .plate083:
+            return [
+                "EXITING NERVE ROOT LACERATION & DYSESTHESIA VIA VENTRAL PLUNGING: Docking the cannula too far anteriorly in the foramen or rotating the bevel ventrally pinches the exiting dorsal root ganglion (DRG) against the vertebral body. This causes excruciating, intractable post-discectomy radicular burning and motor foot drop. The bevel must always face the SAP to shield the exiting root.",
+                "IATROGENIC SEGMENTAL INSTABILITY VIA EXCESSIVE FACET REAMING: Over-aggressive reaming that breaches the dorsal pars interarticularis or resects >50% of the superior articular process compromises the posterior tension band. This creates progressive post-discectomy spondylolisthesis requiring secondary spinal fusion.",
+                "EPIDURAL INTRACRANIAL HYPERTENSION VIA PRESSURIZED FLUID IRRIGATION: Utilizing automated pressurized fluid pumps (>50–60 mmHg) in the presence of an occult dural tear forces irrigation fluid cranially up the spinal canal into the intracranial subarachnoid space, triggering severe retro-orbital pain, intraoperative seizures, and acute coma.",
+                "RETROPERITONEAL GREAT VESSEL INJURY VIA DEEP ANTERIOR VIOLATION: Advancing rongeurs or cannulae deeper than 30 mm through the disc space breaches the anterior annulus and anterior longitudinal ligament (ALL). This lacerates the retroperitoneal common iliac vessels, resulting in torrential occult hemorrhage and rapid hemorrhagic shock."
             ]
 
         case .plate082:
