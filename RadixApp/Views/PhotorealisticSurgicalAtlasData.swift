@@ -965,6 +965,50 @@ extension SurgicalPlateType {
                 )
             ]
 
+        case .plate078:
+            return [
+                SurgicalCallout(
+                    id: "plate_078_1",
+                    title: "Burst Fracture Morphology & Load-Sharing Matrix",
+                    structureType: "SYNTHETIC CT/MRI & MCCORMACK CLASSIFICATION",
+                    color: Color.red,
+                    normalizedX: 0.16,
+                    normalizedY: 0.50,
+                    description: "Panel A establishes a complete L1 burst fracture (AO Spine A4). A1 (sagittal and coronal bone CT) shows comminution of both endplates, >50% anterior height loss, 22° post-traumatic kyphosis, vertical coronal split, and interpedicular widening. A2 (axial CT) demonstrates a retropulsed posterior wall cortical fragment causing ~50% spinal canal compromise with conus medullaris crowding. A3 (sagittal T2 MRI) confirms an intact Posterior Ligamentous Complex (PLC), qualifying the injury for short-segment instrumentation. The lower insets contrast AO Spine A3 vs. A4 and detail the McCormack Load-Sharing score (≥7), which mandates intermediate screws.",
+                    surgicalPearl: "McCormack Load-Sharing score ≥7 reflects severe anterior column comminution and load-bearing insufficiency. In such cases, traditional 2-level short-segment constructs fail in over 50% of patients; placing intermediate screws into the fractured index level restores construct stiffness and prevents hardware failure."
+                ),
+                SurgicalCallout(
+                    id: "plate_078_2",
+                    title: "Prone Corridor & Intermediate Pedicle Screw Placement",
+                    structureType: "PARASPINAL CORRIDOR & 4-POINT BENDING",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.48,
+                    normalizedY: 0.40,
+                    description: "Panel B illustrates posterior exposure from T12 to L2 under Jackson table positioning and multimodal SSEP/MEP neuromonitoring. The operative field shows a true 3-level construct (6 pedicle screws): T12 superior anchors, L2 inferior anchors, and bilateral intermediate pedicle screws placed directly into the intact pedicles of the fractured L1 vertebra. The lower insets provide: (1) A parasagittal cutaway illustrating the intermediate screw traversing the intact L1 pedicle isthmus into the comminuted body without entering the spinal canal, and (2) Intraoperative biplane fluoroscopy confirming exact 3-level screw convergence.",
+                    surgicalPearl: "Intermediate screws placed into the fractured vertebra act as an active anterior-posterior cantilever fulcrum, increasing construct stiffness by >80% and eliminating the classic 'parallelogram toggling' that causes screw breakage in short-segment fixation."
+                ),
+                SurgicalCallout(
+                    id: "plate_078_3",
+                    title: "Cantilever Reduction & Ligamentotaxis Canal Remodeling",
+                    structureType: "LIGAMENTOTAXIS MECHANISM & 3-LEVEL RADIOGRAPHS",
+                    color: Color.blue,
+                    normalizedX: 0.82,
+                    normalizedY: 0.40,
+                    description: "Panel C enforces the cardinal rule: 'LIGAMENTOTAXIS WINDOW: PERFORM WITHIN 72 HOURS BEFORE PLL RESORPTION'. The biomechanical sagittal cutaway details the ligamentotaxis mechanism: pre-reduction slack PLL vs. post-reduction tensioned PLL pulling the retropulsed bone fragment anteriorly out of the canal, restoring canal space. Post-op radiographs confirm an exact 3-level construct (T12–L2) with 3 screws on Lateral (correcting kyphosis from 22° to 4° lordosis) and 3 pairs on AP. Post-op axial CT demonstrates canal clearance from ~50% down to <15% residual compromise.",
+                    surgicalPearl: "Indirect decompression via ligamentotaxis relies on an intact, taut posterior longitudinal ligament and annulus. Beyond 72–96 hours from trauma, fracture hematoma consolidation and fibrous adhesion prevent indirect reduction, requiring formal canal laminectomy."
+                ),
+                SurgicalCallout(
+                    id: "plate_078_4",
+                    title: "The Three Principles & Postoperative Management",
+                    structureType: "SURGICAL PRINCIPLES & MOBILIZATION PROTOCOL",
+                    color: Color.green,
+                    normalizedX: 0.50,
+                    normalizedY: 0.90,
+                    description: "Bottom panels summarize The Three Principles of Burst Fixation: (1) The Intermediate Screw Principle (rigid 4-point construct prevents screw fatigue), (2) The Ligamentotaxis Golden Window (intervene within 48–72 hours), and (3) Integrity of the PLC (PLC disruption dictates long-segment fixation). Postoperative management protocols dictate immediate unbraced mobilization, serial lower extremity motor/sphincter exams, and upright standing radiography at 6 and 12 weeks confirming maintained lordosis.",
+                    surgicalPearl: "With a rigid 6-screw 4-point construct, external orthoses (TLSO) are unnecessary. Immediate ambulation prevents recumbency complications without risking loss of reduction."
+                )
+            ]
+
         case .plate077:
             return [
                 SurgicalCallout(
@@ -2433,6 +2477,15 @@ case .plate059:
                 ApproachSequentialStep(stepNumber: 4, title: "Controlled Liquid Embolic / Particle Infusion", detail: "Infuse liquid embolic (Onyx-18 / Squid) slowly under continuous subtracted fluoroscopy, creating a proximal plug and forcing embolic material distally into the neomembrane capillary network. Terminate injection once dense capillary casting and branch truncation are achieved without proximal reflux.")
             ]
 
+        case .plate078:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Prone Jackson Positioning & Multimodal Neuromonitoring", detail: "Position the patient prone on a radiolucent Jackson spinal table with chest and pelvic bolsters ensuring the abdomen hangs completely free to decompress the epidural venous plexus and minimize intraoperative bleeding. Obtain baseline bilateral SSEP and transcranial electrical motor evoked potentials (tcMEP) across L1–S1 nerve roots."),
+                ApproachSequentialStep(stepNumber: 2, title: "Posterior Exposure (T12–L2) via Midline or Wiltse Paraspinal Corridor", detail: "Perform a standard posterior midline exposure or muscle-sparing bilateral Wiltse paraspinal approach from T12 to L2. Meticulously dissect and expose the transverse processes and lateral facet borders of T12, the fractured L1, and L2. Carefully inspect the interspinous and supraspinous ligaments at T12–L1 and L1–L2 to confirm an intact posterior tension band (PLC)."),
+                ApproachSequentialStep(stepNumber: 3, title: "Pedicle Cannulation & Intermediate Screw Placement at L1", detail: "Under biplane fluoroscopy or stereotactic navigation, cannulate the pedicles of T12, L1 (the fractured index level), and L2 using a gearshift probe. Place polyaxial pedicle screws at T12 and L2. Cannulate the intact pedicle isthmus of the fractured L1 vertebra and place bilateral intermediate pedicle screws directly into the fractured body to serve as active anterior-posterior cantilever fulcrums."),
+                ApproachSequentialStep(stepNumber: 4, title: "Cantilever Lordotic Rod Reduction & Distraction Ligamentotaxis", detail: "Contour two 5.5 mm or 6.0 mm titanium or cobalt-chromium rods with physiologic thoracolumbar lordosis. Secure rods into the superior (T12) and inferior (L2) screw heads. Apply axial distraction across T12 and L2 to tension the intact posterior longitudinal ligament (ligamentotaxis), pulling the retropulsed bone fragments anteriorly away from the dural sac. Tighten the intermediate L1 screws to the contoured rod using cantilever reduction to reconstitute fractured vertebral height and correct local kyphosis."),
+                ApproachSequentialStep(stepNumber: 5, title: "Final Tightening, Cross-Link Application & Posterolateral Arthrodesis", detail: "Confirm anatomical reduction and sagittal alignment (restoration of lordosis from 22° kyphosis to ~4° lordosis) on intraoperative biplane fluoroscopy. Torque set screws to final release limits. Apply a transverse cross-link connector for rotational rigidity. Decorticate the transverse processes and lateral facet joints of T12–L2 and lay down autologous local bone graft mixed with cancellous allograft for robust posterolateral arthrodesis.")
+            ]
+
         case .plate077:
             return [
                 ApproachSequentialStep(stepNumber: 1, title: "Prone Concorde Positioning & 4-Modality Brainstem Neuromonitoring", detail: "Secure patient prone in a Mayfield 3-pin skull clamp in the Concorde position with head flexed and elevated in 15°–20° reverse Trendelenburg to optimize gravity-assisted cerebellar descent and lower intracranial venous pressure. Establish continuous SSEP, MEP, Brainstem Auditory Evoked Responses (BAER), and multi-channel extraocular muscle EMG (CN III, IV, VI)."),
@@ -3000,6 +3053,14 @@ case .plate059:
                 "IRREVERSIBLE BLINDNESS VIA MENINGO-OPHTHALMIC ANASTOMOSIS: The anterior MMA can connect with the ophthalmic artery via the superior orbital fissure or recurrent meningeal branch. Always perform high-magnification roadmap angiography; embolic reflux or forward migration into the ophthalmic artery causes instant, catastrophic central retinal artery occlusion and permanent monocular blindness.",
                 "FACIAL NERVE PALSY VIA PETROSAL BRANCH: The petrosal branch of the MMA supplies the facial nerve (CN VII) in the Fallopian canal / geniculate ganglion. Always advance the microcatheter tip DISTAL to the petrosal branch takeoff before injecting liquid embolic or particles; embolization of the petrosal artery causes acute, permanent peripheral facial palsy (Bell's palsy).",
                 "PROXIMAL REFLUX INTO MAXILLARY OR CAROTID ARTERY: Never push liquid embolic aggressively against resistance. Maintain continuous fluoroscopic visualization of the catheter tip to prevent reflux back into the internal maxillary artery or external carotid system, which can cause skin necrosis, jaw claudication, or distal stroke."
+            ]
+
+        case .plate078:
+            return [
+                "CANAL VIOLATION & CONUS MEDULLARIS INJURY VIA MEDIAL PEDICLE BREACH: At the thoracolumbar junction (T12–L2), the spinal canal houses the conus medullaris and cauda equina roots. Breaching the medial pedicle wall during cannulation or placing an oversized screw directly drives the gearshift probe or screw threads into the dural sac, risking permanent paraplegia, neurogenic bowel/bladder dysfunction, or catastrophic CSF leak. Always palpate 5 bony walls with a ball-tipped probe and confirm biplane fluoroscopy before screw placement.",
+                "CATASTROPHIC HARDWARE BREAKAGE & COLLAPSE VIA STANDALONE 2-LEVEL FIXATION: In burst fractures with McCormack load-sharing scores ≥7 (severe comminution), omitting intermediate screws results in cantilever fatigue failure. Standalone 1-above / 1-below short-segment constructs toggle in a parallelogram mode under physiological flexion loads, leading to pedicle screw loosening, rod fracture, and progressive kyphotic collapse in >50% of patients.",
+                "OVER-DISTRACTION & NEUROLOGICAL DETERIORATION IN OCCULT TENSION BAND INJURY (PLC RUPTURE): Applying excessive axial distraction across a damaged Posterior Ligamentous Complex (Type B flexion-distraction injury mistaken for an isolated Type A burst) widens the posterior tension band, disrupts segmental stability, and creates severe traction injury to the conus medullaris and roots. Always verify an intact PLC on pre-op MRI before initiating ligamentotaxis.",
+                "LATE PSEUDARTHROSIS & KYPHOTIC LOSS VIA FAILED ANTERIOR COLUMN LOAD SHARING: Relying solely on posterior instrumentation without meticulous posterolateral decortication and robust bone grafting leads to delayed non-union. Once metal fatigues, progressive kyphosis and late pain ensue; thorough arthrodesis across transverse processes and facet joints is mandatory."
             ]
 
         case .plate077:
