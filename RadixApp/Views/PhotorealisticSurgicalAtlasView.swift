@@ -720,7 +720,7 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
         case .anteriorSkullBase:
             return [.plate017, .plate009, .plate012, .plate008, .plate005, .plate033, .plate030, .plate055, .plate059, .plate066]
         case .convexityTrauma:
-            return [.plate018, .plate016, .plate019, .plate021, .plate025, .plate045]
+            return [.plate018, .plate016, .plate019, .plate021, .plate025, .plate045, .plate069]
         case .posteriorFossa:
             return [.plate010, .plate020, .plate004, .plate003, .plate006, .plate022, .plate052, .plate057]
         case .vascularVentricular:
@@ -740,8 +740,8 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
 }
 
 public enum AtlasCategory: String, CaseIterable {
-    case all = "All Plates (68)"
-    case cranial = "Cranial & Skull Base (37)"
+    case all = "All Plates (69)"
+    case cranial = "Cranial & Skull Base (38)"
     case spine = "Spine & CVJ (31)"
 
     public var filteredPlates: [SurgicalPlateType] {
@@ -824,6 +824,7 @@ public enum SurgicalPlateType: String, CaseIterable {
     case plate066 = "plate_066_olfactory_groove_meningioma"
     case plate067 = "plate_067_pica_vertebral_aneurysm_clipping"
     case plate068 = "plate_068_thoracic_dumbbell_schwannoma"
+    case plate069 = "plate_069_parasagittal_falcine_meningioma"
 
     public var subSection: AtlasSubSection {
         for section in AtlasSubSection.allCases {
@@ -908,6 +909,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate066: return 66
         case .plate067: return 67
         case .plate068: return 68
+        case .plate069: return 69
         }
     }
 
@@ -985,6 +987,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate066: return "66: Olfactory Groove"
         case .plate067: return "67: PICA-VA Aneurysm"
         case .plate068: return "68: Dumbbell Schwannoma"
+        case .plate069: return "69: Parasagittal Meningioma"
         }
     }
 
@@ -1058,6 +1061,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate066: return "Olfactory Groove Meningioma & Bifrontal Transbasal Resection — 3D Contrast MRI, Extradural Devascularization & CUSA Debulking"
         case .plate067: return "PICA & Vertebral Artery Aneurysm & Far-Lateral Transcondylar Clipping — 3D Angiography, Suboccipital Triangle, Condylectomy & Lower CN Sparing"
         case .plate068: return "Thoracic Dumbbell Schwannoma & Posterolateral Costotransversectomy — 3D MRI, Eden Classification, Extrapleural Corridor & Arthrodesis"
+        case .plate069: return "Parasagittal & Falcine Meningioma with SSS Invasion — 3D MRI, Sindou Matrix, Sinus-Crossing Flap & Venous Repair"
         }
     }
 
@@ -1131,6 +1135,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate066: return "eye.circle.fill"
         case .plate067: return "waveform.path.ecg"
         case .plate068: return "shield.lefthalf.filled"
+        case .plate069: return "brain.head.profile"
         }
     }
 

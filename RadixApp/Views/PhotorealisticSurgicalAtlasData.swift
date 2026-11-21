@@ -965,6 +965,50 @@ extension SurgicalPlateType {
                 )
             ]
 
+                                                                        case .plate069:
+            return [
+                SurgicalCallout(
+                    id: "plate_069_1",
+                    title: "3D Contrast MRI & Sindou Classification Matrix",
+                    structureType: "NEUROIMAGING & SSS INVASION MATRIX",
+                    color: Color.red,
+                    normalizedX: 0.16,
+                    normalizedY: 0.50,
+                    description: "Panel A exhibits pre- and post-operative 3T contrast MRI of a spherical middle-third parasagittal/falcine meningioma compressing the rolandic cortex and invading the superior sagittal sinus (SSS). Complete Simpson resection with patent SSS on post-op imaging. The bottom matrix details the Sindou Classification (Types I through VI) defining the surgical strategy: from outer dural coagulation (Type I) and lateral wall repair with patch duraplasty (Types II–IV) to saphenous bypass (Type V) or en-bloc sinus resection (Type VI).",
+                    surgicalPearl: "The Sindou Classification dictates the limits of safe oncological resection. Invasion of the lateral wall (Types II–IV) permits complete Simpson Grade I resection when paired with meticulous autologous patch reconstruction, avoiding sinus sacrifice."
+                ),
+                SurgicalCallout(
+                    id: "plate_069_2",
+                    title: "SSS-Crossing Craniotomy & Rolandic Bridging Vein Sparing",
+                    structureType: "SURGICAL EXPOSURE & VENOUS TOPOGRAPHY",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.50,
+                    normalizedY: 0.38,
+                    description: "Panel B demonstrates surgical planning and exposure: (1) Vertex topography illustrating 4 burr holes straddling the midline SSS for safe dural peeling without sinus tear; (2) D-shaped dural flap hinged medially along the SSS. The large operative field reveals the central rolandic vein and vein of Trolard meticulously skeletonized and preserved as they enter the lateral lacunae, alongside devascularization of middle meningeal artery branches along the convexity.",
+                    surgicalPearl: "Never sacrifice dominant rolandic bridging veins in the middle or posterior third of the SSS. Occluding or tearing the central rolandic vein triggers devastating hemorrhagic infarction of the motor cortex with permanent contralateral hemiplegia."
+                ),
+                SurgicalCallout(
+                    id: "plate_069_3",
+                    title: "16× Cavitation, Falx Resection & Triangular SSS Wall Repair",
+                    structureType: "MICROSURGICAL RESECTION & SINUS RECONSTRUCTION",
+                    color: Color.blue,
+                    normalizedX: 0.82,
+                    normalizedY: 0.38,
+                    description: "Panel C details the 5 sequential stages: (1) CUSA internal debulking collapsing the tumor capsule away from the motor cortex arachnoid plane; (2) Falx cerebri resection down to the inferior sagittal sinus; (3) Cross-sectional delineation of the triangular SSS lumen (superior wall, invaded lateral wall, medial falcine wall); (4) Reconstruction of the lateral wall defect using an autologous pericranial patch sewn watertight with continuous 7-0 monofilament; (5) Patent, laminar sinus flow confirmed via green ICG videoangiography and micro-Doppler.",
+                    surgicalPearl: "Maintain continuous lumen patency during lateral wall resection by using temporary micro-clips and placing continuous 7-0 monofilament sutures through healthy dural margins. Confirm absence of intraluminal thrombus before tying the final knot."
+                ),
+                SurgicalCallout(
+                    id: "plate_069_4",
+                    title: "Bridging Vein Rule & Venous Air Embolism Protocol",
+                    structureType: "CRITICAL SAFETY & ANESTHETIC PROTOCOLS",
+                    color: Color.green,
+                    normalizedX: 0.50,
+                    normalizedY: 0.88,
+                    description: "Lower panels detail essential safety guidelines: (1) Bridging Vein Safety Rule explicitly warning against sacrificing rolandic drainage to prevent malignant cerebral swelling and hemiplegia; (2) Venous Air Embolism (VAE) Protocol detailing 15° head elevation, temporary intraoperative PEEP elevation (+5–10 cm H2O) during sinus opening, Surgiflo/Gelfoam packing with gentle pressure, and low-power bipolar hemostasis.",
+                    surgicalPearl: "Elevating PEEP (+5–10 cm H2O) immediately prior to opening the SSS increases venous pressure, converting negative sinus pressure to positive pressure and preventing lethal venous air embolism (VAE)."
+                )
+            ]
+
                                                                         case .plate068:
             return [
                 SurgicalCallout(
@@ -2037,6 +2081,15 @@ case .plate059:
                 ApproachSequentialStep(stepNumber: 4, title: "Controlled Liquid Embolic / Particle Infusion", detail: "Infuse liquid embolic (Onyx-18 / Squid) slowly under continuous subtracted fluoroscopy, creating a proximal plug and forcing embolic material distally into the neomembrane capillary network. Terminate injection once dense capillary casting and branch truncation are achieved without proximal reflux.")
             ]
 
+                                                                        case .plate069:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Positioning & SSS-Crossing 4-Burr-Hole Craniotomy", detail: "Patient supine with head elevated 15° to lower intracranial venous pressure. Bicoronal or large horseshoe skin flap. Place 4 burr holes straddling the midline Superior Sagittal Sinus (2 ipsilateral, 2 contralateral). Strip the adherent midline dura under direct vision; perform a rectangular craniotomy crossing the midline SSS to achieve 360° sinus visualization."),
+                ApproachSequentialStep(stepNumber: 2, title: "D-Shaped Dural Opening & Rolandic Bridging Vein Sparing", detail: "Invert a medial D-shaped dural flap with its base hinged along the SSS. Meticulously identify, skeletonize, and preserve all dominant cortical bridging veins, specifically the central rolandic vein and vein of Trolard entering the lateral lacunae. Devascularize middle meningeal artery branches along the convexity dura."),
+                ApproachSequentialStep(stepNumber: 3, title: "CUSA Internal Cavitation & Falcine Resection", detail: "Under 16× microscope illumination, core out the firm, fibrous meningioma with an ultrasonic aspirator (CUSA). Collapse the tumor capsule inward away from the motor cortex arachnoid plane without traction on brain parenchyma. Resect the involved falx cerebri down to the free edge of the inferior sagittal sinus."),
+                ApproachSequentialStep(stepNumber: 4, title: "SSS Lateral Recess Unroofing & Wall Resection", detail: "For Sindou Types II–IV invasion, apply temporary vascular micro-clips proximally and distally along the SSS. Unroof the lateral sinus recess and excise the invaded lateral wall, preserving deep intraluminal flow and the medial/superior dural walls."),
+                ApproachSequentialStep(stepNumber: 5, title: "Autologous Pericranial Patch Reconstruction & Patency Verification", detail: "Reconstruct the triangular lateral sinus wall defect using an autologous pericranial patch or saphenous vein graft, sutured watertight with continuous 7-0 monofilament. Release temporary clips and perform real-time ICG videoangiography and micro-Doppler interrogation to verify patent, non-turbulent venous blood flow.")
+            ]
+
                                                                         case .plate068:
             return [
                 ApproachSequentialStep(stepNumber: 1, title: "Thecal Sac Durotomy & Intradural Phase", detail: "Perform a lateral linear durotomy centered over the intradural tumor pole. Dissect the arachnoid plane between the tumor and the compressed thoracic spinal cord under 16× magnification. Identify the dorsal root of origin and safely divide it with bipolar cautery, while strictly preserving adjacent ventral motor rootlets and passing radiculomedullary arterial feeders."),
@@ -2523,6 +2576,14 @@ case .plate059:
                 "IRREVERSIBLE BLINDNESS VIA MENINGO-OPHTHALMIC ANASTOMOSIS: The anterior MMA can connect with the ophthalmic artery via the superior orbital fissure or recurrent meningeal branch. Always perform high-magnification roadmap angiography; embolic reflux or forward migration into the ophthalmic artery causes instant, catastrophic central retinal artery occlusion and permanent monocular blindness.",
                 "FACIAL NERVE PALSY VIA PETROSAL BRANCH: The petrosal branch of the MMA supplies the facial nerve (CN VII) in the Fallopian canal / geniculate ganglion. Always advance the microcatheter tip DISTAL to the petrosal branch takeoff before injecting liquid embolic or particles; embolization of the petrosal artery causes acute, permanent peripheral facial palsy (Bell's palsy).",
                 "PROXIMAL REFLUX INTO MAXILLARY OR CAROTID ARTERY: Never push liquid embolic aggressively against resistance. Maintain continuous fluoroscopic visualization of the catheter tip to prevent reflux back into the internal maxillary artery or external carotid system, which can cause skin necrosis, jaw claudication, or distal stroke."
+            ]
+
+                                                                        case .plate069:
+            return [
+                "SACRIFICE OR THROMBOSIS OF CENTRAL ROLANDIC BRIDGING VEINS: The central rolandic vein and vein of Trolard drain critical motor and sensory cortex into the middle third of the SSS. Inadvertent coagulation, excessive traction, or temporary clip occlusions exceeding 15–20 minutes trigger devastating hemorrhagic venous infarction of the precentral gyrus, acute cerebral swelling, and permanent contralateral hemiplegia. Always dissect tumor away from veins and preserve all major venous tributaries.",
+                "INTRAOPERATIVE VENOUS AIR EMBOLISM (VAE) VIA UNSEALED SSS OR LATERAL LACUNA: When operating near the apex with the head elevated, negative venous pressure inside the open superior sagittal sinus rapidly sucks atmospheric air into the venous circulation, precipitating acute right heart strain, catastrophic pulmonary embolism, and circulatory collapse. Always maintain intraoperative positive end-expiratory pressure (PEEP), keep sinus defects flooded with wet cottonoids or hemostatic gelatin, and repair the sinus lumen under positive venous pressure.",
+                "COMPLETE SSS THROMBOSIS FROM OVER-NARROWED RECONSTRUCTION: Placing patch sutures too deeply across the sinus lumen or using an excessively small venous patch creates intraluminal stenosis and turbulent flow, precipitating acute sinus thrombosis. Acute complete occlusion of the middle/posterior SSS causes malignant bilateral hemispheric edema, intraventricular hemorrhage, and death. Always inspect intraluminal caliber and verify brisk flow with ICG videoangiography.",
+                "INTRACTABLE CSF RHINORRHEA / SUBGALEAL HYGROMA: The midline bone cut and D-shaped durotomy over the SSS are subjected to continuous CSF pulsations. Inadequate, non-watertight dural closure over the sinus or failing to seal arachnoid defects leads to extensive subgaleal CSF collections, wound dehiscence, and ascending bacterial meningitis. Always execute watertight dural closure reinforced with an onlay collagen matrix and fibrin sealant."
             ]
 
                                                                         case .plate068:
