@@ -718,7 +718,7 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
     public var plates: [SurgicalPlateType] {
         switch self {
         case .anteriorSkullBase:
-            return [.plate017, .plate009, .plate012, .plate008, .plate005, .plate033, .plate030, .plate055, .plate059, .plate066]
+            return [.plate017, .plate009, .plate012, .plate008, .plate005, .plate033, .plate030, .plate055, .plate059, .plate066, .plate074]
         case .convexityTrauma:
             return [.plate018, .plate016, .plate019, .plate021, .plate025, .plate045, .plate069, .plate070]
         case .posteriorFossa:
@@ -740,8 +740,8 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
 }
 
 public enum AtlasCategory: String, CaseIterable {
-    case all = "All Plates (73)"
-    case cranial = "Cranial & Skull Base (39)"
+    case all = "All Plates (74)"
+    case cranial = "Cranial & Skull Base (40)"
     case spine = "Spine & CVJ (34)"
 
     public var filteredPlates: [SurgicalPlateType] {
@@ -829,6 +829,7 @@ public enum SurgicalPlateType: String, CaseIterable {
     case plate071 = "plate_071_as_chalk_stick_fracture_fixation"
     case plate072 = "plate_072_sih_csf_venous_fistula"
     case plate073 = "plate_073_calcified_thoracic_disc"
+    case plate074 = "plate_074_sphenoid_wing_meningioma"
 
     public var subSection: AtlasSubSection {
         for section in AtlasSubSection.allCases {
@@ -918,6 +919,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate071: return 71
         case .plate072: return 72
         case .plate073: return 73
+        case .plate074: return 74
         }
     }
 
@@ -1000,6 +1002,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate071: return "71: AS Chalk-Stick Fixation"
         case .plate072: return "72: SIH CSF-Venous Fistula"
         case .plate073: return "73: Calcified Thoracic Disc"
+        case .plate074: return "74: Sphenoid Wing Meningioma"
         }
     }
 
@@ -1078,6 +1081,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate071: return "Ankylosing Spondylitis (AS) 'Chalk-Stick' Fracture — 3-Column Fracture, Epidural Clot Evacuation & Long-Segment Fixation"
         case .plate072: return "Spontaneous Intracranial Hypotension (SIH) & CSF-Venous Fistula — Decubitus DSM, Transvenous Coiling & Microsurgical Clip Ligation"
         case .plate073: return "Giant Calcified Thoracic Disc Herniation — Posterolateral Transpedicular Corridor, Down-and-Away Trenching & Zero Cord Retraction"
+        case .plate074: return "Sphenoid Wing Meningioma & Hyperostosis — Medial Clinoidal vs. Lateral, Extradural Optic Unroofing & MOB Peeling"
         }
     }
 
@@ -1156,6 +1160,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate071: return "shield.lefthalf.filled"
         case .plate072: return "drop.triangle.fill"
         case .plate073: return "cylinder.split.1x2.fill"
+        case .plate074: return "eye.circle.fill"
         }
     }
 

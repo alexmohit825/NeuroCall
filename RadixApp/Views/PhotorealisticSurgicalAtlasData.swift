@@ -965,7 +965,51 @@ extension SurgicalPlateType {
                 )
             ]
 
-                                                                        case .plate073:
+        case .plate074:
+            return [
+                SurgicalCallout(
+                    id: "plate_074_1",
+                    title: "Neuroimaging & Al-Mefty Classification Matrix",
+                    structureType: "SYNTHETIC CT/MRI, ANGIOGRAPHY & AL-MEFTY MATRIX",
+                    color: Color.red,
+                    normalizedX: 0.16,
+                    normalizedY: 0.50,
+                    description: "Panel A synthesizes multimodal neuroimaging and the definitive Al-Mefty classification for medial sphenoid wing/clinoidal meningiomas. A1 (coronal T1+C) and A3 (axial T1+C) demonstrate a right clinoidal meningioma encasing the internal carotid artery (ICA) bifurcation and compressing the optic nerve. A2 (bone CT) reveals profound hyperostosis of the right sphenoid wing, orbital roof, and optic strut. A4 (catheter angiogram) shows ICA and MCA (M1) encasement with rich tumor blush. Lower insets delineate Al-Mefty Groups: Group I (origin distal to carotid cistern ring, no arachnoid plane between tumor and ICA adventitia), Group II (origin from superior/lateral clinoid, arachnoid plane present between tumor and ICA), and Group III (origin at optic canal unroofing/strut).",
+                    surgicalPearl: "In Al-Mefty Group I meningiomas, tumor invades the adventitia of the ICA directly without an intervening arachnoid plane. Aggressive pursuit of a Simpson Grade 1 resection in Group I invariably results in catastrophic carotid laceration or middle cerebral artery stroke; subtotal resection with adjuvant stereotactic radiosurgery is the standard of care."
+                ),
+                SurgicalCallout(
+                    id: "plate_074_2",
+                    title: "Extradural Sphenoid Drilling & MOB Peeling",
+                    structureType: "EXTRADURAL SKULL BASE & MENINGO-ORBITAL BAND",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.48,
+                    normalizedY: 0.38,
+                    description: "Panel B depicts the critical extradural phase of the pterional/orbitozygomatic approach. A high-speed diamond burr with continuous cold saline irrigation systematically flattens the hyperostotic sphenoid ridge down to the superior orbital fissure (SOF). Peeling and sharply dividing the meningo-orbital band (MOB) detaches the frontotemporal dura from the periorbita, unlocking the anterior clinoid space. Lower insets detail 270° optic canal unroofing, resection of the optic strut, and anterior clinoidectomy, decompressing CN II and exposing the clinoidal segment of the ICA before opening the dura.",
+                    surgicalPearl: "Extradural optic canal unroofing and anterior clinoidectomy decompress the optic nerve prior to any intradural tumor manipulation and devascularize the primary tumor blood supply from the middle meningeal and ophthalmic collateral branches."
+                ),
+                SurgicalCallout(
+                    id: "plate_074_3",
+                    title: "16× Microsurgical Resection & Perforator Preservation",
+                    structureType: "MICROSURGICAL RESECTION & PERFORATING BRUSH",
+                    color: Color.blue,
+                    normalizedX: 0.82,
+                    normalizedY: 0.38,
+                    description: "Panel C enforces the cardinal mandate: 'PRESERVE PERFORATORS & ADVENTITIAL CLEAVAGE PLANES'. Under 16× magnification, ultrasonic cavitation (CUSA) debulks the firm pink tumor mass. High-power views display complete exposure of CN II, supraclinoid ICA, anterior choroidal artery (AChA) takeoff, M1/M2 bifurcation, and the delicate brush of lateral lenticulostriate perforators. Insets illustrate dural attachment coagulation, the exact MOB peeling plane, and meticulous micro-dissection sparing every perforator.",
+                    surgicalPearl: "The Achilles' heel of medial sphenoid wing meningioma resection is the lenticulostriate brush and AChA. Stripping adherent tumor off these vessels causes capsular infarction and permanent dense hemiplegia. Preserve the adventitial plane and leave tumor flecks on perforating vessels."
+                ),
+                SurgicalCallout(
+                    id: "plate_074_4",
+                    title: "Three Operative Principles & Postoperative Surveillance",
+                    structureType: "OPERATIVE PRINCIPLES & CRANIAL NERVE PROTOCOL",
+                    color: Color.green,
+                    normalizedX: 0.50,
+                    normalizedY: 0.90,
+                    description: "Lower panels summarize The Three Operative Principles: (1) Early extradural optic canal decompression when indicated, (2) Leave adherent tumor if no safe ICA cleavage plane exists, and (3) Consider intraoperative visual evoked potential (VEP) monitoring in selected cases. The surveillance panel details postoperative protocols monitoring visual acuity, visual fields, extraocular motility (CN III, IV, VI palsies), trigeminal sensation (V1), CSF rhinorrhea, and sellar endocrine axes.",
+                    surgicalPearl: "Postoperative visual deterioration is often caused by microvascular ischemia to the optic chiasm/nerve rather than direct mechanical traction. Protect the superior hypophyseal and ophthalmic collateral vessels."
+                )
+            ]
+
+        case .plate073:
             return [
                 SurgicalCallout(
                     id: "plate_073_1",
@@ -2257,7 +2301,16 @@ case .plate059:
                 ApproachSequentialStep(stepNumber: 4, title: "Controlled Liquid Embolic / Particle Infusion", detail: "Infuse liquid embolic (Onyx-18 / Squid) slowly under continuous subtracted fluoroscopy, creating a proximal plug and forcing embolic material distally into the neomembrane capillary network. Terminate injection once dense capillary casting and branch truncation are achieved without proximal reflux.")
             ]
 
-                                                                        case .plate073:
+        case .plate074:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Pterional / Orbitozygomatic Exposure & Lumbar Drainage", detail: "Position patient supine with head rotated 30° contralateral and extended 15° to align the sphenoid ridge with the vertical axis. Place lumbar drain for brain relaxation if significant mass effect exists. Execute a curvilinear frontotemporal incision behind the hairline. Elevate a vascularized pericranial flap and perform interfascial temporal muscle dissection preserving the frontalis branch of CN VII. Perform a low pterional or two-piece orbitozygomatic craniotomy flush with the orbital roof and anterior cranial fossa floor."),
+                ApproachSequentialStep(stepNumber: 2, title: "Extradural Sphenoid Ridge Drilling & MOB Peeling", detail: "Under microscope guidance, elevate the frontal and temporal dura extradurally. With a 4 mm coarse diamond burr and copious irrigation, drill the hyperostotic sphenoid ridge down to the lateral wall of the superior orbital fissure (SOF). Identify and sharply incise the meningo-orbital band (MOB)—the dural bridge between temporal dura and periorbita. Peel the temporal dura propria off the inner cavernous membrane to widely expose the anterior clinoid process (ACP)."),
+                ApproachSequentialStep(stepNumber: 3, title: "Extradural Optic Canal Unroofing & Anterior Clinoidectomy", detail: "Using a 2 mm or 3 mm diamond burr under continuous chilled saline irrigation to prevent thermal injury to the optic nerve, drill the roof of the optic canal for 180°–270°. Hollow out the cancellous core of the anterior clinoid process and drill the optic strut separating the optic canal from the SOF. Gently fracture and remove the cortical shell of the ACP with micro-curettes, releasing the optic nerve and exposing the clinoidal ICA segment without opening the dura."),
+                ApproachSequentialStep(stepNumber: 4, title: "Dural Opening, Early Devascularization & CUSA Internal Debulking", detail: "Open the dura in a curvilinear fashion along the sphenoid ridge base and orbit. Immediately coagulate and divide the primary dural feeding vessels from the sphenoid ridge and middle meningeal artery to devascularize the tumor. Incise the tumor capsule in a silent avascular zone and use ultrasonic aspirator (CUSA at low power) to hollow out the tumor core, creating internal slack before attempting capsular dissection."),
+                ApproachSequentialStep(stepNumber: 5, title: "Micro-Dissection of ICA, AChA & Lenticulostriate Perforators", detail: "Under 16× high magnification, trace arachnoid cleavage planes along the proximal M1 segment, carotid bifurcation, supraclinoid ICA, and anterior choroidal artery (AChA). Meticulously preserve the recurrent artery of Heubner and the brush of lenticulostriate perforators extending into the anterior perforated substance. For Al-Mefty Group I tumors lacking an arachnoid plane, leave a microscopic tumor cuff on the arterial adventitia to avoid vessel laceration. Resect or reconstruct involved dural base (Simpson Grade II) with pericranial autograft.")
+            ]
+
+        case .plate073:
             return [
                 ApproachSequentialStep(stepNumber: 1, title: "Prone Positioning & Multi-Modal Neuromonitoring", detail: "Position the patient prone on a Wilson frame or Jackson spine table with the abdomen hanging completely free to decompress epidural Batson plexus veins. Establish continuous baseline motor evoked potentials (MEP) and somatosensory evoked potentials (SSEP). Maintain mean arterial pressure (MAP) strictly between 85–90 mmHg throughout the procedure to preserve spinal cord perfusion across the critical watershed zone."),
                 ApproachSequentialStep(stepNumber: 2, title: "Targeted Unilateral Hemilaminectomy & Complete Pediculectomy", detail: "Under lateral fluoroscopic localization, perform a midline or paramedian incision centered over the disc space (e.g., T8–T9). Execute a targeted unilateral hemilaminectomy and partial medial facetectomy. Using a high-speed diamond burr and Kerrison rongeurs, perform a complete pediculectomy of the superior vertebra (T8), completely skeletonizing and exposing the lateral dural margin and the exiting T8 thoracic nerve root."),
@@ -2790,7 +2843,15 @@ case .plate059:
                 "PROXIMAL REFLUX INTO MAXILLARY OR CAROTID ARTERY: Never push liquid embolic aggressively against resistance. Maintain continuous fluoroscopic visualization of the catheter tip to prevent reflux back into the internal maxillary artery or external carotid system, which can cause skin necrosis, jaw claudication, or distal stroke."
             ]
 
-                                                                        case .plate073:
+        case .plate074:
+            return [
+                "INTERNAL CAPSULE INFARCTION VIA LENTICULOSTRIATE OR ACHA AVULSION: The medial sphenoid wing meningioma frequently drapes over or envelops the lateral lenticulostriate perforators and the anterior choroidal artery (AChA). Traction, thermal bipolar injury, or vasospasm of these end-arteries produces catastrophic, irreversible posterior limb internal capsule infarction with dense contralateral hemiplegia and hemianesthesia. Never pull or peel tumor blindly off perforating vessels; preserve arachnoid planes and leave tumor flecks.",
+                "CATASTROPHIC ICA LACERATION IN AL-MEFTY GROUP I TUMORS: In Group I clinoidal meningiomas, tumor originates distal to the carotid cistern rings and infiltrates the arterial adventitia directly with complete absence of an arachnoid plane. Attempting sharp or blunt dissection to achieve complete tumor clearance causes instant high-flow carotid laceration or avulsion, leading to exsanguinating hemorrhage, stroke, or fatal intraoperative pseudoaneurysm formation. Always leave a thin protective tumor shell on the ICA.",
+                "IRREVERSIBLE OPTIC NERVE ISCHEMIA & MONOCULAR BLINDNESS: The optic nerve is vulnerable to both mechanical compression and thermal injury from high-speed drilling during optic canal unroofing and anterior clinoidectomy. Furthermore, excessive devascularization of the superior hypophyseal arterial twigs or ophthalmic artery collateral branches during medial tumor resection triggers acute ischemic optic neuropathy and permanent blindness. Continuous cold irrigation during drilling and gentle micro-dissection of CN II are mandatory.",
+                "CRANIAL NERVE PALSIES (CN III, IV, V1, VI) VIA SOF / CAVERNOUS SINUS INVASION: Tumor extension into the superior orbital fissure or lateral cavernous sinus wall directly encases the oculomotor (CN III), trochlear (CN IV), abducens (CN VI), and ophthalmic (V1) nerves. Aggressive curettage or bipolar coagulation within the SOF or cavernous sinus produces permanent complete ophthalmoplegia, ptosis, and corneal anesthesia. Extradural dissection must halt at the outer cavernous sinus layer."
+            ]
+
+        case .plate073:
             return [
                 "ANTERIOR SPINAL CORD INFARCTION & PERMANENT PARAPLEGIA VIA RETRACTION: The thoracic spinal cord occupies nearly the entire canal and possesses a precarious watershed vascular network supplied by the Great Radiculomedullary Artery (Adamkiewicz, T9–L2). Even minimal, transient medial or posterior retraction of the dural sac against instruments triggers instant anterior spinal artery thrombosis, cord infarction, and irreversible flaccid paraplegia. The cord must remain 100% untouched; all discectomy vectors must be down-and-away into a drilled trench.",
                 "CATASTROPHIC VENTRAL CORD AVULSION VIA AGGRESSIVE INTRADURAL PEELING: In giant calcified discs with intradural extension, the calcified osteophyte complex can become densely scarred to the anterior cord pia and anterior spinal artery. Forcing or pulling the calcified shell away from the cord causes cord tearing, pial stripping, or arterial avulsion. Always leave a paper-thin microscopic calcified shell on the pia if cleavage planes are absent.",
