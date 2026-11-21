@@ -974,7 +974,7 @@ extension SurgicalPlateType {
                     color: Color.red,
                     normalizedX: 0.16,
                     normalizedY: 0.50,
-                    description: "Panel A exhibits synthetic bone-window CT (sagittal and axial, W4000/L700) and T2 MRI at T9–T10 displaying a monster calcified disc-osteophyte complex occupying ~60% of the spinal canal cross-section with severe ventral thecal sac encroachment. The thoracic cord is compressed into a thin crescent with bright intramedullary T2 hyperintensity (compressive myelomalacia). Lower insets contrast central versus right-paracentral herniation and detail the risk of intradural calcification eroding the ventral dura.",
+                    description: "Panel A exhibits synthetic bone-window CT (sagittal and axial, W4000/L700) and T2 MRI at T8–T9 displaying a compact, calcified disc-osteophyte complex occupying ~45–50% of the spinal canal cross-section with severe ventral thecal sac encroachment. The thoracic cord is compressed into an anatomical crescent with bright intramedullary T2 hyperintensity (compressive myelomalacia). Lower insets contrast central versus right-paracentral herniation and detail the risk of intradural calcification eroding the ventral dura.",
                     surgicalPearl: "Giant thoracic disc herniations (>50% canal compromise) are almost invariably calcified and densely adherent to the ventral dura. Posterior laminectomy alone is strictly contraindicated because it cannot access the ventral pathology without requiring cord retraction."
                 ),
                 SurgicalCallout(
