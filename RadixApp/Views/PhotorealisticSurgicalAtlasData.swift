@@ -965,6 +965,50 @@ extension SurgicalPlateType {
                 )
             ]
 
+                                                                        case .plate070:
+            return [
+                SurgicalCallout(
+                    id: "plate_070_1",
+                    title: "3D Synthetic DTI Tractography & Language Networks",
+                    structureType: "SYNTHETIC NEUROIMAGING & TRACTOGRAPHY",
+                    color: Color.red,
+                    normalizedX: 0.16,
+                    normalizedY: 0.50,
+                    description: "Panel A exhibits synthetic axial and coronal T1-contrast scans of a left frontal-opercular glioblastoma (WHO Grade 4) with ring enhancement and central necrosis. The 3D DTI tractography reconstruction maps the surrounding critical white matter tracts: Corticospinal Tract (CST) descending vertically in royal blue, Arcuate Fasciculus (AF) / SLF II–III looping in magenta/crimson, Inferior Fronto-Occipital Fasciculus (IFOF) in dark violet, and Uncinate Fasciculus (UF) in green. Inset details DES stimulation endpoints (AF = repetition errors; IFOF = semantic paraphasias; CST = motor arrest).",
+                    surgicalPearl: "Subcortical language organization is dual-stream: the dorsal stream (AF/SLF) subserves phonological processing and repetition, while the ventral stream (IFOF) subserves semantic comprehension. Preserving both streams is required to prevent permanent postoperative aphasia."
+                ),
+                SurgicalCallout(
+                    id: "plate_070_2",
+                    title: "Awake Craniotomy & Cortical DES Mapping Standard",
+                    structureType: "OPERATIVE MAPPING & PERISYLVIAN ANATOMY",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.50,
+                    normalizedY: 0.38,
+                    description: "Panel B depicts the awake asleep-awake-asleep field with regional scalp block and the patient alert performing DO-80 naming tasks. An Ojemann bipolar probe (60 Hz, 1.5–3.5 mA) stimulates perisylvian gyri under ECoG monitoring. Numbered sterile tags mark critical landmarks: [1] Speech arrest (Broca area / IFG), [2] Semantic paraphasia / anomia (Wernicke / STG), [3] Phonological paraphasia (supramarginal gyrus), [4] Contralateral hand motor arrest (precentral motor strip), and [5]/[6] Negative silent cortex marking the safe subpial corticotomy corridor.",
+                    surgicalPearl: "Direct electrical stimulation (DES) remains the gold standard for defining eloquent brain. A 1 cm functional margin around positive language sites prevents permanent postoperative language deficits."
+                ),
+                SurgicalCallout(
+                    id: "plate_070_3",
+                    title: "16× Subcortical DES, 5-ALA Fluorescence & Tract Sparing",
+                    structureType: "SUBCORTICAL DISSECTION & WHITE MATTER PRESERVATION",
+                    color: Color.blue,
+                    normalizedX: 0.82,
+                    normalizedY: 0.38,
+                    description: "Panel C illustrates the cavity under 405 nm violet-blue illumination. The glioblastoma core exhibits intense ruby-magenta Protoporphyrin IX (PpIX) fluorescence debulked by CUSA. A subcortical monopolar ball-tip probe actively stimulates deep cavity walls, identifying the glistening striated white fiber bundles of the Arcuate Fasciculus on the deep lateral wall and the Corticospinal Tract (CST) on the posterior-medial floor, defining the functional boundary of supratotal resection.",
+                    surgicalPearl: "5-ALA fluorescence visualizes tumor tissue beyond MRI gadolinium margins, but fluorescence must always be subordinated to subcortical stimulation: when a positive motor or language response occurs, tumor resection must halt regardless of residual pink fluorescence."
+                ),
+                SurgicalCallout(
+                    id: "plate_070_4",
+                    title: "Intraoperative Seizure Abort & WHO Grade 4 Neuropathology",
+                    structureType: "SEIZURE EMERGENCY PROTOCOL & NEUROPATHOLOGY",
+                    color: Color.green,
+                    normalizedX: 0.50,
+                    normalizedY: 0.88,
+                    description: "Lower panels: Inset 1 details the Seizure Abort Protocol: immediate cold/iced Ringer's irrigation (4–10°C) directly onto the cortex to terminate after-discharges and electrographic seizures, backed by IV levetiracetam and propofol rescue. Inset 2 demonstrates diagnostic WHO Grade 4 Glioblastoma neuropathology on H&E (40×): marked nuclear pleomorphism/cellular atypia, florid microvascular glomeruloid endothelial proliferation, and diagnostic pseudopalisading necrosis.",
+                    surgicalPearl: "Iced Ringer's solution must be immediately available at the scrub table before the stimulator touches the brain. Cold irrigation terminates >95% of stimulation-induced seizures without requiring intravenous anticonvulsants or general anesthesia induction."
+                )
+            ]
+
                                                                         case .plate069:
             return [
                 SurgicalCallout(
@@ -2081,6 +2125,15 @@ case .plate059:
                 ApproachSequentialStep(stepNumber: 4, title: "Controlled Liquid Embolic / Particle Infusion", detail: "Infuse liquid embolic (Onyx-18 / Squid) slowly under continuous subtracted fluoroscopy, creating a proximal plug and forcing embolic material distally into the neomembrane capillary network. Terminate injection once dense capillary casting and branch truncation are achieved without proximal reflux.")
             ]
 
+                                                                        case .plate070:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Regional Scalp Block & Asleep-Awake-Asleep Positioning", detail: "Perform a comprehensive 6-nerve regional scalp block (supraorbital, supratrochlear, zygomaticotemporal, auriculotemporal, greater and lesser occipital nerves) with 0.5% ropivacaine and epinephrine. Position the patient lateral or semirecumbent in Mayfield head fixation, ensuring direct line-of-sight and physical comfort for the intraoperative neuropsychologist and patient during DO-80 naming tasks. Maintain airway via LMA or dexmedetomidine-remifentanil conscious sedation during opening."),
+                ApproachSequentialStep(stepNumber: 2, title: "Craniotomy & Cortical Surface Exposure", detail: "Execute a targeted left frontotemporoparietal craniotomy centered over the peri-Sylvian cortex and tumor epicenter. Reflect the dural flap superiorly and tether with traction sutures. Awaken the patient, transition off sedation, remove the LMA if used, and verify calm, cooperative patient engagement with baseline naming and counting fluency before initiating stimulation."),
+                ApproachSequentialStep(stepNumber: 3, title: "Bipolar Cortical Direct Electrical Stimulation (DES)", detail: "Deploy a 5 mm bipolar Ojemann stimulation probe (60 Hz biphasic square waves, 1 ms pulse width, starting at 1.5 mA and titrated up to 3.5 mA under continuous electrocorticography to detect afterdischarges). Place sterile numbered tags on eloquent cortex: Broca area [1] (speech arrest), Wernicke area [2] (semantic paraphasia/anomia), supramarginal gyrus [3] (phonological paraphasia), precentral gyrus [4] (contralateral hand/thumb motor arrest), and identify safe non-eloquent cortical corridors [5, 6]."),
+                ApproachSequentialStep(stepNumber: 4, title: "Subpial Corticotomy & 5-ALA Guided Cavitation", detail: "Switch microscope illumination to 405 nm blue-light excitation to visualize vivid ruby-magenta PpIX tumor fluorescence. Enter through a non-eloquent corticotomy tag ([5] or [6]) using subpial dissection. Core out the necrotic, highly vascular glioblastoma center with the ultrasonic aspirator (CUSA), debulking from the inside out to minimize lateral parenchymal traction."),
+                ApproachSequentialStep(stepNumber: 5, title: "Subcortical Monopolar DES & White Matter Tract Sparing", detail: "Perform dynamic monopolar stimulation (train-of-five high-frequency technique) along deep resection margins while the patient names visual objects continuously. Detect subcortical tract boundaries: arcuate fasciculus (AF) on the deep lateral wall (repetition errors/phonemic paraphasia), inferior fronto-occipital fasciculus (IFOF) on the inferior/ventral margin (semantic paraphasia), and corticospinal tract (CST) on the posterior-medial floor (motor arrest/twitch). Stop resection at the 5 mA threshold (5 mm safe functional boundary) to achieve supratotal functional resection with zero permanent neurological deficit.")
+            ]
+
                                                                         case .plate069:
             return [
                 ApproachSequentialStep(stepNumber: 1, title: "Positioning & SSS-Crossing 4-Burr-Hole Craniotomy", detail: "Patient supine with head elevated 15° to lower intracranial venous pressure. Bicoronal or large horseshoe skin flap. Place 4 burr holes straddling the midline Superior Sagittal Sinus (2 ipsilateral, 2 contralateral). Strip the adherent midline dura under direct vision; perform a rectangular craniotomy crossing the midline SSS to achieve 360° sinus visualization."),
@@ -2576,6 +2629,14 @@ case .plate059:
                 "IRREVERSIBLE BLINDNESS VIA MENINGO-OPHTHALMIC ANASTOMOSIS: The anterior MMA can connect with the ophthalmic artery via the superior orbital fissure or recurrent meningeal branch. Always perform high-magnification roadmap angiography; embolic reflux or forward migration into the ophthalmic artery causes instant, catastrophic central retinal artery occlusion and permanent monocular blindness.",
                 "FACIAL NERVE PALSY VIA PETROSAL BRANCH: The petrosal branch of the MMA supplies the facial nerve (CN VII) in the Fallopian canal / geniculate ganglion. Always advance the microcatheter tip DISTAL to the petrosal branch takeoff before injecting liquid embolic or particles; embolization of the petrosal artery causes acute, permanent peripheral facial palsy (Bell's palsy).",
                 "PROXIMAL REFLUX INTO MAXILLARY OR CAROTID ARTERY: Never push liquid embolic aggressively against resistance. Maintain continuous fluoroscopic visualization of the catheter tip to prevent reflux back into the internal maxillary artery or external carotid system, which can cause skin necrosis, jaw claudication, or distal stroke."
+            ]
+
+                                                                        case .plate070:
+            return [
+                "INTRAOPERATIVE SEIZURE & STATUS EPILEPTICUS DURING ELECTRICAL STIMULATION: Direct electrical stimulation (DES) above the afterdischarge threshold can trigger focal motor or generalized seizures in awake patients. Uncontrolled seizures lead to airway loss, brain herniation, head movement in rigid pins, and acute emergency general anesthesia conversion. Protocol: Immediately flood the cortical surface with cold (4°C) Ringer's irrigation, halt stimulation immediately, and administer IV levetiracetam (1–2 g) or small propofol bolus (0.5–1 mg/kg) if afterdischarges fail to extinguish within 10 seconds.",
+                "PERMANENT BROCA OR WERNICKE APHASIA VIA SUBCORTICAL WHITE MATTER TRANSECTION: Aggressive resection without continuous awake testing can transect the deep subcortical language tracts—the arcuate fasciculus (dorsal phonological stream) or inferior fronto-occipital fasciculus (ventral semantic stream). Inadvertent injury causes permanent, irreversible expressive or receptive aphasia. Resection MUST cease immediately upon eliciting reproducible language hesitation, semantic paraphasia, or phonemic paraphasia during subcortical mapping.",
+                "COMPLETE CONTRALATERAL HEMIPLEGIA VIA CORTICOSPINAL TRACT (CST) VIOLATION: The posterior-medial deep margin of frontal and temporal opercular resections abuts the internal capsule and descending corona radiata. Infarction of lenticulostriate perforators or direct thermal/mechanical injury to the corticospinal tract causes devastating, flaccid contralateral hemiplegia. Always maintain dynamic monopolar stimulation with a 5 mm safety margin (1 mA = 1 mm distance) and preserve all white matter fascicles along the internal capsule floor.",
+                "ACUTE AIRWAY LOSS & HYPOVENTILATION DURING AWAKE PHASE: Inadequate analgesia from an incomplete scalp block, patient panic, or drug-induced respiratory depression (excessive remifentanil/dexmedetomidine) can cause acute hypoventilation, hypercapnia, severe brain swelling, or airway compromise while the head is rigidly clamped. Always verify dense local block across all 6 cutaneous scalp nerves before incision and have a trained neuroanesthesiologist at the airway with video laryngoscopy and supraglottic airway equipment immediately accessible."
             ]
 
                                                                         case .plate069:
