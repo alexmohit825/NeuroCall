@@ -734,15 +734,15 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
         case .lumbarMIS:
             return [.plate011, .plate007, .plate037, .plate029, .plate028, .plate032]
         case .deformitySalvage:
-            return [.plate023, .plate024, .plate039, .plate046, .plate071]
+            return [.plate023, .plate024, .plate039, .plate046, .plate071, .plate075]
         }
     }
 }
 
 public enum AtlasCategory: String, CaseIterable {
-    case all = "All Plates (74)"
+    case all = "All Plates (75)"
     case cranial = "Cranial & Skull Base (40)"
-    case spine = "Spine & CVJ (34)"
+    case spine = "Spine & CVJ (35)"
 
     public var filteredPlates: [SurgicalPlateType] {
         switch self {
@@ -830,6 +830,7 @@ public enum SurgicalPlateType: String, CaseIterable {
     case plate072 = "plate_072_sih_csf_venous_fistula"
     case plate073 = "plate_073_calcified_thoracic_disc"
     case plate074 = "plate_074_sphenoid_wing_meningioma"
+    case plate075 = "plate_075_high_grade_spondylolisthesis"
 
     public var subSection: AtlasSubSection {
         for section in AtlasSubSection.allCases {
@@ -920,6 +921,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate072: return 72
         case .plate073: return 73
         case .plate074: return 74
+        case .plate075: return 75
         }
     }
 
@@ -1003,6 +1005,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate072: return "72: SIH CSF-Venous Fistula"
         case .plate073: return "73: Calcified Thoracic Disc"
         case .plate074: return "74: Sphenoid Wing Meningioma"
+        case .plate075: return "75: Spondyloptosis & Reduction"
         }
     }
 
@@ -1082,6 +1085,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate072: return "Spontaneous Intracranial Hypotension (SIH) & CSF-Venous Fistula — Decubitus DSM, Transvenous Coiling & Microsurgical Clip Ligation"
         case .plate073: return "Giant Calcified Thoracic Disc Herniation — Posterolateral Transpedicular Corridor, Down-and-Away Trenching & Zero Cord Retraction"
         case .plate074: return "Sphenoid Wing Meningioma & Hyperostosis — Medial Clinoidal vs. Lateral, Extradural Optic Unroofing & MOB Peeling"
+        case .plate075: return "High-Grade L5–S1 Spondylolisthesis & Spondyloptosis — Sacral Dome Osteotomy, L5 Root Decompression & Bohlman Spinopelvic Fixation"
         }
     }
 

@@ -965,6 +965,50 @@ extension SurgicalPlateType {
                 )
             ]
 
+        case .plate075:
+            return [
+                SurgicalCallout(
+                    id: "plate_075_1",
+                    title: "Grade V Spondyloptosis & Sagittal Geometry",
+                    structureType: "SYNTHETIC CT/MRI & SPINOPELVIC PARAMETERS",
+                    color: Color.red,
+                    normalizedX: 0.16,
+                    normalizedY: 0.50,
+                    description: "Panel A establishes true Meyerding Grade V spondyloptosis (100% anterior translation) at L5–S1. A1 (pre-op sagittal CT) shows the trapezoidal L5 body completely displaced into the pelvic brim anterior and inferior to the rounded S1 dome, with an acute 91° kyphotic slip angle. A2 (sagittal T2 MRI) reveals the cauda equina making a sharp 90° right-angle kink over the posterosuperior sacral dome with severe thecal crowding and a floating posterior arch. A3 details 3D dysplastic morphology with elongated pedicles and bilateral pars defects. A4 graphs high pelvic incidence (PI 78°), compensatory pelvic retroversion (PT 34°), and severe PI–LL mismatch (28°).",
+                    surgicalPearl: "High-grade spondylolisthesis is a multiplanar kyphotic deformity, not just simple translation. Restoring the lumbosacral slip angle and pelvic balance is vastly more important for long-term clinical outcome than achieving 100% translational reduction."
+                ),
+                SurgicalCallout(
+                    id: "plate_075_2",
+                    title: "Gill Laminectomy & Sacral Dome Osteotomy",
+                    structureType: "POSTERIOR EXPOSURE & S1 DOME BEVELING",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.48,
+                    normalizedY: 0.40,
+                    description: "Panel B illustrates posterior midline exposure under continuous multimodal neuromonitoring (SSEP and L5/S1 EMG). A complete Gill laminectomy resects the detached fibrocartilaginous L5 posterior arch, unroofing the compressed thecal sac. Realistic 4–5 mm caliber L5 nerve roots are skeletonized as they drape under extreme tension over the sacral alae. The lower inset demonstrates two-stage sacral dome osteotomy: a 4 mm curved diamond burr systematically bevels the rounded, convex posterosuperior S1 promontory, transforming the sharp thecal kinking fulcrum into a flat cancellous landing shelf.",
+                    surgicalPearl: "Never attempt reduction before performing a sacral dome osteotomy. Resecting the posterosuperior S1 dome shortens the lumbosacral column, directly relieving cauda equina and L5 nerve root tension before applying any reduction force."
+                ),
+                SurgicalCallout(
+                    id: "plate_075_3",
+                    title: "Bohlman Trans-Sacral Cage & Triangular Spinopelvic Fixation",
+                    structureType: "MICROSURGICAL REDUCTION & BOHLMAN ARTHRODESIS",
+                    color: Color.blue,
+                    normalizedX: 0.82,
+                    normalizedY: 0.40,
+                    description: "Panel C enforces the cardinal rule: 'PREVENT L5 TRACTION NEUROPRAXIA — AVOID OVER-REDUCTION'. The 16× microscope view confirms a relaxed, untethered L5 root with zero EMG firing. The fixation field exhibits a triangular spinopelvic construct: bilateral L4, L5, and bicortical S1 pedicle screws anchored by deep S2-alar-iliac (S2AI) screws crossing the SI joint into the supracetabular iliac corridor. Post-op sagittal CT confirms the modified Bohlman technique: a threaded structural cage drilled trans-sacrally through S1 into L5 across the shear plane, correcting the slip angle from 91° to 105°.",
+                    surgicalPearl: "The modified Bohlman trans-sacral interbody technique creates a rigid biomechanical bridge directly traversing the lumbosacral shear plane, eliminating the need for hazardous 100% translation and preventing S1 screw pullout."
+                ),
+                SurgicalCallout(
+                    id: "plate_075_4",
+                    title: "Cardinal Principles & Post-Op Neurological Protocol",
+                    structureType: "SURGICAL PRINCIPLES & NERVE ROOT SURVEILLANCE",
+                    color: Color.green,
+                    normalizedX: 0.50,
+                    normalizedY: 0.90,
+                    description: "Bottom panels detail The Three Cardinal Rules: (1) Decompress first (Gill laminectomy and bilateral L5 foraminotomy) before reduction, (2) Realignment and slip angle correction take precedence over complete translational reduction, and (3) Triangular spinopelvic fixation (S2AI or iliac screws) is mandatory against massive shear forces. The postoperative protocol establishes serial wake-up motor checks for EHL/TA (L5) and immediate return to the OR for hardware release if acute foot drop manifests.",
+                    surgicalPearl: "Postoperative L5 motor deficit (foot drop) occurs in up to 10–15% of high-grade spondylolisthesis reductions due to traction neuropraxia. Partial reduction with restored lordosis yields superior clinical and neurological results compared to anatomical translation with a paralyzed foot."
+                )
+            ]
+
         case .plate074:
             return [
                 SurgicalCallout(
@@ -2301,6 +2345,15 @@ case .plate059:
                 ApproachSequentialStep(stepNumber: 4, title: "Controlled Liquid Embolic / Particle Infusion", detail: "Infuse liquid embolic (Onyx-18 / Squid) slowly under continuous subtracted fluoroscopy, creating a proximal plug and forcing embolic material distally into the neomembrane capillary network. Terminate injection once dense capillary casting and branch truncation are achieved without proximal reflux.")
             ]
 
+        case .plate075:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Prone Jackson Positioning & Baseline Multi-Modal Neuromonitoring", detail: "Position patient prone on a Jackson spine table with hips fully extended to optimize pelvic tilt and induce lordosis. Establish continuous baseline motor evoked potentials (MEP), somatosensory evoked potentials (SSEP), and multi-channel spontaneous/triggered electromyography (EMG) monitoring bilateral L5 (tibialis anterior, extensor hallucis longus) and S1 (gastrocnemius) nerve roots. Maintain MAP >85 mmHg."),
+                ApproachSequentialStep(stepNumber: 2, title: "Wide Posterior Exposure & Complete L5 Gill Laminectomy", detail: "Perform a midline incision from L4 down to S2, extending laterally to expose bilateral posterior superior iliac spines (PSIS). Identify the detached, fibrocartilaginous 'floating' L5 posterior arch. Perform a complete Gill laminectomy by carefully freeing the pseudarthrosis fibrous tissue off the thecal sac and lateral recesses, completely mobilizing and unroofing the compressed cauda equina."),
+                ApproachSequentialStep(stepNumber: 3, title: "Bilateral Circumferential L5 Foraminotomy & Sacral Dome Osteotomy", detail: "Under microscope illumination, perform generous bilateral L5 foraminotomies, exposing the 4–5 mm L5 nerve roots as they course over the sacral alae. Retract the dural sac medially with a protective cottonoid. Using a 4 mm curved diamond burr under chilled irrigation, resect the rounded, convex posterosuperior S1 sacral dome, flattening the bony fulcrum and eliminating the acute right-angle kink on the cauda equina."),
+                ApproachSequentialStep(stepNumber: 4, title: "Triangular Spinopelvic Instrumentation & S2AI Screw Placement", detail: "Cannulate and insert bilateral polyaxial pedicle screws into L4, L5, and bicortical S1 promontory screws. Prepare bilateral S2-alar-iliac (S2AI) screw trajectories: starting 1 mm inferior and 1 mm lateral to the S1 dorsal foramen, angling 40° laterally and 20° caudally across the sacroiliac joint into the dense supracetabular bone corridor toward the AIIS. Countersink tulips deeply into the sacral groove."),
+                ApproachSequentialStep(stepNumber: 5, title: "Cantilever Slip Angle Reduction & Modified Bohlman Trans-Sacral Arthrodesis", detail: "Attach reduction towers to L5 pedicle screws. Under continuous EMG surveillance, execute gradual cantilever reduction to correct the lumbosacral kyphotic slip angle from 91° to >100°, halting immediately if neuro-alerts fire. Prepare the trans-sacral corridor: drill a pilot hole starting from the posterior S1 body through the collapsed L5–S1 disc space and deep into the L5 vertebral body. Thread a structural cylindrical cage or fibular strut trans-sacrally across the shear plane, packed with autologous cancellous bone graft and rhBMP-2. Lock dual titanium rods.")
+            ]
+
         case .plate074:
             return [
                 ApproachSequentialStep(stepNumber: 1, title: "Pterional / Orbitozygomatic Exposure & Lumbar Drainage", detail: "Position patient supine with head rotated 30° contralateral and extended 15° to align the sphenoid ridge with the vertical axis. Place lumbar drain for brain relaxation if significant mass effect exists. Execute a curvilinear frontotemporal incision behind the hairline. Elevate a vascularized pericranial flap and perform interfascial temporal muscle dissection preserving the frontalis branch of CN VII. Perform a low pterional or two-piece orbitozygomatic craniotomy flush with the orbital roof and anterior cranial fossa floor."),
@@ -2841,6 +2894,14 @@ case .plate059:
                 "IRREVERSIBLE BLINDNESS VIA MENINGO-OPHTHALMIC ANASTOMOSIS: The anterior MMA can connect with the ophthalmic artery via the superior orbital fissure or recurrent meningeal branch. Always perform high-magnification roadmap angiography; embolic reflux or forward migration into the ophthalmic artery causes instant, catastrophic central retinal artery occlusion and permanent monocular blindness.",
                 "FACIAL NERVE PALSY VIA PETROSAL BRANCH: The petrosal branch of the MMA supplies the facial nerve (CN VII) in the Fallopian canal / geniculate ganglion. Always advance the microcatheter tip DISTAL to the petrosal branch takeoff before injecting liquid embolic or particles; embolization of the petrosal artery causes acute, permanent peripheral facial palsy (Bell's palsy).",
                 "PROXIMAL REFLUX INTO MAXILLARY OR CAROTID ARTERY: Never push liquid embolic aggressively against resistance. Maintain continuous fluoroscopic visualization of the catheter tip to prevent reflux back into the internal maxillary artery or external carotid system, which can cause skin necrosis, jaw claudication, or distal stroke."
+            ]
+
+        case .plate075:
+            return [
+                "L5 TRACTION NEUROPRAXIA & FOOT DROP VIA OVER-AGGRESSIVE REDUCTION: In spondyloptosis, the L5 nerve roots are chronically tethered over the transverse process, sacral ala, and iliolumbar ligament. Forcing a complete 100% translational reduction stretches the L5 roots against this tether point, causing acute ischemic traction neuropraxia and permanent complete foot drop (EHL/TA paralysis). Always prioritize restoring sagittal lordosis (slip angle) over anatomical translation, and release reduction immediately if intraoperative EMG fires.",
+                "CATASTROPHIC SACRAL SCREW PLOW-THROUGH VIA SHORT-SEGMENT FIXATION: The high-grade spondylolisthesis slip plane generates massive shear and flexion-distraction moments. Terminating fixation at S1 without pelvic anchoring leads to rapid S1 pedicle screw plow-through, sacral bone purchase loss, and construct pull-apart within weeks. Triangular spinopelvic fixation incorporating bilateral S2AI or iliac screws is strictly mandatory.",
+                "CAUDA EQUINA TRANSECTION OVER UNRESECTED SACRAL DOME: Attempting reduction maneuvers without performing an adequate sacral dome osteotomy forces the cauda equina against the razor-sharp posterosuperior corner of S1. This 'guillotine' effect lacerates the thecal sac and severs sacral nerve roots, causing permanent bowel, bladder, and lower extremity paraplegia. The sacral dome must be fully beveled and flattened before applying any reduction force.",
+                "GREAT VESSEL LACERATION DURING TRANS-SACRAL BOHLMAN DRILLING: Drilling the trans-sacral cage corridor from S1 into L5 requires precise depth and trajectory control. Plunging past the anterior cortex of the L5 vertebral body risks catastrophic laceration of the aortic bifurcation, inferior vena cava, or common iliac vessels, resulting in fatal retroperitoneal exsanguination. Always verify guide-wire depth under continuous lateral fluoroscopic guidance."
             ]
 
         case .plate074:
