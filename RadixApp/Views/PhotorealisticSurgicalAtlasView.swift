@@ -722,7 +722,7 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
         case .convexityTrauma:
             return [.plate018, .plate016, .plate019, .plate021, .plate025, .plate045, .plate069, .plate070]
         case .posteriorFossa:
-            return [.plate010, .plate020, .plate004, .plate003, .plate006, .plate022, .plate052, .plate057]
+            return [.plate010, .plate020, .plate004, .plate003, .plate006, .plate022, .plate052, .plate057, .plate077]
         case .vascularVentricular:
             return [.plate002, .plate027, .plate040, .plate041, .plate051, .plate053, .plate056, .plate060, .plate061, .plate062, .plate063, .plate065, .plate067]
         case .craniovertebral:
@@ -740,8 +740,8 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
 }
 
 public enum AtlasCategory: String, CaseIterable {
-    case all = "All Plates (76)"
-    case cranial = "Cranial & Skull Base (40)"
+    case all = "All Plates (77)"
+    case cranial = "Cranial & Skull Base (41)"
     case spine = "Spine & CVJ (36)"
 
     public var filteredPlates: [SurgicalPlateType] {
@@ -832,6 +832,7 @@ public enum SurgicalPlateType: String, CaseIterable {
     case plate074 = "plate_074_sphenoid_wing_meningioma"
     case plate075 = "plate_075_high_grade_spondylolisthesis"
     case plate076 = "plate_076_cervical_keyhole_foraminotomy"
+    case plate077 = "plate_077_brainstem_tectal_cavernoma"
 
     public var subSection: AtlasSubSection {
         for section in AtlasSubSection.allCases {
@@ -924,6 +925,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate074: return 74
         case .plate075: return 75
         case .plate076: return 76
+        case .plate077: return 77
         }
     }
 
@@ -1009,6 +1011,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate074: return "74: Sphenoid Wing Meningioma"
         case .plate075: return "75: Spondyloptosis & Reduction"
         case .plate076: return "76: Keyhole Foraminotomy"
+        case .plate077: return "77: Tectal Cavernoma"
         }
     }
 
@@ -1090,6 +1093,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate074: return "Sphenoid Wing Meningioma & Hyperostosis — Medial Clinoidal vs. Lateral, Extradural Optic Unroofing & MOB Peeling"
         case .plate075: return "High-Grade L5–S1 Spondylolisthesis & Spondyloptosis — Sacral Dome Osteotomy, L5 Root Decompression & Bohlman Spinopelvic Fixation"
         case .plate076: return "Cervical Spondylotic Radiculopathy & Posterior Keyhole Foraminotomy — V-Point Localization, ≤50% Facetectomy & Disc Fragmentectomy"
+        case .plate077: return "Brainstem / Tectal Cavernous Malformation (Zabramski Type II) — Supracerebellar Corridor, Infracollicular Entry Zone & DVA Sparing"
         }
     }
 
@@ -1171,6 +1175,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate074: return "eye.circle.fill"
         case .plate075: return "bolt.horizontal.fill"
         case .plate076: return "key.horizontal.fill"
+        case .plate077: return "circle.grid.cross.fill"
         }
     }
 

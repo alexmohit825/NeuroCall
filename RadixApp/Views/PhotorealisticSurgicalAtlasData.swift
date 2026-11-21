@@ -965,6 +965,50 @@ extension SurgicalPlateType {
                 )
             ]
 
+        case .plate077:
+            return [
+                SurgicalCallout(
+                    id: "plate_077_1",
+                    title: "Tectal Cavernoma MRI & Zabramski Classification Matrix",
+                    structureType: "SYNTHETIC T2/SWI & ZABRAMSKI TYPES 1–4",
+                    color: Color.red,
+                    normalizedX: 0.16,
+                    normalizedY: 0.50,
+                    description: "Panel A exhibits multimodal neuroimaging of a dorsal mesencephalic/tectal cavernoma. Axial and sagittal T2 MRI demonstrate a classic Zabramski Type II 'popcorn' lesion with a reticulated mixed-signal core and hypointense hemosiderin halo, causing aqueductal obstruction and triventricular hydrocephalus. Axial T1+C outlines an associated Developmental Venous Anomaly (DVA) with caput medusae radial veins converging into a dominant collector. Axial SWI confirms marked blooming artifact and demonstrates multiple cerebral micro-cavernomas ('black dots') characteristic of familial CCM. The Zabramski matrix details Types 1–4, and the 3D surface diagram maps the quadrigeminal plate with the infracollicular safe entry zone.",
+                    surgicalPearl: "Brainstem cavernomas should be resected only if they have bled and present directly at a pial or ependymal surface. Transgressing normal brainstem parenchyma to access deep non-presenting lesions carries unacceptable neurological morbidity."
+                ),
+                SurgicalCallout(
+                    id: "plate_077_2",
+                    title: "Prone Concorde Corridor & DVA Preservation Mandate",
+                    structureType: "SCIT CORRIDOR & SACRED DVA COLLECTOR",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.48,
+                    normalizedY: 0.40,
+                    description: "Panel B depicts patient positioning in the prone Concorde position in a Mayfield skull clamp with head flexed and elevated in reverse Trendelenburg. Intraoperative neuromonitoring tracks SSEP, MEP, Brainstem Auditory Evoked Responses (BAER), and CN III/IV/VI oculomotor EMG. The supracerebellar infratentorial (SCIT) corridor unroofs the quadrigeminal cistern beneath the straight sinus as the cerebellar culmen descends under gravity. Sharp arachnoid dissection exposes the deep galenic complex. The lower inset enforces the cardinal rule: 'DO NOT COAGULATE OR DIVIDE THE DVA — DVA OCCLUSION CAUSES FATAL BRAINSTEM VENOUS INFARCTION'.",
+                    surgicalPearl: "A Developmental Venous Anomaly provides critical anomalous venous outflow to surrounding normal brainstem tissue. Coagulating or resecting a DVA produces massive, often fatal brainstem venous congestion, edema, and hemorrhagic infarction."
+                ),
+                SurgicalCallout(
+                    id: "plate_077_3",
+                    title: "16× Infracollicular Evacuation & Hemosiderin Sparing",
+                    structureType: "16× MICROSURGICAL FIELD & GOLDEN HEMOSIDERIN BED",
+                    color: Color.blue,
+                    normalizedX: 0.82,
+                    normalizedY: 0.40,
+                    description: "Panel C enforces the cardinal mandate: 'PRESERVE DVA & LEAVE HEMOSIDERIN RING — DO NOT CURETTE ELOQUENT BRAINSTEM'. Under 16× magnification, the superior and inferior colliculi, delicate trochlear nerve (CN IV), and patent basal vein of Rosenthal frame the dark bluish-purple 'mulberry' cavernoma presenting at the infracollicular pial surface. Sequential insets detail: (1) 2–3 mm micro-pial incision with a #11 micro-blade at the infracollicular zone, (2) Piecemeal micro-pituitary evacuation of organized thrombus and vascular caverns, collapsing the lesion inward, and (3) The cleanly emptied cavity with the golden-yellow hemosiderin glial ring left completely intact.",
+                    surgicalPearl: "The golden-yellow hemosiderin rim represents eloquent brainstem parenchyma infiltrated by hemosiderin-laden macrophages, NOT active vascular lesion. Aggressive scraping or curettage of this ring damages underlying reticular activating pathways, oculomotor fibers, or corticospinal tracts."
+                ),
+                SurgicalCallout(
+                    id: "plate_077_4",
+                    title: "The Three Cardinal Rules & Parinaud Surveillance",
+                    structureType: "SURGICAL AXIOMS & POSTOPERATIVE NEUROLOGICAL CARE",
+                    color: Color.green,
+                    normalizedX: 0.50,
+                    normalizedY: 0.90,
+                    description: "Bottom panels detail The Three Cardinal Rules: (1) Surface Presentation Only (operate only on lesions presenting at a pial/ependymal surface), (2) Leave the Hemosiderin Ring (do not curette eloquent brainstem tissue), and (3) The DVA is Sacred (never coagulate or resect the DVA). Postoperative surveillance protocols focus on vertical gaze palsy and pupillary light-near dissociation (Parinaud syndrome), trochlear nerve (CN IV) vertical diplopia with head tilt, serial BAER tracking, and early post-op MRI verifying gross total resection and aqueductal patency.",
+                    surgicalPearl: "Transient postoperative upward gaze palsy (Parinaud syndrome) or trochlear paresis is common from local tectal traction and edema, typically improving over 3–6 months if the hemosiderin ring and safe entry zone were respected."
+                )
+            ]
+
         case .plate076:
             return [
                 SurgicalCallout(
@@ -2389,6 +2433,15 @@ case .plate059:
                 ApproachSequentialStep(stepNumber: 4, title: "Controlled Liquid Embolic / Particle Infusion", detail: "Infuse liquid embolic (Onyx-18 / Squid) slowly under continuous subtracted fluoroscopy, creating a proximal plug and forcing embolic material distally into the neomembrane capillary network. Terminate injection once dense capillary casting and branch truncation are achieved without proximal reflux.")
             ]
 
+        case .plate077:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Prone Concorde Positioning & 4-Modality Brainstem Neuromonitoring", detail: "Secure patient prone in a Mayfield 3-pin skull clamp in the Concorde position with head flexed and elevated in 15°–20° reverse Trendelenburg to optimize gravity-assisted cerebellar descent and lower intracranial venous pressure. Establish continuous SSEP, MEP, Brainstem Auditory Evoked Responses (BAER), and multi-channel extraocular muscle EMG (CN III, IV, VI)."),
+                ApproachSequentialStep(stepNumber: 2, title: "Suboccipital Craniotomy & Transverse Sinus Skeletonization", detail: "Perform a midline suboccipital incision extending from the inion to C2. Elevate suboccipital musculature subperiosteally. Perform a bilateral suboccipital craniotomy extending superiorly flush with the transverse sinus and torcular Herophili to allow a zero-angle corridor along the tentorial roof. Open the dura in a Y-shaped or superiorly based flap and reflect it upward toward the transverse sinus with tension stay sutures."),
+                ApproachSequentialStep(stepNumber: 3, title: "Supracerebellar Infratentorial (SCIT) Arachnoid Microdissection", detail: "Allow the cerebellar culmen and vermis to descend gently under gravity without mechanical brain retractors. Under 16× microscope magnification, sharply divide thickened arachnoid trabeculae over the cisterna magna and quadrigeminal cistern. Meticulously identify, bipolar, and divide the midline precentral cerebellar vein to unlock the supracerebellar corridor into the dorsal midbrain while strictly preserving the straight sinus, vein of Galen, and basal vein of Rosenthal."),
+                ApproachSequentialStep(stepNumber: 4, title: "Identification & Absolute Preservation of the DVA", detail: "Expose the dorsal tectal plate and identify the associated Developmental Venous Anomaly (DVA) with its prominent collector vein coursing toward the galenic complex. Under no circumstances should the DVA be coagulated, clipped, or divided, as it provides critical physiological venous outflow to normal brainstem parenchyma. Apply a papaverine-soaked micro-cottonoid over the DVA to prevent vasospasm."),
+                ApproachSequentialStep(stepNumber: 5, title: "Infracollicular Safe Entry & Intracapsular Piecemeal Evacuation", detail: "Identify the inferior colliculus, frenulum veli, and exiting trochlear nerve (CN IV). Map the infracollicular safe entry zone directly over the bluish pial presentation of the cavernoma. Make a 2–3 mm longitudinal micro-incision with a #11 micro-blade through the thinned pial cap. Use fine micro-pituitary forceps and cup forceps to debulk the mulberry vascular caverns and thrombosed locules inward, collapsing the capsule away from the surrounding brainstem. Leave the golden hemosiderin glial ring completely untouched (zero curettage) to prevent neurological deficit. Inspect for aqueduct patency and achieve meticulous hemostasis.")
+            ]
+
         case .plate076:
             return [
                 ApproachSequentialStep(stepNumber: 1, title: "Prone Concorde Positioning & Neuro-Monitoring Setup", detail: "Secure patient prone in a Mayfield 3-pin skull clamp in the Concorde position with slight cervical flexion to open the interlaminar spaces. Apply 10°–15° reverse Trendelenburg to reduce epidural venous pressure. Establish continuous SSEP, MEP, and multi-channel free-running EMG monitoring of the deltoid/biceps (C5), wrist extensors (C6), and triceps (C7)."),
@@ -2947,6 +3000,14 @@ case .plate059:
                 "IRREVERSIBLE BLINDNESS VIA MENINGO-OPHTHALMIC ANASTOMOSIS: The anterior MMA can connect with the ophthalmic artery via the superior orbital fissure or recurrent meningeal branch. Always perform high-magnification roadmap angiography; embolic reflux or forward migration into the ophthalmic artery causes instant, catastrophic central retinal artery occlusion and permanent monocular blindness.",
                 "FACIAL NERVE PALSY VIA PETROSAL BRANCH: The petrosal branch of the MMA supplies the facial nerve (CN VII) in the Fallopian canal / geniculate ganglion. Always advance the microcatheter tip DISTAL to the petrosal branch takeoff before injecting liquid embolic or particles; embolization of the petrosal artery causes acute, permanent peripheral facial palsy (Bell's palsy).",
                 "PROXIMAL REFLUX INTO MAXILLARY OR CAROTID ARTERY: Never push liquid embolic aggressively against resistance. Maintain continuous fluoroscopic visualization of the catheter tip to prevent reflux back into the internal maxillary artery or external carotid system, which can cause skin necrosis, jaw claudication, or distal stroke."
+            ]
+
+        case .plate077:
+            return [
+                "FATAL BRAINSTEM VENOUS INFARCTION VIA DVA COAGULATION: The Developmental Venous Anomaly (DVA) is the sole functional drainage pathway for normal brainstem parenchyma surrounding the cavernoma. Coagulating, clipping, or sacrificing the DVA results in explosive brainstem venous hypertension, massive edema, hemorrhagic infarction, and catastrophic patient demise. The DVA must remain 100% patent and untouched.",
+                "PERMANENT PARINAUD SYNDROME & QUADRIPLEGIA VIA HEMOSIDERIN CURETTAGE: The surrounding golden-yellow hemosiderin rim consists of eloquent, functioning brainstem tissue laden with hemosiderin macrophages. Attempting to curette or resect the hemosiderin capsule to achieve a 'clean margin' directly lacerates the vertical gaze centers, interstitial nucleus of Cajal, or descending corticospinal tracts, causing irreversible upward gaze paralysis, pupillary defects, and quadriplegia. Never scrape the hemosiderin bed.",
+                "TROCHLEAR NERVE (CN IV) TRANSECTION AT THE FRENULUM VELI: The trochlear nerve emerges from the dorsal midbrain just caudal to the inferior colliculus and sweeps anterolaterally along the tentorial edge. During arachnoid dissection or pial incision, confusing the translucent CN IV fiber with an arachnoid band or over-retracting the tentorial margin results in nerve transection, causing severe permanent vertical diplopia (head-tilt deficit).",
+                "DEEP VENOUS THROMBOSIS & HEMORRHAGIC INFARCTION VIA GALENIC RETRACTION: Excessive upward retraction on the straight sinus or tentorium, or mechanical compression of the vein of Galen or basal vein of Rosenthal, induces acute deep cerebral venous thrombosis. This leads to bilateral thalamic hemorrhagic infarction, coma, and death. Dissect strictly along the cerebellar surface under zero-tension gravity relaxation."
             ]
 
         case .plate076:
