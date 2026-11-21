@@ -734,15 +734,15 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
         case .lumbarMIS:
             return [.plate011, .plate007, .plate037, .plate029, .plate028, .plate032]
         case .deformitySalvage:
-            return [.plate023, .plate024, .plate039, .plate046]
+            return [.plate023, .plate024, .plate039, .plate046, .plate071]
         }
     }
 }
 
 public enum AtlasCategory: String, CaseIterable {
-    case all = "All Plates (70)"
+    case all = "All Plates (71)"
     case cranial = "Cranial & Skull Base (39)"
-    case spine = "Spine & CVJ (31)"
+    case spine = "Spine & CVJ (32)"
 
     public var filteredPlates: [SurgicalPlateType] {
         switch self {
@@ -826,6 +826,7 @@ public enum SurgicalPlateType: String, CaseIterable {
     case plate068 = "plate_068_thoracic_dumbbell_schwannoma"
     case plate069 = "plate_069_parasagittal_falcine_meningioma"
     case plate070 = "plate_070_gbm_awake_craniotomy_mapping"
+    case plate071 = "plate_071_as_chalk_stick_fracture_fixation"
 
     public var subSection: AtlasSubSection {
         for section in AtlasSubSection.allCases {
@@ -912,6 +913,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate068: return 68
         case .plate069: return 69
         case .plate070: return 70
+        case .plate071: return 71
         }
     }
 
@@ -991,6 +993,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate068: return "68: Dumbbell Schwannoma"
         case .plate069: return "69: Parasagittal Meningioma"
         case .plate070: return "70: Awake GBM Mapping"
+        case .plate071: return "71: AS Chalk-Stick Fixation"
         }
     }
 
@@ -1066,6 +1069,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate068: return "Thoracic Dumbbell Schwannoma & Posterolateral Costotransversectomy — 3D MRI, Eden Classification, Extrapleural Corridor & Arthrodesis"
         case .plate069: return "Parasagittal & Falcine Meningioma with SSS Invasion — 3D MRI, Sindou Matrix, Sinus-Crossing Flap & Venous Repair"
         case .plate070: return "Glioblastoma & Awake Craniotomy — Cortical & Subcortical White Matter Mapping, 5-ALA Fluorescence & CUSA Resection"
+        case .plate071: return "Ankylosing Spondylitis (AS) 'Chalk-Stick' Fracture — 3-Column Fracture, Epidural Clot Evacuation & Long-Segment Fixation"
         }
     }
 
@@ -1141,6 +1145,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate068: return "shield.lefthalf.filled"
         case .plate069: return "brain.head.profile"
         case .plate070: return "sparkles"
+        case .plate071: return "shield.lefthalf.filled"
         }
     }
 

@@ -965,6 +965,50 @@ extension SurgicalPlateType {
                 )
             ]
 
+                                                                        case .plate071:
+            return [
+                SurgicalCallout(
+                    id: "plate_071_1",
+                    title: "Authentic Bone-Window CT & 3-Column Chalk-Stick Fracture",
+                    structureType: "SYNTHETIC CT RADIOLOGY & LEVER-ARM BIOMECHANICS",
+                    color: Color.red,
+                    normalizedX: 0.16,
+                    normalizedY: 0.50,
+                    description: "Panel A displays a high-resolution synthetic bone-window sagittal CT (W4000/L700) demonstrating complete bamboo spine ankylosis with flowing anterior syndesmophytes, auto-fused posterior elements ('dagger sign'), and a transverse 3-column hyperextension 'chalk-stick' fracture with anterior gapping and posterior step-off. Sagittal T2 MRI reveals compressive retrovertebral epidural hematoma and intra-medullary cord contusion/edema (myelomalacia). Inset illustrates the Rigid Lever-Arm Principle: an ankylosed spine behaves like an osteoporotic long bone, converting minor ground-level falls into massive shear torque.",
+                    surgicalPearl: "Ankylosed spines cannot dissipate energy across multiple motion segments. Minor low-energy falls concentrate bending moments into a single transverse shear plane, causing catastrophic 3-column chalk-stick fractures with a >50% incidence of concurrent epidural hematoma."
+                ),
+                SurgicalCallout(
+                    id: "plate_071_2",
+                    title: "Jackson Table Positioning & 3-Above / 3-Below Exposure",
+                    structureType: "OPERATIVE POSITIONING & MULTI-LEVEL POSTERIOR EXPOSURE",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.50,
+                    normalizedY: 0.38,
+                    description: "Panel B highlights critical prone positioning on the Jackson table: customized multi-level chest and pelvic bolsters strictly preserve the patient's fixed rigid kyphosis without attempting bed flattening or neck extension (preventing iatrogenic cord distraction/transection). The posterior exposure reveals fused porcelain-white laminae and the raw horizontal fracture gap at T12, followed by bilateral multi-level pedicle screw instrumentation spanning 3 levels above (T-3 to T-1) and 3 levels below (L-1 to L-3), totaling 12 screws.",
+                    surgicalPearl: "Never position an AS fracture patient on a flat operating table. Bolsters must be built up to accommodate fixed pre-morbid thoracic kyphosis and chin-on-chest deformity; any forced neck or trunk extension during positioning risks instant, irreversible spinal cord transection."
+                ),
+                SurgicalCallout(
+                    id: "plate_071_3",
+                    title: "16× Micro-Decompression & Pre-Contoured Fixation",
+                    structureType: "MICROSURGICAL DECOMPRESSION & RIGID DUAL-ROD HARDWARE",
+                    color: Color.blue,
+                    normalizedX: 0.82,
+                    normalizedY: 0.38,
+                    description: "Panel C illustrates 16× microsurgical laminectomy with micro-suction and curved dissector evacuation of compressive, dark retrovertebral epidural hematoma, restoring a glistening, expansile dural sac. The final construct shows dual heavy titanium rods pre-contoured to match native thoracic kyphosis without acute lordotic reduction, locked across 12 pedicle screws with a rigid transverse cross-link bridging the fracture for torsional resistance. Post-op CT confirms preserved native sagittal alignment.",
+                    surgicalPearl: "Short-segment constructs (<3 levels above and below) carry a catastrophic failure rate >60% in ankylosed spines due to enormous lever-arm forces. Always fix minimum 3 levels above and 3 levels below, pre-contour rods to the pre-injury curve, and lock a cross-link across the fracture."
+                ),
+                SurgicalCallout(
+                    id: "plate_071_4",
+                    title: "Epidural Hematoma Protocol & Three Golden Rules",
+                    structureType: "CLINICAL SAFETY PROTOCOL & BIOMECHANICAL AXIOMS",
+                    color: Color.green,
+                    normalizedX: 0.50,
+                    normalizedY: 0.88,
+                    description: "Lower panels: Inset 1 illustrates the axial anatomy of compressive epidural hematoma arising from ruptured Batson plexus and high-flow cancellous fracture margins, establishing the mandatory rule for whole-spine CT/MRI in any trauma. Inset 2 articulates The Three Golden Rules of AS Fracture Fixation: (1) Minimum 3-above / 3-below long-segment fixation, (2) Pre-contour rods to native deformity with zero acute reduction, and (3) Rigid sagittal cross-link fixation.",
+                    surgicalPearl: "Never attempt to 'straighten' an ankylosed spine at an acute fracture site. Forcing reduction risks vascular rupture of scarred anterior great vessels (aorta/cava) or catastrophic posterior cord impingement."
+                )
+            ]
+
                                                                         case .plate070:
             return [
                 SurgicalCallout(
@@ -2125,6 +2169,15 @@ case .plate059:
                 ApproachSequentialStep(stepNumber: 4, title: "Controlled Liquid Embolic / Particle Infusion", detail: "Infuse liquid embolic (Onyx-18 / Squid) slowly under continuous subtracted fluoroscopy, creating a proximal plug and forcing embolic material distally into the neomembrane capillary network. Terminate injection once dense capillary casting and branch truncation are achieved without proximal reflux.")
             ]
 
+                                                                        case .plate071:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Fiberoptic Intubation & Neutral Kyphotic Positioning", detail: "Perform awake fiberoptic endotracheal intubation in neutral cervical alignment without neck extension. Log-roll the patient onto a Jackson spine table with pre-built multi-level chest and pelvic bolsters customized to the patient's rigid pre-morbid thoracic kyphosis and 'chin-on-chest' deformity. Secure the head in a customized padded cradle or Mayfield pins; verify baseline somatosensory (SSEP) and motor evoked potentials (MEP) before and after positioning."),
+                ApproachSequentialStep(stepNumber: 2, title: "Wide Subperiosteal Exposure (3 Above / 3 Below)", detail: "Perform a midline longitudinal incision spanning 3 levels above to 3 levels below the fracture apex (e.g., T9 down to L3 for a T12 fracture). Cauterize and elevate paraspinous musculature subperiosteally off the completely fused, porcelain-like laminar sheets. Identify the transverse 'chalk-stick' fracture line across the posterior elements and control cancellous fracture oozing with bone wax and hemostatic matrix."),
+                ApproachSequentialStep(stepNumber: 3, title: "Multi-Level Bilateral Pedicle Screw Instrumentation", detail: "Under intraoperative navigation or biplane fluoroscopy, cannulate pedicles bilaterally at least 3 levels above and 3 levels below the fracture (total 12–14 screws). Use wide-diameter (5.5–6.5 mm) titanium polyaxial pedicle screws with deep bicortical purchase into osteopenic cancellous bodies to maximize pullout strength against long lever-arm torque. Avoid instrumenting the fractured vertebra directly."),
+                ApproachSequentialStep(stepNumber: 4, title: "16× Microsurgical Laminectomy & Epidural Clot Evacuation", detail: "Execute a wide microscopic laminectomy at the fracture level using a high-speed diamond burr and 2 mm Kerrison rongeurs, avoiding plunging instruments into the stenotic canal. Gently evacuate the dark, compressive retrovertebral venous epidural hematoma with curved neural dissectors and micro-suction until the compressed thecal sac expands with vigorous, synchronized cardiac pulsations. Secure epidural hemostasis with bipolar cautery and thrombin-soaked gelatin sponge (Surgiflo)."),
+                ApproachSequentialStep(stepNumber: 5, title: "Pre-Contoured Rod Cantilever & Transverse Cross-Link Locking", detail: "Pre-contour dual 5.5/6.0 mm titanium alloy rods to match the patient's native, fixed pre-injury kyphotic alignment perfectly without attempting acute deformity reduction. Sequentially lock rods into pedicle screw tulips with set screws. Apply gentle compression across the posterior column under fluoroscopy to close the anterior transdiscal gap. Lock a rigid transverse cross-link connector across the fracture site for multi-planar torsional stiffness. Apply autologous local bone graft mixed with allograft along decorticated lateral gutters.")
+            ]
+
                                                                         case .plate070:
             return [
                 ApproachSequentialStep(stepNumber: 1, title: "Regional Scalp Block & Asleep-Awake-Asleep Positioning", detail: "Perform a comprehensive 6-nerve regional scalp block (supraorbital, supratrochlear, zygomaticotemporal, auriculotemporal, greater and lesser occipital nerves) with 0.5% ropivacaine and epinephrine. Position the patient lateral or semirecumbent in Mayfield head fixation, ensuring direct line-of-sight and physical comfort for the intraoperative neuropsychologist and patient during DO-80 naming tasks. Maintain airway via LMA or dexmedetomidine-remifentanil conscious sedation during opening."),
@@ -2629,6 +2682,14 @@ case .plate059:
                 "IRREVERSIBLE BLINDNESS VIA MENINGO-OPHTHALMIC ANASTOMOSIS: The anterior MMA can connect with the ophthalmic artery via the superior orbital fissure or recurrent meningeal branch. Always perform high-magnification roadmap angiography; embolic reflux or forward migration into the ophthalmic artery causes instant, catastrophic central retinal artery occlusion and permanent monocular blindness.",
                 "FACIAL NERVE PALSY VIA PETROSAL BRANCH: The petrosal branch of the MMA supplies the facial nerve (CN VII) in the Fallopian canal / geniculate ganglion. Always advance the microcatheter tip DISTAL to the petrosal branch takeoff before injecting liquid embolic or particles; embolization of the petrosal artery causes acute, permanent peripheral facial palsy (Bell's palsy).",
                 "PROXIMAL REFLUX INTO MAXILLARY OR CAROTID ARTERY: Never push liquid embolic aggressively against resistance. Maintain continuous fluoroscopic visualization of the catheter tip to prevent reflux back into the internal maxillary artery or external carotid system, which can cause skin necrosis, jaw claudication, or distal stroke."
+            ]
+
+                                                                        case .plate071:
+            return [
+                "IATROGENIC SPINAL CORD TRANSECTION DURING PRONE POSITIONING: Forcing an ankylosed spine with fixed thoracic hyperkyphosis flat onto an operating table or allowing the head/neck to hyperextend during transfer causes catastrophic distraction and posterior displacement across the 3-column chalk-stick fracture plane. This instantaneously severs or crushes the spinal cord, causing permanent quadriplegia or paraplegia. Always construct customized multi-tier chest and pelvic bolsters and maintain continuous MEP/SSEP monitoring throughout positioning.",
+                "CATASTROPHIC HARDWARE PULLOUT VIA SHORT-SEGMENT FIXATION: Instrumenting only 1 or 2 levels above and below an AS fracture ignores the massive biomechanical lever arms created by the long rigid ankylosed column. Short-segment constructs suffer a >60% catastrophic failure rate with screw plow-through, hardware pullout, and construct pull-apart within weeks. Rigid fixation MUST extend a minimum of 3 levels above and 3 levels below the fracture apex.",
+                "FATAL GREAT VESSEL RUPTURE VIA ACUTE FRACTURE REDUCTION: Attempting to 'straighten' or restore normal lordosis to an acutely fractured ankylosed spine exerts massive distraction and shear tension on the anterior soft tissues. The abdominal aorta, inferior vena cava, or esophageal wall—chronically tethered and scarred to flowing anterior syndesmophytes—can acutely tear, resulting in un-tamponaded exsanguinating retroperitoneal hemorrhage or mediastinitis. Fix the spine strictly in its native pre-morbid sagittal curvature.",
+                "POSTOPERATIVE EPIDURAL HEMATOMA RE-ACCUMULATION & SUDDEN PARAPLEGIA: Fractured osteopenic cancellous bone and sheared epidural Batson plexus veins bleed continuously against rigid bone walls. Failing to achieve absolute hemostasis or omitting a deep subfascial closed-suction drain can trigger rapid, silent epidural hematoma re-accumulation with acute postoperative paraplegia. Always deploy thrombin-soaked hemostatic agents and place a high-flow closed subfascial drain."
             ]
 
                                                                         case .plate070:
