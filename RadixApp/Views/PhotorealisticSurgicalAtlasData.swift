@@ -965,6 +965,50 @@ extension SurgicalPlateType {
                 )
             ]
 
+        case .plate082:
+            return [
+                SurgicalCallout(
+                    id: "plate_082_1",
+                    title: "Diagnostic MRI & Obstructive Hydrocephalus",
+                    structureType: "SAGITTAL 3T CONTRAST MRI & TRIVENTRICULAR EXPANSION",
+                    color: Color.red,
+                    normalizedX: 0.16,
+                    normalizedY: 0.30,
+                    description: "Panel 1 establishes preoperative radiology. Sagittal T1 contrast-enhanced MRI demonstrates a large, heterogeneously enhancing, lobulated mass occupying the fourth ventricle, causing marked fourth ventricular expansion, brainstem compression anteriorly, and superior displacement of the vermis. The mass obstructs the exit pathways (foramina of Luschka and Magendie), producing severe triventricular obstructive hydrocephalus with massive dilation of the lateral and third ventricles.",
+                    surgicalPearl: "In acute obstructive hydrocephalus from fourth ventricular tumors, an urgent preoperative external ventricular drain (EVD) or endoscopic third ventriculostomy (ETV) may be required to stabilize intracranial pressure before definitive tumor resection."
+                ),
+                SurgicalCallout(
+                    id: "plate_082_2",
+                    title: "The Vermis-Sparing Rule",
+                    structureType: "TRANSVERMIAN VS. TELOVELAR CORRIDORS",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.16,
+                    normalizedY: 0.65,
+                    description: "Panel 1 schematics contrast the historical Transvermian approach (red X) against the modern Telovelar approach (green checkmark). The transvermian route incises the inferior vermis/nodule to gain access, directly precipitating cerebellar mutism syndrome (posterior fossa syndrome) with severe speech apraxia and ataxia. The telovelar approach enters naturally via the cerebellomedullary fissure by mobilizing both tonsils laterally and superiorly, providing complete access from obex to aqueduct without splitting neural tissue.",
+                    surgicalPearl: "The inferior vermis must never be split. Bilateral opening of the tela choroidea and inferior medullary velum along the taenia provides panoramic access to the entire fourth ventricle with zero vermian disruption."
+                ),
+                SurgicalCallout(
+                    id: "plate_082_3",
+                    title: "The Telovelar Dissection Engine",
+                    structureType: "TONSILLAR MOBILIZATION, TELA CHOROIDEA & PICA LOOP",
+                    color: Color.blue,
+                    normalizedX: 0.50,
+                    normalizedY: 0.50,
+                    description: "Panel 2 illustrates the microsurgical corridor through a suboccipital exposure. Bilateral cerebellar tonsils are gently mobilized laterally with dynamic speculum retractors, opening the cerebellomedullary fissure. Fine micro-scissors sharply incise the transparent, vascularized tela choroidea and glistening inferior medullary velum (IMV) along the taenia. The telovelotonsillar segment of the PICA loops within the cleft, with meticulous preservation of all choroidal branches supplying the fourth ventricle choroid plexus.",
+                    surgicalPearl: "Always dissect in the subarachnoid plane of the cerebellomedullary fissure before opening the tela choroidea. Coagulating or occluding the telovelotonsillar PICA branches causes lateral medullary or cerebellar hemispheric infarction."
+                ),
+                SurgicalCallout(
+                    id: "plate_082_4",
+                    title: "Rhomboid Fossa & Floor Preservation",
+                    structureType: "RHOMBOID FOSSA LANDMARKS & TUMOR CYTOREDUCTION",
+                    color: Color.green,
+                    normalizedX: 0.82,
+                    normalizedY: 0.50,
+                    description: "Panel 3 depicts intraventricular tumor resection and pristine rhomboid fossa preservation. The suction tip debulks the lobulated tumor mass superolaterally away from the floor. Floor landmarks are fully exposed and strictly unviolated: Aqueduct of Sylvius at the cranial apex, paired facial colliculi in the facial triangle (harboring the CN VI nucleus and looping CN VII motor fibers), transverse striae medullares, hypoglossal trigone, and V-shaped obex at the central canal entry.",
+                    surgicalPearl: "The floor of the fourth ventricle (rhomboid fossa) is a strict zero-touch zone: never apply aggressive bipolar cautery, traction, or rigid suction to the facial colliculus or obex to prevent permanent facial diplegia and autonomic hemodynamic collapse."
+                )
+            ]
+
         case .plate081:
             return [
                 SurgicalCallout(
@@ -2609,6 +2653,15 @@ case .plate059:
                 ApproachSequentialStep(stepNumber: 4, title: "Controlled Liquid Embolic / Particle Infusion", detail: "Infuse liquid embolic (Onyx-18 / Squid) slowly under continuous subtracted fluoroscopy, creating a proximal plug and forcing embolic material distally into the neomembrane capillary network. Terminate injection once dense capillary casting and branch truncation are achieved without proximal reflux.")
             ]
 
+        case .plate082:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Concorde / Prone Positioning & Midline Suboccipital Craniotomy", detail: "Position the patient prone with the head flexed in a three-pin Mayfield fixation device (maintaining two finger-breadths between chin and sternum to ensure jugular venous drainage). Perform a midline suboccipital incision from external occipital protuberance (inion) to C2 spinous process. Perform a suboccipital craniotomy from transverse sinuses down to the foramen magnum with C1 posterior arch resection."),
+                ApproachSequentialStep(stepNumber: 2, title: "Y-Shaped Dural Opening & Cisterna Magna Decompression", detail: "Open the dura in a Y-shaped or curvilinear fashion based on the transverse sinus, tenting the dural leaflets laterally with tacking sutures. Puncture the arachnoid of the cisterna magna to release CSF, decompress the posterior fossa, and allow the cerebellum to settle under gravity."),
+                ApproachSequentialStep(stepNumber: 3, title: "Tonsillar Mobilization & Cerebellomedullary Fissure Exposure", detail: "Using dynamic microsurgical retractors, gently elevate and mobilize the bilateral cerebellar tonsils laterally and superiorly away from the dorsal medulla, widely exposing the bilateral cerebellomedullary fissures without parenchymal traction."),
+                ApproachSequentialStep(stepNumber: 4, title: "Incision of Tela Choroidea & Inferior Medullary Velum (IMV)", detail: "Identify the taenia choroidea and the telovelotonsillar segment of the PICA. Using fine micro-scissors, sharply incise the transparent tela choroidea and the inferior medullary velum unilaterally or bilaterally along the taenia to enter the cavity of the fourth ventricle."),
+                ApproachSequentialStep(stepNumber: 5, title: "Tumor Debulking & Rhomboid Fossa Preservation", detail: "Mobilize and debulk the fourth ventricular tumor superolaterally with ultrasonic aspirator or micro-curettes. Dissect the tumor capsule cleanly off the fastigium and lateral recesses while maintaining strict zero-touch visualization of the rhomboid fossa floor (facial colliculus, striae medullares, obex).")
+            ]
+
         case .plate081:
             return [
                 ApproachSequentialStep(stepNumber: 1, title: "Prone Jackson Positioning & Multimodal Neuromonitoring", detail: "Position patient prone on a radiolucent Jackson table with chest and pelvic bolsters ensuring the abdomen hangs completely free to decompress the epidural venous plexus. Establish baseline bilateral lower extremity SSEPs, transcranial motor evoked potentials (tcMEP), and free-running/stimulated EMG across L2–S1 nerve roots."),
@@ -3212,6 +3265,14 @@ case .plate059:
                 "IRREVERSIBLE BLINDNESS VIA MENINGO-OPHTHALMIC ANASTOMOSIS: The anterior MMA can connect with the ophthalmic artery via the superior orbital fissure or recurrent meningeal branch. Always perform high-magnification roadmap angiography; embolic reflux or forward migration into the ophthalmic artery causes instant, catastrophic central retinal artery occlusion and permanent monocular blindness.",
                 "FACIAL NERVE PALSY VIA PETROSAL BRANCH: The petrosal branch of the MMA supplies the facial nerve (CN VII) in the Fallopian canal / geniculate ganglion. Always advance the microcatheter tip DISTAL to the petrosal branch takeoff before injecting liquid embolic or particles; embolization of the petrosal artery causes acute, permanent peripheral facial palsy (Bell's palsy).",
                 "PROXIMAL REFLUX INTO MAXILLARY OR CAROTID ARTERY: Never push liquid embolic aggressively against resistance. Maintain continuous fluoroscopic visualization of the catheter tip to prevent reflux back into the internal maxillary artery or external carotid system, which can cause skin necrosis, jaw claudication, or distal stroke."
+            ]
+
+        case .plate082:
+            return [
+                "POSTERIOR FOSSA SYNDROME & CEREBELLAR MUTISM VIA VERMIAN TRANSECTION: Splitting the inferior vermis or aggressive lateral retraction damaging the dentate nuclei precipitates delayed post-resection cerebellar mutism, severe emotional lability, and truncal ataxia in pediatric patients. The telovelar approach via the cerebellomedullary fissure eliminates vermian splitting.",
+                "NUCLEAR BRAINSTEM INJURY & FACIAL DIPLEGIA VIA RHOMBOID FOSSA TRACTION: Applying bipolar cautery, traction, or aggressive suction directly to the floor of the fourth ventricle (facial colliculus) destroys the underlying abducens (CN VI) nucleus and internal genu of the facial (CN VII) nerve, causing permanent conjugate gaze palsy and peripheral facial paralysis.",
+                "ACUTE AUTONOMIC HEMODYNAMIC COLLAPSE VIA OBEX & VAGAL TRIGONE VIOLATION: Excessive mechanical pressure or thermal injury on the obex, area postrema, or vagal trigone triggers immediate life-threatening intraoperative bradycardia, malignant hypertension, or respiratory arrest.",
+                "LATERAL MEDULLARY (WALLENBERG) INFARCTION VIA PICA TRUNK OCCLUSION: Inadvertent clipping, electrocoagulation, or stretch-avulsion of the main trunk of the Posterior Inferior Cerebellar Artery (PICA) during tonsillar mobilization produces catastrophic lateral medullary infarction with Horner syndrome, ipsilateral ataxia, contralateral thermoanalgesia, and intractable dysphagia."
             ]
 
         case .plate081:

@@ -722,7 +722,7 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
         case .convexityTrauma:
             return [.plate018, .plate016, .plate019, .plate021, .plate025, .plate045, .plate069, .plate070]
         case .posteriorFossa:
-            return [.plate010, .plate020, .plate004, .plate003, .plate006, .plate022, .plate052, .plate057, .plate077]
+            return [.plate010, .plate020, .plate004, .plate003, .plate006, .plate022, .plate052, .plate057, .plate077, .plate082]
         case .vascularVentricular:
             return [.plate002, .plate027, .plate040, .plate041, .plate051, .plate053, .plate056, .plate060, .plate061, .plate062, .plate063, .plate065, .plate067, .plate079]
         case .craniovertebral:
@@ -740,8 +740,8 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
 }
 
 public enum AtlasCategory: String, CaseIterable {
-    case all = "All Plates (81)"
-    case cranial = "Cranial & Skull Base (42)"
+    case all = "All Plates (82)"
+    case cranial = "Cranial & Skull Base (43)"
     case spine = "Spine & CVJ (39)"
 
     public var filteredPlates: [SurgicalPlateType] {
@@ -837,6 +837,7 @@ public enum SurgicalPlateType: String, CaseIterable {
     case plate079 = "plate_079_stn_dbs_parkinsons"
     case plate080 = "plate_080_cervical_expansile_laminoplasty"
     case plate081 = "plate_081_adult_scoliosis_spinopelvic_realignment"
+    case plate082 = "plate_082_fourth_ventricle_tumor_telovelar_approach"
 
     public var subSection: AtlasSubSection {
         for section in AtlasSubSection.allCases {
@@ -934,6 +935,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate079: return 79
         case .plate080: return 80
         case .plate081: return 81
+        case .plate082: return 82
         }
     }
 
@@ -1024,6 +1026,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate079: return "79: STN DBS (Parkinson's)"
         case .plate080: return "80: Cervical Laminoplasty"
         case .plate081: return "81: Adult Scoliosis & S2AI"
+        case .plate082: return "82: Telovelar 4th Ventricle"
         }
     }
 
@@ -1110,6 +1113,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate079: return "Subthalamic Nucleus (STN) Deep Brain Stimulation (DBS) — Stereotactic Trajectory, MER Bursting & Directional Lead Placement"
         case .plate080: return "Cervical Expansile Laminoplasty — Open-Door (Hirabayashi) vs. French-Door (Kurokawa), K-Line & C5 Palsy Prevention"
         case .plate081: return "Adult Scoliosis & Spinopelvic Realignment — Long-Segment Fusion (T10 to Pelvis), Ponte Osteotomies & S2AI Screws"
+        case .plate082: return "Fourth Ventricle Tumor & The Telovelar Approach — Vermis-Sparing Exposure, Tonsillar Mobilization & Rhomboid Fossa Preservation"
         }
     }
 
@@ -1196,6 +1200,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate079: return "waveform.path.ecg"
         case .plate080: return "door.left.hand.open"
         case .plate081: return "arrow.triangle.merge"
+        case .plate082: return "triangle.circle.fill"
         }
     }
 
