@@ -965,6 +965,50 @@ extension SurgicalPlateType {
                 )
             ]
 
+                                                                        case .plate073:
+            return [
+                SurgicalCallout(
+                    id: "plate_073_1",
+                    title: "Synthetic Neuroimaging & Monster Disc Pathology",
+                    structureType: "SYNTHETIC CT/MRI & PATHOLOGY SPECTRUM",
+                    color: Color.red,
+                    normalizedX: 0.16,
+                    normalizedY: 0.50,
+                    description: "Panel A exhibits synthetic bone-window CT (sagittal and axial, W4000/L700) and T2 MRI at T9–T10 displaying a monster calcified disc-osteophyte complex occupying ~60% of the spinal canal cross-section with severe ventral thecal sac encroachment. The thoracic cord is compressed into a thin crescent with bright intramedullary T2 hyperintensity (compressive myelomalacia). Lower insets contrast central versus right-paracentral herniation and detail the risk of intradural calcification eroding the ventral dura.",
+                    surgicalPearl: "Giant thoracic disc herniations (>50% canal compromise) are almost invariably calcified and densely adherent to the ventral dura. Posterior laminectomy alone is strictly contraindicated because it cannot access the ventral pathology without requiring cord retraction."
+                ),
+                SurgicalCallout(
+                    id: "plate_073_2",
+                    title: "Posterolateral Transpedicular Corridor & Trenching",
+                    structureType: "OPERATIVE APPROACH & DOWN-AND-AWAY DRILLING",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.50,
+                    normalizedY: 0.38,
+                    description: "Panel B depicts prone positioning with active multi-modal SSEP/MEP monitoring (maintaining MAP >85–90 mmHg). The operative field shows a right-sided posterolateral transpedicular approach: T8 hemilaminectomy, medial facetectomy, and complete T8 pediculectomy exposing the lateral thecal sac and exiting T8 nerve root. The lower view demonstrates vertebral body trenching: a 3 mm diamond burr drills a deep cavity in the posterior third of T8/T9 vertebral bodies ventral and inferior to the disc before touching the calcified fragment.",
+                    surgicalPearl: "Vertebral body trenching is the non-negotiable prerequisite of thoracic discectomy. Always hollow out a deep bony decompression cavity beneath the disc first; the calcified fragment must be pushed down into this empty space rather than pulled backward against the cord."
+                ),
+                SurgicalCallout(
+                    id: "plate_073_3",
+                    title: "16× Micro-Cavitation & Zero Cord Retraction",
+                    structureType: "MICROSURGICAL CAVITATION & ZERO RETRACTION",
+                    color: Color.blue,
+                    normalizedX: 0.82,
+                    normalizedY: 0.38,
+                    description: "Panel C enforces the cardinal mandate: '⚠️ ZERO SPINAL CORD RETRACTION'. Under 16× magnification, a reverse-angle micro-curette gently pushes the hard calcified fragment down and away into the pre-drilled trench, collapsing it away from the pristine, untouched thecal sac. Following decompression, the thecal sac re-expands with restored dural vascularity. Insets detail multi-layer ventral dural repair (collagen matrix, fat/muscle graft, fibrin glue) and short-segment pedicle screw instrumentation bridging the pediculectomy.",
+                    surgicalPearl: "Never insert an instrument between the ventral dura and a calcified thoracic disc. The cord in the thoracic spine has a precarious watershed vascular supply (Artery of Adamkiewicz); even 1 mm of medial cord retraction triggers irreversible paraplegia."
+                ),
+                SurgicalCallout(
+                    id: "plate_073_4",
+                    title: "The Three Cardinal Rules & Intradural Adhesions",
+                    structureType: "SURGICAL AXIOMS & INTRADURAL ALGORITHM",
+                    color: Color.green,
+                    normalizedX: 0.50,
+                    normalizedY: 0.88,
+                    description: "Lower panels detail The Three Cardinal Rules of Thoracic Disc Surgery: (1) Absolute prohibition of spinal cord retraction, (2) Deep ventral bone cavitation before decompression, and (3) Continuous SSEP/MEP neuromonitoring. The right inset provides the algorithm for ventral intradural adhesions: if a microscopic calcified shell is densely fused to the pia/cord, leave it in situ rather than risking catastrophic cord avulsion.",
+                    surgicalPearl: "A thin microscopic eggshell of calcification adherent to the anterior cord pia is completely harmless once the mass behind it is evacuated. Attempting to peel it off the cord leads to anterior spinal artery avulsion and permanent paralysis."
+                )
+            ]
+
                                                                         case .plate072:
             return [
                 SurgicalCallout(
@@ -2213,6 +2257,15 @@ case .plate059:
                 ApproachSequentialStep(stepNumber: 4, title: "Controlled Liquid Embolic / Particle Infusion", detail: "Infuse liquid embolic (Onyx-18 / Squid) slowly under continuous subtracted fluoroscopy, creating a proximal plug and forcing embolic material distally into the neomembrane capillary network. Terminate injection once dense capillary casting and branch truncation are achieved without proximal reflux.")
             ]
 
+                                                                        case .plate073:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Prone Positioning & Multi-Modal Neuromonitoring", detail: "Position the patient prone on a Wilson frame or Jackson spine table with the abdomen hanging completely free to decompress epidural Batson plexus veins. Establish continuous baseline motor evoked potentials (MEP) and somatosensory evoked potentials (SSEP). Maintain mean arterial pressure (MAP) strictly between 85–90 mmHg throughout the procedure to preserve spinal cord perfusion across the critical watershed zone."),
+                ApproachSequentialStep(stepNumber: 2, title: "Targeted Unilateral Hemilaminectomy & Complete Pediculectomy", detail: "Under lateral fluoroscopic localization, perform a midline or paramedian incision centered over the disc space (e.g., T8–T9). Execute a targeted unilateral hemilaminectomy and partial medial facetectomy. Using a high-speed diamond burr and Kerrison rongeurs, perform a complete pediculectomy of the superior vertebra (T8), completely skeletonizing and exposing the lateral dural margin and the exiting T8 thoracic nerve root."),
+                ApproachSequentialStep(stepNumber: 3, title: "Down-and-Away Vertebral Body Trenching", detail: "Without touching or manipulating the calcified disc mass or thecal sac, use a 3 mm high-speed diamond burr under continuous cold saline irrigation to drill a generous trench into the posterior third of the vertebral bodies above and below the disc space (T8 and T9). Hollow out a deep decompression cavity ventral and inferior to the disc herniation to create a receptive space."),
+                ApproachSequentialStep(stepNumber: 4, title: "16× Reverse-Angle Cavitation & Down-and-Away Drop-In", detail: "Under 16× microscope magnification, strictly adhere to the rule of ZERO spinal cord retraction. Deploy a reverse-angle micro-curette or down-pushing micro-dissector above the calcified disc fragment, gently pushing the hard ossified mass downward and away into the pre-drilled vertebral trench. Use micro-pituitary rongeurs to extract the fractured fragments from within the cavity until the ventral thecal sac re-expands with brisk, synchronized cardiac pulsations."),
+                ApproachSequentialStep(stepNumber: 5, title: "Ventral Dural Reconstruction & Short-Segment Stabilization", detail: "Inspect the ventral dura for intradural perforation. If a ventral dural defect is present, seal it with an onlay collagen matrix (DuraGen), autologous muscle/fat graft pledget, and fibrin sealant. Place bilateral or unilateral pedicle screws spanning the pediculectomy level (T7 and T9) connected by a pre-contoured titanium rod to prevent post-discectomy kyphotic deformity. Close the deep fascia watertight over a subfascial drain.")
+            ]
+
                                                                         case .plate072:
             return [
                 ApproachSequentialStep(stepNumber: 1, title: "Diagnostic Lateral Decubitus DSM / Dynamic CT Myelogram", detail: "Position the patient in lateral decubitus with the suspected leak side down (dependent position). Perform lumbar puncture with a 22G Quincke or Whitacre needle, inject 8–10 mL of non-ionic iodinated contrast (Isovue-300), and execute rapid continuous fluoroscopic DSM or high-resolution dynamic CT myelography over the mid-thoracic spine. Identify the exact thoracic level and lateralized nerve root sleeve where contrast jets directly into an intercostal/azygos draining vein."),
@@ -2735,6 +2788,14 @@ case .plate059:
                 "IRREVERSIBLE BLINDNESS VIA MENINGO-OPHTHALMIC ANASTOMOSIS: The anterior MMA can connect with the ophthalmic artery via the superior orbital fissure or recurrent meningeal branch. Always perform high-magnification roadmap angiography; embolic reflux or forward migration into the ophthalmic artery causes instant, catastrophic central retinal artery occlusion and permanent monocular blindness.",
                 "FACIAL NERVE PALSY VIA PETROSAL BRANCH: The petrosal branch of the MMA supplies the facial nerve (CN VII) in the Fallopian canal / geniculate ganglion. Always advance the microcatheter tip DISTAL to the petrosal branch takeoff before injecting liquid embolic or particles; embolization of the petrosal artery causes acute, permanent peripheral facial palsy (Bell's palsy).",
                 "PROXIMAL REFLUX INTO MAXILLARY OR CAROTID ARTERY: Never push liquid embolic aggressively against resistance. Maintain continuous fluoroscopic visualization of the catheter tip to prevent reflux back into the internal maxillary artery or external carotid system, which can cause skin necrosis, jaw claudication, or distal stroke."
+            ]
+
+                                                                        case .plate073:
+            return [
+                "ANTERIOR SPINAL CORD INFARCTION & PERMANENT PARAPLEGIA VIA RETRACTION: The thoracic spinal cord occupies nearly the entire canal and possesses a precarious watershed vascular network supplied by the Great Radiculomedullary Artery (Adamkiewicz, T9–L2). Even minimal, transient medial or posterior retraction of the dural sac against instruments triggers instant anterior spinal artery thrombosis, cord infarction, and irreversible flaccid paraplegia. The cord must remain 100% untouched; all discectomy vectors must be down-and-away into a drilled trench.",
+                "CATASTROPHIC VENTRAL CORD AVULSION VIA AGGRESSIVE INTRADURAL PEELING: In giant calcified discs with intradural extension, the calcified osteophyte complex can become densely scarred to the anterior cord pia and anterior spinal artery. Forcing or pulling the calcified shell away from the cord causes cord tearing, pial stripping, or arterial avulsion. Always leave a paper-thin microscopic calcified shell on the pia if cleavage planes are absent.",
+                "INTRACTABLE CSF-PLEURAL FISTULA & TENSION PNEUMOCEPHALUS: Over-aggressive anterolateral bone drilling or lateral dissection near the rib head can lacerate the closely adherent parietal pleura. When combined with a ventral dural defect, negative intrathoracic pleural pressure acts as a massive siphon, pulling continuous CSF into the hemithorax and precipitating acute intracranial hypotension, massive pleural effusion, and life-threatening tension pneumocephalus. Always perform an airtight, multilayer dural-pleural tissue barrier.",
+                "POSTOPERATIVE KYPHOTIC COLLAPSE & PROGRESSIVE MYELOPATHY: Resecting the pedicle, facet joint, and a significant portion of the vertebral body and disc destabilizes the thoracic anterior and middle columns. Omitting instrumented stabilization leads to acute or progressive post-discectomy kyphosis, hardware pullout, and recurrent anterior cord impingement against the adjacent vertebral rim. Always bridge the pediculectomy with rigid pedicle screw-rod instrumentation."
             ]
 
                                                                         case .plate072:
