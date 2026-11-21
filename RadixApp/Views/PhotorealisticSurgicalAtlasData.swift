@@ -965,6 +965,50 @@ extension SurgicalPlateType {
                 )
             ]
 
+                                                                        case .plate072:
+            return [
+                SurgicalCallout(
+                    id: "plate_072_1",
+                    title: "Brain MRI Signs of SIH & Lateral Decubitus DSM",
+                    structureType: "NEUROIMAGING & DYNAMIC MYELOGRAPHY",
+                    color: Color.red,
+                    normalizedX: 0.16,
+                    normalizedY: 0.50,
+                    description: "Panel A contrasts the classic cranial 'SEEPS' signs of spontaneous intracranial hypotension (diffuse pachymeningeal enhancement, tonsillar descent/pseudo-Chiari, flattened pons, effaced prepontine cistern, and engorged venous sinuses) with the definitive spinal diagnostic modality: lateral decubitus Digital Subtraction Myelography (DSM). The DSM captures an immediate contrast jet from the nerve root sleeve opacifying an undulating paraspinal/intercostal vein draining into the azygos system, with ZERO extradural CSF leak.",
+                    surgicalPearl: "CSF-venous fistulas (Schievink Type 3) NEVER produce an epidural fluid collection on spine MRI. Routine supine spine MRIs are completely normal; definitive diagnosis requires rapid, high-frame-rate lateral decubitus CT myelography or DSM with the leak-side dependent."
+                ),
+                SurgicalCallout(
+                    id: "plate_072_2",
+                    title: "Aberrant Arachnoid Granulation & Transvenous Coiling",
+                    structureType: "MICRO-ANATOMY & ENDOVASCULAR EMBOLIZATION",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.50,
+                    normalizedY: 0.38,
+                    description: "Panel B reveals the microscopic patho-anatomy: an aberrant, hypertrophied spinal arachnoid granulation herniating directly through the dural root sleeve into an adjacent radicular/paraspinal vein at the neural foramen, shunting CSF into Batson's and azygos venous plexuses. The lower panel illustrates transvenous endovascular embolization via femoral/jugular access navigating the azygos vein and posterior intercostal vein, deploying platinum micro-coils and a liquid embolic cast (Onyx/Squid) to occlude the fistulous dural junction.",
+                    surgicalPearl: "Transvenous embolization is a safe, minimally invasive first-line curative option. The key is occluding the exact dural junction of the draining vein with micro-coils and liquid embolic without allowing material to reflux into anterior or posterior spinal cord medullary veins."
+                ),
+                SurgicalCallout(
+                    id: "plate_072_3",
+                    title: "16× Microsurgical Clip Ligation & Resection",
+                    structureType: "MICROSURGICAL LIGATION & POST-OP RESOLUTION",
+                    color: Color.blue,
+                    normalizedX: 0.82,
+                    normalizedY: 0.38,
+                    description: "Panel C depicts the 16× microsurgical field via a targeted unilateral hemilaminectomy. The dorsal root ganglion (DRG) and dural root sleeve are exposed, and the engorged fistulous vein is selectively clipped at its dural takeoff using a titanium microvascular clip and sharply divided distal to the clip, permanently obliterating the shunt while preserving the nerve root. Inset verifies complete post-op MRI resolution of brainstem sagging, tonsillar herniation, and pachymeningeal enhancement.",
+                    surgicalPearl: "Microsurgical clip ligation provides a 100% immediate cure for CVF. Meticulously dissect the draining vein off the nerve root sleeve, apply the microvascular clip flush against the dural cuff, and divide the vein distally to eliminate any possibility of recanalization."
+                ),
+                SurgicalCallout(
+                    id: "plate_072_4",
+                    title: "Schievink Classification & Rebound Intracranial Hypertension",
+                    structureType: "CSF LEAK TAXONOMY & POST-OP COMPLICATIONS",
+                    color: Color.green,
+                    normalizedX: 0.50,
+                    normalizedY: 0.88,
+                    description: "Lower panels: Inset 1 contrasts Schievink Type 1 (ventral spur tear), Type 2 (ruptured meningeal diverticulum), and Type 3 (CSF-venous fistula, zero extradural fluid). Inset 2 outlines the Rebound Intracranial Hypertension (RIH) Protocol: over 50% of successfully closed CVFs develop severe post-closure intracranial hypertension due to restored CSF volume and reset venous resistance, presenting with paradoxical supine headache and papilledema requiring acetazolamide.",
+                    surgicalPearl: "Warn patients before treatment about Rebound Intracranial Hypertension (RIH). When the fistula is sealed, their chronically elevated CSF production causes acute intracranial pressure spikes; initiating Diamox (acetazolamide) early prevents papilledema and intractable headache."
+                )
+            ]
+
                                                                         case .plate071:
             return [
                 SurgicalCallout(
@@ -2169,6 +2213,15 @@ case .plate059:
                 ApproachSequentialStep(stepNumber: 4, title: "Controlled Liquid Embolic / Particle Infusion", detail: "Infuse liquid embolic (Onyx-18 / Squid) slowly under continuous subtracted fluoroscopy, creating a proximal plug and forcing embolic material distally into the neomembrane capillary network. Terminate injection once dense capillary casting and branch truncation are achieved without proximal reflux.")
             ]
 
+                                                                        case .plate072:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Diagnostic Lateral Decubitus DSM / Dynamic CT Myelogram", detail: "Position the patient in lateral decubitus with the suspected leak side down (dependent position). Perform lumbar puncture with a 22G Quincke or Whitacre needle, inject 8–10 mL of non-ionic iodinated contrast (Isovue-300), and execute rapid continuous fluoroscopic DSM or high-resolution dynamic CT myelography over the mid-thoracic spine. Identify the exact thoracic level and lateralized nerve root sleeve where contrast jets directly into an intercostal/azygos draining vein."),
+                ApproachSequentialStep(stepNumber: 2, title: "Targeted Minimally Invasive Hemilaminectomy Corridor", detail: "Position the patient prone on a Wilson frame or chest rolls under general anesthesia. Place an intraoperative marker on the spinous process and verify the target thoracic level with lateral fluoroscopy. Make a 2.5–3.0 cm paramedian incision. Under tubular retractor or micro-speculum exposure, execute a targeted unilateral hemilaminectomy and medial facetectomy directly over the identified nerve root sleeve."),
+                ApproachSequentialStep(stepNumber: 3, title: "Microdissection of Dural Root Sleeve & Fistulous Vein", detail: "Under 16× high-magnification microscope illumination, gently retract the paraspinal epidural fat. Identify the lateral thecal sac transition into the thoracic dural root sleeve and exiting dorsal root ganglion (DRG). Meticulously dissect and skeletonize the engorged, arterialized fistulous vein exiting the lateral dural cuff, distinguishing it from adjacent Batson's epidural venous plexus."),
+                ApproachSequentialStep(stepNumber: 4, title: "Microvascular Clip Application & Shunt Transection", detail: "Apply a small straight or slightly curved permanent titanium microvascular aneurysm clip (e.g., 3–5 mm blade) across the fistulous vein flush against the lateral dural root sleeve. Bipolar the vein distal to the clip with fine micro-forceps at low power (15 W) and sharply divide it with micro-scissors. Alternatively, for difficult ventral fistulae, perform circumferential double-clip ligation and division of the non-eloquent thoracic root sleeve proximal and distal to the DRG."),
+                ApproachSequentialStep(stepNumber: 5, title: "Watertight Dural Inspection & Rebound Pressure Monitoring", detail: "Inspect the dural root sleeve under Valsalva maneuver (+30 cm H2O for 10 seconds) to verify complete absence of CSF egress. Apply a layer of autologous muscle graft or gelatin foam with fibrin sealant over the clipped stump. Close paraspinal fascia in watertight layers without a drain. Initiate aggressive post-operative monitoring for Rebound Intracranial Hypertension (RIH), starting acetazolamide 250–500 mg BID if recumbent headaches or papilledema manifest.")
+            ]
+
                                                                         case .plate071:
             return [
                 ApproachSequentialStep(stepNumber: 1, title: "Fiberoptic Intubation & Neutral Kyphotic Positioning", detail: "Perform awake fiberoptic endotracheal intubation in neutral cervical alignment without neck extension. Log-roll the patient onto a Jackson spine table with pre-built multi-level chest and pelvic bolsters customized to the patient's rigid pre-morbid thoracic kyphosis and 'chin-on-chest' deformity. Secure the head in a customized padded cradle or Mayfield pins; verify baseline somatosensory (SSEP) and motor evoked potentials (MEP) before and after positioning."),
@@ -2682,6 +2735,14 @@ case .plate059:
                 "IRREVERSIBLE BLINDNESS VIA MENINGO-OPHTHALMIC ANASTOMOSIS: The anterior MMA can connect with the ophthalmic artery via the superior orbital fissure or recurrent meningeal branch. Always perform high-magnification roadmap angiography; embolic reflux or forward migration into the ophthalmic artery causes instant, catastrophic central retinal artery occlusion and permanent monocular blindness.",
                 "FACIAL NERVE PALSY VIA PETROSAL BRANCH: The petrosal branch of the MMA supplies the facial nerve (CN VII) in the Fallopian canal / geniculate ganglion. Always advance the microcatheter tip DISTAL to the petrosal branch takeoff before injecting liquid embolic or particles; embolization of the petrosal artery causes acute, permanent peripheral facial palsy (Bell's palsy).",
                 "PROXIMAL REFLUX INTO MAXILLARY OR CAROTID ARTERY: Never push liquid embolic aggressively against resistance. Maintain continuous fluoroscopic visualization of the catheter tip to prevent reflux back into the internal maxillary artery or external carotid system, which can cause skin necrosis, jaw claudication, or distal stroke."
+            ]
+
+                                                                        case .plate072:
+            return [
+                "ANTERIOR SPINAL ARTERY INFARCTION VIA RADICULAR VEIN REFLUX: During transvenous endovascular embolization, forceful injection of liquid embolic (Onyx/Squid) against high outflow resistance can cause retrograde reflux into the radiculomedullary vein or anterior spinal vein. This triggers acute, irreversible anterior spinal artery thrombosis and catastrophic thoracic spinal cord infarction resulting in permanent paraplegia and loss of bowel/bladder function. Always embolize gently under high-magnification roadmap fluoroscopy and halt injection immediately upon proximal branch filling.",
+                "REBOUND INTRACRANIAL HYPERTENSION (RIH) & ACUTE VISUAL LOSS: Chronic high-volume CSF loss induces compensatory hyper-production of CSF by the choroid plexus and downregulation of arachnoid villus outflow capacity. Sudden surgical or endovascular closure of a long-standing CVF causes explosive intracranial hypertension (opening pressures often >40–50 cm H2O). If unrecognized and untreated, acute malignant intracranial hypertension precipitates severe papilledema, retinal hemorrhages, and permanent visual loss. Always have acetazolamide immediately available.",
+                "IATROGENIC DURAL TEAR & CONVERSION TO EXTRADURAL CSF LEAK: Aggressive or blunt dissection of the fragile dural root sleeve in an attempt to isolate the fistulous vein can tear the thinned dura. Because CVFs have no preexisting extradural leak, tearing the sleeve converts an occult internal venous shunt into an overt, high-flow extradural pseudomeningocele or pleural CSF fistula. Always dissect strictly with micro-curettes and sharp micro-scissors, and keep muscle pledgets and micro-sutures ready.",
+                "PNEUMOTHORAX VIA PARAPLEURAL DISSECTION: In the mid-to-lower thoracic spine, the neural foramen and intercostal nerve sleeve lie directly adjacent to the parietal pleura. Extending the bone removal or lateral soft-tissue dissection too far anteriorly into the rib head or costovertebral joint can lacerate the parietal pleura. Failure to detect a pleural tear can lead to tension pneumothorax or a high-flow CSF-pleural fistula. Always inspect the retro-foraminal plane and verify absence of pleural bubbling under Valsalva before closure."
             ]
 
                                                                         case .plate071:
