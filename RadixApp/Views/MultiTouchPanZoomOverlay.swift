@@ -39,8 +39,8 @@ public struct MultiTouchPanZoomOverlay: UIViewRepresentable {
         self.onDoubleTap = onDoubleTap
     }
 
-    public func makeCoordinator() -> Coordinator {
-        Coordinator(self)
+    public func makeCoordinator() -> MultiTouchCoordinator {
+        MultiTouchCoordinator(self)
     }
 
     public func makeUIView(context: Context) -> UIView {
@@ -49,14 +49,14 @@ public struct MultiTouchPanZoomOverlay: UIViewRepresentable {
         view.isMultipleTouchEnabled = true
 
         // 1. Pinch Gesture (1.0x to maxScale)
-        let pinch = UIPinchGestureRecognizer(target: context.coordinator, action: #selector(Coordinator.handlePinch(_:)))
+        let pinch = UIPinchGestureRecognizer(target: context.coordinator, action: #selector(MultiTouchCoordinator.handlePinch(_:)))
         pinch.cancelsTouchesInView = false
         pinch.delaysTouchesBegan = false
         pinch.delegate = context.coordinator
         view.addGestureRecognizer(pinch)
 
         // 2. Pan Gesture: Accepts 1 or 2 fingers!
-        let pan = UIPanGestureRecognizer(target: context.coordinator, action: #selector(Coordinator.handlePan(_:)))
+        let pan = UIPanGestureRecognizer(target: context.coordinator, action: #selector(MultiTouchCoordinator.handlePan(_:)))
         pan.minimumNumberOfTouches = 1
         pan.maximumNumberOfTouches = 2
         pan.cancelsTouchesInView = false
@@ -65,7 +65,7 @@ public struct MultiTouchPanZoomOverlay: UIViewRepresentable {
         view.addGestureRecognizer(pan)
 
         // 3. Two-Finger Tap Gesture
-        let twoFingerTap = UITapGestureRecognizer(target: context.coordinator, action: #selector(Coordinator.handleTwoFingerTap(_:)))
+        let twoFingerTap = UITapGestureRecognizer(target: context.coordinator, action: #selector(MultiTouchCoordinator.handleTwoFingerTap(_:)))
         twoFingerTap.numberOfTouchesRequired = 2
         twoFingerTap.numberOfTapsRequired = 1
         twoFingerTap.cancelsTouchesInView = false
@@ -74,7 +74,7 @@ public struct MultiTouchPanZoomOverlay: UIViewRepresentable {
         view.addGestureRecognizer(twoFingerTap)
 
         // 4. Double Tap (1-Finger) Quick-Zoom
-        let doubleTap = UITapGestureRecognizer(target: context.coordinator, action: #selector(Coordinator.handleDoubleTap(_:)))
+        let doubleTap = UITapGestureRecognizer(target: context.coordinator, action: #selector(MultiTouchCoordinator.handleDoubleTap(_:)))
         doubleTap.numberOfTapsRequired = 2
         doubleTap.cancelsTouchesInView = false
         doubleTap.delaysTouchesBegan = false
@@ -88,7 +88,7 @@ public struct MultiTouchPanZoomOverlay: UIViewRepresentable {
         context.coordinator.parent = self
     }
 
-    public class Coordinator: NSObject, UIGestureRecognizerDelegate {
+    public class MultiTouchCoordinator: NSObject, UIGestureRecognizerDelegate {
         var parent: MultiTouchPanZoomOverlay
         var initialScale: CGFloat = 1.0
 

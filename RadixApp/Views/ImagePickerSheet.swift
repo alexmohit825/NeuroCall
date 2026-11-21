@@ -25,11 +25,11 @@ public struct ImagePickerSheet: UIViewControllerRepresentable {
     
     public func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) {}
     
-    public func makeCoordinator() -> Coordinator {
-        Coordinator(self)
+    public func makeCoordinator() -> ImagePickerCoordinator {
+        ImagePickerCoordinator(self)
     }
     
-    public class Coordinator: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    public class ImagePickerCoordinator: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
         let parent: ImagePickerSheet
         
         init(_ parent: ImagePickerSheet) {

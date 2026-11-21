@@ -965,6 +965,50 @@ extension SurgicalPlateType {
                 )
             ]
 
+        case .plate081:
+            return [
+                SurgicalCallout(
+                    id: "plate_081_1",
+                    title: "Radiographic Alignment & Spinopelvic Harmony",
+                    structureType: "FULL-SPINE EOS & SPINOPELVIC FORMULA",
+                    color: Color.red,
+                    normalizedX: 0.16,
+                    normalizedY: 0.50,
+                    description: "Panel 1 contrasts pre-operative flatback deformity against post-operative global realignment. Pre-op full-spine lateral radiograph demonstrates severe loss of lumbar lordosis, compensatory pelvic retroversion (high pelvic tilt), and positive sagittal vertical axis (SVA) causing forward trunk tilt. Post-op radiograph confirms long-segment T10-to-pelvis instrumentation restoring harmonious lordosis with the C7 plumbline centered directly over the sacral promontory. The core spinopelvic rule mandates restoring lumbar lordosis to within 10° of pelvic incidence (PI - LL < 10°).",
+                    surgicalPearl: "The golden formula of spinal deformity is PI = PT + SS. Failure to restore lumbar lordosis to match pelvic incidence (PI - LL < 10°) forces compensatory pelvic retroversion (PT > 20°) and guarantees proximal junctional failure (PJF)."
+                ),
+                SurgicalCallout(
+                    id: "plate_081_2",
+                    title: "The Correction Engine: Osteotomies & Interbody",
+                    structureType: "SCHWAB GRADE 2 PONTE & HYPERLORDOTIC CAGES",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.50,
+                    normalizedY: 0.50,
+                    description: "Panel 2 details the two biomechanical workhorses of sagittal restoration: (1) Asymmetric Ponte Osteotomy (Schwab Grade 2): complete bilateral facetectomies (resecting superior and inferior articular processes) and flavectomy across L1–L5, exposing bleeding cancellous bone to allow posterior column compression shortening yielding 5°–10° of lordosis per level; and (2) Hyperlordotic Interbody Cages (LLIF/TLIF): anterior column height restoration in the disc space, providing anterior column lengthening, opening neuroforamina indirectly, and establishing anterior load-sharing.",
+                    surgicalPearl: "Combining anterior column lengthening (hyperlordotic cages) with posterior column shortening (Ponte osteotomies) acts as an active cantilever force couple, maximizing lordosis restoration while minimizing blood loss and operating time."
+                ),
+                SurgicalCallout(
+                    id: "plate_081_3",
+                    title: "Operative Construct & S2AI Pelvic Foundation",
+                    structureType: "T10–PELVIS, QUAD-ROD & S2AI SCREWS",
+                    color: Color.blue,
+                    normalizedX: 0.83,
+                    normalizedY: 0.50,
+                    description: "Panel 3 illustrates the complete posterior T10-to-Pelvis instrumentation: (1) T10 Upper Instrumented Vertebra (UIV): preserving the supraspinous and interspinous ligaments above T10 to create a soft landing; (2) Dual Titanium Rods providing continuous coronal and sagittal realignment; (3) S1 Screws with Quad-Rod Satellite Bridge: accessory multi-rods bridged across L4–S1 with domino connectors to eliminate rod fatigue and prevent lumbosacral pseudarthrosis; and (4) Bilateral S2-Alar-Iliac (S2AI) Screws anchored across the sacroiliac joint into dense supra-acetabular iliac bone.",
+                    surgicalPearl: "In long constructs ending at the sacrum, the L5–S1 junction experiences massive cantilever flexural stresses exceeding 100 Nm; standalone S1 bicortical screws fail in over 40% of cases without bilateral S2AI or iliac screw triangulation."
+                ),
+                SurgicalCallout(
+                    id: "plate_081_4",
+                    title: "Concise Surgical Pearls & Deformity Mandates",
+                    structureType: "THE THREE GOLDEN RULES OF REALIGNMENT",
+                    color: Color.green,
+                    normalizedX: 0.50,
+                    normalizedY: 0.90,
+                    description: "Bottom bar codifies The Three Golden Rules: (1) Spinopelvic Harmony: Reconstitute lordosis to match pelvic incidence (PI - LL < 10°); (2) Pelvic Foundation: Always anchor long constructs to the pelvis using S2AI screws to prevent S1 hardware failure; and (3) Soft Landing at T10: Never stop fusion in the apex of thoracic kyphosis. Management protocols mandate continuous multimodal tcMEP/SSEP monitoring and maintaining MAP > 85 mmHg during rod reduction.",
+                    surgicalPearl: "Terminating a fusion construct at the apex of thoracic kyphosis (T7–T9) creates a severe stress concentration that triggers catastrophic proximal junctional kyphosis and hardware pullout."
+                )
+            ]
+
         case .plate080:
             return [
                 SurgicalCallout(
@@ -2565,6 +2609,15 @@ case .plate059:
                 ApproachSequentialStep(stepNumber: 4, title: "Controlled Liquid Embolic / Particle Infusion", detail: "Infuse liquid embolic (Onyx-18 / Squid) slowly under continuous subtracted fluoroscopy, creating a proximal plug and forcing embolic material distally into the neomembrane capillary network. Terminate injection once dense capillary casting and branch truncation are achieved without proximal reflux.")
             ]
 
+        case .plate081:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Prone Jackson Positioning & Multimodal Neuromonitoring", detail: "Position patient prone on a radiolucent Jackson table with chest and pelvic bolsters ensuring the abdomen hangs completely free to decompress the epidural venous plexus. Establish baseline bilateral lower extremity SSEPs, transcranial motor evoked potentials (tcMEP), and free-running/stimulated EMG across L2–S1 nerve roots."),
+                ApproachSequentialStep(stepNumber: 2, title: "Multi-Level Exposure (T10 to Sacropelvis) & Pedicle Screw Placement", detail: "Perform a midline posterior incision from T10 to S2. Meticulously dissect paraspinal muscles subperiosteally out to the transverse processes, taking care to preserve the interspinous and supraspinous ligaments at T9–T10 for a soft proximal landing. Place polyaxial pedicle screws bilaterally from T10 to L5, and bicortical promontory screws at S1 under fluoroscopic or stereotactic navigation."),
+                ApproachSequentialStep(stepNumber: 3, title: "Multi-Level Asymmetric Ponte Osteotomies (L1–L5)", detail: "At the apical and hypolordotic levels (L1–L5), resect the spinous processes and complete bilateral facetectomies (removing inferior articular process of cranial level and superior articular process of caudal level) down to the neural foramina. Meticulously excise the ligamentum flavum, exposing bleeding cancellous bone margins to create flexible Schwab Grade 2 osteotomies with wider resection on the coronal convexity."),
+                ApproachSequentialStep(stepNumber: 4, title: "Bilateral S2AI Pelvic Screw Cannulation & Triangulation", detail: "Expose the S1 and S2 posterior sacral foramina. Establish entry 1 mm inferior and 1 mm lateral to the S1 dorsal sacral foramen. Using a gearshift probe under biplane fluoroscopy, cannulate across the sacroiliac joint directed 40° laterally toward the ASIS and 25°–30° caudally aiming for the dense supra-acetabular bone (iliac teardrop view). Tap and place 8.5 mm × 80–90 mm S2AI pelvic screws bilaterally, ensuring screw heads sit in-line with S1."),
+                ApproachSequentialStep(stepNumber: 5, title: "Rod Derotation, Cantilever Lordotic Compression & Quad-Rod Reinforcement", detail: "Contour two 5.5 mm or 6.0 mm cobalt-chromium rods with physiologic lordosis and thoracic kyphosis. Place rods into reduction screw towers, translating coronal apex while applying cantilever compression across the Ponte osteotomy sites to close the posterior column. Bridge accessory satellite rods across L4–S1 using domino connectors to construct a rigid quad-rod foundation. Verify MAP > 85 mmHg and stable tcMEPs. Decorticate posterolateral elements and apply abundant autograft/allograft bone.")
+            ]
+
         case .plate080:
             return [
                 ApproachSequentialStep(stepNumber: 1, title: "Prone Mayfield Positioning & C2/C7 Muscle-Sparing Exposure", detail: "Position the patient prone on chest rolls with the head secured in a Mayfield 3-pin clamp in a neutral or slightly flexed posture, strictly avoiding hyperflexion to protect the stenotic cord and prevent venous congestion. Perform a midline posterior cervical incision from C2 to C7. Subperiosteally elevate the paraspinal musculature strictly out to the medial facet margins, taking meticulous care to spare the semispinalis cervicis tendon insertion on the prominent C2 spinous process and preserving the posterior muscular sleeve of C7."),
@@ -3159,6 +3212,14 @@ case .plate059:
                 "IRREVERSIBLE BLINDNESS VIA MENINGO-OPHTHALMIC ANASTOMOSIS: The anterior MMA can connect with the ophthalmic artery via the superior orbital fissure or recurrent meningeal branch. Always perform high-magnification roadmap angiography; embolic reflux or forward migration into the ophthalmic artery causes instant, catastrophic central retinal artery occlusion and permanent monocular blindness.",
                 "FACIAL NERVE PALSY VIA PETROSAL BRANCH: The petrosal branch of the MMA supplies the facial nerve (CN VII) in the Fallopian canal / geniculate ganglion. Always advance the microcatheter tip DISTAL to the petrosal branch takeoff before injecting liquid embolic or particles; embolization of the petrosal artery causes acute, permanent peripheral facial palsy (Bell's palsy).",
                 "PROXIMAL REFLUX INTO MAXILLARY OR CAROTID ARTERY: Never push liquid embolic aggressively against resistance. Maintain continuous fluoroscopic visualization of the catheter tip to prevent reflux back into the internal maxillary artery or external carotid system, which can cause skin necrosis, jaw claudication, or distal stroke."
+            ]
+
+        case .plate081:
+            return [
+                "CATASTROPHIC PROXIMAL JUNCTIONAL KYPHOSIS / FAILURE (PJK/PJF) VIA SAGITTAL UNDER-CORRECTION: Under-correcting lumbar lordosis (failing to achieve PI - LL < 10°) leaves persistent positive sagittal malalignment. The patient is forced into compensatory trunk flexion, focusing massive dynamic torque at the Upper Instrumented Vertebra (T10). This precipitates acute vertebral body fracture, hardware pullout, subluxation, and catastrophic spinal cord compression requiring emergency revision.",
+                "SCIATIC NOTCH & SUPERIOR GLUTEAL ARTERY/NERVE VIOLATION VIA S2AI MISPLACEMENT: Breaching the anterior cortex of the ilium or plunging through the greater sciatic notch during S2AI screw placement lacerates the superior gluteal artery (causing life-threatening deep intrapelvic arterial hemorrhage) or injures the sciatic nerve trunk (causing foot drop). Always confirm the screw stays within the dense supra-acetabular bone corridor on iliac teardrop fluoroscopy.",
+                "NEUROLOGICAL COLLAPSE & ISCHEMIC CORD TRANSECTION VIA RAPID CANTILEVER OVER-CORRECTION: Applying aggressive, acute cantilever rod reduction across multiple osteotomy sites without continuous tcMEP monitoring kinks or stretches the anterior spinal artery and tethered spinal cord/conus, precipitating instant ischemic paralysis. If tcMEP signals drop >50%, immediately elevate MAP >85 mmHg, release rod cantilever distraction/compression, and perform an immediate hardware audit.",
+                "LUMBOSACRAL PSEUDARTHROSIS & DUAL-ROD FATIGUE FRACTURE VIA SINGLE-ROD CONSTRUCTS: Attempting long-segment fusion to the sacrum with single 5.5 mm rods without accessory satellite rods or pelvic fixation results in fatigue failure. Cantilever flexion-extension bending stresses across L4–S1 exceed the endurance limit of titanium/cobalt-chromium, causing bilateral rod fracture and pseudarthrosis in >35% of patients. A multi-rod (quad-rod) construct and rigid S2AI triangulation are mandatory."
             ]
 
         case .plate080:

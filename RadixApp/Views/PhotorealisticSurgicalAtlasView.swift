@@ -734,15 +734,15 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
         case .lumbarMIS:
             return [.plate011, .plate007, .plate037, .plate029, .plate028, .plate032]
         case .deformitySalvage:
-            return [.plate023, .plate024, .plate039, .plate046, .plate071, .plate075]
+            return [.plate023, .plate024, .plate039, .plate046, .plate071, .plate075, .plate081]
         }
     }
 }
 
 public enum AtlasCategory: String, CaseIterable {
-    case all = "All Plates (80)"
+    case all = "All Plates (81)"
     case cranial = "Cranial & Skull Base (42)"
-    case spine = "Spine & CVJ (38)"
+    case spine = "Spine & CVJ (39)"
 
     public var filteredPlates: [SurgicalPlateType] {
         switch self {
@@ -836,6 +836,7 @@ public enum SurgicalPlateType: String, CaseIterable {
     case plate078 = "plate_078_thoracolumbar_burst_fracture"
     case plate079 = "plate_079_stn_dbs_parkinsons"
     case plate080 = "plate_080_cervical_expansile_laminoplasty"
+    case plate081 = "plate_081_adult_scoliosis_spinopelvic_realignment"
 
     public var subSection: AtlasSubSection {
         for section in AtlasSubSection.allCases {
@@ -932,6 +933,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate078: return 78
         case .plate079: return 79
         case .plate080: return 80
+        case .plate081: return 81
         }
     }
 
@@ -1021,6 +1023,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate078: return "78: Burst Fracture Fixation"
         case .plate079: return "79: STN DBS (Parkinson's)"
         case .plate080: return "80: Cervical Laminoplasty"
+        case .plate081: return "81: Adult Scoliosis & S2AI"
         }
     }
 
@@ -1106,6 +1109,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate078: return "Thoracolumbar Burst Fracture (AO Spine A3/A4) — Short-Segment Fixation, Intermediate Screws & Ligamentotaxis"
         case .plate079: return "Subthalamic Nucleus (STN) Deep Brain Stimulation (DBS) — Stereotactic Trajectory, MER Bursting & Directional Lead Placement"
         case .plate080: return "Cervical Expansile Laminoplasty — Open-Door (Hirabayashi) vs. French-Door (Kurokawa), K-Line & C5 Palsy Prevention"
+        case .plate081: return "Adult Scoliosis & Spinopelvic Realignment — Long-Segment Fusion (T10 to Pelvis), Ponte Osteotomies & S2AI Screws"
         }
     }
 
@@ -1191,6 +1195,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate078: return "burst.fill"
         case .plate079: return "waveform.path.ecg"
         case .plate080: return "door.left.hand.open"
+        case .plate081: return "arrow.triangle.merge"
         }
     }
 
