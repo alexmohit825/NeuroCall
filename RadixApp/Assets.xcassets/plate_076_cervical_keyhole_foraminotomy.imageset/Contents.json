@@ -1,0 +1,21 @@
+﻿{
+  "images" : [
+    {
+      "filename" : "plate_076_cervical_keyhole_foraminotomy.jpg",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

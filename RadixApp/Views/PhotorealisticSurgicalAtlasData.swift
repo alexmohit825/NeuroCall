@@ -965,6 +965,50 @@ extension SurgicalPlateType {
                 )
             ]
 
+        case .plate076:
+            return [
+                SurgicalCallout(
+                    id: "plate_076_1",
+                    title: "Synthetic Neuroimaging & Dual Compression Pathomechanism",
+                    structureType: "SYNTHETIC CT/MRI & DUAL AXIAL COMPRESSION",
+                    color: Color.red,
+                    normalizedX: 0.16,
+                    normalizedY: 0.50,
+                    description: "Panel A integrates multimodal cervical neuroimaging and pathomechanisms at C5–C6. A1 (axial CT/T2 MRI) shows severe right foraminal stenosis caused by an uncinate process osteophyte and posterolateral soft disc herniation impinging on the C6 nerve root. A2 (sagittal T2 MRI) confirms focal foraminal disc extrusion with preserved subaxial lordosis and normal cord signal. A3 illustrates the dual compression cross-section: Mechanism I (uncinate spur compressing the dorsal root ganglion/root in the foramen) and Mechanism II (disc fragment abutting the ventrolateral thecal sac). A4 maps the posterior 'V-point' target centered at the laminar-facet junction. The lower inset defines the strict ≤50% facet resection limit based on lateral mass height (A) and width (B).",
+                    surgicalPearl: "Posterior cervical foraminotomy is the gold-standard motion-preserving procedure for lateral soft disc herniations and foraminal spurring. Preserving the motion segment avoids adjacent segment degeneration and eliminates fusion hardware complications."
+                ),
+                SurgicalCallout(
+                    id: "plate_076_2",
+                    title: "Prone Concorde Corridor & V-Point High-Speed Drilling",
+                    structureType: "KEYHOLE CORRIDOR & V-POINT FLAVECTOMY",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.48,
+                    normalizedY: 0.40,
+                    description: "Panel B depicts patient positioning in the prone Concorde position in a Mayfield skull clamp with slight cervical flexion and 10°–15° reverse Trendelenburg to lower epidural venous pressure. Multimodal SSEP, MEP, and free-running EMG monitor the C5–C7 roots. The tubular keyhole corridor focuses a 3 mm high-speed diamond burr under cold irrigation at the V-point, systematically thinning the caudal edge of C5 lamina, cranial edge of C6 lamina, and the medial half of the inferior and superior articular processes. The lower inset illustrates micro-flavectomy using a 1–2 mm Kerrison punch to unroof the glistening blue-gray dural root sleeve.",
+                    surgicalPearl: "The anatomical 'V-point' is the most reliable landmark for keyhole laminoforaminotomy. Centering the burr on this inverted V ensures direct access to the medial edge of the facet joint and lateral thecal sac while strictly adhering to the 50% facet preservation rule."
+                ),
+                SurgicalCallout(
+                    id: "plate_076_3",
+                    title: "16× Microsurgical Decompression & Fragmentectomy",
+                    structureType: "16× BONE CLEARED WINDOW & FRAGMENT EXTRACTION",
+                    color: Color.blue,
+                    normalizedX: 0.82,
+                    normalizedY: 0.40,
+                    description: "Panel C enforces the cardinal rule: 'ZERO RETRACTION ON SPINAL CORD — DISSECT ALONG NERVE ROOT AXIS'. The main 16× microscope view displays the 6–8 mm completed keyhole window ('Bone Cleared'). The C6 nerve root (3–4 mm caliber) is completely unroofed from the lateral thecal sac to the lateral pedicle border, with clear preservation of the lateral 50% of the facet joint. Bottom insets detail micro-dissection: (1) Blunt micro-nerve hook mobilizing the root axilla without neural traction, (2) Micro-pituitary rongeur extracting the extruded subligamentous pearl-white soft disc fragment, and (3) Ball-tipped micro-probe freely traversing the decompressed neural foramen.",
+                    surgicalPearl: "Never retract the cervical spinal cord medially to see a disc herniation. All micro-dissection vectors must be directed laterally along the shoulder or axilla of the nerve root into the neural foramen."
+                ),
+                SurgicalCallout(
+                    id: "plate_076_4",
+                    title: "The Three Cardinal Rules & Radiculopathy Outcomes",
+                    structureType: "SURGICAL PRINCIPLES & CLINICAL PEARLS",
+                    color: Color.green,
+                    normalizedX: 0.50,
+                    normalizedY: 0.90,
+                    description: "Bottom panels detail The Three Cardinal Rules: (1) The 50% Facet Rule (resecting >50% of the facet joint destroys the posterior tension band and causes progressive segmental kyphosis), (2) Zero cord retraction, and (3) Epidural venous control using fine micro-bipolar cautery and thrombin-soaked gelatin matrix without blind packing. Clinical indications highlight posterior foraminotomy as an ideal option for isolated radiculopathy, avoiding anterior approach morbidity (dysphagia, recurrent laryngeal nerve palsy, fusion pseudoarthrosis).",
+                    surgicalPearl: "Radicular arm pain relief is virtually immediate postoperatively. Mild transient numbness in the dermatome is common from decompression hyperemia and resolves spontaneously."
+                )
+            ]
+
         case .plate075:
             return [
                 SurgicalCallout(
@@ -2345,6 +2389,15 @@ case .plate059:
                 ApproachSequentialStep(stepNumber: 4, title: "Controlled Liquid Embolic / Particle Infusion", detail: "Infuse liquid embolic (Onyx-18 / Squid) slowly under continuous subtracted fluoroscopy, creating a proximal plug and forcing embolic material distally into the neomembrane capillary network. Terminate injection once dense capillary casting and branch truncation are achieved without proximal reflux.")
             ]
 
+        case .plate076:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Prone Concorde Positioning & Neuro-Monitoring Setup", detail: "Secure patient prone in a Mayfield 3-pin skull clamp in the Concorde position with slight cervical flexion to open the interlaminar spaces. Apply 10°–15° reverse Trendelenburg to reduce epidural venous pressure. Establish continuous SSEP, MEP, and multi-channel free-running EMG monitoring of the deltoid/biceps (C5), wrist extensors (C6), and triceps (C7)."),
+                ApproachSequentialStep(stepNumber: 2, title: "Minimally Invasive Tubular / Keyhole Exposure of V-Point", detail: "Under lateral fluoroscopic guidance, localize the target interlaminar space (e.g., C5–C6). Make a 1.5–2.0 cm paramedian longitudinal incision 1.5 cm off midline. Insert serial dilators and lock an 18 mm tubular retractor or micro-speculum directly over the facet junction. Clean soft tissue off the caudal C5 lamina, cranial C6 lamina, and the anatomical 'V-point' formed by their intersection at the medial facet joint."),
+                ApproachSequentialStep(stepNumber: 3, title: "High-Speed Diamond Burr Laminoforaminotomy (≤50% Facet Rule)", detail: "Using a 3 mm high-speed diamond burr with continuous chilled saline irrigation, thin the outer cortex at the V-point. Resect the caudal margin of the C5 lamina and the cranial margin of the C6 lamina. Perform a medial facetectomy removing the medial half of the inferior articular process (IAP) of C5 and superior articular process (SAP) of C6, strictly preserving ≥50% of the lateral facet width to safeguard mechanical stability."),
+                ApproachSequentialStep(stepNumber: 4, title: "Micro-Flavectomy & Unroofing of the Cervical Nerve Root", detail: "Using a fine micro-dissector and 1–2 mm 40° up-biting Kerrison rongeurs, excise the lateral ligamentum flavum, exposing the glistening blue-gray dural root sleeve. Trace the nerve root laterally out to the medial border of the pedicle until the root is completely unroofed for 6–8 mm. Control brisk epidural radicular venous bleeding with fine micro-bipolar cautery (10–12 W) and thrombin-soaked gelatin matrix pledgets."),
+                ApproachSequentialStep(stepNumber: 5, title: "Nerve Root Mobilization, Subligamentous Fragmentectomy & Foraminal Check", detail: "Under 16× microscope magnification, gently mobilize the nerve root axilla and shoulder using a blunt micro-nerve hook with ZERO cord retraction. Incise the posterior longitudinal ligament if intact, and use micro-pituitary rongeurs to extract the extruded soft disc fragment. Pass a 1 mm ball-tipped micro-probe smoothly through the neuroforamen out into the extraforaminal zone to confirm circumferential decompression.")
+            ]
+
         case .plate075:
             return [
                 ApproachSequentialStep(stepNumber: 1, title: "Prone Jackson Positioning & Baseline Multi-Modal Neuromonitoring", detail: "Position patient prone on a Jackson spine table with hips fully extended to optimize pelvic tilt and induce lordosis. Establish continuous baseline motor evoked potentials (MEP), somatosensory evoked potentials (SSEP), and multi-channel spontaneous/triggered electromyography (EMG) monitoring bilateral L5 (tibialis anterior, extensor hallucis longus) and S1 (gastrocnemius) nerve roots. Maintain MAP >85 mmHg."),
@@ -2894,6 +2947,14 @@ case .plate059:
                 "IRREVERSIBLE BLINDNESS VIA MENINGO-OPHTHALMIC ANASTOMOSIS: The anterior MMA can connect with the ophthalmic artery via the superior orbital fissure or recurrent meningeal branch. Always perform high-magnification roadmap angiography; embolic reflux or forward migration into the ophthalmic artery causes instant, catastrophic central retinal artery occlusion and permanent monocular blindness.",
                 "FACIAL NERVE PALSY VIA PETROSAL BRANCH: The petrosal branch of the MMA supplies the facial nerve (CN VII) in the Fallopian canal / geniculate ganglion. Always advance the microcatheter tip DISTAL to the petrosal branch takeoff before injecting liquid embolic or particles; embolization of the petrosal artery causes acute, permanent peripheral facial palsy (Bell's palsy).",
                 "PROXIMAL REFLUX INTO MAXILLARY OR CAROTID ARTERY: Never push liquid embolic aggressively against resistance. Maintain continuous fluoroscopic visualization of the catheter tip to prevent reflux back into the internal maxillary artery or external carotid system, which can cause skin necrosis, jaw claudication, or distal stroke."
+            ]
+
+        case .plate076:
+            return [
+                "POST-FORAMINOTOMY SEGMENTAL KYPHOSIS VIA >50% FACETECTOMY: Resecting more than 50% of the cervical facet joint destroys the primary posterior column resistance to shear and flexion. In the subaxial cervical spine, this precipitates acute or progressive post-laminectomy kyphotic deformity, intractable mechanical neck pain, and recurrent neural compression requiring revision anterior-posterior 360° fusion. Never violate the 50% facet boundary.",
+                "CERVICAL SPINAL CORD INFARCTION VIA MEDIAL INSTRUMENT RETRACTION: The cervical spinal cord is intolerant of any medial retraction. Pushing or leveraging micro-instruments, Kerrison punches, or cottonoids against the thecal sac to visualize foraminal pathology causes acute cord contusion, anterior spinal artery ischemia, and irreversible central cord syndrome or quadriplegia. All dissection vectors must remain strictly lateral along the nerve root axis.",
+                "CATASTROPHIC VERTEBRAL ARTERY LACERATION VIA LATERAL PEDICLE VIOLATION: The V2 segment of the vertebral artery courses directly anterior to the lateral aspect of the superior articular process in the transverse foramen. Over-aggressive bone drilling or Kerrison plunging lateral to the lateral wall of the pedicle directly tears the vertebral artery, causing massive arterial hemorrhage, posterior circulation stroke, and pseudoaneurysm formation. Dissection must halt at the lateral pedicle border.",
+                "C5/C6 MOTOR ROOTLET AVULSION VIA AGGRESSIVE DISC TRACTION: The motor rootlets lie on the anterior (ventral) aspect of the root sleeve and are thinner and more fragile than the posterior sensory root. Blindly pulling or grasping adherent disc fragments beneath the root can avulse the motor rootlets, resulting in permanent deltoid or biceps paralysis (flaccid arm). Always mobilize the nerve root gently under 16× magnification and extract fragments without traction."
             ]
 
         case .plate075:

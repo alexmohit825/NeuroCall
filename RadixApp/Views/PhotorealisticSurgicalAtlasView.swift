@@ -728,7 +728,7 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
         case .craniovertebral:
             return [.plate001, .plate013, .plate014, .plate035, .plate043, .plate047, .plate049]
         case .cervical:
-            return [.plate015, .plate031, .plate034, .plate042, .plate044, .plate050, .plate064]
+            return [.plate015, .plate031, .plate034, .plate042, .plate044, .plate050, .plate064, .plate076]
         case .thoracicOncology:
             return [.plate026, .plate036, .plate038, .plate048, .plate054, .plate058, .plate068, .plate072, .plate073]
         case .lumbarMIS:
@@ -740,9 +740,9 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
 }
 
 public enum AtlasCategory: String, CaseIterable {
-    case all = "All Plates (75)"
+    case all = "All Plates (76)"
     case cranial = "Cranial & Skull Base (40)"
-    case spine = "Spine & CVJ (35)"
+    case spine = "Spine & CVJ (36)"
 
     public var filteredPlates: [SurgicalPlateType] {
         switch self {
@@ -831,6 +831,7 @@ public enum SurgicalPlateType: String, CaseIterable {
     case plate073 = "plate_073_calcified_thoracic_disc"
     case plate074 = "plate_074_sphenoid_wing_meningioma"
     case plate075 = "plate_075_high_grade_spondylolisthesis"
+    case plate076 = "plate_076_cervical_keyhole_foraminotomy"
 
     public var subSection: AtlasSubSection {
         for section in AtlasSubSection.allCases {
@@ -922,6 +923,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate073: return 73
         case .plate074: return 74
         case .plate075: return 75
+        case .plate076: return 76
         }
     }
 
@@ -1006,6 +1008,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate073: return "73: Calcified Thoracic Disc"
         case .plate074: return "74: Sphenoid Wing Meningioma"
         case .plate075: return "75: Spondyloptosis & Reduction"
+        case .plate076: return "76: Keyhole Foraminotomy"
         }
     }
 
@@ -1086,6 +1089,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate073: return "Giant Calcified Thoracic Disc Herniation — Posterolateral Transpedicular Corridor, Down-and-Away Trenching & Zero Cord Retraction"
         case .plate074: return "Sphenoid Wing Meningioma & Hyperostosis — Medial Clinoidal vs. Lateral, Extradural Optic Unroofing & MOB Peeling"
         case .plate075: return "High-Grade L5–S1 Spondylolisthesis & Spondyloptosis — Sacral Dome Osteotomy, L5 Root Decompression & Bohlman Spinopelvic Fixation"
+        case .plate076: return "Cervical Spondylotic Radiculopathy & Posterior Keyhole Foraminotomy — V-Point Localization, ≤50% Facetectomy & Disc Fragmentectomy"
         }
     }
 
@@ -1165,6 +1169,8 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate072: return "drop.triangle.fill"
         case .plate073: return "cylinder.split.1x2.fill"
         case .plate074: return "eye.circle.fill"
+        case .plate075: return "bolt.horizontal.fill"
+        case .plate076: return "key.horizontal.fill"
         }
     }
 
