@@ -965,6 +965,50 @@ extension SurgicalPlateType {
                 )
             ]
 
+        case .plate079:
+            return [
+                SurgicalCallout(
+                    id: "plate_079_1",
+                    title: "Stereotactic Trajectory & Basal Ganglia Circuitry",
+                    structureType: "SYNTHETIC CORONAL/AXIAL MRI & ALBIN-DELONG MODEL",
+                    color: Color.red,
+                    normalizedX: 0.16,
+                    normalizedY: 0.50,
+                    description: "Panel A establishes stereotactic trajectory planning and neurocircuitry. A1 (coronal T1 MRI) displays bilateral steep stereotactic trajectories (~12°–15° coronal arc angle) entering through precoronal burr holes and coursing safely lateral to the frontal horn of the lateral ventricle, landing in the biconvex STN (cyan outline) directly superior to the Substantia Nigra (SNr, magenta outline). A2 (axial FGATIR) confirms the target in the dorsolateral motor STN, bounded medially by the Red Nucleus (RN) and laterally by the Posterior Limb of the Internal Capsule (PLIC). A3 illustrates the classical Albin-DeLong basal ganglia model: loss of SNpc dopamine disinhibits the STN, creating pathological beta-band (13–30 Hz) hypersynchrony driving excessive GPi/SNr thalamic inhibition; high-frequency DBS (~130 Hz) disrupts this pathological bursting.",
+                    surgicalPearl: "Planning the coronal trajectory strictly lateral to the frontal horn ependyma is essential; violating the ventricle triggers rapid CSF egress, intracranial air entry (pneumocephalus), and brain sag that displaces the subthalamic target by up to 3–4 mm."
+                ),
+                SurgicalCallout(
+                    id: "plate_079_2",
+                    title: "Awake OR Setup & Microelectrode Recording (MER)",
+                    structureType: "LEKSELL STEREOTAXY & MULTI-UNIT ELECTROPHYSIOLOGY",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.50,
+                    normalizedY: 0.40,
+                    description: "Panel B depicts the awake operating theater with the patient secured semi-sitting in a Leksell stereotactic frame under a clear drape for continuous clinical motor examination. The Ben-Gun 5-channel microdrive advances microelectrodes through a right precoronal burr hole. The electrophysiological stack illustrates the 3 definitive stages: (1) Zona Incerta / Forel's Field: quiet background with low-amplitude sparse spikes; (2) Dorsolateral Motor STN (0 to -4.5 mm): abrupt multi-unit noise explosion and dense, irregular 35–50 Hz bursting with movement-responsive kinesthetic units; and (3) Substantia Nigra pars reticulata (SNr, > -5 mm): transition to high-frequency regular tonic firing (>60–80 Hz) marking the ventral target exit.",
+                    surgicalPearl: "An optimal trajectory requires a minimum of ≥4.5 mm of robust motor STN firing span on MER before lead deployment. If the motor span is <4.0 mm, parallel Ben-Gun tracks (anterior or lateral) must be probed."
+                ),
+                SurgicalCallout(
+                    id: "plate_079_3",
+                    title: "Directional Lead Placement & Threshold Boundary Matrix",
+                    structureType: "1-3-3-1 DIRECTIONAL LEAD & 4 BOUNDARY THRESHOLDS",
+                    color: Color.blue,
+                    normalizedX: 0.83,
+                    normalizedY: 0.40,
+                    description: "Panel C details modern directional segmented lead implantation (1-3-3-1 octapolar configuration) in the dorsolateral motor STN, with electric current steering away from the internal capsule. The Boundary Threshold Matrix defines intraoperative safety limits: (1) Therapeutic Window (1.0–2.5 mA): tremor arrest, rigidity reduction, and rapid finger tapping; (2) Capsular Side Effect: contralateral face/hand contraction and dysarthria (threshold must exceed >3.5 mA); (3) Lemniscal Side Effect: contralateral paresthesias; and (4) Oculomotor Side Effect: diplopia, ptosis, or downward gaze palsy indicating ventral breach into CN III fascicles (mandates immediate lead retraction).",
+                    surgicalPearl: "Directional current steering allows asymmetric electrical field shaping toward the motor STN while shielding the posterior limb of the internal capsule, drastically expanding the therapeutic window when leads are close to the capsular boundary."
+                ),
+                SurgicalCallout(
+                    id: "plate_079_4",
+                    title: "Hardware Assembly & Postoperative Programming",
+                    structureType: "FULL DBS SYSTEM & PROTOCOL MILESTONES",
+                    color: Color.green,
+                    normalizedX: 0.50,
+                    normalizedY: 0.90,
+                    description: "Lower panels display the complete DBS hardware assembly: cranial lead secured with a Stimloc burr-hole cap, subcutaneous strain-relief loop behind the auricle, extension cable tunneled down the lateral neck, and dual-channel IPG in an infraclavicular pocket. The Three Cardinal Rules mandate dorsolateral motor targeting, ventricular avoidance, and strict avoidance of monopolar cautery. Postoperative milestones dictate general anesthesia for tunneling, 3D O-arm confirmation, and delayed initial programming (3–4 weeks) following micro-lesion edema resolution.",
+                    surgicalPearl: "Never activate monopolar electrocautery anywhere on a patient with implanted DBS hardware. Radiofrequency and high-voltage current induction down the lead can cause thermal coagulation of the brainstem and irreversible neurological deficits."
+                )
+            ]
+
         case .plate078:
             return [
                 SurgicalCallout(
@@ -2477,6 +2521,15 @@ case .plate059:
                 ApproachSequentialStep(stepNumber: 4, title: "Controlled Liquid Embolic / Particle Infusion", detail: "Infuse liquid embolic (Onyx-18 / Squid) slowly under continuous subtracted fluoroscopy, creating a proximal plug and forcing embolic material distally into the neomembrane capillary network. Terminate injection once dense capillary casting and branch truncation are achieved without proximal reflux.")
             ]
 
+        case .plate079:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Stereotactic Frame Application & Multimodal CT-MRI Co-Registration", detail: "Under local scalp anesthesia, securely fix the Leksell G-frame or Vantage frame parallel to the orbitomeatal line (OML) ensuring zero pitch, yaw, or roll asymmetry. Perform a high-resolution stereotactic 3D bone CT scan with fiducial localization box and co-register rigidly to preoperative 3T FGATIR and T2-weighted MRI volumes. Define the mid-commissural point (MCP), AC-PC line, and calculate stereotactic coordinates for the bilateral dorsolateral motor STN (X = 11.5–12.5 mm lateral, Y = 2.0–3.0 mm posterior to MCP, Z = 4.0–5.0 mm inferior to AC-PC)."),
+                ApproachSequentialStep(stepNumber: 2, title: "Precoronal Exposure & Burr Hole Trephination with Ventricular Sparing", detail: "Position the patient semi-sitting/supine with head elevated. Infiltrate local anesthetic and make bilateral 3 cm curvilinear incisions centered 2.5–3.0 cm lateral to the midline and 1–2 cm anterior to the coronal suture. Perform 14 mm burr hole trephinations. Cauterize and sharply incise the dura in a cruciate fashion. Immediately seal the burr hole with fibrin sealant / Gelfoam to prevent CSF egress, pneumocephalus, and intraoperative brain sag. Mount the stereotactic arc and set calculated ring and arc angles (~60° ring, ~12°–15° coronal arc) ensuring trajectory traverses strictly lateral to the frontal horn ependyma."),
+                ApproachSequentialStep(stepNumber: 3, title: "Microelectrode Recording (MER) & Kinesthetic Motor Mapping", detail: "Insert the 5-channel Ben-Gun guide cannula stopped 10 mm above target. Advance tungsten microelectrodes using a motorized sub-millimeter microdrive. Monitor multi-unit neurophysiology continuously: identify quiescent zona incerta baseline, detect abrupt entry into the STN marked by dense irregular 35–50 Hz bursting, and perform passive contralateral wrist/elbow manipulation to confirm movement-locked kinesthetic units. Map the complete dorsolateral motor span (requiring ≥4.5 mm of typical bursting) before noting abrupt transition into high-frequency tonic SNr firing (>60–80 Hz) at the ventral border."),
+                ApproachSequentialStep(stepNumber: 4, title: "Directional DBS Lead Implantation & Macrostimulation Boundary Testing", detail: "Withdraw the microelectrode and deliver a directional segmented 1-3-3-1 octapolar DBS lead through the chosen Ben-Gun track to the calculated motor target. Connect to the intraoperative screening screener and perform boundary macrostimulation: verify robust tremor suppression, rigidity relief, and improved finger tapping at 1.0–2.5 mA. Increment current to >3.5 mA to verify absence of capsular side effects (internal capsule contraction/dysarthria). Check for lemniscal paresthesias posteriorly and CN III oculomotor signs (diplopia/ptosis) ventromedially. Secure the lead at the skull defect using a Stimloc cranial cap, leaving a redundant strain-relief loop beneath the galea."),
+                ApproachSequentialStep(stepNumber: 5, title: "General Anesthesia Transition, Tunneling & Infraclavicular IPG Placement", detail: "Remove the stereotactic frame and transition the patient to general endotracheal anesthesia. Prepare and drape the right infraclavicular chest and lateral neck. Create a 4 cm subclavicular incision and dissect a subcutaneous/subfascial pocket. Using a disposable Passer tool, tunnel the dual-channel extension cables subcutaneously behind the ear and along the sternocleidomastoid fascia into the chest pocket. Connect lead pins to the extension block, confirm low impedance across all contacts, and seat the dual-channel IPG securely. Close in anatomic layers and perform intraoperative 3D fluoroscopy / O-arm scan confirming sub-millimeter lead positioning.")
+            ]
+
         case .plate078:
             return [
                 ApproachSequentialStep(stepNumber: 1, title: "Prone Jackson Positioning & Multimodal Neuromonitoring", detail: "Position the patient prone on a radiolucent Jackson spinal table with chest and pelvic bolsters ensuring the abdomen hangs completely free to decompress the epidural venous plexus and minimize intraoperative bleeding. Obtain baseline bilateral SSEP and transcranial electrical motor evoked potentials (tcMEP) across L1–S1 nerve roots."),
@@ -3053,6 +3106,14 @@ case .plate059:
                 "IRREVERSIBLE BLINDNESS VIA MENINGO-OPHTHALMIC ANASTOMOSIS: The anterior MMA can connect with the ophthalmic artery via the superior orbital fissure or recurrent meningeal branch. Always perform high-magnification roadmap angiography; embolic reflux or forward migration into the ophthalmic artery causes instant, catastrophic central retinal artery occlusion and permanent monocular blindness.",
                 "FACIAL NERVE PALSY VIA PETROSAL BRANCH: The petrosal branch of the MMA supplies the facial nerve (CN VII) in the Fallopian canal / geniculate ganglion. Always advance the microcatheter tip DISTAL to the petrosal branch takeoff before injecting liquid embolic or particles; embolization of the petrosal artery causes acute, permanent peripheral facial palsy (Bell's palsy).",
                 "PROXIMAL REFLUX INTO MAXILLARY OR CAROTID ARTERY: Never push liquid embolic aggressively against resistance. Maintain continuous fluoroscopic visualization of the catheter tip to prevent reflux back into the internal maxillary artery or external carotid system, which can cause skin necrosis, jaw claudication, or distal stroke."
+            ]
+
+        case .plate079:
+            return [
+                "INTRACEREBRAL HEMORRHAGE (ICH) & STROKE VIA SULCAL VESSEL OR STRIATOCAPSULAR PERFORATOR TRAVERSAL: Advancing rigid guide cannulae or microelectrodes through a cortical sulcus rather than the crown of a gyrus lacerates pial vessels or deep striatocapsular perforating arteries, precipitating massive intraventricular or basal ganglia hemorrhage with catastrophic hemiplegia and mortality. Always plan trajectories avoiding sulcal vessels on contrast MRI.",
+                "ACUTE SEVERE HYPOMANIA, PSYCHOSIS & SUICIDAL IMPULSIVITY VIA VENTROMEDIAL LIMBIC STN STIMULATION: The ventral and medial poles of the STN project to the limbic and associative loops. Misplacing the DBS lead or current spreading ventromedially into the limbic territory induces acute manic disinhibition, hypersexuality, severe depression, or suicidal ideation. Stimulation must remain confined to the dorsolateral motor territory.",
+                "THERMAL BRAINSTEM LESIONING & COAGULATION VIA MONOPOLAR ELECTROCUTERY: Activating monopolar electrocautery anywhere on a patient with an implanted DBS system induces high-voltage radiofrequency energy that conducts down the metal lead wires to the uninsulated lead contacts in the subthalamic nucleus and midbrain. This results in instant thermal tissue coagulation, extensive brainstem necrosis, and irreversible coma or death. Strictly enforce a bipolar-only electrocautery protocol.",
+                "LOSS OF TARGET ACCURACY VIA VENTRICULAR VIOLATION, CSF LEAK & BRAIN SAG: Trajectories that traverse or breach the ependyma of the lateral ventricle cause acute CSF egress, tension pneumocephalus, and posterior/ventral brain shift (sag). A shift of even 2–3 mm displaces the STN outside the microelectrode mapping range, rendering stereotactic coordinates completely invalid and requiring procedure abortion."
             ]
 
         case .plate078:
