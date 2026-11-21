@@ -965,6 +965,50 @@ extension SurgicalPlateType {
                 )
             ]
 
+                                                                        case .plate068:
+            return [
+                SurgicalCallout(
+                    id: "plate_068_1",
+                    title: "3D Multi-Modal MRI, Eden Classification & Corridor Biomechanics",
+                    structureType: "NEUROIMAGING & AXIAL RESECTION VECTOR",
+                    color: Color.red,
+                    normalizedX: 0.16,
+                    normalizedY: 0.50,
+                    description: "Panel A illustrates multi-planar 3T MRI of an Eden Type II/III thoracic dumbbell schwannoma showing intradural cord compression with CSF capping, foraminal waist widening, and paravertebral soft-tissue extension. The axial cross-section demonstrates the costotransversectomy corridor: resection of the transverse process, rib head, proximal 3–5 cm rib, pedicle, and lateral vertebral body, creating a 180° posterolateral trajectory directly to the lateral thecal sac and posterior mediastinum with zero spinal cord retraction. Inset details Eden Types I through IV.",
+                    surgicalPearl: "The costotransversectomy corridor eliminates the need for thoracic spinal cord retraction. Resecting the proximal rib head and pedicle converts a deep, high-risk traction corridor into a flat, tangential working trajectory."
+                ),
+                SurgicalCallout(
+                    id: "plate_068_2",
+                    title: "Posterolateral Exposure, Extrapleural Corridor & Dumbbell Lobes",
+                    structureType: "OPERATIVE FIELD & TRIPLE-COMPARTMENT TOPOGRAPHY",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.50,
+                    normalizedY: 0.38,
+                    description: "Panel B reveals the deep operative exposure from rostral T1 to caudal T3. Bilateral pedicle screws with rods provide rigid biomechanical stabilization. The lobulated yellow-tan dumbbell tumor is cleanly differentiated into three continuous compartments: intradural (spinal canal), foraminal, and extraforaminal thoracic (paravertebral). Parietal pleura is mobilized extrapleurally and protected with moist gauze. The intercostal neurovascular bundle (vein, artery, nerve) tracks along the rib margin into the neural foramen next to the costal stump (3–5 cm rib resection).",
+                    surgicalPearl: "Always dissect in the extrapleural plane. Gentle blunt mobilization of the parietal pleura with a moist sponge avoids pleural laceration and prevents postoperative pneumothorax or hemothorax."
+                ),
+                SurgicalCallout(
+                    id: "plate_068_3",
+                    title: "5-Step Resection, Watertight Dural Repair & Arthrodesis",
+                    structureType: "16× MICROSURGICAL NARRATIVE & COLUMN RECONSTRUCTION",
+                    color: Color.blue,
+                    normalizedX: 0.82,
+                    normalizedY: 0.38,
+                    description: "Panel C details the 5 sequential operative stages: (1) Thecal sac durotomy & intradural arachnoid dissection, sacrificing the non-functional dorsal root of origin while sparing ventral rootlets; (2) CUSA internal debulking of foraminal and extrapleural tumor; (3) En-bloc capsule delivery with spontaneous cord re-expansion; (4) Watertight running dural closure reinforced with an onlay collagen matrix patch and fibrin glue to prevent CSF-pleural fistula; (5) Column reconstruction with anterior expandable/mesh titanium cage and rigid posterior screw-rod arthrodesis.",
+                    surgicalPearl: "Watertight dural repair reinforced with collagen matrix and fibrin sealant is mandatory. Negative intrathoracic pleural pressure creates a powerful siphon effect that can turn even a pinhole dural tear into an intractable, life-threatening CSF-pleural fistula."
+                ),
+                SurgicalCallout(
+                    id: "plate_068_4",
+                    title: "Artery of Adamkiewicz, Schwannoma Pathology & Pleural Protocol",
+                    structureType: "VASCULAR SAFETY, PATHOLOGY & PLEURAL TESTING",
+                    color: Color.green,
+                    normalizedX: 0.50,
+                    normalizedY: 0.88,
+                    description: "Lower insets: Inset 1 maps the Great Anterior Radiculomedullary Artery of Adamkiewicz (T9–L2, typically left-sided), emphasizing the rule to avoid coagulating lower thoracic intercostal arteries near the foramen without proving absence of ASA supply. Inset 2 (H&E 40×) shows WHO Grade I schwannoma with Antoni A spindle cells forming palisading Verocay bodies and loose Antoni B myxoid tissue. Inset 3 illustrates the saline immersion air-leak test with positive-pressure recruitment (Valsalva) to confirm zero pleural leak.",
+                    surgicalPearl: "Always perform a saline immersion test under positive-pressure lung recruitment (Valsalva to 30 cm H2O) before closure. If bubbles appear, place a chest tube under direct vision through the surgical corridor."
+                )
+            ]
+
                                                                         case .plate067:
             return [
                 SurgicalCallout(
@@ -1993,6 +2037,15 @@ case .plate059:
                 ApproachSequentialStep(stepNumber: 4, title: "Controlled Liquid Embolic / Particle Infusion", detail: "Infuse liquid embolic (Onyx-18 / Squid) slowly under continuous subtracted fluoroscopy, creating a proximal plug and forcing embolic material distally into the neomembrane capillary network. Terminate injection once dense capillary casting and branch truncation are achieved without proximal reflux.")
             ]
 
+                                                                        case .plate068:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Thecal Sac Durotomy & Intradural Phase", detail: "Perform a lateral linear durotomy centered over the intradural tumor pole. Dissect the arachnoid plane between the tumor and the compressed thoracic spinal cord under 16× magnification. Identify the dorsal root of origin and safely divide it with bipolar cautery, while strictly preserving adjacent ventral motor rootlets and passing radiculomedullary arterial feeders."),
+                ApproachSequentialStep(stepNumber: 2, title: "Foraminal & Extraforaminal CUSA Debulking", detail: "Transition to the extradural/extrapleural compartment. Use an ultrasonic aspirator (CUSA) to internally cavitate and debulk the firm tumor tissue within the neural foramen and the large thoracic paravertebral mass, collapsing the capsule inward away from the sympathetic chain and parietal pleura."),
+                ApproachSequentialStep(stepNumber: 3, title: "En-Bloc Capsule Delivery & Spinal Cord Mobilization", detail: "Circumferentially dissect the collapsed tumor capsule off the posterior mediastinal borders and delivery the entire dumbbell mass. Confirm gross total tumor resection, complete decompression, and spontaneous midline re-expansion of the thoracic spinal cord."),
+                ApproachSequentialStep(stepNumber: 4, title: "Watertight Dural Repair & CSF-Pleural Fistula Prevention", detail: "Execute a watertight running monofilament suture closure of the lateral durotomy. Reinforce the repair with an onlay collagen dural matrix patch and fibrin sealant. Negative intrathoracic pleural pressure acts as a powerful siphon; an airtight and watertight dural barrier is essential to prevent CSF-pleural fistula."),
+                ApproachSequentialStep(stepNumber: 5, title: "Posterior Column Reconstruction & Rigid Arthrodesis", detail: "Reconstruct the anterior column using an expandable or mesh titanium interbody cage packed with autologous bone graft. Complete bilateral pedicle screw and rod instrumentation spanning the decompressed thoracic segments to ensure 100% biomechanical stability and prevent post-costotransversectomy kyphosis.")
+            ]
+
                                                                         case .plate067:
             return [
                 ApproachSequentialStep(stepNumber: 1, title: "Positioning & Retroauricular Hockey-Stick Incision", detail: "Patient placed in the park-bench or three-quarters prone position with the head secured in a 3-point Mayfield headholder, rotated 30° contralaterally and vertex flexed 15° to open the craniocervical gutter. A retroauricular inverted hockey-stick incision begins at the mastoid tip, curves superiorly above the superior nuchal line, and courses caudally along the midline down to C3."),
@@ -2470,6 +2523,14 @@ case .plate059:
                 "IRREVERSIBLE BLINDNESS VIA MENINGO-OPHTHALMIC ANASTOMOSIS: The anterior MMA can connect with the ophthalmic artery via the superior orbital fissure or recurrent meningeal branch. Always perform high-magnification roadmap angiography; embolic reflux or forward migration into the ophthalmic artery causes instant, catastrophic central retinal artery occlusion and permanent monocular blindness.",
                 "FACIAL NERVE PALSY VIA PETROSAL BRANCH: The petrosal branch of the MMA supplies the facial nerve (CN VII) in the Fallopian canal / geniculate ganglion. Always advance the microcatheter tip DISTAL to the petrosal branch takeoff before injecting liquid embolic or particles; embolization of the petrosal artery causes acute, permanent peripheral facial palsy (Bell's palsy).",
                 "PROXIMAL REFLUX INTO MAXILLARY OR CAROTID ARTERY: Never push liquid embolic aggressively against resistance. Maintain continuous fluoroscopic visualization of the catheter tip to prevent reflux back into the internal maxillary artery or external carotid system, which can cause skin necrosis, jaw claudication, or distal stroke."
+            ]
+
+                                                                        case .plate068:
+            return [
+                "ANTERIOR SPINAL ARTERY (ASA) INFARCTION VIA ARTERY OF ADAMKIEWICZ COAGULATION: Coagulating intercostal arteries near the neural foramen in the lower thoracic spine (T9–L2) can sacrifice the Great Anterior Radiculomedullary Artery (Adamkiewicz). This triggers catastrophic anterior spinal cord infarction with permanent, irreversible paraplegia, loss of bowel/bladder control, and dissociated sensory loss. Always review preoperative angiography/CTA and interrogate radicular branches with micro-Doppler before sacrifice.",
+                "INTRACTABLE CSF-PLEURAL FISTULA & TENSION PNEUMOCEPHALUS: Failure to achieve a watertight dural closure in the presence of an occult or overt pleural tear allows negative intrathoracic pleural pressure during respiration to continuously siphon CSF into the pleural space. This causes massive pleural effusion, intracranial hypotension, and life-threatening tension pneumocephalus. Always perform a multilayer repair (running suture, onlay collagen matrix, fibrin sealant) and air-tight tissue barrier.",
+                "PARIETAL PLEURA LACERATION & TENSION PNEUMOTHORAX / HEMOTHORAX: Careless instrument manipulation during costotransversectomy or extraforaminal tumor mobilization can lacerate the parietal pleura. Unrecognized pleural tears cause intraoperative tension pneumothorax or massive hemothorax. Always perform a saline immersion test under positive-pressure lung recruitment (Valsalva); place a chest tube under direct vision if air leak is detected.",
+                "KYPHOTIC DEFORMITY & SPINAL INSTABILITY WITHOUT RIGID INSTRUMENTATION: Unilateral or bilateral costotransversectomy with pediculectomy destabilizes the posterior and middle spinal columns. Resecting the rib head and costovertebral joint destroys the thoracic cage's natural splinting effect, leading to progressive kyphosis, hardware pullout, and delayed cord compression if rigid multi-level instrumented arthrodesis is omitted."
             ]
 
                                                                         case .plate067:
