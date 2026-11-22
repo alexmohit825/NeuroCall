@@ -1581,6 +1581,79 @@ extension SurgicalPlateType {
                     surgicalPearl: "Engage the dense apical cortex for maximum pullout strength without protruding into the foramen magnum or violating the tectorial membrane."
                 )
             ]
+        case .plate098:
+            return [
+                SurgicalCallout(
+                    id: "plate_098_1",
+                    title: "C5-C6 Soft Disc Herniation",
+                    structureType: "CERVICAL RADICULOPATHY",
+                    color: ObsidianTheme.neonRose,
+                    normalizedX: 0.12,
+                    normalizedY: 0.38,
+                    description: "High-resolution sagittal T2 MRI demonstrating a focal paracentral C5-C6 soft disc extrusion compressing the ventral thecal sac, with normal uninjured facet joints.",
+                    surgicalPearl: "Preserved facet articulation and lordotic alignment on sagittal MRI are mandatory prerequisites for cervical disc arthroplasty."
+                ),
+                SurgicalCallout(
+                    id: "plate_098_2",
+                    title: "Parallel Caspar Distraction",
+                    structureType: "CORRIDOR MOBILIZATION",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.28,
+                    normalizedY: 0.35,
+                    description: "Bicortical distraction pins placed parallel across C5 and C6 vertebral bodies gently opening the collapsed disc space and restoring neuroforaminal height.",
+                    surgicalPearl: "Place Caspar distraction pins strictly parallel across C5 and C6 bodies to restore physiological disc height without inducing kyphosis."
+                ),
+                SurgicalCallout(
+                    id: "plate_098_3",
+                    title: "Parallel Subchondral Endplate Shaping",
+                    structureType: "ENDPLATE PREPARATION",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.48,
+                    normalizedY: 0.65,
+                    description: "Superior and inferior bony endplates meticulously prepared parallel down to healthy vascular subchondral bone, preserving the strong peripheral cortical bony rim.",
+                    surgicalPearl: "Shape endplates parallel to healthy subchondral bone while preserving the strong peripheral cortical bony ring to prevent device subsidence."
+                ),
+                SurgicalCallout(
+                    id: "plate_098_4",
+                    title: "Posterior Decompression & Dural Window",
+                    structureType: "RADICAL UNROOFING",
+                    color: ObsidianTheme.neonPurple,
+                    normalizedX: 0.48,
+                    normalizedY: 0.35,
+                    description: "Complete resection of the posterior longitudinal ligament revealing the pristine glistening slate-blue thecal sac and bilateral nerve root take-offs.",
+                    surgicalPearl: "Complete bilateral uncinate decompression and opening of the posterior longitudinal ligament (PLL) ensure comprehensive unroofing of the thecal sac."
+                ),
+                SurgicalCallout(
+                    id: "plate_098_5",
+                    title: "Exiting C6 Nerve Root Pathway",
+                    structureType: "FORAMINAL DECOMPRESSION",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.58,
+                    normalizedY: 0.38,
+                    description: "Symmetric, uninhibited course of the exiting C6 nerve root traversing through the widely decompressed neural foramen into the lateral gutter.",
+                    surgicalPearl: "Unroof both uncovertebral joints completely to allow tension-free lateral expansion of the exiting C6 roots."
+                ),
+                SurgicalCallout(
+                    id: "plate_098_6",
+                    title: "Articulating Mobile Polyethylene Core",
+                    structureType: "BIOMECHANICAL ARTHROPLASTY",
+                    color: ObsidianTheme.neonEmerald,
+                    normalizedX: 0.82,
+                    normalizedY: 0.30,
+                    description: "Semi-constrained mobile-bearing cervical disc prosthesis with titanium endplates and UHMWPE core seated flush in the anatomic midline.",
+                    surgicalPearl: "Center the prosthesis precisely along the anatomical midline under AP fluoroscopy to avoid eccentric kinematic wear."
+                ),
+                SurgicalCallout(
+                    id: "plate_098_7",
+                    title: "Preserved Flexion-Extension Arc",
+                    structureType: "DYNAMIC SEGMENTAL MOTION",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.82,
+                    normalizedY: 0.65,
+                    description: "Dynamic lateral radiographs in neutral, flexion (8°), and extension (10°) proving preserved physiological motion with zero adjacent segment ossification.",
+                    surgicalPearl: "Postoperative dynamic radiographs confirm preserved segmental motion arc (8°-10°), protecting adjacent segments from accelerated degeneration."
+                )
+            ]
         case .plate089:
             return [
                 SurgicalCallout(
@@ -3644,6 +3717,14 @@ case .plate059:
                 ApproachSequentialStep(stepNumber: 4, title: "Guide Wire Insertion & Apical Purchase", detail: "Drive the 1.2 mm threaded guide wire through the C2 body across the fracture plane into the dense apical cortex under continuous biplanar fluoroscopic visualization."),
                 ApproachSequentialStep(stepNumber: 5, title: "Cannulated Lag Screw Placement & Fracture Compression", detail: "Measure screw length, tap the near cortex, and advance a 4.0 mm partially threaded cannulated lag screw until the washer-head seats and pulls the fracture into dynamic compression.")
             ]
+        case .plate098:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Smith-Robinson Corridor & Pin Docking", detail: "Develop the standard anteromedial corridor to C5-C6; place parallel Caspar distraction pins into the midline vertebral bodies and gently distract to restore collapsed disc height."),
+                ApproachSequentialStep(stepNumber: 2, title: "Complete Discectomy & Uncinate Decompression", detail: "Evacuate the degenerated intervertebral disc, perform bilateral complete uncovertebral joint decompressions, and open the PLL to expose the thecal sac and bilateral exiting C6 roots."),
+                ApproachSequentialStep(stepNumber: 3, title: "Endplate Preparation & Peripheral Cortical Sparing", detail: "Shape the superior C6 and inferior C5 endplates flat and parallel down to viable subchondral bone, strictly preserving the dense peripheral cortical bony rim."),
+                ApproachSequentialStep(stepNumber: 4, title: "Trial Sizing & Midline Keel Milling", detail: "Insert footprint and height trials under biplanar fluoroscopy; verify true midline AP centering and mill precise superior and inferior keel troughs."),
+                ApproachSequentialStep(stepNumber: 5, title: "Prosthesis Implantation & Kinematic Assessment", detail: "Advance the pre-assembled mobile-bearing artificial disc prosthesis until keels seat flush into C5 and C6; release distraction and verify physiological flexion-extension under fluoroscopy.")
+            ]
         case .plate089:
             return [
                 ApproachSequentialStep(stepNumber: 1, title: "Diagnostic Ultrasound/MRI & Patient Positioning", detail: "Confirm cubital tunnel compression (ulnar nerve CSA > 10 mm²). Position patient supine with arm abducted 90° on an armboard and forearm supinated. Mark a curved 10–12 cm retro-epicondylar incision centered between the medial epicondyle and olecranon."),
@@ -4374,6 +4455,12 @@ case .plate059:
                 "Guide Wire Migration into Brainstem: Never advance the cannulated drill or screw without real-time fluoroscopic verification that the central guide wire is stationary; inadvertent forward wire migration risks catastrophic brainstem impalement.",
                 "Anterior C2 Cortical Breakout: Placing the entry point too superiorly on the C2 body produces anterior cortical blowout and immediate construct failure.",
                 "Malreduction Before Fixation: Attempting to reduce an unreduced or displaced Type II fracture with the lag screw itself causes displacement or malunion; anatomical reduction must precede guide wire insertion."
+            ]
+        case .plate098:
+            return [
+                "Aggressive Endplate Violation & Subsidence: Over-drilling the subchondral bone or breaching the peripheral cortical bony ring leads to early prosthetic sinking and loss of motion.",
+                "Eccentric Keel Misalignment: Placing the prosthesis off-center or angled relative to the true anatomic midline causes asymmetric polyethylene edge loading and early device failure.",
+                "Inappropriate Indication in Severe Spondylosis: Attempting CDRA in patients with severe facet arthropathy, autofused segments, or kyphotic deformity results in persistent pain and rapid heterotopic ossification."
             ]
         case .plate089:
             return [
