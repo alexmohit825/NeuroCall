@@ -726,13 +726,13 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
         case .vascularVentricular:
             return [.plate002, .plate027, .plate040, .plate041, .plate051, .plate053, .plate056, .plate060, .plate061, .plate062, .plate063, .plate065, .plate067, .plate079, .plate086]
         case .craniovertebral:
-            return [.plate001, .plate013, .plate014, .plate035, .plate043, .plate047, .plate049]
+            return [.plate001, .plate013, .plate014, .plate035, .plate043, .plate047, .plate049, .plate088]
         case .cervical:
             return [.plate015, .plate031, .plate034, .plate042, .plate044, .plate050, .plate064, .plate076, .plate080]
         case .thoracicOncology:
             return [.plate026, .plate036, .plate038, .plate048, .plate054, .plate058, .plate068, .plate072, .plate073, .plate078, .plate085]
         case .lumbarMIS:
-            return [.plate011, .plate007, .plate037, .plate029, .plate028, .plate032, .plate083]
+            return [.plate011, .plate007, .plate037, .plate029, .plate028, .plate032, .plate083, .plate087]
         case .deformitySalvage:
             return [.plate023, .plate024, .plate039, .plate046, .plate071, .plate075, .plate081]
         }
@@ -740,9 +740,9 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
 }
 
 public enum AtlasCategory: String, CaseIterable {
-    case all = "All Plates (86)"
+    case all = "All Plates (88)"
     case cranial = "Cranial & Skull Base (45)"
-    case spine = "Spine & CVJ (41)"
+    case spine = "Spine & CVJ (43)"
 
     public var filteredPlates: [SurgicalPlateType] {
         switch self {
@@ -842,6 +842,8 @@ public enum SurgicalPlateType: String, CaseIterable {
     case plate084 = "plate_084_paraclinoid_ophthalmic_ica_aneurysm"
     case plate085 = "plate_085_sacral_chordoma_en_bloc_sacrectomy"
     case plate086 = "plate_086_endoscopic_third_ventriculostomy_etv"
+    case plate087 = "plate_087_alif_l5_s1_hyperlordotic"
+    case plate088 = "plate_088_occipitocervical_fixation_decompression"
 
     public var subSection: AtlasSubSection {
         for section in AtlasSubSection.allCases {
@@ -944,6 +946,8 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate084: return 84
         case .plate085: return 85
         case .plate086: return 86
+        case .plate087: return 87
+        case .plate088: return 88
         }
     }
 
@@ -1039,6 +1043,8 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate084: return "84: Paraclinoid Aneurysm"
         case .plate085: return "85: En-Bloc Sacrectomy"
         case .plate086: return "86: Endoscopic 3rd Ventriculostomy"
+        case .plate087: return "87: ALIF L5–S1 Hyperlordotic"
+        case .plate088: return "88: Occipitocervical Fixation (OCF)"
         }
     }
 
@@ -1130,6 +1136,8 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate084: return "Paraclinoid (Ophthalmic) ICA Aneurysm & Anterior Clinoidectomy — Optic Strut Drilling, Distal Dural Ring Dissection & Clip Occlusion"
         case .plate085: return "Sacral Chordoma & En-Bloc Sacrectomy — Combined Anterior-Posterior Resection & Rigid Spinopelvic Reconstruction"
         case .plate086: return "Endoscopic Third Ventriculostomy (ETV) — Foramen of Monro Anatomy, 3rd Ventricular Floor Landmarks & Prepontine Fenestration"
+        case .plate087: return "Anterior Lumbar Interbody Fusion (ALIF) at L5–S1 — Retroperitoneal Exposure, Vascular Bifurcation & Hyperlordotic Reconstruction"
+        case .plate088: return "Occipitocervical Fixation (OCF) & Decompression — Craniocervical Instability Metrics, Suboccipital Decompression & Occiput-to-C4 Screw-Rod Reconstruction"
         }
     }
 
@@ -1221,6 +1229,8 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate084: return "eye.trianglebadge.exclamationmark"
         case .plate085: return "shield.lefthalf.filled"
         case .plate086: return "scope"
+        case .plate087: return "square.3.layers.3d.down.right"
+        case .plate088: return "shield.checkered"
         }
     }
 
