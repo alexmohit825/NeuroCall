@@ -2039,6 +2039,99 @@ extension SurgicalPlateType {
                     surgicalPearl: "Postoperative lateral imaging confirms rigid cage engagement against intact endplates and physiological thoracic sagittal contour."
                 )
             ]
+        case .plate104:
+            return [
+                SurgicalCallout(
+                    id: "plate_104_1",
+                    title: "Acute Supra-Adjacent Fracture (UIV+1)",
+                    structureType: "JUNCTIONAL COLLAPSE",
+                    color: ObsidianTheme.neonRose,
+                    normalizedX: 0.08,
+                    normalizedY: 0.35,
+                    description: "High-resolution sagittal bone CT through the pedicle screw trajectory confirming acute anterior wedge collapse, superior endplate impaction, and severe height loss of the supra-adjacent vertebra (UIV+1).",
+                    surgicalPearl: "Immense cantilever bending moments transfer to the uninstrumented vertebra above the cemented UIV, precipitating acute superior endplate collapse."
+                ),
+                SurgicalCallout(
+                    id: "plate_104_2",
+                    title: "Cemented Index UIV Screw",
+                    structureType: "AUGMENTED INSTRUMENTATION",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.08,
+                    normalizedY: 0.52,
+                    description: "Previous index upper instrumented vertebra showing pedicle screw with dense PMMA cement cloud augmentation within the anterior vertebral body.",
+                    surgicalPearl: "Prophylactic cement augmentation stiffens the index UIV, protecting screw purchase but shifting mechanical stress to the adjacent mobile segment."
+                ),
+                SurgicalCallout(
+                    id: "plate_104_3",
+                    title: "Acute Focal Kyphotic Angulation",
+                    structureType: "SAGITTAL DECOMPENSATION",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.28,
+                    normalizedY: 0.35,
+                    description: "Midline sagittal CT reconstruction demonstrating acute focal kyphotic collapse with superior endplate depression, intact posterior wall alignment, and continuous spinal canal.",
+                    surgicalPearl: "Midline sagittal CT confirms severe focal kyphotic collapse with preserved posterior canal continuity and intact neurological elements."
+                ),
+                SurgicalCallout(
+                    id: "plate_104_4",
+                    title: "Axial Domino Rod Connectors",
+                    structureType: "REVISION COUPLING",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.45,
+                    normalizedY: 0.60,
+                    description: "Heavy-duty cylindrical axial tandem domino connectors rigidly locking the proximal ends of the existing lumbosacral rods to new cranial extension rods.",
+                    surgicalPearl: "Heavy-duty cylindrical axial tandem domino connectors rigidly bridge the existing lumbosacral rods to new cranial extension rods."
+                ),
+                SurgicalCallout(
+                    id: "plate_104_5",
+                    title: "Cranial Extension Pedicle Screws",
+                    structureType: "POSTERIOR THORACIC FIXATION",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.55,
+                    normalizedY: 0.40,
+                    description: "Contoured bilateral titanium extension rods secured into bilateral pedicle screws spanning the middle and upper thoracic segments.",
+                    surgicalPearl: "Bilateral pedicle screws placed through intact thoracic pedicles provide multi-point mechanical anchoring across the revision segment."
+                ),
+                SurgicalCallout(
+                    id: "plate_104_6",
+                    title: "Upper Thoracic Foundation (T2)",
+                    structureType: "NEW PROXIMAL FOUNDATION",
+                    color: ObsidianTheme.neonEmerald,
+                    normalizedX: 0.45,
+                    normalizedY: 0.25,
+                    description: "Cranial termination of the revision construct at T2 in the upper thoracic spine, providing a stable foundation sheltered by the rigid rib cage.",
+                    surgicalPearl: "Extending fixation up to the rigid, rib-cage-stabilized upper thoracic spine (T2) eliminates junctional shear stresses seen at the thoracolumbar junction."
+                ),
+                SurgicalCallout(
+                    id: "plate_104_7",
+                    title: "Bilateral S2AI Pelvic Screws",
+                    structureType: "SACROPELVIC FOUNDATION",
+                    color: ObsidianTheme.neonPurple,
+                    normalizedX: 0.75,
+                    normalizedY: 0.70,
+                    description: "Full-length scoliosis radiograph demonstrating solid bilateral S2-alar-iliac screws crossing the sacroiliac joint into the dense supra-acetabular iliac bone.",
+                    surgicalPearl: "Rigid S2-alar-iliac screws anchor the caudal foundation across the sacroiliac joint, withstanding massive axial and torsional loads."
+                ),
+                SurgicalCallout(
+                    id: "plate_104_8",
+                    title: "Multi-Rod Transition Bridging",
+                    structureType: "FATIGUE RESISTANCE",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.72,
+                    normalizedY: 0.50,
+                    description: "Multi-rod outrigger reinforcement spanning across the domino connectors to protect the revision junction against fatigue failure and rod breakage.",
+                    surgicalPearl: "Spanning accessory outrigger rods across the revision junction distributes fatigue stresses, preventing rod fracture before solid arthrodesis."
+                ),
+                SurgicalCallout(
+                    id: "plate_104_9",
+                    title: "Restored Global Spinal Alignment",
+                    structureType: "POSTOPERATIVE RADIOGRAPHY",
+                    color: ObsidianTheme.neonEmerald,
+                    normalizedX: 0.90,
+                    normalizedY: 0.35,
+                    description: "Postoperative full-length standing scoliosis radiograph confirming restored global coronal alignment, normalized sagittal vertical axis, and solid fusion balance.",
+                    surgicalPearl: "Standing full-spine radiograph verifies complete coronal realignment, restored thoracic kyphosis, and balanced sagittal vertical axis."
+                )
+            ]
         case .plate089:
             return [
                 SurgicalCallout(
@@ -4150,6 +4243,14 @@ case .plate059:
                 ApproachSequentialStep(stepNumber: 4, title: "In-Situ Expandable Titanium Cage Deployment", detail: "Deliver an in-situ expandable titanium corpectomy cage through the posterolateral corridor into the T8 defect; under lateral fluoroscopy, vertically expand the cage to engage the T7 and T9 subchondral endplates without over-distraction."),
                 ApproachSequentialStep(stepNumber: 5, title: "T6-T10 Multi-Segment Posterior Neutralization", detail: "Insert bilateral pedicle screws at two levels above (T6, T7) and two levels below (T9, T10); contour dual titanium rods, apply mild compressive force against the cage, and torque set screws.")
             ]
+        case .plate104:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Prone Positioning & Proximal Thoracic Exposure", detail: "Position the patient prone on a radiolucent Wilson or Jackson table; establish stable baseline motor (MEP) and somatosensory (SSEP) evoked potentials, and extend the midline incision cranially to expose the thoracic spine up to T1–T2."),
+                ApproachSequentialStep(stepNumber: 2, title: "Hardware Inspection & Domino Rod Coupling", detail: "Expose the proximal ends of the existing lumbosacral rods; inspect for loosening or fatigue fracture. Secure heavy-duty axial tandem domino connectors to the rod ends and torque locking set screws."),
+                ApproachSequentialStep(stepNumber: 3, title: "Cranial Thoracic Pedicle Screw Insertion (T2–T4)", detail: "Prepare thoracic pedicles using free-hand or navigational guidance; insert robust bilateral pedicle screws extending cranially to T2, the new rib-cage-sheltered upper thoracic foundation."),
+                ApproachSequentialStep(stepNumber: 4, title: "Multi-Rod Reinforcement Across Revision Junction", detail: "Contour bilateral 5.5 mm titanium extension rods into physiological thoracic kyphosis; seat into screws and axial domino connectors, and bridge accessory outrigger rods across the transition to construct a multi-rod junction."),
+                ApproachSequentialStep(stepNumber: 5, title: "Final Tightening & Global Realignment Verification", detail: "Apply gentle compression across the osteoporotic junction to stabilize the fracture; torque set screws to manufacturer specifications and obtain biplanar intraoperative full-spine fluoroscopy confirming restored sagittal vertical axis.")
+            ]
         case .plate089:
             return [
                 ApproachSequentialStep(stepNumber: 1, title: "Diagnostic Ultrasound/MRI & Patient Positioning", detail: "Confirm cubital tunnel compression (ulnar nerve CSA > 10 mm²). Position patient supine with arm abducted 90° on an armboard and forearm supinated. Mark a curved 10–12 cm retro-epicondylar incision centered between the medial epicondyle and olecranon."),
@@ -4916,6 +5017,12 @@ case .plate059:
                 "Pleural Violation & Pneumothorax: Aggressive lateral mobilization of the 8th rib head without identifying the extrapleural plane tears the parietal pleura, causing intraoperative tension pneumothorax or hemothorax.",
                 "Intercostal/Segmental Artery Hemorrhage: Uncontrolled retraction or drilling near the neurovascular bundle at the inferior rib margin lacerates the intercostal or radicular artery; meticulous bipolar coagulation and hemoclip ligation are essential.",
                 "Over-Distraction of Anterior Column & Endplate Breach: Aggressive expansion of the corpectomy cage against osteoporotic or radiated T7/T9 endplates precipitates cage subsidence into the adjacent vertebral bodies or ischemic stretch of the thoracic spinal cord."
+            ]
+        case .plate104:
+            return [
+                "Recurrent Junctional Breakdown at New UIV: Terminating the revision construct in the mid-thoracic spine rather than upper thoracic (T2–T4) maintains high cantilever shear forces, precipitating repeat junctional failure.",
+                "Fatigue Rod Fracture at Domino Junction: Relying on a single rod across the axial domino connector without multi-rod outrigger reinforcement concentrates extreme fatigue stress, leading to early rod notch failure.",
+                "Thoracic Pedicle Breach & Spinal Cord Impairment: Misdirected drilling or medial pedicle breach in the narrow mid-to-upper thoracic spine risks direct dural laceration, neural injury, or neurovascular compromise."
             ]
         case .plate089:
             return [
