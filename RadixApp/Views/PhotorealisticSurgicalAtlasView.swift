@@ -729,7 +729,7 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
         case .craniovertebral:
             return [.plate001, .plate013, .plate014, .plate035, .plate043, .plate047, .plate049, .plate088]
         case .cervical:
-            return [.plate015, .plate031, .plate034, .plate042, .plate044, .plate050, .plate064, .plate076, .plate080]
+            return [.plate015, .plate031, .plate034, .plate042, .plate044, .plate050, .plate064, .plate076, .plate080, .plate091]
         case .thoracicOncology:
             return [.plate026, .plate036, .plate038, .plate048, .plate054, .plate058, .plate068, .plate072, .plate073, .plate078, .plate085]
         case .lumbarMIS:
@@ -849,6 +849,7 @@ public enum SurgicalPlateType: String, CaseIterable {
     case plate088 = "plate_088_occipitocervical_fixation_decompression"
     case plate089 = "plate_089_cubital_tunnel_submuscular_transposition"
     case plate090 = "plate_090_carpal_tunnel_release_recurrent_motor"
+    case plate091 = "plate_091_anterior_cervical_corpectomy_fusion"
 
     public var subSection: AtlasSubSection {
         for section in AtlasSubSection.allCases {
@@ -955,6 +956,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate088: return 88
         case .plate089: return 89
         case .plate090: return 90
+        case .plate091: return 91
         }
     }
 
@@ -1054,6 +1056,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate088: return "88: Occipitocervical Fixation (OCF)"
         case .plate089: return "89: Cubital Tunnel Transposition"
         case .plate090: return "90: Carpal Tunnel Release (CTR)"
+        case .plate091: return "91: ACCF C6 Corpectomy"
         }
     }
 
@@ -1149,6 +1152,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate088: return "Occipitocervical Fixation (OCF) & Decompression — Craniocervical Instability Metrics, Suboccipital Decompression & Occiput-to-C4 Screw-Rod Reconstruction"
         case .plate089: return "Cubital Tunnel Syndrome & Submuscular Ulnar Nerve Transposition — In-Situ Decompression, FCU Motor Branch Sparing & Learmonth Procedure"
         case .plate090: return "Carpal Tunnel Syndrome & Open Carpal Tunnel Release (CTR) — Retinacular Decompression, Thenar Motor Variants & Fat Pad Landmark"
+        case .plate091: return "Anterior Cervical Corpectomy & Fusion (ACCF at C6) — Expandable Titanium Cage & Anterior Locking Plate"
         }
     }
 
@@ -1244,6 +1248,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate088: return "shield.checkered"
         case .plate089: return "hand.point.right.fill"
         case .plate090: return "hand.raised.slash.fill"
+        case .plate091: return "cylinder.split.1x2.fill"
         }
     }
 

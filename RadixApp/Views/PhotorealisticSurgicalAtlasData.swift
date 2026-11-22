@@ -1079,6 +1079,80 @@ extension SurgicalPlateType {
                 )
             ]
 
+
+        case .plate091:
+            return [
+                SurgicalCallout(
+                    id: "plate_091_1",
+                    title: "Safe Corpectomy Trough (14 - 16 mm)",
+                    structureType: "BONE DECOMPRESSION CORRIDOR",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.18,
+                    normalizedY: 0.55,
+                    description: "Strict 14 - 16 mm wide transverse corpectomy trough cored out through the C6 vertebral body between the bilateral medial uncinate crests.",
+                    surgicalPearl: "The medial uncinate crests define the absolute lateral safety boundary; staying strictly medial guarantees protection of the vertebral artery in the foramen transversarium."
+                ),
+                SurgicalCallout(
+                    id: "plate_091_2",
+                    title: "C6 Retrovertebral Myelomalacia",
+                    structureType: "DIAGNOSTIC PATHOLOGY",
+                    color: ObsidianTheme.neonRose,
+                    normalizedX: 0.18,
+                    normalizedY: 0.22,
+                    description: "Sagittal and axial T2 MRI demonstrating marked retrovertebral thecal sac narrowing behind C6 with hyperintense intrinsic cord signal change (myelomalacia).",
+                    surgicalPearl: "Multilevel or retrovertebral disease spanning two disc spaces behind a single vertebral body is the canonical indication for corpectomy rather than multi-level ACDF."
+                ),
+                SurgicalCallout(
+                    id: "plate_091_3",
+                    title: "Caspar Distraction Mechanics (C5 to C7)",
+                    structureType: "CORRIDOR STABILIZATION",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.50,
+                    normalizedY: 0.22,
+                    description: "Slender 2.5 mm vertical threaded Caspar distraction pins anchored in the midline anterior vertebral bodies of C5 and C7 across the corpectomy defect.",
+                    surgicalPearl: "Parallel Caspar distraction restores native cervical lordosis and opens the corpectomy window for safe instrumentation and cage insertion."
+                ),
+                SurgicalCallout(
+                    id: "plate_091_4",
+                    title: "Unroofed Thecal Sac Dura (C5 to C7)",
+                    structureType: "EXPANSIVE SPINAL DECOMPRESSION",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.50,
+                    normalizedY: 0.50,
+                    description: "Continuous exposure of pristine, glistening blue-white thecal sac dura extending from the inferior endplate of C5 to the superior endplate of C7 following posterior cortical shell and PLL removal.",
+                    surgicalPearl: "Thin the posterior cortical shell of C6 to an eggshell with a diamond burr before elevating with micro-curettes; never exert downward force onto the myelopathic cord."
+                ),
+                SurgicalCallout(
+                    id: "plate_091_5",
+                    title: "Preserved Apophyseal Endplates",
+                    structureType: "STRUCTURAL FUSION SEAT",
+                    color: ObsidianTheme.neonEmerald,
+                    normalizedX: 0.50,
+                    normalizedY: 0.62,
+                    description: "Carefully prepared cartilaginous endplates at C5 inferiorly and C7 superiorly, decorticated to vascular bone while strictly preserving the dense cortical apophyseal rings.",
+                    surgicalPearl: "Preserving the peripheral cortical apophyseal rings resists cage subsidence into cancellous bone under physiologic axial loading."
+                ),
+                SurgicalCallout(
+                    id: "plate_091_6",
+                    title: "Expandable Porous Titanium Strut",
+                    structureType: "ANTERIOR COLUMN RECONSTRUCTION",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.82,
+                    normalizedY: 0.45,
+                    description: "Telescoping 3D-printed porous titanium corpectomy cage expanded in-situ against C5 and C7 endplates, densely packed with autologous cancellous bone matrix.",
+                    surgicalPearl: "Expand the cage under direct visualization and lateral fluoroscopy until firm endplate contact is achieved, restoring anatomical lordosis without over-distraction."
+                ),
+                SurgicalCallout(
+                    id: "plate_091_7",
+                    title: "Bridging Locking Plate & 5 mm Rule",
+                    structureType: "RIGID ANTERIOR NEUTRALIZATION",
+                    color: ObsidianTheme.neonEmerald,
+                    normalizedX: 0.82,
+                    normalizedY: 0.32,
+                    description: "Low-profile titanium cervical plate bridging C5 to C7 with 4 flush locking screws, maintaining strict >= 5 mm clearance from intact adjacent discs (C4-C5 and C7-T1).",
+                    surgicalPearl: "Always neutralize a corpectomy strut with a rigid anterior plate; unplated corpectomy struts suffer high rates of kickout, construct displacement, and airway compromise."
+                )
+            ]
         case .plate089:
             return [
                 SurgicalCallout(
@@ -3085,6 +3159,15 @@ case .plate059:
                 ApproachSequentialStep(stepNumber: 5, title: "Proximal Antebrachial Fascia Release & Closure", detail: "Under direct vision with a lighted retractor or Senn retractor, divide the distal antebrachial fascia across the wrist flexion crease. Inspect the median nerve and radial recurrent motor branch; close skin with interrupted nylon eversion sutures.")
             ]
 
+
+        case .plate091:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Anterolateral Exposure & Caspar Distraction", detail: "Right anterolateral transverse incision at C6; develop Smith-Robinson visceral-carotid interval, elevate longus colli subperiosteally, and anchor midline Caspar pins in C5 and C7."),
+                ApproachSequentialStep(stepNumber: 2, title: "Adjacent Intervertebral Discectomies", detail: "Perform complete discectomies at C5-C6 and C6-C7 back to PLL, defining the superior and inferior boundaries of the C6 vertebral body."),
+                ApproachSequentialStep(stepNumber: 3, title: "Burr Corpectomy (14 - 16 mm Width)", detail: "Core out the central 14 - 16 mm of C6 between the uncinate gutters down to the posterior cortex, preserving a lateral bone shell to protect the vertebral arteries."),
+                ApproachSequentialStep(stepNumber: 4, title: "Posterior Wall & PLL Decompression", detail: "Thin posterior cortical shell to an eggshell with a diamond burr, elevate with micro-curettes, and resect PLL to achieve wide continuous dural decompression from C5 to C7."),
+                ApproachSequentialStep(stepNumber: 5, title: "Expandable Cage & Bridging Plate Fixation", detail: "Seat and expand porous titanium cage packed with autograft against C5/C7 endplates; bridge with 4-hole anterior locking plate maintaining 5 mm adjacent level clearance.")
+            ]
         case .plate089:
             return [
                 ApproachSequentialStep(stepNumber: 1, title: "Diagnostic Ultrasound/MRI & Patient Positioning", detail: "Confirm cubital tunnel compression (ulnar nerve CSA > 10 mm²). Position patient supine with arm abducted 90° on an armboard and forearm supinated. Mark a curved 10–12 cm retro-epicondylar incision centered between the medial epicondyle and olecranon."),
@@ -3772,6 +3855,14 @@ case .plate059:
                 "DISABLING PALMAR HYPERPATHIA & NEUROMA VIA PALMAR CUTANEOUS NERVE INJURY: Plunging across the wrist crease radial to the palmaris longus or making transverse wrist incisions lacerates the palmar cutaneous branch of the median nerve (PCBMN), causing intractable burning scar pain and neuroma formation."
             ]
 
+
+        case .plate091:
+            return [
+                "Vertebral Artery Laceration: Never exceed 14 - 16 mm corpectomy width or penetrate the lateral uncinate cortex; vertebral arteries course directly lateral to the uncinates.",
+                "Myelopathic Cord Contusion: Never apply downward pressure with burrs or instruments against the posterior cortical shell overlying the compressed spinal cord.",
+                "Cage Displacement & Kickout: Always neutralize corpectomy struts with a rigid anterior locking plate; stand-alone struts carry severe risks of airway compromise.",
+                "Adjacent Segment Ossification (ASO): Maintain strict >= 5 mm clearance between anterior plate margins and adjacent mobile disc spaces (C4-C5 and C7-T1)."
+            ]
         case .plate089:
             return [
                 "IATROGENIC ULNAR NERVE KINKING & CONDUCTION BLOCK VIA INADEQUATE SEPTAL RESECTION: Omitting the 2 cm medial intermuscular septum resection causes the transposed nerve to bowstring across a razor-sharp fibrous edge as it travels anteriorly, precipitating acute postoperative conduction block or permanent intrinsic hand atrophy.",
