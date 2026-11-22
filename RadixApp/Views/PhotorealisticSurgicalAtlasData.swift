@@ -2225,6 +2225,99 @@ extension SurgicalPlateType {
                     surgicalPearl: "Water-tight dural closure with non-absorbable monofilament suture prevents postoperative CSF fistula and pseudomeningocele formation."
                 )
             ]
+        case .plate106:
+            return [
+                SurgicalCallout(
+                    id: "plate_106_1",
+                    title: "Sacroiliac Joint Line",
+                    structureType: "PELVIC ARTICULATION",
+                    color: ObsidianTheme.neonRose,
+                    normalizedX: 0.08,
+                    normalizedY: 0.30,
+                    description: "High-resolution coronal oblique pelvic CT confirming joint space narrowing, subchondral sclerosis, and subchondral cysts across the auricular surface of the SI joint.",
+                    surgicalPearl: "Coronal oblique CT confirms joint space narrowing, subchondral sclerosis, and vacuum phenomenon indicative of severe sacroiliac arthropathy."
+                ),
+                SurgicalCallout(
+                    id: "plate_106_2",
+                    title: "Sacral Ala Safe Corridor",
+                    structureType: "ANTERIOR BOUNDARY",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.25,
+                    normalizedY: 0.30,
+                    description: "Anatomical safety corridor bounded anteriorly by the anterior sacral cortex, along which the L5 ventral ramus and internal iliac vessels traverse.",
+                    surgicalPearl: "Trajectories must remain strictly posterior to the anterior sacral cortex to avoid injury to the descending L5 ventral ramus and internal iliac vessels."
+                ),
+                SurgicalCallout(
+                    id: "plate_106_3",
+                    title: "Greater Sciatic Notch",
+                    structureType: "CAUDAL BOUNDARY",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.20,
+                    normalizedY: 0.65,
+                    description: "Inferior bony boundary of the transiliac corridor, housing the superior gluteal neurovascular bundle and the exiting sciatic nerve.",
+                    surgicalPearl: "Maintain implant trajectories at least 10 mm superior to the greater sciatic notch to shield the superior gluteal neurovascular bundle."
+                ),
+                SurgicalCallout(
+                    id: "plate_106_4",
+                    title: "Lateral Transiliac Trajectory",
+                    structureType: "SURGICAL APPROACH",
+                    color: ObsidianTheme.neonEmerald,
+                    normalizedX: 0.58,
+                    normalizedY: 0.25,
+                    description: "Cannulated guide pins and soft-tissue protector sleeves docked perpendicular to the outer table of the ilium through a minimally invasive 3 cm gluteal incision.",
+                    surgicalPearl: "Cannulated guide pins dock on the outer table of the ilium through a small 3 cm gluteal stab incision, targeting the S1 and S2 sacral ala."
+                ),
+                SurgicalCallout(
+                    id: "plate_106_5",
+                    title: "Inlet View (Anterior Cortex Sparing)",
+                    structureType: "FLUOROSCOPIC INLET",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.47,
+                    normalizedY: 0.65,
+                    description: "Pelvic inlet fluoroscopic projection confirming pins and drill sleeves remain safely within the sacral ala without breaching the anterior cortex.",
+                    surgicalPearl: "Pelvic inlet view confirms implants remain confined within the bone envelope and do not breach the anterior cortex of the sacral ala."
+                ),
+                SurgicalCallout(
+                    id: "plate_106_6",
+                    title: "Outlet View (S1 Foramen Margin)",
+                    structureType: "FLUOROSCOPIC OUTLET",
+                    color: ObsidianTheme.neonPurple,
+                    normalizedX: 0.58,
+                    normalizedY: 0.65,
+                    description: "Pelvic outlet fluoroscopic view verifying that implant trajectories stay superior to the first anterior sacral neural foramen (S1 foramen).",
+                    surgicalPearl: "Pelvic outlet view verifies adequate cranial clearance, ensuring the guide pins and implants do not violate the S1 first sacral neural foramen."
+                ),
+                SurgicalCallout(
+                    id: "plate_106_7",
+                    title: "Triangular Porous Implants (iFuse)",
+                    structureType: "ANTI-ROTATIONAL STABILIZATION",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.78,
+                    normalizedY: 0.25,
+                    description: "Two longitudinal straight equilateral triangular titanium prisms with 3D porous trabecular surfaces bridging horizontally across the S1 joint space.",
+                    surgicalPearl: "Two parallel triangular titanium trabecular prisms cross the joint in S1, providing immediate rotational stability and bone ingrowth."
+                ),
+                SurgicalCallout(
+                    id: "plate_106_8",
+                    title: "Threaded Compression Screw (TORQ)",
+                    structureType: "TRANSARTICULAR COMPRESSION",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.78,
+                    normalizedY: 0.65,
+                    description: "One 3D-printed porous titanium threaded compression screw (iFuse TORQ) placed in S2, providing active interfragmentary joint compression.",
+                    surgicalPearl: "One 3D-printed porous titanium threaded compression screw placed in S2 provides active interfragmentary joint compression."
+                ),
+                SurgicalCallout(
+                    id: "plate_106_9",
+                    title: "Rigid Sacropelvic Arthrodesis",
+                    structureType: "POSTOPERATIVE RADIOGRAPHY",
+                    color: ObsidianTheme.neonEmerald,
+                    normalizedX: 0.95,
+                    normalizedY: 0.30,
+                    description: "Postoperative radiograph confirming solid transarticular placement of all three parallel implants docking deep into the dense cancellous bone of the sacral ala.",
+                    surgicalPearl: "Postoperative radiograph demonstrates solid transarticular placement of all three implants docking deep into the cancellous bone of the sacral ala."
+                )
+            ]
         case .plate089:
             return [
                 SurgicalCallout(
@@ -4352,6 +4445,14 @@ case .plate059:
                 ApproachSequentialStep(stepNumber: 4, title: "Dural Cleft Incision & Inner Sleeve Excision", detail: "Sharply incise the dural sacs along the medial cleft; excise the inner dural sleeves that lined the bony spur to eliminate the intervening septum."),
                 ApproachSequentialStep(stepNumber: 5, title: "Single-Tube Duraplasty & Cord Untethering", detail: "Suture the dorsal and ventral dural leaves with continuous running 5-0 monofilament sutures, reconstituting a single continuous thecal sac containing both floating, untethered hemicords.")
             ]
+        case .plate106:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Prone Positioning & Tri-Planar Fluoroscopy Setup", detail: "Position the patient prone on a radiolucent Wilson or Jackson table; calibrate C-arm fluoroscopy for true lateral sacrum, pelvic inlet (viewing anterior sacral wall), and pelvic outlet (viewing sacral neural foramina)."),
+                ApproachSequentialStep(stepNumber: 2, title: "Minimally Invasive Gluteal Incision & Pin Docking", detail: "Make a 3 cm longitudinal incision over the lateral gluteal region; under true lateral fluoroscopy, advance a 3.2 mm Steinmann guide pin through the outer iliac cortex targeting the S1 sacral body."),
+                ApproachSequentialStep(stepNumber: 3, title: "First Triangular iFuse Implant Placement (S1 Superior)", detail: "Verify pin trajectory on inlet and outlet views; drill the outer ilium, broach the triangular pathway across the SI joint cartilage, and advance the first triangular porous titanium iFuse implant into the S1 ala."),
+                ApproachSequentialStep(stepNumber: 4, title: "Second Triangular iFuse Placement (S1 Inferior)", detail: "Place a second parallel guide pin 10 to 12 mm caudal to the first within S1; repeat drilling, broaching, and implant delivery under biplanar control, establishing rigid anti-rotational stability."),
+                ApproachSequentialStep(stepNumber: 5, title: "S2 Threaded TORQ Compression Screw Deployment", detail: "Insert a third transarticular guide pin across the S2 segment; advance a cannulated, 3D-printed porous titanium compression screw (iFuse TORQ) and torque down to achieve direct interfragmentary joint compression.")
+            ]
         case .plate089:
             return [
                 ApproachSequentialStep(stepNumber: 1, title: "Diagnostic Ultrasound/MRI & Patient Positioning", detail: "Confirm cubital tunnel compression (ulnar nerve CSA > 10 mm²). Position patient supine with arm abducted 90° on an armboard and forearm supinated. Mark a curved 10–12 cm retro-epicondylar incision centered between the medial epicondyle and olecranon."),
@@ -5130,6 +5231,12 @@ case .plate059:
                 "Premature Dural Violation During Bone Drillout: Opening the thecal sac before complete spur resection allows rotating burr flutes to grab the dural edge or directly lacerate the underlying hemicords, with risk of permanent paraplegia.",
                 "Incomplete Ventral Spur Resection: Failing to drill the spur base completely flush with the anterior vertebral cortex leaves a rigid bone prominence that maintains chronic ventral cord tethering and recurrent neurological deterioration.",
                 "Recurrent Tethering via Inadequate Dural Reconstruction: Omitting complete resection of the inner median dural cuffs leaves a fibrous septum that adheres to the raw cord pial surfaces, causing secondary postoperative cord tethering."
+            ]
+        case .plate106:
+            return [
+                "Anterior Sacral Cortex Breach & L5 Nerve Root Injury: Drifting too far anteriorly on the pelvic inlet view penetrates the anterior cortex of the sacral ala, causing catastrophic laceration of the descending L5 ventral ramus or internal iliac vasculature.",
+                "S1 Sacral Neural Foramen Violation: Plunging inferiorly into the S1 first anterior sacral foramen on the outlet view damages the S1 nerve root, resulting in permanent plantarflexion weakness (gastrocnemius/soleus) and posterior leg radiculopathy.",
+                "Greater Sciatic Notch Violation & Superior Gluteal Laceration: Docking too caudally near the greater sciatic notch lacerates the superior gluteal artery and nerve, producing severe deep intrapelvic hemorrhage and disabling abductor lurch (Trendelenburg gait)."
             ]
         case .plate089:
             return [

@@ -733,7 +733,7 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
         case .thoracicOncology:
             return [.plate026, .plate036, .plate038, .plate048, .plate054, .plate058, .plate068, .plate072, .plate073, .plate078, .plate085, .plate094, .plate103]
         case .lumbarMIS:
-            return [.plate011, .plate007, .plate037, .plate029, .plate028, .plate032, .plate083, .plate087, .plate100, .plate101]
+            return [.plate011, .plate007, .plate037, .plate029, .plate028, .plate032, .plate083, .plate087, .plate100, .plate101, .plate106]
         case .deformitySalvage:
             return [.plate023, .plate024, .plate039, .plate046, .plate071, .plate075, .plate081, .plate095, .plate099, .plate102, .plate104, .plate105]
         case .peripheralNerve:
@@ -743,9 +743,9 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
 }
 
 public enum AtlasCategory: String, CaseIterable {
-    case all = "All Plates (105)"
+    case all = "All Plates (106)"
     case cranial = "Cranial & Skull Base (46)"
-    case spine = "Spine & Peripheral Nerve (59)"
+    case spine = "Spine & Peripheral Nerve (60)"
 
     public var filteredPlates: [SurgicalPlateType] {
         switch self {
@@ -864,6 +864,7 @@ public enum SurgicalPlateType: String, CaseIterable {
     case plate103 = "plate_103_thoracic_metastasis_corpectomy_reconstruction"
     case plate104 = "plate_104_proximal_junctional_failure_revision"
     case plate105 = "plate_105_split_cord_malformation_spur_resection"
+    case plate106 = "plate_106_minimally_invasive_si_joint_arthrodesis"
 
     public var subSection: AtlasSubSection {
         for section in AtlasSubSection.allCases {
@@ -985,6 +986,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate103: return 103
         case .plate104: return 104
         case .plate105: return 105
+        case .plate106: return 106
         }
     }
 
@@ -1099,6 +1101,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate103: return "103: T8 Corpectomy & Cage"
         case .plate104: return "104: PJF Revision to T2"
         case .plate105: return "105: SCM Spur Resection"
+        case .plate106: return "106: SI Joint Arthrodesis"
         }
     }
 
@@ -1209,6 +1212,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate103: return "Thoracic Metastasis: Posterolateral T8 Corpectomy — Costotransversectomy, Expandable Cage Reconstruction & T6–T10 Posterior Fixation"
         case .plate104: return "Proximal Junctional Failure: Definitive Revision Reconstruction — UIV+1 Fracture Collapse, Cranial Extension to T2 & Spinopelvic Multi-Rod Reconstruction"
         case .plate105: return "Split Cord Malformation: Spur Resection & Dural Reconstruction — Pang Type I Diastematomyelia, Extradural Bony Spur Drillout & Single-Tube Duraplasty"
+        case .plate106: return "Minimally Invasive Sacroiliac Joint Arthrodesis — Lateral Transiliac Corridor, Triangular Implants & Threaded Porous Compression Screws (iFuse TORQ)"
         }
     }
 
@@ -1319,6 +1323,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate103: return "cross.case.fill"
         case .plate104: return "arrow.up.and.line.horizontal.and.arrow.down"
         case .plate105: return "scissors"
+        case .plate106: return "bolt.horizontal.fill"
         }
     }
 
