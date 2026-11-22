@@ -965,6 +965,50 @@ extension SurgicalPlateType {
                 )
             ]
 
+        case .plate090:
+            return [
+                SurgicalCallout(
+                    id: "plate_090_1",
+                    title: "Diagnostic Imaging & Palmar Surface Landmarks",
+                    structureType: "ULTRASOUND, T2 MRI & KAPLAN'S CARDINAL LINE",
+                    color: Color.red,
+                    normalizedX: 0.16,
+                    normalizedY: 0.35,
+                    description: "Panel 1 details preoperative neuroimaging and surface landmark mapping. Transverse high-frequency ultrasound confirms severe median nerve compression at the pisiform level (cross-sectional area CSA = 15 mm², normal < 10 mm²) with hypoechoic edema and the classic notch sign. Axial T2 MRI confirms flattening under the taut transverse carpal ligament. Palmar landmarks delineate Kaplan's Cardinal Line, the longitudinal fourth-ray axis (ring finger axis / safe incision corridor), wrist flexion creases, and the radial-sided Palmar Cutaneous Branch of the Median Nerve (PCBMN).",
+                    surgicalPearl: "Always design the incision along the axis of the fourth ray (ring finger); this maximizes safety clearance from the radial-sided motor branch and protects the palmar cutaneous nerve."
+                ),
+                SurgicalCallout(
+                    id: "plate_090_2",
+                    title: "Complete Retinacular Release & Distal Fat Pad",
+                    structureType: "ULNAR-SIDED RELEASE & ANTEBRACHIAL FASCIA DIVISION",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.50,
+                    normalizedY: 0.50,
+                    description: "Panel 2 demonstrates high-definition operative release of the right carpal tunnel (Proximal/Forearm = Bottom, Distal/Palm = Top). Proximally at the wrist, the distal antebrachial fascia is divided across the wrist crease. Centrally in the carpal canal, the Transverse Carpal Ligament is divided step-by-step strictly along its ulnar border, fully unroofing the glistening decompressed median nerve with preserved longitudinal vasa nervorum. Distally in the palm, division extends completely to expose the transverse yellow Distal Palmar Fat Pad, with the curved Superficial Palmar Arterial Arch protected just distal to it.",
+                    surgicalPearl: "The distal palmar fat pad is the definitive landmark of complete transverse carpal ligament release; dividing ligament fibers until this fat pad is reached ensures zero persistent compression."
+                ),
+                SurgicalCallout(
+                    id: "plate_090_3",
+                    title: "Thenar Motor Branch Anatomy & Canonical Variants",
+                    structureType: "EXTRALIGAMENTOUS, SUBLIGAMENTOUS & TRANSLIGAMENTOUS",
+                    color: Color.green,
+                    normalizedX: 0.82,
+                    normalizedY: 0.50,
+                    description: "Panel 3 maps the recurrent thenar motor branch innervating thenar muscles (APB, OP, FPB) and defines the three classic anatomical variants: (A) Extraligamentous (~50%): arises distal to the transverse carpal ligament and loops recurrently; (B) Subligamentous (~30%): arises beneath the ligament and courses under its distal edge; and (C) Transligamentous (~20%): pierces directly THROUGH the ligament fibers, carrying the highest risk of accidental transection. The Palmar Cutaneous Branch (PCBMN) courses safely on the radial side, protected by the ulnar-sided approach.",
+                    surgicalPearl: "Anticipate a transligamentous thenar motor branch in 1 out of 5 patients; dividing the ligament strictly on its ulnar border provides maximum protective distance from these radial motor fibers."
+                ),
+                SurgicalCallout(
+                    id: "plate_090_4",
+                    title: "Three Concise Resident Pearls",
+                    structureType: "HAND SURGERY HARBORS & PEARLS",
+                    color: Color.blue,
+                    normalizedX: 0.50,
+                    normalizedY: 0.90,
+                    description: "Bottom bar highlights three cardinal hand surgery rules: (1) Ulnar-Sided Retinacular Release: Always divide the transverse carpal ligament strictly along its ulnar border in line with the ring finger ray to prevent iatrogenic thenar motor branch transection; (2) Distal Fat Pad Landmark: Continue dividing ligament fibers distally until the transverse fat pad is visualized overlying the superficial palmar arch; and (3) Palmar Cutaneous Branch Safe Zone: Never extend incisions radial to the palmaris longus or across the thenar eminence to prevent disabling neuroma formation.",
+                    surgicalPearl: "After complete release, gently pass a blunt probe proximally beneath the antebrachial fascia and distally beneath the palmar aponeurosis to verify total absence of residual fascial bands."
+                )
+            ]
+
         case .plate089:
             return [
                 SurgicalCallout(
@@ -2961,6 +3005,15 @@ case .plate059:
                 ApproachSequentialStep(stepNumber: 4, title: "Controlled Liquid Embolic / Particle Infusion", detail: "Infuse liquid embolic (Onyx-18 / Squid) slowly under continuous subtracted fluoroscopy, creating a proximal plug and forcing embolic material distally into the neomembrane capillary network. Terminate injection once dense capillary casting and branch truncation are achieved without proximal reflux.")
             ]
 
+        case .plate090:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Diagnostic Ultrasound/MRI & Surface Mapping", detail: "Confirm carpal tunnel compression (median nerve CSA > 10 mm²). Map Kaplan's cardinal line from the first web space to the hook of the hamate and draw the longitudinal axis of the fourth ray (ring finger axis)."),
+                ApproachSequentialStep(stepNumber: 2, title: "Palmar Incision & Subcutaneous Hemostasis", detail: "Make a 2.5–3.0 cm longitudinal incision along the ulnar axis of the fourth ray, starting distal to the distal wrist crease and ending 5 mm proximal to Kaplan's line. Cauterize superficial venous bleeders with fine bipolar forceps."),
+                ApproachSequentialStep(stepNumber: 3, title: "Ulnar-Sided Division of Transverse Carpal Ligament", detail: "Divide the palmar fascia and identify the distal border of the transverse carpal ligament. Using a blunt probe or elevator, divide the ligament strictly along its ulnar border in line with the fourth ray, widely separating cut edges."),
+                ApproachSequentialStep(stepNumber: 4, title: "Distal Fat Pad Exposure & Superficial Arch Protection", detail: "Extend the ligament release distally until the glistening yellow Distal Palmar Fat Pad is completely uncovered. Directly visualize and protect the superficial palmar arterial arch resting just distal to the fat pad."),
+                ApproachSequentialStep(stepNumber: 5, title: "Proximal Antebrachial Fascia Release & Closure", detail: "Under direct vision with a lighted retractor or Senn retractor, divide the distal antebrachial fascia across the wrist flexion crease. Inspect the median nerve and radial recurrent motor branch; close skin with interrupted nylon eversion sutures.")
+            ]
+
         case .plate089:
             return [
                 ApproachSequentialStep(stepNumber: 1, title: "Diagnostic Ultrasound/MRI & Patient Positioning", detail: "Confirm cubital tunnel compression (ulnar nerve CSA > 10 mm²). Position patient supine with arm abducted 90° on an armboard and forearm supinated. Mark a curved 10–12 cm retro-epicondylar incision centered between the medial epicondyle and olecranon."),
@@ -3636,6 +3689,14 @@ case .plate059:
                 "IRREVERSIBLE BLINDNESS VIA MENINGO-OPHTHALMIC ANASTOMOSIS: The anterior MMA can connect with the ophthalmic artery via the superior orbital fissure or recurrent meningeal branch. Always perform high-magnification roadmap angiography; embolic reflux or forward migration into the ophthalmic artery causes instant, catastrophic central retinal artery occlusion and permanent monocular blindness.",
                 "FACIAL NERVE PALSY VIA PETROSAL BRANCH: The petrosal branch of the MMA supplies the facial nerve (CN VII) in the Fallopian canal / geniculate ganglion. Always advance the microcatheter tip DISTAL to the petrosal branch takeoff before injecting liquid embolic or particles; embolization of the petrosal artery causes acute, permanent peripheral facial palsy (Bell's palsy).",
                 "PROXIMAL REFLUX INTO MAXILLARY OR CAROTID ARTERY: Never push liquid embolic aggressively against resistance. Maintain continuous fluoroscopic visualization of the catheter tip to prevent reflux back into the internal maxillary artery or external carotid system, which can cause skin necrosis, jaw claudication, or distal stroke."
+            ]
+
+        case .plate090:
+            return [
+                "PERMANENT THENAR DENERVATION & APE-HAND DEFORMITY VIA MOTOR BRANCH TRANSECTION: Inadvertently dividing the ligament too far radially or encountering an unrecognized transligamentous motor branch (20% incidence) lacerates the thenar branch, causing irreversible atrophy of APB, OP, and FPB with loss of thumb opposition.",
+                "PULSATILE PALMAR HEMATOMA & DIGITAL ISCHEMIA VIA SUPERFICIAL PALMAR ARCH LACERATION: Extending the retinacular incision distal to Kaplan's line or blindly plunging scissors through the distal fat pad lacerates the superficial palmar arterial arch, producing torrential arterial bleeding in the confined palmar space.",
+                "PERSISTENT CARPAL TUNNEL SYMPTOMS VIA INCOMPLETE DISTAL RETINACULAR RELEASE: Failing to divide the thickened distal-most fibers of the transverse carpal ligament overlying the distal fat pad leaves a tight constricting band that prevents median nerve decompression and causes immediate surgical failure.",
+                "DISABLING PALMAR HYPERPATHIA & NEUROMA VIA PALMAR CUTANEOUS NERVE INJURY: Plunging across the wrist crease radial to the palmaris longus or making transverse wrist incisions lacerates the palmar cutaneous branch of the median nerve (PCBMN), causing intractable burning scar pain and neuroma formation."
             ]
 
         case .plate089:
