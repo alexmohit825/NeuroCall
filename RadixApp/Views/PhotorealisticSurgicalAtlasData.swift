@@ -965,6 +965,67 @@ extension SurgicalPlateType {
                 )
             ]
 
+        case .plate085:
+            return [
+                SurgicalCallout(
+                    id: "plate_085_1",
+                    title: "Diagnostic MRI & Resection Margins",
+                    structureType: "T2 MRI & MARGIN CLASSIFICATION",
+                    color: Color.red,
+                    normalizedX: 0.16,
+                    normalizedY: 0.35,
+                    description: "Panel 1 presents diagnostic MRI and oncologic margin classification. Sagittal and axial T2 MRI reveal a large, lobulated, markedly T2-hyperintense sacral chordoma with fibrous septations expanding the lower sacrum and extending into the presacral pelvic space, displacing the rectum. The margin classification defines: (1) High Sacrectomy (S1–S2): Osteotomy above S2 or through S1 removes the entire distal sacrum en bloc (S1–S5 red), uncoupling the spine from the pelvis and sacrificing lower sacral roots; and (2) Low Sacrectomy (Below S3): Osteotomy below S3 preserves S1–S3 roots (bone tan) and resects S4–S5 (red), preserving voluntary bowel, bladder, and sexual continence.",
+                    surgicalPearl: "In high sacrectomy, an en-bloc oncologic margin (R0) requires complete removal of all sacral segments distal to the osteotomy line; sparing at least one S2 and one S3 root preserves functional continence."
+                ),
+                SurgicalCallout(
+                    id: "plate_085_2",
+                    title: "Combined Anterior-Posterior Surgical Release",
+                    structureType: "TWO-STAGE RETROPERITONEAL & POSTERIOR EN-BLOC CORRIDORS",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.50,
+                    normalizedY: 0.50,
+                    description: "Panel 2 details the two-stage surgical release. Stage 1 (Anterior Retroperitoneal Release): Supine/retroperitoneal exposure with lateral mobilization of the bifurcating common and internal iliac vessels, identification and lateralization of bilateral ureters, anterior mobilization of the rectum away from the presacral tumor pseudocapsule, and insertion of a protective synthetic spacer in the presacral plane. Stage 2 (Posterior En-Bloc Resection): Prone posterior midline approach dividing the sacrotuberous and sacrospinous ligaments, high-speed burr osteotomy through the bilateral sacroiliac joints and sacrum into the anterior spacer, and delivery of the intact tumor-bearing sacral specimen en bloc with negative margins.",
+                    surgicalPearl: "Never attempt high sacrectomy posteriorly without prior anterior mobilization of the iliac vessels and rectum; the anterior spacer provides a safe stopping barrier for posterior osteotomy burrs."
+                ),
+                SurgicalCallout(
+                    id: "plate_085_3",
+                    title: "Spinopelvic Reconstruction & Soft Tissue Closure",
+                    structureType: "TRIANGULAR SPINOPELVIC FRAME & GLUTEUS MAXIMUS FLAP",
+                    color: Color.green,
+                    normalizedX: 0.82,
+                    normalizedY: 0.50,
+                    description: "Panel 3 illustrates definitive mechanical reconstruction and soft-tissue dead space management. Triangular Spinopelvic Fixation: Dual bilateral L3–L5 pedicle screws (6 screws) connected via dual divergent longitudinal rods to quad bilateral iliac screws (4 screws total, 2 per iliac wing), triangulated by a transverse pelvic cross-link connector bar. An expandable porous titanium mesh cage spans the vertical defect from the L5 inferior endplate to the pelvic bar to resist downward axial shear forces. Soft-tissue closure is achieved via bilateral gluteus maximus myocutaneous advancement flaps (V-Y advancement) mobilized medially to obliterate dead space and prevent pelvic herniation.",
+                    surgicalPearl: "High sacrectomy completely disrupts the posterior pelvic ring; quad iliac screws combined with dual-rod triangulation and a structural anterior column cage are mandatory to prevent early mechanical failure."
+                ),
+                SurgicalCallout(
+                    id: "plate_085_4",
+                    title: "Three Concise Resident Pearls",
+                    structureType: "ONCOLOGIC RESECTION & PELVIC STABILITY RULES",
+                    color: Color.blue,
+                    normalizedX: 0.50,
+                    normalizedY: 0.90,
+                    description: "Bottom bar highlights three cardinal surgical oncology rules: (1) Continence Preservation: Sparing at least one S2 and one S3 nerve root maintains functional urinary and fecal continence; bilateral sacrifice above S3 causes permanent neurogenic incontinence; (2) Anterior Vascular Release: Never attempt high sacrectomy posteriorly without prior anterior mobilization of the iliac vessels and rectum; prevents catastrophic vascular injury; and (3) Triangular Spinopelvic Fixation: High sacrectomy completely breaks the pelvic ring; quad iliac screws with dual-rod triangulation are mandatory to prevent early hardware failure.",
+                    surgicalPearl: "Sacral chordoma has a high propensity for local recurrence (>80% with intralesional capsular violation vs <10% with wide R0 margins); en-bloc resection with pristine microscopic negative margins is the sole determinant of long-term disease-free survival."
+                )
+            ]
+
+        case .plate085:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Preoperative Staging & Multi-Disciplinary Planning", detail: "Obtain high-resolution sagittal/axial T2 MRI, pelvic CT angiogram, and CT-guided core biopsy (via a posterior midline tract that will be excised en bloc). Confirm chordoma histology and coordinate a two-team surgical plan with spine surgery, vascular surgery, and plastic surgery."),
+                ApproachSequentialStep(stepNumber: 2, title: "Stage 1 — Anterior Retroperitoneal Release & Spacer Placement", detail: "Position the patient supine. Perform a lower midline laparotomy or retroperitoneal approach. Mobilize the common and internal iliac vessels and bilateral ureters laterally. Dissect the rectum off the presacral tumor pseudocapsule, ligate middle sacral vessels, and insert a radiopaque synthetic spacer (silastic/Gore-Tex) in the presacral cleavage plane."),
+                ApproachSequentialStep(stepNumber: 3, title: "Stage 2 — Prone Posterior Midline Exposure & Ligamentous Release", detail: "Position patient prone on a radiolucent Jackson table with pelvic positioning rolls. Make a posterior midline incision incorporating the prior biopsy tract. Divide the sacrotuberous and sacrospinous ligaments to detach the pelvic floor muscles from the sacrum."),
+                ApproachSequentialStep(stepNumber: 4, title: "En-Bloc Sacral & Iliac Osteotomies with Specimen Delivery", detail: "Perform laminectomies to expose the thecal sac. Ligate and divide lower sacral nerve roots according to planned margin level. Using high-speed burrs and osteotomes, cut bilaterally through the sacroiliac joints/iliac wings and perform a transverse sacral osteotomy across S1 or S2 into the anterior spacer. Deliver the intact tumor specimen en bloc."),
+                ApproachSequentialStep(stepNumber: 5, title: "Triangular Spinopelvic Reconstruction & Gluteus Flap Closure", detail: "Place pedicle screws from L3 to L5 and quad iliac screws (two in each iliac wing). Connect screws with dual contoured rods, a transverse pelvic cross-link connector bar, and an expandable vertical mesh cage between L5 and the pelvis. Mobilize bilateral gluteus maximus advancement flaps for tension-free dead space closure.")
+            ]
+
+        case .plate085:
+            return [
+                "FATAL INTERNAL ILIAC VESSEL LACERATION VIA POSTERIOR-ONLY BLIND RESECTION: Attempting sacral osteotomy or specimen mobilization posteriorly without prior anterior mobilization of the iliac vessels and presacral venous plexus tears the tethered internal iliac vessels, producing catastrophic, inaccessible retroperitoneal exsanguination. Stage 1 anterior release and protective spacer placement are absolute requirements.",
+                "INTRATUMORAL CAPSULAR VIOLATION & LOCAL RECURRENCE: Breaching the chordoma pseudocapsule during osteotomies or blunt specimen traction spills gelatinous tumor cells across the pelvic and gluteal beds, increasing local recurrence from <10% (wide R0 margin) to >80% (intralesional). The osteotomy lines must maintain continuous normal bone and soft-tissue margins around the tumor.",
+                "MASSIVE PELVIC HERNIATION & WOUND DEHISCENCE VIA INADEQUATE DEAD SPACE CLOSURE: High sacrectomy creates an enormous empty pelvic cavity. Failure to obliterate this dead space with robust vascularized muscle (bilateral gluteus maximus advancement flaps or rectus abdominis myocutaneous flaps) leads to small bowel herniation, perineal wound breakdown, and fatal deep pelvic infection.",
+                "EARLY MECHANICAL FAILURE & NONUNION VIA INSUFFICIENT TRIANGULATION: High sacrectomy completely uncouples the spine from the pelvic ring. Relying on standard single iliac screws or omitting transverse cross-link bars results in rapid hardware fatigue, rod fracture, and screw pullout under cyclical axial and rotational shear forces; quad iliac screws with dual-rod triangulation and an anterior column structural cage are mandatory."
+            ]
+
         case .plate084:
             return [
                 SurgicalCallout(
@@ -2741,6 +2802,67 @@ case .plate059:
                 ApproachSequentialStep(stepNumber: 4, title: "Controlled Liquid Embolic / Particle Infusion", detail: "Infuse liquid embolic (Onyx-18 / Squid) slowly under continuous subtracted fluoroscopy, creating a proximal plug and forcing embolic material distally into the neomembrane capillary network. Terminate injection once dense capillary casting and branch truncation are achieved without proximal reflux.")
             ]
 
+        case .plate085:
+            return [
+                SurgicalCallout(
+                    id: "plate_085_1",
+                    title: "Diagnostic MRI & Resection Margins",
+                    structureType: "T2 MRI & MARGIN CLASSIFICATION",
+                    color: Color.red,
+                    normalizedX: 0.16,
+                    normalizedY: 0.35,
+                    description: "Panel 1 presents diagnostic MRI and oncologic margin classification. Sagittal and axial T2 MRI reveal a large, lobulated, markedly T2-hyperintense sacral chordoma with fibrous septations expanding the lower sacrum and extending into the presacral pelvic space, displacing the rectum. The margin classification defines: (1) High Sacrectomy (S1–S2): Osteotomy above S2 or through S1 removes the entire distal sacrum en bloc (S1–S5 red), uncoupling the spine from the pelvis and sacrificing lower sacral roots; and (2) Low Sacrectomy (Below S3): Osteotomy below S3 preserves S1–S3 roots (bone tan) and resects S4–S5 (red), preserving voluntary bowel, bladder, and sexual continence.",
+                    surgicalPearl: "In high sacrectomy, an en-bloc oncologic margin (R0) requires complete removal of all sacral segments distal to the osteotomy line; sparing at least one S2 and one S3 root preserves functional continence."
+                ),
+                SurgicalCallout(
+                    id: "plate_085_2",
+                    title: "Combined Anterior-Posterior Surgical Release",
+                    structureType: "TWO-STAGE RETROPERITONEAL & POSTERIOR EN-BLOC CORRIDORS",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.50,
+                    normalizedY: 0.50,
+                    description: "Panel 2 details the two-stage surgical release. Stage 1 (Anterior Retroperitoneal Release): Supine/retroperitoneal exposure with lateral mobilization of the bifurcating common and internal iliac vessels, identification and lateralization of bilateral ureters, anterior mobilization of the rectum away from the presacral tumor pseudocapsule, and insertion of a protective synthetic spacer in the presacral plane. Stage 2 (Posterior En-Bloc Resection): Prone posterior midline approach dividing the sacrotuberous and sacrospinous ligaments, high-speed burr osteotomy through the bilateral sacroiliac joints and sacrum into the anterior spacer, and delivery of the intact tumor-bearing sacral specimen en bloc with negative margins.",
+                    surgicalPearl: "Never attempt high sacrectomy posteriorly without prior anterior mobilization of the iliac vessels and rectum; the anterior spacer provides a safe stopping barrier for posterior osteotomy burrs."
+                ),
+                SurgicalCallout(
+                    id: "plate_085_3",
+                    title: "Spinopelvic Reconstruction & Soft Tissue Closure",
+                    structureType: "TRIANGULAR SPINOPELVIC FRAME & GLUTEUS MAXIMUS FLAP",
+                    color: Color.green,
+                    normalizedX: 0.82,
+                    normalizedY: 0.50,
+                    description: "Panel 3 illustrates definitive mechanical reconstruction and soft-tissue dead space management. Triangular Spinopelvic Fixation: Dual bilateral L3–L5 pedicle screws (6 screws) connected via dual divergent longitudinal rods to quad bilateral iliac screws (4 screws total, 2 per iliac wing), triangulated by a transverse pelvic cross-link connector bar. An expandable porous titanium mesh cage spans the vertical defect from the L5 inferior endplate to the pelvic bar to resist downward axial shear forces. Soft-tissue closure is achieved via bilateral gluteus maximus myocutaneous advancement flaps (V-Y advancement) mobilized medially to obliterate dead space and prevent pelvic herniation.",
+                    surgicalPearl: "High sacrectomy completely disrupts the posterior pelvic ring; quad iliac screws combined with dual-rod triangulation and a structural anterior column cage are mandatory to prevent early mechanical failure."
+                ),
+                SurgicalCallout(
+                    id: "plate_085_4",
+                    title: "Three Concise Resident Pearls",
+                    structureType: "ONCOLOGIC RESECTION & PELVIC STABILITY RULES",
+                    color: Color.blue,
+                    normalizedX: 0.50,
+                    normalizedY: 0.90,
+                    description: "Bottom bar highlights three cardinal surgical oncology rules: (1) Continence Preservation: Sparing at least one S2 and one S3 nerve root maintains functional urinary and fecal continence; bilateral sacrifice above S3 causes permanent neurogenic incontinence; (2) Anterior Vascular Release: Never attempt high sacrectomy posteriorly without prior anterior mobilization of the iliac vessels and rectum; prevents catastrophic vascular injury; and (3) Triangular Spinopelvic Fixation: High sacrectomy completely breaks the pelvic ring; quad iliac screws with dual-rod triangulation are mandatory to prevent early hardware failure.",
+                    surgicalPearl: "Sacral chordoma has a high propensity for local recurrence (>80% with intralesional capsular violation vs <10% with wide R0 margins); en-bloc resection with pristine microscopic negative margins is the sole determinant of long-term disease-free survival."
+                )
+            ]
+
+        case .plate085:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Preoperative Staging & Multi-Disciplinary Planning", detail: "Obtain high-resolution sagittal/axial T2 MRI, pelvic CT angiogram, and CT-guided core biopsy (via a posterior midline tract that will be excised en bloc). Confirm chordoma histology and coordinate a two-team surgical plan with spine surgery, vascular surgery, and plastic surgery."),
+                ApproachSequentialStep(stepNumber: 2, title: "Stage 1 — Anterior Retroperitoneal Release & Spacer Placement", detail: "Position the patient supine. Perform a lower midline laparotomy or retroperitoneal approach. Mobilize the common and internal iliac vessels and bilateral ureters laterally. Dissect the rectum off the presacral tumor pseudocapsule, ligate middle sacral vessels, and insert a radiopaque synthetic spacer (silastic/Gore-Tex) in the presacral cleavage plane."),
+                ApproachSequentialStep(stepNumber: 3, title: "Stage 2 — Prone Posterior Midline Exposure & Ligamentous Release", detail: "Position patient prone on a radiolucent Jackson table with pelvic positioning rolls. Make a posterior midline incision incorporating the prior biopsy tract. Divide the sacrotuberous and sacrospinous ligaments to detach the pelvic floor muscles from the sacrum."),
+                ApproachSequentialStep(stepNumber: 4, title: "En-Bloc Sacral & Iliac Osteotomies with Specimen Delivery", detail: "Perform laminectomies to expose the thecal sac. Ligate and divide lower sacral nerve roots according to planned margin level. Using high-speed burrs and osteotomes, cut bilaterally through the sacroiliac joints/iliac wings and perform a transverse sacral osteotomy across S1 or S2 into the anterior spacer. Deliver the intact tumor specimen en bloc."),
+                ApproachSequentialStep(stepNumber: 5, title: "Triangular Spinopelvic Reconstruction & Gluteus Flap Closure", detail: "Place pedicle screws from L3 to L5 and quad iliac screws (two in each iliac wing). Connect screws with dual contoured rods, a transverse pelvic cross-link connector bar, and an expandable vertical mesh cage between L5 and the pelvis. Mobilize bilateral gluteus maximus advancement flaps for tension-free dead space closure.")
+            ]
+
+        case .plate085:
+            return [
+                "FATAL INTERNAL ILIAC VESSEL LACERATION VIA POSTERIOR-ONLY BLIND RESECTION: Attempting sacral osteotomy or specimen mobilization posteriorly without prior anterior mobilization of the iliac vessels and presacral venous plexus tears the tethered internal iliac vessels, producing catastrophic, inaccessible retroperitoneal exsanguination. Stage 1 anterior release and protective spacer placement are absolute requirements.",
+                "INTRATUMORAL CAPSULAR VIOLATION & LOCAL RECURRENCE: Breaching the chordoma pseudocapsule during osteotomies or blunt specimen traction spills gelatinous tumor cells across the pelvic and gluteal beds, increasing local recurrence from <10% (wide R0 margin) to >80% (intralesional). The osteotomy lines must maintain continuous normal bone and soft-tissue margins around the tumor.",
+                "MASSIVE PELVIC HERNIATION & WOUND DEHISCENCE VIA INADEQUATE DEAD SPACE CLOSURE: High sacrectomy creates an enormous empty pelvic cavity. Failure to obliterate this dead space with robust vascularized muscle (bilateral gluteus maximus advancement flaps or rectus abdominis myocutaneous flaps) leads to small bowel herniation, perineal wound breakdown, and fatal deep pelvic infection.",
+                "EARLY MECHANICAL FAILURE & NONUNION VIA INSUFFICIENT TRIANGULATION: High sacrectomy completely uncouples the spine from the pelvic ring. Relying on standard single iliac screws or omitting transverse cross-link bars results in rapid hardware fatigue, rod fracture, and screw pullout under cyclical axial and rotational shear forces; quad iliac screws with dual-rod triangulation and an anterior column structural cage are mandatory."
+            ]
+
         case .plate084:
             return [
                 ApproachSequentialStep(stepNumber: 1, title: "Pterional / Orbitozygomatic (OZO) Craniotomy", detail: "Position patient supine with head rotated 30° contralateral and extended 15°. Perform a frontotemporal or two-piece orbitozygomatic craniotomy, flattening the sphenoid ridge down to the meningo-orbital band."),
@@ -3371,6 +3493,67 @@ case .plate059:
                 "IRREVERSIBLE BLINDNESS VIA MENINGO-OPHTHALMIC ANASTOMOSIS: The anterior MMA can connect with the ophthalmic artery via the superior orbital fissure or recurrent meningeal branch. Always perform high-magnification roadmap angiography; embolic reflux or forward migration into the ophthalmic artery causes instant, catastrophic central retinal artery occlusion and permanent monocular blindness.",
                 "FACIAL NERVE PALSY VIA PETROSAL BRANCH: The petrosal branch of the MMA supplies the facial nerve (CN VII) in the Fallopian canal / geniculate ganglion. Always advance the microcatheter tip DISTAL to the petrosal branch takeoff before injecting liquid embolic or particles; embolization of the petrosal artery causes acute, permanent peripheral facial palsy (Bell's palsy).",
                 "PROXIMAL REFLUX INTO MAXILLARY OR CAROTID ARTERY: Never push liquid embolic aggressively against resistance. Maintain continuous fluoroscopic visualization of the catheter tip to prevent reflux back into the internal maxillary artery or external carotid system, which can cause skin necrosis, jaw claudication, or distal stroke."
+            ]
+
+        case .plate085:
+            return [
+                SurgicalCallout(
+                    id: "plate_085_1",
+                    title: "Diagnostic MRI & Resection Margins",
+                    structureType: "T2 MRI & MARGIN CLASSIFICATION",
+                    color: Color.red,
+                    normalizedX: 0.16,
+                    normalizedY: 0.35,
+                    description: "Panel 1 presents diagnostic MRI and oncologic margin classification. Sagittal and axial T2 MRI reveal a large, lobulated, markedly T2-hyperintense sacral chordoma with fibrous septations expanding the lower sacrum and extending into the presacral pelvic space, displacing the rectum. The margin classification defines: (1) High Sacrectomy (S1–S2): Osteotomy above S2 or through S1 removes the entire distal sacrum en bloc (S1–S5 red), uncoupling the spine from the pelvis and sacrificing lower sacral roots; and (2) Low Sacrectomy (Below S3): Osteotomy below S3 preserves S1–S3 roots (bone tan) and resects S4–S5 (red), preserving voluntary bowel, bladder, and sexual continence.",
+                    surgicalPearl: "In high sacrectomy, an en-bloc oncologic margin (R0) requires complete removal of all sacral segments distal to the osteotomy line; sparing at least one S2 and one S3 root preserves functional continence."
+                ),
+                SurgicalCallout(
+                    id: "plate_085_2",
+                    title: "Combined Anterior-Posterior Surgical Release",
+                    structureType: "TWO-STAGE RETROPERITONEAL & POSTERIOR EN-BLOC CORRIDORS",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.50,
+                    normalizedY: 0.50,
+                    description: "Panel 2 details the two-stage surgical release. Stage 1 (Anterior Retroperitoneal Release): Supine/retroperitoneal exposure with lateral mobilization of the bifurcating common and internal iliac vessels, identification and lateralization of bilateral ureters, anterior mobilization of the rectum away from the presacral tumor pseudocapsule, and insertion of a protective synthetic spacer in the presacral plane. Stage 2 (Posterior En-Bloc Resection): Prone posterior midline approach dividing the sacrotuberous and sacrospinous ligaments, high-speed burr osteotomy through the bilateral sacroiliac joints and sacrum into the anterior spacer, and delivery of the intact tumor-bearing sacral specimen en bloc with negative margins.",
+                    surgicalPearl: "Never attempt high sacrectomy posteriorly without prior anterior mobilization of the iliac vessels and rectum; the anterior spacer provides a safe stopping barrier for posterior osteotomy burrs."
+                ),
+                SurgicalCallout(
+                    id: "plate_085_3",
+                    title: "Spinopelvic Reconstruction & Soft Tissue Closure",
+                    structureType: "TRIANGULAR SPINOPELVIC FRAME & GLUTEUS MAXIMUS FLAP",
+                    color: Color.green,
+                    normalizedX: 0.82,
+                    normalizedY: 0.50,
+                    description: "Panel 3 illustrates definitive mechanical reconstruction and soft-tissue dead space management. Triangular Spinopelvic Fixation: Dual bilateral L3–L5 pedicle screws (6 screws) connected via dual divergent longitudinal rods to quad bilateral iliac screws (4 screws total, 2 per iliac wing), triangulated by a transverse pelvic cross-link connector bar. An expandable porous titanium mesh cage spans the vertical defect from the L5 inferior endplate to the pelvic bar to resist downward axial shear forces. Soft-tissue closure is achieved via bilateral gluteus maximus myocutaneous advancement flaps (V-Y advancement) mobilized medially to obliterate dead space and prevent pelvic herniation.",
+                    surgicalPearl: "High sacrectomy completely disrupts the posterior pelvic ring; quad iliac screws combined with dual-rod triangulation and a structural anterior column cage are mandatory to prevent early mechanical failure."
+                ),
+                SurgicalCallout(
+                    id: "plate_085_4",
+                    title: "Three Concise Resident Pearls",
+                    structureType: "ONCOLOGIC RESECTION & PELVIC STABILITY RULES",
+                    color: Color.blue,
+                    normalizedX: 0.50,
+                    normalizedY: 0.90,
+                    description: "Bottom bar highlights three cardinal surgical oncology rules: (1) Continence Preservation: Sparing at least one S2 and one S3 nerve root maintains functional urinary and fecal continence; bilateral sacrifice above S3 causes permanent neurogenic incontinence; (2) Anterior Vascular Release: Never attempt high sacrectomy posteriorly without prior anterior mobilization of the iliac vessels and rectum; prevents catastrophic vascular injury; and (3) Triangular Spinopelvic Fixation: High sacrectomy completely breaks the pelvic ring; quad iliac screws with dual-rod triangulation are mandatory to prevent early hardware failure.",
+                    surgicalPearl: "Sacral chordoma has a high propensity for local recurrence (>80% with intralesional capsular violation vs <10% with wide R0 margins); en-bloc resection with pristine microscopic negative margins is the sole determinant of long-term disease-free survival."
+                )
+            ]
+
+        case .plate085:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Preoperative Staging & Multi-Disciplinary Planning", detail: "Obtain high-resolution sagittal/axial T2 MRI, pelvic CT angiogram, and CT-guided core biopsy (via a posterior midline tract that will be excised en bloc). Confirm chordoma histology and coordinate a two-team surgical plan with spine surgery, vascular surgery, and plastic surgery."),
+                ApproachSequentialStep(stepNumber: 2, title: "Stage 1 — Anterior Retroperitoneal Release & Spacer Placement", detail: "Position the patient supine. Perform a lower midline laparotomy or retroperitoneal approach. Mobilize the common and internal iliac vessels and bilateral ureters laterally. Dissect the rectum off the presacral tumor pseudocapsule, ligate middle sacral vessels, and insert a radiopaque synthetic spacer (silastic/Gore-Tex) in the presacral cleavage plane."),
+                ApproachSequentialStep(stepNumber: 3, title: "Stage 2 — Prone Posterior Midline Exposure & Ligamentous Release", detail: "Position patient prone on a radiolucent Jackson table with pelvic positioning rolls. Make a posterior midline incision incorporating the prior biopsy tract. Divide the sacrotuberous and sacrospinous ligaments to detach the pelvic floor muscles from the sacrum."),
+                ApproachSequentialStep(stepNumber: 4, title: "En-Bloc Sacral & Iliac Osteotomies with Specimen Delivery", detail: "Perform laminectomies to expose the thecal sac. Ligate and divide lower sacral nerve roots according to planned margin level. Using high-speed burrs and osteotomes, cut bilaterally through the sacroiliac joints/iliac wings and perform a transverse sacral osteotomy across S1 or S2 into the anterior spacer. Deliver the intact tumor specimen en bloc."),
+                ApproachSequentialStep(stepNumber: 5, title: "Triangular Spinopelvic Reconstruction & Gluteus Flap Closure", detail: "Place pedicle screws from L3 to L5 and quad iliac screws (two in each iliac wing). Connect screws with dual contoured rods, a transverse pelvic cross-link connector bar, and an expandable vertical mesh cage between L5 and the pelvis. Mobilize bilateral gluteus maximus advancement flaps for tension-free dead space closure.")
+            ]
+
+        case .plate085:
+            return [
+                "FATAL INTERNAL ILIAC VESSEL LACERATION VIA POSTERIOR-ONLY BLIND RESECTION: Attempting sacral osteotomy or specimen mobilization posteriorly without prior anterior mobilization of the iliac vessels and presacral venous plexus tears the tethered internal iliac vessels, producing catastrophic, inaccessible retroperitoneal exsanguination. Stage 1 anterior release and protective spacer placement are absolute requirements.",
+                "INTRATUMORAL CAPSULAR VIOLATION & LOCAL RECURRENCE: Breaching the chordoma pseudocapsule during osteotomies or blunt specimen traction spills gelatinous tumor cells across the pelvic and gluteal beds, increasing local recurrence from <10% (wide R0 margin) to >80% (intralesional). The osteotomy lines must maintain continuous normal bone and soft-tissue margins around the tumor.",
+                "MASSIVE PELVIC HERNIATION & WOUND DEHISCENCE VIA INADEQUATE DEAD SPACE CLOSURE: High sacrectomy creates an enormous empty pelvic cavity. Failure to obliterate this dead space with robust vascularized muscle (bilateral gluteus maximus advancement flaps or rectus abdominis myocutaneous flaps) leads to small bowel herniation, perineal wound breakdown, and fatal deep pelvic infection.",
+                "EARLY MECHANICAL FAILURE & NONUNION VIA INSUFFICIENT TRIANGULATION: High sacrectomy completely uncouples the spine from the pelvic ring. Relying on standard single iliac screws or omitting transverse cross-link bars results in rapid hardware fatigue, rod fracture, and screw pullout under cyclical axial and rotational shear forces; quad iliac screws with dual-rod triangulation and an anterior column structural cage are mandatory."
             ]
 
         case .plate084:
