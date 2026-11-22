@@ -1790,6 +1790,79 @@ extension SurgicalPlateType {
                     surgicalPearl: "Restoring collapsed disc height unwrinkles the ligamentum flavum, expanding neuroforaminal area by >30% without direct canal violation."
                 )
             ]
+        case .plate101:
+            return [
+                SurgicalCallout(
+                    id: "plate_101_1",
+                    title: "True Prone Surgical Positioning",
+                    structureType: "SURGICAL POSITIONING",
+                    color: ObsidianTheme.neonRose,
+                    normalizedX: 0.12,
+                    normalizedY: 0.28,
+                    description: "Patient positioned prone on an open radiolucent frame with dedicated chest and pelvic bolsters allowing the abdomen to hang completely free.",
+                    surgicalPearl: "Specialized radiolucent prone frame with free abdominal suspension prevents intra-abdominal venous engorgement."
+                ),
+                SurgicalCallout(
+                    id: "plate_101_2",
+                    title: "Hip Extension & Natural Lordosis",
+                    structureType: "SAGITTAL BIOMECHANICS",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.25,
+                    normalizedY: 0.28,
+                    description: "Downward thigh angulation locks the pelvis and naturally accentuates lumbar lordosis, preventing the kyphogenic sagging seen in lateral positioning.",
+                    surgicalPearl: "Extending the hips on the prone frame tilts the pelvis anteriorly, maximizing physiological segmental lordosis during cage seating."
+                ),
+                SurgicalCallout(
+                    id: "plate_101_3",
+                    title: "Dual Simultaneous Working Corridors",
+                    structureType: "SINGLE-POSITION ACCESS",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.12,
+                    normalizedY: 0.60,
+                    description: "Simultaneous lateral flank retroperitoneal access and posterior percutaneous pedicle screw towers placed in the exact same surgical setup.",
+                    surgicalPearl: "Simultaneous lateral flank retroperitoneal access and posterior percutaneous screw fixation eliminates intraoperative patient flipping."
+                ),
+                SurgicalCallout(
+                    id: "plate_101_4",
+                    title: "Ventral Gravitational Peritoneal Shift",
+                    structureType: "RETROPERITONEAL ERGONOMICS",
+                    color: ObsidianTheme.neonPurple,
+                    normalizedX: 0.45,
+                    normalizedY: 0.25,
+                    description: "Gravity causes abdominal viscera and peritoneal sac to fall ventrally away from the spine, naturally widening the retroperitoneal corridor.",
+                    surgicalPearl: "Prone positioning utilizes gravity to drop the peritoneal sac and viscera ventrally away from the spine, naturally widening the working window."
+                ),
+                SurgicalCallout(
+                    id: "plate_101_5",
+                    title: "Orthogonal Lateral Retractor Docking",
+                    structureType: "MINIMALLY INVASIVE CORRIDOR",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.60,
+                    normalizedY: 0.38,
+                    description: "Tubular lateral retractor docked squarely and orthogonally on the intervertebral disc under biplanar fluoroscopic guidance.",
+                    surgicalPearl: "Dock the tubular lateral retractor strictly orthogonal to the disc space under biplanar fluoroscopy to avoid oblique endplate skiving."
+                ),
+                SurgicalCallout(
+                    id: "plate_101_6",
+                    title: "Continuous Neuromonitoring (EMG)",
+                    structureType: "PLEXUS NEUROPHYSIOLOGY",
+                    color: ObsidianTheme.neonEmerald,
+                    normalizedX: 0.58,
+                    normalizedY: 0.68,
+                    description: "Triggered EMG screen confirming safe dilator and retractor traversal through the anterior safe zone of the psoas muscle.",
+                    surgicalPearl: "Continuous triggered electromyography monitors the lumbar plexus, ensuring safe dilator passage through the anterior third of the psoas."
+                ),
+                SurgicalCallout(
+                    id: "plate_101_7",
+                    title: "Complete 360° Prone Stabilization",
+                    structureType: "CIRCUMFERENTIAL ARTHRODESIS",
+                    color: ObsidianTheme.neonEmerald,
+                    normalizedX: 0.82,
+                    normalizedY: 0.50,
+                    description: "Wide-footprint porous titanium interbody cage paired with posterior percutaneous pedicle screws achieving rigid 360° stabilization.",
+                    surgicalPearl: "Combining a wide-footprint hyperlordotic interbody cage with posterior percutaneous pedicle screws achieves rigid 360° stabilization in one setup."
+                )
+            ]
         case .plate089:
             return [
                 SurgicalCallout(
@@ -3877,6 +3950,14 @@ case .plate059:
                 ApproachSequentialStep(stepNumber: 4, title: "Oblique Annulotomy & Contralateral Annular Release", detail: "Incise the annulus obliquely; evacuate the disc space down to bleeding subchondral bone and perform a complete contralateral annular release with an orthogonal cobb elevator."),
                 ApproachSequentialStep(stepNumber: 5, title: "Hyperlordotic Cage Trialing & Orthogonal Implantation", detail: "Trial for proper footprint and lordotic angle (12°-15°); pivot the inserter from the 45° oblique entry to a 90° orthogonal cross-body trajectory and advance the porous cage across both ring apophyses.")
             ]
+        case .plate101:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Prone Positioning with Hip Extension", detail: "Position the patient prone on an open radiolucent Jackson-type frame; adjust pelvic pads to enforce bilateral hip extension and maximize anatomical lumbar lordosis."),
+                ApproachSequentialStep(stepNumber: 2, title: "Fluoroscopic Target Registration & Dual Incision", detail: "Under true orthogonal AP and lateral fluoroscopy, mark the lateral disc trajectory on the flank and bilateral posterior pedicle starting points."),
+                ApproachSequentialStep(stepNumber: 3, title: "Retroperitoneal Access & Psoas Traversal", detail: "Make a 3 cm flank incision; develop the retroperitoneal space with finger dissection, allowing gravity to pull viscera ventrally, and advance the initial dilator through the anterior psoas under triggered EMG guidance."),
+                ApproachSequentialStep(stepNumber: 4, title: "Orthogonal Retractor Docking & Complete Discectomy", detail: "Expand and lock the dual/tri-blade retractor; perform thorough disc evacuation and contralateral annular release down to parallel subchondral bone."),
+                ApproachSequentialStep(stepNumber: 5, title: "Interbody Cage Insertion & Simultaneous Posterior Fixation", detail: "Advance a wide-footprint porous titanium interbody cage across both ring apophyses; simultaneously or sequentially place bilateral percutaneous pedicle screws and contoured rods without changing patient position.")
+            ]
         case .plate089:
             return [
                 ApproachSequentialStep(stepNumber: 1, title: "Diagnostic Ultrasound/MRI & Patient Positioning", detail: "Confirm cubital tunnel compression (ulnar nerve CSA > 10 mm²). Position patient supine with arm abducted 90° on an armboard and forearm supinated. Mark a curved 10–12 cm retro-epicondylar incision centered between the medial epicondyle and olecranon."),
@@ -4625,6 +4706,12 @@ case .plate059:
                 "Great Vessel Tear & Catastrophic Hemorrhage: Vigorous or unvisualized anterior retraction can lacerate the left common iliac vein or aorta; maintain direct visualization of vascular boundaries at all times.",
                 "Sympathetic Trunk Injury & Vasomotor Instability: Over-coagulation or aggressive mobilization of the sympathetic chain over the anterior-lateral vertebral body causes ipsilateral lower extremity hyperthermia and dryness.",
                 "Contralateral Neurological Laceration: Plunging instruments across the contralateral annulus risks injuring the contralateral exiting lumbar nerve root or retroperitoneal structures."
+            ]
+        case .plate101:
+            return [
+                "Lumbar Plexus Compression from Prolonged Retraction: Continuous retraction exceeding 20-30 minutes within the psoas increases the risk of femoral nerve neuropraxia; periodically relax retractor blades.",
+                "Loss of Orthogonal Trajectory in Prone Setup: Without the flat reference plane of lateral decubitus, surgeons risk anterior or posterior retractor yaw; constantly verify true perpendicular AP/lateral fluoroscopy.",
+                "Anterior Great Vessel Perforation: Inadvertent ventral instrument plunging across the anterior longitudinal ligament risks catastrophic vascular laceration of the aorta or vena cava."
             ]
         case .plate089:
             return [

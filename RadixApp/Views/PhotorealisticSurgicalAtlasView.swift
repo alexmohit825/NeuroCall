@@ -733,7 +733,7 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
         case .thoracicOncology:
             return [.plate026, .plate036, .plate038, .plate048, .plate054, .plate058, .plate068, .plate072, .plate073, .plate078, .plate085, .plate094]
         case .lumbarMIS:
-            return [.plate011, .plate007, .plate037, .plate029, .plate028, .plate032, .plate083, .plate087, .plate100]
+            return [.plate011, .plate007, .plate037, .plate029, .plate028, .plate032, .plate083, .plate087, .plate100, .plate101]
         case .deformitySalvage:
             return [.plate023, .plate024, .plate039, .plate046, .plate071, .plate075, .plate081, .plate095, .plate099]
         case .peripheralNerve:
@@ -743,9 +743,9 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
 }
 
 public enum AtlasCategory: String, CaseIterable {
-    case all = "All Plates (100)"
+    case all = "All Plates (101)"
     case cranial = "Cranial & Skull Base (46)"
-    case spine = "Spine & Peripheral Nerve (54)"
+    case spine = "Spine & Peripheral Nerve (55)"
 
     public var filteredPlates: [SurgicalPlateType] {
         switch self {
@@ -859,6 +859,7 @@ public enum SurgicalPlateType: String, CaseIterable {
     case plate098 = "plate_098_cervical_artificial_disc_replacement"
     case plate099 = "plate_099_cervical_pedicle_subtraction_osteotomy"
     case plate100 = "plate_100_oblique_lumbar_interbody_fusion"
+    case plate101 = "plate_101_prone_single_position_lateral"
 
     public var subSection: AtlasSubSection {
         for section in AtlasSubSection.allCases {
@@ -975,6 +976,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate098: return 98
         case .plate099: return 99
         case .plate100: return 100
+        case .plate101: return 101
         }
     }
 
@@ -1084,6 +1086,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate098: return "98: Cervical Disc Replacement"
         case .plate099: return "99: C7 PSO Realignment"
         case .plate100: return "100: OLIF / ATP Corridor"
+        case .plate101: return "101: Prone Single-Position LLIF"
         }
     }
 
@@ -1189,6 +1192,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate098: return "Cervical Artificial Disc Replacement (CDRA) — C5–C6 Arthroplasty, Complete Neural Decompression & Keel Seating"
         case .plate099: return "Cervical Pedicle Subtraction Osteotomy (C7 PSO) — Fixed Kyphosis Realignment, C8 Neural Sparing & Cervicothoracic Fixation"
         case .plate100: return "Oblique Lumbar Interbody Fusion (OLIF / ATP) — Anterior-to-Psoas Corridor (L2–L5), Lumbar Plexus Sparing & Hyperlordotic Interbody Fusion"
+        case .plate101: return "Prone Single-Position Lateral Surgery (Prone LLIF) — Single-Position Prone Lateral Access, Gravitational Visceral Shift & Simultaneous 360° Stabilization"
         }
     }
 
@@ -1294,6 +1298,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate098: return "circle.circle.fill"
         case .plate099: return "arrow.up.and.line.horizontal.and.arrow.down"
         case .plate100: return "square.split.diagonal.2x2"
+        case .plate101: return "arrow.triangle.2.circlepath.circle.fill"
         }
     }
 
