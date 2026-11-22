@@ -1518,6 +1518,69 @@ extension SurgicalPlateType {
                     surgicalPearl: "Early microsurgical intervention before irreversible motor endplate loss restores functional independence with zero collateral donor morbidity."
                 )
             ]
+        case .plate097:
+            return [
+                SurgicalCallout(
+                    id: "plate_097_1",
+                    title: "Anderson & D'Alonzo Type II Fracture",
+                    structureType: "HIGH CERVICAL TRAUMA",
+                    color: ObsidianTheme.neonRose,
+                    normalizedX: 0.18,
+                    normalizedY: 0.28,
+                    description: "Acute, non-comminuted Type II fracture through the waist/base of the odontoid process on sagittal CT bone window, demonstrating an intact posterior cortical hinge.",
+                    surgicalPearl: "Intact transverse atlantal ligament (TAL) and non-comminuted waist fracture are mandatory prerequisites for direct anterior lag screw osteosynthesis."
+                ),
+                SurgicalCallout(
+                    id: "plate_097_2",
+                    title: "Transoral AP & Lateral Fluoroscopy",
+                    structureType: "SURGICAL POSITIONING",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.18,
+                    normalizedY: 0.68,
+                    description: "Supine positioning with radiolucent bite block holding mouth open, coupled with dual C-arm fluoroscopy axes monitoring real-time transoral AP and lateral trajectories.",
+                    surgicalPearl: "Simultaneous open-mouth AP and lateral fluoroscopy are non-negotiable to track guide wire depth and prevent rotational screw deviation."
+                ),
+                SurgicalCallout(
+                    id: "plate_097_3",
+                    title: "Anterior Retropharyngeal Exposure",
+                    structureType: "SMITH-ROBINSON CORRIDOR",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.50,
+                    normalizedY: 0.35,
+                    description: "Retropharyngeal corridor created through a low C5-C6 skin crease, retracting the visceral column medially and the carotid sheath laterally to access the high cervical spine.",
+                    surgicalPearl: "A low skin incision provides the shallow, steep cranial trajectory angle needed to dock along the anterior-inferior margin of the C2 body."
+                ),
+                SurgicalCallout(
+                    id: "plate_097_4",
+                    title: "Anterior-Inferior C2 Entry Point",
+                    structureType: "LANDMARKING & ANCHOR",
+                    color: ObsidianTheme.neonPurple,
+                    normalizedX: 0.50,
+                    normalizedY: 0.55,
+                    description: "Cannulated guide sleeve docked precisely at the midline anterior-inferior lip of C2, with dashed vector aimed steeply toward the posterior-superior apical tip of the dens.",
+                    surgicalPearl: "Docking strictly at the anterior-inferior C2 edge prevents anterior cortical breakout while preserving the adjacent C2-C3 intervertebral disc."
+                ),
+                SurgicalCallout(
+                    id: "plate_097_5",
+                    title: "Partially Threaded Cannulated Lag Screw",
+                    structureType: "BIOMECHANICAL COMPRESSION",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.78,
+                    normalizedY: 0.48,
+                    description: "A 4.0 mm partially threaded cannulated titanium lag screw traversing the C2 body, with smooth shank spanning the fracture line and threads engaging exclusively in the distal dens.",
+                    surgicalPearl: "All screw threads must completely cross the fracture line into the apical fragment to exert dynamic lag compression against the unthreaded shaft."
+                ),
+                SurgicalCallout(
+                    id: "plate_097_6",
+                    title: "Apical Cortical Tip Purchase & Reduction",
+                    structureType: "RIGID OSTEOSYNTHESIS",
+                    color: ObsidianTheme.neonEmerald,
+                    normalizedX: 0.88,
+                    normalizedY: 0.28,
+                    description: "Postoperative lateral fluoroscopy and 3D bone cutaway confirming 100% anatomical fracture closure and rigid screw thread engagement in the apical cortex of the odontoid.",
+                    surgicalPearl: "Engage the dense apical cortex for maximum pullout strength without protruding into the foramen magnum or violating the tectorial membrane."
+                )
+            ]
         case .plate089:
             return [
                 SurgicalCallout(
@@ -3573,6 +3636,14 @@ case .plate059:
                 ApproachSequentialStep(stepNumber: 4, title: "Targeted Neuromodulation Lead Navigation", detail: "Under stereotactic or intraoperative fluoroscopic guidance, advance directional DBS or multi-column epidural paddle leads along physiologic neural targets with micro-recording confirmation."),
                 ApproachSequentialStep(stepNumber: 5, title: "Tension-Free Microsurgical Reconstruction", detail: "Perform end-to-end epineurial nerve fascicular coaptation, watertight dural reconstruction, and multi-layer vascularized myofascial closure to ensure permanent biological healing.")
             ]
+        case .plate097:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Patient Positioning & Biplanar Fluoroscopy", detail: "Position patient supine with radiolucent bite block holding mouth open; verify crisp open-mouth AP and lateral C1-C2 fluoroscopy and anatomical fracture reduction prior to prepping."),
+                ApproachSequentialStep(stepNumber: 2, title: "Low Anteromedial Retropharyngeal Exposure", detail: "Make a transverse skin incision at C5-C6; develop the Smith-Robinson plane between carotid sheath laterally and visceral package medially, exposing the anterior spine up to C2."),
+                ApproachSequentialStep(stepNumber: 3, title: "Entry Point Preparation & Drill Sleeve Docking", detail: "Under fluoroscopic guidance, localize the anterior-inferior margin of C2; create a small starter trough and dock the cannulated drill sleeve firmly at the midline edge."),
+                ApproachSequentialStep(stepNumber: 4, title: "Guide Wire Insertion & Apical Purchase", detail: "Drive the 1.2 mm threaded guide wire through the C2 body across the fracture plane into the dense apical cortex under continuous biplanar fluoroscopic visualization."),
+                ApproachSequentialStep(stepNumber: 5, title: "Cannulated Lag Screw Placement & Fracture Compression", detail: "Measure screw length, tap the near cortex, and advance a 4.0 mm partially threaded cannulated lag screw until the washer-head seats and pulls the fracture into dynamic compression.")
+            ]
         case .plate089:
             return [
                 ApproachSequentialStep(stepNumber: 1, title: "Diagnostic Ultrasound/MRI & Patient Positioning", detail: "Confirm cubital tunnel compression (ulnar nerve CSA > 10 mm²). Position patient supine with arm abducted 90° on an armboard and forearm supinated. Mark a curved 10–12 cm retro-epicondylar incision centered between the medial epicondyle and olecranon."),
@@ -4297,6 +4368,12 @@ case .plate059:
                 "Loss of Sagittal Balance & Construct Hardware Failure: In complex spinal reconstruction, failing to match lumbar lordosis to pelvic incidence (LL = PI ± 9°) induces massive anterior cantilever stress leading to rod fracture and pseudarthrosis.",
                 "Microvascular Perforator Infarction & Ischemia: During deep skull base and transsylvian corridors, excessive static brain retraction and sacrifice of sub-millimeter perforating arteries cause irreversible stroke.",
                 "Nerve Fascicle Over-Harvest & Intrinsic Hand Deficit: In peripheral nerve transfers, never harvest more than 10-15% of donor nerve cross-section or divide fascicles that fire intrinsic hand muscles under bipolar stimulation."
+            ]
+        case .plate097:
+            return [
+                "Guide Wire Migration into Brainstem: Never advance the cannulated drill or screw without real-time fluoroscopic verification that the central guide wire is stationary; inadvertent forward wire migration risks catastrophic brainstem impalement.",
+                "Anterior C2 Cortical Breakout: Placing the entry point too superiorly on the C2 body produces anterior cortical blowout and immediate construct failure.",
+                "Malreduction Before Fixation: Attempting to reduce an unreduced or displaced Type II fracture with the lag screw itself causes displacement or malunion; anatomical reduction must precede guide wire insertion."
             ]
         case .plate089:
             return [

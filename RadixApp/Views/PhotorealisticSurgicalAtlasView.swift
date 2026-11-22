@@ -727,7 +727,7 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
         case .vascularVentricular:
             return [.plate002, .plate027, .plate040, .plate041, .plate051, .plate053, .plate056, .plate060, .plate061, .plate062, .plate063, .plate065, .plate067, .plate079, .plate086, .plate093]
         case .craniovertebral:
-            return [.plate001, .plate013, .plate014, .plate035, .plate043, .plate047, .plate049, .plate088]
+            return [.plate001, .plate013, .plate014, .plate035, .plate043, .plate047, .plate049, .plate088, .plate097]
         case .cervical:
             return [.plate015, .plate031, .plate034, .plate042, .plate044, .plate050, .plate064, .plate076, .plate080, .plate091]
         case .thoracicOncology:
@@ -743,9 +743,9 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
 }
 
 public enum AtlasCategory: String, CaseIterable {
-    case all = "All Plates (96)"
+    case all = "All Plates (97)"
     case cranial = "Cranial & Skull Base (46)"
-    case spine = "Spine & Peripheral Nerve (50)"
+    case spine = "Spine & Peripheral Nerve (51)"
 
     public var filteredPlates: [SurgicalPlateType] {
         switch self {
@@ -855,6 +855,7 @@ public enum SurgicalPlateType: String, CaseIterable {
     case plate094 = "plate_094_scs_paddle_lead_placement"
     case plate095 = "plate_095_myelomeningocele_mmc_repair"
     case plate096 = "plate_096_neurocall_surgical_atlas_master"
+    case plate097 = "plate_097_anterior_odontoid_screw_fixation"
 
     public var subSection: AtlasSubSection {
         for section in AtlasSubSection.allCases {
@@ -967,6 +968,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate094: return 94
         case .plate095: return 95
         case .plate096: return 96
+        case .plate097: return 97
         }
     }
 
@@ -1072,6 +1074,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate094: return "94: SCS Paddle Lead"
         case .plate095: return "95: Myelomeningocele (MMC)"
         case .plate096: return "96: Master Surgical Corridors"
+        case .plate097: return "97: Anterior Odontoid Screw"
         }
     }
 
@@ -1173,6 +1176,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate094: return "Spinal Cord Stimulation (SCS) & Paddle Lead Placement — FBSS, Thoracic T8–T10 Laminotomy, Multi-Column Paddle & Gluteal IPG Pocket"
         case .plate095: return "Myelomeningocele (MMC) Open Spinal Dysraphism Repair — Placode Untethering, Pial Tubularization, Watertight Duraplasty & Myofascial Flaps"
         case .plate096: return "The NeuroCall Surgical Atlas: 360° Master Corridors — Cranial Skull Base, Spinal Reconstruction & Functional Neural Pathways"
+        case .plate097: return "Anterior Odontoid Screw Fixation — Type II Fracture, Biplanar Fluoroscopy & Direct Lag Screw Osteosynthesis"
         }
     }
 
@@ -1274,6 +1278,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate094: return "bolt.batteryblock.fill"
         case .plate095: return "bandage.fill"
         case .plate096: return "star.circle.fill"
+        case .plate097: return "bolt.fill"
         }
     }
 
