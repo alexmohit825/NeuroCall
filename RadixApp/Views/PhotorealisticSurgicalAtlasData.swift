@@ -1226,6 +1226,79 @@ extension SurgicalPlateType {
                     surgicalPearl: "Reinnervating both the biceps and brachialis restores M4+ MRC elbow flexion power, significantly exceeding single-transfer functional outcomes."
                 )
             ]
+        case .plate093:
+            return [
+                SurgicalCallout(
+                    id: "plate_093_1",
+                    title: "Right MCA (M1) Occlusion",
+                    structureType: "DIAGNOSTIC CTA VASCULAR CUTOFF",
+                    color: ObsidianTheme.neonRose,
+                    normalizedX: 0.09,
+                    normalizedY: 0.30,
+                    description: "Maximum intensity projection (MIP) CTA demonstrating an abrupt cutoff of the right middle cerebral artery at the M1 origin with absence of distal Sylvian branch opacification.",
+                    surgicalPearl: "Contrast cutoff at the M1 segment indicates large vessel occlusion (LVO) carrying severe morbidity without urgent endovascular recanalization."
+                ),
+                SurgicalCallout(
+                    id: "plate_093_2",
+                    title: "Ischemic Penumbra Mismatch Profile",
+                    structureType: "CT PERFUSION TARGET",
+                    color: ObsidianTheme.neonEmerald,
+                    normalizedX: 0.23,
+                    normalizedY: 0.30,
+                    description: "Automated CT perfusion map showing a small core of irreversible infarct (red, CBF < 30%) surrounded by a massive salvageable ischemic penumbra (green, Tmax > 6.0 s).",
+                    surgicalPearl: "Significant core-to-penumbra mismatch confirms salvageable brain tissue, extending the mechanical thrombectomy therapeutic window up to 24 hours."
+                ),
+                SurgicalCallout(
+                    id: "plate_093_3",
+                    title: "8F Balloon Guide Catheter (Cervical ICA)",
+                    structureType: "ENDOVASCULAR ACCESS ROADMAP",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.25,
+                    normalizedY: 0.65,
+                    description: "Right transfemoral or transradial access with an 8F balloon guide catheter tracked through the aortic arch and seated securely in the high cervical internal carotid artery.",
+                    surgicalPearl: "A high-cervical BGC position maximizes proximal support for tracking intermediate catheters and ensures reliable flow arrest during retrieval."
+                ),
+                SurgicalCallout(
+                    id: "plate_093_4",
+                    title: "Contact Aspiration Catheter (at Clot Face)",
+                    structureType: "INTERMEDIATE ASPIRATION",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.42,
+                    normalizedY: 0.45,
+                    description: "Large-bore 0.068-inch intermediate aspiration catheter tracked over a microcatheter and wedged directly against the proximal face of the M1 thromboembolus.",
+                    surgicalPearl: "Direct engagement of the catheter tip against the clot maximizes vacuum transmission and anchors the thrombus during stent-retriever withdrawal."
+                ),
+                SurgicalCallout(
+                    id: "plate_093_5",
+                    title: "Deployed Nitinol Stent-Retriever Mesh",
+                    structureType: "THROMBUS ENTRAPMENT",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.54,
+                    normalizedY: 0.42,
+                    description: "Laser-cut self-expanding nitinol stent-retriever deployed across the M1 thrombus, with its diamond-mesh struts embedding securely into the fibrin clot matrix.",
+                    surgicalPearl: "Allowing a 3- to 5-minute integration dwell time allows stent struts to fully integrate into tough, fibrin-rich thromboemboli."
+                ),
+                SurgicalCallout(
+                    id: "plate_093_6",
+                    title: "BGC Flow Arrest & Suction Ingestion",
+                    structureType: "COMBINED CLOT INGESTION",
+                    color: ObsidianTheme.neonPurple,
+                    normalizedX: 0.72,
+                    normalizedY: 0.32,
+                    description: "Temporary balloon inflation in the cervical ICA creates flow reversal under high-vacuum syringe aspiration as the stent-retriever and captured thrombus are retracted en bloc into the aspiration catheter.",
+                    surgicalPearl: "Balloon flow reversal suppresses forward blood pressure, preventing clot fragmentation into downstream M2 branches or the anterior cerebral artery."
+                ),
+                SurgicalCallout(
+                    id: "plate_093_7",
+                    title: "Complete Recanalization (TICI 3)",
+                    structureType: "FINAL ANGIOGRAPHIC SUCCESS",
+                    color: ObsidianTheme.neonEmerald,
+                    normalizedX: 0.88,
+                    normalizedY: 0.65,
+                    description: "Post-thrombectomy cerebral DSA demonstrating complete TICI 3 reperfusion with pristine restoration of M1, superior/inferior M2 divisions, and lush peripheral cortical branch filling.",
+                    surgicalPearl: "First-pass complete TICI 3 recanalization represents the premier prognostic metric for achieving 90-day functional independence (mRS 0-2)."
+                )
+            ]
         case .plate089:
             return [
                 SurgicalCallout(
@@ -3249,6 +3322,14 @@ case .plate059:
                 ApproachSequentialStep(stepNumber: 4, title: "Microsurgical Internal Neurolysis", detail: "Micro-dissect the mapped redundant motor fascicles proximally for 2-3 cm, dividing each fascicle distally to provide sufficient tension-free mobilization toward recipient motor branches."),
                 ApproachSequentialStep(stepNumber: 5, title: "Dual Epineurial Coaptations & Fibrin Sealant", detail: "Perform end-to-end coaptation of the ulnar fascicle to the biceps branch (Oberlin I) and median fascicle to the brachialis branch (Oberlin II) using interrupted 9-0/10-0 nylon microsutures reinforced with fibrin glue.")
             ]
+        case .plate093:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Arterial Access & Cervical BGC Placement", detail: "Obtain femoral or radial artery access; navigate an 8F balloon guide catheter over a diagnostic wire into the high cervical internal carotid artery."),
+                ApproachSequentialStep(stepNumber: 2, title: "Distal Triaxial Navigation to M1 Segment", detail: "Track a 0.068-inch intermediate aspiration catheter over a 0.021-inch microcatheter and microwire directly to the proximal margin of the M1 occlusion."),
+                ApproachSequentialStep(stepNumber: 3, title: "Microcatheter Traversal & Stent Deployment", detail: "Navigate the microcatheter across the thrombus into a distal M2 branch; deploy a self-expanding nitinol stent-retriever across the clot, observing a 3-minute integration time."),
+                ApproachSequentialStep(stepNumber: 4, title: "Balloon Inflation & Continuous Aspiration", detail: "Inflate the cervical ICA balloon guide catheter to achieve flow arrest; apply continuous high-vacuum negative pressure to the intermediate catheter via a 60 mL locking syringe."),
+                ApproachSequentialStep(stepNumber: 5, title: "En-Bloc Retrieval & Reperfusion Angiography", detail: "Withdraw the stent-retriever and captured clot en bloc into the aspiration catheter under continuous vacuum; deflate the balloon and perform control DSA confirming TICI 3 reperfusion.")
+            ]
         case .plate089:
             return [
                 ApproachSequentialStep(stepNumber: 1, title: "Diagnostic Ultrasound/MRI & Patient Positioning", detail: "Confirm cubital tunnel compression (ulnar nerve CSA > 10 mm²). Position patient supine with arm abducted 90° on an armboard and forearm supinated. Mark a curved 10–12 cm retro-epicondylar incision centered between the medial epicondyle and olecranon."),
@@ -3949,6 +4030,12 @@ case .plate059:
                 "Devastating Distal Hand Paralysis: Never transect the main parent ulnar or median nerve trunks; internal neurolysis must restrict harvest to ~10% redundant motor fascicles.",
                 "Inadvertent Sensory Fascicle Coaptation: Always confirm motor innervation of redundant wrist flexors (FCU/FCR) with low-threshold electrical stimulation before division.",
                 "Excessive Tension on Nerve Repairs: Perform coaptations within 2-3 cm of motor entry points with the elbow gently flexed; avoid traction neuropraxia during mobilization."
+            ]
+        case .plate093:
+            return [
+                "Distal Embolic Fragmentation: Always inflate the balloon guide catheter to achieve complete carotid flow arrest and apply continuous high-vacuum aspiration during stent-retriever withdrawal.",
+                "Intracranial Vessel Perforation & Dissection: Avoid excessive force or blind advancement when navigating microcatheters through tortuous M1 branches or across calcified atherosclerotic lesions.",
+                "Post-Reperfusion Intracerebral Hemorrhage: Monitor post-thrombectomy blood pressure strictly (SBP < 140 mmHg) following TICI 2b/3 recanalization to prevent hyperperfusion hemorrhage in ischemic core tissue."
             ]
         case .plate089:
             return [

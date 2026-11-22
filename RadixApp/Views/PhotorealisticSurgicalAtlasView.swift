@@ -725,7 +725,7 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
         case .posteriorFossa:
             return [.plate010, .plate020, .plate004, .plate003, .plate006, .plate022, .plate052, .plate057, .plate077, .plate082]
         case .vascularVentricular:
-            return [.plate002, .plate027, .plate040, .plate041, .plate051, .plate053, .plate056, .plate060, .plate061, .plate062, .plate063, .plate065, .plate067, .plate079, .plate086]
+            return [.plate002, .plate027, .plate040, .plate041, .plate051, .plate053, .plate056, .plate060, .plate061, .plate062, .plate063, .plate065, .plate067, .plate079, .plate086, .plate093]
         case .craniovertebral:
             return [.plate001, .plate013, .plate014, .plate035, .plate043, .plate047, .plate049, .plate088]
         case .cervical:
@@ -851,6 +851,7 @@ public enum SurgicalPlateType: String, CaseIterable {
     case plate090 = "plate_090_carpal_tunnel_release_recurrent_motor"
     case plate091 = "plate_091_anterior_cervical_corpectomy_fusion"
     case plate092 = "plate_092_brachial_plexus_oberlin_transfer"
+    case plate093 = "plate_093_acute_ischemic_stroke_thrombectomy"
 
     public var subSection: AtlasSubSection {
         for section in AtlasSubSection.allCases {
@@ -959,6 +960,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate090: return 90
         case .plate091: return 91
         case .plate092: return 92
+        case .plate093: return 93
         }
     }
 
@@ -1060,6 +1062,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate090: return "90: Carpal Tunnel Release (CTR)"
         case .plate091: return "91: ACCF C6 Corpectomy"
         case .plate092: return "92: Oberlin Double Transfer"
+        case .plate093: return "93: Stroke Thrombectomy"
         }
     }
 
@@ -1157,6 +1160,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate090: return "Carpal Tunnel Syndrome & Open Carpal Tunnel Release (CTR) — Retinacular Decompression, Thenar Motor Variants & Fat Pad Landmark"
         case .plate091: return "Anterior Cervical Corpectomy & Fusion (ACCF at C6) — Expandable Titanium Cage & Anterior Locking Plate"
         case .plate092: return "Brachial Plexus Injury (Upper Trunk / Erb's Palsy) & Oberlin Double Nerve Transfer — Ulnar to Biceps, Median to Brachialis"
+        case .plate093: return "Acute Ischemic Stroke & Endovascular Mechanical Thrombectomy — Right MCA M1 Occlusion, Combined Stent-Retriever & Contact Aspiration"
         }
     }
 
@@ -1254,6 +1258,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate090: return "hand.raised.slash.fill"
         case .plate091: return "cylinder.split.1x2.fill"
         case .plate092: return "figure.arms.open"
+        case .plate093: return "waveform.path.ecg"
         }
     }
 
