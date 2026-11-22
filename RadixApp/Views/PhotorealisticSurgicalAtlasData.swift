@@ -1863,6 +1863,89 @@ extension SurgicalPlateType {
                     surgicalPearl: "Combining a wide-footprint hyperlordotic interbody cage with posterior percutaneous pedicle screws achieves rigid 360° stabilization in one setup."
                 )
             ]
+        case .plate102:
+            return [
+                SurgicalCallout(
+                    id: "plate_102_1",
+                    title: "Severe Rigid Angular Kyphosis",
+                    structureType: "GIBBUS DEFORMITY",
+                    color: ObsidianTheme.neonRose,
+                    normalizedX: 0.10,
+                    normalizedY: 0.38,
+                    description: "High-resolution sagittal 3D bone CT reconstruction showing severe rigid angular thoracic kyphosis with anterior column collapse and spinal canal compromise.",
+                    surgicalPearl: "Sharp angular kyphosis (Cobb angle > 75°) causes severe cord drape and mechanical anterior spinal artery compression."
+                ),
+                SurgicalCallout(
+                    id: "plate_102_2",
+                    title: "Unilateral Temporary Stabilizing Rod",
+                    structureType: "BIOMECHANICAL SAFEGUARD",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.28,
+                    normalizedY: 0.20,
+                    description: "Rigid unilateral titanium rod locked to pedicle screws above and below the planned resection, maintaining continuous column continuity.",
+                    surgicalPearl: "Rigid temporary unilateral fixation is mandatory before starting circumferential bone resection to prevent shear translation."
+                ),
+                SurgicalCallout(
+                    id: "plate_102_3",
+                    title: "Apical Resection Zone",
+                    structureType: "360° CORPECTOMY TEMPLATE",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.28,
+                    normalizedY: 0.65,
+                    description: "Preoperative template demarcating the complete 3-column resection zone encompassing the apical vertebral body, adjacent discs, and posterior elements.",
+                    surgicalPearl: "Complete resection of the apical vertebra, posterior arch, and adjacent discs creates the 3-column gap necessary for acute angular correction."
+                ),
+                SurgicalCallout(
+                    id: "plate_102_4",
+                    title: "Circumferentially Suspended Thecal Tube",
+                    structureType: "CORD LIBERATION",
+                    color: ObsidianTheme.neonPurple,
+                    normalizedX: 0.48,
+                    normalizedY: 0.35,
+                    description: "Posterior operative view showing the pristine glistening slate-blue thecal sac and cord completely circumferential-free and suspended floating in the cavity.",
+                    surgicalPearl: "The spinal cord is completely freed 360° and suspended in the cavity with zero residual anterior bony impingement or tethering."
+                ),
+                SurgicalCallout(
+                    id: "plate_102_5",
+                    title: "360° Anterior Corpectomy Cavity",
+                    structureType: "RESECTION DEFECT",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.38,
+                    normalizedY: 0.55,
+                    description: "Spacious anterior cavity resulting from total spondylectomy, bounded by healthy cranial and caudal vertebral endplates.",
+                    surgicalPearl: "A spacious anterior cavity is prepared down to bleeding cranial and caudal endplates, ready to accept the expandable structural cage."
+                ),
+                SurgicalCallout(
+                    id: "plate_102_6",
+                    title: "Quad-Rod Posterior Neutralization",
+                    structureType: "MULTI-ROD ARCHITECTURE",
+                    color: ObsidianTheme.neonEmerald,
+                    normalizedX: 0.78,
+                    normalizedY: 0.20,
+                    description: "Heavy-duty quad-rod construct with primary rods and satellite outrigger rods linked by domino connectors to resist massive cantilever forces.",
+                    surgicalPearl: "Multi-rod outrigger constructs with satellite rods prevent fatigue failure and pseudoarthrosis across the large three-column defect."
+                ),
+                SurgicalCallout(
+                    id: "plate_102_7",
+                    title: "Expandable Anterior Corpectomy Cage",
+                    structureType: "STRUCTURAL ANTERIOR COLUMN",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.68,
+                    normalizedY: 0.48,
+                    description: "Expandable perforated titanium corpectomy cage deployed in-situ, securely engaging cranial and caudal endplates for anterior load sharing.",
+                    surgicalPearl: "In-situ expandable titanium corpectomy cage provides rigid anterior column load sharing, preventing graft dislodgement during posterior compression."
+                ),
+                SurgicalCallout(
+                    id: "plate_102_8",
+                    title: "Harmonious Sagittal Realignment",
+                    structureType: "POSTOPERATIVE RADIOGRAPHY",
+                    color: ObsidianTheme.neonEmerald,
+                    normalizedX: 0.90,
+                    normalizedY: 0.48,
+                    description: "Postoperative standing thoracic radiograph confirming dramatic flattening of the Gibbus deformity and full normalization of global sagittal balance.",
+                    surgicalPearl: "Complete correction of the angular deformity (Cobb angle < 30°) restores physiological sagittal vertical axis and global spinal balance."
+                )
+            ]
         case .plate089:
             return [
                 SurgicalCallout(
@@ -3958,6 +4041,14 @@ case .plate059:
                 ApproachSequentialStep(stepNumber: 4, title: "Orthogonal Retractor Docking & Complete Discectomy", detail: "Expand and lock the dual/tri-blade retractor; perform thorough disc evacuation and contralateral annular release down to parallel subchondral bone."),
                 ApproachSequentialStep(stepNumber: 5, title: "Interbody Cage Insertion & Simultaneous Posterior Fixation", detail: "Advance a wide-footprint porous titanium interbody cage across both ring apophyses; simultaneously or sequentially place bilateral percutaneous pedicle screws and contoured rods without changing patient position.")
             ]
+        case .plate102:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Prone Positioning & Neuromonitoring Baseline", detail: "Position prone on a radiolucent frame; establish stable baseline motor (MEP) and somatosensory (SSEP) evoked potentials prior to incision."),
+                ApproachSequentialStep(stepNumber: 2, title: "Exposure & Multi-Segment Pedicle Anchoring", detail: "Expose 3 to 4 levels above and below the deformity apex; insert robust pedicle screws bilaterally and lock a unilateral temporary rod to protect spinal continuity."),
+                ApproachSequentialStep(stepNumber: 3, title: "Complete Posterior Laminectomy & Root Ligation", detail: "Resect the posterior elements over the apex; in the thoracic spine, selectively ligate 1-2 non-critical nerve roots (T2-T10) to permit 360° mobilization around the dural tube."),
+                ApproachSequentialStep(stepNumber: 4, title: "Circumferential Spondylectomy & Discectomy", detail: "Work bilaterally around the thecal sac to resect the vertebral body and adjacent discs down to healthy endplates, leaving the cord circumferentially suspended."),
+                ApproachSequentialStep(stepNumber: 5, title: "Expandable Cage Deployment & Multi-Rod Locking", detail: "Insert and expand a heavy-duty titanium corpectomy cage anteriorly; gently shorten the posterior column and secure a quad-rod construct with transverse connectors.")
+            ]
         case .plate089:
             return [
                 ApproachSequentialStep(stepNumber: 1, title: "Diagnostic Ultrasound/MRI & Patient Positioning", detail: "Confirm cubital tunnel compression (ulnar nerve CSA > 10 mm²). Position patient supine with arm abducted 90° on an armboard and forearm supinated. Mark a curved 10–12 cm retro-epicondylar incision centered between the medial epicondyle and olecranon."),
@@ -4712,6 +4803,12 @@ case .plate059:
                 "Lumbar Plexus Compression from Prolonged Retraction: Continuous retraction exceeding 20-30 minutes within the psoas increases the risk of femoral nerve neuropraxia; periodically relax retractor blades.",
                 "Loss of Orthogonal Trajectory in Prone Setup: Without the flat reference plane of lateral decubitus, surgeons risk anterior or posterior retractor yaw; constantly verify true perpendicular AP/lateral fluoroscopy.",
                 "Anterior Great Vessel Perforation: Inadvertent ventral instrument plunging across the anterior longitudinal ligament risks catastrophic vascular laceration of the aorta or vena cava."
+            ]
+        case .plate102:
+            return [
+                "Translational Shear & Acute Cord Transection: Resecting the anterior and posterior columns without a locked temporary stabilizing rod causes sudden column displacement and irreversible paraplegia.",
+                "Excessive Posterior Column Shortening & Cord Ischemia: Shortening the spinal cord by more than 2 cm causes microvascular dural bucking, anterior spinal artery kinking, and spinal cord infarction.",
+                "Critical Root Sacrifice (T1 or T11-L1): Inadvertently dividing nerve roots at T1 causes permanent hand intrinsic paralysis; dividing roots below T11 denervates the lower extremity and conus medullaris."
             ]
         case .plate089:
             return [
