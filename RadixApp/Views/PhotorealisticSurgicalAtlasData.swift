@@ -1946,6 +1946,99 @@ extension SurgicalPlateType {
                     surgicalPearl: "Complete correction of the angular deformity (Cobb angle < 30°) restores physiological sagittal vertical axis and global spinal balance."
                 )
             ]
+        case .plate103:
+            return [
+                SurgicalCallout(
+                    id: "plate_103_1",
+                    title: "T8 Metastatic Vertebral Collapse",
+                    structureType: "SPINE ONCOLOGY PATHOLOGY",
+                    color: ObsidianTheme.neonRose,
+                    normalizedX: 0.10,
+                    normalizedY: 0.38,
+                    description: "Preoperative sagittal and axial T2/CT showing osteolytic metastatic destruction of the T8 vertebral body with pathological compression fracture, circumferential canal retropulsion, and Bilsky 3 cord compression.",
+                    surgicalPearl: "Metastatic T8 vertebral collapse creates severe anterior thecal impingement and axial instability (SINS score ≥ 13), mandating anterior decompression and multi-segment posterior stabilization."
+                ),
+                SurgicalCallout(
+                    id: "plate_103_2",
+                    title: "Resected 8th Rib & Transverse Process",
+                    structureType: "COSTOTRANSVERSECTOMY CORRIDOR",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.28,
+                    normalizedY: 0.25,
+                    description: "Resection of a 3 to 4 cm medial segment of the 8th rib including the rib head, costovertebral joint, and T8 transverse process, opening the posterolateral extrapleural window.",
+                    surgicalPearl: "Resecting 3 to 4 cm of the 8th rib head and neck with the T8 transverse process provides direct extrapleural access to the vertebral body without violating the thoracic pleura."
+                ),
+                SurgicalCallout(
+                    id: "plate_103_3",
+                    title: "Extrapleural Posterolateral Trajectory",
+                    structureType: "SURGICAL TRAJECTORY",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.28,
+                    normalizedY: 0.65,
+                    description: "Posterolateral extrapleural corridor created by gently sweeping the parietal pleura anteriorly, providing an unhindered surgical trajectory to the vertebral body and ventral epidural space.",
+                    surgicalPearl: "Working strictly in the extrapleural plane avoids transpleural morbidity, preserving pulmonary mechanics and eliminating the need for a chest tube."
+                ),
+                SurgicalCallout(
+                    id: "plate_103_4",
+                    title: "T8 Corpectomy Resection Cavity",
+                    structureType: "ONCOLOGIC RESECTION",
+                    color: ObsidianTheme.neonEmerald,
+                    normalizedX: 0.38,
+                    normalizedY: 0.45,
+                    description: "Radical posterolateral corpectomy cavity created by resecting the T8 vertebral body, bilateral pedicles, and contiguous disc spaces down to bleeding subchondral bone of T7 and T9.",
+                    surgicalPearl: "Complete removal of the pathological T8 body from T7 inferior to T9 superior endplate achieves circumferential epidural tumor liberation."
+                ),
+                SurgicalCallout(
+                    id: "plate_103_5",
+                    title: "Circumferentially Decompressed Thecal Sac",
+                    structureType: "CORD LIBERATION",
+                    color: ObsidianTheme.neonPurple,
+                    normalizedX: 0.52,
+                    normalizedY: 0.48,
+                    description: "Fully decompressed thoracic thecal sac suspended within the operative cavity with restored circumferential CSF sleeve and visible dural pulsations.",
+                    surgicalPearl: "Complete 360° ventral and lateral thecal liberation restores microvascular perfusion and protects spinal cord conduction."
+                ),
+                SurgicalCallout(
+                    id: "plate_103_6",
+                    title: "Protected Parietal Pleura",
+                    structureType: "SOFT TISSUE SPARING",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.58,
+                    normalizedY: 0.20,
+                    description: "Parietal pleura mobilized ventrolaterally with blunt cottonoid dissection and shielded with malleable retractors during drilling and cage placement.",
+                    surgicalPearl: "Protect the parietal pleura with moist neuro-patties; inadvertent pleural tears require primary repair or underwater seal aspiration."
+                ),
+                SurgicalCallout(
+                    id: "plate_103_7",
+                    title: "Expandable Titanium Corpectomy Cage",
+                    structureType: "ANTERIOR COLUMN RECONSTRUCTION",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.75,
+                    normalizedY: 0.45,
+                    description: "In-situ expandable porous titanium corpectomy cage inserted collapsed through the costotransversectomy corridor and expanded between T7 and T9 endplates.",
+                    surgicalPearl: "In-situ expandable cage deployment restores anatomic anterior column height under fluoroscopy; expand carefully to achieve rigid purchase without endplate breach."
+                ),
+                SurgicalCallout(
+                    id: "plate_103_8",
+                    title: "T6-T10 Posterior Screw-Rod Construct",
+                    structureType: "MULTI-SEGMENT NEUTRALIZATION",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.68,
+                    normalizedY: 0.60,
+                    description: "Rigid posterior pedicle screw instrumentation spanning two levels above (T6, T7) and two levels below (T9, T10) with dual 5.5 mm titanium rods.",
+                    surgicalPearl: "Multi-segment posterior fixation spanning two levels above (T6–T7) and two levels below (T9–T10) neutralizes massive cantilever loads across the corpectomy defect."
+                ),
+                SurgicalCallout(
+                    id: "plate_103_9",
+                    title: "Restored Anterior Column Height",
+                    structureType: "POSTOPERATIVE RADIOGRAPHY",
+                    color: ObsidianTheme.neonEmerald,
+                    normalizedX: 0.90,
+                    normalizedY: 0.45,
+                    description: "Postoperative thoracic lateral radiograph confirming rigid vertical expansion of the corpectomy cage and harmonious alignment of the T6–T10 construct.",
+                    surgicalPearl: "Postoperative lateral imaging confirms rigid cage engagement against intact endplates and physiological thoracic sagittal contour."
+                )
+            ]
         case .plate089:
             return [
                 SurgicalCallout(
@@ -4049,6 +4142,14 @@ case .plate059:
                 ApproachSequentialStep(stepNumber: 4, title: "Circumferential Spondylectomy & Discectomy", detail: "Work bilaterally around the thecal sac to resect the vertebral body and adjacent discs down to healthy endplates, leaving the cord circumferentially suspended."),
                 ApproachSequentialStep(stepNumber: 5, title: "Expandable Cage Deployment & Multi-Rod Locking", detail: "Insert and expand a heavy-duty titanium corpectomy cage anteriorly; gently shorten the posterior column and secure a quad-rod construct with transverse connectors.")
             ]
+        case .plate103:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Prone Positioning & Preoperative Fluoroscopy", detail: "Position the patient prone on a radiolucent Wilson or Jackson table; establish baseline motor (MEP) and somatosensory (SSEP) evoked potentials, and localize the T8 index level under biplanar fluoroscopy."),
+                ApproachSequentialStep(stepNumber: 2, title: "Posterior Exposure & Costotransversectomy Corridor", detail: "Perform a midline incision extending from T5 to T11; expose the posterior elements from T6 to T10. Resect a 3 to 4 cm medial segment of the 8th rib including the rib head and neck along with the T8 transverse process, entering the extrapleural plane."),
+                ApproachSequentialStep(stepNumber: 3, title: "T8 Corpectomy & Circumferential Cord Decompression", detail: "Gently sweep the parietal pleura ventrally; perform a complete T8 corpectomy and discectomy between T7 inferior and T9 superior endplates, achieving circumferential 360° thecal sac decompression."),
+                ApproachSequentialStep(stepNumber: 4, title: "In-Situ Expandable Titanium Cage Deployment", detail: "Deliver an in-situ expandable titanium corpectomy cage through the posterolateral corridor into the T8 defect; under lateral fluoroscopy, vertically expand the cage to engage the T7 and T9 subchondral endplates without over-distraction."),
+                ApproachSequentialStep(stepNumber: 5, title: "T6-T10 Multi-Segment Posterior Neutralization", detail: "Insert bilateral pedicle screws at two levels above (T6, T7) and two levels below (T9, T10); contour dual titanium rods, apply mild compressive force against the cage, and torque set screws.")
+            ]
         case .plate089:
             return [
                 ApproachSequentialStep(stepNumber: 1, title: "Diagnostic Ultrasound/MRI & Patient Positioning", detail: "Confirm cubital tunnel compression (ulnar nerve CSA > 10 mm²). Position patient supine with arm abducted 90° on an armboard and forearm supinated. Mark a curved 10–12 cm retro-epicondylar incision centered between the medial epicondyle and olecranon."),
@@ -4809,6 +4910,12 @@ case .plate059:
                 "Translational Shear & Acute Cord Transection: Resecting the anterior and posterior columns without a locked temporary stabilizing rod causes sudden column displacement and irreversible paraplegia.",
                 "Excessive Posterior Column Shortening & Cord Ischemia: Shortening the spinal cord by more than 2 cm causes microvascular dural bucking, anterior spinal artery kinking, and spinal cord infarction.",
                 "Critical Root Sacrifice (T1 or T11-L1): Inadvertently dividing nerve roots at T1 causes permanent hand intrinsic paralysis; dividing roots below T11 denervates the lower extremity and conus medullaris."
+            ]
+        case .plate103:
+            return [
+                "Pleural Violation & Pneumothorax: Aggressive lateral mobilization of the 8th rib head without identifying the extrapleural plane tears the parietal pleura, causing intraoperative tension pneumothorax or hemothorax.",
+                "Intercostal/Segmental Artery Hemorrhage: Uncontrolled retraction or drilling near the neurovascular bundle at the inferior rib margin lacerates the intercostal or radicular artery; meticulous bipolar coagulation and hemoclip ligation are essential.",
+                "Over-Distraction of Anterior Column & Endplate Breach: Aggressive expansion of the corpectomy cage against osteoporotic or radiated T7/T9 endplates precipitates cage subsidence into the adjacent vertebral bodies or ischemic stretch of the thoracic spinal cord."
             ]
         case .plate089:
             return [
