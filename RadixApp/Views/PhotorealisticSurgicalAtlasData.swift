@@ -2132,6 +2132,99 @@ extension SurgicalPlateType {
                     surgicalPearl: "Standing full-spine radiograph verifies complete coronal realignment, restored thoracic kyphosis, and balanced sagittal vertical axis."
                 )
             ]
+        case .plate105:
+            return [
+                SurgicalCallout(
+                    id: "plate_105_1",
+                    title: "Symmetrical Hemicords",
+                    structureType: "NEURAL DYSRAPHISM",
+                    color: ObsidianTheme.neonRose,
+                    normalizedX: 0.08,
+                    normalizedY: 0.22,
+                    description: "Axial T2-weighted MRI demonstrating split spinal cord divided into two symmetrical hemicords, each possessing its own central canal and anterior spinal artery.",
+                    surgicalPearl: "Each hemicord in Pang Type I diastematomyelia contains its own independent central canal and anterior spinal vasculature; neither cord should be stretched or manipulated during exposure."
+                ),
+                SurgicalCallout(
+                    id: "plate_105_2",
+                    title: "Duplicated Dural Tubes (Pang I)",
+                    structureType: "DURAL ANATOMY",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.05,
+                    normalizedY: 0.55,
+                    description: "Coronal T2 MRI and axial cuts verifying duplicated, separate dural sleeves completely encasing each hemicord, separated by a central osteocartilaginous septum.",
+                    surgicalPearl: "Duplicated separate dural sacs pathognomonically define Pang Type I split cord malformation, requiring excision of the median dural sleeves to reconstitute a single thecal tube."
+                ),
+                SurgicalCallout(
+                    id: "plate_105_3",
+                    title: "Midline Osseous Spur",
+                    structureType: "BONY SEPTUM",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.26,
+                    normalizedY: 0.38,
+                    description: "Axial bone-window CT demonstrating a dense, well-corticated midline bony spur arising from the posterior vertebral body wall and projecting dorsally between the thecal sacs.",
+                    surgicalPearl: "The bony spur anchors ventrally to the vertebral body and dorsally to the neural arch, acting as a rigid anchor that tethers the migrating spinal cord."
+                ),
+                SurgicalCallout(
+                    id: "plate_105_4",
+                    title: "Diamond Burr Spur Resection",
+                    structureType: "EXTRADURAL RESECTION",
+                    color: ObsidianTheme.neonEmerald,
+                    normalizedX: 0.50,
+                    normalizedY: 0.22,
+                    description: "High-speed diamond burr performing extradural thinning and eggshell resection of the central bony spur down to the posterior longitudinal ligament.",
+                    surgicalPearl: "Always drill the bony spur extradurally before opening the thecal sac to prevent bone dust contamination and protect the hemicords from rotational burr injury."
+                ),
+                SurgicalCallout(
+                    id: "plate_105_5",
+                    title: "Protected Lateral Dural Sleeves",
+                    structureType: "NEURAL PROTECTION",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.38,
+                    normalizedY: 0.42,
+                    description: "Both dural sacs retracted laterally and shielded under moist cottonoids during burr rotation, maintaining a safe surgical margin.",
+                    surgicalPearl: "Protect the lateral dural tubes with moist neuro-patties; inadvertent dural tear during drilling causes acute CSF egress and risks rotational suction injury."
+                ),
+                SurgicalCallout(
+                    id: "plate_105_6",
+                    title: "Ventral Vertebral Base",
+                    structureType: "HEMOSTASIS & CAVITY BASE",
+                    color: ObsidianTheme.neonPurple,
+                    normalizedX: 0.48,
+                    normalizedY: 0.65,
+                    description: "Cancellous base of the resected spur flush with the posterior vertebral body cortex, with bipolar coagulation of the ventral epidural venous plexus.",
+                    surgicalPearl: "Flatten the spur flush with the anterior canal floor; an elevated bony stump can cause persistent ventral mass effect and re-tethering."
+                ),
+                SurgicalCallout(
+                    id: "plate_105_7",
+                    title: "Reconstituted Single Dural Sac",
+                    structureType: "MICROSURGICAL DURAPLASTY",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.72,
+                    normalizedY: 0.22,
+                    description: "Resected inner median dural walls converted into a single, spacious, continuous thecal envelope after excision of the central septum.",
+                    surgicalPearl: "Excision of the inner median dural cuffs eliminates the cleft and prevents fibrous scar formation between the two hemicords."
+                ),
+                SurgicalCallout(
+                    id: "plate_105_8",
+                    title: "Liberated Floating Hemicords",
+                    structureType: "UNTETHERED CORD",
+                    color: ObsidianTheme.neonRose,
+                    normalizedX: 0.90,
+                    normalizedY: 0.38,
+                    description: "Two mobilized hemicords floating freely within a shared, pulsating CSF compartment, completely relieved of mechanical tethering.",
+                    surgicalPearl: "Complete untethering allows the hemicords to re-approximate and pulsate in unison within a single continuous CSF reservoir."
+                ),
+                SurgicalCallout(
+                    id: "plate_105_9",
+                    title: "Water-Tight Running Closure",
+                    structureType: "DURAL RESTORATION",
+                    color: ObsidianTheme.neonEmerald,
+                    normalizedX: 0.75,
+                    normalizedY: 0.68,
+                    description: "Continuous running 5-0 monofilament suture line restoring water-tight dural integrity at the cranial and caudal apices of the resection.",
+                    surgicalPearl: "Water-tight dural closure with non-absorbable monofilament suture prevents postoperative CSF fistula and pseudomeningocele formation."
+                )
+            ]
         case .plate089:
             return [
                 SurgicalCallout(
@@ -4251,6 +4344,14 @@ case .plate059:
                 ApproachSequentialStep(stepNumber: 4, title: "Multi-Rod Reinforcement Across Revision Junction", detail: "Contour bilateral 5.5 mm titanium extension rods into physiological thoracic kyphosis; seat into screws and axial domino connectors, and bridge accessory outrigger rods across the transition to construct a multi-rod junction."),
                 ApproachSequentialStep(stepNumber: 5, title: "Final Tightening & Global Realignment Verification", detail: "Apply gentle compression across the osteoporotic junction to stabilize the fracture; torque set screws to manufacturer specifications and obtain biplanar intraoperative full-spine fluoroscopy confirming restored sagittal vertical axis.")
             ]
+        case .plate105:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Prone Positioning & Multi-Level Exposure", detail: "Position the patient prone with the abdomen free; perform a midline incision and multi-level laminectomy exposing one normal level above and below the bifurcated dural tubes and central osseous spur."),
+                ApproachSequentialStep(stepNumber: 2, title: "Extradural Spur Mobilization & Diamond Burr Drillout", detail: "Working strictly extradurally, gently mobilize the bilateral dural sleeves under moist cottonoids; use a high-speed diamond burr with continuous irrigation to thin and resect the osseous spur down to the posterior vertebral body wall."),
+                ApproachSequentialStep(stepNumber: 3, title: "Ventral Hemostasis & Anterior Canal Floor Flattening", detail: "Flatten the base of the spur flush with the anterior spinal canal floor; achieve meticulous hemostasis of the ventral epidural venous plexus using bipolar coagulation and micro-fibrillar collagen."),
+                ApproachSequentialStep(stepNumber: 4, title: "Dural Cleft Incision & Inner Sleeve Excision", detail: "Sharply incise the dural sacs along the medial cleft; excise the inner dural sleeves that lined the bony spur to eliminate the intervening septum."),
+                ApproachSequentialStep(stepNumber: 5, title: "Single-Tube Duraplasty & Cord Untethering", detail: "Suture the dorsal and ventral dural leaves with continuous running 5-0 monofilament sutures, reconstituting a single continuous thecal sac containing both floating, untethered hemicords.")
+            ]
         case .plate089:
             return [
                 ApproachSequentialStep(stepNumber: 1, title: "Diagnostic Ultrasound/MRI & Patient Positioning", detail: "Confirm cubital tunnel compression (ulnar nerve CSA > 10 mm²). Position patient supine with arm abducted 90° on an armboard and forearm supinated. Mark a curved 10–12 cm retro-epicondylar incision centered between the medial epicondyle and olecranon."),
@@ -5023,6 +5124,12 @@ case .plate059:
                 "Recurrent Junctional Breakdown at New UIV: Terminating the revision construct in the mid-thoracic spine rather than upper thoracic (T2–T4) maintains high cantilever shear forces, precipitating repeat junctional failure.",
                 "Fatigue Rod Fracture at Domino Junction: Relying on a single rod across the axial domino connector without multi-rod outrigger reinforcement concentrates extreme fatigue stress, leading to early rod notch failure.",
                 "Thoracic Pedicle Breach & Spinal Cord Impairment: Misdirected drilling or medial pedicle breach in the narrow mid-to-upper thoracic spine risks direct dural laceration, neural injury, or neurovascular compromise."
+            ]
+        case .plate105:
+            return [
+                "Premature Dural Violation During Bone Drillout: Opening the thecal sac before complete spur resection allows rotating burr flutes to grab the dural edge or directly lacerate the underlying hemicords, with risk of permanent paraplegia.",
+                "Incomplete Ventral Spur Resection: Failing to drill the spur base completely flush with the anterior vertebral cortex leaves a rigid bone prominence that maintains chronic ventral cord tethering and recurrent neurological deterioration.",
+                "Recurrent Tethering via Inadequate Dural Reconstruction: Omitting complete resection of the inner median dural cuffs leaves a fibrous septum that adheres to the raw cord pial surfaces, causing secondary postoperative cord tethering."
             ]
         case .plate089:
             return [
