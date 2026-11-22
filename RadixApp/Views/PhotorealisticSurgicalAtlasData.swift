@@ -965,6 +965,50 @@ extension SurgicalPlateType {
                 )
             ]
 
+        case .plate084:
+            return [
+                SurgicalCallout(
+                    id: "plate_084_1",
+                    title: "Diagnostic 3D CTA & Paraclinoid Anatomy",
+                    structureType: "3D CTA & LATERAL DSA ANGIOARCHITECTURE",
+                    color: Color.red,
+                    normalizedX: 0.16,
+                    normalizedY: 0.30,
+                    description: "Panel 1 details vascular diagnostics and 3D anatomy. 3D CTA and lateral DSA reveal a large paraclinoid aneurysm originating from the superior/medial wall of the ophthalmic segment of the ICA (C6), indenting and elevating the undersurface of the optic nerve (CN II). Paraclinoid (C6) microanatomy is organized into 4 critical zones: (1) Ophthalmic artery origin; (2) Carotid cave (subdural dural recess medial to clinoid segment); (3) Superior hypophyseal artery (SHA) arising medially; and (4) Clinoid segment (C6) bounded between proximal and distal dural rings.",
+                    surgicalPearl: "Paraclinoid aneurysms project superiorly directly under the optic nerve, stretching the nerve against the sharp falciform fold and causing progressive visual field deficits (typically an inferior nasal quadrantanopsia)."
+                ),
+                SurgicalCallout(
+                    id: "plate_084_2",
+                    title: "Extradural Clinoidectomy & Optic Strut Drilling",
+                    structureType: "DOLENC TECHNIQUE & OPTIC STRUT CORING",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.50,
+                    normalizedY: 0.50,
+                    description: "Panel 2 demonstrates the 4-step Dolenc extradural clinoidectomy: (1) Extradural drilling of the lesser sphenoid wing and orbital roof; (2) Diamond burr drilling of the optic strut—the critical bony bridge of the lesser wing separating the optic canal from the superior orbital fissure; (3) En-bloc or core removal of the devitalized anterior clinoid process (ACP), unlocking the clinoid carotid space; and (4) Unroofing the optic canal and sharply incising the falciform ligament to release the optic nerve.",
+                    surgicalPearl: "Drilling the optic strut completely disconnects the anterior clinoid process from the sphenoid body. Copious continuous saline irrigation during drilling is mandatory to avoid thermal optic neuropathy."
+                ),
+                SurgicalCallout(
+                    id: "plate_084_3",
+                    title: "Distal Dural Ring Dissection & Clip Occlusion",
+                    structureType: "CIRCUMFERENTIAL DDR DIVISION & PRESERVATION OF FLOW",
+                    color: Color.green,
+                    normalizedX: 0.82,
+                    normalizedY: 0.50,
+                    description: "Panel 3 illustrates the microsurgical intradural corridor. Micro-scissors sharply divide the fibrous distal dural ring (DDR) around the anterior and lateral circumference of the ICA, mobilizing the clinoid carotid into the subarachnoid space and exposing the true proximal neck of the aneurysm. An angled microsurgical aneurysm clip is applied flush across the neck, achieving complete aneurysm obliteration while preserving 100% patency of the parent supraclinoid ICA and the ophthalmic artery origin.",
+                    surgicalPearl: "Sharp circumferential division of the distal dural ring (DDR) is the single key maneuver that transforms an inaccessible extradural clinoid segment into an intradural corridor, providing safe proximal vascular control."
+                ),
+                SurgicalCallout(
+                    id: "plate_084_4",
+                    title: "Three Concise Resident Pearls",
+                    structureType: "NEUROSURGICAL SAFETY & VASCULAR PRESERVATION",
+                    color: Color.blue,
+                    normalizedX: 0.50,
+                    normalizedY: 0.90,
+                    description: "Bottom bar highlights three mandatory skull base rules: (1) Continuous Irrigation: Maintain copious saline cooling during optic strut and ACP drilling to prevent thermal optic nerve injury; (2) DDR Mobilization: Sharp division of the DDR is required for proximal clip placement; and (3) Ophthalmic Artery Preservation: Always verify flow in the ophthalmic artery with micro-Doppler or ICG angiography before permanent clipping to prevent monocular blindness.",
+                    surgicalPearl: "Never apply permanent clip blades without verifying the ophthalmic artery origin is spared; accidental clip occlusion causes immediate, irreversible ipsilateral central retinal artery infarction."
+                )
+            ]
+
         case .plate083:
             return [
                 SurgicalCallout(
@@ -2697,6 +2741,15 @@ case .plate059:
                 ApproachSequentialStep(stepNumber: 4, title: "Controlled Liquid Embolic / Particle Infusion", detail: "Infuse liquid embolic (Onyx-18 / Squid) slowly under continuous subtracted fluoroscopy, creating a proximal plug and forcing embolic material distally into the neomembrane capillary network. Terminate injection once dense capillary casting and branch truncation are achieved without proximal reflux.")
             ]
 
+        case .plate084:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Pterional / Orbitozygomatic (OZO) Craniotomy", detail: "Position patient supine with head rotated 30° contralateral and extended 15°. Perform a frontotemporal or two-piece orbitozygomatic craniotomy, flattening the sphenoid ridge down to the meningo-orbital band."),
+                ApproachSequentialStep(stepNumber: 2, title: "Extradural Unroofing & Optic Strut Drilling", detail: "Peel the frontotemporal dura extradurally from the superior orbital fissure. Using a 3 mm diamond burr with high-flow irrigation, drill the orbital roof, unroof the optic canal, and core out the optic strut connecting the ACP to the sphenoid body."),
+                ApproachSequentialStep(stepNumber: 3, title: "Anterior Clinoid Process Removal & Falciform Incision", detail: "Gently mobilize and remove the anterior clinoid process en-bloc. Open the optic canal and sharply incise the falciform ligament along the optic nerve sheath to decompress CN II."),
+                ApproachSequentialStep(stepNumber: 4, title: "Dural Opening & Circumferential Distal Dural Ring (DDR) Division", detail: "Open the dura in a curved fashion over the Sylvian fissure. Under the operating microscope, sharply divide the distal dural ring 180° around the anterior and lateral ICA circumference to mobilize the clinoid segment."),
+                ApproachSequentialStep(stepNumber: 5, title: "Aneurysm Neck Dissection, Clip Occlusion & Micro-Doppler Verification", detail: "Dissect the aneurysm neck away from the optic nerve and ophthalmic artery origin. Apply an angled fenestrated or curved aneurysm clip across the neck. Verify complete aneurysm obliteration and patent ophthalmic/ICA flow via micro-Doppler and ICG angiography.")
+            ]
+
         case .plate083:
             return [
                 ApproachSequentialStep(stepNumber: 1, title: "Prone Positioning & Fluoroscopic Trajectory Mapping", detail: "Position the patient prone on a radiolucent Wilson frame or Jackson table. Under biplane fluoroscopy, mark the midline and identify the L4–L5 disc space. Measure 8–10 cm laterally and plan an entry angle 35°–45° from the horizontal plane directed towards the medial pedicular line on AP and the posterior vertebral body line on lateral."),
@@ -3318,6 +3371,14 @@ case .plate059:
                 "IRREVERSIBLE BLINDNESS VIA MENINGO-OPHTHALMIC ANASTOMOSIS: The anterior MMA can connect with the ophthalmic artery via the superior orbital fissure or recurrent meningeal branch. Always perform high-magnification roadmap angiography; embolic reflux or forward migration into the ophthalmic artery causes instant, catastrophic central retinal artery occlusion and permanent monocular blindness.",
                 "FACIAL NERVE PALSY VIA PETROSAL BRANCH: The petrosal branch of the MMA supplies the facial nerve (CN VII) in the Fallopian canal / geniculate ganglion. Always advance the microcatheter tip DISTAL to the petrosal branch takeoff before injecting liquid embolic or particles; embolization of the petrosal artery causes acute, permanent peripheral facial palsy (Bell's palsy).",
                 "PROXIMAL REFLUX INTO MAXILLARY OR CAROTID ARTERY: Never push liquid embolic aggressively against resistance. Maintain continuous fluoroscopic visualization of the catheter tip to prevent reflux back into the internal maxillary artery or external carotid system, which can cause skin necrosis, jaw claudication, or distal stroke."
+            ]
+
+        case .plate084:
+            return [
+                "THERMAL OPTIC NEUROPATHY & MONOCULAR BLINDNESS VIA INADEQUATE DRILL COOLING: High-speed diamond burr drilling of the optic strut or orbital roof generates intense frictional heat. Omitting continuous, high-volume saline irrigation transfers thermal energy through the thin bony canal wall into the optic nerve sheath, causing instant, irreversible thermal coagulative necrosis and ipsilateral blindness.",
+                "CATASTROPHIC PREMATURE ANEURYSM RUPTURE VIA INADEQUATE PROXIMAL CONTROL: Attempting to dissect or manipulate the aneurysm dome without first releasing the distal dural ring (DDR) or preparing for cervical carotid exposure leaves the surgeon without proximal vascular control. An intraoperative rupture under systemic arterial pressure produces torrential arterial bleeding in a cramped bone-restricted corridor, precipitating stroke or death.",
+                "CENTRAL RETINAL ARTERY INFARCTION VIA OPHTHALMIC ARTERY CLIP OCCLUSION: Accidental incorporation or kinking of the ophthalmic artery origin within the clip blades or thermal thrombosis from bipolar cautery arrests blood flow to the central retinal artery, resulting in immediate permanent monocular blindness. Microvascular Doppler and ICG angiography confirmation is mandatory prior to final dural closure.",
+                "CAVERNOUS SINUS VENOUS LACERATION & CRANIAL NERVE PALSY VIA INFERIOR PLUNGING: Violating the proximal dural ring (PDR) or plunging into the superior orbital fissure during ACP extraction lacerates the anterosuperior venous lakes of the cavernous sinus. Aggressive bipolar electrocautery in this region damages CN III (oculomotor) and CN VI (abducens); venous bleeding must be controlled with gentle hemostatic matrix packing (Floseal/Surgicel) rather than cautery."
             ]
 
         case .plate083:
