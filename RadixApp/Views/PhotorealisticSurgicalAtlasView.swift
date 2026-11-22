@@ -737,7 +737,7 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
         case .deformitySalvage:
             return [.plate023, .plate024, .plate039, .plate046, .plate071, .plate075, .plate081]
         case .peripheralNerve:
-            return [.plate089, .plate090]
+            return [.plate089, .plate090, .plate092]
         }
     }
 }
@@ -850,6 +850,7 @@ public enum SurgicalPlateType: String, CaseIterable {
     case plate089 = "plate_089_cubital_tunnel_submuscular_transposition"
     case plate090 = "plate_090_carpal_tunnel_release_recurrent_motor"
     case plate091 = "plate_091_anterior_cervical_corpectomy_fusion"
+    case plate092 = "plate_092_brachial_plexus_oberlin_transfer"
 
     public var subSection: AtlasSubSection {
         for section in AtlasSubSection.allCases {
@@ -957,6 +958,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate089: return 89
         case .plate090: return 90
         case .plate091: return 91
+        case .plate092: return 92
         }
     }
 
@@ -1057,6 +1059,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate089: return "89: Cubital Tunnel Transposition"
         case .plate090: return "90: Carpal Tunnel Release (CTR)"
         case .plate091: return "91: ACCF C6 Corpectomy"
+        case .plate092: return "92: Oberlin Double Transfer"
         }
     }
 
@@ -1153,6 +1156,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate089: return "Cubital Tunnel Syndrome & Submuscular Ulnar Nerve Transposition — In-Situ Decompression, FCU Motor Branch Sparing & Learmonth Procedure"
         case .plate090: return "Carpal Tunnel Syndrome & Open Carpal Tunnel Release (CTR) — Retinacular Decompression, Thenar Motor Variants & Fat Pad Landmark"
         case .plate091: return "Anterior Cervical Corpectomy & Fusion (ACCF at C6) — Expandable Titanium Cage & Anterior Locking Plate"
+        case .plate092: return "Brachial Plexus Injury (Upper Trunk / Erb's Palsy) & Oberlin Double Nerve Transfer — Ulnar to Biceps, Median to Brachialis"
         }
     }
 
@@ -1249,6 +1253,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate089: return "hand.point.right.fill"
         case .plate090: return "hand.raised.slash.fill"
         case .plate091: return "cylinder.split.1x2.fill"
+        case .plate092: return "figure.arms.open"
         }
     }
 

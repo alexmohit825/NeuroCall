@@ -1153,6 +1153,79 @@ extension SurgicalPlateType {
                     surgicalPearl: "Always neutralize a corpectomy strut with a rigid anterior plate; unplated corpectomy struts suffer high rates of kickout, construct displacement, and airway compromise."
                 )
             ]
+        case .plate092:
+            return [
+                SurgicalCallout(
+                    id: "plate_092_1",
+                    title: "C5–C6 Upper Trunk Lesion (Erb's Point)",
+                    structureType: "BRACHIAL PLEXUS PATHOLOGY",
+                    color: ObsidianTheme.neonRose,
+                    normalizedX: 0.10,
+                    normalizedY: 0.25,
+                    description: "Severe traction rupture or avulsion of the upper trunk (junction of C5 and C6 roots) with preservation of C7, C8, and T1 roots, resulting in isolated loss of shoulder abduction and elbow flexion.",
+                    surgicalPearl: "Preservation of lower trunk roots (C8-T1) ensures intact distal hand function, making ulnar and median nerve fascicles ideal donors for motor nerve transfers."
+                ),
+                SurgicalCallout(
+                    id: "plate_092_2",
+                    title: "Classic 'Waiter's Tip' Deformity",
+                    structureType: "CLINICAL PRESENTATION",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.23,
+                    normalizedY: 0.30,
+                    description: "Characteristic clinical posture of Erb-Duchenne palsy: shoulder adducted and internally rotated, elbow fully extended, forearm pronated, and wrist/fingers flexed pointing backward.",
+                    surgicalPearl: "Denervation of the supraspinatus, deltoid, biceps brachii, and brachialis leaves unopposed gravity, triceps, and pronators creating the hallmark deformity."
+                ),
+                SurgicalCallout(
+                    id: "plate_092_3",
+                    title: "Medial Bicipital Surgical Corridor (8–10 cm)",
+                    structureType: "SURGICAL APPROACH",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.16,
+                    normalizedY: 0.65,
+                    description: "Longitudinal incision marked along the medial bicipital groove between the biceps brachii and triceps, stopping 3 cm proximal to the medial epicondyle to avoid basilic vein injury.",
+                    surgicalPearl: "Developing the interval along the medial border of the biceps directly exposes both the recipient musculocutaneous branches and donor neurovascular bundles."
+                ),
+                SurgicalCallout(
+                    id: "plate_092_4",
+                    title: "Musculocutaneous Motor Recipient Branches",
+                    structureType: "RECIPIENT TARGETS",
+                    color: ObsidianTheme.neonEmerald,
+                    normalizedX: 0.45,
+                    normalizedY: 0.48,
+                    description: "Two independent motor branches emerging from the deep fascial bed beneath the laterally retracted biceps: the proximal branch entering the biceps muscle belly and distal branch entering the brachialis.",
+                    surgicalPearl: "Recipient branches must be dissected as close to their neuromuscular entry points as possible, minimizing the reinnervation distance to under 2-3 cm."
+                ),
+                SurgicalCallout(
+                    id: "plate_092_5",
+                    title: "Intraoperative Bipolar Fascicular Mapping",
+                    structureType: "NEUROMONITORING VERIFICATION",
+                    color: ObsidianTheme.neonPurple,
+                    normalizedX: 0.58,
+                    normalizedY: 0.48,
+                    description: "Handheld bipolar electrical micro-stimulation (0.5 - 1.0 mA) applied to candidate fascicles within the ulnar and median nerves to confirm pure, redundant wrist flexor contractions (FCU/FCR).",
+                    surgicalPearl: "Never divide any fascicle that provokes intrinsic hand muscle contraction (interossei, thenar muscles) or shows absence of a motor twitch (sensory fascicle)."
+                ),
+                SurgicalCallout(
+                    id: "plate_092_6",
+                    title: "Oberlin I Transfer (Ulnar-to-Biceps)",
+                    structureType: "PRIMARY MOTOR RECONSTRUCTION",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.78,
+                    normalizedY: 0.38,
+                    description: "Single redundant motor fascicle (~10% caliber, FCU donor) harvested from the ulnar nerve, swung laterally, and coapted end-to-end to the biceps motor branch with 9-0/10-0 nylon epineurial sutures.",
+                    surgicalPearl: "Preserving 85-90% of the ulnar nerve caliber guarantees zero loss of distal hand sensation or intrinsic motor power."
+                ),
+                SurgicalCallout(
+                    id: "plate_092_7",
+                    title: "Oberlin II Transfer (Median-to-Brachialis)",
+                    structureType: "SECONDARY MOTOR RECONSTRUCTION",
+                    color: ObsidianTheme.neonEmerald,
+                    normalizedX: 0.78,
+                    normalizedY: 0.55,
+                    description: "Single redundant motor fascicle (~10% caliber, FCR donor) harvested from the median nerve, coapted end-to-end to the brachialis motor branch, completing the double fascicular repair.",
+                    surgicalPearl: "Reinnervating both the biceps and brachialis restores M4+ MRC elbow flexion power, significantly exceeding single-transfer functional outcomes."
+                )
+            ]
         case .plate089:
             return [
                 SurgicalCallout(
@@ -3168,6 +3241,14 @@ case .plate059:
                 ApproachSequentialStep(stepNumber: 4, title: "Posterior Wall & PLL Decompression", detail: "Thin posterior cortical shell to an eggshell with a diamond burr, elevate with micro-curettes, and resect PLL to achieve wide continuous dural decompression from C5 to C7."),
                 ApproachSequentialStep(stepNumber: 5, title: "Expandable Cage & Bridging Plate Fixation", detail: "Seat and expand porous titanium cage packed with autograft against C5/C7 endplates; bridge with 4-hole anterior locking plate maintaining 5 mm adjacent level clearance.")
             ]
+        case .plate092:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Medial Arm Exposure & Retraction", detail: "Perform an 8-10 cm longitudinal incision along the medial bicipital groove; identify the basilic vein, elevate the deep fascia, and gently retract the biceps brachii muscle belly laterally."),
+                ApproachSequentialStep(stepNumber: 2, title: "Musculocutaneous Motor Branch Identification", detail: "Dissect within the deep fascial bed beneath the biceps to isolate the independent musculocutaneous nerve and trace its motor branches to the biceps and brachialis muscles."),
+                ApproachSequentialStep(stepNumber: 3, title: "Bipolar Fascicular Stimulation & Mapping", detail: "Expose the ulnar and median nerve trunks; open limited longitudinal epineurial windows and use bipolar electrical stimulation (0.5-1.0 mA) to identify redundant wrist flexor motor fascicles (FCU and FCR)."),
+                ApproachSequentialStep(stepNumber: 4, title: "Microsurgical Internal Neurolysis", detail: "Micro-dissect the mapped redundant motor fascicles proximally for 2-3 cm, dividing each fascicle distally to provide sufficient tension-free mobilization toward recipient motor branches."),
+                ApproachSequentialStep(stepNumber: 5, title: "Dual Epineurial Coaptations & Fibrin Sealant", detail: "Perform end-to-end coaptation of the ulnar fascicle to the biceps branch (Oberlin I) and median fascicle to the brachialis branch (Oberlin II) using interrupted 9-0/10-0 nylon microsutures reinforced with fibrin glue.")
+            ]
         case .plate089:
             return [
                 ApproachSequentialStep(stepNumber: 1, title: "Diagnostic Ultrasound/MRI & Patient Positioning", detail: "Confirm cubital tunnel compression (ulnar nerve CSA > 10 mm²). Position patient supine with arm abducted 90° on an armboard and forearm supinated. Mark a curved 10–12 cm retro-epicondylar incision centered between the medial epicondyle and olecranon."),
@@ -3862,6 +3943,12 @@ case .plate059:
                 "Myelopathic Cord Contusion: Never apply downward pressure with burrs or instruments against the posterior cortical shell overlying the compressed spinal cord.",
                 "Cage Displacement & Kickout: Always neutralize corpectomy struts with a rigid anterior locking plate; stand-alone struts carry severe risks of airway compromise.",
                 "Adjacent Segment Ossification (ASO): Maintain strict >= 5 mm clearance between anterior plate margins and adjacent mobile disc spaces (C4-C5 and C7-T1)."
+            ]
+        case .plate092:
+            return [
+                "Devastating Distal Hand Paralysis: Never transect the main parent ulnar or median nerve trunks; internal neurolysis must restrict harvest to ~10% redundant motor fascicles.",
+                "Inadvertent Sensory Fascicle Coaptation: Always confirm motor innervation of redundant wrist flexors (FCU/FCR) with low-threshold electrical stimulation before division.",
+                "Excessive Tension on Nerve Repairs: Perform coaptations within 2-3 cm of motor entry points with the elbow gently flexed; avoid traction neuropraxia during mobilization."
             ]
         case .plate089:
             return [
