@@ -1654,6 +1654,69 @@ extension SurgicalPlateType {
                     surgicalPearl: "Postoperative dynamic radiographs confirm preserved segmental motion arc (8°-10°), protecting adjacent segments from accelerated degeneration."
                 )
             ]
+        case .plate099:
+            return [
+                SurgicalCallout(
+                    id: "plate_099_1",
+                    title: "Severe Cervicothoracic Kyphosis",
+                    structureType: "RIGID CHIN-ON-CHEST DEFORMITY",
+                    color: ObsidianTheme.neonRose,
+                    normalizedX: 0.12,
+                    normalizedY: 0.28,
+                    description: "Preoperative standing full-spine radiograph demonstrating severe fixed cervicothoracic flexion deformity with chin approaching the upper chest and marked loss of horizontal gaze.",
+                    surgicalPearl: "Marked negative Chin-Brow Vertical Angle (CBVA > 35°) causes complete loss of horizontal gaze and severe swallowing impairment."
+                ),
+                SurgicalCallout(
+                    id: "plate_099_2",
+                    title: "Restored Horizontal Gaze & Lordosis",
+                    structureType: "SAGITTAL REALIGNMENT",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.42,
+                    normalizedY: 0.22,
+                    description: "Postoperative standing radiograph showing full restoration of horizontal gaze (CBVA 0°-10°) and physiologic lordosis following C7 closed-wedge osteotomy.",
+                    surgicalPearl: "Closing-wedge osteotomy at C7 restores horizontal gaze (CBVA 0°-10°) and neutralizes cervical sagittal vertical axis (cSVA < 2 cm)."
+                ),
+                SurgicalCallout(
+                    id: "plate_099_3",
+                    title: "Cervicothoracic Screw-Rod Fixation",
+                    structureType: "MULTI-SEGMENT POSTERIOR CONSTRUCT",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.38,
+                    normalizedY: 0.38,
+                    description: "Rigid posterior instrumentation spanning from C3-C5 lateral masses to T2-T4 thoracic pedicle screws, providing permanent structural neutralization.",
+                    surgicalPearl: "Spanning fixation from mid-cervical lateral masses (C3-C5) to upper thoracic pedicles (T2-T4) protects against junctional pullout."
+                ),
+                SurgicalCallout(
+                    id: "plate_099_4",
+                    title: "Unroofed Midline Dural Tube",
+                    structureType: "WIDE DECOMPRESSIVE LAMINECTOMY",
+                    color: ObsidianTheme.neonPurple,
+                    normalizedX: 0.72,
+                    normalizedY: 0.30,
+                    description: "Posterior operative view showing a complete C7 laminectomy with the pristine glistening slate-blue thecal sac and spinal cord continuous and completely unroofed in the midline.",
+                    surgicalPearl: "A complete C7 laminectomy with total visualization of the glistening midline thecal tube is mandatory prior to wedge approximation."
+                ),
+                SurgicalCallout(
+                    id: "plate_099_5",
+                    title: "Bilateral Decompressed C8 Nerve Roots",
+                    structureType: "NEURAL FORAMINAL PRESERVATION",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.82,
+                    normalizedY: 0.45,
+                    description: "Bilateral C8 nerve roots visualized emerging from the thecal sac and coursing through widely decompressed lateral neuroforamina with zero impingement.",
+                    surgicalPearl: "Prophylactic bilateral C8 unroofing eliminates impingement and kinking across the closing osteotomy, preserving hand intrinsic motor function."
+                ),
+                SurgicalCallout(
+                    id: "plate_099_6",
+                    title: "Closed Bone Approximation",
+                    structureType: "BIOMECHANICAL THREE-COLUMN FULCRUM",
+                    color: ObsidianTheme.neonEmerald,
+                    normalizedX: 0.72,
+                    normalizedY: 0.65,
+                    description: "Direct bone-to-bone contact of the superior and inferior C7 osteotomy cuts around the anterior cortical fulcrum, producing acute focal lordotic realignment.",
+                    surgicalPearl: "Direct bone-to-bone contact of the superior and inferior C7 osteotomy cuts produces 30°-35° of rigid lordotic correction."
+                )
+            ]
         case .plate089:
             return [
                 SurgicalCallout(
@@ -3725,6 +3788,14 @@ case .plate059:
                 ApproachSequentialStep(stepNumber: 4, title: "Trial Sizing & Midline Keel Milling", detail: "Insert footprint and height trials under biplanar fluoroscopy; verify true midline AP centering and mill precise superior and inferior keel troughs."),
                 ApproachSequentialStep(stepNumber: 5, title: "Prosthesis Implantation & Kinematic Assessment", detail: "Advance the pre-assembled mobile-bearing artificial disc prosthesis until keels seat flush into C5 and C6; release distraction and verify physiological flexion-extension under fluoroscopy.")
             ]
+        case .plate099:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Prone Positioning & Multimodal Monitoring Setup", detail: "Secure the patient in Mayfield skull tongs in the flexed deformity position; verify robust baseline motor (MEP) and somatosensory (SSEP) evoked potentials before incision."),
+                ApproachSequentialStep(stepNumber: 2, title: "Posterior Cervicothoracic Exposure & Anchor Placement", detail: "Expose from C2 to T5; place bilateral lateral mass screws from C3 to C5 and pedicle screws from T1 to T4, securing a temporary stabilizing rod along one side."),
+                ApproachSequentialStep(stepNumber: 3, title: "Wide C7 Laminectomy & Bilateral C8 Foraminotomies", detail: "Remove the entire C7 posterior arch to completely unroof the midline thecal sac; perform radical bilateral foraminotomies liberating the exiting C8 nerve roots."),
+                ApproachSequentialStep(stepNumber: 4, title: "Transpedicular C7 Decancellation & Lateral Wall Resection", detail: "Drill symmetrical wedge osteotomies through both C7 pedicles into the vertebral body, leaving the anterior cortical hinge intact while confirming the vertebral artery is safely rostral at C6."),
+                ApproachSequentialStep(stepNumber: 5, title: "Controlled Extension Closure & Multi-Rod Fixation", detail: "Slowly extend the neck under live MEP/SSEP monitoring to close the osteotomy gap in direct bone-to-bone contact; lock dual permanent contour rods across the cervicothoracic junction.")
+            ]
         case .plate089:
             return [
                 ApproachSequentialStep(stepNumber: 1, title: "Diagnostic Ultrasound/MRI & Patient Positioning", detail: "Confirm cubital tunnel compression (ulnar nerve CSA > 10 mm²). Position patient supine with arm abducted 90° on an armboard and forearm supinated. Mark a curved 10–12 cm retro-epicondylar incision centered between the medial epicondyle and olecranon."),
@@ -4461,6 +4532,12 @@ case .plate059:
                 "Aggressive Endplate Violation & Subsidence: Over-drilling the subchondral bone or breaching the peripheral cortical bony ring leads to early prosthetic sinking and loss of motion.",
                 "Eccentric Keel Misalignment: Placing the prosthesis off-center or angled relative to the true anatomic midline causes asymmetric polyethylene edge loading and early device failure.",
                 "Inappropriate Indication in Severe Spondylosis: Attempting CDRA in patients with severe facet arthropathy, autofused segments, or kyphotic deformity results in persistent pain and rapid heterotopic ossification."
+            ]
+        case .plate099:
+            return [
+                "C8 Root Kinking & Intrinsic Hand Palsy: Failing to perform generous bilateral C8 foraminotomies before osteotomy closure leads to traction or compressive palsy of the hand intrinsic muscles.",
+                "Spinal Cord Bucking & Ischemia: Rapid or over-aggressive lordotic extension can cause dural kinking or ventral cord compression; extension must be gradual with continuous neuromonitoring.",
+                "Anterior Cortical Hinge Fracture & Translation: Inadvertent violation of the anterior vertebral body cortex converts a stable closing wedge into a translational shear injury across the cervicothoracic junction."
             ]
         case .plate089:
             return [

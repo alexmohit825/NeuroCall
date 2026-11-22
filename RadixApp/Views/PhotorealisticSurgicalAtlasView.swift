@@ -735,7 +735,7 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
         case .lumbarMIS:
             return [.plate011, .plate007, .plate037, .plate029, .plate028, .plate032, .plate083, .plate087]
         case .deformitySalvage:
-            return [.plate023, .plate024, .plate039, .plate046, .plate071, .plate075, .plate081, .plate095]
+            return [.plate023, .plate024, .plate039, .plate046, .plate071, .plate075, .plate081, .plate095, .plate099]
         case .peripheralNerve:
             return [.plate089, .plate090, .plate092, .plate096]
         }
@@ -743,9 +743,9 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
 }
 
 public enum AtlasCategory: String, CaseIterable {
-    case all = "All Plates (98)"
+    case all = "All Plates (99)"
     case cranial = "Cranial & Skull Base (46)"
-    case spine = "Spine & Peripheral Nerve (52)"
+    case spine = "Spine & Peripheral Nerve (53)"
 
     public var filteredPlates: [SurgicalPlateType] {
         switch self {
@@ -857,6 +857,7 @@ public enum SurgicalPlateType: String, CaseIterable {
     case plate096 = "plate_096_neurocall_surgical_atlas_master"
     case plate097 = "plate_097_anterior_odontoid_screw_fixation"
     case plate098 = "plate_098_cervical_artificial_disc_replacement"
+    case plate099 = "plate_099_cervical_pedicle_subtraction_osteotomy"
 
     public var subSection: AtlasSubSection {
         for section in AtlasSubSection.allCases {
@@ -971,6 +972,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate096: return 96
         case .plate097: return 97
         case .plate098: return 98
+        case .plate099: return 99
         }
     }
 
@@ -1078,6 +1080,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate096: return "96: Master Surgical Corridors"
         case .plate097: return "97: Anterior Odontoid Screw"
         case .plate098: return "98: Cervical Disc Replacement"
+        case .plate099: return "99: C7 PSO Realignment"
         }
     }
 
@@ -1181,6 +1184,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate096: return "The NeuroCall Surgical Atlas: 360° Master Corridors — Cranial Skull Base, Spinal Reconstruction & Functional Neural Pathways"
         case .plate097: return "Anterior Odontoid Screw Fixation — Type II Fracture, Biplanar Fluoroscopy & Direct Lag Screw Osteosynthesis"
         case .plate098: return "Cervical Artificial Disc Replacement (CDRA) — C5–C6 Arthroplasty, Complete Neural Decompression & Keel Seating"
+        case .plate099: return "Cervical Pedicle Subtraction Osteotomy (C7 PSO) — Fixed Kyphosis Realignment, C8 Neural Sparing & Cervicothoracic Fixation"
         }
     }
 
@@ -1284,6 +1288,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate096: return "star.circle.fill"
         case .plate097: return "bolt.fill"
         case .plate098: return "circle.circle.fill"
+        case .plate099: return "arrow.up.and.line.horizontal.and.arrow.down"
         }
     }
 
