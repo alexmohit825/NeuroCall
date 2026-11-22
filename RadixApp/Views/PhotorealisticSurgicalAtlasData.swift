@@ -1717,6 +1717,79 @@ extension SurgicalPlateType {
                     surgicalPearl: "Direct bone-to-bone contact of the superior and inferior C7 osteotomy cuts produces 30°-35° of rigid lordotic correction."
                 )
             ]
+        case .plate100:
+            return [
+                SurgicalCallout(
+                    id: "plate_100_1",
+                    title: "Anterior-to-Psoas (ATP) Window",
+                    structureType: "RETROPERITONEAL ANATOMY",
+                    color: ObsidianTheme.neonRose,
+                    normalizedX: 0.22,
+                    normalizedY: 0.38,
+                    description: "Axial anatomical cross-section at L3-L4 demonstrating the bare, fat-filled interval between the anterior border of the psoas major and the great vessels.",
+                    surgicalPearl: "The bare triangular fat corridor between the anterior psoas margin and the left great vessels permits natural access without muscular splitting."
+                ),
+                SurgicalCallout(
+                    id: "plate_100_2",
+                    title: "Great Vessels & Mobilization",
+                    structureType: "VASCULAR BOUNDARY",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.10,
+                    normalizedY: 0.52,
+                    description: "Abdominal aorta and left common iliac vessels bordering the medial margin of the corridor, protected under direct illuminated visualization.",
+                    surgicalPearl: "Gently mobilize the left common iliac vein and sympathetic trunk medially; avoid monopolar cautery along the anterior vertebral body."
+                ),
+                SurgicalCallout(
+                    id: "plate_100_3",
+                    title: "Gentle Posterior Psoas Retraction",
+                    structureType: "PLEXUS PRESERVATION",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.55,
+                    normalizedY: 0.25,
+                    description: "High-magnification surgical field showing the posterior retractor blade gently displacing the psoas major muscle en-bloc without muscle fiber splitting.",
+                    surgicalPearl: "The posterior blade retracts the psoas muscle en-bloc posteriorly, completely protecting the lumbosacral plexus from neuropraxia."
+                ),
+                SurgicalCallout(
+                    id: "plate_100_4",
+                    title: "Contralateral Annular Release",
+                    structureType: "LIGAMENTOUS REALIGNMENT",
+                    color: ObsidianTheme.neonPurple,
+                    normalizedX: 0.58,
+                    normalizedY: 0.60,
+                    description: "Complete division of the contralateral annulus fibrosus releasing tight lateral tethering and allowing symmetric intervertebral distraction.",
+                    surgicalPearl: "Complete release of the contralateral annulus under direct vision allows parallel endplate distraction and restores coronal and sagittal balance."
+                ),
+                SurgicalCallout(
+                    id: "plate_100_5",
+                    title: "Hyperlordotic Interbody Cage",
+                    structureType: "ANTERIOR COLUMN RECONSTRUCTION",
+                    color: ObsidianTheme.neonEmerald,
+                    normalizedX: 0.78,
+                    normalizedY: 0.32,
+                    description: "Wide-footprint 3D porous titanium hyperlordotic interbody cage (12°-15°) restoring segmental lordosis and expanding the anterior column.",
+                    surgicalPearl: "Porous titanium hyperlordotic cages (12°-15°) restore segmental lumbar lordosis while optimizing bony ingrowth across the disc space."
+                ),
+                SurgicalCallout(
+                    id: "plate_100_6",
+                    title: "Bilateral Ring Apophysis Seating",
+                    structureType: "BIOMECHANICAL SUPPORT",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.78,
+                    normalizedY: 0.55,
+                    description: "Cage footprint spanning across the entire transverse diameter of L3 and L4, resting squarely on the dense cortical bone of both ring apophyses.",
+                    surgicalPearl: "Spanning both dense cortical ring apophyses maximizes biomechanical load-bearing and prevents graft subsidence into the cancellous bone."
+                ),
+                SurgicalCallout(
+                    id: "plate_100_7",
+                    title: "Indirect Foraminal Decompression",
+                    structureType: "RADIOGRAPHIC VERIFICATION",
+                    color: ObsidianTheme.neonEmerald,
+                    normalizedX: 0.90,
+                    normalizedY: 0.38,
+                    description: "Postoperative lateral lumbar radiograph confirming marked enlargement of the L3-L4 neuroforamen and unkinking of the ligamentum flavum.",
+                    surgicalPearl: "Restoring collapsed disc height unwrinkles the ligamentum flavum, expanding neuroforaminal area by >30% without direct canal violation."
+                )
+            ]
         case .plate089:
             return [
                 SurgicalCallout(
@@ -3796,6 +3869,14 @@ case .plate059:
                 ApproachSequentialStep(stepNumber: 4, title: "Transpedicular C7 Decancellation & Lateral Wall Resection", detail: "Drill symmetrical wedge osteotomies through both C7 pedicles into the vertebral body, leaving the anterior cortical hinge intact while confirming the vertebral artery is safely rostral at C6."),
                 ApproachSequentialStep(stepNumber: 5, title: "Controlled Extension Closure & Multi-Rod Fixation", detail: "Slowly extend the neck under live MEP/SSEP monitoring to close the osteotomy gap in direct bone-to-bone contact; lock dual permanent contour rods across the cervicothoracic junction.")
             ]
+        case .plate100:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Right Lateral Decubitus Positioning", detail: "Secure the patient in a true 90° right lateral decubitus position on a radiolucent table with table break to open the left flank; verify true orthogonal AP and lateral fluoroscopy."),
+                ApproachSequentialStep(stepNumber: 2, title: "Retroperitoneal Exposure & ATP Localization", detail: "Make a 4 cm oblique incision midway between ASIS and umbilicus; split abdominal wall muscles, sweep the peritoneal sac medially, and palpate the anterior psoas margin."),
+                ApproachSequentialStep(stepNumber: 3, title: "Retractor Docking & Psoas Mobilization", detail: "Dock the self-retaining dual-blade retractor in the anterior-to-psoas interval; mobilize the psoas muscle gently posteriorly and the peritoneal envelope medially, securing the retractor with an intradiscal shim."),
+                ApproachSequentialStep(stepNumber: 4, title: "Oblique Annulotomy & Contralateral Annular Release", detail: "Incise the annulus obliquely; evacuate the disc space down to bleeding subchondral bone and perform a complete contralateral annular release with an orthogonal cobb elevator."),
+                ApproachSequentialStep(stepNumber: 5, title: "Hyperlordotic Cage Trialing & Orthogonal Implantation", detail: "Trial for proper footprint and lordotic angle (12°-15°); pivot the inserter from the 45° oblique entry to a 90° orthogonal cross-body trajectory and advance the porous cage across both ring apophyses.")
+            ]
         case .plate089:
             return [
                 ApproachSequentialStep(stepNumber: 1, title: "Diagnostic Ultrasound/MRI & Patient Positioning", detail: "Confirm cubital tunnel compression (ulnar nerve CSA > 10 mm²). Position patient supine with arm abducted 90° on an armboard and forearm supinated. Mark a curved 10–12 cm retro-epicondylar incision centered between the medial epicondyle and olecranon."),
@@ -4538,6 +4619,12 @@ case .plate059:
                 "C8 Root Kinking & Intrinsic Hand Palsy: Failing to perform generous bilateral C8 foraminotomies before osteotomy closure leads to traction or compressive palsy of the hand intrinsic muscles.",
                 "Spinal Cord Bucking & Ischemia: Rapid or over-aggressive lordotic extension can cause dural kinking or ventral cord compression; extension must be gradual with continuous neuromonitoring.",
                 "Anterior Cortical Hinge Fracture & Translation: Inadvertent violation of the anterior vertebral body cortex converts a stable closing wedge into a translational shear injury across the cervicothoracic junction."
+            ]
+        case .plate100:
+            return [
+                "Great Vessel Tear & Catastrophic Hemorrhage: Vigorous or unvisualized anterior retraction can lacerate the left common iliac vein or aorta; maintain direct visualization of vascular boundaries at all times.",
+                "Sympathetic Trunk Injury & Vasomotor Instability: Over-coagulation or aggressive mobilization of the sympathetic chain over the anterior-lateral vertebral body causes ipsilateral lower extremity hyperthermia and dryness.",
+                "Contralateral Neurological Laceration: Plunging instruments across the contralateral annulus risks injuring the contralateral exiting lumbar nerve root or retroperitoneal structures."
             ]
         case .plate089:
             return [
