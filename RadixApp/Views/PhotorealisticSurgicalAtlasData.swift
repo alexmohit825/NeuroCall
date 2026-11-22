@@ -1445,6 +1445,79 @@ extension SurgicalPlateType {
                     surgicalPearl: "Wide subcutaneous undermining beyond the posterior superior iliac spines relieves cutaneous tension, preventing neonatal wound dehiscence."
                 )
             ]
+        case .plate096:
+            return [
+                SurgicalCallout(
+                    id: "plate_096_1",
+                    title: "Cranial & Skull Base Corridors (360° Vectors)",
+                    structureType: "CRANIAL MASTER CORRIDORS",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.18,
+                    normalizedY: 0.45,
+                    description: "Semi-translucent 3D glass skull highlighting the four primary microsurgical trajectories: Pterional/Transsylvian (gold), FTOZ/Subtemporal (cyan), Retrosigmoid/Far-Lateral (green), and Endoscopic Sellar/Transclival (amber).",
+                    surgicalPearl: "Extensive skull base osteotomies replace brain retraction with bone removal, preserving sub-millimeter perforators and critical neural structures."
+                ),
+                SurgicalCallout(
+                    id: "plate_096_2",
+                    title: "Occipitocervical & C1-C2 Fixation",
+                    structureType: "CRANIOVERTEBRAL JUNCTION",
+                    color: ObsidianTheme.neonPurple,
+                    normalizedX: 0.42,
+                    normalizedY: 0.20,
+                    description: "Rigid screw-rod fixation spanning the occipitocervical junction (OCF) and Goel-Harms C1 lateral mass to C2 pedicle/pars construct, neutralizing high-energy atlantoaxial instability.",
+                    surgicalPearl: "Strict bicortical screw purchase and sagittal alignment prevent catastrophic vertebral artery laceration in the C1-C2 groove."
+                ),
+                SurgicalCallout(
+                    id: "plate_096_3",
+                    title: "Anterior Cervical Reconstruction (ACDF & ACCF)",
+                    structureType: "CERVICAL ARTHRODESIS",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.42,
+                    normalizedY: 0.38,
+                    description: "Anterior cervical decompression via Smith-Robinson approach, demonstrating both single-level ACDF interbody cage fusion and multilevel ACCF corpectomy strut with anterior locking plate.",
+                    surgicalPearl: "Always maintain at least 5 mm clearance between anterior plate margins and adjacent mobile disc spaces to prevent accelerated adjacent segment ossification (ASO)."
+                ),
+                SurgicalCallout(
+                    id: "plate_096_4",
+                    title: "Thoracolumbar Deformity Realignment (PSO & Ponte)",
+                    structureType: "SAGITTAL ALIGNMENT",
+                    color: ObsidianTheme.neonRose,
+                    normalizedX: 0.42,
+                    normalizedY: 0.58,
+                    description: "Three-column Pedicle Subtraction Osteotomy (PSO) and multilevel Ponte facetectomies restoring lumbar lordosis to match pelvic incidence (LL = PI ± 9°).",
+                    surgicalPearl: "Failure to restore global sagittal vertical axis (SVA < 5 cm) leads to massive cantilever strain, hardware pullout, and proximal junctional kyphosis (PJK)."
+                ),
+                SurgicalCallout(
+                    id: "plate_096_5",
+                    title: "Spinopelvic Foundation (S2AI Fixation)",
+                    structureType: "LUMBOPELVIC ANCHOR",
+                    color: ObsidianTheme.neonEmerald,
+                    normalizedX: 0.42,
+                    normalizedY: 0.72,
+                    description: "Bilateral S2 Alar-Iliac (S2AI) pelvic screws traversing three cortical bone boundaries to anchor long-segment adult spinal deformity constructs securely into the ilium.",
+                    surgicalPearl: "S2AI screws in-line with S1 pedicle screws eliminate the need for lateral offset connectors, significantly reducing implant profile and skin breakdown."
+                ),
+                SurgicalCallout(
+                    id: "plate_096_6",
+                    title: "Targeted DBS & Dorsal Column SCS",
+                    structureType: "FUNCTIONAL NEUROMODULATION",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.85,
+                    normalizedY: 0.30,
+                    description: "Precision neuromodulation pathways featuring subcortical STN Deep Brain Stimulation directional leads and multi-column thoracic T8-T10 epidural paddle leads for intractable neuropathic pain.",
+                    surgicalPearl: "Directional current steering focuses stimulation toward sensory therapeutic targets while shielding adjacent internal capsule or ventral motor fibers."
+                ),
+                SurgicalCallout(
+                    id: "plate_096_7",
+                    title: "Peripheral Transfers & Neural Placode Repair",
+                    structureType: "PERIPHERAL & PEDIATRIC RESTORATION",
+                    color: ObsidianTheme.neonEmerald,
+                    normalizedX: 0.85,
+                    normalizedY: 0.65,
+                    description: "High-precision peripheral nerve transfers (Oberlin double transfer for biceps/brachialis) and neonatal neural placode tubularization with watertight multi-layer duraplasty.",
+                    surgicalPearl: "Early microsurgical intervention before irreversible motor endplate loss restores functional independence with zero collateral donor morbidity."
+                )
+            ]
         case .plate089:
             return [
                 SurgicalCallout(
@@ -3492,6 +3565,14 @@ case .plate059:
                 ApproachSequentialStep(stepNumber: 4, title: "Lateral Leaflet Mobilization & Duraplasty", detail: "Dissect lateral dural leaflets from surrounding paraspinal soft tissues; execute a running watertight 5-0 monofilament closure to establish an expansive thecal sac."),
                 ApproachSequentialStep(stepNumber: 5, title: "Myofascial Advancement & Layered Skin Closure", detail: "Release bilateral paraspinous fascial flaps and suture them in the midline over the dura; widely undermine subcutaneous tissue to achieve a tension-free layered cutaneous closure.")
             ]
+        case .plate096:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Corridor Trajectory & 3D Vector Planning", detail: "Map the surgical target in 3D multi-planar space; select the direct anatomical corridor that maximizes operative working angles while minimizing brain retraction and muscle trauma."),
+                ApproachSequentialStep(stepNumber: 2, title: "Skull Base Osteotomy & Perforator Preservation", detail: "Perform keyhole or extended skull base bone removal (anterior clinoid, petrous apex, condyle); preserve sub-millimeter arterial perforators and arachnoid barrier planes."),
+                ApproachSequentialStep(stepNumber: 3, title: "Biomechanical Cranio-Spinopelvic Realignment", detail: "Execute targeted osteotomies, release contracted soft-tissue columns, restore regional lordosis to match pelvic incidence, and anchor rigidly with multi-rod spinopelvic fixation."),
+                ApproachSequentialStep(stepNumber: 4, title: "Targeted Neuromodulation Lead Navigation", detail: "Under stereotactic or intraoperative fluoroscopic guidance, advance directional DBS or multi-column epidural paddle leads along physiologic neural targets with micro-recording confirmation."),
+                ApproachSequentialStep(stepNumber: 5, title: "Tension-Free Microsurgical Reconstruction", detail: "Perform end-to-end epineurial nerve fascicular coaptation, watertight dural reconstruction, and multi-layer vascularized myofascial closure to ensure permanent biological healing.")
+            ]
         case .plate089:
             return [
                 ApproachSequentialStep(stepNumber: 1, title: "Diagnostic Ultrasound/MRI & Patient Positioning", detail: "Confirm cubital tunnel compression (ulnar nerve CSA > 10 mm²). Position patient supine with arm abducted 90° on an armboard and forearm supinated. Mark a curved 10–12 cm retro-epicondylar incision centered between the medial epicondyle and olecranon."),
@@ -4210,6 +4291,12 @@ case .plate059:
                 "Retained Epithelial Inclusions & Epidermoid Cyst: Meticulously debride all non-neural squamous epithelium from the placode margin; buried epithelial rests cause delayed cord-tethering epidermoids.",
                 "Cerebrospinal Fluid Leak & Ventriculitis: Achieve a verified watertight running dural closure and eliminate cutaneous dead space; persistent neonatal CSF leaks risk catastrophic meningitis.",
                 "Inadvertent Neural Placode Vascular Injury: Preserve all dorsal and ventral pial arterial feeders traversing the neural placode during junctional release to prevent progressive paraplegia."
+            ]
+        case .plate096:
+            return [
+                "Loss of Sagittal Balance & Construct Hardware Failure: In complex spinal reconstruction, failing to match lumbar lordosis to pelvic incidence (LL = PI ± 9°) induces massive anterior cantilever stress leading to rod fracture and pseudarthrosis.",
+                "Microvascular Perforator Infarction & Ischemia: During deep skull base and transsylvian corridors, excessive static brain retraction and sacrifice of sub-millimeter perforating arteries cause irreversible stroke.",
+                "Nerve Fascicle Over-Harvest & Intrinsic Hand Deficit: In peripheral nerve transfers, never harvest more than 10-15% of donor nerve cross-section or divide fascicles that fire intrinsic hand muscles under bipolar stimulation."
             ]
         case .plate089:
             return [
