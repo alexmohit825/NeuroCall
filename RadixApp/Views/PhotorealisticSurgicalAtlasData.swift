@@ -965,6 +965,50 @@ extension SurgicalPlateType {
                 )
             ]
 
+        case .plate089:
+            return [
+                SurgicalCallout(
+                    id: "plate_089_1",
+                    title: "Diagnostic Imaging & Five Entrapment Zones",
+                    structureType: "ULTRASOUND, T2 MRI & ANATOMICAL CORRIDORS",
+                    color: Color.red,
+                    normalizedX: 0.16,
+                    normalizedY: 0.35,
+                    description: "Panel 1 presents preoperative neuroimaging and anatomical entrapment topography. Transverse high-frequency ultrasound confirms focal hypoechoic swelling of the ulnar nerve seated in the retrocondylar groove (cross-sectional area CSA = 14 mm², normal < 9 mm²). Axial T2 MRI confirms marked hyperintense edema. Diagram 1B maps the canonical 5 compression zones: (1) Arcade of Struthers (~8 cm proximal); (2) Medial Intermuscular Septum; (3) Retrocondylar Groove of Medial Epicondyle; (4) Osborne's Ligament; and (5) Deep Aponeurosis between humeral and ulnar heads of FCU. Diagram 1C maps the curved retro-epicondylar incision and tracks the anterior and posterior branches of the Medial Antebrachial Cutaneous Nerve (MACN).",
+                    surgicalPearl: "Always identify and mobilize the anterior and posterior branches of the MACN traversing anterior to the medial epicondyle; accidental transection produces disabling, painful neuromas."
+                ),
+                SurgicalCallout(
+                    id: "plate_089_2",
+                    title: "In-Situ Decompression & FCU Motor Branch Sparing",
+                    structureType: "RETROCONDYLAR GROOVE DECOMPRESSION & INTERNAL NEUROLYSIS",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.50,
+                    normalizedY: 0.50,
+                    description: "Panel 2 demonstrates deep operative release of the right ulnar nerve resting in-situ behind the Medial Epicondyle. The Arcade of Struthers is released, and a 2 cm window of the rigid medial intermuscular septum is resected to prevent bowstringing upon transposition. Osborne's ligament is longitudinally divided to unroof the retrocondylar groove, and the distal FCU aponeurosis is opened. The primary motor branch to the FCU arises from the medial/posterior aspect of the ulnar nerve and plunges directly into the deep FCU belly; internal neurolysis is performed proximally along the main trunk for 2–3 cm to provide complete slack for transposition.",
+                    surgicalPearl: "Resect at least a 2 cm segment of the medial intermuscular septum rather than a simple slit; simple division leaves a sharp fibrous band that kinks and strangulates the nerve upon anterior transposition."
+                ),
+                SurgicalCallout(
+                    id: "plate_089_3",
+                    title: "True Submuscular Transposition (Learmonth Procedure)",
+                    structureType: "DEEP BRACHIALIS BED & TRANSVERSE TENDON REPAIR",
+                    color: Color.green,
+                    normalizedX: 0.82,
+                    normalizedY: 0.50,
+                    description: "Panel 3 illustrates definitive submuscular anterior transposition. The ulnar nerve is transposed anterior to the Medial Epicondyle in a gentle, unkinked vector. Proximally in the arm, the nerve rests upon the anterior muscular surface of the Brachialis ('Deep Brachialis Bed'). Distally in the forearm, the nerve passes deep to the elevated common flexor-pronator muscle origin, resting directly on the Flexor Digitorum Profundus (FDP). The common flexor-pronator tendon origin is re-approximated with transverse/oblique sutures directly back to the Medial Epicondyle, avoiding longitudinal muscle splitting and maintaining wide, unconstricted proximal and distal fascial tunnel openings.",
+                    surgicalPearl: "True submuscular transposition requires the nerve to lie deep to the entire flexor-pronator mass on brachialis and FDP with transverse tendon repair; burying the nerve inside an intramuscular split induces severe circumferential scarring and recurrent neuropathy."
+                ),
+                SurgicalCallout(
+                    id: "plate_089_4",
+                    title: "Three Concise Resident Pearls",
+                    structureType: "PERIPHERAL NERVE SURGICAL HARBORS & PEARLS",
+                    color: Color.blue,
+                    normalizedX: 0.50,
+                    normalizedY: 0.90,
+                    description: "Bottom bar highlights three cardinal surgical rules: (1) Medial Septum Resection: Resect at least a 2 cm segment of the medial intermuscular septum; simple division leaves a rigid fibrous edge that kinks and strangulates the nerve upon anterior transposition; (2) FCU Motor Branch Internal Neurolysis: Separate the primary motor branch to the FCU proximally along the nerve trunk for 2–3 cm; this eliminates tension and allows the nerve to transpose anteriorly without tethering; and (3) MACN Branch Sparing: Carefully identify and protect the anterior and posterior branches of the medial antebrachial cutaneous nerve (MACN) traversing the incision; accidental transection produces disabling, painful neuromas.",
+                    surgicalPearl: "After tendon re-attachment, pass a right-angle clamp or fingertip alongside the nerve at both the proximal and distal tunnel openings to verify absolute freedom from constriction during full elbow extension and flexion."
+                )
+            ]
+
         case .plate088:
             return [
                 SurgicalCallout(
@@ -2917,6 +2961,15 @@ case .plate059:
                 ApproachSequentialStep(stepNumber: 4, title: "Controlled Liquid Embolic / Particle Infusion", detail: "Infuse liquid embolic (Onyx-18 / Squid) slowly under continuous subtracted fluoroscopy, creating a proximal plug and forcing embolic material distally into the neomembrane capillary network. Terminate injection once dense capillary casting and branch truncation are achieved without proximal reflux.")
             ]
 
+        case .plate089:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Diagnostic Ultrasound/MRI & Patient Positioning", detail: "Confirm cubital tunnel compression (ulnar nerve CSA > 10 mm²). Position patient supine with arm abducted 90° on an armboard and forearm supinated. Mark a curved 10–12 cm retro-epicondylar incision centered between the medial epicondyle and olecranon."),
+                ApproachSequentialStep(stepNumber: 2, title: "Superficial Dissection & MACN Branch Protection", detail: "Incise skin and carefully dissect subcutaneous tissue under magnification. Identify and protect the anterior and posterior branches of the medial antebrachial cutaneous nerve (MACN) traversing anterior and distal to the medial epicondyle."),
+                ApproachSequentialStep(stepNumber: 3, title: "In-Situ Decompression & Five-Zone Release", detail: "Expose the ulnar nerve in the retrocondylar groove. Release the Arcade of Struthers proximally and sharply excise a 2 cm segment of the medial intermuscular septum. Divide Osborne's ligament longitudinally and unroof the deep aponeurosis between the humeral and ulnar heads of the FCU."),
+                ApproachSequentialStep(stepNumber: 4, title: "FCU Motor Branch Internal Neurolysis", detail: "Identify the first motor branch to the FCU entering its deep belly. Perform meticulous internal neurolysis, separating the motor branch proximally along the main ulnar trunk for 2–3 cm to eliminate tension and provide slack for transposition."),
+                ApproachSequentialStep(stepNumber: 5, title: "Submuscular Transposition & Transverse Tendon Repair", detail: "Elevate the common flexor-pronator muscle origin from the medial epicondyle with a step-cut/Z-plasty. Transpose the ulnar nerve anteriorly into a deep bed on the brachialis and FDP. Re-approximate the tendon origin with transverse/oblique sutures, verifying wide, unconstricted proximal and distal tunnel openings.")
+            ]
+
         case .plate088:
             return [
                 ApproachSequentialStep(stepNumber: 1, title: "Preoperative Instability Workup & Skull Clamp Positioning", detail: "Measure craniocervical junction instability metrics (BDI, BAI, Powers ratio, Ranawat, Redlund-Johnell). Secure the patient prone in a 3-pin Mayfield skull clamp with the head and neck locked in functional neutral gaze alignment (O–C2 angle ≈ 14°–16°)."),
@@ -3583,6 +3636,14 @@ case .plate059:
                 "IRREVERSIBLE BLINDNESS VIA MENINGO-OPHTHALMIC ANASTOMOSIS: The anterior MMA can connect with the ophthalmic artery via the superior orbital fissure or recurrent meningeal branch. Always perform high-magnification roadmap angiography; embolic reflux or forward migration into the ophthalmic artery causes instant, catastrophic central retinal artery occlusion and permanent monocular blindness.",
                 "FACIAL NERVE PALSY VIA PETROSAL BRANCH: The petrosal branch of the MMA supplies the facial nerve (CN VII) in the Fallopian canal / geniculate ganglion. Always advance the microcatheter tip DISTAL to the petrosal branch takeoff before injecting liquid embolic or particles; embolization of the petrosal artery causes acute, permanent peripheral facial palsy (Bell's palsy).",
                 "PROXIMAL REFLUX INTO MAXILLARY OR CAROTID ARTERY: Never push liquid embolic aggressively against resistance. Maintain continuous fluoroscopic visualization of the catheter tip to prevent reflux back into the internal maxillary artery or external carotid system, which can cause skin necrosis, jaw claudication, or distal stroke."
+            ]
+
+        case .plate089:
+            return [
+                "IATROGENIC ULNAR NERVE KINKING & CONDUCTION BLOCK VIA INADEQUATE SEPTAL RESECTION: Omitting the 2 cm medial intermuscular septum resection causes the transposed nerve to bowstring across a razor-sharp fibrous edge as it travels anteriorly, precipitating acute postoperative conduction block or permanent intrinsic hand atrophy.",
+                "PAINFUL INTRACTABLE NEUROMA VIA TRANSECTION OF MACN BRANCHES: Careless superficial dissection anterior or distal to the medial epicondyle transects the branches of the medial antebrachial cutaneous nerve, resulting in an exquisitely painful, disabling neuroma in the operative scar.",
+                "LOSS OF MEDIAL HAND GRIP VIA AVULSION OF FCU MOTOR BRANCH: Forcing anterior transposition without dissecting the first motor branch to the FCU proximally tears the motor branch at its root, causing denervation of the FCU and medial flexor digitorum profundus with clawing and weakened grasp.",
+                "RECURRENT ENTRAPMENT VIA INTRAMUSCULAR TROUGH SCARRING: Slitting the flexor-pronator muscle belly and burying the nerve within muscle tissue (intramuscular transposition) induces severe circumferential perineural fibrosis; a true submuscular bed on brachialis and FDP with transverse tendon repair is mandatory."
             ]
 
         case .plate088:

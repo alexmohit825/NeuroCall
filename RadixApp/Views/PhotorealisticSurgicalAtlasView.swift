@@ -667,7 +667,7 @@ public enum AtlasDomain: String, CaseIterable, Identifiable {
         case .cranial:
             return [.anteriorSkullBase, .convexityTrauma, .posteriorFossa, .vascularVentricular]
         case .spine:
-            return [.craniovertebral, .cervical, .thoracicOncology, .lumbarMIS, .deformitySalvage]
+            return [.craniovertebral, .cervical, .thoracicOncology, .lumbarMIS, .deformitySalvage, .peripheralNerve]
         }
     }
     
@@ -689,6 +689,7 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
     case thoracicOncology = "Thoracic & Oncology"
     case lumbarMIS = "Lumbar & MIS Corridors"
     case deformitySalvage = "Deformity & Salvage"
+    case peripheralNerve = "Peripheral Nerve"
     
     public var id: String { rawValue }
     
@@ -696,7 +697,7 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
         switch self {
         case .anteriorSkullBase, .convexityTrauma, .posteriorFossa, .vascularVentricular:
             return .cranial
-        case .craniovertebral, .cervical, .thoracicOncology, .lumbarMIS, .deformitySalvage:
+        case .craniovertebral, .cervical, .thoracicOncology, .lumbarMIS, .deformitySalvage, .peripheralNerve:
             return .spine
         }
     }
@@ -735,14 +736,16 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
             return [.plate011, .plate007, .plate037, .plate029, .plate028, .plate032, .plate083, .plate087]
         case .deformitySalvage:
             return [.plate023, .plate024, .plate039, .plate046, .plate071, .plate075, .plate081]
+        case .peripheralNerve:
+            return [.plate089]
         }
     }
 }
 
 public enum AtlasCategory: String, CaseIterable {
-    case all = "All Plates (88)"
+    case all = "All Plates (89)"
     case cranial = "Cranial & Skull Base (45)"
-    case spine = "Spine & CVJ (43)"
+    case spine = "Spine & Peripheral Nerve (44)"
 
     public var filteredPlates: [SurgicalPlateType] {
         switch self {
@@ -844,6 +847,7 @@ public enum SurgicalPlateType: String, CaseIterable {
     case plate086 = "plate_086_endoscopic_third_ventriculostomy_etv"
     case plate087 = "plate_087_alif_l5_s1_hyperlordotic"
     case plate088 = "plate_088_occipitocervical_fixation_decompression"
+    case plate089 = "plate_089_cubital_tunnel_submuscular_transposition"
 
     public var subSection: AtlasSubSection {
         for section in AtlasSubSection.allCases {
@@ -948,6 +952,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate086: return 86
         case .plate087: return 87
         case .plate088: return 88
+        case .plate089: return 89
         }
     }
 
@@ -1045,6 +1050,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate086: return "86: Endoscopic 3rd Ventriculostomy"
         case .plate087: return "87: ALIF L5–S1 Hyperlordotic"
         case .plate088: return "88: Occipitocervical Fixation (OCF)"
+        case .plate089: return "89: Cubital Tunnel Transposition"
         }
     }
 
@@ -1138,6 +1144,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate086: return "Endoscopic Third Ventriculostomy (ETV) — Foramen of Monro Anatomy, 3rd Ventricular Floor Landmarks & Prepontine Fenestration"
         case .plate087: return "Anterior Lumbar Interbody Fusion (ALIF) at L5–S1 — Retroperitoneal Exposure, Vascular Bifurcation & Hyperlordotic Reconstruction"
         case .plate088: return "Occipitocervical Fixation (OCF) & Decompression — Craniocervical Instability Metrics, Suboccipital Decompression & Occiput-to-C4 Screw-Rod Reconstruction"
+        case .plate089: return "Cubital Tunnel Syndrome & Submuscular Ulnar Nerve Transposition — In-Situ Decompression, FCU Motor Branch Sparing & Learmonth Procedure"
         }
     }
 
@@ -1231,6 +1238,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate086: return "scope"
         case .plate087: return "square.3.layers.3d.down.right"
         case .plate088: return "shield.checkered"
+        case .plate089: return "hand.point.right.fill"
         }
     }
 
