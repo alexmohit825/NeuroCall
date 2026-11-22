@@ -215,13 +215,83 @@ extension SurgicalPlateType {
             return [
                 SurgicalCallout(
                     id: "plate_015_1",
-                    title: "Anterior Cervical Discectomy & Fusi",
-                    structureType: "OPERATIVE TARGET",
+                    title: "Smith-Robinson Fascial Corridor",
+                    structureType: "AVASCULAR FASCIAL INTERVAL",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.18,
+                    normalizedY: 0.55,
+                    description: "Natural anatomical cleavage plane developed between the medial visceral tract (trachea, esophagus, and RLN inside pretracheal fascia) and the lateral neurovascular carotid sheath (CCA, IJV, CN X).",
+                    surgicalPearl: "Traverse the alar space down to the prevertebral fascia directly overlying the anterior longitudinal ligament and longus colli."
+                ),
+                SurgicalCallout(
+                    id: "plate_015_2",
+                    title: "Right C5-C6 Paracentral Herniation",
+                    structureType: "DIAGNOSTIC PATHOLOGY",
+                    color: ObsidianTheme.neonRose,
+                    normalizedX: 0.22,
+                    normalizedY: 0.18,
+                    description: "Axial and sagittal T2 MRI demonstrating focal right paracentral extruded disc material effacing the ventral thecal sac and compressing the exiting right C6 nerve root.",
+                    surgicalPearl: "Preoperative axial MRI determines whether decompression requires standard discectomy or formal uncinatectomy for foraminal stenosis."
+                ),
+                SurgicalCallout(
+                    id: "plate_015_3",
+                    title: "Caspar Distraction Posts",
+                    structureType: "LORDOTIC DISTRACTION MECHANICS",
                     color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.50,
-                    normalizedY: 0.50,
-                    description: "Direct 1:1 surface-texture modernization and inferior vertebral body restoration of NeuroCall's `plate_acdf`.",
-                    surgicalPearl: "Verified Frank Netter publication-grade neurosurgical anatomy."
+                    normalizedX: 0.52,
+                    normalizedY: 0.18,
+                    description: "Parallel titanium distraction posts anchored in the midline vertebral bodies of C5 and C6, applying parallel distraction to restore intervertebral height and lordosis.",
+                    surgicalPearl: "Align pins strictly perpendicular to the anterior vertebral cortex in the sagittal plane to avoid converging and inducing kyphotic distraction."
+                ),
+                SurgicalCallout(
+                    id: "plate_015_4",
+                    title: "Cervical Sympathetic Trunk Preservation",
+                    structureType: "NEUROLOGICAL SAFETY BOUNDARY",
+                    color: ObsidianTheme.neonEmerald,
+                    normalizedX: 0.61,
+                    normalizedY: 0.22,
+                    description: "Slender longitudinal sympathetic chain coursing on the anterior surface of the longus colli muscle lateral to the toothed retractor blade.",
+                    surgicalPearl: "Elevate longus colli strictly subperiosteally for only 4-5 mm; lateral dissection or stray monopolar cautery causes permanent Horner's syndrome."
+                ),
+                SurgicalCallout(
+                    id: "plate_015_5",
+                    title: "Right C6 Nerve Root & Uncinate Decompression",
+                    structureType: "MICROSURGICAL DECOMPRESSION TARGET",
+                    color: ObsidianTheme.neonRose,
+                    normalizedX: 0.60,
+                    normalizedY: 0.53,
+                    description: "Exiting right C6 spinal nerve root completely unroofed and decompressed into the neural foramen via partial resection of the right uncinate process (Luschka joint).",
+                    surgicalPearl: "Use a 1 mm or 2 mm micro-Kerrison punch to undercut the uncinate crest until the nerve root can be palpated freely exiting past the pedicle."
+                ),
+                SurgicalCallout(
+                    id: "plate_015_6",
+                    title: "Thecal Sac Dura & Resected PLL",
+                    structureType: "CENTRAL DURAL DECOMPRESSION",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.51,
+                    normalizedY: 0.49,
+                    description: "Glistening blue-white ventral dura exposed following complete midline resection of both superficial and deep layers of the posterior longitudinal ligament.",
+                    surgicalPearl: "Confirm absence of retro-PLL extruded disc fragments by gently passing a ball-tipped micro-probe cephalad and caudal beneath the vertebral rims."
+                ),
+                SurgicalCallout(
+                    id: "plate_015_7",
+                    title: "Porous Interbody Lordotic Cage",
+                    structureType: "ARTHRODESIS CONSTRUCT",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.84,
+                    normalizedY: 0.49,
+                    description: "3D-printed porous titanium / PEEK lordotic cage packed with cancellous autograft matrix, recessed 1-2 mm behind the anterior cortical lip.",
+                    surgicalPearl: "Preserve the dense cortical bone of the apophyseal ring during endplate preparation to resist axial subsidence while decorticating the central cartilage."
+                ),
+                SurgicalCallout(
+                    id: "plate_015_8",
+                    title: "Low-Profile Plate & 5 mm Clearance Rule",
+                    structureType: "ANTERIOR FIXATION & BIOMECHANICS",
+                    color: ObsidianTheme.neonEmerald,
+                    normalizedX: 0.84,
+                    normalizedY: 0.35,
+                    description: "Low-profile 4-hole anterior cervical plate anchored by 4 flush locking screws, maintaining strict >= 5 mm clearance from adjacent mobile discs (C4-C5 and C6-C7).",
+                    surgicalPearl: "Plate-to-disc distance < 5 mm is the strongest predictor of adjacent segment ossification (ASO) and premature adjacent level degeneration."
                 )
             ]
         case .plate016:
@@ -2773,9 +2843,10 @@ case .plate059:
             ]
         case .plate015:
             return [
-                ApproachSequentialStep(stepNumber: 1, title: "Surgical Exposure", detail: "Expose landmarks and secure sterile operative corridor."),
-                ApproachSequentialStep(stepNumber: 2, title: "Microsurgical Dissection", detail: "Perform precise decompression / reconstruction under magnification."),
-                ApproachSequentialStep(stepNumber: 3, title: "Hemostasis & Closure", detail: "Verify watertight dural integrity and layered anatomical closure.")
+                ApproachSequentialStep(stepNumber: 1, title: "Smith-Robinson Approach & Retraction", detail: "Right transverse skin crease incision at cricoid level (C5-C6); traverse platysma, develop visceral-carotid interval, elevate longus colli subperiosteally for 4-5 mm, and seat retractor blades."),
+                ApproachSequentialStep(stepNumber: 2, title: "Caspar Distraction & Complete Discectomy", detail: "Anchor parallel distraction posts in C5 and C6 vertebral bodies; evacuate nucleus pulposus back to PLL, fenestrate PLL in the midline, and prepare subchondral endplates preserving apophyseal rings."),
+                ApproachSequentialStep(stepNumber: 3, title: "Uncinate Decompression (Foraminotomy)", detail: "Resect posterior medial border of the right uncinate process (Luschka joint) using micro-Kerrison rongeurs, fully visualizing and decompressing the exiting C6 nerve root into the neural foramen."),
+                ApproachSequentialStep(stepNumber: 4, title: "Interbody Arthrodesis & Anterior Plating", detail: "Seat porous lordotic cage packed with autograft recessed 1-2 mm behind the anterior rim; fix 4-hole low-profile plate with locking screws, strictly preserving >= 5 mm clearance from adjacent discs.")
             ]
         case .plate016:
             return [
@@ -3496,8 +3567,10 @@ case .plate059:
             ]
         case .plate015:
             return [
-                "Preserve critical neurovascular boundaries and perforating vessels.",
-                "Verify rigid construct alignment and complete decompression before closure."
+                "Cervical Sympathetic Chain: Restrict longus colli elevation strictly to the medial 4-5 mm; stray monopolar cautery or lateral blade placement causes permanent Horner's syndrome.",
+                "Recurrent Laryngeal Nerve (RLN): Routinely deflate and re-equilibrate ET tube cuff pressure after placing retractor blades to prevent ischemic vocal cord paralysis and hoarseness.",
+                "Adjacent Segment Ossification (ASO): Never allow anterior plate margins to encroach within 5 mm of adjacent unfused discs (C4-C5 above or C6-C7 below).",
+                "Vertebral Artery Injury: Stay strictly medial to the uncinate process apex during lateral decompression; the vertebral artery courses directly lateral to the uncovertebral joint."
             ]
         case .plate016:
             return [
