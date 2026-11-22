@@ -965,6 +965,67 @@ extension SurgicalPlateType {
                 )
             ]
 
+        case .plate086:
+            return [
+                SurgicalCallout(
+                    id: "plate_086_1",
+                    title: "Diagnostic MRI & Kocher's Point Trajectory",
+                    structureType: "TRIVENTRICULAR HYDROCEPHALUS & ENDOSCOPIC CORRIDOR",
+                    color: Color.red,
+                    normalizedX: 0.16,
+                    normalizedY: 0.35,
+                    description: "Panel 1 details preoperative neuroimaging and endoscopic planning. Midsagittal and axial T2 MRI reveal severe non-communicating hydrocephalus from congenital aqueductal stenosis: massively dilated lateral and third ventricles with a collapsed fourth ventricle, marked thinning and downward ballooning of the third ventricular floor (tuber cinereum) into a widely patent prepontine cistern, and transependymal CSF resorption around the frontal horns. The trajectory arc enters at Kocher's Point (1 cm anterior to coronal suture, 2.5–3.0 cm lateral to midline in mid-pupillary line) angled toward the medial canthus and external auditory canal, traversing the frontal horn into the foramen of Monro.",
+                    surgicalPearl: "Kocher's point trajectory must be strictly planned to align the endoscope parallel to the clivus; entering too far anteriorly forces the scope against the fornix, while entering too far laterally prevents access to the third ventricular floor."
+                ),
+                SurgicalCallout(
+                    id: "plate_086_2",
+                    title: "High-Definition Endoscopic Anatomy",
+                    structureType: "FORAMEN OF MONRO & THIRD VENTRICULAR FLOOR LANDMARKS",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.50,
+                    normalizedY: 0.50,
+                    description: "Panel 2 demonstrates 0° rigid neuroendoscopy across two sequential corridors. View A (Foramen of Monro): Identifies the glistening white Column of the Fornix forming the anterior-superior arch (strictly protected from traction), the Thalamostriate Vein and anterior septal vein converging at the Venous Angle, and the Choroid Plexus tuft entering the foramen. View B (Third Ventricular Floor): Identifies the deep Infundibular Recess at 12 o'clock, paired rounded white Mammillary Bodies at 6 o'clock, bilateral Lateral Hypothalamic Walls, the thin translucent Tuber Cinereum (the safe premamillary fenestration target), and the prominent dark vascular shadow of the Pulsatile Basilar Artery Apex visible through the floor.",
+                    surgicalPearl: "The golden rule of ETV is the Premamillary Target: always fenestrate the tuber cinereum in the midline, exactly halfway between the infundibular recess anteriorly and the mammillary bodies posteriorly; never fenestrate posteriorly where the basilar tip resides."
+                ),
+                SurgicalCallout(
+                    id: "plate_086_3",
+                    title: "Fogarty Balloon Fenestration & Prepontine Cistern",
+                    structureType: "BLUNT BALLOON DILATATION & LILIEQUIST'S MEMBRANE OPENING",
+                    color: Color.green,
+                    normalizedX: 0.82,
+                    normalizedY: 0.50,
+                    description: "Panel 3 illustrates the fenestration sequence and prepontine cistern view. (A) Blunt Puncture & Balloon Dilation: A 3-French Fogarty catheter introduced through the working channel bluntly perforates the tuber cinereum, followed by gentle saline balloon expansion to create a 4–5 mm stoma. (B) Completed ETV Stoma: Wide circular ventriculostomy with smooth edges demonstrating vigorous, cyclic CSF pulsation synchronous with the cardiac cycle ('ETV Pulse Wave'). (C) Prepontine Cistern Inspection: Direct visualization through the stoma confirms sharp division of Liliequist's Membrane, uncovering the patent Basilar Artery Bifurcation and P1 branches resting safely deep in the cistern, the Abducens Nerve (CN VI) tracking toward Dorello's canal, and the smooth Clival Dural Surface.",
+                    surgicalPearl: "Creating a stoma in the ventricular floor is only half the operation; you must verify that Liliequist's membrane beneath the floor is widely fenestrated, otherwise CSF remains trapped in the interpeduncular space."
+                ),
+                SurgicalCallout(
+                    id: "plate_086_4",
+                    title: "Three Concise Resident Pearls",
+                    structureType: "NEUROENDOSCOPIC SAFETY & HAZARD AVOIDANCE",
+                    color: Color.blue,
+                    normalizedX: 0.50,
+                    normalizedY: 0.90,
+                    description: "Bottom bar highlights three mandatory neuroendoscopic rules: (1) Premamillary Landmark Rule: Always fenestrate the tuber cinereum midway between infundibular recess and mammillary bodies; never posteriorly near the basilar tip; (2) Blunt Balloon Dilatation: Never use monopolar or bipolar electrocautery to burn the third ventricular floor; use blunt mechanical puncture and gentle Fogarty balloon expansion to prevent catastrophic basilar artery rupture; and (3) Liliequist's Membrane Division: Verify that Liliequist's membrane is widely opened into the prepontine cistern to ensure long-term ETV patency.",
+                    surgicalPearl: "Sudden bradycardia or hypertension during third ventricular endoscopy indicates intracranial pressure spike from irrigation outflow obstruction; immediately pause irrigation, open the outflow stopcock, and ensure free passive drainage."
+                )
+            ]
+
+        case .plate086:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Preoperative MRI Review & Trajectory Planning", detail: "Examine midsagittal/axial T2 and CISS/FIESTA MRI to confirm non-communicating hydrocephalus (aqueductal stenosis) with triventricular enlargement, downward bowing of the tuber cinereum, and a patent prepontine space (>3 mm clearance between dorsum sellae/basilar apex and clivus). Calculate ETV Success Score (ETVSS)."),
+                ApproachSequentialStep(stepNumber: 2, title: "Patient Positioning & Kocher's Point Burr Hole", detail: "Position patient supine with head neutral or slightly flexed 15° on a doughnut headrest. Mark Kocher's Point 1 cm anterior to coronal suture and 2.5–3.0 cm lateral to midline in the mid-pupillary line. Perform a linear 3 cm incision and 14 mm burr hole; coagulate and open the dura in a cruciate fashion."),
+                ApproachSequentialStep(stepNumber: 3, title: "Ventricular Cannulation & Foramen of Monro Traversal", detail: "Cannulate the right lateral ventricle frontal horn using a peel-away introducer sheath aimed toward the medial canthus and external auditory canal. Introduce a 0° rigid neuroendoscope under continuous warm Ringer's irrigation. Identify choroid plexus, thalamostriate vein, and the column of the fornix; pass gently through the foramen of Monro into the third ventricle without touching the fornix."),
+                ApproachSequentialStep(stepNumber: 4, title: "Third Ventricle Floor Inspection & Landmark Identification", detail: "Lower the scope into the third ventricle. Identify the infundibular recess anteriorly (12 o'clock), paired mammillary bodies posteriorly (6 o'clock), and bilateral hypothalamic walls. Visualize the bluish, translucent tuber cinereum and identify the pulsatile shadow of the basilar artery apex beneath it."),
+                ApproachSequentialStep(stepNumber: 5, title: "Blunt Fogarty Balloon Fenestration & Liliequist's Membrane Division", detail: "Introduce a 3F Fogarty catheter or Decq blunt probe. Puncture the tuber cinereum strictly in the midline midway between infundibulum and mammillary bodies. Inflate the balloon with saline to expand the stoma to 4–5 mm. Advance the scope through the stoma, sharply open Liliequist's membrane with micro-forceps, and verify patent flow around the basilar bifurcation and clivus.")
+            ]
+
+        case .plate086:
+            return [
+                "CATASTROPHIC BASILAR ARTERY RUPTURE & FATAL SUBARACHNOID HEMORRHAGE: Fenestrating the third ventricular floor too far posteriorly near the mammillary bodies or using sharp/cautery instruments risks tearing the basilar artery bifurcation or P1 branches. Intraventricular arterial hemorrhage in a closed skull causes instant intracranial hypertension, brainstem herniation, and death; fenestration must be strictly premamillary and performed with blunt balloon dilation.",
+                "PERMANENT ANTEROGRADE AMNESIA (KORSAKOFF SYNDROME) VIA FORNICEAL CONTUSION: Forcing the rigid endoscope or working sheath against the anterior-superior margin of the foramen of Monro contuses or lacerates the column of the fornix. Bilateral or severe unilateral forniceal injury results in irreversible loss of short-term memory formation. The fornix must remain untouched throughout the procedure.",
+                "HYPOTHALAMIC CRISIS, DIABETES INSIPIDUS & POIKILOTHERMIA VIA ANTERIOR DEVIATION: Fenestrating too far anteriorly violates the infundibular recess, pituitary stalk, or anterior hypothalamic nuclei. This causes acute postoperative diabetes insipidus, adipsia, hypernatremia, and severe autonomic thermal dysregulation. The stoma must stay posterior to the infundibular recess.",
+                "PERSISTENT HYDROCEPHALUS VIA INTACT LILIEQUIST'S MEMBRANE: Creating a fenestration in the tuber cinereum without inspecting through the stoma and dividing Liliequist's membrane traps CSF in the interpeduncular space, preventing egress into the prepontine and basal subarachnoid pathways. This results in early ETV failure requiring secondary revision or shunt placement."
+            ]
+
         case .plate085:
             return [
                 SurgicalCallout(
@@ -1009,6 +1070,67 @@ extension SurgicalPlateType {
                 )
             ]
 
+        case .plate086:
+            return [
+                SurgicalCallout(
+                    id: "plate_086_1",
+                    title: "Diagnostic MRI & Kocher's Point Trajectory",
+                    structureType: "TRIVENTRICULAR HYDROCEPHALUS & ENDOSCOPIC CORRIDOR",
+                    color: Color.red,
+                    normalizedX: 0.16,
+                    normalizedY: 0.35,
+                    description: "Panel 1 details preoperative neuroimaging and endoscopic planning. Midsagittal and axial T2 MRI reveal severe non-communicating hydrocephalus from congenital aqueductal stenosis: massively dilated lateral and third ventricles with a collapsed fourth ventricle, marked thinning and downward ballooning of the third ventricular floor (tuber cinereum) into a widely patent prepontine cistern, and transependymal CSF resorption around the frontal horns. The trajectory arc enters at Kocher's Point (1 cm anterior to coronal suture, 2.5–3.0 cm lateral to midline in mid-pupillary line) angled toward the medial canthus and external auditory canal, traversing the frontal horn into the foramen of Monro.",
+                    surgicalPearl: "Kocher's point trajectory must be strictly planned to align the endoscope parallel to the clivus; entering too far anteriorly forces the scope against the fornix, while entering too far laterally prevents access to the third ventricular floor."
+                ),
+                SurgicalCallout(
+                    id: "plate_086_2",
+                    title: "High-Definition Endoscopic Anatomy",
+                    structureType: "FORAMEN OF MONRO & THIRD VENTRICULAR FLOOR LANDMARKS",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.50,
+                    normalizedY: 0.50,
+                    description: "Panel 2 demonstrates 0° rigid neuroendoscopy across two sequential corridors. View A (Foramen of Monro): Identifies the glistening white Column of the Fornix forming the anterior-superior arch (strictly protected from traction), the Thalamostriate Vein and anterior septal vein converging at the Venous Angle, and the Choroid Plexus tuft entering the foramen. View B (Third Ventricular Floor): Identifies the deep Infundibular Recess at 12 o'clock, paired rounded white Mammillary Bodies at 6 o'clock, bilateral Lateral Hypothalamic Walls, the thin translucent Tuber Cinereum (the safe premamillary fenestration target), and the prominent dark vascular shadow of the Pulsatile Basilar Artery Apex visible through the floor.",
+                    surgicalPearl: "The golden rule of ETV is the Premamillary Target: always fenestrate the tuber cinereum in the midline, exactly halfway between the infundibular recess anteriorly and the mammillary bodies posteriorly; never fenestrate posteriorly where the basilar tip resides."
+                ),
+                SurgicalCallout(
+                    id: "plate_086_3",
+                    title: "Fogarty Balloon Fenestration & Prepontine Cistern",
+                    structureType: "BLUNT BALLOON DILATATION & LILIEQUIST'S MEMBRANE OPENING",
+                    color: Color.green,
+                    normalizedX: 0.82,
+                    normalizedY: 0.50,
+                    description: "Panel 3 illustrates the fenestration sequence and prepontine cistern view. (A) Blunt Puncture & Balloon Dilation: A 3-French Fogarty catheter introduced through the working channel bluntly perforates the tuber cinereum, followed by gentle saline balloon expansion to create a 4–5 mm stoma. (B) Completed ETV Stoma: Wide circular ventriculostomy with smooth edges demonstrating vigorous, cyclic CSF pulsation synchronous with the cardiac cycle ('ETV Pulse Wave'). (C) Prepontine Cistern Inspection: Direct visualization through the stoma confirms sharp division of Liliequist's Membrane, uncovering the patent Basilar Artery Bifurcation and P1 branches resting safely deep in the cistern, the Abducens Nerve (CN VI) tracking toward Dorello's canal, and the smooth Clival Dural Surface.",
+                    surgicalPearl: "Creating a stoma in the ventricular floor is only half the operation; you must verify that Liliequist's membrane beneath the floor is widely fenestrated, otherwise CSF remains trapped in the interpeduncular space."
+                ),
+                SurgicalCallout(
+                    id: "plate_086_4",
+                    title: "Three Concise Resident Pearls",
+                    structureType: "NEUROENDOSCOPIC SAFETY & HAZARD AVOIDANCE",
+                    color: Color.blue,
+                    normalizedX: 0.50,
+                    normalizedY: 0.90,
+                    description: "Bottom bar highlights three mandatory neuroendoscopic rules: (1) Premamillary Landmark Rule: Always fenestrate the tuber cinereum midway between infundibular recess and mammillary bodies; never posteriorly near the basilar tip; (2) Blunt Balloon Dilatation: Never use monopolar or bipolar electrocautery to burn the third ventricular floor; use blunt mechanical puncture and gentle Fogarty balloon expansion to prevent catastrophic basilar artery rupture; and (3) Liliequist's Membrane Division: Verify that Liliequist's membrane is widely opened into the prepontine cistern to ensure long-term ETV patency.",
+                    surgicalPearl: "Sudden bradycardia or hypertension during third ventricular endoscopy indicates intracranial pressure spike from irrigation outflow obstruction; immediately pause irrigation, open the outflow stopcock, and ensure free passive drainage."
+                )
+            ]
+
+        case .plate086:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Preoperative MRI Review & Trajectory Planning", detail: "Examine midsagittal/axial T2 and CISS/FIESTA MRI to confirm non-communicating hydrocephalus (aqueductal stenosis) with triventricular enlargement, downward bowing of the tuber cinereum, and a patent prepontine space (>3 mm clearance between dorsum sellae/basilar apex and clivus). Calculate ETV Success Score (ETVSS)."),
+                ApproachSequentialStep(stepNumber: 2, title: "Patient Positioning & Kocher's Point Burr Hole", detail: "Position patient supine with head neutral or slightly flexed 15° on a doughnut headrest. Mark Kocher's Point 1 cm anterior to coronal suture and 2.5–3.0 cm lateral to midline in the mid-pupillary line. Perform a linear 3 cm incision and 14 mm burr hole; coagulate and open the dura in a cruciate fashion."),
+                ApproachSequentialStep(stepNumber: 3, title: "Ventricular Cannulation & Foramen of Monro Traversal", detail: "Cannulate the right lateral ventricle frontal horn using a peel-away introducer sheath aimed toward the medial canthus and external auditory canal. Introduce a 0° rigid neuroendoscope under continuous warm Ringer's irrigation. Identify choroid plexus, thalamostriate vein, and the column of the fornix; pass gently through the foramen of Monro into the third ventricle without touching the fornix."),
+                ApproachSequentialStep(stepNumber: 4, title: "Third Ventricle Floor Inspection & Landmark Identification", detail: "Lower the scope into the third ventricle. Identify the infundibular recess anteriorly (12 o'clock), paired mammillary bodies posteriorly (6 o'clock), and bilateral hypothalamic walls. Visualize the bluish, translucent tuber cinereum and identify the pulsatile shadow of the basilar artery apex beneath it."),
+                ApproachSequentialStep(stepNumber: 5, title: "Blunt Fogarty Balloon Fenestration & Liliequist's Membrane Division", detail: "Introduce a 3F Fogarty catheter or Decq blunt probe. Puncture the tuber cinereum strictly in the midline midway between infundibulum and mammillary bodies. Inflate the balloon with saline to expand the stoma to 4–5 mm. Advance the scope through the stoma, sharply open Liliequist's membrane with micro-forceps, and verify patent flow around the basilar bifurcation and clivus.")
+            ]
+
+        case .plate086:
+            return [
+                "CATASTROPHIC BASILAR ARTERY RUPTURE & FATAL SUBARACHNOID HEMORRHAGE: Fenestrating the third ventricular floor too far posteriorly near the mammillary bodies or using sharp/cautery instruments risks tearing the basilar artery bifurcation or P1 branches. Intraventricular arterial hemorrhage in a closed skull causes instant intracranial hypertension, brainstem herniation, and death; fenestration must be strictly premamillary and performed with blunt balloon dilation.",
+                "PERMANENT ANTEROGRADE AMNESIA (KORSAKOFF SYNDROME) VIA FORNICEAL CONTUSION: Forcing the rigid endoscope or working sheath against the anterior-superior margin of the foramen of Monro contuses or lacerates the column of the fornix. Bilateral or severe unilateral forniceal injury results in irreversible loss of short-term memory formation. The fornix must remain untouched throughout the procedure.",
+                "HYPOTHALAMIC CRISIS, DIABETES INSIPIDUS & POIKILOTHERMIA VIA ANTERIOR DEVIATION: Fenestrating too far anteriorly violates the infundibular recess, pituitary stalk, or anterior hypothalamic nuclei. This causes acute postoperative diabetes insipidus, adipsia, hypernatremia, and severe autonomic thermal dysregulation. The stoma must stay posterior to the infundibular recess.",
+                "PERSISTENT HYDROCEPHALUS VIA INTACT LILIEQUIST'S MEMBRANE: Creating a fenestration in the tuber cinereum without inspecting through the stoma and dividing Liliequist's membrane traps CSF in the interpeduncular space, preventing egress into the prepontine and basal subarachnoid pathways. This results in early ETV failure requiring secondary revision or shunt placement."
+            ]
+
         case .plate085:
             return [
                 ApproachSequentialStep(stepNumber: 1, title: "Preoperative Staging & Multi-Disciplinary Planning", detail: "Obtain high-resolution sagittal/axial T2 MRI, pelvic CT angiogram, and CT-guided core biopsy (via a posterior midline tract that will be excised en bloc). Confirm chordoma histology and coordinate a two-team surgical plan with spine surgery, vascular surgery, and plastic surgery."),
@@ -1016,6 +1138,67 @@ extension SurgicalPlateType {
                 ApproachSequentialStep(stepNumber: 3, title: "Stage 2 — Prone Posterior Midline Exposure & Ligamentous Release", detail: "Position patient prone on a radiolucent Jackson table with pelvic positioning rolls. Make a posterior midline incision incorporating the prior biopsy tract. Divide the sacrotuberous and sacrospinous ligaments to detach the pelvic floor muscles from the sacrum."),
                 ApproachSequentialStep(stepNumber: 4, title: "En-Bloc Sacral & Iliac Osteotomies with Specimen Delivery", detail: "Perform laminectomies to expose the thecal sac. Ligate and divide lower sacral nerve roots according to planned margin level. Using high-speed burrs and osteotomes, cut bilaterally through the sacroiliac joints/iliac wings and perform a transverse sacral osteotomy across S1 or S2 into the anterior spacer. Deliver the intact tumor specimen en bloc."),
                 ApproachSequentialStep(stepNumber: 5, title: "Triangular Spinopelvic Reconstruction & Gluteus Flap Closure", detail: "Place pedicle screws from L3 to L5 and quad iliac screws (two in each iliac wing). Connect screws with dual contoured rods, a transverse pelvic cross-link connector bar, and an expandable vertical mesh cage between L5 and the pelvis. Mobilize bilateral gluteus maximus advancement flaps for tension-free dead space closure.")
+            ]
+
+        case .plate086:
+            return [
+                SurgicalCallout(
+                    id: "plate_086_1",
+                    title: "Diagnostic MRI & Kocher's Point Trajectory",
+                    structureType: "TRIVENTRICULAR HYDROCEPHALUS & ENDOSCOPIC CORRIDOR",
+                    color: Color.red,
+                    normalizedX: 0.16,
+                    normalizedY: 0.35,
+                    description: "Panel 1 details preoperative neuroimaging and endoscopic planning. Midsagittal and axial T2 MRI reveal severe non-communicating hydrocephalus from congenital aqueductal stenosis: massively dilated lateral and third ventricles with a collapsed fourth ventricle, marked thinning and downward ballooning of the third ventricular floor (tuber cinereum) into a widely patent prepontine cistern, and transependymal CSF resorption around the frontal horns. The trajectory arc enters at Kocher's Point (1 cm anterior to coronal suture, 2.5–3.0 cm lateral to midline in mid-pupillary line) angled toward the medial canthus and external auditory canal, traversing the frontal horn into the foramen of Monro.",
+                    surgicalPearl: "Kocher's point trajectory must be strictly planned to align the endoscope parallel to the clivus; entering too far anteriorly forces the scope against the fornix, while entering too far laterally prevents access to the third ventricular floor."
+                ),
+                SurgicalCallout(
+                    id: "plate_086_2",
+                    title: "High-Definition Endoscopic Anatomy",
+                    structureType: "FORAMEN OF MONRO & THIRD VENTRICULAR FLOOR LANDMARKS",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.50,
+                    normalizedY: 0.50,
+                    description: "Panel 2 demonstrates 0° rigid neuroendoscopy across two sequential corridors. View A (Foramen of Monro): Identifies the glistening white Column of the Fornix forming the anterior-superior arch (strictly protected from traction), the Thalamostriate Vein and anterior septal vein converging at the Venous Angle, and the Choroid Plexus tuft entering the foramen. View B (Third Ventricular Floor): Identifies the deep Infundibular Recess at 12 o'clock, paired rounded white Mammillary Bodies at 6 o'clock, bilateral Lateral Hypothalamic Walls, the thin translucent Tuber Cinereum (the safe premamillary fenestration target), and the prominent dark vascular shadow of the Pulsatile Basilar Artery Apex visible through the floor.",
+                    surgicalPearl: "The golden rule of ETV is the Premamillary Target: always fenestrate the tuber cinereum in the midline, exactly halfway between the infundibular recess anteriorly and the mammillary bodies posteriorly; never fenestrate posteriorly where the basilar tip resides."
+                ),
+                SurgicalCallout(
+                    id: "plate_086_3",
+                    title: "Fogarty Balloon Fenestration & Prepontine Cistern",
+                    structureType: "BLUNT BALLOON DILATATION & LILIEQUIST'S MEMBRANE OPENING",
+                    color: Color.green,
+                    normalizedX: 0.82,
+                    normalizedY: 0.50,
+                    description: "Panel 3 illustrates the fenestration sequence and prepontine cistern view. (A) Blunt Puncture & Balloon Dilation: A 3-French Fogarty catheter introduced through the working channel bluntly perforates the tuber cinereum, followed by gentle saline balloon expansion to create a 4–5 mm stoma. (B) Completed ETV Stoma: Wide circular ventriculostomy with smooth edges demonstrating vigorous, cyclic CSF pulsation synchronous with the cardiac cycle ('ETV Pulse Wave'). (C) Prepontine Cistern Inspection: Direct visualization through the stoma confirms sharp division of Liliequist's Membrane, uncovering the patent Basilar Artery Bifurcation and P1 branches resting safely deep in the cistern, the Abducens Nerve (CN VI) tracking toward Dorello's canal, and the smooth Clival Dural Surface.",
+                    surgicalPearl: "Creating a stoma in the ventricular floor is only half the operation; you must verify that Liliequist's membrane beneath the floor is widely fenestrated, otherwise CSF remains trapped in the interpeduncular space."
+                ),
+                SurgicalCallout(
+                    id: "plate_086_4",
+                    title: "Three Concise Resident Pearls",
+                    structureType: "NEUROENDOSCOPIC SAFETY & HAZARD AVOIDANCE",
+                    color: Color.blue,
+                    normalizedX: 0.50,
+                    normalizedY: 0.90,
+                    description: "Bottom bar highlights three mandatory neuroendoscopic rules: (1) Premamillary Landmark Rule: Always fenestrate the tuber cinereum midway between infundibular recess and mammillary bodies; never posteriorly near the basilar tip; (2) Blunt Balloon Dilatation: Never use monopolar or bipolar electrocautery to burn the third ventricular floor; use blunt mechanical puncture and gentle Fogarty balloon expansion to prevent catastrophic basilar artery rupture; and (3) Liliequist's Membrane Division: Verify that Liliequist's membrane is widely opened into the prepontine cistern to ensure long-term ETV patency.",
+                    surgicalPearl: "Sudden bradycardia or hypertension during third ventricular endoscopy indicates intracranial pressure spike from irrigation outflow obstruction; immediately pause irrigation, open the outflow stopcock, and ensure free passive drainage."
+                )
+            ]
+
+        case .plate086:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Preoperative MRI Review & Trajectory Planning", detail: "Examine midsagittal/axial T2 and CISS/FIESTA MRI to confirm non-communicating hydrocephalus (aqueductal stenosis) with triventricular enlargement, downward bowing of the tuber cinereum, and a patent prepontine space (>3 mm clearance between dorsum sellae/basilar apex and clivus). Calculate ETV Success Score (ETVSS)."),
+                ApproachSequentialStep(stepNumber: 2, title: "Patient Positioning & Kocher's Point Burr Hole", detail: "Position patient supine with head neutral or slightly flexed 15° on a doughnut headrest. Mark Kocher's Point 1 cm anterior to coronal suture and 2.5–3.0 cm lateral to midline in the mid-pupillary line. Perform a linear 3 cm incision and 14 mm burr hole; coagulate and open the dura in a cruciate fashion."),
+                ApproachSequentialStep(stepNumber: 3, title: "Ventricular Cannulation & Foramen of Monro Traversal", detail: "Cannulate the right lateral ventricle frontal horn using a peel-away introducer sheath aimed toward the medial canthus and external auditory canal. Introduce a 0° rigid neuroendoscope under continuous warm Ringer's irrigation. Identify choroid plexus, thalamostriate vein, and the column of the fornix; pass gently through the foramen of Monro into the third ventricle without touching the fornix."),
+                ApproachSequentialStep(stepNumber: 4, title: "Third Ventricle Floor Inspection & Landmark Identification", detail: "Lower the scope into the third ventricle. Identify the infundibular recess anteriorly (12 o'clock), paired mammillary bodies posteriorly (6 o'clock), and bilateral hypothalamic walls. Visualize the bluish, translucent tuber cinereum and identify the pulsatile shadow of the basilar artery apex beneath it."),
+                ApproachSequentialStep(stepNumber: 5, title: "Blunt Fogarty Balloon Fenestration & Liliequist's Membrane Division", detail: "Introduce a 3F Fogarty catheter or Decq blunt probe. Puncture the tuber cinereum strictly in the midline midway between infundibulum and mammillary bodies. Inflate the balloon with saline to expand the stoma to 4–5 mm. Advance the scope through the stoma, sharply open Liliequist's membrane with micro-forceps, and verify patent flow around the basilar bifurcation and clivus.")
+            ]
+
+        case .plate086:
+            return [
+                "CATASTROPHIC BASILAR ARTERY RUPTURE & FATAL SUBARACHNOID HEMORRHAGE: Fenestrating the third ventricular floor too far posteriorly near the mammillary bodies or using sharp/cautery instruments risks tearing the basilar artery bifurcation or P1 branches. Intraventricular arterial hemorrhage in a closed skull causes instant intracranial hypertension, brainstem herniation, and death; fenestration must be strictly premamillary and performed with blunt balloon dilation.",
+                "PERMANENT ANTEROGRADE AMNESIA (KORSAKOFF SYNDROME) VIA FORNICEAL CONTUSION: Forcing the rigid endoscope or working sheath against the anterior-superior margin of the foramen of Monro contuses or lacerates the column of the fornix. Bilateral or severe unilateral forniceal injury results in irreversible loss of short-term memory formation. The fornix must remain untouched throughout the procedure.",
+                "HYPOTHALAMIC CRISIS, DIABETES INSIPIDUS & POIKILOTHERMIA VIA ANTERIOR DEVIATION: Fenestrating too far anteriorly violates the infundibular recess, pituitary stalk, or anterior hypothalamic nuclei. This causes acute postoperative diabetes insipidus, adipsia, hypernatremia, and severe autonomic thermal dysregulation. The stoma must stay posterior to the infundibular recess.",
+                "PERSISTENT HYDROCEPHALUS VIA INTACT LILIEQUIST'S MEMBRANE: Creating a fenestration in the tuber cinereum without inspecting through the stoma and dividing Liliequist's membrane traps CSF in the interpeduncular space, preventing egress into the prepontine and basal subarachnoid pathways. This results in early ETV failure requiring secondary revision or shunt placement."
             ]
 
         case .plate085:
@@ -2802,6 +2985,67 @@ case .plate059:
                 ApproachSequentialStep(stepNumber: 4, title: "Controlled Liquid Embolic / Particle Infusion", detail: "Infuse liquid embolic (Onyx-18 / Squid) slowly under continuous subtracted fluoroscopy, creating a proximal plug and forcing embolic material distally into the neomembrane capillary network. Terminate injection once dense capillary casting and branch truncation are achieved without proximal reflux.")
             ]
 
+        case .plate086:
+            return [
+                SurgicalCallout(
+                    id: "plate_086_1",
+                    title: "Diagnostic MRI & Kocher's Point Trajectory",
+                    structureType: "TRIVENTRICULAR HYDROCEPHALUS & ENDOSCOPIC CORRIDOR",
+                    color: Color.red,
+                    normalizedX: 0.16,
+                    normalizedY: 0.35,
+                    description: "Panel 1 details preoperative neuroimaging and endoscopic planning. Midsagittal and axial T2 MRI reveal severe non-communicating hydrocephalus from congenital aqueductal stenosis: massively dilated lateral and third ventricles with a collapsed fourth ventricle, marked thinning and downward ballooning of the third ventricular floor (tuber cinereum) into a widely patent prepontine cistern, and transependymal CSF resorption around the frontal horns. The trajectory arc enters at Kocher's Point (1 cm anterior to coronal suture, 2.5–3.0 cm lateral to midline in mid-pupillary line) angled toward the medial canthus and external auditory canal, traversing the frontal horn into the foramen of Monro.",
+                    surgicalPearl: "Kocher's point trajectory must be strictly planned to align the endoscope parallel to the clivus; entering too far anteriorly forces the scope against the fornix, while entering too far laterally prevents access to the third ventricular floor."
+                ),
+                SurgicalCallout(
+                    id: "plate_086_2",
+                    title: "High-Definition Endoscopic Anatomy",
+                    structureType: "FORAMEN OF MONRO & THIRD VENTRICULAR FLOOR LANDMARKS",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.50,
+                    normalizedY: 0.50,
+                    description: "Panel 2 demonstrates 0° rigid neuroendoscopy across two sequential corridors. View A (Foramen of Monro): Identifies the glistening white Column of the Fornix forming the anterior-superior arch (strictly protected from traction), the Thalamostriate Vein and anterior septal vein converging at the Venous Angle, and the Choroid Plexus tuft entering the foramen. View B (Third Ventricular Floor): Identifies the deep Infundibular Recess at 12 o'clock, paired rounded white Mammillary Bodies at 6 o'clock, bilateral Lateral Hypothalamic Walls, the thin translucent Tuber Cinereum (the safe premamillary fenestration target), and the prominent dark vascular shadow of the Pulsatile Basilar Artery Apex visible through the floor.",
+                    surgicalPearl: "The golden rule of ETV is the Premamillary Target: always fenestrate the tuber cinereum in the midline, exactly halfway between the infundibular recess anteriorly and the mammillary bodies posteriorly; never fenestrate posteriorly where the basilar tip resides."
+                ),
+                SurgicalCallout(
+                    id: "plate_086_3",
+                    title: "Fogarty Balloon Fenestration & Prepontine Cistern",
+                    structureType: "BLUNT BALLOON DILATATION & LILIEQUIST'S MEMBRANE OPENING",
+                    color: Color.green,
+                    normalizedX: 0.82,
+                    normalizedY: 0.50,
+                    description: "Panel 3 illustrates the fenestration sequence and prepontine cistern view. (A) Blunt Puncture & Balloon Dilation: A 3-French Fogarty catheter introduced through the working channel bluntly perforates the tuber cinereum, followed by gentle saline balloon expansion to create a 4–5 mm stoma. (B) Completed ETV Stoma: Wide circular ventriculostomy with smooth edges demonstrating vigorous, cyclic CSF pulsation synchronous with the cardiac cycle ('ETV Pulse Wave'). (C) Prepontine Cistern Inspection: Direct visualization through the stoma confirms sharp division of Liliequist's Membrane, uncovering the patent Basilar Artery Bifurcation and P1 branches resting safely deep in the cistern, the Abducens Nerve (CN VI) tracking toward Dorello's canal, and the smooth Clival Dural Surface.",
+                    surgicalPearl: "Creating a stoma in the ventricular floor is only half the operation; you must verify that Liliequist's membrane beneath the floor is widely fenestrated, otherwise CSF remains trapped in the interpeduncular space."
+                ),
+                SurgicalCallout(
+                    id: "plate_086_4",
+                    title: "Three Concise Resident Pearls",
+                    structureType: "NEUROENDOSCOPIC SAFETY & HAZARD AVOIDANCE",
+                    color: Color.blue,
+                    normalizedX: 0.50,
+                    normalizedY: 0.90,
+                    description: "Bottom bar highlights three mandatory neuroendoscopic rules: (1) Premamillary Landmark Rule: Always fenestrate the tuber cinereum midway between infundibular recess and mammillary bodies; never posteriorly near the basilar tip; (2) Blunt Balloon Dilatation: Never use monopolar or bipolar electrocautery to burn the third ventricular floor; use blunt mechanical puncture and gentle Fogarty balloon expansion to prevent catastrophic basilar artery rupture; and (3) Liliequist's Membrane Division: Verify that Liliequist's membrane is widely opened into the prepontine cistern to ensure long-term ETV patency.",
+                    surgicalPearl: "Sudden bradycardia or hypertension during third ventricular endoscopy indicates intracranial pressure spike from irrigation outflow obstruction; immediately pause irrigation, open the outflow stopcock, and ensure free passive drainage."
+                )
+            ]
+
+        case .plate086:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Preoperative MRI Review & Trajectory Planning", detail: "Examine midsagittal/axial T2 and CISS/FIESTA MRI to confirm non-communicating hydrocephalus (aqueductal stenosis) with triventricular enlargement, downward bowing of the tuber cinereum, and a patent prepontine space (>3 mm clearance between dorsum sellae/basilar apex and clivus). Calculate ETV Success Score (ETVSS)."),
+                ApproachSequentialStep(stepNumber: 2, title: "Patient Positioning & Kocher's Point Burr Hole", detail: "Position patient supine with head neutral or slightly flexed 15° on a doughnut headrest. Mark Kocher's Point 1 cm anterior to coronal suture and 2.5–3.0 cm lateral to midline in the mid-pupillary line. Perform a linear 3 cm incision and 14 mm burr hole; coagulate and open the dura in a cruciate fashion."),
+                ApproachSequentialStep(stepNumber: 3, title: "Ventricular Cannulation & Foramen of Monro Traversal", detail: "Cannulate the right lateral ventricle frontal horn using a peel-away introducer sheath aimed toward the medial canthus and external auditory canal. Introduce a 0° rigid neuroendoscope under continuous warm Ringer's irrigation. Identify choroid plexus, thalamostriate vein, and the column of the fornix; pass gently through the foramen of Monro into the third ventricle without touching the fornix."),
+                ApproachSequentialStep(stepNumber: 4, title: "Third Ventricle Floor Inspection & Landmark Identification", detail: "Lower the scope into the third ventricle. Identify the infundibular recess anteriorly (12 o'clock), paired mammillary bodies posteriorly (6 o'clock), and bilateral hypothalamic walls. Visualize the bluish, translucent tuber cinereum and identify the pulsatile shadow of the basilar artery apex beneath it."),
+                ApproachSequentialStep(stepNumber: 5, title: "Blunt Fogarty Balloon Fenestration & Liliequist's Membrane Division", detail: "Introduce a 3F Fogarty catheter or Decq blunt probe. Puncture the tuber cinereum strictly in the midline midway between infundibulum and mammillary bodies. Inflate the balloon with saline to expand the stoma to 4–5 mm. Advance the scope through the stoma, sharply open Liliequist's membrane with micro-forceps, and verify patent flow around the basilar bifurcation and clivus.")
+            ]
+
+        case .plate086:
+            return [
+                "CATASTROPHIC BASILAR ARTERY RUPTURE & FATAL SUBARACHNOID HEMORRHAGE: Fenestrating the third ventricular floor too far posteriorly near the mammillary bodies or using sharp/cautery instruments risks tearing the basilar artery bifurcation or P1 branches. Intraventricular arterial hemorrhage in a closed skull causes instant intracranial hypertension, brainstem herniation, and death; fenestration must be strictly premamillary and performed with blunt balloon dilation.",
+                "PERMANENT ANTEROGRADE AMNESIA (KORSAKOFF SYNDROME) VIA FORNICEAL CONTUSION: Forcing the rigid endoscope or working sheath against the anterior-superior margin of the foramen of Monro contuses or lacerates the column of the fornix. Bilateral or severe unilateral forniceal injury results in irreversible loss of short-term memory formation. The fornix must remain untouched throughout the procedure.",
+                "HYPOTHALAMIC CRISIS, DIABETES INSIPIDUS & POIKILOTHERMIA VIA ANTERIOR DEVIATION: Fenestrating too far anteriorly violates the infundibular recess, pituitary stalk, or anterior hypothalamic nuclei. This causes acute postoperative diabetes insipidus, adipsia, hypernatremia, and severe autonomic thermal dysregulation. The stoma must stay posterior to the infundibular recess.",
+                "PERSISTENT HYDROCEPHALUS VIA INTACT LILIEQUIST'S MEMBRANE: Creating a fenestration in the tuber cinereum without inspecting through the stoma and dividing Liliequist's membrane traps CSF in the interpeduncular space, preventing egress into the prepontine and basal subarachnoid pathways. This results in early ETV failure requiring secondary revision or shunt placement."
+            ]
+
         case .plate085:
             return [
                 SurgicalCallout(
@@ -2846,6 +3090,67 @@ case .plate059:
                 )
             ]
 
+        case .plate086:
+            return [
+                SurgicalCallout(
+                    id: "plate_086_1",
+                    title: "Diagnostic MRI & Kocher's Point Trajectory",
+                    structureType: "TRIVENTRICULAR HYDROCEPHALUS & ENDOSCOPIC CORRIDOR",
+                    color: Color.red,
+                    normalizedX: 0.16,
+                    normalizedY: 0.35,
+                    description: "Panel 1 details preoperative neuroimaging and endoscopic planning. Midsagittal and axial T2 MRI reveal severe non-communicating hydrocephalus from congenital aqueductal stenosis: massively dilated lateral and third ventricles with a collapsed fourth ventricle, marked thinning and downward ballooning of the third ventricular floor (tuber cinereum) into a widely patent prepontine cistern, and transependymal CSF resorption around the frontal horns. The trajectory arc enters at Kocher's Point (1 cm anterior to coronal suture, 2.5–3.0 cm lateral to midline in mid-pupillary line) angled toward the medial canthus and external auditory canal, traversing the frontal horn into the foramen of Monro.",
+                    surgicalPearl: "Kocher's point trajectory must be strictly planned to align the endoscope parallel to the clivus; entering too far anteriorly forces the scope against the fornix, while entering too far laterally prevents access to the third ventricular floor."
+                ),
+                SurgicalCallout(
+                    id: "plate_086_2",
+                    title: "High-Definition Endoscopic Anatomy",
+                    structureType: "FORAMEN OF MONRO & THIRD VENTRICULAR FLOOR LANDMARKS",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.50,
+                    normalizedY: 0.50,
+                    description: "Panel 2 demonstrates 0° rigid neuroendoscopy across two sequential corridors. View A (Foramen of Monro): Identifies the glistening white Column of the Fornix forming the anterior-superior arch (strictly protected from traction), the Thalamostriate Vein and anterior septal vein converging at the Venous Angle, and the Choroid Plexus tuft entering the foramen. View B (Third Ventricular Floor): Identifies the deep Infundibular Recess at 12 o'clock, paired rounded white Mammillary Bodies at 6 o'clock, bilateral Lateral Hypothalamic Walls, the thin translucent Tuber Cinereum (the safe premamillary fenestration target), and the prominent dark vascular shadow of the Pulsatile Basilar Artery Apex visible through the floor.",
+                    surgicalPearl: "The golden rule of ETV is the Premamillary Target: always fenestrate the tuber cinereum in the midline, exactly halfway between the infundibular recess anteriorly and the mammillary bodies posteriorly; never fenestrate posteriorly where the basilar tip resides."
+                ),
+                SurgicalCallout(
+                    id: "plate_086_3",
+                    title: "Fogarty Balloon Fenestration & Prepontine Cistern",
+                    structureType: "BLUNT BALLOON DILATATION & LILIEQUIST'S MEMBRANE OPENING",
+                    color: Color.green,
+                    normalizedX: 0.82,
+                    normalizedY: 0.50,
+                    description: "Panel 3 illustrates the fenestration sequence and prepontine cistern view. (A) Blunt Puncture & Balloon Dilation: A 3-French Fogarty catheter introduced through the working channel bluntly perforates the tuber cinereum, followed by gentle saline balloon expansion to create a 4–5 mm stoma. (B) Completed ETV Stoma: Wide circular ventriculostomy with smooth edges demonstrating vigorous, cyclic CSF pulsation synchronous with the cardiac cycle ('ETV Pulse Wave'). (C) Prepontine Cistern Inspection: Direct visualization through the stoma confirms sharp division of Liliequist's Membrane, uncovering the patent Basilar Artery Bifurcation and P1 branches resting safely deep in the cistern, the Abducens Nerve (CN VI) tracking toward Dorello's canal, and the smooth Clival Dural Surface.",
+                    surgicalPearl: "Creating a stoma in the ventricular floor is only half the operation; you must verify that Liliequist's membrane beneath the floor is widely fenestrated, otherwise CSF remains trapped in the interpeduncular space."
+                ),
+                SurgicalCallout(
+                    id: "plate_086_4",
+                    title: "Three Concise Resident Pearls",
+                    structureType: "NEUROENDOSCOPIC SAFETY & HAZARD AVOIDANCE",
+                    color: Color.blue,
+                    normalizedX: 0.50,
+                    normalizedY: 0.90,
+                    description: "Bottom bar highlights three mandatory neuroendoscopic rules: (1) Premamillary Landmark Rule: Always fenestrate the tuber cinereum midway between infundibular recess and mammillary bodies; never posteriorly near the basilar tip; (2) Blunt Balloon Dilatation: Never use monopolar or bipolar electrocautery to burn the third ventricular floor; use blunt mechanical puncture and gentle Fogarty balloon expansion to prevent catastrophic basilar artery rupture; and (3) Liliequist's Membrane Division: Verify that Liliequist's membrane is widely opened into the prepontine cistern to ensure long-term ETV patency.",
+                    surgicalPearl: "Sudden bradycardia or hypertension during third ventricular endoscopy indicates intracranial pressure spike from irrigation outflow obstruction; immediately pause irrigation, open the outflow stopcock, and ensure free passive drainage."
+                )
+            ]
+
+        case .plate086:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Preoperative MRI Review & Trajectory Planning", detail: "Examine midsagittal/axial T2 and CISS/FIESTA MRI to confirm non-communicating hydrocephalus (aqueductal stenosis) with triventricular enlargement, downward bowing of the tuber cinereum, and a patent prepontine space (>3 mm clearance between dorsum sellae/basilar apex and clivus). Calculate ETV Success Score (ETVSS)."),
+                ApproachSequentialStep(stepNumber: 2, title: "Patient Positioning & Kocher's Point Burr Hole", detail: "Position patient supine with head neutral or slightly flexed 15° on a doughnut headrest. Mark Kocher's Point 1 cm anterior to coronal suture and 2.5–3.0 cm lateral to midline in the mid-pupillary line. Perform a linear 3 cm incision and 14 mm burr hole; coagulate and open the dura in a cruciate fashion."),
+                ApproachSequentialStep(stepNumber: 3, title: "Ventricular Cannulation & Foramen of Monro Traversal", detail: "Cannulate the right lateral ventricle frontal horn using a peel-away introducer sheath aimed toward the medial canthus and external auditory canal. Introduce a 0° rigid neuroendoscope under continuous warm Ringer's irrigation. Identify choroid plexus, thalamostriate vein, and the column of the fornix; pass gently through the foramen of Monro into the third ventricle without touching the fornix."),
+                ApproachSequentialStep(stepNumber: 4, title: "Third Ventricle Floor Inspection & Landmark Identification", detail: "Lower the scope into the third ventricle. Identify the infundibular recess anteriorly (12 o'clock), paired mammillary bodies posteriorly (6 o'clock), and bilateral hypothalamic walls. Visualize the bluish, translucent tuber cinereum and identify the pulsatile shadow of the basilar artery apex beneath it."),
+                ApproachSequentialStep(stepNumber: 5, title: "Blunt Fogarty Balloon Fenestration & Liliequist's Membrane Division", detail: "Introduce a 3F Fogarty catheter or Decq blunt probe. Puncture the tuber cinereum strictly in the midline midway between infundibulum and mammillary bodies. Inflate the balloon with saline to expand the stoma to 4–5 mm. Advance the scope through the stoma, sharply open Liliequist's membrane with micro-forceps, and verify patent flow around the basilar bifurcation and clivus.")
+            ]
+
+        case .plate086:
+            return [
+                "CATASTROPHIC BASILAR ARTERY RUPTURE & FATAL SUBARACHNOID HEMORRHAGE: Fenestrating the third ventricular floor too far posteriorly near the mammillary bodies or using sharp/cautery instruments risks tearing the basilar artery bifurcation or P1 branches. Intraventricular arterial hemorrhage in a closed skull causes instant intracranial hypertension, brainstem herniation, and death; fenestration must be strictly premamillary and performed with blunt balloon dilation.",
+                "PERMANENT ANTEROGRADE AMNESIA (KORSAKOFF SYNDROME) VIA FORNICEAL CONTUSION: Forcing the rigid endoscope or working sheath against the anterior-superior margin of the foramen of Monro contuses or lacerates the column of the fornix. Bilateral or severe unilateral forniceal injury results in irreversible loss of short-term memory formation. The fornix must remain untouched throughout the procedure.",
+                "HYPOTHALAMIC CRISIS, DIABETES INSIPIDUS & POIKILOTHERMIA VIA ANTERIOR DEVIATION: Fenestrating too far anteriorly violates the infundibular recess, pituitary stalk, or anterior hypothalamic nuclei. This causes acute postoperative diabetes insipidus, adipsia, hypernatremia, and severe autonomic thermal dysregulation. The stoma must stay posterior to the infundibular recess.",
+                "PERSISTENT HYDROCEPHALUS VIA INTACT LILIEQUIST'S MEMBRANE: Creating a fenestration in the tuber cinereum without inspecting through the stoma and dividing Liliequist's membrane traps CSF in the interpeduncular space, preventing egress into the prepontine and basal subarachnoid pathways. This results in early ETV failure requiring secondary revision or shunt placement."
+            ]
+
         case .plate085:
             return [
                 ApproachSequentialStep(stepNumber: 1, title: "Preoperative Staging & Multi-Disciplinary Planning", detail: "Obtain high-resolution sagittal/axial T2 MRI, pelvic CT angiogram, and CT-guided core biopsy (via a posterior midline tract that will be excised en bloc). Confirm chordoma histology and coordinate a two-team surgical plan with spine surgery, vascular surgery, and plastic surgery."),
@@ -2853,6 +3158,67 @@ case .plate059:
                 ApproachSequentialStep(stepNumber: 3, title: "Stage 2 — Prone Posterior Midline Exposure & Ligamentous Release", detail: "Position patient prone on a radiolucent Jackson table with pelvic positioning rolls. Make a posterior midline incision incorporating the prior biopsy tract. Divide the sacrotuberous and sacrospinous ligaments to detach the pelvic floor muscles from the sacrum."),
                 ApproachSequentialStep(stepNumber: 4, title: "En-Bloc Sacral & Iliac Osteotomies with Specimen Delivery", detail: "Perform laminectomies to expose the thecal sac. Ligate and divide lower sacral nerve roots according to planned margin level. Using high-speed burrs and osteotomes, cut bilaterally through the sacroiliac joints/iliac wings and perform a transverse sacral osteotomy across S1 or S2 into the anterior spacer. Deliver the intact tumor specimen en bloc."),
                 ApproachSequentialStep(stepNumber: 5, title: "Triangular Spinopelvic Reconstruction & Gluteus Flap Closure", detail: "Place pedicle screws from L3 to L5 and quad iliac screws (two in each iliac wing). Connect screws with dual contoured rods, a transverse pelvic cross-link connector bar, and an expandable vertical mesh cage between L5 and the pelvis. Mobilize bilateral gluteus maximus advancement flaps for tension-free dead space closure.")
+            ]
+
+        case .plate086:
+            return [
+                SurgicalCallout(
+                    id: "plate_086_1",
+                    title: "Diagnostic MRI & Kocher's Point Trajectory",
+                    structureType: "TRIVENTRICULAR HYDROCEPHALUS & ENDOSCOPIC CORRIDOR",
+                    color: Color.red,
+                    normalizedX: 0.16,
+                    normalizedY: 0.35,
+                    description: "Panel 1 details preoperative neuroimaging and endoscopic planning. Midsagittal and axial T2 MRI reveal severe non-communicating hydrocephalus from congenital aqueductal stenosis: massively dilated lateral and third ventricles with a collapsed fourth ventricle, marked thinning and downward ballooning of the third ventricular floor (tuber cinereum) into a widely patent prepontine cistern, and transependymal CSF resorption around the frontal horns. The trajectory arc enters at Kocher's Point (1 cm anterior to coronal suture, 2.5–3.0 cm lateral to midline in mid-pupillary line) angled toward the medial canthus and external auditory canal, traversing the frontal horn into the foramen of Monro.",
+                    surgicalPearl: "Kocher's point trajectory must be strictly planned to align the endoscope parallel to the clivus; entering too far anteriorly forces the scope against the fornix, while entering too far laterally prevents access to the third ventricular floor."
+                ),
+                SurgicalCallout(
+                    id: "plate_086_2",
+                    title: "High-Definition Endoscopic Anatomy",
+                    structureType: "FORAMEN OF MONRO & THIRD VENTRICULAR FLOOR LANDMARKS",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.50,
+                    normalizedY: 0.50,
+                    description: "Panel 2 demonstrates 0° rigid neuroendoscopy across two sequential corridors. View A (Foramen of Monro): Identifies the glistening white Column of the Fornix forming the anterior-superior arch (strictly protected from traction), the Thalamostriate Vein and anterior septal vein converging at the Venous Angle, and the Choroid Plexus tuft entering the foramen. View B (Third Ventricular Floor): Identifies the deep Infundibular Recess at 12 o'clock, paired rounded white Mammillary Bodies at 6 o'clock, bilateral Lateral Hypothalamic Walls, the thin translucent Tuber Cinereum (the safe premamillary fenestration target), and the prominent dark vascular shadow of the Pulsatile Basilar Artery Apex visible through the floor.",
+                    surgicalPearl: "The golden rule of ETV is the Premamillary Target: always fenestrate the tuber cinereum in the midline, exactly halfway between the infundibular recess anteriorly and the mammillary bodies posteriorly; never fenestrate posteriorly where the basilar tip resides."
+                ),
+                SurgicalCallout(
+                    id: "plate_086_3",
+                    title: "Fogarty Balloon Fenestration & Prepontine Cistern",
+                    structureType: "BLUNT BALLOON DILATATION & LILIEQUIST'S MEMBRANE OPENING",
+                    color: Color.green,
+                    normalizedX: 0.82,
+                    normalizedY: 0.50,
+                    description: "Panel 3 illustrates the fenestration sequence and prepontine cistern view. (A) Blunt Puncture & Balloon Dilation: A 3-French Fogarty catheter introduced through the working channel bluntly perforates the tuber cinereum, followed by gentle saline balloon expansion to create a 4–5 mm stoma. (B) Completed ETV Stoma: Wide circular ventriculostomy with smooth edges demonstrating vigorous, cyclic CSF pulsation synchronous with the cardiac cycle ('ETV Pulse Wave'). (C) Prepontine Cistern Inspection: Direct visualization through the stoma confirms sharp division of Liliequist's Membrane, uncovering the patent Basilar Artery Bifurcation and P1 branches resting safely deep in the cistern, the Abducens Nerve (CN VI) tracking toward Dorello's canal, and the smooth Clival Dural Surface.",
+                    surgicalPearl: "Creating a stoma in the ventricular floor is only half the operation; you must verify that Liliequist's membrane beneath the floor is widely fenestrated, otherwise CSF remains trapped in the interpeduncular space."
+                ),
+                SurgicalCallout(
+                    id: "plate_086_4",
+                    title: "Three Concise Resident Pearls",
+                    structureType: "NEUROENDOSCOPIC SAFETY & HAZARD AVOIDANCE",
+                    color: Color.blue,
+                    normalizedX: 0.50,
+                    normalizedY: 0.90,
+                    description: "Bottom bar highlights three mandatory neuroendoscopic rules: (1) Premamillary Landmark Rule: Always fenestrate the tuber cinereum midway between infundibular recess and mammillary bodies; never posteriorly near the basilar tip; (2) Blunt Balloon Dilatation: Never use monopolar or bipolar electrocautery to burn the third ventricular floor; use blunt mechanical puncture and gentle Fogarty balloon expansion to prevent catastrophic basilar artery rupture; and (3) Liliequist's Membrane Division: Verify that Liliequist's membrane is widely opened into the prepontine cistern to ensure long-term ETV patency.",
+                    surgicalPearl: "Sudden bradycardia or hypertension during third ventricular endoscopy indicates intracranial pressure spike from irrigation outflow obstruction; immediately pause irrigation, open the outflow stopcock, and ensure free passive drainage."
+                )
+            ]
+
+        case .plate086:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Preoperative MRI Review & Trajectory Planning", detail: "Examine midsagittal/axial T2 and CISS/FIESTA MRI to confirm non-communicating hydrocephalus (aqueductal stenosis) with triventricular enlargement, downward bowing of the tuber cinereum, and a patent prepontine space (>3 mm clearance between dorsum sellae/basilar apex and clivus). Calculate ETV Success Score (ETVSS)."),
+                ApproachSequentialStep(stepNumber: 2, title: "Patient Positioning & Kocher's Point Burr Hole", detail: "Position patient supine with head neutral or slightly flexed 15° on a doughnut headrest. Mark Kocher's Point 1 cm anterior to coronal suture and 2.5–3.0 cm lateral to midline in the mid-pupillary line. Perform a linear 3 cm incision and 14 mm burr hole; coagulate and open the dura in a cruciate fashion."),
+                ApproachSequentialStep(stepNumber: 3, title: "Ventricular Cannulation & Foramen of Monro Traversal", detail: "Cannulate the right lateral ventricle frontal horn using a peel-away introducer sheath aimed toward the medial canthus and external auditory canal. Introduce a 0° rigid neuroendoscope under continuous warm Ringer's irrigation. Identify choroid plexus, thalamostriate vein, and the column of the fornix; pass gently through the foramen of Monro into the third ventricle without touching the fornix."),
+                ApproachSequentialStep(stepNumber: 4, title: "Third Ventricle Floor Inspection & Landmark Identification", detail: "Lower the scope into the third ventricle. Identify the infundibular recess anteriorly (12 o'clock), paired mammillary bodies posteriorly (6 o'clock), and bilateral hypothalamic walls. Visualize the bluish, translucent tuber cinereum and identify the pulsatile shadow of the basilar artery apex beneath it."),
+                ApproachSequentialStep(stepNumber: 5, title: "Blunt Fogarty Balloon Fenestration & Liliequist's Membrane Division", detail: "Introduce a 3F Fogarty catheter or Decq blunt probe. Puncture the tuber cinereum strictly in the midline midway between infundibulum and mammillary bodies. Inflate the balloon with saline to expand the stoma to 4–5 mm. Advance the scope through the stoma, sharply open Liliequist's membrane with micro-forceps, and verify patent flow around the basilar bifurcation and clivus.")
+            ]
+
+        case .plate086:
+            return [
+                "CATASTROPHIC BASILAR ARTERY RUPTURE & FATAL SUBARACHNOID HEMORRHAGE: Fenestrating the third ventricular floor too far posteriorly near the mammillary bodies or using sharp/cautery instruments risks tearing the basilar artery bifurcation or P1 branches. Intraventricular arterial hemorrhage in a closed skull causes instant intracranial hypertension, brainstem herniation, and death; fenestration must be strictly premamillary and performed with blunt balloon dilation.",
+                "PERMANENT ANTEROGRADE AMNESIA (KORSAKOFF SYNDROME) VIA FORNICEAL CONTUSION: Forcing the rigid endoscope or working sheath against the anterior-superior margin of the foramen of Monro contuses or lacerates the column of the fornix. Bilateral or severe unilateral forniceal injury results in irreversible loss of short-term memory formation. The fornix must remain untouched throughout the procedure.",
+                "HYPOTHALAMIC CRISIS, DIABETES INSIPIDUS & POIKILOTHERMIA VIA ANTERIOR DEVIATION: Fenestrating too far anteriorly violates the infundibular recess, pituitary stalk, or anterior hypothalamic nuclei. This causes acute postoperative diabetes insipidus, adipsia, hypernatremia, and severe autonomic thermal dysregulation. The stoma must stay posterior to the infundibular recess.",
+                "PERSISTENT HYDROCEPHALUS VIA INTACT LILIEQUIST'S MEMBRANE: Creating a fenestration in the tuber cinereum without inspecting through the stoma and dividing Liliequist's membrane traps CSF in the interpeduncular space, preventing egress into the prepontine and basal subarachnoid pathways. This results in early ETV failure requiring secondary revision or shunt placement."
             ]
 
         case .plate085:
@@ -3495,6 +3861,67 @@ case .plate059:
                 "PROXIMAL REFLUX INTO MAXILLARY OR CAROTID ARTERY: Never push liquid embolic aggressively against resistance. Maintain continuous fluoroscopic visualization of the catheter tip to prevent reflux back into the internal maxillary artery or external carotid system, which can cause skin necrosis, jaw claudication, or distal stroke."
             ]
 
+        case .plate086:
+            return [
+                SurgicalCallout(
+                    id: "plate_086_1",
+                    title: "Diagnostic MRI & Kocher's Point Trajectory",
+                    structureType: "TRIVENTRICULAR HYDROCEPHALUS & ENDOSCOPIC CORRIDOR",
+                    color: Color.red,
+                    normalizedX: 0.16,
+                    normalizedY: 0.35,
+                    description: "Panel 1 details preoperative neuroimaging and endoscopic planning. Midsagittal and axial T2 MRI reveal severe non-communicating hydrocephalus from congenital aqueductal stenosis: massively dilated lateral and third ventricles with a collapsed fourth ventricle, marked thinning and downward ballooning of the third ventricular floor (tuber cinereum) into a widely patent prepontine cistern, and transependymal CSF resorption around the frontal horns. The trajectory arc enters at Kocher's Point (1 cm anterior to coronal suture, 2.5–3.0 cm lateral to midline in mid-pupillary line) angled toward the medial canthus and external auditory canal, traversing the frontal horn into the foramen of Monro.",
+                    surgicalPearl: "Kocher's point trajectory must be strictly planned to align the endoscope parallel to the clivus; entering too far anteriorly forces the scope against the fornix, while entering too far laterally prevents access to the third ventricular floor."
+                ),
+                SurgicalCallout(
+                    id: "plate_086_2",
+                    title: "High-Definition Endoscopic Anatomy",
+                    structureType: "FORAMEN OF MONRO & THIRD VENTRICULAR FLOOR LANDMARKS",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.50,
+                    normalizedY: 0.50,
+                    description: "Panel 2 demonstrates 0° rigid neuroendoscopy across two sequential corridors. View A (Foramen of Monro): Identifies the glistening white Column of the Fornix forming the anterior-superior arch (strictly protected from traction), the Thalamostriate Vein and anterior septal vein converging at the Venous Angle, and the Choroid Plexus tuft entering the foramen. View B (Third Ventricular Floor): Identifies the deep Infundibular Recess at 12 o'clock, paired rounded white Mammillary Bodies at 6 o'clock, bilateral Lateral Hypothalamic Walls, the thin translucent Tuber Cinereum (the safe premamillary fenestration target), and the prominent dark vascular shadow of the Pulsatile Basilar Artery Apex visible through the floor.",
+                    surgicalPearl: "The golden rule of ETV is the Premamillary Target: always fenestrate the tuber cinereum in the midline, exactly halfway between the infundibular recess anteriorly and the mammillary bodies posteriorly; never fenestrate posteriorly where the basilar tip resides."
+                ),
+                SurgicalCallout(
+                    id: "plate_086_3",
+                    title: "Fogarty Balloon Fenestration & Prepontine Cistern",
+                    structureType: "BLUNT BALLOON DILATATION & LILIEQUIST'S MEMBRANE OPENING",
+                    color: Color.green,
+                    normalizedX: 0.82,
+                    normalizedY: 0.50,
+                    description: "Panel 3 illustrates the fenestration sequence and prepontine cistern view. (A) Blunt Puncture & Balloon Dilation: A 3-French Fogarty catheter introduced through the working channel bluntly perforates the tuber cinereum, followed by gentle saline balloon expansion to create a 4–5 mm stoma. (B) Completed ETV Stoma: Wide circular ventriculostomy with smooth edges demonstrating vigorous, cyclic CSF pulsation synchronous with the cardiac cycle ('ETV Pulse Wave'). (C) Prepontine Cistern Inspection: Direct visualization through the stoma confirms sharp division of Liliequist's Membrane, uncovering the patent Basilar Artery Bifurcation and P1 branches resting safely deep in the cistern, the Abducens Nerve (CN VI) tracking toward Dorello's canal, and the smooth Clival Dural Surface.",
+                    surgicalPearl: "Creating a stoma in the ventricular floor is only half the operation; you must verify that Liliequist's membrane beneath the floor is widely fenestrated, otherwise CSF remains trapped in the interpeduncular space."
+                ),
+                SurgicalCallout(
+                    id: "plate_086_4",
+                    title: "Three Concise Resident Pearls",
+                    structureType: "NEUROENDOSCOPIC SAFETY & HAZARD AVOIDANCE",
+                    color: Color.blue,
+                    normalizedX: 0.50,
+                    normalizedY: 0.90,
+                    description: "Bottom bar highlights three mandatory neuroendoscopic rules: (1) Premamillary Landmark Rule: Always fenestrate the tuber cinereum midway between infundibular recess and mammillary bodies; never posteriorly near the basilar tip; (2) Blunt Balloon Dilatation: Never use monopolar or bipolar electrocautery to burn the third ventricular floor; use blunt mechanical puncture and gentle Fogarty balloon expansion to prevent catastrophic basilar artery rupture; and (3) Liliequist's Membrane Division: Verify that Liliequist's membrane is widely opened into the prepontine cistern to ensure long-term ETV patency.",
+                    surgicalPearl: "Sudden bradycardia or hypertension during third ventricular endoscopy indicates intracranial pressure spike from irrigation outflow obstruction; immediately pause irrigation, open the outflow stopcock, and ensure free passive drainage."
+                )
+            ]
+
+        case .plate086:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Preoperative MRI Review & Trajectory Planning", detail: "Examine midsagittal/axial T2 and CISS/FIESTA MRI to confirm non-communicating hydrocephalus (aqueductal stenosis) with triventricular enlargement, downward bowing of the tuber cinereum, and a patent prepontine space (>3 mm clearance between dorsum sellae/basilar apex and clivus). Calculate ETV Success Score (ETVSS)."),
+                ApproachSequentialStep(stepNumber: 2, title: "Patient Positioning & Kocher's Point Burr Hole", detail: "Position patient supine with head neutral or slightly flexed 15° on a doughnut headrest. Mark Kocher's Point 1 cm anterior to coronal suture and 2.5–3.0 cm lateral to midline in the mid-pupillary line. Perform a linear 3 cm incision and 14 mm burr hole; coagulate and open the dura in a cruciate fashion."),
+                ApproachSequentialStep(stepNumber: 3, title: "Ventricular Cannulation & Foramen of Monro Traversal", detail: "Cannulate the right lateral ventricle frontal horn using a peel-away introducer sheath aimed toward the medial canthus and external auditory canal. Introduce a 0° rigid neuroendoscope under continuous warm Ringer's irrigation. Identify choroid plexus, thalamostriate vein, and the column of the fornix; pass gently through the foramen of Monro into the third ventricle without touching the fornix."),
+                ApproachSequentialStep(stepNumber: 4, title: "Third Ventricle Floor Inspection & Landmark Identification", detail: "Lower the scope into the third ventricle. Identify the infundibular recess anteriorly (12 o'clock), paired mammillary bodies posteriorly (6 o'clock), and bilateral hypothalamic walls. Visualize the bluish, translucent tuber cinereum and identify the pulsatile shadow of the basilar artery apex beneath it."),
+                ApproachSequentialStep(stepNumber: 5, title: "Blunt Fogarty Balloon Fenestration & Liliequist's Membrane Division", detail: "Introduce a 3F Fogarty catheter or Decq blunt probe. Puncture the tuber cinereum strictly in the midline midway between infundibulum and mammillary bodies. Inflate the balloon with saline to expand the stoma to 4–5 mm. Advance the scope through the stoma, sharply open Liliequist's membrane with micro-forceps, and verify patent flow around the basilar bifurcation and clivus.")
+            ]
+
+        case .plate086:
+            return [
+                "CATASTROPHIC BASILAR ARTERY RUPTURE & FATAL SUBARACHNOID HEMORRHAGE: Fenestrating the third ventricular floor too far posteriorly near the mammillary bodies or using sharp/cautery instruments risks tearing the basilar artery bifurcation or P1 branches. Intraventricular arterial hemorrhage in a closed skull causes instant intracranial hypertension, brainstem herniation, and death; fenestration must be strictly premamillary and performed with blunt balloon dilation.",
+                "PERMANENT ANTEROGRADE AMNESIA (KORSAKOFF SYNDROME) VIA FORNICEAL CONTUSION: Forcing the rigid endoscope or working sheath against the anterior-superior margin of the foramen of Monro contuses or lacerates the column of the fornix. Bilateral or severe unilateral forniceal injury results in irreversible loss of short-term memory formation. The fornix must remain untouched throughout the procedure.",
+                "HYPOTHALAMIC CRISIS, DIABETES INSIPIDUS & POIKILOTHERMIA VIA ANTERIOR DEVIATION: Fenestrating too far anteriorly violates the infundibular recess, pituitary stalk, or anterior hypothalamic nuclei. This causes acute postoperative diabetes insipidus, adipsia, hypernatremia, and severe autonomic thermal dysregulation. The stoma must stay posterior to the infundibular recess.",
+                "PERSISTENT HYDROCEPHALUS VIA INTACT LILIEQUIST'S MEMBRANE: Creating a fenestration in the tuber cinereum without inspecting through the stoma and dividing Liliequist's membrane traps CSF in the interpeduncular space, preventing egress into the prepontine and basal subarachnoid pathways. This results in early ETV failure requiring secondary revision or shunt placement."
+            ]
+
         case .plate085:
             return [
                 SurgicalCallout(
@@ -3539,6 +3966,67 @@ case .plate059:
                 )
             ]
 
+        case .plate086:
+            return [
+                SurgicalCallout(
+                    id: "plate_086_1",
+                    title: "Diagnostic MRI & Kocher's Point Trajectory",
+                    structureType: "TRIVENTRICULAR HYDROCEPHALUS & ENDOSCOPIC CORRIDOR",
+                    color: Color.red,
+                    normalizedX: 0.16,
+                    normalizedY: 0.35,
+                    description: "Panel 1 details preoperative neuroimaging and endoscopic planning. Midsagittal and axial T2 MRI reveal severe non-communicating hydrocephalus from congenital aqueductal stenosis: massively dilated lateral and third ventricles with a collapsed fourth ventricle, marked thinning and downward ballooning of the third ventricular floor (tuber cinereum) into a widely patent prepontine cistern, and transependymal CSF resorption around the frontal horns. The trajectory arc enters at Kocher's Point (1 cm anterior to coronal suture, 2.5–3.0 cm lateral to midline in mid-pupillary line) angled toward the medial canthus and external auditory canal, traversing the frontal horn into the foramen of Monro.",
+                    surgicalPearl: "Kocher's point trajectory must be strictly planned to align the endoscope parallel to the clivus; entering too far anteriorly forces the scope against the fornix, while entering too far laterally prevents access to the third ventricular floor."
+                ),
+                SurgicalCallout(
+                    id: "plate_086_2",
+                    title: "High-Definition Endoscopic Anatomy",
+                    structureType: "FORAMEN OF MONRO & THIRD VENTRICULAR FLOOR LANDMARKS",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.50,
+                    normalizedY: 0.50,
+                    description: "Panel 2 demonstrates 0° rigid neuroendoscopy across two sequential corridors. View A (Foramen of Monro): Identifies the glistening white Column of the Fornix forming the anterior-superior arch (strictly protected from traction), the Thalamostriate Vein and anterior septal vein converging at the Venous Angle, and the Choroid Plexus tuft entering the foramen. View B (Third Ventricular Floor): Identifies the deep Infundibular Recess at 12 o'clock, paired rounded white Mammillary Bodies at 6 o'clock, bilateral Lateral Hypothalamic Walls, the thin translucent Tuber Cinereum (the safe premamillary fenestration target), and the prominent dark vascular shadow of the Pulsatile Basilar Artery Apex visible through the floor.",
+                    surgicalPearl: "The golden rule of ETV is the Premamillary Target: always fenestrate the tuber cinereum in the midline, exactly halfway between the infundibular recess anteriorly and the mammillary bodies posteriorly; never fenestrate posteriorly where the basilar tip resides."
+                ),
+                SurgicalCallout(
+                    id: "plate_086_3",
+                    title: "Fogarty Balloon Fenestration & Prepontine Cistern",
+                    structureType: "BLUNT BALLOON DILATATION & LILIEQUIST'S MEMBRANE OPENING",
+                    color: Color.green,
+                    normalizedX: 0.82,
+                    normalizedY: 0.50,
+                    description: "Panel 3 illustrates the fenestration sequence and prepontine cistern view. (A) Blunt Puncture & Balloon Dilation: A 3-French Fogarty catheter introduced through the working channel bluntly perforates the tuber cinereum, followed by gentle saline balloon expansion to create a 4–5 mm stoma. (B) Completed ETV Stoma: Wide circular ventriculostomy with smooth edges demonstrating vigorous, cyclic CSF pulsation synchronous with the cardiac cycle ('ETV Pulse Wave'). (C) Prepontine Cistern Inspection: Direct visualization through the stoma confirms sharp division of Liliequist's Membrane, uncovering the patent Basilar Artery Bifurcation and P1 branches resting safely deep in the cistern, the Abducens Nerve (CN VI) tracking toward Dorello's canal, and the smooth Clival Dural Surface.",
+                    surgicalPearl: "Creating a stoma in the ventricular floor is only half the operation; you must verify that Liliequist's membrane beneath the floor is widely fenestrated, otherwise CSF remains trapped in the interpeduncular space."
+                ),
+                SurgicalCallout(
+                    id: "plate_086_4",
+                    title: "Three Concise Resident Pearls",
+                    structureType: "NEUROENDOSCOPIC SAFETY & HAZARD AVOIDANCE",
+                    color: Color.blue,
+                    normalizedX: 0.50,
+                    normalizedY: 0.90,
+                    description: "Bottom bar highlights three mandatory neuroendoscopic rules: (1) Premamillary Landmark Rule: Always fenestrate the tuber cinereum midway between infundibular recess and mammillary bodies; never posteriorly near the basilar tip; (2) Blunt Balloon Dilatation: Never use monopolar or bipolar electrocautery to burn the third ventricular floor; use blunt mechanical puncture and gentle Fogarty balloon expansion to prevent catastrophic basilar artery rupture; and (3) Liliequist's Membrane Division: Verify that Liliequist's membrane is widely opened into the prepontine cistern to ensure long-term ETV patency.",
+                    surgicalPearl: "Sudden bradycardia or hypertension during third ventricular endoscopy indicates intracranial pressure spike from irrigation outflow obstruction; immediately pause irrigation, open the outflow stopcock, and ensure free passive drainage."
+                )
+            ]
+
+        case .plate086:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Preoperative MRI Review & Trajectory Planning", detail: "Examine midsagittal/axial T2 and CISS/FIESTA MRI to confirm non-communicating hydrocephalus (aqueductal stenosis) with triventricular enlargement, downward bowing of the tuber cinereum, and a patent prepontine space (>3 mm clearance between dorsum sellae/basilar apex and clivus). Calculate ETV Success Score (ETVSS)."),
+                ApproachSequentialStep(stepNumber: 2, title: "Patient Positioning & Kocher's Point Burr Hole", detail: "Position patient supine with head neutral or slightly flexed 15° on a doughnut headrest. Mark Kocher's Point 1 cm anterior to coronal suture and 2.5–3.0 cm lateral to midline in the mid-pupillary line. Perform a linear 3 cm incision and 14 mm burr hole; coagulate and open the dura in a cruciate fashion."),
+                ApproachSequentialStep(stepNumber: 3, title: "Ventricular Cannulation & Foramen of Monro Traversal", detail: "Cannulate the right lateral ventricle frontal horn using a peel-away introducer sheath aimed toward the medial canthus and external auditory canal. Introduce a 0° rigid neuroendoscope under continuous warm Ringer's irrigation. Identify choroid plexus, thalamostriate vein, and the column of the fornix; pass gently through the foramen of Monro into the third ventricle without touching the fornix."),
+                ApproachSequentialStep(stepNumber: 4, title: "Third Ventricle Floor Inspection & Landmark Identification", detail: "Lower the scope into the third ventricle. Identify the infundibular recess anteriorly (12 o'clock), paired mammillary bodies posteriorly (6 o'clock), and bilateral hypothalamic walls. Visualize the bluish, translucent tuber cinereum and identify the pulsatile shadow of the basilar artery apex beneath it."),
+                ApproachSequentialStep(stepNumber: 5, title: "Blunt Fogarty Balloon Fenestration & Liliequist's Membrane Division", detail: "Introduce a 3F Fogarty catheter or Decq blunt probe. Puncture the tuber cinereum strictly in the midline midway between infundibulum and mammillary bodies. Inflate the balloon with saline to expand the stoma to 4–5 mm. Advance the scope through the stoma, sharply open Liliequist's membrane with micro-forceps, and verify patent flow around the basilar bifurcation and clivus.")
+            ]
+
+        case .plate086:
+            return [
+                "CATASTROPHIC BASILAR ARTERY RUPTURE & FATAL SUBARACHNOID HEMORRHAGE: Fenestrating the third ventricular floor too far posteriorly near the mammillary bodies or using sharp/cautery instruments risks tearing the basilar artery bifurcation or P1 branches. Intraventricular arterial hemorrhage in a closed skull causes instant intracranial hypertension, brainstem herniation, and death; fenestration must be strictly premamillary and performed with blunt balloon dilation.",
+                "PERMANENT ANTEROGRADE AMNESIA (KORSAKOFF SYNDROME) VIA FORNICEAL CONTUSION: Forcing the rigid endoscope or working sheath against the anterior-superior margin of the foramen of Monro contuses or lacerates the column of the fornix. Bilateral or severe unilateral forniceal injury results in irreversible loss of short-term memory formation. The fornix must remain untouched throughout the procedure.",
+                "HYPOTHALAMIC CRISIS, DIABETES INSIPIDUS & POIKILOTHERMIA VIA ANTERIOR DEVIATION: Fenestrating too far anteriorly violates the infundibular recess, pituitary stalk, or anterior hypothalamic nuclei. This causes acute postoperative diabetes insipidus, adipsia, hypernatremia, and severe autonomic thermal dysregulation. The stoma must stay posterior to the infundibular recess.",
+                "PERSISTENT HYDROCEPHALUS VIA INTACT LILIEQUIST'S MEMBRANE: Creating a fenestration in the tuber cinereum without inspecting through the stoma and dividing Liliequist's membrane traps CSF in the interpeduncular space, preventing egress into the prepontine and basal subarachnoid pathways. This results in early ETV failure requiring secondary revision or shunt placement."
+            ]
+
         case .plate085:
             return [
                 ApproachSequentialStep(stepNumber: 1, title: "Preoperative Staging & Multi-Disciplinary Planning", detail: "Obtain high-resolution sagittal/axial T2 MRI, pelvic CT angiogram, and CT-guided core biopsy (via a posterior midline tract that will be excised en bloc). Confirm chordoma histology and coordinate a two-team surgical plan with spine surgery, vascular surgery, and plastic surgery."),
@@ -3546,6 +4034,67 @@ case .plate059:
                 ApproachSequentialStep(stepNumber: 3, title: "Stage 2 — Prone Posterior Midline Exposure & Ligamentous Release", detail: "Position patient prone on a radiolucent Jackson table with pelvic positioning rolls. Make a posterior midline incision incorporating the prior biopsy tract. Divide the sacrotuberous and sacrospinous ligaments to detach the pelvic floor muscles from the sacrum."),
                 ApproachSequentialStep(stepNumber: 4, title: "En-Bloc Sacral & Iliac Osteotomies with Specimen Delivery", detail: "Perform laminectomies to expose the thecal sac. Ligate and divide lower sacral nerve roots according to planned margin level. Using high-speed burrs and osteotomes, cut bilaterally through the sacroiliac joints/iliac wings and perform a transverse sacral osteotomy across S1 or S2 into the anterior spacer. Deliver the intact tumor specimen en bloc."),
                 ApproachSequentialStep(stepNumber: 5, title: "Triangular Spinopelvic Reconstruction & Gluteus Flap Closure", detail: "Place pedicle screws from L3 to L5 and quad iliac screws (two in each iliac wing). Connect screws with dual contoured rods, a transverse pelvic cross-link connector bar, and an expandable vertical mesh cage between L5 and the pelvis. Mobilize bilateral gluteus maximus advancement flaps for tension-free dead space closure.")
+            ]
+
+        case .plate086:
+            return [
+                SurgicalCallout(
+                    id: "plate_086_1",
+                    title: "Diagnostic MRI & Kocher's Point Trajectory",
+                    structureType: "TRIVENTRICULAR HYDROCEPHALUS & ENDOSCOPIC CORRIDOR",
+                    color: Color.red,
+                    normalizedX: 0.16,
+                    normalizedY: 0.35,
+                    description: "Panel 1 details preoperative neuroimaging and endoscopic planning. Midsagittal and axial T2 MRI reveal severe non-communicating hydrocephalus from congenital aqueductal stenosis: massively dilated lateral and third ventricles with a collapsed fourth ventricle, marked thinning and downward ballooning of the third ventricular floor (tuber cinereum) into a widely patent prepontine cistern, and transependymal CSF resorption around the frontal horns. The trajectory arc enters at Kocher's Point (1 cm anterior to coronal suture, 2.5–3.0 cm lateral to midline in mid-pupillary line) angled toward the medial canthus and external auditory canal, traversing the frontal horn into the foramen of Monro.",
+                    surgicalPearl: "Kocher's point trajectory must be strictly planned to align the endoscope parallel to the clivus; entering too far anteriorly forces the scope against the fornix, while entering too far laterally prevents access to the third ventricular floor."
+                ),
+                SurgicalCallout(
+                    id: "plate_086_2",
+                    title: "High-Definition Endoscopic Anatomy",
+                    structureType: "FORAMEN OF MONRO & THIRD VENTRICULAR FLOOR LANDMARKS",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.50,
+                    normalizedY: 0.50,
+                    description: "Panel 2 demonstrates 0° rigid neuroendoscopy across two sequential corridors. View A (Foramen of Monro): Identifies the glistening white Column of the Fornix forming the anterior-superior arch (strictly protected from traction), the Thalamostriate Vein and anterior septal vein converging at the Venous Angle, and the Choroid Plexus tuft entering the foramen. View B (Third Ventricular Floor): Identifies the deep Infundibular Recess at 12 o'clock, paired rounded white Mammillary Bodies at 6 o'clock, bilateral Lateral Hypothalamic Walls, the thin translucent Tuber Cinereum (the safe premamillary fenestration target), and the prominent dark vascular shadow of the Pulsatile Basilar Artery Apex visible through the floor.",
+                    surgicalPearl: "The golden rule of ETV is the Premamillary Target: always fenestrate the tuber cinereum in the midline, exactly halfway between the infundibular recess anteriorly and the mammillary bodies posteriorly; never fenestrate posteriorly where the basilar tip resides."
+                ),
+                SurgicalCallout(
+                    id: "plate_086_3",
+                    title: "Fogarty Balloon Fenestration & Prepontine Cistern",
+                    structureType: "BLUNT BALLOON DILATATION & LILIEQUIST'S MEMBRANE OPENING",
+                    color: Color.green,
+                    normalizedX: 0.82,
+                    normalizedY: 0.50,
+                    description: "Panel 3 illustrates the fenestration sequence and prepontine cistern view. (A) Blunt Puncture & Balloon Dilation: A 3-French Fogarty catheter introduced through the working channel bluntly perforates the tuber cinereum, followed by gentle saline balloon expansion to create a 4–5 mm stoma. (B) Completed ETV Stoma: Wide circular ventriculostomy with smooth edges demonstrating vigorous, cyclic CSF pulsation synchronous with the cardiac cycle ('ETV Pulse Wave'). (C) Prepontine Cistern Inspection: Direct visualization through the stoma confirms sharp division of Liliequist's Membrane, uncovering the patent Basilar Artery Bifurcation and P1 branches resting safely deep in the cistern, the Abducens Nerve (CN VI) tracking toward Dorello's canal, and the smooth Clival Dural Surface.",
+                    surgicalPearl: "Creating a stoma in the ventricular floor is only half the operation; you must verify that Liliequist's membrane beneath the floor is widely fenestrated, otherwise CSF remains trapped in the interpeduncular space."
+                ),
+                SurgicalCallout(
+                    id: "plate_086_4",
+                    title: "Three Concise Resident Pearls",
+                    structureType: "NEUROENDOSCOPIC SAFETY & HAZARD AVOIDANCE",
+                    color: Color.blue,
+                    normalizedX: 0.50,
+                    normalizedY: 0.90,
+                    description: "Bottom bar highlights three mandatory neuroendoscopic rules: (1) Premamillary Landmark Rule: Always fenestrate the tuber cinereum midway between infundibular recess and mammillary bodies; never posteriorly near the basilar tip; (2) Blunt Balloon Dilatation: Never use monopolar or bipolar electrocautery to burn the third ventricular floor; use blunt mechanical puncture and gentle Fogarty balloon expansion to prevent catastrophic basilar artery rupture; and (3) Liliequist's Membrane Division: Verify that Liliequist's membrane is widely opened into the prepontine cistern to ensure long-term ETV patency.",
+                    surgicalPearl: "Sudden bradycardia or hypertension during third ventricular endoscopy indicates intracranial pressure spike from irrigation outflow obstruction; immediately pause irrigation, open the outflow stopcock, and ensure free passive drainage."
+                )
+            ]
+
+        case .plate086:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Preoperative MRI Review & Trajectory Planning", detail: "Examine midsagittal/axial T2 and CISS/FIESTA MRI to confirm non-communicating hydrocephalus (aqueductal stenosis) with triventricular enlargement, downward bowing of the tuber cinereum, and a patent prepontine space (>3 mm clearance between dorsum sellae/basilar apex and clivus). Calculate ETV Success Score (ETVSS)."),
+                ApproachSequentialStep(stepNumber: 2, title: "Patient Positioning & Kocher's Point Burr Hole", detail: "Position patient supine with head neutral or slightly flexed 15° on a doughnut headrest. Mark Kocher's Point 1 cm anterior to coronal suture and 2.5–3.0 cm lateral to midline in the mid-pupillary line. Perform a linear 3 cm incision and 14 mm burr hole; coagulate and open the dura in a cruciate fashion."),
+                ApproachSequentialStep(stepNumber: 3, title: "Ventricular Cannulation & Foramen of Monro Traversal", detail: "Cannulate the right lateral ventricle frontal horn using a peel-away introducer sheath aimed toward the medial canthus and external auditory canal. Introduce a 0° rigid neuroendoscope under continuous warm Ringer's irrigation. Identify choroid plexus, thalamostriate vein, and the column of the fornix; pass gently through the foramen of Monro into the third ventricle without touching the fornix."),
+                ApproachSequentialStep(stepNumber: 4, title: "Third Ventricle Floor Inspection & Landmark Identification", detail: "Lower the scope into the third ventricle. Identify the infundibular recess anteriorly (12 o'clock), paired mammillary bodies posteriorly (6 o'clock), and bilateral hypothalamic walls. Visualize the bluish, translucent tuber cinereum and identify the pulsatile shadow of the basilar artery apex beneath it."),
+                ApproachSequentialStep(stepNumber: 5, title: "Blunt Fogarty Balloon Fenestration & Liliequist's Membrane Division", detail: "Introduce a 3F Fogarty catheter or Decq blunt probe. Puncture the tuber cinereum strictly in the midline midway between infundibulum and mammillary bodies. Inflate the balloon with saline to expand the stoma to 4–5 mm. Advance the scope through the stoma, sharply open Liliequist's membrane with micro-forceps, and verify patent flow around the basilar bifurcation and clivus.")
+            ]
+
+        case .plate086:
+            return [
+                "CATASTROPHIC BASILAR ARTERY RUPTURE & FATAL SUBARACHNOID HEMORRHAGE: Fenestrating the third ventricular floor too far posteriorly near the mammillary bodies or using sharp/cautery instruments risks tearing the basilar artery bifurcation or P1 branches. Intraventricular arterial hemorrhage in a closed skull causes instant intracranial hypertension, brainstem herniation, and death; fenestration must be strictly premamillary and performed with blunt balloon dilation.",
+                "PERMANENT ANTEROGRADE AMNESIA (KORSAKOFF SYNDROME) VIA FORNICEAL CONTUSION: Forcing the rigid endoscope or working sheath against the anterior-superior margin of the foramen of Monro contuses or lacerates the column of the fornix. Bilateral or severe unilateral forniceal injury results in irreversible loss of short-term memory formation. The fornix must remain untouched throughout the procedure.",
+                "HYPOTHALAMIC CRISIS, DIABETES INSIPIDUS & POIKILOTHERMIA VIA ANTERIOR DEVIATION: Fenestrating too far anteriorly violates the infundibular recess, pituitary stalk, or anterior hypothalamic nuclei. This causes acute postoperative diabetes insipidus, adipsia, hypernatremia, and severe autonomic thermal dysregulation. The stoma must stay posterior to the infundibular recess.",
+                "PERSISTENT HYDROCEPHALUS VIA INTACT LILIEQUIST'S MEMBRANE: Creating a fenestration in the tuber cinereum without inspecting through the stoma and dividing Liliequist's membrane traps CSF in the interpeduncular space, preventing egress into the prepontine and basal subarachnoid pathways. This results in early ETV failure requiring secondary revision or shunt placement."
             ]
 
         case .plate085:

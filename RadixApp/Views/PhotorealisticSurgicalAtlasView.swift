@@ -724,7 +724,7 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
         case .posteriorFossa:
             return [.plate010, .plate020, .plate004, .plate003, .plate006, .plate022, .plate052, .plate057, .plate077, .plate082]
         case .vascularVentricular:
-            return [.plate002, .plate027, .plate040, .plate041, .plate051, .plate053, .plate056, .plate060, .plate061, .plate062, .plate063, .plate065, .plate067, .plate079]
+            return [.plate002, .plate027, .plate040, .plate041, .plate051, .plate053, .plate056, .plate060, .plate061, .plate062, .plate063, .plate065, .plate067, .plate079, .plate086]
         case .craniovertebral:
             return [.plate001, .plate013, .plate014, .plate035, .plate043, .plate047, .plate049]
         case .cervical:
@@ -740,8 +740,8 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
 }
 
 public enum AtlasCategory: String, CaseIterable {
-    case all = "All Plates (85)"
-    case cranial = "Cranial & Skull Base (44)"
+    case all = "All Plates (86)"
+    case cranial = "Cranial & Skull Base (45)"
     case spine = "Spine & CVJ (41)"
 
     public var filteredPlates: [SurgicalPlateType] {
@@ -841,6 +841,7 @@ public enum SurgicalPlateType: String, CaseIterable {
     case plate083 = "plate_083_full_endoscopic_transforaminal_lumbar_discectomy"
     case plate084 = "plate_084_paraclinoid_ophthalmic_ica_aneurysm"
     case plate085 = "plate_085_sacral_chordoma_en_bloc_sacrectomy"
+    case plate086 = "plate_086_endoscopic_third_ventriculostomy_etv"
 
     public var subSection: AtlasSubSection {
         for section in AtlasSubSection.allCases {
@@ -942,6 +943,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate083: return 83
         case .plate084: return 84
         case .plate085: return 85
+        case .plate086: return 86
         }
     }
 
@@ -1036,6 +1038,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate083: return "83: Endoscopic Discectomy"
         case .plate084: return "84: Paraclinoid Aneurysm"
         case .plate085: return "85: En-Bloc Sacrectomy"
+        case .plate086: return "86: Endoscopic 3rd Ventriculostomy"
         }
     }
 
@@ -1126,6 +1129,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate083: return "Full-Endoscopic Transforaminal Lumbar Discectomy — Kambin's Triangle, SAP Foraminoplasty & Endoscopic Fragmentectomy"
         case .plate084: return "Paraclinoid (Ophthalmic) ICA Aneurysm & Anterior Clinoidectomy — Optic Strut Drilling, Distal Dural Ring Dissection & Clip Occlusion"
         case .plate085: return "Sacral Chordoma & En-Bloc Sacrectomy — Combined Anterior-Posterior Resection & Rigid Spinopelvic Reconstruction"
+        case .plate086: return "Endoscopic Third Ventriculostomy (ETV) — Foramen of Monro Anatomy, 3rd Ventricular Floor Landmarks & Prepontine Fenestration"
         }
     }
 
@@ -1216,6 +1220,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate083: return "scope"
         case .plate084: return "eye.trianglebadge.exclamationmark"
         case .plate085: return "shield.lefthalf.filled"
+        case .plate086: return "scope"
         }
     }
 
