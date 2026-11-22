@@ -735,7 +735,7 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
         case .lumbarMIS:
             return [.plate011, .plate007, .plate037, .plate029, .plate028, .plate032, .plate083, .plate087]
         case .deformitySalvage:
-            return [.plate023, .plate024, .plate039, .plate046, .plate071, .plate075, .plate081]
+            return [.plate023, .plate024, .plate039, .plate046, .plate071, .plate075, .plate081, .plate095]
         case .peripheralNerve:
             return [.plate089, .plate090, .plate092]
         }
@@ -853,6 +853,7 @@ public enum SurgicalPlateType: String, CaseIterable {
     case plate092 = "plate_092_brachial_plexus_oberlin_transfer"
     case plate093 = "plate_093_acute_ischemic_stroke_thrombectomy"
     case plate094 = "plate_094_scs_paddle_lead_placement"
+    case plate095 = "plate_095_myelomeningocele_mmc_repair"
 
     public var subSection: AtlasSubSection {
         for section in AtlasSubSection.allCases {
@@ -963,6 +964,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate092: return 92
         case .plate093: return 93
         case .plate094: return 94
+        case .plate095: return 95
         }
     }
 
@@ -1066,6 +1068,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate092: return "92: Oberlin Double Transfer"
         case .plate093: return "93: Stroke Thrombectomy"
         case .plate094: return "94: SCS Paddle Lead"
+        case .plate095: return "95: Myelomeningocele (MMC)"
         }
     }
 
@@ -1165,6 +1168,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate092: return "Brachial Plexus Injury (Upper Trunk / Erb's Palsy) & Oberlin Double Nerve Transfer — Ulnar to Biceps, Median to Brachialis"
         case .plate093: return "Acute Ischemic Stroke & Endovascular Mechanical Thrombectomy — Right MCA M1 Occlusion, Combined Stent-Retriever & Contact Aspiration"
         case .plate094: return "Spinal Cord Stimulation (SCS) & Paddle Lead Placement — FBSS, Thoracic T8–T10 Laminotomy, Multi-Column Paddle & Gluteal IPG Pocket"
+        case .plate095: return "Myelomeningocele (MMC) Open Spinal Dysraphism Repair — Placode Untethering, Pial Tubularization, Watertight Duraplasty & Myofascial Flaps"
         }
     }
 
@@ -1264,6 +1268,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate092: return "figure.arms.open"
         case .plate093: return "waveform.path.ecg"
         case .plate094: return "bolt.batteryblock.fill"
+        case .plate095: return "bandage.fill"
         }
     }
 

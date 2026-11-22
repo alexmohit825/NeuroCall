@@ -1372,6 +1372,79 @@ extension SurgicalPlateType {
                     surgicalPearl: "Create the IPG pocket 1.5 - 2 cm deep in subcutaneous fat above the gluteal fascia; superficial placement causes skin erosion, while deep subfascial placement impairs inductive recharging."
                 )
             ]
+        case .plate095:
+            return [
+                SurgicalCallout(
+                    id: "plate_095_1",
+                    title: "Chiari II Hindbrain Malformation",
+                    structureType: "PREOPERATIVE NEUROIMAGING",
+                    color: ObsidianTheme.neonRose,
+                    normalizedX: 0.18,
+                    normalizedY: 0.25,
+                    description: "Preoperative sagittal T2 MRI showing lumbosacral open dysraphism with classic Chiari II hindbrain herniation: beaked tectum, diminutive posterior fossa, and caudal cerebellar tonsillar descent into the upper cervical canal.",
+                    surgicalPearl: "Successful early watertight repair of the myelomeningocele re-establishes normal CSF hydrostatic dynamics and frequently stabilizes Chiari II hindbrain herniation."
+                ),
+                SurgicalCallout(
+                    id: "plate_095_2",
+                    title: "Concentric Anatomical Dysraphism Zones",
+                    structureType: "DEFECT TOPOGRAPHY",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.18,
+                    normalizedY: 0.65,
+                    description: "Clinical photography illustrating the three classic concentric anatomical zones: central reddish neural placode, surrounding translucent glistening arachnoid membrane, and outer epithelial-skin junction.",
+                    surgicalPearl: "Carefully delineate the junctional boundary between neuroectoderm and cutaneous ectoderm; this anatomical interface dictates the exact plane of sharp micro-dissection."
+                ),
+                SurgicalCallout(
+                    id: "plate_095_3",
+                    title: "Circumferential Junctional Release",
+                    structureType: "EPITHELIAL UNTETHERING",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.42,
+                    normalizedY: 0.35,
+                    description: "Sharp micro-scissor dissection strictly along the junctional demarcation, untethering the neural placode from dysplastic skin and entirely removing all squamous epithelial rests.",
+                    surgicalPearl: "Incomplete excision of the epithelial transition zone leads to buried squamous epidermal cells that later expand into tethering intradural inclusion epidermoid tumors."
+                ),
+                SurgicalCallout(
+                    id: "plate_095_4",
+                    title: "Reconstructed Neural Tube (7-0 Sutures)",
+                    structureType: "PIAL TUBULARIZATION",
+                    color: ObsidianTheme.neonEmerald,
+                    normalizedX: 0.58,
+                    normalizedY: 0.45,
+                    description: "Gentle re-tubularization of the neural placode into a cylindrical spinal cord using interrupted 7-0 or 8-0 monofilament microsutures approximating pial edges, allowing the cord to rest safely within the canal.",
+                    surgicalPearl: "Recreating a cylindrical spinal cord prevents raw dorsal neuroepithelium from adhering directly to the overlying dural patch, dramatically reducing secondary cord re-tethering."
+                ),
+                SurgicalCallout(
+                    id: "plate_095_5",
+                    title: "Watertight Expansive Duraplasty",
+                    structureType: "LAYER 1: DURAL CLOSURE",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.85,
+                    normalizedY: 0.25,
+                    description: "Running continuous 5-0 monofilament closure of mobilized lateral dural leaflets, creating a spacious, non-constricting, watertight fluid-filled thecal sac around the untethered spinal cord.",
+                    surgicalPearl: "Mobilize the dura circumferentially out to the lateral paraspinal gutter to gain sufficient leaflet mobility for a tension-free, expansive midline closure."
+                ),
+                SurgicalCallout(
+                    id: "plate_095_6",
+                    title: "Bilateral Paraspinous Myofascial Flaps",
+                    structureType: "LAYER 2: FASCIAL ADVANCEMENT",
+                    color: ObsidianTheme.neonPurple,
+                    normalizedX: 0.85,
+                    normalizedY: 0.48,
+                    description: "Bilateral lumbodorsal fascia relaxing incisions enabling medial advancement of vascularized paraspinous muscle-fascia flaps, apposed with interrupted 3-0 absorbable sutures directly over the duraplasty.",
+                    surgicalPearl: "The myofascial layer provides robust mechanical protection and a vascularized bed over the dural suture line, eliminating the risk of direct CSF pressure against the cutaneous closure."
+                ),
+                SurgicalCallout(
+                    id: "plate_095_7",
+                    title: "Tension-Free Cutaneous Midline Closure",
+                    structureType: "LAYER 3: SOFT TISSUE REPAIR",
+                    color: ObsidianTheme.neonEmerald,
+                    normalizedX: 0.85,
+                    normalizedY: 0.68,
+                    description: "Layered tension-free skin closure with meticulous dermal eversion over suction drainage, achieving complete primary soft-tissue healing with zero CSF fistulization.",
+                    surgicalPearl: "Wide subcutaneous undermining beyond the posterior superior iliac spines relieves cutaneous tension, preventing neonatal wound dehiscence."
+                )
+            ]
         case .plate089:
             return [
                 SurgicalCallout(
@@ -3411,6 +3484,14 @@ case .plate059:
                 ApproachSequentialStep(stepNumber: 4, title: "Silicone Collar Anchoring & Strain Relief", detail: "Verify lead position spanning T8-T10 on AP fluoroscopy; secure the silicone anchor collar firmly to the supraspinous ligament and deep fascia with multiple 2-0 braided silk sutures."),
                 ApproachSequentialStep(stepNumber: 5, title: "Subcutaneous Tunneling & IPG Connection", detail: "Create a 2 cm deep subcutaneous pocket in the upper outer gluteus; tunnel lead extensions with a passing tool, connect securely to the IPG, and anchor the device to gluteal fascia.")
             ]
+        case .plate095:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Prone Setup & Junctional Demarcation", detail: "Position neonate prone on warm padded rolls; prepare the open placode with warm sterile irrigation and identify the concentric boundary between dysplastic skin and the neural placode."),
+                ApproachSequentialStep(stepNumber: 2, title: "Circumferential Untethering & Debridement", detail: "Perform meticulous sharp micro-scissor dissection along the epithelial-placode junction, completely untethering neural tissue and excising all squamous epithelial rests."),
+                ApproachSequentialStep(stepNumber: 3, title: "Pial-to-Pial Neural Tube Tubularization", detail: "Approximate lateral pial margins with interrupted 7-0 monofilament microsutures to reconstruct a cylindrical spinal cord and drop it gently into the central canal."),
+                ApproachSequentialStep(stepNumber: 4, title: "Lateral Leaflet Mobilization & Duraplasty", detail: "Dissect lateral dural leaflets from surrounding paraspinal soft tissues; execute a running watertight 5-0 monofilament closure to establish an expansive thecal sac."),
+                ApproachSequentialStep(stepNumber: 5, title: "Myofascial Advancement & Layered Skin Closure", detail: "Release bilateral paraspinous fascial flaps and suture them in the midline over the dura; widely undermine subcutaneous tissue to achieve a tension-free layered cutaneous closure.")
+            ]
         case .plate089:
             return [
                 ApproachSequentialStep(stepNumber: 1, title: "Diagnostic Ultrasound/MRI & Patient Positioning", detail: "Confirm cubital tunnel compression (ulnar nerve CSA > 10 mm²). Position patient supine with arm abducted 90° on an armboard and forearm supinated. Mark a curved 10–12 cm retro-epicondylar incision centered between the medial epicondyle and olecranon."),
@@ -4123,6 +4204,12 @@ case .plate059:
                 "Unintended Dural Puncture & CSF Leak: Carefully dissect the ligamentum flavum off the dorsal dura without aggressive curettage; dural tears under a paddle lead risk persistent positional headache and loss of stimulation.",
                 "Lead Migration & Loss of Paresthesia: Always anchor the silicone sleeve firmly to deep thoracolumbar fascia with heavy non-absorbable silk sutures; lead slippage is the leading cause of surgical revision.",
                 "Epidural Hematoma & Cord Compression: Maintain meticulous bipolar hemostasis in the epidural space and never force a paddle against resistance; acute epidural hematoma causes rapid paraplegia requiring emergency decompression."
+            ]
+        case .plate095:
+            return [
+                "Retained Epithelial Inclusions & Epidermoid Cyst: Meticulously debride all non-neural squamous epithelium from the placode margin; buried epithelial rests cause delayed cord-tethering epidermoids.",
+                "Cerebrospinal Fluid Leak & Ventriculitis: Achieve a verified watertight running dural closure and eliminate cutaneous dead space; persistent neonatal CSF leaks risk catastrophic meningitis.",
+                "Inadvertent Neural Placode Vascular Injury: Preserve all dorsal and ventral pial arterial feeders traversing the neural placode during junctional release to prevent progressive paraplegia."
             ]
         case .plate089:
             return [
