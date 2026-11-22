@@ -731,7 +731,7 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
         case .cervical:
             return [.plate015, .plate031, .plate034, .plate042, .plate044, .plate050, .plate064, .plate076, .plate080, .plate091]
         case .thoracicOncology:
-            return [.plate026, .plate036, .plate038, .plate048, .plate054, .plate058, .plate068, .plate072, .plate073, .plate078, .plate085]
+            return [.plate026, .plate036, .plate038, .plate048, .plate054, .plate058, .plate068, .plate072, .plate073, .plate078, .plate085, .plate094]
         case .lumbarMIS:
             return [.plate011, .plate007, .plate037, .plate029, .plate028, .plate032, .plate083, .plate087]
         case .deformitySalvage:
@@ -852,6 +852,7 @@ public enum SurgicalPlateType: String, CaseIterable {
     case plate091 = "plate_091_anterior_cervical_corpectomy_fusion"
     case plate092 = "plate_092_brachial_plexus_oberlin_transfer"
     case plate093 = "plate_093_acute_ischemic_stroke_thrombectomy"
+    case plate094 = "plate_094_scs_paddle_lead_placement"
 
     public var subSection: AtlasSubSection {
         for section in AtlasSubSection.allCases {
@@ -961,6 +962,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate091: return 91
         case .plate092: return 92
         case .plate093: return 93
+        case .plate094: return 94
         }
     }
 
@@ -1063,6 +1065,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate091: return "91: ACCF C6 Corpectomy"
         case .plate092: return "92: Oberlin Double Transfer"
         case .plate093: return "93: Stroke Thrombectomy"
+        case .plate094: return "94: SCS Paddle Lead"
         }
     }
 
@@ -1161,6 +1164,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate091: return "Anterior Cervical Corpectomy & Fusion (ACCF at C6) — Expandable Titanium Cage & Anterior Locking Plate"
         case .plate092: return "Brachial Plexus Injury (Upper Trunk / Erb's Palsy) & Oberlin Double Nerve Transfer — Ulnar to Biceps, Median to Brachialis"
         case .plate093: return "Acute Ischemic Stroke & Endovascular Mechanical Thrombectomy — Right MCA M1 Occlusion, Combined Stent-Retriever & Contact Aspiration"
+        case .plate094: return "Spinal Cord Stimulation (SCS) & Paddle Lead Placement — FBSS, Thoracic T8–T10 Laminotomy, Multi-Column Paddle & Gluteal IPG Pocket"
         }
     }
 
@@ -1259,6 +1263,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate091: return "cylinder.split.1x2.fill"
         case .plate092: return "figure.arms.open"
         case .plate093: return "waveform.path.ecg"
+        case .plate094: return "bolt.batteryblock.fill"
         }
     }
 

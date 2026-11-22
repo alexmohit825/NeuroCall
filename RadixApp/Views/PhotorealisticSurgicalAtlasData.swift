@@ -1299,6 +1299,79 @@ extension SurgicalPlateType {
                     surgicalPearl: "First-pass complete TICI 3 recanalization represents the premier prognostic metric for achieving 90-day functional independence (mRS 0-2)."
                 )
             ]
+        case .plate094:
+            return [
+                SurgicalCallout(
+                    id: "plate_094_1",
+                    title: "FBSS Post-Laminectomy Fibrosis",
+                    structureType: "DIAGNOSTIC PATHOLOGY",
+                    color: ObsidianTheme.neonRose,
+                    normalizedX: 0.10,
+                    normalizedY: 0.25,
+                    description: "Preoperative sagittal and axial T2 MRI demonstrating multi-level lumbar post-laminectomy epidural scar tissue (FBSS) tethering nerve roots, causing intractable neuropathic pain refractory to revision spine surgery.",
+                    surgicalPearl: "Extensive epidural fibrosis in FBSS prevents effective percutaneous lead navigation at lumbar levels, establishing the indication for open thoracic paddle lead placement."
+                ),
+                SurgicalCallout(
+                    id: "plate_094_2",
+                    title: "T9–T10 Neuropathic Pain Target",
+                    structureType: "DERMATOMAL SWEET SPOT",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.26,
+                    normalizedY: 0.25,
+                    description: "Dermatomal body map illustrating severe bilateral L4, L5, and S1 radicular pain reliably captured by stimulating dorsal column fibers at the physiological T9-T10 interspace.",
+                    surgicalPearl: "Placing paddle electrodes across T8-T10 enables robust coverage of both bilateral lower extremity radicular pain and axial low back pain simultaneously."
+                ),
+                SurgicalCallout(
+                    id: "plate_094_3",
+                    title: "Thoracic Incision & Gluteal Pocket",
+                    structureType: "SURGICAL EXPOSURE & TUNNELING",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.18,
+                    normalizedY: 0.65,
+                    description: "Prone positioning on a radiolucent Wilson frame; 4-5 cm midline thoracic incision centered over T8-T10 with a gentle curved subcutaneous tunneling path to a left upper gluteal IPG pocket.",
+                    surgicalPearl: "Flexing the thoracic spine slightly on the Wilson frame opens the interlaminar spaces without obliterating the dorsal epidural space."
+                ),
+                SurgicalCallout(
+                    id: "plate_094_4",
+                    title: "Inferior Hemilaminotomy Window",
+                    structureType: "MINIMAL EPIDURAL ACCESS",
+                    color: ObsidianTheme.neonEmerald,
+                    normalizedX: 0.58,
+                    normalizedY: 0.25,
+                    description: "Conservative 10-12 mm laminotomy at the inferior border of the T8/T9 lamina, resecting ligamentum flavum while preserving the facet joints and interspinous ligament.",
+                    surgicalPearl: "Preserving the bilateral facet joints prevents postoperative thoracic instability, while trimming the inferior lamina provides an unobstructed trajectory for paddle entry."
+                ),
+                SurgicalCallout(
+                    id: "plate_094_5",
+                    title: "16-Contact Directional Paddle Lead",
+                    structureType: "DORSAL COLUMN NEUROMODULATION",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.52,
+                    normalizedY: 0.55,
+                    description: "Multi-column 16-contact directional paddle lead advanced cephalad in the dorsal epidural space along the physiologic midline, cushioned above the pristine, glistening thecal sac dura.",
+                    surgicalPearl: "Directional paddle leads focus electrical energy toward dorsal column sensory pathways while insulating against ventral root motor capture, dramatically lowering energy consumption."
+                ),
+                SurgicalCallout(
+                    id: "plate_094_6",
+                    title: "Silicone Fascial Anchor (Strain Relief)",
+                    structureType: "MIGRATION PREVENTION",
+                    color: ObsidianTheme.neonPurple,
+                    normalizedX: 0.85,
+                    normalizedY: 0.25,
+                    description: "Silicone dog-bone strain-relief anchor clamped around the lead and sutured securely to the supraspinous ligament and deep thoracolumbar fascia with 2-0 braided non-absorbable silk.",
+                    surgicalPearl: "Lead migration is the most common cause of SCS failure; anchor directly to ligament or fascia rather than mobile subcutaneous fat, and fashion a gentle strain-relief loop."
+                ),
+                SurgicalCallout(
+                    id: "plate_094_7",
+                    title: "AP Fluoroscopy & Subcutaneous IPG",
+                    structureType: "CONSTRUCT VERIFICATION & IPG",
+                    color: ObsidianTheme.neonEmerald,
+                    normalizedX: 0.82,
+                    normalizedY: 0.65,
+                    description: "AP fluoroscopy confirming perfect midline paddle positioning spanning T8-T10 vertebral bodies; subcutaneous pocket in the upper gluteal quadrant housing the rechargeable IPG.",
+                    surgicalPearl: "Create the IPG pocket 1.5 - 2 cm deep in subcutaneous fat above the gluteal fascia; superficial placement causes skin erosion, while deep subfascial placement impairs inductive recharging."
+                )
+            ]
         case .plate089:
             return [
                 SurgicalCallout(
@@ -3330,6 +3403,14 @@ case .plate059:
                 ApproachSequentialStep(stepNumber: 4, title: "Balloon Inflation & Continuous Aspiration", detail: "Inflate the cervical ICA balloon guide catheter to achieve flow arrest; apply continuous high-vacuum negative pressure to the intermediate catheter via a 60 mL locking syringe."),
                 ApproachSequentialStep(stepNumber: 5, title: "En-Bloc Retrieval & Reperfusion Angiography", detail: "Withdraw the stent-retriever and captured clot en bloc into the aspiration catheter under continuous vacuum; deflate the balloon and perform control DSA confirming TICI 3 reperfusion.")
             ]
+        case .plate094:
+            return [
+                ApproachSequentialStep(stepNumber: 1, title: "Positioning & Fluoroscopic Localization", detail: "Position patient prone on a radiolucent Wilson frame; use true AP and lateral fluoroscopy to identify the T8-T10 interspaces and mark a 4-5 cm midline thoracic incision and gluteal IPG pocket."),
+                ApproachSequentialStep(stepNumber: 2, title: "Minimal Hemilaminotomy & Dural Unroofing", detail: "Expose the spinous processes; perform a 10-12 mm inferior laminotomy at T8/T9, resect the ligamentum flavum, and mobilize dorsal epidural fat to expose glistening thecal sac dura."),
+                ApproachSequentialStep(stepNumber: 3, title: "Epidural Paddle Lead Advancement", detail: "Under fluoroscopic visualization, gently advance the 16-contact directional paddle lead cephalad along the dorsal midline of the epidural space without applying downward pressure on the cord."),
+                ApproachSequentialStep(stepNumber: 4, title: "Silicone Collar Anchoring & Strain Relief", detail: "Verify lead position spanning T8-T10 on AP fluoroscopy; secure the silicone anchor collar firmly to the supraspinous ligament and deep fascia with multiple 2-0 braided silk sutures."),
+                ApproachSequentialStep(stepNumber: 5, title: "Subcutaneous Tunneling & IPG Connection", detail: "Create a 2 cm deep subcutaneous pocket in the upper outer gluteus; tunnel lead extensions with a passing tool, connect securely to the IPG, and anchor the device to gluteal fascia.")
+            ]
         case .plate089:
             return [
                 ApproachSequentialStep(stepNumber: 1, title: "Diagnostic Ultrasound/MRI & Patient Positioning", detail: "Confirm cubital tunnel compression (ulnar nerve CSA > 10 mm²). Position patient supine with arm abducted 90° on an armboard and forearm supinated. Mark a curved 10–12 cm retro-epicondylar incision centered between the medial epicondyle and olecranon."),
@@ -4036,6 +4117,12 @@ case .plate059:
                 "Distal Embolic Fragmentation: Always inflate the balloon guide catheter to achieve complete carotid flow arrest and apply continuous high-vacuum aspiration during stent-retriever withdrawal.",
                 "Intracranial Vessel Perforation & Dissection: Avoid excessive force or blind advancement when navigating microcatheters through tortuous M1 branches or across calcified atherosclerotic lesions.",
                 "Post-Reperfusion Intracerebral Hemorrhage: Monitor post-thrombectomy blood pressure strictly (SBP < 140 mmHg) following TICI 2b/3 recanalization to prevent hyperperfusion hemorrhage in ischemic core tissue."
+            ]
+        case .plate094:
+            return [
+                "Unintended Dural Puncture & CSF Leak: Carefully dissect the ligamentum flavum off the dorsal dura without aggressive curettage; dural tears under a paddle lead risk persistent positional headache and loss of stimulation.",
+                "Lead Migration & Loss of Paresthesia: Always anchor the silicone sleeve firmly to deep thoracolumbar fascia with heavy non-absorbable silk sutures; lead slippage is the leading cause of surgical revision.",
+                "Epidural Hematoma & Cord Compression: Maintain meticulous bipolar hemostasis in the epidural space and never force a paddle against resistance; acute epidural hematoma causes rapid paraplegia requiring emergency decompression."
             ]
         case .plate089:
             return [
