@@ -81,55 +81,23 @@ extension SurgicalPlateType {
             ]
         case .plate011:
             return [
-                SurgicalCallout(
-                    id: "plate_011_1",
-                    title: "Lumbar Disc Degeneration & Posterio",
-                    structureType: "OPERATIVE TARGET",
-                    color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.50,
-                    normalizedY: 0.50,
-                    description: "Dual-view anatomical pathology plate showing concentric annular lamellae with a posterior radial/concentric annular tear (top axial view) an",
-                    surgicalPearl: "Verified Frank Netter publication-grade neurosurgical anatomy."
-                )
+                "Iatrogenic Neurological Deficit: Aggressive blind intradiscal curettage risks puncturing anterior annulus and tearing aorta or iliac vessels.",
+                "Failed Back Syndrome: Inadequate foraminal decompression of entrapped exiting nerve root leaves persistent intractable radiculopathy."
             ]
         case .plate012:
             return [
-                SurgicalCallout(
-                    id: "plate_012_1",
-                    title: "Left Pterional Craniotomy & Sylvian",
-                    structureType: "OPERATIVE TARGET",
-                    color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.50,
-                    normalizedY: 0.50,
-                    description: "Direct 1:1 modernization of NeuroCall's `plate_pterional_fissure` line drawing into publication-grade Modern Atlas Realism.",
-                    surgicalPearl: "Verified Frank Netter publication-grade neurosurgical anatomy."
-                )
+                "Superficial Sylvian Vein Thrombosis: Excessive retraction or coagulation of superficial Sylvian veins leads to severe venous infarction and speech arrest.",
+                "Middle Cerebral Artery Perforator Injury: Dissecting distal Sylvian cleft without sharp micro-scissor release risks tearing critical insular M2/M3 branches."
             ]
         case .plate013:
             return [
-                SurgicalCallout(
-                    id: "plate_013_1",
-                    title: "Chiari I Malformation Suboccipital ",
-                    structureType: "OPERATIVE TARGET",
-                    color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.50,
-                    normalizedY: 0.50,
-                    description: "Direct 1:1 dual-panel modernization of NeuroCall's `plate_chiari_decompression` comparing pre-duraplasty tonsillar herniation (left) with co",
-                    surgicalPearl: "Verified Frank Netter publication-grade neurosurgical anatomy."
-                )
+                "PICA Perforator Stroke: Coagulating or stretching PICA tonsillar loops causes fatal lateral medullary (Wallenberg) infarction.",
+                "Pseudomeningocele & CSF Fistula: Inadequate watertight dural closure produces persistent posterior fossa fluid collections and meningitis risk."
             ]
         case .plate014:
             return [
-                SurgicalCallout(
-                    id: "plate_014_1",
-                    title: "Posterior C1–C2 Goel-Harms Screw-Ro",
-                    structureType: "OPERATIVE TARGET",
-                    color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.50,
-                    normalizedY: 0.50,
-                    description: "Direct 1:1 dual-view modernization of NeuroCall's `plate_harms_c1_c2` illustrating bilateral C1 lateral mass and C2 pedicle/pars polyaxial s",
-                    surgicalPearl: "Verified Frank Netter publication-grade neurosurgical anatomy."
-                )
+                "Vertebral Artery Laceration: Misguided C1 or C2 screw trajectory entering the transverse foramen tears vertebral artery, causing catastrophic bleeding or stroke.",
+                "Spinal Cord Contusion: Medial drill breach into C1 or C2 neural canal causes direct mechanical cord transection or quadriplegia."
             ]
         case .plate015:
             return [
@@ -139,68 +107,28 @@ extension SurgicalPlateType {
             ]
         case .plate016:
             return [
-                SurgicalCallout(
-                    id: "plate_016_1",
-                    title: "Right Subtemporal / Temporal Cranio",
-                    structureType: "OPERATIVE TARGET",
-                    color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.50,
-                    normalizedY: 0.50,
-                    description: "Direct 1:1 typography-scrubbed master of NeuroCall's `plate_craniotomy_temporal`, showing a right temporal craniotomy flush with the zygomat",
-                    surgicalPearl: "Verified Frank Netter publication-grade neurosurgical anatomy."
-                )
+                "Facial Nerve (GSPN) Traction Palsy: Aggressive extradural elevation of temporal lobe tears GSPN, transmitting traction to geniculate ganglion and causing facial paralysis.",
+                "Temporal Lobe Venous Infarction: Excessive fixed subtemporal brain retraction lacerates vein of Labbé, precipitating hemorrhagic temporal lobe infarction."
             ]
         case .plate017:
             return [
-                SurgicalCallout(
-                    id: "plate_017_1",
-                    title: "Left Pterional (Frontotemporal) Cra",
-                    structureType: "OPERATIVE TARGET",
-                    color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.50,
-                    normalizedY: 0.50,
-                    description: "3D osteological and cortical exposure of a standard left frontotemporal (pterional) craniotomy centered on the sphenoid ridge and Sylvian cl",
-                    surgicalPearl: "Verified Frank Netter publication-grade neurosurgical anatomy."
-                )
+                "Superior Orbital Fissure Syndrome: Over-aggressive drilling of lateral sphenoid wing into SOF injures CN III, IV, V1, and VI, causing total ophthalmoplegia.",
+                "Premature Aneurysm Rupture: Inadvertent traction on carotid or Sylvian cisterns prior to securing proximal vascular control causes catastrophic hemorrhage."
             ]
         case .plate018:
             return [
-                SurgicalCallout(
-                    id: "plate_018_1",
-                    title: "Bifrontal Craniotomy 3D Skull Model",
-                    structureType: "OPERATIVE TARGET",
-                    color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.50,
-                    normalizedY: 0.50,
-                    description: "Anterior coronal 3D skull view demonstrating a bilateral frontal craniotomy crossing the midline above the supraorbital rims, exposing both ",
-                    surgicalPearl: "Verified Frank Netter publication-grade neurosurgical anatomy."
-                )
+                "Delayed Frontal Sinus Mucocele: Failure to completely exenterate frontal sinus mucosa leads to late infected intracranial mucocele.",
+                "Severe Abulia & Akinetic Mutism: Excessive bilateral frontal lobe retraction destroys bilateral anterior cingulate gyri, leaving irreversible mutism."
             ]
         case .plate019:
             return [
-                SurgicalCallout(
-                    id: "plate_019_1",
-                    title: "Left Parietal Craniotomy Window & D",
-                    structureType: "OPERATIVE TARGET",
-                    color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.50,
-                    normalizedY: 0.50,
-                    description: "Left lateral 3D skull model with a circumscribed parietal craniotomy behind the coronal suture, showing the beveled diploic bone margin and ",
-                    surgicalPearl: "Verified Frank Netter publication-grade neurosurgical anatomy."
-                )
+                "Vein of Trolard Occlusion: Sacrificing or kinking dominant parietal bridging veins produces venous hypertension, brain swelling, and dense sensory hemiplegia.",
+                "Sagittal Sinus Air Embolism: Laceration of superior sagittal sinus without rapid irrigation or head-down positioning allows fatal venous air embolism."
             ]
         case .plate020:
             return [
-                SurgicalCallout(
-                    id: "plate_020_1",
-                    title: "Right Retrosigmoid / Asterion Crani",
-                    structureType: "OPERATIVE TARGET",
-                    color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.50,
-                    normalizedY: 0.50,
-                    description: "Right posterolateral 3D skull and upper cervical spine model illustrating the key retrosigmoid craniectomy window tucked immediately inferio",
-                    surgicalPearl: "Verified Frank Netter publication-grade neurosurgical anatomy."
-                )
+                "Transverse-Sigmoid Sinus Tear: Placing burr hole directly over asterion tears the venous sinus confluence in 40% of patients.",
+                "Postoperative CSF Rhinorrhea: Unsealed mastoid air cells allow posterior fossa CSF to drain through middle ear and eustachian tube into pharynx."
             ]
         case .plate021:
             return [
