@@ -366,6 +366,14 @@ class FullAppStudioHandler(http.server.SimpleHTTPRequestHandler):
                 update_swift_procedure_step(card_name, step_num, new_title, new_detail)
                 res = {"status": "ok", "section": "procedures", "id": step_num}
 
+            elif self.path == "/api/save-plate-order":
+                ordered_nums = data.get("order", [])
+                order_path = os.path.join(BASE_DIR, "plate_order.json")
+                with open(order_path, "w", encoding="utf-8") as f:
+                    json.dump({"order": ordered_nums, "count": len(ordered_nums)}, f, indent=2)
+                print(f"[Studio] Saved custom plate order ({len(ordered_nums)} plates) to {order_path}")
+                res = {"status": "ok", "section": "plate-order", "count": len(ordered_nums)}
+
             else:
                 res = {"status": "error", "message": f"Unknown endpoint: {self.path}"}
 

@@ -78,6 +78,14 @@
   /* Side-by-side Image + Form Grid */
   .media-card-grid { display: grid; grid-template-columns: 340px 1fr; gap: 18px; }
   @media (max-width: 950px) { .media-card-grid { grid-template-columns: 1fr; } }
+
+  /* Extra-Wide Format for Complex Matrix Tables */
+  .media-card-grid.fullwidth-table {
+    display: flex; flex-direction: column; gap: 18px;
+  }
+  .media-card-grid.fullwidth-table .viewport-container img {
+    max-height: 650px; width: 100%; object-fit: contain;
+  }
   
   .viewport-container {
     position: relative; background: #000; border: 1px solid var(--border-color);
@@ -91,6 +99,7 @@
   .viewport-caption {
     width: 100%; padding: 6px 10px; background: rgba(10,14,23,0.9); font-size: 11px;
     font-weight: 700; color: #94a3b8; text-align: center; border-top: 1px solid #1a2233;
+    display: flex; justify-content: space-between; align-items: center;
   }
 
   /* Fields */
@@ -144,21 +153,89 @@
   }
   .pin-marker:active { cursor: grabbing; transform: translate(-50%, -50%) scale(1.2); }
 
-  /* Brainstem Elevator Styles */
-  .elevator-board {
-    background: #090d15; border: 1px solid #1e2638; border-radius: 14px; padding: 18px;
+  /* PowerPoint Slide Sorter Grid */
+  .slide-sorter-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 16px;
+    padding: 14px; background: #080c14; border-radius: 14px; border: 1px solid #1a2338;
+  }
+  .slide-tile {
+    background: #0f1623; border: 2px solid #202c42; border-radius: 10px; padding: 10px;
+    display: flex; flex-direction: column; gap: 8px; cursor: grab; user-select: none;
+    transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s; position: relative;
+  }
+  .slide-tile:hover {
+    transform: translateY(-2px); border-color: var(--accent-cyan);
+    box-shadow: 0 4px 16px rgba(0,229,255,0.25);
+  }
+  .slide-tile.dragging { opacity: 0.4; cursor: grabbing; }
+  .slide-tile.drag-over-before { border-left: 4px solid var(--accent-cyan); }
+  .slide-tile.drag-over-after { border-right: 4px solid var(--accent-cyan); }
+  .slide-thumb {
+    width: 100%; aspect-ratio: 1 / 1; background: #000; border-radius: 6px; overflow: hidden;
+    border: 1px solid #25334c; position: relative;
+  }
+  .slide-thumb img { width: 100%; height: 100%; object-fit: contain; pointer-events: none; }
+  .slide-badge-seq {
+    position: absolute; top: 6px; left: 6px; background: rgba(0,0,0,0.85); color: #00e5ff;
+    padding: 2px 6px; border-radius: 4px; font-size: 11px; font-weight: 900; border: 1px solid #00e5ff;
+  }
+  .slide-title {
+    font-size: 12px; font-weight: 800; color: #fff; line-height: 1.3;
+    overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+  }
+
+  /* Interactive Brainstem Elevator */
+  .brainstem-slider-container {
+    background: #0d121d; border: 1px solid #1e2638; border-radius: 12px; padding: 16px 20px;
     display: flex; flex-direction: column; gap: 12px;
   }
-  .elevator-stage {
-    background: #111723; border: 1px solid #202b3f; border-radius: 10px; padding: 12px 16px;
-    display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  .brainstem-slider {
+    width: 100%; height: 8px; border-radius: 5px; outline: none; background: #1e293b;
+    accent-color: #00e5ff; cursor: pointer;
   }
-  .elevator-stage.active { border-color: var(--accent-cyan); background: #152238; }
+  .elevator-board {
+    background: #090d15; border: 1px solid #1e2638; border-radius: 14px; padding: 18px;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .elevator-stage {
+    background: #111723; border: 1.5px solid #202b3f; border-radius: 10px; padding: 12px 16px;
+    display: flex; justify-content: space-between; align-items: center; gap: 14px; transition: 0.2s;
+  }
+  .elevator-stage.active-stage {
+    border-color: #fff; background: #17243c; box-shadow: 0 0 12px rgba(0,229,255,0.3);
+  }
+  .elevator-stage.collapsed {
+    background: #151a24; opacity: 0.9;
+  }
+
+  /* Lightbox Modal */
+  #lightbox {
+    display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.92); z-index: 10000; flex-direction: column;
+    align-items: center; justify-content: center; padding: 20px;
+  }
+  #lightbox.active { display: flex; }
+  #lightbox img {
+    max-width: 95vw; max-height: 90vh; object-fit: contain; border-radius: 8px;
+    box-shadow: 0 0 30px rgba(0,0,0,0.9); border: 1px solid #334155;
+  }
+  #lightbox-close {
+    position: absolute; top: 20px; right: 24px; font-size: 28px; font-weight: 800;
+    color: #fff; background: none; border: none; cursor: pointer; padding: 8px 14px;
+    background: rgba(255,255,255,0.1); border-radius: 8px;
+  }
 </style>
 </head>
 <body>
 
 <div id="toast">Saved to Swift!</div>
+
+<!-- Full-Resolution Lightbox -->
+<div id="lightbox" onclick="closeLightbox(event)">
+  <button id="lightbox-close" onclick="closeLightbox(event)">✕ Close (Esc)</button>
+  <img id="lightbox-img" src="" alt="Enlarged Medical Plate">
+  <div id="lightbox-caption" style="color:#94a3b8; font-size:13px; font-weight:700; margin-top:10px;"></div>
+</div>
 
 <header>
   <div class="header-top">
@@ -178,14 +255,41 @@
 </header>
 
 <!-- ========================================== -->
-<!-- 1. SURGICAL ATLAS (106 PLATES)             -->
+<!-- 1. SURGICAL ATLAS (SLIDE SORTER & EDITOR)  -->
 <!-- ========================================== -->
 <div id="pillar-atlas" class="section-container active">
-  <div class="filter-bar">
-    <input type="text" id="atlasSearch" class="edit-input" style="max-width: 320px;" placeholder="Search 106 plates by title or plate number..." oninput="renderAtlas()">
-    <span style="font-size:12px; color:#64748b;">💡 100% of your calibrated pin placements and title changes are preserved. Drag any numbered pin to inspect or adjust.</span>
+  <div class="sub-nav-bar">
+    <span style="font-size:12px; font-weight:800; color:#fff; margin-right:6px;">ATLAS VIEW MODES:</span>
+    <button class="sub-tab-btn active" id="subtab-atlas-sorter" onclick="switchAtlasMode('sorter')">📑 PowerPoint Slide Sorter (106 Slides)</button>
+    <button class="sub-tab-btn" id="subtab-atlas-inspector" onclick="switchAtlasMode('inspector')">🔍 Detailed Plate Inspector & Calibrator</button>
   </div>
-  <div id="atlasList" style="display:flex; flex-direction:column; gap:20px;"></div>
+
+  <!-- 1A. PowerPoint Slide Sorter View -->
+  <div id="atlas-panel-sorter" class="sub-content-panel active">
+    <div class="filter-bar">
+      <input type="text" id="sorterSearch" class="edit-input" style="max-width: 280px;" placeholder="Filter slides by title or #..." oninput="renderSlideSorter()">
+      <button class="pill-filter active" id="filter-sorter-all" onclick="filterSorter('all')">All (106)</button>
+      <button class="pill-filter" id="filter-sorter-cranial" onclick="filterSorter('Cranial')">Cranial</button>
+      <button class="pill-filter" id="filter-sorter-spine" onclick="filterSorter('Spine')">Spine</button>
+      
+      <span id="sorterMoveCountBadge" class="badge badge-cyan" style="margin-left:auto;">106 Slides in Presentation Flow</span>
+      <button class="pill-filter" style="border-color:#f43f5e; color:#f43f5e;" onclick="resetSlideOrder()">🔄 Reset Order</button>
+      <button class="save-btn" id="save-order-btn" onclick="saveSlideOrderToSwift()">💾 Save Plate Reorder to Swift</button>
+    </div>
+    <div style="font-size:12px; color:#94a3b8; background:#0c111c; padding:8px 14px; border-radius:8px; border:1px solid #1f283d;">
+      💡 <strong>Drag-and-Drop Reordering:</strong> Click and drag any slide thumbnail with the mouse to move it anywhere in the sequence. Visual insertion markers show exact landing spot.
+    </div>
+    <div id="slideSorterGrid" class="slide-sorter-grid"></div>
+  </div>
+
+  <!-- 1B. Detailed Plate Inspector View -->
+  <div id="atlas-panel-inspector" class="sub-content-panel">
+    <div class="filter-bar">
+      <input type="text" id="atlasSearch" class="edit-input" style="max-width: 320px;" placeholder="Search 106 plates by title or plate number..." oninput="renderAtlas()">
+      <span style="font-size:12px; color:#64748b;">💡 Drag any numbered circle to reposition. 15px markers ensure zero anatomical obscuration.</span>
+    </div>
+    <div id="atlasList" style="display:flex; flex-direction:column; gap:20px;"></div>
+  </div>
 </div>
 
 <!-- ========================================== -->
@@ -266,10 +370,45 @@
 
   <!-- 3C. Brainstem Reflex Ladder -->
   <div id="consult-panel-brainstem" class="sub-content-panel">
-    <div style="background:#0d121d; border:1px solid #1e2638; border-radius:12px; padding:14px;">
-      <h2 style="font-size:15px; font-weight:800; color:#fff;">Rostrocaudal Brainstem Deterioration & Consciousness Elevator</h2>
-      <div style="font-size:12px; color:#94a3b8; margin-top:3px;">Plum & Posner Transtentorial Herniation Architecture: Levels 0 (Intact) to 5 (Brain Death)</div>
+    <!-- Interactive Progression Slider (Exact match to iOS SwiftUI App) -->
+    <div class="brainstem-slider-container">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <div>
+          <span style="font-size:14px; font-weight:800; color:#fff;">Brainstem Collapse Progression Depth:</span>
+          <span id="sliderDepthLabel" style="font-size:14px; font-weight:900; color:#00e5ff; margin-left:8px;">0 Intact Consciousness</span>
+        </div>
+        <span id="sliderStatusBadge" class="badge badge-green">NORMAL CONSCIOUSNESS</span>
+      </div>
+
+      <input type="range" id="brainstemRangeSlider" class="brainstem-slider" min="0" max="5" step="1" value="0" oninput="handleBrainstemSliderChange(parseInt(this.value))">
+
+      <div style="display:flex; justify-content:space-between; font-size:10px; font-weight:800; color:#94a3b8; padding:0 4px;">
+        <span>0 Intact</span>
+        <span>1 Diencephalon</span>
+        <span>2 Midbrain</span>
+        <span>3 Pons</span>
+        <span>4 Upper Medulla</span>
+        <span>5 Low Medulla / Apnea</span>
+      </div>
     </div>
+
+    <!-- Live Dynamic Clinical Readout Strip -->
+    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px;">
+      <div style="background:#090d15; border:1px solid #1e2638; border-radius:10px; padding:12px;">
+        <div style="font-size:10px; font-weight:800; color:#00e5ff; margin-bottom:4px;">👁️ PUPILLARY LIGHT REFLEX:</div>
+        <div id="readoutPupils" style="font-size:12px; color:#f1f5f9; line-height:1.4;">Round, regular, reactive to light (3-4 mm). Intact bilateral light reflex.</div>
+      </div>
+      <div style="background:#090d15; border:1px solid #1e2638; border-radius:10px; padding:12px;">
+        <div style="font-size:10px; font-weight:800; color:#f59e0b; margin-bottom:4px;">🏃 MOTOR POSTURING:</div>
+        <div id="readoutMotor" style="font-size:12px; color:#f1f5f9; line-height:1.4;">Purposeful, commands-following or purposeful withdrawal.</div>
+      </div>
+      <div style="background:#090d15; border:1px solid #1e2638; border-radius:10px; padding:12px;">
+        <div style="font-size:10px; font-weight:800; color:#f43f5e; margin-bottom:4px;">🫁 RESPIRATORY PATTERN:</div>
+        <div id="readoutRespiration" style="font-size:12px; color:#f1f5f9; line-height:1.4;">Eupnea (normal rhythm, rate 12-16/min).</div>
+      </div>
+    </div>
+
+    <!-- Vertical Anatomical Elevator Board -->
     <div id="brainstemElevatorBoard" class="elevator-board"></div>
   </div>
 </div>
@@ -308,6 +447,7 @@ const appData = {
       "plate_num": "001",
       "title": "Posterior Craniocervical Junction (Occiput\u2013C1\u2013C2)",
       "batch_tag": "Dr. Mohit Calibrated (001-025)",
+      "domain": "Spine",
       "image_file": "/plates/plate_001.jpg",
       "pins": [
         {
@@ -378,6 +518,7 @@ const appData = {
       "plate_num": "002",
       "title": "Neonatal Ventricular Access Device / EVD via Open Anterior Fontanelle",
       "batch_tag": "Dr. Mohit Calibrated (001-025)",
+      "domain": "Cranial",
       "image_file": "/plates/plate_002.jpg",
       "pins": [
         {
@@ -448,6 +589,7 @@ const appData = {
       "plate_num": "003",
       "title": "Midline Suboccipital Craniectomy & Cisterna Magna Dissection",
       "batch_tag": "Dr. Mohit Calibrated (001-025)",
+      "domain": "Cranial",
       "image_file": "/plates/plate_003.jpg",
       "pins": [
         {
@@ -518,6 +660,7 @@ const appData = {
       "plate_num": "004",
       "title": "Right Retrosigmoid Cerebellopontine Angle (CPA) Microdissection",
       "batch_tag": "Dr. Mohit Calibrated (001-025)",
+      "domain": "Cranial",
       "image_file": "/plates/plate_004.jpg",
       "pins": [
         {
@@ -588,6 +731,7 @@ const appData = {
       "plate_num": "005",
       "title": "Two-Piece Fronto-Temporal Orbitozygomatic (FT-OZO) Craniotomy",
       "batch_tag": "Dr. Mohit Calibrated (001-025)",
+      "domain": "Cranial",
       "image_file": "/plates/plate_005.jpg",
       "pins": [
         {
@@ -642,6 +786,7 @@ const appData = {
       "plate_num": "006",
       "title": "Right Far-Lateral Transcondylar Approach with Vertebral Artery Mobilization",
       "batch_tag": "Dr. Mohit Calibrated (001-025)",
+      "domain": "Cranial",
       "image_file": "/plates/plate_006.jpg",
       "pins": [
         {
@@ -690,6 +835,7 @@ const appData = {
       "plate_num": "007",
       "title": "Lumbar Lateral Recess Stenosis vs. Normal Spine (Axial Comparison)",
       "batch_tag": "Dr. Mohit Calibrated (001-025)",
+      "domain": "Spine",
       "image_file": "/plates/plate_007.jpg",
       "pins": [
         {
@@ -760,6 +906,7 @@ const appData = {
       "plate_num": "008",
       "title": "Left Pterional Transsylvian Approach & PComA Aneurysm Clipping (1:1 Modernized Master)",
       "batch_tag": "Dr. Mohit Calibrated (001-025)",
+      "domain": "Cranial",
       "image_file": "/plates/plate_008.jpg",
       "pins": [
         {
@@ -819,6 +966,7 @@ const appData = {
       "plate_num": "009",
       "title": "Splitting of Distal Anterior Sylvian Fissure (Microsurgical Corridor)",
       "batch_tag": "Dr. Mohit Calibrated (001-025)",
+      "domain": "Cranial",
       "image_file": "/plates/plate_009.jpg",
       "pins": [
         {
@@ -878,6 +1026,7 @@ const appData = {
       "plate_num": "010",
       "title": "Retromastoid / Retrosigmoid Keyhole Suboccipital Craniectomy (SOC)",
       "batch_tag": "Dr. Mohit Calibrated (001-025)",
+      "domain": "Cranial",
       "image_file": "/plates/plate_010.jpg",
       "pins": [
         {
@@ -948,6 +1097,7 @@ const appData = {
       "plate_num": "011",
       "title": "Lumbar Disc Degeneration & Posterior Annular Tear (Axial + Sagittal View)",
       "batch_tag": "Dr. Mohit Calibrated (001-025)",
+      "domain": "Spine",
       "image_file": "/plates/plate_011.jpg",
       "pins": [
         {
@@ -1018,6 +1168,7 @@ const appData = {
       "plate_num": "012",
       "title": "Left Pterional Craniotomy & Sylvian Fissure Opercular Exposure (1:1 Modernized Master)",
       "batch_tag": "Dr. Mohit Calibrated (001-025)",
+      "domain": "Cranial",
       "image_file": "/plates/plate_012.jpg",
       "pins": [
         {
@@ -1066,6 +1217,7 @@ const appData = {
       "plate_num": "013",
       "title": "Chiari I Malformation Suboccipital Decompression & Expansile Patch Duraplasty (1:1 Modernized Master)",
       "batch_tag": "Dr. Mohit Calibrated (001-025)",
+      "domain": "Spine",
       "image_file": "/plates/plate_013.jpg",
       "pins": [
         {
@@ -1136,6 +1288,7 @@ const appData = {
       "plate_num": "014",
       "title": "Posterior C1\u2013C2 Goel-Harms Screw-Rod Fixation Construct (1:1 Modernized Master)",
       "batch_tag": "Dr. Mohit Calibrated (001-025)",
+      "domain": "Spine",
       "image_file": "/plates/plate_014.jpg",
       "pins": [
         {
@@ -1195,6 +1348,7 @@ const appData = {
       "plate_num": "015",
       "title": "Anterior Cervical Discectomy & Fusion (ACDF) \u2014 Smith-Robinson Corridor, Uncinate Decompression & Anterior Plating",
       "batch_tag": "Dr. Mohit Calibrated (001-025)",
+      "domain": "Spine",
       "image_file": "/plates/plate_015.jpg",
       "pins": [],
       "steps": [
@@ -1220,6 +1374,7 @@ const appData = {
       "plate_num": "016",
       "title": "Right Subtemporal / Temporal Craniotomy & Middle Meningeal Artery (1:1 Text-Scrubbed Master)",
       "batch_tag": "Dr. Mohit Calibrated (001-025)",
+      "domain": "Cranial",
       "image_file": "/plates/plate_016.jpg",
       "pins": [
         {
@@ -1279,6 +1434,7 @@ const appData = {
       "plate_num": "017",
       "title": "Left Pterional (Frontotemporal) Craniotomy Bone Window & Sphenoid Ridge (3D Master)",
       "batch_tag": "Dr. Mohit Calibrated (001-025)",
+      "domain": "Cranial",
       "image_file": "/plates/plate_017.jpg",
       "pins": [
         {
@@ -1327,6 +1483,7 @@ const appData = {
       "plate_num": "018",
       "title": "Bifrontal Craniotomy 3D Skull Model & Anterior Cranial Fossa Corridor",
       "batch_tag": "Dr. Mohit Calibrated (001-025)",
+      "domain": "Cranial",
       "image_file": "/plates/plate_018.jpg",
       "pins": [
         {
@@ -1375,6 +1532,7 @@ const appData = {
       "plate_num": "019",
       "title": "Left Parietal Craniotomy Window & Dural Venous Tributaries (3D Master)",
       "batch_tag": "Dr. Mohit Calibrated (001-025)",
+      "domain": "Cranial",
       "image_file": "/plates/plate_019.jpg",
       "pins": [],
       "steps": [
@@ -1400,6 +1558,7 @@ const appData = {
       "plate_num": "020",
       "title": "Right Retrosigmoid / Asterion Craniectomy Window & Dural Venous Junction (3D Master)",
       "batch_tag": "Dr. Mohit Calibrated (001-025)",
+      "domain": "Cranial",
       "image_file": "/plates/plate_020.jpg",
       "pins": [
         {
@@ -1448,6 +1607,7 @@ const appData = {
       "plate_num": "021",
       "title": "Decompressive Frontotemporoparietal Hemicraniectomy & Expansile Duroplasty",
       "batch_tag": "Dr. Mohit Calibrated (001-025)",
+      "domain": "Cranial",
       "image_file": "/plates/plate_021.jpg",
       "pins": [],
       "steps": [
@@ -1473,6 +1633,7 @@ const appData = {
       "plate_num": "022",
       "title": "Pineal Region Tumor & Supracerebellar Infratentorial / Transtentorial Corridors (Midsagittal Master)",
       "batch_tag": "Dr. Mohit Calibrated (001-025)",
+      "domain": "Cranial",
       "image_file": "/plates/plate_022.jpg",
       "pins": [
         {
@@ -1543,6 +1704,7 @@ const appData = {
       "plate_num": "023",
       "title": "Ponte Posterior Column Osteotomy \u2014 Open Wedge vs. Closed Lordotic Correction",
       "batch_tag": "Dr. Mohit Calibrated (001-025)",
+      "domain": "Spine",
       "image_file": "/plates/plate_023.jpg",
       "pins": [],
       "steps": [],
@@ -1552,6 +1714,7 @@ const appData = {
       "plate_num": "024",
       "title": "Pedicle Subtraction Osteotomy (PSO) / 3-Column Osteotomy",
       "batch_tag": "Dr. Mohit Calibrated (001-025)",
+      "domain": "Spine",
       "image_file": "/plates/plate_024.jpg",
       "pins": [],
       "steps": [],
@@ -1561,6 +1724,7 @@ const appData = {
       "plate_num": "025",
       "title": "Anterior Temporal Lobectomy (ATL) vs. Selective Amygdalohippocampectomy (SelAH)",
       "batch_tag": "Dr. Mohit Calibrated (001-025)",
+      "domain": "Spine",
       "image_file": "/plates/plate_025.jpg",
       "pins": [
         {
@@ -1631,6 +1795,7 @@ const appData = {
       "plate_num": "026",
       "title": "Costotransversectomy",
       "batch_tag": "Reviewed 026-046",
+      "domain": "Spine",
       "image_file": "/plates/plate_026.jpg",
       "pins": [
         {
@@ -1690,6 +1855,7 @@ const appData = {
       "plate_num": "027",
       "title": "Minimally Invasive Parafascicular Surgery (MIPS) \u2014 Trans-Sulcal Tubular ICH Evacuation",
       "batch_tag": "Reviewed 026-046",
+      "domain": "Spine",
       "image_file": "/plates/plate_027.jpg",
       "pins": [
         {
@@ -1749,6 +1915,7 @@ const appData = {
       "plate_num": "028",
       "title": "LLIF",
       "batch_tag": "Reviewed 026-046",
+      "domain": "Spine",
       "image_file": "/plates/plate_028.jpg",
       "pins": [
         {
@@ -1797,6 +1964,7 @@ const appData = {
       "plate_num": "029",
       "title": "TLIF",
       "batch_tag": "Reviewed 026-046",
+      "domain": "Spine",
       "image_file": "/plates/plate_029.jpg",
       "pins": [],
       "steps": [
@@ -1822,6 +1990,7 @@ const appData = {
       "plate_num": "030",
       "title": "Endoscopic Endonasal Sellar Corridor \u2014 Skull Base Landmarks & Microvascular Relationships",
       "batch_tag": "Reviewed 026-046",
+      "domain": "Spine",
       "image_file": "/plates/plate_030.jpg",
       "pins": [],
       "steps": [
@@ -1847,6 +2016,7 @@ const appData = {
       "plate_num": "031",
       "title": "CT Junction Neural Anatomy",
       "batch_tag": "Reviewed 026-046",
+      "domain": "Spine",
       "image_file": "/plates/plate_031.jpg",
       "pins": [],
       "steps": [
@@ -1872,6 +2042,7 @@ const appData = {
       "plate_num": "032",
       "title": "Lumbar Interbody Fusion",
       "batch_tag": "Reviewed 026-046",
+      "domain": "Spine",
       "image_file": "/plates/plate_032.jpg",
       "pins": [],
       "steps": [
@@ -1897,6 +2068,7 @@ const appData = {
       "plate_num": "033",
       "title": "Supraorbital Crani",
       "batch_tag": "Reviewed 026-046",
+      "domain": "Cranial",
       "image_file": "/plates/plate_033.jpg",
       "pins": [],
       "steps": [
@@ -1922,6 +2094,7 @@ const appData = {
       "plate_num": "034",
       "title": "Bilateral Jumped / Locked Cervical Facets (C6\u2013C7) \u2014 Diagnostic & Pathoanatomical Correlation",
       "batch_tag": "Reviewed 026-046",
+      "domain": "Cranial",
       "image_file": "/plates/plate_034.jpg",
       "pins": [
         {
@@ -1981,6 +2154,7 @@ const appData = {
       "plate_num": "035",
       "title": "Odontoid Fractures",
       "batch_tag": "Reviewed 026-046",
+      "domain": "Spine",
       "image_file": "/plates/plate_035.jpg",
       "pins": [],
       "steps": [
@@ -2006,6 +2180,7 @@ const appData = {
       "plate_num": "036",
       "title": "TL Burst Fracture",
       "batch_tag": "Reviewed 026-046",
+      "domain": "Spine",
       "image_file": "/plates/plate_036.jpg",
       "pins": [],
       "steps": [
@@ -2031,6 +2206,7 @@ const appData = {
       "plate_num": "037",
       "title": "Cauda Equina Syndrome (HNP)",
       "batch_tag": "Reviewed 026-046",
+      "domain": "Spine",
       "image_file": "/plates/plate_037.jpg",
       "pins": [
         {
@@ -2101,6 +2277,7 @@ const appData = {
       "plate_num": "038",
       "title": "Thoracic Spinal Met.",
       "batch_tag": "Reviewed 026-046",
+      "domain": "Spine",
       "image_file": "/plates/plate_038.jpg",
       "pins": [
         {
@@ -2171,6 +2348,7 @@ const appData = {
       "plate_num": "039",
       "title": "Postop Pseudomeningocele",
       "batch_tag": "Reviewed 026-046",
+      "domain": "Spine",
       "image_file": "/plates/plate_039.jpg",
       "pins": [
         {
@@ -2225,6 +2403,7 @@ const appData = {
       "plate_num": "040",
       "title": "A Comm Aneurysm Rupture",
       "batch_tag": "Reviewed 026-046",
+      "domain": "Cranial",
       "image_file": "/plates/plate_040.jpg",
       "pins": [
         {
@@ -2268,6 +2447,7 @@ const appData = {
       "plate_num": "041",
       "title": "Hypertensive Ganglionic Intracerebral Hemorrhage (ICH) & Intraventricular Extension (IVH)",
       "batch_tag": "Reviewed 026-046",
+      "domain": "Cranial",
       "image_file": "/plates/plate_041.jpg",
       "pins": [
         {
@@ -2311,6 +2491,7 @@ const appData = {
       "plate_num": "042",
       "title": "Cervical Spondylitic Myelopathy",
       "batch_tag": "Reviewed 026-046",
+      "domain": "Spine",
       "image_file": "/plates/plate_042.jpg",
       "pins": [],
       "steps": [],
@@ -2320,6 +2501,7 @@ const appData = {
       "plate_num": "043",
       "title": "Pediatric Rotatory Subluxation",
       "batch_tag": "Reviewed 026-046",
+      "domain": "Spine",
       "image_file": "/plates/plate_043.jpg",
       "pins": [],
       "steps": [],
@@ -2329,6 +2511,7 @@ const appData = {
       "plate_num": "044",
       "title": "Hangman's Fracture",
       "batch_tag": "Reviewed 026-046",
+      "domain": "Spine",
       "image_file": "/plates/plate_044.jpg",
       "pins": [],
       "steps": [
@@ -2359,6 +2542,7 @@ const appData = {
       "plate_num": "045",
       "title": "Brain Herniation Syndromes",
       "batch_tag": "Reviewed 026-046",
+      "domain": "Cranial",
       "image_file": "/plates/plate_045.jpg",
       "pins": [
         {
@@ -2434,6 +2618,7 @@ const appData = {
       "plate_num": "046",
       "title": "Spinal Dysraphism",
       "batch_tag": "Reviewed 026-046",
+      "domain": "Spine",
       "image_file": "/plates/plate_046.jpg",
       "pins": [
         {
@@ -2509,6 +2694,7 @@ const appData = {
       "plate_num": "047",
       "title": "C1\u2013C2 Retro-Odontoid Pseudotumor (Pannus) & Goel-Harms Fixation",
       "batch_tag": "Reviewed 047-106",
+      "domain": "Spine",
       "image_file": "/plates/plate_047.jpg",
       "pins": [
         {
@@ -2584,6 +2770,7 @@ const appData = {
       "plate_num": "048",
       "title": "Spinal Dural Arteriovenous Fistula (sDAVF) & Microsurgical Clip Ligation",
       "batch_tag": "Reviewed 047-106",
+      "domain": "Spine",
       "image_file": "/plates/plate_048.jpg",
       "pins": [
         {
@@ -2638,6 +2825,7 @@ const appData = {
       "plate_num": "049",
       "title": "Jefferson Fracture of the Atlas (C1) & The Rule of Spence",
       "batch_tag": "Reviewed 047-106",
+      "domain": "Spine",
       "image_file": "/plates/plate_049.jpg",
       "pins": [
         {
@@ -2692,6 +2880,7 @@ const appData = {
       "plate_num": "050",
       "title": "Cervical Ossification of Posterior Longitudinal Ligament (OPLL) & 8K Multi-Modality Correlation",
       "batch_tag": "Reviewed 047-106",
+      "domain": "Spine",
       "image_file": "/plates/plate_050.jpg",
       "pins": [],
       "steps": [],
@@ -2701,6 +2890,7 @@ const appData = {
       "plate_num": "051",
       "title": "Middle Meningeal Artery (MMA) Embolization for Chronic Subdural Hematoma",
       "batch_tag": "Reviewed 047-106",
+      "domain": "Spine",
       "image_file": "/plates/plate_051.jpg",
       "pins": [
         {
@@ -2760,6 +2950,7 @@ const appData = {
       "plate_num": "052",
       "title": "Vestibular Schwannoma (Acoustic Neuroma) \u2014 Retrosigmoid Microsurgical Anatomy & 3T MRI",
       "batch_tag": "Reviewed 047-106",
+      "domain": "Spine",
       "image_file": "/plates/plate_052.jpg",
       "pins": [
         {
@@ -2830,6 +3021,7 @@ const appData = {
       "plate_num": "053",
       "title": "Normal Pressure Hydrocephalus (NPH) & The DESH Sign \u2014 Multimodal Imaging & Programmable Shunt",
       "batch_tag": "Reviewed 047-106",
+      "domain": "Spine",
       "image_file": "/plates/plate_053.jpg",
       "pins": [
         {
@@ -2884,6 +3076,7 @@ const appData = {
       "plate_num": "054",
       "title": "Thoracic Ossification of the Ligamentum Flavum (T-OLF) & Sato Classification \u2014 Multi-Modality Correlation & Floating Decompression",
       "batch_tag": "Reviewed 047-106",
+      "domain": "Spine",
       "image_file": "/plates/plate_054.jpg",
       "pins": [
         {
@@ -2959,6 +3152,7 @@ const appData = {
       "plate_num": "055",
       "title": "Petroclival Meningioma & The Kawase Approach (Anterior Petrosectomy) \u2014 Multi-Planar 3T MRI & Trans-Tentorial Resection",
       "batch_tag": "Reviewed 047-106",
+      "domain": "Cranial",
       "image_file": "/plates/plate_055.jpg",
       "pins": [
         {
@@ -3034,6 +3228,7 @@ const appData = {
       "plate_num": "056",
       "title": "Brain Arteriovenous Malformation (AVM) & Spetzler-Martin Classification \u2014 Hemodynamics, Cortical Eloquence & Circumdissection Protocol",
       "batch_tag": "Reviewed 047-106",
+      "domain": "Cranial",
       "image_file": "/plates/plate_056.jpg",
       "pins": [
         {
@@ -3088,6 +3283,7 @@ const appData = {
       "plate_num": "057",
       "title": "Trigeminal Neuralgia & Jannetta Microvascular Decompression (MVD) \u2014 High-Resolution 3T FIESTA, Keyhole Corridor & Multi-Modal Transposition",
       "batch_tag": "Reviewed 047-106",
+      "domain": "Cranial",
       "image_file": "/plates/plate_057.jpg",
       "pins": [
         {
@@ -3163,6 +3359,7 @@ const appData = {
       "plate_num": "058",
       "title": "Spinal Epidural Abscess (SEA) & Phlegmon \u2014 Contrast MRI, Spondylodiscitis & Catheter Decompression Protocol",
       "batch_tag": "Reviewed 047-106",
+      "domain": "Cranial",
       "image_file": "/plates/plate_058.jpg",
       "pins": [
         {
@@ -3233,6 +3430,7 @@ const appData = {
       "plate_num": "059",
       "title": "Pituitary Macroadenoma & Endoscopic Endonasal Approach \u2014 Coronal 3T MRI, Knosp Matrix & Hadad Flap Reconstruction",
       "batch_tag": "Reviewed 047-106",
+      "domain": "Cranial",
       "image_file": "/plates/plate_059.jpg",
       "pins": [
         {
@@ -3308,6 +3506,7 @@ const appData = {
       "plate_num": "060",
       "title": "Moyamoya Disease & Dual-Mechanism Cerebral Revascularization \u2014 Direct STA-MCA Bypass & Indirect EDAS Synangiosis",
       "batch_tag": "Reviewed 047-106",
+      "domain": "Cranial",
       "image_file": "/plates/plate_060.jpg",
       "pins": [
         {
@@ -3362,6 +3561,7 @@ const appData = {
       "plate_num": "061",
       "title": "Anterior Communicating Artery (AComA) Aneurysm & Microsurgical Pterional Clipping \u2014 3D Angiopathology, Projection Profiles & Gyrus Rectus Corridor",
       "batch_tag": "Reviewed 047-106",
+      "domain": "Cranial",
       "image_file": "/plates/plate_061.jpg",
       "pins": [
         {
@@ -3416,6 +3616,7 @@ const appData = {
       "plate_num": "062",
       "title": "Middle Cerebral Artery (MCA) Bifurcation Aneurysm & Microsurgical Clipping \u2014 Catheter DSA, Transsylvian Exposure & Multi-Clip Reconstruction",
       "batch_tag": "Reviewed 047-106",
+      "domain": "Cranial",
       "image_file": "/plates/plate_062.jpg",
       "pins": [
         {
@@ -3470,6 +3671,7 @@ const appData = {
       "plate_num": "063",
       "title": "Basilar Apex (Tip) Aneurysm & Microsurgical Clipping \u2014 Angiopathology, Bifurcation Height & Trans-Liliequist Corridor",
       "batch_tag": "Reviewed 047-106",
+      "domain": "Cranial",
       "image_file": "/plates/plate_063.jpg",
       "pins": [
         {
@@ -3524,6 +3726,7 @@ const appData = {
       "plate_num": "064",
       "title": "Cervical Spinal Intramedullary Ependymoma \u2014 3T MRI, Hemosiderin Cap Sign, Midline Myelotomy & En-Bloc Resection",
       "batch_tag": "Reviewed 047-106",
+      "domain": "Cranial",
       "image_file": "/plates/plate_064.jpg",
       "pins": [
         {
@@ -3578,6 +3781,7 @@ const appData = {
       "plate_num": "065",
       "title": "Third Ventricle Colloid Cyst & Transcallosal Approach \u2014 3D Neuroimaging, Ventricular Corridors & Capsule Resection",
       "batch_tag": "Reviewed 047-106",
+      "domain": "Cranial",
       "image_file": "/plates/plate_065.jpg",
       "pins": [
         {
@@ -3632,6 +3836,7 @@ const appData = {
       "plate_num": "066",
       "title": "Olfactory Groove Meningioma & Bifrontal Transbasal Resection \u2014 3D Contrast MRI, Extradural Devascularization & CUSA Debulking",
       "batch_tag": "Reviewed 047-106",
+      "domain": "Cranial",
       "image_file": "/plates/plate_066.jpg",
       "pins": [
         {
@@ -3686,6 +3891,7 @@ const appData = {
       "plate_num": "067",
       "title": "PICA & Vertebral Artery Aneurysm & Far-Lateral Transcondylar Clipping \u2014 3D Angiography, Suboccipital Triangle, Condylectomy & Lower CN Sparing",
       "batch_tag": "Reviewed 047-106",
+      "domain": "Cranial",
       "image_file": "/plates/plate_067.jpg",
       "pins": [
         {
@@ -3740,6 +3946,7 @@ const appData = {
       "plate_num": "068",
       "title": "Thoracic Dumbbell Schwannoma & Posterolateral Costotransversectomy \u2014 3D MRI, Eden Classification, Extrapleural Corridor & Arthrodesis",
       "batch_tag": "Reviewed 047-106",
+      "domain": "Cranial",
       "image_file": "/plates/plate_068.jpg",
       "pins": [
         {
@@ -3820,6 +4027,7 @@ const appData = {
       "plate_num": "069",
       "title": "Parasagittal & Falcine Meningioma with SSS Invasion \u2014 3D MRI, Sindou Matrix, Sinus-Crossing Flap & Venous Repair",
       "batch_tag": "Reviewed 047-106",
+      "domain": "Cranial",
       "image_file": "/plates/plate_069.jpg",
       "pins": [
         {
@@ -3874,6 +4082,7 @@ const appData = {
       "plate_num": "070",
       "title": "Glioblastoma & Awake Craniotomy \u2014 Cortical & Subcortical White Matter Mapping, 5-ALA Fluorescence & CUSA Resection",
       "batch_tag": "Reviewed 047-106",
+      "domain": "Cranial",
       "image_file": "/plates/plate_070.jpg",
       "pins": [
         {
@@ -3928,6 +4137,7 @@ const appData = {
       "plate_num": "071",
       "title": "Ankylosing Spondylitis (AS) 'Chalk-Stick' Fracture \u2014 3-Column Fracture, Epidural Clot Evacuation & Long-Segment Fixation",
       "batch_tag": "Reviewed 047-106",
+      "domain": "Cranial",
       "image_file": "/plates/plate_071.jpg",
       "pins": [],
       "steps": [],
@@ -3937,6 +4147,7 @@ const appData = {
       "plate_num": "072",
       "title": "Spontaneous Intracranial Hypotension (SIH) & CSF-Venous Fistula \u2014 Decubitus DSM, Transvenous Coiling & Microsurgical Clip Ligation",
       "batch_tag": "Reviewed 047-106",
+      "domain": "Cranial",
       "image_file": "/plates/plate_072.jpg",
       "pins": [
         {
@@ -3991,6 +4202,7 @@ const appData = {
       "plate_num": "073",
       "title": "Giant Calcified Thoracic Disc Herniation \u2014 Posterolateral Transpedicular Corridor, Down-and-Away Trenching & Zero Cord Retraction",
       "batch_tag": "Reviewed 047-106",
+      "domain": "Cranial",
       "image_file": "/plates/plate_073.jpg",
       "pins": [
         {
@@ -4045,6 +4257,7 @@ const appData = {
       "plate_num": "074",
       "title": "Sphenoid Wing Meningioma & Hyperostosis \u2014 Medial Clinoidal vs. Lateral, Extradural Optic Unroofing & MOB Peeling",
       "batch_tag": "Reviewed 047-106",
+      "domain": "Cranial",
       "image_file": "/plates/plate_074.jpg",
       "pins": [
         {
@@ -4099,6 +4312,7 @@ const appData = {
       "plate_num": "075",
       "title": "High-Grade L5\u2013S1 Spondylolisthesis & Spondyloptosis \u2014 Sacral Dome Osteotomy, L5 Root Decompression & Bohlman Spinopelvic Fixation",
       "batch_tag": "Reviewed 047-106",
+      "domain": "Cranial",
       "image_file": "/plates/plate_075.jpg",
       "pins": [],
       "steps": [],
@@ -4108,6 +4322,7 @@ const appData = {
       "plate_num": "076",
       "title": "Cervical Spondylotic Radiculopathy & Posterior Keyhole Foraminotomy \u2014 V-Point Localization, \u226450% Facetectomy & Disc Fragmentectomy",
       "batch_tag": "Reviewed 047-106",
+      "domain": "Cranial",
       "image_file": "/plates/plate_076.jpg",
       "pins": [],
       "steps": [],
@@ -4117,6 +4332,7 @@ const appData = {
       "plate_num": "077",
       "title": "Brainstem / Tectal Cavernous Malformation (Zabramski Type II) \u2014 Supracerebellar Corridor, Infracollicular Entry Zone & DVA Sparing",
       "batch_tag": "Reviewed 047-106",
+      "domain": "Cranial",
       "image_file": "/plates/plate_077.jpg",
       "pins": [],
       "steps": [],
@@ -4126,6 +4342,7 @@ const appData = {
       "plate_num": "078",
       "title": "Thoracolumbar Burst Fracture (AO Spine A3/A4) \u2014 Short-Segment Fixation, Intermediate Screws & Ligamentotaxis",
       "batch_tag": "Reviewed 047-106",
+      "domain": "Cranial",
       "image_file": "/plates/plate_078.jpg",
       "pins": [],
       "steps": [],
@@ -4135,6 +4352,7 @@ const appData = {
       "plate_num": "079",
       "title": "Subthalamic Nucleus (STN) Deep Brain Stimulation (DBS) \u2014 Stereotactic Trajectory, MER Bursting & Directional Lead Placement",
       "batch_tag": "Reviewed 047-106",
+      "domain": "Cranial",
       "image_file": "/plates/plate_079.jpg",
       "pins": [],
       "steps": [],
@@ -4144,6 +4362,7 @@ const appData = {
       "plate_num": "080",
       "title": "Cervical Expansile Laminoplasty \u2014 Open-Door (Hirabayashi) vs. French-Door (Kurokawa), K-Line & C5 Palsy Prevention",
       "batch_tag": "Reviewed 047-106",
+      "domain": "Cranial",
       "image_file": "/plates/plate_080.jpg",
       "pins": [],
       "steps": [],
@@ -4153,6 +4372,7 @@ const appData = {
       "plate_num": "081",
       "title": "Adult Scoliosis & Spinopelvic Realignment \u2014 Long-Segment Fusion (T10 to Pelvis), Ponte Osteotomies & S2AI Screws",
       "batch_tag": "Reviewed 047-106",
+      "domain": "Cranial",
       "image_file": "/plates/plate_081.jpg",
       "pins": [],
       "steps": [],
@@ -4162,6 +4382,7 @@ const appData = {
       "plate_num": "082",
       "title": "Fourth Ventricle Tumor & The Telovelar Approach \u2014 Vermis-Sparing Exposure, Tonsillar Mobilization & Rhomboid Fossa Preservation",
       "batch_tag": "Reviewed 047-106",
+      "domain": "Cranial",
       "image_file": "/plates/plate_082.jpg",
       "pins": [],
       "steps": [],
@@ -4171,6 +4392,7 @@ const appData = {
       "plate_num": "083",
       "title": "Full-Endoscopic Transforaminal Lumbar Discectomy \u2014 Kambin's Triangle, SAP Foraminoplasty & Endoscopic Fragmentectomy",
       "batch_tag": "Reviewed 047-106",
+      "domain": "Cranial",
       "image_file": "/plates/plate_083.jpg",
       "pins": [],
       "steps": [],
@@ -4180,6 +4402,7 @@ const appData = {
       "plate_num": "084",
       "title": "Paraclinoid (Ophthalmic) ICA Aneurysm & Anterior Clinoidectomy \u2014 Optic Strut Drilling, Distal Dural Ring Dissection & Clip Occlusion",
       "batch_tag": "Reviewed 047-106",
+      "domain": "Cranial",
       "image_file": "/plates/plate_084.jpg",
       "pins": [],
       "steps": [],
@@ -4189,6 +4412,7 @@ const appData = {
       "plate_num": "085",
       "title": "Sacral Chordoma & En-Bloc Sacrectomy \u2014 Combined Anterior-Posterior Resection & Rigid Spinopelvic Reconstruction",
       "batch_tag": "Reviewed 047-106",
+      "domain": "Cranial",
       "image_file": "/plates/plate_085.jpg",
       "pins": [],
       "steps": [],
@@ -4198,6 +4422,7 @@ const appData = {
       "plate_num": "086",
       "title": "Endoscopic Third Ventriculostomy (ETV) \u2014 Foramen of Monro Anatomy, 3rd Ventricular Floor Landmarks & Prepontine Fenestration",
       "batch_tag": "Reviewed 047-106",
+      "domain": "Cranial",
       "image_file": "/plates/plate_086.jpg",
       "pins": [],
       "steps": [],
@@ -4207,6 +4432,7 @@ const appData = {
       "plate_num": "087",
       "title": "Anterior Lumbar Interbody Fusion (ALIF) at L5\u2013S1 \u2014 Retroperitoneal Exposure, Vascular Bifurcation & Hyperlordotic Reconstruction",
       "batch_tag": "Reviewed 047-106",
+      "domain": "Cranial",
       "image_file": "/plates/plate_087.jpg",
       "pins": [],
       "steps": [],
@@ -4216,6 +4442,7 @@ const appData = {
       "plate_num": "088",
       "title": "Occipitocervical Fixation (OCF) & Decompression \u2014 Craniocervical Instability Metrics, Suboccipital Decompression & Occiput-to-C4 Screw-Rod Reconstruction",
       "batch_tag": "Reviewed 047-106",
+      "domain": "Spine",
       "image_file": "/plates/plate_088.jpg",
       "pins": [],
       "steps": [],
@@ -4225,6 +4452,7 @@ const appData = {
       "plate_num": "089",
       "title": "Cubital Tunnel Syndrome & Submuscular Ulnar Nerve Transposition \u2014 In-Situ Decompression, FCU Motor Branch Sparing & Learmonth Procedure",
       "batch_tag": "Reviewed 047-106",
+      "domain": "Cranial",
       "image_file": "/plates/plate_089.jpg",
       "pins": [],
       "steps": [],
@@ -4234,6 +4462,7 @@ const appData = {
       "plate_num": "090",
       "title": "Carpal Tunnel Syndrome & Open Carpal Tunnel Release (CTR) \u2014 Retinacular Decompression, Thenar Motor Variants & Fat Pad Landmark",
       "batch_tag": "Reviewed 047-106",
+      "domain": "Cranial",
       "image_file": "/plates/plate_090.jpg",
       "pins": [],
       "steps": [],
@@ -4243,6 +4472,7 @@ const appData = {
       "plate_num": "091",
       "title": "Anterior Cervical Corpectomy & Fusion (ACCF at C6) \u2014 Expandable Titanium Cage & Anterior Locking Plate",
       "batch_tag": "Reviewed 047-106",
+      "domain": "Cranial",
       "image_file": "/plates/plate_091.jpg",
       "pins": [],
       "steps": [],
@@ -4252,6 +4482,7 @@ const appData = {
       "plate_num": "092",
       "title": "Brachial Plexus Injury (Upper Trunk / Erb's Palsy) & Oberlin Double Nerve Transfer \u2014 Ulnar to Biceps, Median to Brachialis",
       "batch_tag": "Reviewed 047-106",
+      "domain": "Cranial",
       "image_file": "/plates/plate_092.jpg",
       "pins": [],
       "steps": [],
@@ -4261,6 +4492,7 @@ const appData = {
       "plate_num": "093",
       "title": "Acute Ischemic Stroke & Endovascular Mechanical Thrombectomy \u2014 Right MCA M1 Occlusion, Combined Stent-Retriever & Contact Aspiration",
       "batch_tag": "Reviewed 047-106",
+      "domain": "Cranial",
       "image_file": "/plates/plate_093.jpg",
       "pins": [],
       "steps": [],
@@ -4270,6 +4502,7 @@ const appData = {
       "plate_num": "094",
       "title": "Spinal Cord Stimulation (SCS) & Paddle Lead Placement \u2014 FBSS, Thoracic T8\u2013T10 Laminotomy, Multi-Column Paddle & Gluteal IPG Pocket",
       "batch_tag": "Reviewed 047-106",
+      "domain": "Cranial",
       "image_file": "/plates/plate_094.jpg",
       "pins": [],
       "steps": [],
@@ -4279,6 +4512,7 @@ const appData = {
       "plate_num": "095",
       "title": "Myelomeningocele (MMC) Open Spinal Dysraphism Repair \u2014 Placode Untethering, Pial Tubularization, Watertight Duraplasty & Myofascial Flaps",
       "batch_tag": "Reviewed 047-106",
+      "domain": "Cranial",
       "image_file": "/plates/plate_095.jpg",
       "pins": [],
       "steps": [],
@@ -4288,6 +4522,7 @@ const appData = {
       "plate_num": "096",
       "title": "The NeuroCall Surgical Atlas: 360\u00b0 Master Corridors \u2014 Cranial Skull Base, Spinal Reconstruction & Functional Neural Pathways",
       "batch_tag": "Reviewed 047-106",
+      "domain": "Cranial",
       "image_file": "/plates/plate_096.jpg",
       "pins": [],
       "steps": [],
@@ -4297,6 +4532,7 @@ const appData = {
       "plate_num": "097",
       "title": "Anterior Odontoid Screw Fixation \u2014 Type II Fracture, Biplanar Fluoroscopy & Direct Lag Screw Osteosynthesis",
       "batch_tag": "Reviewed 047-106",
+      "domain": "Spine",
       "image_file": "/plates/plate_097.jpg",
       "pins": [],
       "steps": [],
@@ -4306,6 +4542,7 @@ const appData = {
       "plate_num": "098",
       "title": "Cervical Artificial Disc Replacement (CDRA) \u2014 C5\u2013C6 Arthroplasty, Complete Neural Decompression & Keel Seating",
       "batch_tag": "Reviewed 047-106",
+      "domain": "Spine",
       "image_file": "/plates/plate_098.jpg",
       "pins": [],
       "steps": [],
@@ -4315,6 +4552,7 @@ const appData = {
       "plate_num": "099",
       "title": "Cervical Pedicle Subtraction Osteotomy (C7 PSO) \u2014 Fixed Kyphosis Realignment, C8 Neural Sparing & Cervicothoracic Fixation",
       "batch_tag": "Reviewed 047-106",
+      "domain": "Spine",
       "image_file": "/plates/plate_099.jpg",
       "pins": [],
       "steps": [
@@ -4340,6 +4578,7 @@ const appData = {
       "plate_num": "100",
       "title": "Oblique Lumbar Interbody Fusion (OLIF / ATP) \u2014 Anterior-to-Psoas Corridor (L2\u2013L5), Lumbar Plexus Sparing & Hyperlordotic Interbody Fusion",
       "batch_tag": "Reviewed 047-106",
+      "domain": "Spine",
       "image_file": "/plates/plate_100.jpg",
       "pins": [],
       "steps": [],
@@ -4349,6 +4588,7 @@ const appData = {
       "plate_num": "101",
       "title": "Prone Single-Position Lateral Surgery (Prone LLIF) \u2014 Single-Position Prone Lateral Access, Gravitational Visceral Shift & Simultaneous 360\u00b0 Stabilization",
       "batch_tag": "Reviewed 047-106",
+      "domain": "Spine",
       "image_file": "/plates/plate_101.jpg",
       "pins": [],
       "steps": [
@@ -4374,6 +4614,7 @@ const appData = {
       "plate_num": "102",
       "title": "Posterior Vertebral Column Resection (PVCR) \u2014 Single-Stage 360\u00b0 Circumferential Spondylectomy, Cord Suspension & Expandable Cage Realignment",
       "batch_tag": "Reviewed 047-106",
+      "domain": "Spine",
       "image_file": "/plates/plate_102.jpg",
       "pins": [],
       "steps": [
@@ -4399,6 +4640,7 @@ const appData = {
       "plate_num": "103",
       "title": "Thoracic Metastasis: Posterolateral T8 Corpectomy \u2014 Costotransversectomy, Expandable Cage Reconstruction & T6\u2013T10 Posterior Fixation",
       "batch_tag": "Reviewed 047-106",
+      "domain": "Spine",
       "image_file": "/plates/plate_103.jpg",
       "pins": [],
       "steps": [],
@@ -4408,6 +4650,7 @@ const appData = {
       "plate_num": "104",
       "title": "Proximal Junctional Failure: Definitive Revision Reconstruction \u2014 UIV+1 Fracture Collapse, Cranial Extension to T2 & Spinopelvic Multi-Rod Reconstruction",
       "batch_tag": "Reviewed 047-106",
+      "domain": "Spine",
       "image_file": "/plates/plate_104.jpg",
       "pins": [],
       "steps": [],
@@ -4417,6 +4660,7 @@ const appData = {
       "plate_num": "105",
       "title": "Split Cord Malformation: Spur Resection & Dural Reconstruction \u2014 Pang Type I Diastematomyelia, Extradural Bony Spur Drillout & Single-Tube Duraplasty",
       "batch_tag": "Reviewed 047-106",
+      "domain": "Spine",
       "image_file": "/plates/plate_105.jpg",
       "pins": [],
       "steps": [],
@@ -4426,6 +4670,7 @@ const appData = {
       "plate_num": "106",
       "title": "Minimally Invasive Sacroiliac Joint Arthrodesis \u2014 Lateral Transiliac Corridor, Triangular Implants & Threaded Porous Compression Screws (iFuse TORQ)",
       "batch_tag": "Reviewed 047-106",
+      "domain": "Spine",
       "image_file": "/plates/plate_106.jpg",
       "pins": [],
       "steps": [],
@@ -4944,8 +5189,8 @@ const appData = {
         "pupils": "Round, regular, reactive to light (3-4 mm). Intact bilateral light reflex.",
         "motor": "Purposeful, commands-following or purposeful withdrawal.",
         "respiration": "Eupnea (normal rhythm, rate 12-16/min).",
-        "status": "NORMAL CONSCIOUSNESS",
-        "color": "neonGreen"
+        "statusBadge": "NORMAL CONSCIOUSNESS",
+        "badgeColor": "green"
       },
       {
         "level": 1,
@@ -4955,8 +5200,8 @@ const appData = {
         "pupils": "Small (1-2 mm) reactive 'diencephalic' pupils (loss of descending sympathetic tone).",
         "motor": "Bilateral paratonic rigidity or Decorticate Posturing (flexion of arms, extension of legs).",
         "respiration": "Cheyne-Stokes Respiration (waxing-waning tidal volume with interspersed apnea).",
-        "status": "EARLY CENTRAL HERNIATION",
-        "color": "neonCyan"
+        "statusBadge": "EARLY CENTRAL HERNIATION",
+        "badgeColor": "cyan"
       },
       {
         "level": 2,
@@ -4966,8 +5211,8 @@ const appData = {
         "pupils": "Midposition (4-6 mm), irregular, fixed to light. Oculocephalic (doll's eyes) impaired.",
         "motor": "Decerebrate Posturing (extension, adduction, and internal rotation of upper extremities).",
         "respiration": "Central Neurogenic Hyperventilation (sustained, rapid, deep hyperpnea 25-40/min).",
-        "status": "CRITICAL MIDBRAIN COMPRESSION",
-        "color": "neonAmber"
+        "statusBadge": "CRITICAL MIDBRAIN COMPRESSION",
+        "badgeColor": "amber"
       },
       {
         "level": 3,
@@ -4977,8 +5222,8 @@ const appData = {
         "pupils": "Pinpoint (<1 mm) or small fixed. Loss of corneal reflex and cold caloric oculovestibular response.",
         "motor": "Flaccid or weak decerebrate posturing; bilateral Babinski signs.",
         "respiration": "Apneustic Breathing (prolonged inspiratory pauses of 2-3 sec followed by brief exhalation) or cluster breathing.",
-        "status": "SEVERE PONTINE DECOMPENSATION",
-        "color": "neonAmber"
+        "statusBadge": "SEVERE PONTINE DECOMPENSATION",
+        "badgeColor": "amber"
       },
       {
         "level": 4,
@@ -4988,8 +5233,8 @@ const appData = {
         "pupils": "Fixed and dilated (6-8 mm) or midposition fixed.",
         "motor": "Completely flaccid tone; no motor response to painful stimuli.",
         "respiration": "Ataxic Breathing (Biot's respiration: irregular, completely chaotic breaths with variable pauses).",
-        "status": "IMPENDING CONING / APNEA",
-        "color": "neonRed"
+        "statusBadge": "IMPENDING CONING / APNEA",
+        "badgeColor": "red"
       },
       {
         "level": 5,
@@ -4999,8 +5244,8 @@ const appData = {
         "pupils": "Fixed, dilated, unreactive bilateral pupils (mydriasis).",
         "motor": "No motor response; total flaccidity (triple flexion spinal reflex may persist).",
         "respiration": "Apnea (complete absence of spontaneous respiratory drive upon PaCO2 challenge \u226560 mmHg).",
-        "status": "BRAIN DEATH (TONSILLAR HERNIATION)",
-        "color": "neonRed"
+        "statusBadge": "BRAIN DEATH (TONSILLAR HERNIATION)",
+        "badgeColor": "red"
       }
     ]
   },
@@ -5222,12 +5467,43 @@ function showToast(msg) {
   setTimeout(() => { t.style.display = 'none'; }, 2800);
 }
 
+function openLightbox(src, caption) {
+  const lb = document.getElementById('lightbox');
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('lightbox-caption').innerText = caption || 'High-Resolution Medical Plate';
+  lb.classList.add('active');
+}
+
+function closeLightbox(e) {
+  if (e.target.id === 'lightbox' || e.target.id === 'lightbox-close') {
+    document.getElementById('lightbox').classList.remove('active');
+  }
+}
+
+window.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    document.getElementById('lightbox').classList.remove('active');
+  }
+});
+
 function switchPillar(pillarId) {
   document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
   document.querySelectorAll('.section-container').forEach(sec => sec.classList.remove('active'));
 
   event.currentTarget.classList.add('active');
   document.getElementById(`pillar-${pillarId}`).classList.add('active');
+}
+
+// Atlas Modes
+function switchAtlasMode(mode) {
+  document.querySelectorAll('[id^="subtab-atlas-"]').forEach(btn => btn.classList.remove('active'));
+  document.querySelectorAll('[id^="atlas-panel-"]').forEach(p => p.classList.remove('active'));
+
+  document.getElementById(`subtab-atlas-${mode}`).classList.add('active');
+  document.getElementById(`atlas-panel-${mode}`).classList.add('active');
+
+  if (mode === 'sorter') renderSlideSorter();
+  else renderAtlas();
 }
 
 // 2 AM Crisis Sub-Tabs
@@ -5258,8 +5534,162 @@ function switchConsultSubTab(tabId) {
 }
 
 // ==========================================
-// 1. ATLAS RENDER
+// 1. SURGICAL ATLAS & POWERPOINT SLIDE SORTER
 // ==========================================
+let currentSorterFilter = 'all';
+let draggedPlateNum = null;
+let reorderCount = 0;
+
+function filterSorter(cat) {
+  currentSorterFilter = cat;
+  document.getElementById('filter-sorter-all').classList.toggle('active', cat === 'all');
+  document.getElementById('filter-sorter-cranial').classList.toggle('active', cat === 'Cranial');
+  document.getElementById('filter-sorter-spine').classList.toggle('active', cat === 'Spine');
+  renderSlideSorter();
+}
+
+function renderSlideSorter() {
+  const grid = document.getElementById('slideSorterGrid');
+  const search = document.getElementById('sorterSearch').value.toLowerCase();
+  grid.innerHTML = '';
+
+  const filtered = appData.atlas.filter((p, idx) => {
+    const matchCat = (currentSorterFilter === 'all') || (p.domain === currentSorterFilter);
+    const matchSearch = p.plate_num.includes(search) || p.title.toLowerCase().includes(search);
+    return matchCat && matchSearch;
+  });
+
+  filtered.forEach((p, displayIndex) => {
+    const actualIndex = appData.atlas.findIndex(x => x.plate_num === p.plate_num);
+    const tile = document.createElement('div');
+    tile.className = 'slide-tile';
+    tile.draggable = true;
+    tile.dataset.plateNum = p.plate_num;
+    tile.id = `slide-tile-${p.plate_num}`;
+
+    tile.innerHTML = `
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <span style="font-size:11px; font-weight:900; color:#00e5ff;">#${actualIndex + 1}</span>
+        <span style="font-size:10px; color:#64748b; font-weight:700;">Plate ${p.plate_num}</span>
+        <span class="badge badge-${p.domain === 'Cranial' ? 'cyan' : 'amber'}">${p.domain}</span>
+      </div>
+      <div class="slide-thumb" onclick="openLightbox('${p.image_file}', 'Plate ${p.plate_num}: ${p.title.replace(/'/g, "\\'") }')">
+        <img src="${p.image_file}" alt="Plate ${p.plate_num}" loading="lazy">
+        <span class="slide-badge-seq">#${actualIndex + 1}</span>
+      </div>
+      <div class="slide-title" title="${p.title}">${p.title}</div>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-top:auto; font-size:10px; color:#64748b; border-top:1px solid #1a2436; padding-top:6px;">
+        <span>📍 ${p.pins.length} pins</span>
+        <span>📋 ${p.steps.length} steps</span>
+        <button style="background:none; border:none; color:#00e5ff; font-weight:800; cursor:pointer;" onclick="jumpToInspector('${p.plate_num}')">Edit ➔</button>
+      </div>
+    `;
+
+    // HTML5 Drag Events
+    tile.addEventListener('dragstart', (e) => {
+      draggedPlateNum = p.plate_num;
+      tile.classList.add('dragging');
+      e.dataTransfer.setData('text/plain', p.plate_num);
+      e.dataTransfer.effectAllowed = 'move';
+    });
+
+    tile.addEventListener('dragend', () => {
+      tile.classList.remove('dragging');
+      document.querySelectorAll('.slide-tile').forEach(t => t.classList.remove('drag-over-before', 'drag-over-after'));
+    });
+
+    tile.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
+      const rect = tile.getBoundingClientRect();
+      const midX = rect.left + rect.width / 2;
+      tile.classList.toggle('drag-over-before', e.clientX < midX);
+      tile.classList.toggle('drag-over-after', e.clientX >= midX);
+    });
+
+    tile.addEventListener('dragleave', () => {
+      tile.classList.remove('drag-over-before', 'drag-over-after');
+    });
+
+    tile.addEventListener('drop', (e) => {
+      e.preventDefault();
+      tile.classList.remove('drag-over-before', 'drag-over-after');
+      const targetPlateNum = p.plate_num;
+      if (!draggedPlateNum || draggedPlateNum === targetPlateNum) return;
+
+      const fromIdx = appData.atlas.findIndex(x => x.plate_num === draggedPlateNum);
+      const toIdx = appData.atlas.findIndex(x => x.plate_num === targetPlateNum);
+      if (fromIdx === -1 || toIdx === -1) return;
+
+      const rect = tile.getBoundingClientRect();
+      const insertAfter = e.clientX >= (rect.left + rect.width / 2);
+
+      const [movedItem] = appData.atlas.splice(fromIdx, 1);
+      const newTargetIdx = appData.atlas.findIndex(x => x.plate_num === targetPlateNum);
+      const finalIdx = insertAfter ? newTargetIdx + 1 : newTargetIdx;
+      appData.atlas.splice(finalIdx, 0, movedItem);
+
+      reorderCount++;
+      document.getElementById('sorterMoveCountBadge').innerText = `${reorderCount} Move(s) Made • New Order Ready`;
+      document.getElementById('sorterMoveCountBadge').className = 'badge badge-amber';
+      showToast(`Moved Plate ${draggedPlateNum} to position #${finalIdx + 1}!`);
+
+      renderSlideSorter();
+    });
+
+    grid.appendChild(tile);
+  });
+}
+
+function jumpToInspector(pNum) {
+  switchAtlasMode('inspector');
+  document.getElementById('atlasSearch').value = pNum;
+  renderAtlas();
+  const card = document.getElementById(`atlas-card-${pNum}`);
+  if (card) card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function resetSlideOrder() {
+  if (!confirm("Reset plate order back to original sequential order 001 - 106?")) return;
+  appData.atlas.sort((a, b) => parseInt(a.plate_num) - parseInt(b.plate_num));
+  reorderCount = 0;
+  document.getElementById('sorterMoveCountBadge').innerText = `Original Order Restored`;
+  document.getElementById('sorterMoveCountBadge').className = 'badge badge-cyan';
+  renderSlideSorter();
+  showToast("Restored original sequential plate order!");
+}
+
+async function saveSlideOrderToSwift() {
+  const orderedNums = appData.atlas.map(p => p.plate_num);
+  const btn = document.getElementById('save-order-btn');
+  btn.innerText = "⏳ Saving Order...";
+
+  try {
+    const res = await fetch("/api/save-plate-order", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ order: orderedNums })
+    });
+    const data = await res.json();
+    if (data.status === "ok") {
+      btn.innerText = "✓ Plate Order Saved!";
+      btn.classList.add("saved");
+      showToast(`Custom order of all 106 plates saved successfully!`);
+      setTimeout(() => {
+        btn.innerText = "💾 Save Plate Reorder to Swift";
+        btn.classList.remove("saved");
+      }, 3000);
+    } else {
+      alert("Error saving: " + data.message);
+      btn.innerText = "💾 Save Plate Reorder to Swift";
+    }
+  } catch (e) {
+    alert("Connection error: " + e);
+    btn.innerText = "💾 Save Plate Reorder to Swift";
+  }
+}
+
+// 1B. Detailed Plate Inspector
 function renderAtlas() {
   const container = document.getElementById('atlasList');
   const search = document.getElementById('atlasSearch').value.toLowerCase();
@@ -5319,7 +5749,7 @@ function renderAtlas() {
           <span style="font-weight:800; font-size:14px; color:#fff;">PLATE ${p.plate_num}</span>
           <span class="badge badge-amber">${p.batch_tag}</span>
         </div>
-        <div class="plate-viewport" id="viewport-${p.plate_num}">
+        <div class="plate-viewport" id="viewport-${p.plate_num}" onclick="openLightbox('${p.image_file}', 'Plate ${p.plate_num}: ${p.title.replace(/'/g, "\\'") }')">
           <img src="${p.image_file}" alt="Plate ${p.plate_num}">
           ${pinsHtml}
         </div>
@@ -5572,9 +6002,9 @@ function renderCrisis() {
         <span class="badge badge-red">BTF SURGICAL MANDATE</span>
       </div>
       <div class="media-card-grid">
-        <div class="viewport-container">
+        <div class="viewport-container" onclick="openLightbox('${spec.image_file}', '${spec.title.replace(/'/g, "\\'") }')">
           <img src="${spec.image_file}" alt="${spec.title}" title="Click to view full size">
-          <div class="viewport-caption">High-Contrast Emergency CT Viewport</div>
+          <div class="viewport-caption"><span>Emergency CT Viewport</span><span style="color:#00e5ff;">🔍 Zoom</span></div>
         </div>
         <div style="display:flex; flex-direction:column; gap:10px;">
           <div>
@@ -5700,9 +6130,9 @@ function renderCrisis() {
         <span class="badge badge-red">CRITICAL CHECKLIST</span>
       </div>
       <div class="media-card-grid">
-        <div class="viewport-container">
+        <div class="viewport-container" onclick="openLightbox('${cl.image_file}', '${cl.title.replace(/'/g, "\\'") }')">
           <img src="${cl.image_file}" alt="${cl.title}">
-          <div class="viewport-caption">Reference Diagnostic Plate</div>
+          <div class="viewport-caption"><span>Reference Diagnostic Plate</span><span style="color:#00e5ff;">🔍 Zoom</span></div>
         </div>
         <div style="display:flex; flex-direction:column; gap:8px; background:#090d15; padding:12px; border-radius:10px; border:1px solid #1e2638;">
           <div class="field-label" style="color:#00e5ff;">Action Steps:</div>
@@ -5745,6 +6175,8 @@ function renderConsults() {
     const card = document.createElement('div');
     card.className = 'studio-card';
 
+    const isMatrixTable = (c.case === 'shuntProxVsDistal');
+
     const pitfallsRows = c.pitfalls.map((pit, idx) => `
       <div style="display:flex; gap:6px; align-items:flex-start;">
         <span style="font-size:11px; font-weight:800; color:#f43f5e; margin-top:4px;">⚠️</span>
@@ -5761,14 +6193,20 @@ function renderConsults() {
           <span class="card-title">${c.title}</span>
           <div style="font-size:11px; color:#64748b; margin-top:2px;">Case: .${c.case} | Category: ${c.category.toUpperCase()}</div>
         </div>
-        <span class="badge badge-red">${c.acuityLabel || 'EMERGENCY'}</span>
+        <div style="display:flex; gap:8px; align-items:center;">
+          ${isMatrixTable ? '<span class="badge badge-amber">LARGE-FORMAT MATRIX TABLE</span>' : ''}
+          <span class="badge badge-red">${c.acuityLabel || 'EMERGENCY'}</span>
+        </div>
       </div>
 
-      <div class="media-card-grid">
+      <div class="media-card-grid ${isMatrixTable ? 'fullwidth-table' : ''}">
         <div>
-          <div class="viewport-container">
-            <img src="${c.image_file}" alt="${c.title}" title="Click to view full size">
-            <div class="viewport-caption">Clinical Scan Plate (${c.assetImageName})</div>
+          <div class="viewport-container" onclick="openLightbox('${c.image_file}', '${c.title.replace(/'/g, "\\'") }')">
+            <img src="${c.image_file}" alt="${c.title}" title="Click to open Fullscreen Lightbox">
+            <div class="viewport-caption">
+              <span>${isMatrixTable ? 'High-Definition Clinical Differentiation Matrix' : 'Clinical Scan Plate (' + c.assetImageName + ')'}</span>
+              <span style="color:#00e5ff; font-weight:800;">🔍 Click to Enlarge / Fullscreen</span>
+            </div>
           </div>
           ${triadHtml ? `<div style="background:#090d15; padding:10px; border-radius:8px; border:1px solid #1e2638; margin-top:10px; font-size:11px; color:#94a3b8;"><div style="font-weight:800; color:#00e5ff; margin-bottom:4px;">CLINICAL TRIAD / PRESENTATION:</div><ul>${triadHtml}</ul></div>` : ''}
         </div>
@@ -5853,32 +6291,67 @@ async function saveConsultToSwift(cCase) {
   } catch (e) { alert("Connection error: " + e); }
 }
 
-// Brainstem Elevator Render
+// Brainstem Interactive Slider & Elevator Render
+let currentBrainstemLevel = 0;
+
+function handleBrainstemSliderChange(val) {
+  currentBrainstemLevel = val;
+  const stage = appData.consults.brainstem.find(s => s.level === val) || appData.consults.brainstem[0];
+
+  document.getElementById('sliderDepthLabel').innerText = `${val} - ${stage.name}`;
+  const badge = document.getElementById('sliderStatusBadge');
+  badge.innerText = stage.statusBadge;
+  badge.className = `badge badge-${stage.badgeColor}`;
+
+  document.getElementById('readoutPupils').innerText = stage.pupils;
+  document.getElementById('readoutMotor').innerText = stage.motor;
+  document.getElementById('readoutRespiration').innerText = stage.respiration;
+
+  renderBrainstemElevator();
+}
+
 function renderBrainstemElevator() {
   const board = document.getElementById('brainstemElevatorBoard');
   board.innerHTML = '';
 
   appData.consults.brainstem.forEach(st => {
+    const isCollapsed = currentBrainstemLevel >= st.level && st.level > 0;
+    const isCurrentFront = currentBrainstemLevel === st.level;
+
     const stageDiv = document.createElement('div');
-    stageDiv.className = 'elevator-stage';
+    stageDiv.className = `elevator-stage ${isCurrentFront ? 'active-stage' : ''} ${isCollapsed ? 'collapsed' : ''}`;
+
+    let statusPillHtml = '';
+    if (st.level === 0) {
+      statusPillHtml = `<span class="badge badge-green" style="font-weight:900;">${currentBrainstemLevel === 0 ? '✓ INTACT' : 'COMPROMISED'}</span>`;
+    } else if (isCurrentFront) {
+      statusPillHtml = `<span class="badge badge-amber" style="font-weight:900; box-shadow:0 0 8px rgba(245,158,11,0.5);">⚡ ACTIVE FRONT</span>`;
+    } else if (isCollapsed) {
+      statusPillHtml = `<span class="badge badge-${st.badgeColor}" style="font-weight:900;">▼ COLLAPSED</span>`;
+    } else {
+      statusPillHtml = `<span class="badge badge-green" style="font-weight:900;">✓ INTACT</span>`;
+    }
+
     stageDiv.innerHTML = `
-      <div style="display:flex; flex-direction:column; gap:4px; max-width:280px;">
-        <div style="font-size:14px; font-weight:800; color:#fff;">${st.name}</div>
+      <div style="display:flex; flex-direction:column; gap:4px; min-width:240px;">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="font-size:14px; font-weight:900; color:${isCurrentFront ? '#00e5ff' : '#fff'};">${st.name}</span>
+          ${statusPillHtml}
+        </div>
         <div style="font-size:11px; color:#00e5ff;">${st.anatomicalLevel}</div>
-        <div style="font-size:10px; color:#94a3b8;">Trigger: ${st.reflexTrigger}</div>
-        <span class="badge badge-${st.color.includes('Red') ? 'red' : (st.color.includes('Green') ? 'green' : 'cyan')}" style="width:fit-content; margin-top:4px;">${st.status}</span>
+        <div style="font-size:10px; color:#94a3b8;">Trigger Correlate: ${st.reflexTrigger}</div>
       </div>
       <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; flex:1; background:#080c14; padding:10px 14px; border-radius:8px; border:1px solid #1a2336;">
         <div>
-          <div style="font-size:10px; font-weight:800; color:#94a3b8;">👁️ PUPILLARY LIGHT REFLEX:</div>
+          <div style="font-size:10px; font-weight:800; color:#00e5ff;">👁️ PUPILLARY LIGHT REFLEX:</div>
           <div style="font-size:11px; color:#cbd5e1; margin-top:2px;">${st.pupils}</div>
         </div>
         <div>
-          <div style="font-size:10px; font-weight:800; color:#94a3b8;">🏃 MOTOR POSTURING:</div>
+          <div style="font-size:10px; font-weight:800; color:#f59e0b;">🏃 MOTOR POSTURING:</div>
           <div style="font-size:11px; color:#cbd5e1; margin-top:2px;">${st.motor}</div>
         </div>
         <div>
-          <div style="font-size:10px; font-weight:800; color:#94a3b8;">🫁 RESPIRATORY PATTERN:</div>
+          <div style="font-size:10px; font-weight:800; color:#f43f5e;">🫁 RESPIRATORY PATTERN:</div>
           <div style="font-size:11px; color:#cbd5e1; margin-top:2px;">${st.respiration}</div>
         </div>
       </div>
@@ -5938,9 +6411,9 @@ function renderProcedures() {
       </div>
 
       <div class="media-card-grid">
-        <div class="viewport-container">
+        <div class="viewport-container" onclick="openLightbox('${proc.image_file}', '${proc.title.replace(/'/g, "\\'") }')">
           <img src="${proc.image_file}" alt="${proc.title}">
-          <div class="viewport-caption">High-Definition Anatomical Schematic (${proc.id})</div>
+          <div class="viewport-caption"><span>High-Definition Anatomical Schematic</span><span style="color:#00e5ff;">🔍 Zoom</span></div>
         </div>
 
         <div style="display:flex; flex-direction:column; gap:12px;">
@@ -6007,6 +6480,7 @@ function renderCalculators() {
 }
 
 // Initial Render
+renderSlideSorter();
 renderAtlas();
 renderCrisis();
 renderConsults();

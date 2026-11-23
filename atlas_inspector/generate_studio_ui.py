@@ -95,20 +95,46 @@ for i in range(1, 107):
     elif 47 <= i <= 106:
         batch_tag = "Reviewed 047-106"
 
+    # Domain tag
+    domain_tag = "Cranial"
+    if i in [1, 7, 11, 13, 14, 15, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 35, 36, 37, 38, 39, 42, 43, 44, 46, 47, 48, 49, 50, 51, 52, 53, 54, 88, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106]:
+        domain_tag = "Spine"
+
     plates_data.append({
         "plate_num": p_str,
         "title": plate_title,
         "batch_tag": batch_tag,
+        "domain": domain_tag,
         "image_file": f"/plates/plate_{p_str}.jpg",
         "pins": pins,
         "steps": steps,
         "hazards": hazards
     })
 
+# Check if custom saved order exists
+order_file = r"C:\Users\mohal\Documents\antigravity\Radix\atlas_inspector\plate_order.json"
+if os.path.exists(order_file):
+    try:
+        with open(order_file, "r", encoding="utf-8") as f:
+            saved_order = json.load(f).get("order", [])
+        if saved_order:
+            plates_by_num = {p["plate_num"]: p for p in plates_data}
+            ordered = []
+            for p_num in saved_order:
+                if p_num in plates_by_num:
+                    ordered.append(plates_by_num[p_num])
+            for p in plates_data:
+                if p not in ordered:
+                    ordered.append(p)
+            plates_data = ordered
+            print(f"Applied saved custom plate order ({len(plates_data)} plates)")
+    except Exception as e:
+        print(f"Note: Could not load plate_order.json: {e}")
+
 # ==========================================
 # 2. PARSE 2 AM CRISIS (5 SUB-MODULES)
 # ==========================================
-# A. Acute Triage Thresholds
+# A. Acute Triage
 with open(SWIFT_PATHS["crisis"], "r", encoding="utf-8") as f:
     em_text = f.read()
 
@@ -156,9 +182,6 @@ for case_name, img, default_t in crisis_cases:
         })
 
 # B. BTF ICP Ladder
-with open(SWIFT_PATHS["icp_ladder"], "r", encoding="utf-8") as f:
-    icp_text = f.read()
-
 icp_tiers = [
     {
         "tier": "Tier 0: Universal Baseline",
@@ -215,9 +238,6 @@ icp_tiers = [
 ]
 
 # C. Reversal Engine
-with open(SWIFT_PATHS["reversal_engine"], "r", encoding="utf-8") as f:
-    rev_text = f.read()
-
 reversal_engine_modules = [
     {
         "drug": "Warfarin (Coumadin)",
@@ -257,9 +277,6 @@ reversal_engine_modules = [
 ]
 
 # D. OR Spec Sheets
-with open(SWIFT_PATHS["or_setup"], "r", encoding="utf-8") as f:
-    or_text = f.read()
-
 or_spec_sheets = [
     {
         "procedure": "Emergent Trauma Craniectomy / Craniotomy",
@@ -396,10 +413,7 @@ def parse_consult_enum(enum_text, category_name):
 cranial_consults = parse_consult_enum(cs_text[cranial_start:spine_start], "cranial")
 spine_consults = parse_consult_enum(cs_text[spine_start:end_spine], "spine")
 
-# Brainstem Reflex Ladder Data
-with open(SWIFT_PATHS["brainstem_ladder"], "r", encoding="utf-8") as f:
-    bs_text = f.read()
-
+# Brainstem Reflex Ladder Data (6 stages with full Plum & Posner parameters)
 brainstem_stages = [
     {
         "level": 0,
@@ -409,8 +423,8 @@ brainstem_stages = [
         "pupils": "Round, regular, reactive to light (3-4 mm). Intact bilateral light reflex.",
         "motor": "Purposeful, commands-following or purposeful withdrawal.",
         "respiration": "Eupnea (normal rhythm, rate 12-16/min).",
-        "status": "NORMAL CONSCIOUSNESS",
-        "color": "neonGreen"
+        "statusBadge": "NORMAL CONSCIOUSNESS",
+        "badgeColor": "green"
     },
     {
         "level": 1,
@@ -420,8 +434,8 @@ brainstem_stages = [
         "pupils": "Small (1-2 mm) reactive 'diencephalic' pupils (loss of descending sympathetic tone).",
         "motor": "Bilateral paratonic rigidity or Decorticate Posturing (flexion of arms, extension of legs).",
         "respiration": "Cheyne-Stokes Respiration (waxing-waning tidal volume with interspersed apnea).",
-        "status": "EARLY CENTRAL HERNIATION",
-        "color": "neonCyan"
+        "statusBadge": "EARLY CENTRAL HERNIATION",
+        "badgeColor": "cyan"
     },
     {
         "level": 2,
@@ -431,8 +445,8 @@ brainstem_stages = [
         "pupils": "Midposition (4-6 mm), irregular, fixed to light. Oculocephalic (doll's eyes) impaired.",
         "motor": "Decerebrate Posturing (extension, adduction, and internal rotation of upper extremities).",
         "respiration": "Central Neurogenic Hyperventilation (sustained, rapid, deep hyperpnea 25-40/min).",
-        "status": "CRITICAL MIDBRAIN COMPRESSION",
-        "color": "neonAmber"
+        "statusBadge": "CRITICAL MIDBRAIN COMPRESSION",
+        "badgeColor": "amber"
     },
     {
         "level": 3,
@@ -442,8 +456,8 @@ brainstem_stages = [
         "pupils": "Pinpoint (<1 mm) or small fixed. Loss of corneal reflex and cold caloric oculovestibular response.",
         "motor": "Flaccid or weak decerebrate posturing; bilateral Babinski signs.",
         "respiration": "Apneustic Breathing (prolonged inspiratory pauses of 2-3 sec followed by brief exhalation) or cluster breathing.",
-        "status": "SEVERE PONTINE DECOMPENSATION",
-        "color": "neonAmber"
+        "statusBadge": "SEVERE PONTINE DECOMPENSATION",
+        "badgeColor": "amber"
     },
     {
         "level": 4,
@@ -453,8 +467,8 @@ brainstem_stages = [
         "pupils": "Fixed and dilated (6-8 mm) or midposition fixed.",
         "motor": "Completely flaccid tone; no motor response to painful stimuli.",
         "respiration": "Ataxic Breathing (Biot's respiration: irregular, completely chaotic breaths with variable pauses).",
-        "status": "IMPENDING CONING / APNEA",
-        "color": "neonRed"
+        "statusBadge": "IMPENDING CONING / APNEA",
+        "badgeColor": "red"
     },
     {
         "level": 5,
@@ -464,8 +478,8 @@ brainstem_stages = [
         "pupils": "Fixed, dilated, unreactive bilateral pupils (mydriasis).",
         "motor": "No motor response; total flaccidity (triple flexion spinal reflex may persist).",
         "respiration": "Apnea (complete absence of spontaneous respiratory drive upon PaCO2 challenge ≥60 mmHg).",
-        "status": "BRAIN DEATH (TONSILLAR HERNIATION)",
-        "color": "neonRed"
+        "statusBadge": "BRAIN DEATH (TONSILLAR HERNIATION)",
+        "badgeColor": "red"
     }
 ]
 
@@ -710,6 +724,14 @@ html_template = f"""<!DOCTYPE html>
   /* Side-by-side Image + Form Grid */
   .media-card-grid {{ display: grid; grid-template-columns: 340px 1fr; gap: 18px; }}
   @media (max-width: 950px) {{ .media-card-grid {{ grid-template-columns: 1fr; }} }}
+
+  /* Extra-Wide Format for Complex Matrix Tables */
+  .media-card-grid.fullwidth-table {{
+    display: flex; flex-direction: column; gap: 18px;
+  }}
+  .media-card-grid.fullwidth-table .viewport-container img {{
+    max-height: 650px; width: 100%; object-fit: contain;
+  }}
   
   .viewport-container {{
     position: relative; background: #000; border: 1px solid var(--border-color);
@@ -723,6 +745,7 @@ html_template = f"""<!DOCTYPE html>
   .viewport-caption {{
     width: 100%; padding: 6px 10px; background: rgba(10,14,23,0.9); font-size: 11px;
     font-weight: 700; color: #94a3b8; text-align: center; border-top: 1px solid #1a2233;
+    display: flex; justify-content: space-between; align-items: center;
   }}
 
   /* Fields */
@@ -776,21 +799,89 @@ html_template = f"""<!DOCTYPE html>
   }}
   .pin-marker:active {{ cursor: grabbing; transform: translate(-50%, -50%) scale(1.2); }}
 
-  /* Brainstem Elevator Styles */
-  .elevator-board {{
-    background: #090d15; border: 1px solid #1e2638; border-radius: 14px; padding: 18px;
+  /* PowerPoint Slide Sorter Grid */
+  .slide-sorter-grid {{
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 16px;
+    padding: 14px; background: #080c14; border-radius: 14px; border: 1px solid #1a2338;
+  }}
+  .slide-tile {{
+    background: #0f1623; border: 2px solid #202c42; border-radius: 10px; padding: 10px;
+    display: flex; flex-direction: column; gap: 8px; cursor: grab; user-select: none;
+    transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s; position: relative;
+  }}
+  .slide-tile:hover {{
+    transform: translateY(-2px); border-color: var(--accent-cyan);
+    box-shadow: 0 4px 16px rgba(0,229,255,0.25);
+  }}
+  .slide-tile.dragging {{ opacity: 0.4; cursor: grabbing; }}
+  .slide-tile.drag-over-before {{ border-left: 4px solid var(--accent-cyan); }}
+  .slide-tile.drag-over-after {{ border-right: 4px solid var(--accent-cyan); }}
+  .slide-thumb {{
+    width: 100%; aspect-ratio: 1 / 1; background: #000; border-radius: 6px; overflow: hidden;
+    border: 1px solid #25334c; position: relative;
+  }}
+  .slide-thumb img {{ width: 100%; height: 100%; object-fit: contain; pointer-events: none; }}
+  .slide-badge-seq {{
+    position: absolute; top: 6px; left: 6px; background: rgba(0,0,0,0.85); color: #00e5ff;
+    padding: 2px 6px; border-radius: 4px; font-size: 11px; font-weight: 900; border: 1px solid #00e5ff;
+  }}
+  .slide-title {{
+    font-size: 12px; font-weight: 800; color: #fff; line-height: 1.3;
+    overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+  }}
+
+  /* Interactive Brainstem Elevator */
+  .brainstem-slider-container {{
+    background: #0d121d; border: 1px solid #1e2638; border-radius: 12px; padding: 16px 20px;
     display: flex; flex-direction: column; gap: 12px;
   }}
-  .elevator-stage {{
-    background: #111723; border: 1px solid #202b3f; border-radius: 10px; padding: 12px 16px;
-    display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  .brainstem-slider {{
+    width: 100%; height: 8px; border-radius: 5px; outline: none; background: #1e293b;
+    accent-color: #00e5ff; cursor: pointer;
   }}
-  .elevator-stage.active {{ border-color: var(--accent-cyan); background: #152238; }}
+  .elevator-board {{
+    background: #090d15; border: 1px solid #1e2638; border-radius: 14px; padding: 18px;
+    display: flex; flex-direction: column; gap: 10px;
+  }}
+  .elevator-stage {{
+    background: #111723; border: 1.5px solid #202b3f; border-radius: 10px; padding: 12px 16px;
+    display: flex; justify-content: space-between; align-items: center; gap: 14px; transition: 0.2s;
+  }}
+  .elevator-stage.active-stage {{
+    border-color: #fff; background: #17243c; box-shadow: 0 0 12px rgba(0,229,255,0.3);
+  }}
+  .elevator-stage.collapsed {{
+    background: #151a24; opacity: 0.9;
+  }}
+
+  /* Lightbox Modal */
+  #lightbox {{
+    display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    background: rgba(0,0,0,0.92); z-index: 10000; flex-direction: column;
+    align-items: center; justify-content: center; padding: 20px;
+  }}
+  #lightbox.active {{ display: flex; }}
+  #lightbox img {{
+    max-width: 95vw; max-height: 90vh; object-fit: contain; border-radius: 8px;
+    box-shadow: 0 0 30px rgba(0,0,0,0.9); border: 1px solid #334155;
+  }}
+  #lightbox-close {{
+    position: absolute; top: 20px; right: 24px; font-size: 28px; font-weight: 800;
+    color: #fff; background: none; border: none; cursor: pointer; padding: 8px 14px;
+    background: rgba(255,255,255,0.1); border-radius: 8px;
+  }}
 </style>
 </head>
 <body>
 
 <div id="toast">Saved to Swift!</div>
+
+<!-- Full-Resolution Lightbox -->
+<div id="lightbox" onclick="closeLightbox(event)">
+  <button id="lightbox-close" onclick="closeLightbox(event)">✕ Close (Esc)</button>
+  <img id="lightbox-img" src="" alt="Enlarged Medical Plate">
+  <div id="lightbox-caption" style="color:#94a3b8; font-size:13px; font-weight:700; margin-top:10px;"></div>
+</div>
 
 <header>
   <div class="header-top">
@@ -810,14 +901,41 @@ html_template = f"""<!DOCTYPE html>
 </header>
 
 <!-- ========================================== -->
-<!-- 1. SURGICAL ATLAS (106 PLATES)             -->
+<!-- 1. SURGICAL ATLAS (SLIDE SORTER & EDITOR)  -->
 <!-- ========================================== -->
 <div id="pillar-atlas" class="section-container active">
-  <div class="filter-bar">
-    <input type="text" id="atlasSearch" class="edit-input" style="max-width: 320px;" placeholder="Search 106 plates by title or plate number..." oninput="renderAtlas()">
-    <span style="font-size:12px; color:#64748b;">💡 100% of your calibrated pin placements and title changes are preserved. Drag any numbered pin to inspect or adjust.</span>
+  <div class="sub-nav-bar">
+    <span style="font-size:12px; font-weight:800; color:#fff; margin-right:6px;">ATLAS VIEW MODES:</span>
+    <button class="sub-tab-btn active" id="subtab-atlas-sorter" onclick="switchAtlasMode('sorter')">📑 PowerPoint Slide Sorter (106 Slides)</button>
+    <button class="sub-tab-btn" id="subtab-atlas-inspector" onclick="switchAtlasMode('inspector')">🔍 Detailed Plate Inspector & Calibrator</button>
   </div>
-  <div id="atlasList" style="display:flex; flex-direction:column; gap:20px;"></div>
+
+  <!-- 1A. PowerPoint Slide Sorter View -->
+  <div id="atlas-panel-sorter" class="sub-content-panel active">
+    <div class="filter-bar">
+      <input type="text" id="sorterSearch" class="edit-input" style="max-width: 280px;" placeholder="Filter slides by title or #..." oninput="renderSlideSorter()">
+      <button class="pill-filter active" id="filter-sorter-all" onclick="filterSorter('all')">All (106)</button>
+      <button class="pill-filter" id="filter-sorter-cranial" onclick="filterSorter('Cranial')">Cranial</button>
+      <button class="pill-filter" id="filter-sorter-spine" onclick="filterSorter('Spine')">Spine</button>
+      
+      <span id="sorterMoveCountBadge" class="badge badge-cyan" style="margin-left:auto;">106 Slides in Presentation Flow</span>
+      <button class="pill-filter" style="border-color:#f43f5e; color:#f43f5e;" onclick="resetSlideOrder()">🔄 Reset Order</button>
+      <button class="save-btn" id="save-order-btn" onclick="saveSlideOrderToSwift()">💾 Save Plate Reorder to Swift</button>
+    </div>
+    <div style="font-size:12px; color:#94a3b8; background:#0c111c; padding:8px 14px; border-radius:8px; border:1px solid #1f283d;">
+      💡 <strong>Drag-and-Drop Reordering:</strong> Click and drag any slide thumbnail with the mouse to move it anywhere in the sequence. Visual insertion markers show exact landing spot.
+    </div>
+    <div id="slideSorterGrid" class="slide-sorter-grid"></div>
+  </div>
+
+  <!-- 1B. Detailed Plate Inspector View -->
+  <div id="atlas-panel-inspector" class="sub-content-panel">
+    <div class="filter-bar">
+      <input type="text" id="atlasSearch" class="edit-input" style="max-width: 320px;" placeholder="Search 106 plates by title or plate number..." oninput="renderAtlas()">
+      <span style="font-size:12px; color:#64748b;">💡 Drag any numbered circle to reposition. 15px markers ensure zero anatomical obscuration.</span>
+    </div>
+    <div id="atlasList" style="display:flex; flex-direction:column; gap:20px;"></div>
+  </div>
 </div>
 
 <!-- ========================================== -->
@@ -898,10 +1016,45 @@ html_template = f"""<!DOCTYPE html>
 
   <!-- 3C. Brainstem Reflex Ladder -->
   <div id="consult-panel-brainstem" class="sub-content-panel">
-    <div style="background:#0d121d; border:1px solid #1e2638; border-radius:12px; padding:14px;">
-      <h2 style="font-size:15px; font-weight:800; color:#fff;">Rostrocaudal Brainstem Deterioration & Consciousness Elevator</h2>
-      <div style="font-size:12px; color:#94a3b8; margin-top:3px;">Plum & Posner Transtentorial Herniation Architecture: Levels 0 (Intact) to 5 (Brain Death)</div>
+    <!-- Interactive Progression Slider (Exact match to iOS SwiftUI App) -->
+    <div class="brainstem-slider-container">
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <div>
+          <span style="font-size:14px; font-weight:800; color:#fff;">Brainstem Collapse Progression Depth:</span>
+          <span id="sliderDepthLabel" style="font-size:14px; font-weight:900; color:#00e5ff; margin-left:8px;">0 Intact Consciousness</span>
+        </div>
+        <span id="sliderStatusBadge" class="badge badge-green">NORMAL CONSCIOUSNESS</span>
+      </div>
+
+      <input type="range" id="brainstemRangeSlider" class="brainstem-slider" min="0" max="5" step="1" value="0" oninput="handleBrainstemSliderChange(parseInt(this.value))">
+
+      <div style="display:flex; justify-content:space-between; font-size:10px; font-weight:800; color:#94a3b8; padding:0 4px;">
+        <span>0 Intact</span>
+        <span>1 Diencephalon</span>
+        <span>2 Midbrain</span>
+        <span>3 Pons</span>
+        <span>4 Upper Medulla</span>
+        <span>5 Low Medulla / Apnea</span>
+      </div>
     </div>
+
+    <!-- Live Dynamic Clinical Readout Strip -->
+    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px;">
+      <div style="background:#090d15; border:1px solid #1e2638; border-radius:10px; padding:12px;">
+        <div style="font-size:10px; font-weight:800; color:#00e5ff; margin-bottom:4px;">👁️ PUPILLARY LIGHT REFLEX:</div>
+        <div id="readoutPupils" style="font-size:12px; color:#f1f5f9; line-height:1.4;">Round, regular, reactive to light (3-4 mm). Intact bilateral light reflex.</div>
+      </div>
+      <div style="background:#090d15; border:1px solid #1e2638; border-radius:10px; padding:12px;">
+        <div style="font-size:10px; font-weight:800; color:#f59e0b; margin-bottom:4px;">🏃 MOTOR POSTURING:</div>
+        <div id="readoutMotor" style="font-size:12px; color:#f1f5f9; line-height:1.4;">Purposeful, commands-following or purposeful withdrawal.</div>
+      </div>
+      <div style="background:#090d15; border:1px solid #1e2638; border-radius:10px; padding:12px;">
+        <div style="font-size:10px; font-weight:800; color:#f43f5e; margin-bottom:4px;">🫁 RESPIRATORY PATTERN:</div>
+        <div id="readoutRespiration" style="font-size:12px; color:#f1f5f9; line-height:1.4;">Eupnea (normal rhythm, rate 12-16/min).</div>
+      </div>
+    </div>
+
+    <!-- Vertical Anatomical Elevator Board -->
     <div id="brainstemElevatorBoard" class="elevator-board"></div>
   </div>
 </div>
@@ -943,12 +1096,43 @@ function showToast(msg) {{
   setTimeout(() => {{ t.style.display = 'none'; }}, 2800);
 }}
 
+function openLightbox(src, caption) {{
+  const lb = document.getElementById('lightbox');
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('lightbox-caption').innerText = caption || 'High-Resolution Medical Plate';
+  lb.classList.add('active');
+}}
+
+function closeLightbox(e) {{
+  if (e.target.id === 'lightbox' || e.target.id === 'lightbox-close') {{
+    document.getElementById('lightbox').classList.remove('active');
+  }}
+}}
+
+window.addEventListener('keydown', (e) => {{
+  if (e.key === 'Escape') {{
+    document.getElementById('lightbox').classList.remove('active');
+  }}
+}});
+
 function switchPillar(pillarId) {{
   document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
   document.querySelectorAll('.section-container').forEach(sec => sec.classList.remove('active'));
 
   event.currentTarget.classList.add('active');
   document.getElementById(`pillar-${{pillarId}}`).classList.add('active');
+}}
+
+// Atlas Modes
+function switchAtlasMode(mode) {{
+  document.querySelectorAll('[id^="subtab-atlas-"]').forEach(btn => btn.classList.remove('active'));
+  document.querySelectorAll('[id^="atlas-panel-"]').forEach(p => p.classList.remove('active'));
+
+  document.getElementById(`subtab-atlas-${{mode}}`).classList.add('active');
+  document.getElementById(`atlas-panel-${{mode}}`).classList.add('active');
+
+  if (mode === 'sorter') renderSlideSorter();
+  else renderAtlas();
 }}
 
 // 2 AM Crisis Sub-Tabs
@@ -979,8 +1163,162 @@ function switchConsultSubTab(tabId) {{
 }}
 
 // ==========================================
-// 1. ATLAS RENDER
+// 1. SURGICAL ATLAS & POWERPOINT SLIDE SORTER
 // ==========================================
+let currentSorterFilter = 'all';
+let draggedPlateNum = null;
+let reorderCount = 0;
+
+function filterSorter(cat) {{
+  currentSorterFilter = cat;
+  document.getElementById('filter-sorter-all').classList.toggle('active', cat === 'all');
+  document.getElementById('filter-sorter-cranial').classList.toggle('active', cat === 'Cranial');
+  document.getElementById('filter-sorter-spine').classList.toggle('active', cat === 'Spine');
+  renderSlideSorter();
+}}
+
+function renderSlideSorter() {{
+  const grid = document.getElementById('slideSorterGrid');
+  const search = document.getElementById('sorterSearch').value.toLowerCase();
+  grid.innerHTML = '';
+
+  const filtered = appData.atlas.filter((p, idx) => {{
+    const matchCat = (currentSorterFilter === 'all') || (p.domain === currentSorterFilter);
+    const matchSearch = p.plate_num.includes(search) || p.title.toLowerCase().includes(search);
+    return matchCat && matchSearch;
+  }});
+
+  filtered.forEach((p, displayIndex) => {{
+    const actualIndex = appData.atlas.findIndex(x => x.plate_num === p.plate_num);
+    const tile = document.createElement('div');
+    tile.className = 'slide-tile';
+    tile.draggable = true;
+    tile.dataset.plateNum = p.plate_num;
+    tile.id = `slide-tile-${{p.plate_num}}`;
+
+    tile.innerHTML = `
+      <div style="display:flex; justify-content:space-between; align-items:center;">
+        <span style="font-size:11px; font-weight:900; color:#00e5ff;">#${{actualIndex + 1}}</span>
+        <span style="font-size:10px; color:#64748b; font-weight:700;">Plate ${{p.plate_num}}</span>
+        <span class="badge badge-${{p.domain === 'Cranial' ? 'cyan' : 'amber'}}">${{p.domain}}</span>
+      </div>
+      <div class="slide-thumb" onclick="openLightbox('${{p.image_file}}', 'Plate ${{p.plate_num}}: ${{p.title.replace(/'/g, "\\\\'") }}')">
+        <img src="${{p.image_file}}" alt="Plate ${{p.plate_num}}" loading="lazy">
+        <span class="slide-badge-seq">#${{actualIndex + 1}}</span>
+      </div>
+      <div class="slide-title" title="${{p.title}}">${{p.title}}</div>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-top:auto; font-size:10px; color:#64748b; border-top:1px solid #1a2436; padding-top:6px;">
+        <span>📍 ${{p.pins.length}} pins</span>
+        <span>📋 ${{p.steps.length}} steps</span>
+        <button style="background:none; border:none; color:#00e5ff; font-weight:800; cursor:pointer;" onclick="jumpToInspector('${{p.plate_num}}')">Edit ➔</button>
+      </div>
+    `;
+
+    // HTML5 Drag Events
+    tile.addEventListener('dragstart', (e) => {{
+      draggedPlateNum = p.plate_num;
+      tile.classList.add('dragging');
+      e.dataTransfer.setData('text/plain', p.plate_num);
+      e.dataTransfer.effectAllowed = 'move';
+    }});
+
+    tile.addEventListener('dragend', () => {{
+      tile.classList.remove('dragging');
+      document.querySelectorAll('.slide-tile').forEach(t => t.classList.remove('drag-over-before', 'drag-over-after'));
+    }});
+
+    tile.addEventListener('dragover', (e) => {{
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
+      const rect = tile.getBoundingClientRect();
+      const midX = rect.left + rect.width / 2;
+      tile.classList.toggle('drag-over-before', e.clientX < midX);
+      tile.classList.toggle('drag-over-after', e.clientX >= midX);
+    }});
+
+    tile.addEventListener('dragleave', () => {{
+      tile.classList.remove('drag-over-before', 'drag-over-after');
+    }});
+
+    tile.addEventListener('drop', (e) => {{
+      e.preventDefault();
+      tile.classList.remove('drag-over-before', 'drag-over-after');
+      const targetPlateNum = p.plate_num;
+      if (!draggedPlateNum || draggedPlateNum === targetPlateNum) return;
+
+      const fromIdx = appData.atlas.findIndex(x => x.plate_num === draggedPlateNum);
+      const toIdx = appData.atlas.findIndex(x => x.plate_num === targetPlateNum);
+      if (fromIdx === -1 || toIdx === -1) return;
+
+      const rect = tile.getBoundingClientRect();
+      const insertAfter = e.clientX >= (rect.left + rect.width / 2);
+
+      const [movedItem] = appData.atlas.splice(fromIdx, 1);
+      const newTargetIdx = appData.atlas.findIndex(x => x.plate_num === targetPlateNum);
+      const finalIdx = insertAfter ? newTargetIdx + 1 : newTargetIdx;
+      appData.atlas.splice(finalIdx, 0, movedItem);
+
+      reorderCount++;
+      document.getElementById('sorterMoveCountBadge').innerText = `${{reorderCount}} Move(s) Made • New Order Ready`;
+      document.getElementById('sorterMoveCountBadge').className = 'badge badge-amber';
+      showToast(`Moved Plate ${{draggedPlateNum}} to position #${{finalIdx + 1}}!`);
+
+      renderSlideSorter();
+    }});
+
+    grid.appendChild(tile);
+  }});
+}}
+
+function jumpToInspector(pNum) {{
+  switchAtlasMode('inspector');
+  document.getElementById('atlasSearch').value = pNum;
+  renderAtlas();
+  const card = document.getElementById(`atlas-card-${{pNum}}`);
+  if (card) card.scrollIntoView({{ behavior: 'smooth', block: 'start' }});
+}}
+
+function resetSlideOrder() {{
+  if (!confirm("Reset plate order back to original sequential order 001 - 106?")) return;
+  appData.atlas.sort((a, b) => parseInt(a.plate_num) - parseInt(b.plate_num));
+  reorderCount = 0;
+  document.getElementById('sorterMoveCountBadge').innerText = `Original Order Restored`;
+  document.getElementById('sorterMoveCountBadge').className = 'badge badge-cyan';
+  renderSlideSorter();
+  showToast("Restored original sequential plate order!");
+}}
+
+async function saveSlideOrderToSwift() {{
+  const orderedNums = appData.atlas.map(p => p.plate_num);
+  const btn = document.getElementById('save-order-btn');
+  btn.innerText = "⏳ Saving Order...";
+
+  try {{
+    const res = await fetch("/api/save-plate-order", {{
+      method: "POST",
+      headers: {{ "Content-Type": "application/json" }},
+      body: JSON.stringify({{ order: orderedNums }})
+    }});
+    const data = await res.json();
+    if (data.status === "ok") {{
+      btn.innerText = "✓ Plate Order Saved!";
+      btn.classList.add("saved");
+      showToast(`Custom order of all 106 plates saved successfully!`);
+      setTimeout(() => {{
+        btn.innerText = "💾 Save Plate Reorder to Swift";
+        btn.classList.remove("saved");
+      }}, 3000);
+    }} else {{
+      alert("Error saving: " + data.message);
+      btn.innerText = "💾 Save Plate Reorder to Swift";
+    }}
+  }} catch (e) {{
+    alert("Connection error: " + e);
+    btn.innerText = "💾 Save Plate Reorder to Swift";
+  }}
+}}
+
+// 1B. Detailed Plate Inspector
 function renderAtlas() {{
   const container = document.getElementById('atlasList');
   const search = document.getElementById('atlasSearch').value.toLowerCase();
@@ -1040,7 +1378,7 @@ function renderAtlas() {{
           <span style="font-weight:800; font-size:14px; color:#fff;">PLATE ${{p.plate_num}}</span>
           <span class="badge badge-amber">${{p.batch_tag}}</span>
         </div>
-        <div class="plate-viewport" id="viewport-${{p.plate_num}}">
+        <div class="plate-viewport" id="viewport-${{p.plate_num}}" onclick="openLightbox('${{p.image_file}}', 'Plate ${{p.plate_num}}: ${{p.title.replace(/'/g, "\\\\'") }}')">
           <img src="${{p.image_file}}" alt="Plate ${{p.plate_num}}">
           ${{pinsHtml}}
         </div>
@@ -1293,9 +1631,9 @@ function renderCrisis() {{
         <span class="badge badge-red">BTF SURGICAL MANDATE</span>
       </div>
       <div class="media-card-grid">
-        <div class="viewport-container">
+        <div class="viewport-container" onclick="openLightbox('${{spec.image_file}}', '${{spec.title.replace(/'/g, "\\\\'") }}')">
           <img src="${{spec.image_file}}" alt="${{spec.title}}" title="Click to view full size">
-          <div class="viewport-caption">High-Contrast Emergency CT Viewport</div>
+          <div class="viewport-caption"><span>Emergency CT Viewport</span><span style="color:#00e5ff;">🔍 Zoom</span></div>
         </div>
         <div style="display:flex; flex-direction:column; gap:10px;">
           <div>
@@ -1421,9 +1759,9 @@ function renderCrisis() {{
         <span class="badge badge-red">CRITICAL CHECKLIST</span>
       </div>
       <div class="media-card-grid">
-        <div class="viewport-container">
+        <div class="viewport-container" onclick="openLightbox('${{cl.image_file}}', '${{cl.title.replace(/'/g, "\\\\'") }}')">
           <img src="${{cl.image_file}}" alt="${{cl.title}}">
-          <div class="viewport-caption">Reference Diagnostic Plate</div>
+          <div class="viewport-caption"><span>Reference Diagnostic Plate</span><span style="color:#00e5ff;">🔍 Zoom</span></div>
         </div>
         <div style="display:flex; flex-direction:column; gap:8px; background:#090d15; padding:12px; border-radius:10px; border:1px solid #1e2638;">
           <div class="field-label" style="color:#00e5ff;">Action Steps:</div>
@@ -1466,6 +1804,8 @@ function renderConsults() {{
     const card = document.createElement('div');
     card.className = 'studio-card';
 
+    const isMatrixTable = (c.case === 'shuntProxVsDistal');
+
     const pitfallsRows = c.pitfalls.map((pit, idx) => `
       <div style="display:flex; gap:6px; align-items:flex-start;">
         <span style="font-size:11px; font-weight:800; color:#f43f5e; margin-top:4px;">⚠️</span>
@@ -1482,14 +1822,20 @@ function renderConsults() {{
           <span class="card-title">${{c.title}}</span>
           <div style="font-size:11px; color:#64748b; margin-top:2px;">Case: .${{c.case}} | Category: ${{c.category.toUpperCase()}}</div>
         </div>
-        <span class="badge badge-red">${{c.acuityLabel || 'EMERGENCY'}}</span>
+        <div style="display:flex; gap:8px; align-items:center;">
+          ${{isMatrixTable ? '<span class="badge badge-amber">LARGE-FORMAT MATRIX TABLE</span>' : ''}}
+          <span class="badge badge-red">${{c.acuityLabel || 'EMERGENCY'}}</span>
+        </div>
       </div>
 
-      <div class="media-card-grid">
+      <div class="media-card-grid ${{isMatrixTable ? 'fullwidth-table' : ''}}">
         <div>
-          <div class="viewport-container">
-            <img src="${{c.image_file}}" alt="${{c.title}}" title="Click to view full size">
-            <div class="viewport-caption">Clinical Scan Plate (${{c.assetImageName}})</div>
+          <div class="viewport-container" onclick="openLightbox('${{c.image_file}}', '${{c.title.replace(/'/g, "\\\\'") }}')">
+            <img src="${{c.image_file}}" alt="${{c.title}}" title="Click to open Fullscreen Lightbox">
+            <div class="viewport-caption">
+              <span>${{isMatrixTable ? 'High-Definition Clinical Differentiation Matrix' : 'Clinical Scan Plate (' + c.assetImageName + ')'}}</span>
+              <span style="color:#00e5ff; font-weight:800;">🔍 Click to Enlarge / Fullscreen</span>
+            </div>
           </div>
           ${{triadHtml ? `<div style="background:#090d15; padding:10px; border-radius:8px; border:1px solid #1e2638; margin-top:10px; font-size:11px; color:#94a3b8;"><div style="font-weight:800; color:#00e5ff; margin-bottom:4px;">CLINICAL TRIAD / PRESENTATION:</div><ul>${{triadHtml}}</ul></div>` : ''}}
         </div>
@@ -1574,32 +1920,67 @@ async function saveConsultToSwift(cCase) {{
   }} catch (e) {{ alert("Connection error: " + e); }}
 }}
 
-// Brainstem Elevator Render
+// Brainstem Interactive Slider & Elevator Render
+let currentBrainstemLevel = 0;
+
+function handleBrainstemSliderChange(val) {{
+  currentBrainstemLevel = val;
+  const stage = appData.consults.brainstem.find(s => s.level === val) || appData.consults.brainstem[0];
+
+  document.getElementById('sliderDepthLabel').innerText = `${{val}} - ${{stage.name}}`;
+  const badge = document.getElementById('sliderStatusBadge');
+  badge.innerText = stage.statusBadge;
+  badge.className = `badge badge-${{stage.badgeColor}}`;
+
+  document.getElementById('readoutPupils').innerText = stage.pupils;
+  document.getElementById('readoutMotor').innerText = stage.motor;
+  document.getElementById('readoutRespiration').innerText = stage.respiration;
+
+  renderBrainstemElevator();
+}}
+
 function renderBrainstemElevator() {{
   const board = document.getElementById('brainstemElevatorBoard');
   board.innerHTML = '';
 
   appData.consults.brainstem.forEach(st => {{
+    const isCollapsed = currentBrainstemLevel >= st.level && st.level > 0;
+    const isCurrentFront = currentBrainstemLevel === st.level;
+
     const stageDiv = document.createElement('div');
-    stageDiv.className = 'elevator-stage';
+    stageDiv.className = `elevator-stage ${{isCurrentFront ? 'active-stage' : ''}} ${{isCollapsed ? 'collapsed' : ''}}`;
+
+    let statusPillHtml = '';
+    if (st.level === 0) {{
+      statusPillHtml = `<span class="badge badge-green" style="font-weight:900;">${{currentBrainstemLevel === 0 ? '✓ INTACT' : 'COMPROMISED'}}</span>`;
+    }} else if (isCurrentFront) {{
+      statusPillHtml = `<span class="badge badge-amber" style="font-weight:900; box-shadow:0 0 8px rgba(245,158,11,0.5);">⚡ ACTIVE FRONT</span>`;
+    }} else if (isCollapsed) {{
+      statusPillHtml = `<span class="badge badge-${{st.badgeColor}}" style="font-weight:900;">▼ COLLAPSED</span>`;
+    }} else {{
+      statusPillHtml = `<span class="badge badge-green" style="font-weight:900;">✓ INTACT</span>`;
+    }}
+
     stageDiv.innerHTML = `
-      <div style="display:flex; flex-direction:column; gap:4px; max-width:280px;">
-        <div style="font-size:14px; font-weight:800; color:#fff;">${{st.name}}</div>
+      <div style="display:flex; flex-direction:column; gap:4px; min-width:240px;">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <span style="font-size:14px; font-weight:900; color:${{isCurrentFront ? '#00e5ff' : '#fff'}};">${{st.name}}</span>
+          ${{statusPillHtml}}
+        </div>
         <div style="font-size:11px; color:#00e5ff;">${{st.anatomicalLevel}}</div>
-        <div style="font-size:10px; color:#94a3b8;">Trigger: ${{st.reflexTrigger}}</div>
-        <span class="badge badge-${{st.color.includes('Red') ? 'red' : (st.color.includes('Green') ? 'green' : 'cyan')}}" style="width:fit-content; margin-top:4px;">${{st.status}}</span>
+        <div style="font-size:10px; color:#94a3b8;">Trigger Correlate: ${{st.reflexTrigger}}</div>
       </div>
       <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; flex:1; background:#080c14; padding:10px 14px; border-radius:8px; border:1px solid #1a2336;">
         <div>
-          <div style="font-size:10px; font-weight:800; color:#94a3b8;">👁️ PUPILLARY LIGHT REFLEX:</div>
+          <div style="font-size:10px; font-weight:800; color:#00e5ff;">👁️ PUPILLARY LIGHT REFLEX:</div>
           <div style="font-size:11px; color:#cbd5e1; margin-top:2px;">${{st.pupils}}</div>
         </div>
         <div>
-          <div style="font-size:10px; font-weight:800; color:#94a3b8;">🏃 MOTOR POSTURING:</div>
+          <div style="font-size:10px; font-weight:800; color:#f59e0b;">🏃 MOTOR POSTURING:</div>
           <div style="font-size:11px; color:#cbd5e1; margin-top:2px;">${{st.motor}}</div>
         </div>
         <div>
-          <div style="font-size:10px; font-weight:800; color:#94a3b8;">🫁 RESPIRATORY PATTERN:</div>
+          <div style="font-size:10px; font-weight:800; color:#f43f5e;">🫁 RESPIRATORY PATTERN:</div>
           <div style="font-size:11px; color:#cbd5e1; margin-top:2px;">${{st.respiration}}</div>
         </div>
       </div>
@@ -1659,9 +2040,9 @@ function renderProcedures() {{
       </div>
 
       <div class="media-card-grid">
-        <div class="viewport-container">
+        <div class="viewport-container" onclick="openLightbox('${{proc.image_file}}', '${{proc.title.replace(/'/g, "\\\\'") }}')">
           <img src="${{proc.image_file}}" alt="${{proc.title}}">
-          <div class="viewport-caption">High-Definition Anatomical Schematic (${{proc.id}})</div>
+          <div class="viewport-caption"><span>High-Definition Anatomical Schematic</span><span style="color:#00e5ff;">🔍 Zoom</span></div>
         </div>
 
         <div style="display:flex; flex-direction:column; gap:12px;">
@@ -1728,6 +2109,7 @@ function renderCalculators() {{
 }}
 
 // Initial Render
+renderSlideSorter();
 renderAtlas();
 renderCrisis();
 renderConsults();
