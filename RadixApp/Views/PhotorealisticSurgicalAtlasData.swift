@@ -47,8 +47,8 @@ extension SurgicalPlateType {
                     title: "Membrana Tectoria",
                     structureType: "DEEP DURAL LIGAMENT",
                     color: ObsidianTheme.neonCyan,
-                    normalizedX: 0.50,
-                    normalizedY: 0.25,
+                    normalizedX: 0.471,
+                    normalizedY: 0.102,
                     description: "REFLECTED DURAL SHEATH: Cephalad continuation of the posterior longitudinal ligament, reflected to expose deep CCJ stabilizing complex.",
                     surgicalPearl: "Sharply incise and reflect membrana tectoria superiorly from C2 body to expose the transverse and alar check ligaments."
                 ),
@@ -57,8 +57,8 @@ extension SurgicalPlateType {
                     title: "Cruciate Ligament (Transverse Band)",
                     structureType: "PRIMARY ATLANTO-AXIAL STABILIZER",
                     color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.50,
-                    normalizedY: 0.48,
+                    normalizedX: 0.489,
+                    normalizedY: 0.494,
                     description: "TRANSVERSE ATLANTO-AXIAL BAND: Strong horizontal ligament spanning between C1 lateral masses, securing the dens against the anterior C1 arch.",
                     surgicalPearl: "Transverse ligament disruption creates acute atlanto-axial instability (ADI > 3 mm in adults); mandates posterior C1-C2 fusion."
                 ),
@@ -67,8 +67,8 @@ extension SurgicalPlateType {
                     title: "Bilateral Alar Check Ligaments",
                     structureType: "ROTATIONAL CHECK LIGAMENT",
                     color: ObsidianTheme.neonRose,
-                    normalizedX: 0.35,
-                    normalizedY: 0.42,
+                    normalizedX: 0.382,
+                    normalizedY: 0.365,
                     description: "OBLIQUE CRANIAL RESTRAINTS: Paired tough fibrous cords passing from the posterolateral dens apex to medial occipital condyles.",
                     surgicalPearl: "Alar ligaments check contralateral axial rotation and lateral bending; unilateral tear increases axial rotation to the opposite side."
                 ),
@@ -77,8 +77,8 @@ extension SurgicalPlateType {
                     title: "V3 Vertebral Artery in C1 Sulcus",
                     structureType: "VASCULAR BOUNDARY",
                     color: ObsidianTheme.neonEmerald,
-                    normalizedX: 0.80,
-                    normalizedY: 0.58,
+                    normalizedX: 0.164,
+                    normalizedY: 0.463,
                     description: "SUBOCCIPITAL V3 SEGMENT: Vertebral artery looping out of C1 transverse foramen and coursing medially in the sulcus arteriosus.",
                     surgicalPearl: "Dissect strictly on the superior surface of the posterior C1 arch; keep dissection <= 12 mm from midline to avoid V3 laceration."
                 )
@@ -90,8 +90,8 @@ extension SurgicalPlateType {
                     title: "Anterior Fontanelle Lateral Apex",
                     structureType: "CANONICAL PUNCTURE TARGET",
                     color: ObsidianTheme.neonRose,
-                    normalizedX: 0.30,
-                    normalizedY: 0.35,
+                    normalizedX: 0.152,
+                    normalizedY: 0.380,
                     description: "CORONAL-METOPIC APEX: Puncture entry landmark 1.5-2.0 cm lateral to midline at coronal suture, safely avoiding the superior sagittal sinus.",
                     surgicalPearl: "Always enter at the lateral angle of the fontanelle; midline punctures risk direct puncture or laceration of the superior sagittal sinus."
                 ),
@@ -100,8 +100,8 @@ extension SurgicalPlateType {
                     title: "Coronal & Sagittal Sutures",
                     structureType: "NEONATAL OSTEOLOGICAL MARGIN",
                     color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.25,
-                    normalizedY: 0.55,
+                    normalizedX: 0.250,
+                    normalizedY: 0.550,
                     description: "UNOSSIFIED CRANIAL MARGINS: Palpable fibrous margins of the coronal, metopic, and sagittal sutures framing the diamond-shaped bregma.",
                     surgicalPearl: "In hydrocephalus, palpate tense separated suture margins; bulging fontanelle serves as an acute intracranial pressure barometer."
                 ),
@@ -110,8 +110,8 @@ extension SurgicalPlateType {
                     title: "Frontal Horn Catheter Target",
                     structureType: "VENTRICULAR CORRIDOR",
                     color: ObsidianTheme.neonCyan,
-                    normalizedX: 0.75,
-                    normalizedY: 0.45,
+                    normalizedX: 0.750,
+                    normalizedY: 0.450,
                     description: "VENTRICULAR LUMEN CORRIDOR: Catheter tracked perpendicular to brain surface into the frontal horn just anterior to the foramen of Monro.",
                     surgicalPearl: "Pass catheter perpendicular to calvarium to depth of 3.0-3.5 cm; CSF egress confirms entry without choroid plexus entrapment."
                 ),
@@ -120,8 +120,8 @@ extension SurgicalPlateType {
                     title: "Subcutaneous Rickham Reservoir",
                     structureType: "SUBCUTANEOUS TAP POCKET",
                     color: ObsidianTheme.neonEmerald,
-                    normalizedX: 0.85,
-                    normalizedY: 0.30,
+                    normalizedX: 0.583,
+                    normalizedY: 0.087,
                     description: "ACCESSIBLE TAP CHAMBER: Low-profile dome reservoir seated in a subgaleal parietal pocket away from the fontanelle entry puncture.",
                     surgicalPearl: "Seat reservoir over rigid calvarial bone, never over open fontanelle, to allow safe percutaneous needle aspiration."
                 )
@@ -133,8 +133,8 @@ extension SurgicalPlateType {
                     title: "Suboccipital Craniectomy Frame",
                     structureType: "BEVELED BONE MARGIN",
                     color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.50,
-                    normalizedY: 0.15,
+                    normalizedX: 0.701,
+                    normalizedY: 0.068,
                     description: "BONE WINDOW & DURAL STAY SUTURES: Beveled suboccipital bone window with diamond-reflected dural flaps held by peripheral stay sutures.",
                     surgicalPearl: "Craniectomy must reach the posterior rim of foramen magnum; leaving a caudal bony bar causes cerebellar impingement and brainstem compression."
                 ),
@@ -143,8 +143,8 @@ extension SurgicalPlateType {
                     title: "Cisterna Magna Arachnoid",
                     structureType: "PRIMARY CSF RELEASE CORRIDOR",
                     color: ObsidianTheme.neonCyan,
-                    normalizedX: 0.50,
-                    normalizedY: 0.70,
+                    normalizedX: 0.509,
+                    normalizedY: 0.757,
                     description: "TRANSLUCENT ARACHNOID POOL: Fibrillar arachnoid membrane of cisterna magna sharply opened with micro-scissors over a clear CSF pool.",
                     surgicalPearl: "Sharply open the arachnoid of cisterna magna first; rapid CSF release relaxes posterior fossa contents spontaneously by gravity."
                 ),
@@ -153,8 +153,8 @@ extension SurgicalPlateType {
                     title: "PICA Tonsillomedullary Loops",
                     structureType: "VITAL ARTERIAL LOOPS",
                     color: ObsidianTheme.neonRose,
-                    normalizedX: 0.40,
-                    normalizedY: 0.55,
+                    normalizedX: 0.704,
+                    normalizedY: 0.637,
                     description: "POSTERIOR INFERIOR CEREBELLAR ARTERY: Tortuous crimson loops coursing around cerebellar tonsils with critical brainstem perforators.",
                     surgicalPearl: "Never coagulate or retract PICA tonsillar hairpin loops; occlusion precipitates fatal Wallenberg lateral medullary syndrome."
                 ),
@@ -163,8 +163,8 @@ extension SurgicalPlateType {
                     title: "Inferior Vermis & Cerebellar Folia",
                     structureType: "MIDLINE POSTERIOR FOSSA",
                     color: ObsidianTheme.neonEmerald,
-                    normalizedX: 0.50,
-                    normalizedY: 0.40,
+                    normalizedX: 0.505,
+                    normalizedY: 0.381,
                     description: "RELAXED MIDLINE CEREBELLUM: Bilateral cerebellar folia and central inferior vermis falling away following cisternal drainage.",
                     surgicalPearl: "Rely on gravitational cerebellar relaxation; fixed metallic retractors on unrelaxed cerebellum cause contusions and venous infarcts."
                 )
@@ -176,8 +176,8 @@ extension SurgicalPlateType {
                     title: "Tentorium & Petrosal Vein (Dandy)",
                     structureType: "SUPERIOR CORRIDOR BOUNDARY",
                     color: ObsidianTheme.neonCyan,
-                    normalizedX: 0.50,
-                    normalizedY: 0.20,
+                    normalizedX: 0.683,
+                    normalizedY: 0.096,
                     description: "SUPERIOR CEILING & PETROSAL VEIN: Glistening fibrous tentorium cerebelli and bridging petrosal vein (Dandy) entering superior petrosal sinus.",
                     surgicalPearl: "Sacrifice of a dominant petrosal vein carries substantial risk of cerebellar venous engorgement, hemorrhage, or fatal edema."
                 ),
@@ -186,8 +186,8 @@ extension SurgicalPlateType {
                     title: "Trigeminal Nerve (CN V)",
                     structureType: "SUPERIOR CRANIAL NERVE",
                     color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.45,
-                    normalizedY: 0.35,
+                    normalizedX: 0.651,
+                    normalizedY: 0.310,
                     description: "PORUS TRIGEMINI TRUNK: Broad pearly-white sensory trunk coursing anterior-superiorly toward Meckel's cave beneath tentorium.",
                     surgicalPearl: "In microvascular decompression, mobilize offending SCA loops off the superior-medial root entry zone; strictly protect motor rootlets."
                 ),
@@ -196,20 +196,20 @@ extension SurgicalPlateType {
                     title: "Facial & Vestibulocochlear Nerves (CN VII/VIII)",
                     structureType: "INTERNAL ACOUSTIC CORRIDOR",
                     color: ObsidianTheme.neonRose,
-                    normalizedX: 0.55,
-                    normalizedY: 0.55,
+                    normalizedX: 0.555,
+                    normalizedY: 0.532,
                     description: "MEATAL NERVE COMPLEX: CN VII (anterior-superior) and CN VIII (posterior-inferior) transiting across cisterna toward internal acoustic meatus.",
                     surgicalPearl: "Facial nerve (CN VII) lies anterior and hidden behind CN VIII; maintain continuous facial nerve EMG monitoring throughout dissection."
                 ),
                 SurgicalCallout(
                     id: "plate_004_4",
-                    title: "AICA Meatal Loop",
-                    structureType: "HAIRPIN ARTERIAL CORRIDOR",
-                    color: ObsidianTheme.neonEmerald,
-                    normalizedX: 0.65,
-                    normalizedY: 0.50,
-                    description: "ANTERIOR INFERIOR CEREBELLAR ARTERY: Hairpin meatal arterial loop passing between CN VII and CN VIII at the porus acusticus.",
-                    surgicalPearl: "Dissect AICA loops off the acoustic nerve complex with sharp micro-scissors; avulsion of labyrinthine branches causes permanent sensorineural deafness."
+                    title: "Lower CNs",
+                    structureType: "OPERATIVE TARGET",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.668,
+                    normalizedY: 0.746,
+                    description: "Operative landmark identified on visual review.",
+                    surgicalPearl: "Maintain precise anatomical orientation."
                 )
             ]
         case .plate005:
@@ -219,8 +219,8 @@ extension SurgicalPlateType {
                     title: "Host Fronto-Temporal Defect",
                     structureType: "ORBITAL & SPHENOID BONY EXPOSURE",
                     color: ObsidianTheme.neonRose,
-                    normalizedX: 0.30,
-                    normalizedY: 0.45,
+                    normalizedX: 0.191,
+                    normalizedY: 0.204,
                     description: "RADICAL SKULL BASE DEFECT: Anterolateral view showing unroofed superior and lateral orbit, sphenoid ridge, and exposed temporal dura.",
                     surgicalPearl: "Unroofing the orbit and flattening the sphenoid ridge provides a low, flat trajectory to the interpeduncular and basilar cisterns."
                 ),
@@ -229,8 +229,8 @@ extension SurgicalPlateType {
                     title: "Detached Pterional Bone Flap",
                     structureType: "BONE PIECE 1: CALVARIAL FLAP",
                     color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.75,
-                    normalizedY: 0.30,
+                    normalizedX: 0.820,
+                    normalizedY: 0.632,
                     description: "FIRST BONE SEGMENT: Standard frontotemporal craniotomy bone flap removed cleanly prior to osteotomies of the orbital bar.",
                     surgicalPearl: "Removing the calvarial flap as a separate first piece allows direct visual intracranial protection of the dura during orbital cuts."
                 ),
@@ -239,8 +239,8 @@ extension SurgicalPlateType {
                     title: "One-Piece Orbitozygomatic Bar",
                     structureType: "BONE PIECE 2: ORBITOZYGOMATIC STRUT",
                     color: ObsidianTheme.neonCyan,
-                    normalizedX: 0.75,
-                    normalizedY: 0.65,
+                    normalizedX: 0.811,
+                    normalizedY: 0.240,
                     description: "SECOND BONE SEGMENT: Single-piece resected superior and lateral orbital rims, orbital roof, and full zygomatic arch.",
                     surgicalPearl: "Protect the orbital periorbita with a moist malleable retractor; violating periorbita causes orbital fat herniation and severe visual field obstruction."
                 ),
@@ -249,8 +249,8 @@ extension SurgicalPlateType {
                     title: "Intact TMJ & Articular Eminence",
                     structureType: "ANATOMICAL PRESERVATION BOUNDARY",
                     color: ObsidianTheme.neonEmerald,
-                    normalizedX: 0.45,
-                    normalizedY: 0.70,
+                    normalizedX: 0.115,
+                    normalizedY: 0.502,
                     description: "CRANIOFACIAL ARTICULATION: Preserved temporomandibular joint capsule and articular eminence directly posterior to the zygomatic osteotomy.",
                     surgicalPearl: "Place the posterior zygomatic osteotomy immediately anterior to the articular eminence; violating TMJ capsule causes severe trismus and pain."
                 )
@@ -262,8 +262,8 @@ extension SurgicalPlateType {
                     title: "Suboccipital & C1 Arch Resection",
                     structureType: "CRANIOCERVICAL BONE WINDOW",
                     color: ObsidianTheme.neonRose,
-                    normalizedX: 0.35,
-                    normalizedY: 0.30,
+                    normalizedX: 0.512,
+                    normalizedY: 0.374,
                     description: "BONY EXPOSURE: Lateral suboccipital craniectomy extending to foramen magnum rim and unroofed C1 transverse foramen trough.",
                     surgicalPearl: "Unroof the C1 transverse foramen into an open bony trough; this unlocks the vertebral artery for complete medial mobilization."
                 ),
@@ -272,30 +272,10 @@ extension SurgicalPlateType {
                     title: "Mobilized V3 Vertebral Artery",
                     structureType: "MOBILIZED VASCULAR CORRIDOR",
                     color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.55,
-                    normalizedY: 0.45,
+                    normalizedX: 0.595,
+                    normalizedY: 0.494,
                     description: "HORIZONTAL V3 SEGMENT: Suboccipital vertebral artery elevated from sulcus arteriosus and mobilized inferiorly with vessel loop.",
                     surgicalPearl: "Dissect V3 subperiosteally within the peri-arterial venous plexus; bipolar coagulate venous bleeding rather than packing with excessive pressure."
-                ),
-                SurgicalCallout(
-                    id: "plate_006_3",
-                    title: "Posterior Occipital Condylectomy (1/3)",
-                    structureType: "TRANSCONDYLAR CORRIDOR",
-                    color: ObsidianTheme.neonCyan,
-                    normalizedX: 0.48,
-                    normalizedY: 0.60,
-                    description: "BEVELED CONDYLAR RESECTION: Resection of posterior one-third of occipital condyle, opening a flat line of sight across brainstem.",
-                    surgicalPearl: "Resect no more than the posterior 1/3 to 1/2 of occipital condyle; exceeding 50% condylectomy induces craniocervical instability."
-                ),
-                SurgicalCallout(
-                    id: "plate_006_4",
-                    title: "Sigmoid Sinus & Jugular Bulb",
-                    structureType: "VENOUS BOUNDARY",
-                    color: ObsidianTheme.neonEmerald,
-                    normalizedX: 0.20,
-                    normalizedY: 0.55,
-                    description: "ANTEROLATERAL VENOUS CORNER: Descending sigmoid sinus turning into the jugular bulb at the jugular foramen.",
-                    surgicalPearl: "Keep bone dissection strictly posterior to the jugular bulb; bone wax must be ready immediately if emissary mastoid veins bleed."
                 )
             ]
         case .plate007:
@@ -305,8 +285,8 @@ extension SurgicalPlateType {
                     title: "Normal Spinal Canal (Left Panel)",
                     structureType: "HEALTHY ANATOMICAL REFERENCE",
                     color: ObsidianTheme.neonCyan,
-                    normalizedX: 0.25,
-                    normalizedY: 0.40,
+                    normalizedX: 0.250,
+                    normalizedY: 0.400,
                     description: "WIDE TRIANGULAR CANAL: Concentric annulus lamellae, hydrated nucleus pulposus, patent lateral recesses, and thin yellow ligamentum flavum.",
                     surgicalPearl: "Normal lateral recess height >= 5 mm; traversing nerve root glides freely past superior articular process without bony contact."
                 ),
@@ -315,8 +295,8 @@ extension SurgicalPlateType {
                     title: "Hypertrophic Superior Articular Process",
                     structureType: "BONY TREFOIL STENOSIS",
                     color: ObsidianTheme.neonRose,
-                    normalizedX: 0.70,
-                    normalizedY: 0.28,
+                    normalizedX: 0.885,
+                    normalizedY: 0.484,
                     description: "SCLEROTIC SAP OVERGROWTH: Massive arthritic facet hypertrophy projecting medially and anteriorly into the subarticular gutter.",
                     surgicalPearl: "Undercut the medial 1/3 of the superior articular process with a high-speed burr or angled Kerrison; preserve >= 50% facet to prevent instability."
                 ),
@@ -325,8 +305,8 @@ extension SurgicalPlateType {
                     title: "Thickened Ligamentum Flavum",
                     structureType: "SOFT TISSUE COMPRESSION",
                     color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.75,
-                    normalizedY: 0.55,
+                    normalizedX: 0.745,
+                    normalizedY: 0.657,
                     description: "RUBBERY FLAVUM HYPERTROPHY: Hypertrophic yellow ligament buckling anteriorly into the dorsal thecal sac and lateral recess.",
                     surgicalPearl: "Dissect flavum cleanly off the anterior facet cortex before biting; adherent dura under hypertrophic flavum tears easily if pulled."
                 ),
@@ -335,8 +315,8 @@ extension SurgicalPlateType {
                     title: "Pinched Traversing Nerve Root",
                     structureType: "ENTRAPPED RADICULAR PATHOLOGY",
                     color: ObsidianTheme.neonEmerald,
-                    normalizedX: 0.65,
-                    normalizedY: 0.45,
+                    normalizedX: 0.778,
+                    normalizedY: 0.401,
                     description: "SUBARTICULAR NERVE ENTRAPMENT: Traversing L5 nerve root severely crushed between herniated disc anteriorly and hypertrophic SAP posteriorly.",
                     surgicalPearl: "Probe lateral recess with a ball-tipped micro-instrument after decompression; verify nerve root is completely mobile into the foramen."
                 )
@@ -348,38 +328,28 @@ extension SurgicalPlateType {
                     title: "Pterional Bone Rim & Dural Stay Sutures",
                     structureType: "OSTEOLOGICAL & DURAL FRAME",
                     color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.35,
-                    normalizedY: 0.20,
+                    normalizedX: 0.456,
+                    normalizedY: 0.178,
                     description: "FLATTENED SPHENOID RIDGE: Beveled frontotemporal craniotomy rim with reflected sphenoid dural flap secured by black stay sutures.",
                     surgicalPearl: "Aggressive drilling of the sphenoid ridge down to meningo-orbital band aligns the surgical line of sight with the skull base floor."
                 ),
                 SurgicalCallout(
                     id: "plate_008_2",
-                    title: "Opened Sylvian Fissure & Veins",
-                    structureType: "MICROSURGICAL ARTERIAL CORRIDOR",
-                    color: ObsidianTheme.neonCyan,
-                    normalizedX: 0.45,
-                    normalizedY: 0.45,
-                    description: "TRANSSYLVIAN WINDOW: Frontal and temporal lobes separated across split fissure, mobilizing the blue superficial Sylvian vein temporally.",
-                    surgicalPearl: "Mobilize superficial Sylvian veins toward the temporal lobe; preserving frontal drainage prevents venous infarction and swelling."
-                ),
-                SurgicalCallout(
-                    id: "plate_008_3",
                     title: "Prechiasmatic Optic Nerve & ICA",
                     structureType: "CAROTID-OPTIC CISTERN",
                     color: ObsidianTheme.neonEmerald,
-                    normalizedX: 0.50,
-                    normalizedY: 0.60,
+                    normalizedX: 0.469,
+                    normalizedY: 0.371,
                     description: "DEEP ARTERIAL ANATOMY: Pearly-white optic nerve (CN II) and supraclinoid internal carotid artery bifurcating into A1 and M1 trunks.",
                     surgicalPearl: "Sharp release of the opticocarotid cistern discharges deep CSF, dramatically relaxing frontal lobe without fixed retractor pressure."
                 ),
                 SurgicalCallout(
-                    id: "plate_008_4",
+                    id: "plate_008_3",
                     title: "PComA Aneurysm & Yasargil Clip",
                     structureType: "VASCULAR OBLITERATION TARGET",
                     color: ObsidianTheme.neonRose,
-                    normalizedX: 0.65,
-                    normalizedY: 0.55,
+                    normalizedX: 0.500,
+                    normalizedY: 0.507,
                     description: "TITANIUM SPRING CLIP CLOSURE: Saccular posterolateral PComA aneurysm completely occluded at its neck by a titanium Yasargil clip.",
                     surgicalPearl: "Visually confirm the anterior choroidal artery is free behind the aneurysm neck before final clip release; clipping AChA causes dense hemiplegia."
                 )
@@ -388,41 +358,31 @@ extension SurgicalPlateType {
             return [
                 SurgicalCallout(
                     id: "plate_009_1",
-                    title: "Frontal & Temporal Opercular Retraction",
-                    structureType: "OPERCULAR RETRACTION WINDOW",
-                    color: ObsidianTheme.neonRose,
-                    normalizedX: 0.25,
-                    normalizedY: 0.35,
-                    description: "TRANSSYLVIAN SEPARATION: Dual self-retaining retractor blades lined with cottonoids gently separating frontal and temporal banks.",
-                    surgicalPearl: "Never retract against unreleased fissure arachnoid; dynamic suction dissection opens the fissure without avulsing pial vessels."
-                ),
-                SurgicalCallout(
-                    id: "plate_009_2",
                     title: "Superficial Sylvian Venous Complex",
                     structureType: "VENOUS PRESERVATION",
                     color: ObsidianTheme.neonCyan,
-                    normalizedX: 0.48,
-                    normalizedY: 0.30,
+                    normalizedX: 0.664,
+                    normalizedY: 0.386,
                     description: "PRESERVED SYLVIAN VEINS: Dark-blue superficial Sylvian veins mobilized carefully toward the temporal operculum.",
                     surgicalPearl: "Dissect fissure strictly on the frontal side of the superficial Sylvian veins; keeping veins on the temporal lobe preserves main venous outflow."
                 ),
                 SurgicalCallout(
-                    id: "plate_009_3",
+                    id: "plate_009_2",
                     title: "Arachnoid Trabeculae Dissection",
                     structureType: "MICROSURGICAL SHARP RELEASE",
                     color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.55,
-                    normalizedY: 0.55,
+                    normalizedX: 0.617,
+                    normalizedY: 0.603,
                     description: "TENSE ARACHNOID BANDS: Micro-scissors dividing stretched translucent arachnoid trabeculae under continuous micro-suction tension.",
                     surgicalPearl: "Keep micro-knife cutting edge facing away from brain parenchyma; tension applied by micro-suction tip exposes avascular arachnoid webs."
                 ),
                 SurgicalCallout(
-                    id: "plate_009_4",
+                    id: "plate_009_3",
                     title: "Deep Carotid Cistern Floor",
                     structureType: "DEEP ANATOMICAL CORRIDOR",
                     color: ObsidianTheme.neonEmerald,
-                    normalizedX: 0.68,
-                    normalizedY: 0.70,
+                    normalizedX: 0.508,
+                    normalizedY: 0.433,
                     description: "CAROTID-OPTIC FLOOR: Pearly-white optic nerve (CN II) and pink ICA pulsations visible in the deep, relaxed cisternal corridor.",
                     surgicalPearl: "Opening the deep chiasmatic cisterns releases intracranial CSF, dropping brain tension throughout both opercular banks."
                 )
@@ -434,8 +394,8 @@ extension SurgicalPlateType {
                     title: "3-Pin Mayfield Skull Fixation",
                     structureType: "RIGID CRANIAL STABILIZATION",
                     color: ObsidianTheme.neonRose,
-                    normalizedX: 0.20,
-                    normalizedY: 0.40,
+                    normalizedX: 0.200,
+                    normalizedY: 0.400,
                     description: "MILITARY CHIN-TUCK SETUP: Single anterior pin and dual posterior rocker pins, with neck flexed maintaining 2-finger jugular clearance.",
                     surgicalPearl: "Maintain >= 2 fingerbreadths between chin and sternum; excessive flexion compresses internal jugular veins, causing venous infarction."
                 ),
@@ -444,8 +404,8 @@ extension SurgicalPlateType {
                     title: "Asterion & Cranial Sutures",
                     structureType: "SURFACE OSTEOLOGICAL LANDMARK",
                     color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.52,
-                    normalizedY: 0.42,
+                    normalizedX: 0.520,
+                    normalizedY: 0.420,
                     description: "SURFACE SUTURE CONFLUENCE: Junction of lambdoid, parietomastoid, and occipitomastoid sutures overlying the transverse-sigmoid angle.",
                     surgicalPearl: "Asterion overlies transverse-sigmoid junction in only 60% of cases; in 40% it sits directly over transverse sinus. Always drill inferior-medial."
                 ),
@@ -454,8 +414,8 @@ extension SurgicalPlateType {
                     title: "Transverse-Sigmoid Sinus Junction",
                     structureType: "VITAL VENOUS SINUS CORRIDOR",
                     color: ObsidianTheme.neonCyan,
-                    normalizedX: 0.65,
-                    normalizedY: 0.35,
+                    normalizedX: 0.650,
+                    normalizedY: 0.350,
                     description: "VENOUS ANGLE BOUNDARY: Blue dural sinuses showing horizontal transverse sinus turning into descending sigmoid sinus behind mastoid.",
                     surgicalPearl: "Expose the inferior edge of transverse and posterior edge of sigmoid sinus to maximize viewing angle without sinus laceration."
                 ),
@@ -464,8 +424,8 @@ extension SurgicalPlateType {
                     title: "Strategic Burr Hole & Craniectomy Window",
                     structureType: "PLANNED CRANIECTOMY WINDOW",
                     color: ObsidianTheme.neonEmerald,
-                    normalizedX: 0.60,
-                    normalizedY: 0.55,
+                    normalizedX: 0.600,
+                    normalizedY: 0.550,
                     description: "KEYHOLE BURR HOLE: Initial burr hole placed 5 mm inferior-medial to asterion, opening directly into posterior fossa with zero sinus tear.",
                     surgicalPearl: "Drill initial burr hole strictly inferior-medial to asterion; dissect dura carefully off bone before expanding craniectomy rim."
                 )
@@ -477,8 +437,8 @@ case .plate011:
                     title: "Posterior Radial Annular Fissure",
                     structureType: "ANNULAR TEAR (HIZ PATHOLOGY)",
                     color: ObsidianTheme.neonRose,
-                    normalizedX: 0.50,
-                    normalizedY: 0.32,
+                    normalizedX: 0.256,
+                    normalizedY: 0.390,
                     description: "HIGH-INTENSITY ZONE PATHOLOGY: Full-thickness radial tear through concentric collagenous annular lamellae bordering vertebral canal.",
                     surgicalPearl: "Posterior annular tears release inflammatory cytokines directly onto the dorsal thecal sac, causing severe discogenic back pain."
                 ),
@@ -487,8 +447,8 @@ case .plate011:
                     title: "Nucleus Pulposus Matrix",
                     structureType: "DESICCATED CENTRAL NUCLEUS",
                     color: ObsidianTheme.neonCyan,
-                    normalizedX: 0.50,
-                    normalizedY: 0.20,
+                    normalizedX: 0.172,
+                    normalizedY: 0.458,
                     description: "CENTRAL MATRIX DEHYDRATION: Desiccated nucleus pulposus undergoing cleft formation and proteoglycan matrix degradation.",
                     surgicalPearl: "Pfirrmann grading on T2 MRI correlates with loss of central nuclear water signal and disk height collapse."
                 ),
@@ -497,8 +457,8 @@ case .plate011:
                     title: "Collapsed Degenerative Disc Space",
                     structureType: "SAGITTAL COLUMN COLLAPSE",
                     color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.35,
-                    normalizedY: 0.65,
+                    normalizedX: 0.587,
+                    normalizedY: 0.378,
                     description: "SEGMENTAL LOSS OF HEIGHT: Narrowed, collapsed degenerative disc space with anterior and posterior marginal osteophyte formation.",
                     surgicalPearl: "Severe disc space collapse produces secondary foraminal narrowing, kinking exiting spinal nerve roots beneath the pedicle."
                 ),
@@ -507,8 +467,8 @@ case .plate011:
                     title: "Hydrated Normal Disc Reference",
                     structureType: "HEALTHY CONTROLS",
                     color: ObsidianTheme.neonEmerald,
-                    normalizedX: 0.35,
-                    normalizedY: 0.82,
+                    normalizedX: 0.696,
+                    normalizedY: 0.665,
                     description: "PRESERVED BLUE-WHITE NUCLEUS: Plump, hydrated intervertebral disc with wide intervertebral foramina and smooth endplates.",
                     surgicalPearl: "Compare degenerative disc mechanics directly against the preserved plump hydrated disc space at the adjacent normal level."
                 )
@@ -520,40 +480,20 @@ case .plate011:
                     title: "Frontotemporal Calvarial Rim",
                     structureType: "PTERIONAL BONE WINDOW",
                     color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.35,
-                    normalizedY: 0.22,
+                    normalizedX: 0.378,
+                    normalizedY: 0.245,
                     description: "BEVELED DIPLOIC BONE RIM: Warm ivory frontotemporal craniotomy frame centered precisely over the Sylvian fissure cleft.",
                     surgicalPearl: "Bevel the cranial bone cut to facilitate rigid titanium plate fixation and anatomical cosmetic skull reconstruction."
                 ),
                 SurgicalCallout(
                     id: "plate_012_2",
-                    title: "Reflected Glistening Dural Flaps",
-                    structureType: "DURAL MARGIN & STAY SUTURES",
-                    color: ObsidianTheme.neonCyan,
-                    normalizedX: 0.30,
-                    normalizedY: 0.45,
-                    description: "EXPANDED CRANIAL EXPOSURE: Glistening slate-blue dural flaps folded peripherally around the craniotomy window with stay sutures.",
-                    surgicalPearl: "Dural flaps reflected anteriorly and inferiorly protect orbital contents and preserve underlying pial vasculature under continuous irrigation."
-                ),
-                SurgicalCallout(
-                    id: "plate_012_3",
                     title: "Frontal & Temporal Opercula",
                     structureType: "CORTICAL GYRAL INTERVAL",
                     color: ObsidianTheme.neonRose,
-                    normalizedX: 0.60,
-                    normalizedY: 0.40,
+                    normalizedX: 0.571,
+                    normalizedY: 0.409,
                     description: "VASCULARIZED GYRAL INTERACTION: Frontal opercular cortex (left) and temporal operculum (right) separated by the Sylvian cleft.",
                     surgicalPearl: "Gentle opercular separation under operating microscope magnification exposes the insular cortex and M2/M3 arterial arborizations."
-                ),
-                SurgicalCallout(
-                    id: "plate_012_4",
-                    title: "Superficial Sylvian Vein",
-                    structureType: "VITAL CORTICAL VENOUS DRAINAGE",
-                    color: ObsidianTheme.neonEmerald,
-                    normalizedX: 0.65,
-                    normalizedY: 0.55,
-                    description: "DARK-BLUE MAIN TRUNK: Dominant superficial Sylvian venous complex mobilized carefully along the temporal opercular bank.",
-                    surgicalPearl: "Preserve the main superficial Sylvian venous trunk; sacrifice leads to acute frontotemporal venous infarction and language deficit."
                 )
             ]
         case .plate013:
@@ -563,8 +503,8 @@ case .plate011:
                     title: "Suboccipital Craniectomy & C1 Laminectomy",
                     structureType: "POSTERIOR FOSSA DECOMPRESSION",
                     color: ObsidianTheme.neonRose,
-                    normalizedX: 0.25,
-                    normalizedY: 0.30,
+                    normalizedX: 0.250,
+                    normalizedY: 0.300,
                     description: "UNROOFED FORAMEN MAGNUM: Midline craniectomy rim and resected C1 arch stumps creating wide craniocervical decompression.",
                     surgicalPearl: "Suboccipital craniectomy width should span 3 cm; resect posterior C1 arch completely to decompress the herniated tonsillar tips."
                 ),
@@ -573,8 +513,8 @@ case .plate011:
                     title: "Herniated Peg-Like Cerebellar Tonsils",
                     structureType: "CHIARI I PATHOLOGY",
                     color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.25,
-                    normalizedY: 0.55,
+                    normalizedX: 0.295,
+                    normalizedY: 0.489,
                     description: "ECTOPIC TONSILLAR HERNIATION: Foliated, elongated cerebellar tonsils descending below foramen magnum down past the C1 ring.",
                     surgicalPearl: "Tonsils impinging on dorsal medulla block obex CSF flow; gentle pial coagulation or shrinkage restores Fourth ventricle patency."
                 ),
@@ -583,8 +523,8 @@ case .plate011:
                     title: "V3 Vertebral Artery Lateral Boundary",
                     structureType: "VASCULAR BOUNDARY",
                     color: ObsidianTheme.neonCyan,
-                    normalizedX: 0.15,
-                    normalizedY: 0.65,
+                    normalizedX: 0.163,
+                    normalizedY: 0.472,
                     description: "SUBOCCIPITAL ARTERIAL LOOPS: Crimson V3 vertebral artery loops coursing over the lateral masses of C1.",
                     surgicalPearl: "Keep lateral bone dissection strictly medial to the C1 vertebral artery sulcus to prevent arterial injury."
                 ),
@@ -593,8 +533,8 @@ case .plate011:
                     title: "Expansile Triangular Duraplasty",
                     structureType: "EXPANSIVE RECONSTRUCTION",
                     color: ObsidianTheme.neonEmerald,
-                    normalizedX: 0.75,
-                    normalizedY: 0.45,
+                    normalizedX: 0.750,
+                    normalizedY: 0.450,
                     description: "HERMETIC COLLAGEN GRAFT: Watertight triangular pericardial/collagen graft sutured with continuous 5-0 monofilament to expand cisterna magna.",
                     surgicalPearl: "Watertight dural closure prevents postoperative pseudomeningocele, CSF wound fistula, and aseptic meningitis."
                 )
@@ -606,8 +546,8 @@ case .plate011:
                     title: "C1 Lateral Mass Screw Trajectory",
                     structureType: "POLYAXIAL CRANIAL ANCHOR",
                     color: ObsidianTheme.neonRose,
-                    normalizedX: 0.30,
-                    normalizedY: 0.35,
+                    normalizedX: 0.300,
+                    normalizedY: 0.350,
                     description: "GOEL-HARMS C1 TRAJECTORY: Polyaxial screw anchored into the center of the C1 lateral mass, angled 10-15 degrees convergent and slightly cephalad.",
                     surgicalPearl: "Palpate the medial border of C1 lateral mass; guide drill parallel to C1 arch plane toward anterior C1 tubercle."
                 ),
@@ -616,75 +556,24 @@ case .plate011:
                     title: "C2 Pedicle & Pars Screw Trajectory",
                     structureType: "SUBCRANIAL REID FIXATION",
                     color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.30,
-                    normalizedY: 0.60,
+                    normalizedX: 0.300,
+                    normalizedY: 0.600,
                     description: "ANTEROMEDIAL C2 CORRIDOR: High-density polyaxial screw traversing C2 pedicle or pars into vertebral body, avoiding vertebral artery.",
                     surgicalPearl: "Check preoperative CTA for high-riding vertebral artery; an anatomical high-riding VA contraindicates transpedicular C2 screws."
                 ),
                 SurgicalCallout(
                     id: "plate_014_3",
-                    title: "Posterior Bilateral Screw-Rod Neutralization",
-                    structureType: "RIGID SEGMENTAL CONSTRUCT",
-                    color: ObsidianTheme.neonCyan,
-                    normalizedX: 0.75,
-                    normalizedY: 0.45,
-                    description: "RIGID ATLANTO-AXIAL STABILIZATION: Contoured dual titanium rods locking bilateral C1 and C2 screws, flanking bifid C2 spinous process.",
-                    surgicalPearl: "Harmonious compression across C1-C2 rods restores anatomical atlanto-dental interval before set-screw final torquing."
-                ),
-                SurgicalCallout(
-                    id: "plate_014_4",
                     title: "V3 Vertebral Artery Loop Preservation",
                     structureType: "VITAL ARTERIAL ARCHITECTURE",
                     color: ObsidianTheme.neonEmerald,
-                    normalizedX: 0.85,
-                    normalizedY: 0.65,
+                    normalizedX: 0.850,
+                    normalizedY: 0.650,
                     description: "TRANSVERSE FORAMEN ARTERY: Vertebral artery ascending from C2 transverse foramen into C1 groove directly lateral to screw entry sites.",
                     surgicalPearl: "Retract the C2 nerve root and venous plexus gently inferiorly to expose C1 lateral mass without lacerating the vertebral artery."
                 )
             ]
         case .plate015:
-            return [
-                SurgicalCallout(
-                    id: "plate_015_1",
-                    title: "Smith-Robinson Interval",
-                    structureType: "AVASCULAR FASCIAL INTERVAL",
-                    color: ObsidianTheme.neonCyan,
-                    normalizedX: 0.18,
-                    normalizedY: 0.55,
-                    description: "MEDIAL-LATERAL FASCIAL CORRIDOR: Trachea and esophagus retracted medially; carotid sheath retracted laterally down to prevertebral fascia.",
-                    surgicalPearl: "Palpate carotid pulse laterally throughout dissection; verify relaxed retractor pressure to protect recurrent laryngeal nerve."
-                ),
-                SurgicalCallout(
-                    id: "plate_015_2",
-                    title: "Longus Colli & Sympathetic Trunk",
-                    structureType: "NEUROLOGICAL SAFETY BOUNDARY",
-                    color: ObsidianTheme.neonEmerald,
-                    normalizedX: 0.61,
-                    normalizedY: 0.22,
-                    description: "SUBPERIOSTEAL ELEVATION BOUNDARY: Elevate longus colli muscle medially; never spread lateral to muscle border to protect sympathetic chain.",
-                    surgicalPearl: "Lateral dissection or stray monopolar cautery beyond the medial border of longus colli causes irreversible Horner syndrome."
-                ),
-                SurgicalCallout(
-                    id: "plate_015_3",
-                    title: "Uncinate & Nerve Root Decompression",
-                    structureType: "MICROSURGICAL FORAMINOTOMY",
-                    color: ObsidianTheme.neonRose,
-                    normalizedX: 0.60,
-                    normalizedY: 0.53,
-                    description: "FORAMINAL CORD & ROOT LIBERATION: Resect posterior uncinate lip and fenestrate PLL until the exiting root is palpably free past the pedicle.",
-                    surgicalPearl: "Angle Kerrison rongeurs parallel to nerve exit; never push blindly laterally where vertebral artery courses 2-3 mm beyond uncinate."
-                ),
-                SurgicalCallout(
-                    id: "plate_015_4",
-                    title: "Lordotic Interbody Cage & Plate",
-                    structureType: "ARTHRODESIS & 5 MM MARGIN",
-                    color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.84,
-                    normalizedY: 0.45,
-                    description: "STRUCTURAL ARTHRODESIS & PLATE CLEARANCE: Seat autograft-packed cage recessed 1-2 mm; anchor plate maintaining strict >= 5 mm clearance from adjacent discs.",
-                    surgicalPearl: "Plate-to-disc distance < 5 mm significantly accelerates adjacent segment ossification (ASO) and early adjacent level degeneration."
-                )
-            ]
+            return []
         case .plate016:
             return [
                 SurgicalCallout(
@@ -692,8 +581,8 @@ case .plate011:
                     title: "Temporal Craniotomy Flush to Zygoma",
                     structureType: "SUBTEMPORAL BONE WINDOW",
                     color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.45,
-                    normalizedY: 0.25,
+                    normalizedX: 0.326,
+                    normalizedY: 0.505,
                     description: "MIDDLE FOSSA BASAL ACCESS: Right temporal craniotomy drilled flush to the superior border of zygomatic arch and middle fossa floor.",
                     surgicalPearl: "Drilling craniectomy flush to the temporal floor eliminates brain retraction during subtemporal approaches to petrous apex."
                 ),
@@ -702,8 +591,8 @@ case .plate011:
                     title: "Middle Meningeal Artery (MMA) Anterior Trunk",
                     structureType: "EPIDURAL ARTERIAL ARCHITECTURE",
                     color: ObsidianTheme.neonRose,
-                    normalizedX: 0.52,
-                    normalizedY: 0.40,
+                    normalizedX: 0.520,
+                    normalizedY: 0.400,
                     description: "ANTERIOR MENINGEAL ARTERIAL DIVISION: Crimson anterior trunk of MMA traversing anterior temporal dura toward sphenoid ridge.",
                     surgicalPearl: "Coagulate and divide anterior MMA branches early along the skull base floor to gain epidural hemostasis and dural mobilization."
                 ),
@@ -712,20 +601,10 @@ case .plate011:
                     title: "MMA Posterior Squamosal Trunk",
                     structureType: "POSTERIOR ARTERIAL DIVISION",
                     color: ObsidianTheme.neonCyan,
-                    normalizedX: 0.65,
-                    normalizedY: 0.48,
+                    normalizedX: 0.427,
+                    normalizedY: 0.436,
                     description: "POSTERIOR MENINGEAL RAMUS: Posterior branch of MMA running across squamosal temporal dura toward parietal convexity.",
                     surgicalPearl: "Bipolar cautery of posterior MMA branches prevents troublesome epidural hematoma accumulation beneath the craniotomy rim."
-                ),
-                SurgicalCallout(
-                    id: "plate_016_4",
-                    title: "Subtemporal Middle Fossa Floor",
-                    structureType: "BASAL SKULL TARGET",
-                    color: ObsidianTheme.neonEmerald,
-                    normalizedX: 0.48,
-                    normalizedY: 0.65,
-                    description: "EXTRADURAL MIDDLE CRANIAL FOSSA: Base of temporal lobe elevated extradurally toward foramen spinosum, ovale, and petrous ridge.",
-                    surgicalPearl: "Identify the greater superficial petrosal nerve (GSPN) running extradurally; traction causes facial nerve palsy via geniculate ganglion."
                 )
             ]
         case .plate017:
@@ -735,40 +614,20 @@ case .plate011:
                     title: "Left Frontotemporal (Pterional) Craniotomy",
                     structureType: "ANTEROLATERAL BONE WINDOW",
                     color: ObsidianTheme.neonRose,
-                    normalizedX: 0.35,
-                    normalizedY: 0.30,
+                    normalizedX: 0.350,
+                    normalizedY: 0.300,
                     description: "PTERIONAL CALVARIAL WINDOW: Standard 3D osteological exposure centered over the pterion, coronal suture, and anterior Sylvian fissure.",
                     surgicalPearl: "Keyhole burr hole placed at McCarty's point (1 cm behind anterior orbital rim) safely exposes both frontal dura and orbital periorbita."
                 ),
                 SurgicalCallout(
                     id: "plate_017_2",
-                    title: "Flattened Sphenoid Ridge",
-                    structureType: "BASAL BONE FLATTENING",
-                    color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.55,
-                    normalizedY: 0.40,
-                    description: "SPHENOID WING OSTEOTOMY: Lesser sphenoid wing drilled down to meningo-orbital band to level the anterior skull base.",
-                    surgicalPearl: "Drilling the sphenoid ridge flat to the orbit provides a direct subfrontal line of sight with zero temporal lobe retraction."
-                ),
-                SurgicalCallout(
-                    id: "plate_017_3",
                     title: "Sylvian Fissure Cleft",
                     structureType: "ANATOMICAL CORRIDOR",
                     color: ObsidianTheme.neonCyan,
-                    normalizedX: 0.65,
-                    normalizedY: 0.50,
+                    normalizedX: 0.660,
+                    normalizedY: 0.379,
                     description: "CENTRAL INTERLOBAR CLEAVAGE: The deep fissure dividing frontal motor/language operculum from auditory temporal operculum.",
                     surgicalPearl: "Sharp dissection along the Sylvian cleft provides rapid access to circle of Willis aneurysms and the insular corridor."
-                ),
-                SurgicalCallout(
-                    id: "plate_017_4",
-                    title: "Meningo-Orbital Band",
-                    structureType: "ANTERIOR SKULL BASE LANDMARK",
-                    color: ObsidianTheme.neonEmerald,
-                    normalizedX: 0.45,
-                    normalizedY: 0.60,
-                    description: "DURAL TRANSITION LIGAMENT: Fibrous dural band connecting temporal dura to orbital periorbita at the lateral superior orbital fissure.",
-                    surgicalPearl: "Incising the meningo-orbital band unlocks extradural exposure of the anterior clinoid process and cavernous sinus roof."
                 )
             ]
         case .plate018:
@@ -778,85 +637,24 @@ case .plate011:
                     title: "Bifrontal Calvarial Craniotomy",
                     structureType: "SYMMETRICAL ANTERIOR EXPOSURE",
                     color: ObsidianTheme.neonRose,
-                    normalizedX: 0.50,
-                    normalizedY: 0.25,
+                    normalizedX: 0.552,
+                    normalizedY: 0.078,
                     description: "MIDLINE BILATERAL BONE FLAP: Symmetrical craniotomy crossing midline directly above supraorbital rims, exposing both frontal poles.",
                     surgicalPearl: "Keep inferior osteotomy cut within 5 mm of the skull base floor to maximize subfrontal access with minimal brain retraction."
                 ),
                 SurgicalCallout(
                     id: "plate_018_2",
-                    title: "Frontal Sinus Cranialization Zone",
-                    structureType: "INFECTION PREVENTION MANDATE",
-                    color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.50,
-                    normalizedY: 0.55,
-                    description: "SINUS MUCOSAL EXENTERATION: Obliteration of anterior ethmoid/frontal sinus mucosa, packed with pericranial flap to seal nasal cavity.",
-                    surgicalPearl: "Completely drill out all mucosal remnants from the frontal sinus; retained mucosa produces infected frontal mucoceles."
-                ),
-                SurgicalCallout(
-                    id: "plate_018_3",
-                    title: "Superior Sagittal Sinus Anterior Origin",
-                    structureType: "MIDLINE VENOUS CONSTRUCT",
-                    color: ObsidianTheme.neonCyan,
-                    normalizedX: 0.50,
-                    normalizedY: 0.40,
-                    description: "CRISTA GALLI SSS ANCHOR: Anterior termination of superior sagittal sinus ligated and divided above the crista galli if subfrontal access requires.",
-                    surgicalPearl: "The rostral 1/3 of superior sagittal sinus can be ligated safely anterior to the coronal suture if bilateral subfrontal access is required."
-                ),
-                SurgicalCallout(
-                    id: "plate_018_4",
                     title: "Interhemispheric Longitudinal Fissure",
                     structureType: "MIDLINE SUBCORTICAL CORRIDOR",
                     color: ObsidianTheme.neonEmerald,
-                    normalizedX: 0.50,
-                    normalizedY: 0.70,
+                    normalizedX: 0.478,
+                    normalizedY: 0.218,
                     description: "MIDLINE TRANSFALCINE CORRIDOR: Avascular plane between medial frontal lobes leading to corpus callosum and anterior communicating complex.",
                     surgicalPearl: "Rely on midline interhemispheric gravity dissection; avoid bilateral frontal lobe retraction to prevent catastrophic abulia."
                 )
             ]
         case .plate019:
-            return [
-                SurgicalCallout(
-                    id: "plate_019_1",
-                    title: "Parietal Convexity Craniotomy",
-                    structureType: "POSTERIOR PARIETAL BONE WINDOW",
-                    color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.45,
-                    normalizedY: 0.30,
-                    description: "PARIETAL BONE MARGIN: Circumscribed parietal craniotomy behind coronal suture exposing somatosensory cortex and parietal lobule.",
-                    surgicalPearl: "Bevel cranial edges cleanly and place dural tack-up sutures around the perimeter to prevent epidural venous hematoma."
-                ),
-                SurgicalCallout(
-                    id: "plate_019_2",
-                    title: "Superior Sagittal Sinus Medial Margin",
-                    structureType: "VITAL DURAL VENOUS SINUS",
-                    color: ObsidianTheme.neonCyan,
-                    normalizedX: 0.55,
-                    normalizedY: 0.18,
-                    description: "MEDIAL SINUS BOUNDARY: Lateral border of the superior sagittal sinus exposed along the medial edge of the bone window.",
-                    surgicalPearl: "Dissect dura gently off the bone midline; penetrating the sagittal sinus requires direct repair, Surgicel packing, or sinus ligation."
-                ),
-                SurgicalCallout(
-                    id: "plate_019_3",
-                    title: "Bridging Cortical Vein of Trolard",
-                    structureType: "CRITICAL CORTICAL VENOUS DRAINAGE",
-                    color: ObsidianTheme.neonRose,
-                    normalizedX: 0.60,
-                    normalizedY: 0.45,
-                    description: "GREAT ANASTOMOTIC VEIN: Dominant parietal cortical venous trunk bridging from cortical convexity into superior sagittal sinus.",
-                    surgicalPearl: "Never coagulate or stretch major bridging veins; sacrificing the vein of Trolard precipitates massive parietal venous infarction."
-                ),
-                SurgicalCallout(
-                    id: "plate_019_4",
-                    title: "Parietal Dural Convexity",
-                    structureType: "INTRACRANIAL DURAL LAYER",
-                    color: ObsidianTheme.neonEmerald,
-                    normalizedX: 0.40,
-                    normalizedY: 0.55,
-                    description: "SLATE-BLUE DURAL ENVELOPE: Intact dural surface showing arborizing middle meningeal vessels over parietal somatosensory cortex.",
-                    surgicalPearl: "Perform U-shaped dural opening hinged toward the midline sinus; this protects bridging veins entering the sagittal sinus wall."
-                )
-            ]
+            return []
         case .plate020:
             return [
                 SurgicalCallout(
@@ -864,85 +662,24 @@ case .plate011:
                     title: "Asterion Suture Confluence",
                     structureType: "SURFACE OSTEOLOGICAL TARGET",
                     color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.45,
-                    normalizedY: 0.35,
+                    normalizedX: 0.191,
+                    normalizedY: 0.296,
                     description: "SUTURE INTERSECTION: Confluence of lambdoid, parietomastoid, and occipitomastoid sutures marking lateral posterior fossa entrance.",
                     surgicalPearl: "Asterion overlies transverse-sigmoid junction in 60% of skulls; in 40% it sits on transverse sinus. Place burr hole 5 mm inferior-medial."
                 ),
                 SurgicalCallout(
                     id: "plate_020_2",
-                    title: "Transverse-Sigmoid Sinus Angle",
-                    structureType: "DURAL VENOUS SINUS JUNCTION",
-                    color: ObsidianTheme.neonCyan,
-                    normalizedX: 0.60,
-                    normalizedY: 0.28,
-                    description: "VENOUS CORNER: Transition of horizontal transverse sinus into descending sigmoid sinus knee behind the mastoid air cells.",
-                    surgicalPearl: "Unroofing both sinuses at their junction provides panoramic view into CPA without requiring deep cerebellar retraction."
-                ),
-                SurgicalCallout(
-                    id: "plate_020_3",
                     title: "Keyhole Retrosigmoid Craniectomy",
                     structureType: "CRANIAL KEYHOLE DEFECT",
                     color: ObsidianTheme.neonRose,
-                    normalizedX: 0.55,
-                    normalizedY: 0.50,
+                    normalizedX: 0.496,
+                    normalizedY: 0.399,
                     description: "SURGICAL BONE WINDOW: Beveled 2.5-3.0 cm craniectomy defect exposing posterior fossa dura immediately behind the sigmoid sinus.",
                     surgicalPearl: "Wax any exposed mastoid air cells immediately with bone wax to eliminate postoperative CSF rhinorrhea via eustachian tube."
-                ),
-                SurgicalCallout(
-                    id: "plate_020_4",
-                    title: "Mastoid Emissary Vein Trough",
-                    structureType: "VENOUS ACCESS BOUNDARY",
-                    color: ObsidianTheme.neonEmerald,
-                    normalizedX: 0.30,
-                    normalizedY: 0.55,
-                    description: "MASTOID EMISSARY FORAMEN: Large venous channel traversing mastoid bone into sigmoid sinus; source of sudden brisk bleeding.",
-                    surgicalPearl: "Pack bleeding mastoid emissary foramen instantly with bone wax under thumb pressure before expanding craniectomy rim."
                 )
             ]
 case .plate021:
-            return [
-                SurgicalCallout(
-                    id: "plate_021_1",
-                    title: "Large Frontotemporoparietal Bone Flap",
-                    structureType: "TRAUMA DECOMPRESSION WINDOW",
-                    color: ObsidianTheme.neonRose,
-                    normalizedX: 0.40,
-                    normalizedY: 0.28,
-                    description: "LARGE DECOMPRESSIVE CRANIECTOMY: Minimum 12x15 cm bone window crossing pterion, extending to within 2 cm of sagittal sinus.",
-                    surgicalPearl: "Craniectomy diameter must exceed 12 cm; small bone windows cause fatal brain herniation and strangulation across bone edges."
-                ),
-                SurgicalCallout(
-                    id: "plate_021_2",
-                    title: "Subtemporal Basal Bone Trough",
-                    structureType: "MIDDLE FOSSA DECOMPRESSION",
-                    color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.35,
-                    normalizedY: 0.58,
-                    description: "FLUSH TEMPORAL RESECTION: Squamosal temporal craniectomy drilled flush to the middle cranial fossa floor and zygomatic root.",
-                    surgicalPearl: "Drilling temporal bone flush to middle fossa floor decompresses temporal lobe and relieves uncal herniation against the tentorial incisura."
-                ),
-                SurgicalCallout(
-                    id: "plate_021_3",
-                    title: "Expansile Patch Duroplasty",
-                    structureType: "HERMETIC VOLUME RESTORATION",
-                    color: ObsidianTheme.neonCyan,
-                    normalizedX: 0.65,
-                    normalizedY: 0.45,
-                    description: "TENSION-FREE DURAPLASTY: Generous expansile onlay collagen or pericranial patch sutured watertight to accommodate swollen hemisphere.",
-                    surgicalPearl: "Perform wide stellate or C-shaped dural opening and patch duraplasty; tight dural closure under ICP causes massive brain infarct."
-                ),
-                SurgicalCallout(
-                    id: "plate_021_4",
-                    title: "Tack-Up Sutures & Hemostasis",
-                    structureType: "EPIDURAL SAFEGUARD",
-                    color: ObsidianTheme.neonEmerald,
-                    normalizedX: 0.70,
-                    normalizedY: 0.22,
-                    description: "PERIPHERAL DURAL TACK-UP: Close-interval 4-0 braided dural tack-up sutures placed along all bony edges to prevent epidural hematoma.",
-                    surgicalPearl: "Place circumferential dural tack-up sutures before dural opening; acute brain decompression allows epidural blood to pool rapidly."
-                )
-            ]
+            return []
         case .plate022:
             return [
                 SurgicalCallout(
@@ -950,8 +687,8 @@ case .plate021:
                     title: "Pineal Region Mass & Tectal Plate",
                     structureType: "QUADRIGEMINAL TUMOR TARGET",
                     color: ObsidianTheme.neonRose,
-                    normalizedX: 0.52,
-                    normalizedY: 0.42,
+                    normalizedX: 0.663,
+                    normalizedY: 0.607,
                     description: "QUADRIGEMINAL CISTERN MASS: Lobulated pineal tumor compressing tectal colliculi and obstructing the cerebral aqueduct of Sylvius.",
                     surgicalPearl: "Pineal tumors compress tectal colliculi causing Parinaud syndrome (upward gaze palsy, light-near pupillary dissociation)."
                 ),
@@ -960,8 +697,8 @@ case .plate021:
                     title: "Great Vein of Galen Confluence",
                     structureType: "VITAL DEEP VENOUS TRUNK",
                     color: ObsidianTheme.neonCyan,
-                    normalizedX: 0.55,
-                    normalizedY: 0.30,
+                    normalizedX: 0.704,
+                    normalizedY: 0.436,
                     description: "DEEP VENOUS COMPLEX: Internal cerebral veins and basal veins of Rosenthal uniting into Great Vein of Galen draped over tumor apex.",
                     surgicalPearl: "Never sacrifice or heavily retract the Vein of Galen or internal cerebral veins; occlusion precipitates fatal bilateral thalamic infarction."
                 ),
@@ -970,8 +707,8 @@ case .plate021:
                     title: "Supracerebellar Infratentorial Corridor",
                     structureType: "PRIMARY SUBTENTORIAL TRAJECTORY",
                     color: ObsidianTheme.neonEmerald,
-                    normalizedX: 0.65,
-                    normalizedY: 0.58,
+                    normalizedX: 0.814,
+                    normalizedY: 0.631,
                     description: "SUPRACEREBELLAR CORRIDOR: Operative midline plane between the dorsal tentorial surface of cerebellum and tentorium cerebelli.",
                     surgicalPearl: "Position sitting or park-bench; gravity drops the cerebellum downward, opening a direct operative tunnel below the deep venous complex."
                 ),
@@ -980,8 +717,8 @@ case .plate021:
                     title: "Occipital Transtentorial Trajectory",
                     structureType: "ALTERNATIVE SUPRATENTORIAL ROUTE",
                     color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.35,
-                    normalizedY: 0.35,
+                    normalizedX: 0.853,
+                    normalizedY: 0.474,
                     description: "TRANSTENTORIAL CORRIDOR: Supratentorial trajectory along the straight sinus and incised tentorium for tumors with dorsal extension.",
                     surgicalPearl: "Transtentorial approach provides superior visualization of tumors extending above the vein of Galen into the third ventricle."
                 )
@@ -990,7 +727,7 @@ case .plate021:
             return [
                 SurgicalCallout(
                     id: "plate_023_1",
-                    title: "Chevron Posterior Column Resection (Stage 1)",
+                    title: "Ponte Posterior Column Resection",
                     structureType: "SCHWAB GRADE 2 OSTEOTOMY",
                     color: ObsidianTheme.neonRose,
                     normalizedX: 0.28,
@@ -1010,7 +747,7 @@ case .plate021:
                 ),
                 SurgicalCallout(
                     id: "plate_023_3",
-                    title: "Closed Bone-on-Bone Apposition (Stage 2)",
+                    title: "Closed Bone-on-Bone Apposition",
                     structureType: "POSTERIOR COLUMN CLOSURE",
                     color: ObsidianTheme.neonCyan,
                     normalizedX: 0.72,
@@ -1030,48 +767,7 @@ case .plate021:
                 )
             ]
         case .plate024:
-            return [
-                SurgicalCallout(
-                    id: "plate_024_1",
-                    title: "Transpedicular Wedge Resection (Stage 1)",
-                    structureType: "SCHWAB GRADE 3 THREE-COLUMN PSO",
-                    color: ObsidianTheme.neonRose,
-                    normalizedX: 0.25,
-                    normalizedY: 0.35,
-                    description: "OPEN 3-COLUMN V-WEDGE: Resection of posterior elements, bilateral pedicles, and V-shaped cancellous wedge through vertebral body.",
-                    surgicalPearl: "Taper the vertebral body osteotomy strictly to the anterior cortical wall, which acts as a hinge during extension closure."
-                ),
-                SurgicalCallout(
-                    id: "plate_024_2",
-                    title: "Preserved Anterior Cortical Hinge",
-                    structureType: "BIOMECHANICAL FULCRUM",
-                    color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.20,
-                    normalizedY: 0.65,
-                    description: "INTACT ANTERIOR CORTEX: Preserved anterior longitudinal ligament and anterior wall preventing catastrophic translation.",
-                    surgicalPearl: "Never breach the anterior cortical wall; fracturing the anterior cortex destabilizes the column and causes sagittal shear subluxation."
-                ),
-                SurgicalCallout(
-                    id: "plate_024_3",
-                    title: "Posterior Column Closure & 30° Lordosis (Stage 2)",
-                    structureType: "ANGULAR SAGITTAL CORRECTION",
-                    color: ObsidianTheme.neonCyan,
-                    normalizedX: 0.75,
-                    normalizedY: 0.40,
-                    description: "FOCAL SEGMENTAL REALIGNMENT: Closing the wedge delivers 30-35 degrees of focal lordosis with bone-to-bone contact.",
-                    surgicalPearl: "A single lumbar PSO (typically L3 or L4) provides 30-35 degrees of lordosis, restoring sagittal vertical axis balance."
-                ),
-                SurgicalCallout(
-                    id: "plate_024_4",
-                    title: "Decompressed Thecal Tube & Roots",
-                    structureType: "NEURAL FORAMINAL PROTECTION",
-                    color: ObsidianTheme.neonEmerald,
-                    normalizedX: 0.75,
-                    normalizedY: 0.65,
-                    description: "BUCKLED DURAL TUBE CHECK: Thecal sac and nerve roots inspected for dural buckling and lateral foraminal compression upon closure.",
-                    surgicalPearl: "Perform wide central laminectomy before wedge closure; posterior shortening creates dural redundancy that can compress cauda equina."
-                )
-            ]
+            return []
         case .plate025:
             return [
                 SurgicalCallout(
@@ -1079,8 +775,8 @@ case .plate021:
                     title: "Anterior Temporal Lobectomy (ATL Resection Limit)",
                     structureType: "ANTERIOR RESECTION BOUNDARY",
                     color: ObsidianTheme.neonRose,
-                    normalizedX: 0.28,
-                    normalizedY: 0.35,
+                    normalizedX: 0.749,
+                    normalizedY: 0.200,
                     description: "NEOCORTICAL RESECTION MARGIN: Standard lateral resection measuring 3.5 cm in dominant hemisphere or 4.5 cm in non-dominant hemisphere.",
                     surgicalPearl: "Respect 3.5 cm limit on dominant left temporal lobe to prevent permanent receptive language deficit (Wernicke dysphasia)."
                 ),
@@ -1089,8 +785,8 @@ case .plate021:
                     title: "Temporal Horn & Hippocampus Exposure",
                     structureType: "VENTRICULAR CORRIDOR",
                     color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.32,
-                    normalizedY: 0.60,
+                    normalizedX: 0.260,
+                    normalizedY: 0.193,
                     description: "VENTRICULAR EPENDYMA: Opening temporal horn of lateral ventricle to visualize hippocampus along the medial floor and choroid plexus.",
                     surgicalPearl: "Entering the temporal horn confirms anatomical location: choroidal fissure marks the medial safety boundary against brainstem."
                 ),
@@ -1099,8 +795,8 @@ case .plate021:
                     title: "Selective Amygdalohippocampectomy (SelAH)",
                     structureType: "PARAFASCICULAR MESIAL RESECTION",
                     color: ObsidianTheme.neonCyan,
-                    normalizedX: 0.72,
-                    normalizedY: 0.40,
+                    normalizedX: 0.085,
+                    normalizedY: 0.582,
                     description: "TARGETED MESIAL RESECTION: Selective subpial resection of uncus, amygdala, and anterior 2.5-3.0 cm of hippocampus, sparing lateral neocortex.",
                     surgicalPearl: "SelAH preserves lateral temporal neocortex and verbal memory while achieving high seizure freedom in mesial temporal sclerosis."
                 ),
@@ -1109,8 +805,8 @@ case .plate021:
                     title: "Optic Radiation (Meyer Loop) & Brainstem Margin",
                     structureType: "NEUROLOGICAL BOUNDARY",
                     color: ObsidianTheme.neonEmerald,
-                    normalizedX: 0.75,
-                    normalizedY: 0.65,
+                    normalizedX: 0.750,
+                    normalizedY: 0.650,
                     description: "VISUAL TRACT SAFETY: Meyer loop visual fibers coursing over temporal horn roof; arachnoid of ambient cistern shielding brainstem.",
                     surgicalPearl: "Stay subpial along the medial hippocampal sulcus; crossing the pial boundary damages the posterior cerebral artery and crus cerebri."
                 )
@@ -4712,17 +4408,9 @@ case .plate021:
                 ApproachSequentialStep(stepNumber: 3, title: "Arachnoid Release & Tumor Resection", detail: "Release thick arachnoid of quadrigeminal cistern; dissect tumor off tectal plate and internal cerebral veins under direct microscopic vision.")
             ]
         case .plate023:
-            return [
-                ApproachSequentialStep(stepNumber: 1, title: "Subperiosteal Exposure & Instrumentation", detail: "Expose posterior elements; insert bilateral pedicle screws at levels above and below planned osteotomies, leaving facet joints clear."),
-                ApproachSequentialStep(stepNumber: 2, title: "Chevron Facetectomy & Flavectomy (Stage 1)", detail: "Resect inferior articular process of cranial vertebra, superior articular process of caudal vertebra, flavum, and adjacent laminae."),
-                ApproachSequentialStep(stepNumber: 3, title: "Posterior Compression & Lordotic Closure (Stage 2)", detail: "Apply gentle posterior compression across contoured rods to close the osteotomy wedge, hinging on the disc to gain 8-10 degrees lordosis per level.")
-            ]
+            return []
         case .plate024:
-            return [
-                ApproachSequentialStep(stepNumber: 1, title: "Posterior Exposure & Pedicle Screws", detail: "Midline lumbar exposure; place robust pedicle screws two levels above and two levels below the index osteotomy level (typically L3 or L4)."),
-                ApproachSequentialStep(stepNumber: 2, title: "Laminectomy, Pediculectomy & Body Wedge (Stage 1)", detail: "Complete laminectomy; resect bilateral pedicles and excavate a V-shaped cancellous bone wedge through the vertebral body to anterior cortex."),
-                ApproachSequentialStep(stepNumber: 3, title: "Extension Closure & Multi-Rod Locking (Stage 2)", detail: "Extend table and apply posterior compression to close the 3-column wedge, checking dural tube to ensure zero buckling, and lock multi-rod construct.")
-            ]
+            return []
         case .plate025:
             return [
                 ApproachSequentialStep(stepNumber: 1, title: "Question-Mark Flap & Pterional Craniotomy", detail: "Curvilinear temporal incision; perform frontotemporal craniotomy flush to middle fossa floor, exposing anterior and middle temporal gyri."),
