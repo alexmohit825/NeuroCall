@@ -36,3 +36,4 @@ emulator/gallery/
 emulator/*.png
 worker/public/*.ipa
 atlas_inspector/plates/
+scratch/
