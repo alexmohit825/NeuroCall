@@ -95,10 +95,22 @@ for i in range(1, 107):
     elif 47 <= i <= 106:
         batch_tag = "Reviewed 047-106"
 
-    # Domain tag
-    domain_tag = "Cranial"
-    if i in [1, 7, 11, 13, 14, 15, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 35, 36, 37, 38, 39, 42, 43, 44, 46, 47, 48, 49, 50, 51, 52, 53, 54, 88, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106]:
+    # Domain tag (Cranial first, Spine second, Pediatric third)
+    pediatric_plates = {"002", "043", "046", "095", "105"}
+    spine_plates = {
+        "001", "013", "014", "035", "047", "049", "088", "097",
+        "015", "031", "034", "042", "044", "050", "064", "076", "080", "091", "098",
+        "026", "036", "038", "048", "054", "058", "068", "072", "073", "078", "085", "094", "103",
+        "011", "007", "037", "029", "028", "032", "083", "087", "100", "101", "106",
+        "023", "024", "039", "071", "075", "081", "099", "102", "104",
+        "089", "090", "092", "096"
+    }
+    if p_str in pediatric_plates:
+        domain_tag = "Pediatric"
+    elif p_str in spine_plates:
         domain_tag = "Spine"
+    else:
+        domain_tag = "Cranial"
 
     plates_data.append({
         "plate_num": p_str,
@@ -800,13 +812,16 @@ html_template = f"""<!DOCTYPE html>
   .pin-marker:active {{ cursor: grabbing; transform: translate(-50%, -50%) scale(1.2); }}
 
   /* PowerPoint Slide Sorter Grid */
+  :root {{
+    --slide-size: 110px;
+  }}
   .slide-sorter-grid {{
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 16px;
-    padding: 14px; background: #080c14; border-radius: 14px; border: 1px solid #1a2338;
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(var(--slide-size, 110px), 1fr)); gap: 8px;
+    padding: 10px; background: #080c14; border-radius: 10px; border: 1px solid #1a2338;
   }}
   .slide-tile {{
-    background: #0f1623; border: 2px solid #202c42; border-radius: 10px; padding: 10px;
-    display: flex; flex-direction: column; gap: 8px; cursor: grab; user-select: none;
+    background: #0f1623; border: 1.5px solid #202c42; border-radius: 6px; padding: 5px;
+    display: flex; flex-direction: column; gap: 4px; cursor: grab; user-select: none;
     transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s; position: relative;
   }}
   .slide-tile:hover {{
@@ -817,17 +832,27 @@ html_template = f"""<!DOCTYPE html>
   .slide-tile.drag-over-before {{ border-left: 4px solid var(--accent-cyan); }}
   .slide-tile.drag-over-after {{ border-right: 4px solid var(--accent-cyan); }}
   .slide-thumb {{
-    width: 100%; aspect-ratio: 1 / 1; background: #000; border-radius: 6px; overflow: hidden;
-    border: 1px solid #25334c; position: relative;
+    width: 100%; aspect-ratio: 1 / 1; background: #000; border-radius: 4px; overflow: hidden;
+    border: 1px solid #25334c; position: relative; cursor: pointer;
   }}
   .slide-thumb img {{ width: 100%; height: 100%; object-fit: contain; pointer-events: none; }}
   .slide-badge-seq {{
-    position: absolute; top: 6px; left: 6px; background: rgba(0,0,0,0.85); color: #00e5ff;
-    padding: 2px 6px; border-radius: 4px; font-size: 11px; font-weight: 900; border: 1px solid #00e5ff;
+    position: absolute; top: 2px; left: 2px; background: rgba(0,0,0,0.85); color: #00e5ff;
+    padding: 1px 3px; border-radius: 3px; font-size: 9px; font-weight: 900; border: 1px solid #00e5ff;
+  }}
+  .slide-badge-orig {{
+    position: absolute; top: 2px; right: 2px; background: rgba(0,0,0,0.85); color: #ffb300;
+    padding: 1px 3px; border-radius: 3px; font-size: 8px; font-weight: 800; border: 1px solid #ffb300;
   }}
   .slide-title {{
-    font-size: 12px; font-weight: 800; color: #fff; line-height: 1.3;
+    font-size: 10px; font-weight: 800; color: #fff; line-height: 1.25;
     overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+    min-height: 25px;
+  }}
+  .slide-section-divider {{
+    grid-column: 1 / -1; margin-top: 14px; margin-bottom: 2px; padding: 6px 12px;
+    background: linear-gradient(90deg, #101b2b, #090e18); border-radius: 6px;
+    display: flex; align-items: center; justify-content: space-between; font-size: 11px; font-weight: 900;
   }}
 
   /* Interactive Brainstem Elevator */
@@ -912,15 +937,27 @@ html_template = f"""<!DOCTYPE html>
 
   <!-- 1A. PowerPoint Slide Sorter View -->
   <div id="atlas-panel-sorter" class="sub-content-panel active">
-    <div class="filter-bar">
-      <input type="text" id="sorterSearch" class="edit-input" style="max-width: 280px;" placeholder="Filter slides by title or #..." oninput="renderSlideSorter()">
+    <div class="filter-bar" style="flex-wrap: wrap; gap: 8px;">
+      <input type="text" id="sorterSearch" class="edit-input" style="max-width: 200px;" placeholder="Filter slides..." oninput="renderSlideSorter()">
       <button class="pill-filter active" id="filter-sorter-all" onclick="filterSorter('all')">All (106)</button>
-      <button class="pill-filter" id="filter-sorter-cranial" onclick="filterSorter('Cranial')">Cranial</button>
-      <button class="pill-filter" id="filter-sorter-spine" onclick="filterSorter('Spine')">Spine</button>
+      <button class="pill-filter" id="filter-sorter-cranial" onclick="filterSorter('Cranial')">🧠 Cranial (45)</button>
+      <button class="pill-filter" id="filter-sorter-spine" onclick="filterSorter('Spine')">🦴 Spine (56)</button>
+      <button class="pill-filter" id="filter-sorter-pediatric" onclick="filterSorter('Pediatric')">👶 Pediatric (5)</button>
       
-      <span id="sorterMoveCountBadge" class="badge badge-cyan" style="margin-left:auto;">106 Slides in Presentation Flow</span>
+      <!-- Slide Zoom Controls -->
+      <div style="display:flex; align-items:center; gap:6px; background:#0b1320; padding:3px 8px; border-radius:6px; border:1px solid #1a2338;">
+        <span style="font-size:10px; color:#94a3b8; font-weight:700;">🔍 Zoom:</span>
+        <input type="range" id="slideSizeSlider" min="70" max="220" value="110" step="5" style="width:75px; accent-color:#00e5ff; cursor:pointer;" oninput="setSlideSize(this.value)">
+        <span id="slideSizeLabel" style="font-size:10px; color:#00e5ff; font-weight:800; min-width:32px;">110px</span>
+        <button class="pill-filter" id="preset-tiny" style="padding:1px 5px; font-size:9px;" onclick="setSlideSize(80)">Tiny</button>
+        <button class="pill-filter active" id="preset-compact" style="padding:1px 5px; font-size:9px;" onclick="setSlideSize(110)">Compact</button>
+        <button class="pill-filter" id="preset-medium" style="padding:1px 5px; font-size:9px;" onclick="setSlideSize(150)">Medium</button>
+        <button class="pill-filter" id="preset-large" style="padding:1px 5px; font-size:9px;" onclick="setSlideSize(200)">Large</button>
+      </div>
+
+      <span id="sorterMoveCountBadge" class="badge badge-cyan" style="margin-left:auto;">106 Slides Ready</span>
       <button class="pill-filter" style="border-color:#f43f5e; color:#f43f5e;" onclick="resetSlideOrder()">🔄 Reset Order</button>
-      <button class="save-btn" id="save-order-btn" onclick="saveSlideOrderToSwift()">💾 Save Plate Reorder to Swift</button>
+      <button class="save-btn" id="save-order-btn" onclick="saveSlideOrderToSwift()">💾 Save Plate Order to Swift</button>
     </div>
     <div style="font-size:12px; color:#94a3b8; background:#0c111c; padding:8px 14px; border-radius:8px; border:1px solid #1f283d;">
       💡 <strong>Drag-and-Drop Reordering:</strong> Click and drag any slide thumbnail with the mouse to move it anywhere in the sequence. Visual insertion markers show exact landing spot.
@@ -1131,7 +1168,12 @@ function switchAtlasMode(mode) {{
   document.getElementById(`subtab-atlas-${{mode}}`).classList.add('active');
   document.getElementById(`atlas-panel-${{mode}}`).classList.add('active');
 
-  if (mode === 'sorter') renderSlideSorter();
+  if (mode === 'sorter') // Restore saved slide size if present
+try {{
+  const savedSize = localStorage.getItem('neurocall_slide_size');
+  if (savedSize) setSlideSize(savedSize);
+}} catch(e) {{}}
+renderSlideSorter();
   else renderAtlas();
 }}
 
@@ -1169,11 +1211,30 @@ let currentSorterFilter = 'all';
 let draggedPlateNum = null;
 let reorderCount = 0;
 
+function setSlideSize(size) {{
+  document.documentElement.style.setProperty('--slide-size', size + 'px');
+  const lbl = document.getElementById('slideSizeLabel');
+  if (lbl) lbl.textContent = size + 'px';
+  const slider = document.getElementById('slideSizeSlider');
+  if (slider) slider.value = size;
+  ['preset-compact', 'preset-tiny', 'preset-medium', 'preset-large'].forEach(id => {{
+    const el = document.getElementById(id);
+    if (el) {{
+      if (id === 'preset-tiny') el.classList.toggle('active', parseInt(size) === 80);
+      if (id === 'preset-compact') el.classList.toggle('active', parseInt(size) === 110);
+      if (id === 'preset-medium') el.classList.toggle('active', parseInt(size) === 150);
+      if (id === 'preset-large') el.classList.toggle('active', parseInt(size) === 200);
+    }}
+  }});
+  try {{ localStorage.setItem('neurocall_slide_size', size); }} catch(e){{}}
+}}
+
 function filterSorter(cat) {{
   currentSorterFilter = cat;
   document.getElementById('filter-sorter-all').classList.toggle('active', cat === 'all');
   document.getElementById('filter-sorter-cranial').classList.toggle('active', cat === 'Cranial');
   document.getElementById('filter-sorter-spine').classList.toggle('active', cat === 'Spine');
+  document.getElementById('filter-sorter-pediatric').classList.toggle('active', cat === 'Pediatric');
   renderSlideSorter();
 }}
 
@@ -1182,35 +1243,62 @@ function renderSlideSorter() {{
   const search = document.getElementById('sorterSearch').value.toLowerCase();
   grid.innerHTML = '';
 
-  const filtered = appData.atlas.filter((p, idx) => {{
+  const filtered = appData.atlas.filter((p) => {{
     const matchCat = (currentSorterFilter === 'all') || (p.domain === currentSorterFilter);
     const matchSearch = p.plate_num.includes(search) || p.title.toLowerCase().includes(search);
     return matchCat && matchSearch;
   }});
 
+  let lastDomain = null;
+
   filtered.forEach((p, displayIndex) => {{
     const actualIndex = appData.atlas.findIndex(x => x.plate_num === p.plate_num);
+
+    // Section Dividers when viewing presentation flow without search filter
+    if (currentSorterFilter === 'all' && !search && p.domain !== lastDomain) {{
+      lastDomain = p.domain;
+      const div = document.createElement('div');
+      div.className = 'slide-section-divider';
+      if (p.domain === 'Cranial') {{
+        div.style.borderLeft = '4px solid #00e5ff';
+        div.innerHTML = `<span style="color:#00e5ff;">🧠 SECTION 1: CRANIAL & SKULL BASE PLATES (1 – 45)</span><span class="badge badge-cyan">45 Plates</span>`;
+      }} else if (p.domain === 'Spine') {{
+        div.style.borderLeft = '4px solid #ffb300';
+        div.innerHTML = `<span style="color:#ffb300;">🦴 SECTION 2: SPINE & CVJ PLATES (46 – 101)</span><span class="badge badge-amber">56 Plates</span>`;
+      }} else if (p.domain === 'Pediatric') {{
+        div.style.borderLeft = '4px solid #f43f5e';
+        div.innerHTML = `<span style="color:#f43f5e;">👶 SECTION 3: PEDIATRIC NEUROSURGERY PLATES (102 – 106)</span><span class="badge" style="background:rgba(244,63,94,0.25); color:#f43f5e; border:1px solid #f43f5e;">5 Plates</span>`;
+      }}
+      grid.appendChild(div);
+    }}
+
     const tile = document.createElement('div');
     tile.className = 'slide-tile';
     tile.draggable = true;
     tile.dataset.plateNum = p.plate_num;
     tile.id = `slide-tile-${{p.plate_num}}`;
 
+    const domainBadge = p.domain === 'Cranial'
+      ? '<span class="badge badge-cyan" style="font-size:9px; padding:1px 4px;">Cranial</span>'
+      : (p.domain === 'Spine'
+          ? '<span class="badge badge-amber" style="font-size:9px; padding:1px 4px;">Spine</span>'
+          : '<span class="badge" style="background:rgba(244,63,94,0.25); color:#f43f5e; border:1px solid #f43f5e; font-size:9px; padding:1px 4px;">Pediatric</span>');
+
     tile.innerHTML = `
       <div style="display:flex; justify-content:space-between; align-items:center;">
-        <span style="font-size:11px; font-weight:900; color:#00e5ff;">#${{actualIndex + 1}}</span>
-        <span style="font-size:10px; color:#64748b; font-weight:700;">Plate ${{p.plate_num}}</span>
-        <span class="badge badge-${{p.domain === 'Cranial' ? 'cyan' : 'amber'}}">${{p.domain}}</span>
+        <span style="font-size:10px; font-weight:900; color:#00e5ff;">#${{actualIndex + 1}}</span>
+        ${{domainBadge}}
       </div>
-      <div class="slide-thumb" onclick="openLightbox('${{p.image_file}}', 'Plate ${{p.plate_num}}: ${{p.title.replace(/'/g, "\\\\'") }}')">
+      <div class="slide-thumb" onclick="openLightbox('${{p.image_file}}', 'Plate ${{p.plate_num}}: ${{p.title.replace(/'/g, "\\'") }}')">
         <img src="${{p.image_file}}" alt="Plate ${{p.plate_num}}" loading="lazy">
         <span class="slide-badge-seq">#${{actualIndex + 1}}</span>
+        <span class="slide-badge-orig">P-${{p.plate_num}}</span>
       </div>
       <div class="slide-title" title="${{p.title}}">${{p.title}}</div>
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-top:auto; font-size:10px; color:#64748b; border-top:1px solid #1a2436; padding-top:6px;">
-        <span>📍 ${{p.pins.length}} pins</span>
-        <span>📋 ${{p.steps.length}} steps</span>
-        <button style="background:none; border:none; color:#00e5ff; font-weight:800; cursor:pointer;" onclick="jumpToInspector('${{p.plate_num}}')">Edit ➔</button>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-top:auto; font-size:9px; color:#64748b; border-top:1px solid #1a2436; padding-top:4px;">
+        <span>📍${{p.pins.length}}</span>
+        <span>📋${{p.steps.length}}</span>
+        <button style="background:none; border:none; color:#00e5ff; font-weight:800; cursor:pointer; font-size:9px;" onclick="jumpToInspector('${{p.plate_num}}')">Edit ➔</button>
       </div>
     `;
 

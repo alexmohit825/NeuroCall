@@ -650,7 +650,8 @@ public struct PhotorealisticSurgicalAtlasView: View {
 // MARK: - Data Models
 public enum AtlasDomain: String, CaseIterable, Identifiable {
     case cranial = "🧠 CRANIAL & SKULL BASE (45)"
-    case spine = "🦴 SPINE & CVJ (60)"
+    case spine = "🦴 SPINE & CVJ (56)"
+    case pediatric = "👶 PEDIATRIC NEUROSURGERY (5)"
     
     public var id: String { rawValue }
     
@@ -658,6 +659,7 @@ public enum AtlasDomain: String, CaseIterable, Identifiable {
         switch self {
         case .cranial: return "🧠 CRANIAL"
         case .spine: return "🦴 SPINE"
+        case .pediatric: return "👶 PEDIATRIC"
         }
     }
     
@@ -671,6 +673,8 @@ public enum AtlasDomain: String, CaseIterable, Identifiable {
             return [.anteriorSkullBase, .convexityTrauma, .posteriorFossa, .vascularVentricular]
         case .spine:
             return [.craniovertebral, .cervical, .thoracicOncology, .lumbarMIS, .deformitySalvage, .peripheralNerve]
+        case .pediatric:
+            return [.pediatricNeurosurgery]
         }
     }
     
@@ -686,13 +690,16 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
     case posteriorFossa = "Posterior Fossa"
     case vascularVentricular = "Vascular & Ventricular"
     
-    // Spine (5 sub-sections)
+    // Spine (6 sub-sections)
     case craniovertebral = "Craniovertebral Junction"
     case cervical = "Cervical Spine"
     case thoracicOncology = "Thoracic & Oncology"
     case lumbarMIS = "Lumbar & MIS Corridors"
     case deformitySalvage = "Deformity & Salvage"
     case peripheralNerve = "Peripheral Nerve"
+    
+    // Pediatric (1 sub-section)
+    case pediatricNeurosurgery = "Pediatric Corridors & Dysraphism"
     
     public var id: String { rawValue }
     
@@ -702,6 +709,8 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
             return .cranial
         case .craniovertebral, .cervical, .thoracicOncology, .lumbarMIS, .deformitySalvage, .peripheralNerve:
             return .spine
+        case .pediatricNeurosurgery:
+            return .pediatric
         }
     }
     
@@ -717,6 +726,7 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
         case .lumbarMIS: return "square.stack.3d.down.right.fill"
         case .deformitySalvage: return "arrow.triangle.merge"
         case .peripheralNerve: return "hand.raised.fill"
+        case .pediatricNeurosurgery: return "figure.and.child.holdinghands"
         }
     }
     
@@ -727,11 +737,11 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
         case .convexityTrauma:
             return [.plate018, .plate016, .plate019, .plate021, .plate025, .plate045, .plate069, .plate070]
         case .posteriorFossa:
-            return [.plate010, .plate004, .plate003, .plate006, .plate022, .plate052, .plate057, .plate077, .plate082]
+            return [.plate010, .plate004, .plate003, .plate006, .plate020, .plate022, .plate052, .plate057, .plate077, .plate082]
         case .vascularVentricular:
-            return [.plate002, .plate027, .plate040, .plate041, .plate051, .plate053, .plate056, .plate060, .plate061, .plate062, .plate063, .plate065, .plate067, .plate079, .plate086, .plate093]
+            return [.plate027, .plate040, .plate041, .plate051, .plate053, .plate056, .plate060, .plate061, .plate062, .plate063, .plate065, .plate067, .plate079, .plate086, .plate093]
         case .craniovertebral:
-            return [.plate001, .plate013, .plate014, .plate035, .plate043, .plate047, .plate049, .plate088, .plate097]
+            return [.plate001, .plate013, .plate014, .plate035, .plate047, .plate049, .plate088, .plate097]
         case .cervical:
             return [.plate015, .plate031, .plate034, .plate042, .plate044, .plate050, .plate064, .plate076, .plate080, .plate091, .plate098]
         case .thoracicOncology:
@@ -739,26 +749,31 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
         case .lumbarMIS:
             return [.plate011, .plate007, .plate037, .plate029, .plate028, .plate032, .plate083, .plate087, .plate100, .plate101, .plate106]
         case .deformitySalvage:
-            return [.plate023, .plate024, .plate039, .plate046, .plate071, .plate075, .plate081, .plate095, .plate099, .plate102, .plate104, .plate105]
+            return [.plate023, .plate024, .plate039, .plate071, .plate075, .plate081, .plate099, .plate102, .plate104]
         case .peripheralNerve:
             return [.plate089, .plate090, .plate092, .plate096]
+        case .pediatricNeurosurgery:
+            return [.plate002, .plate043, .plate046, .plate095, .plate105]
         }
     }
 }
 
 public enum AtlasCategory: String, CaseIterable {
-    case all = "All Plates (105)"
+    case all = "All Plates (106)"
     case cranial = "Cranial & Skull Base (45)"
-    case spine = "Spine & Peripheral Nerve (60)"
+    case spine = "Spine & CVJ (56)"
+    case pediatric = "Pediatric Neurosurgery (5)"
 
     public var filteredPlates: [SurgicalPlateType] {
         switch self {
         case .all:
-            return AtlasDomain.cranial.plates + AtlasDomain.spine.plates
+            return AtlasDomain.cranial.plates + AtlasDomain.spine.plates + AtlasDomain.pediatric.plates
         case .cranial:
             return AtlasDomain.cranial.plates
         case .spine:
             return AtlasDomain.spine.plates
+        case .pediatric:
+            return AtlasDomain.pediatric.plates
         }
     }
 }
