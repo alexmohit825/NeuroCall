@@ -643,8 +643,8 @@ public struct PhotorealisticSurgicalAtlasView: View {
 
 // MARK: - Data Models
 public enum AtlasDomain: String, CaseIterable, Identifiable {
-    case cranial = "🧠 CRANIAL & SKULL BASE (23)"
-    case spine = "🦴 SPINE & CVJ (22)"
+    case cranial = "🧠 CRANIAL & SKULL BASE (45)"
+    case spine = "🦴 SPINE & CVJ (60)"
     
     public var id: String { rawValue }
     
@@ -656,10 +656,7 @@ public enum AtlasDomain: String, CaseIterable, Identifiable {
     }
     
     public var plateCount: Int {
-        switch self {
-        case .cranial: return 23
-        case .spine: return 22
-        }
+        plates.count
     }
     
     public var subSections: [AtlasSubSection] {
@@ -743,8 +740,8 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
 }
 
 public enum AtlasCategory: String, CaseIterable {
-    case all = "All Plates (106)"
-    case cranial = "Cranial & Skull Base (46)"
+    case all = "All Plates (105)"
+    case cranial = "Cranial & Skull Base (45)"
     case spine = "Spine & Peripheral Nerve (60)"
 
     public var filteredPlates: [SurgicalPlateType] {
