@@ -31,153 +31,53 @@ extension SurgicalPlateType {
         switch self {
         case .plate001:
             return [
-                SurgicalCallout(
-                    id: "plate_001_1",
-                    title: "Posterior Craniocervical Junction (",
-                    structureType: "OPERATIVE TARGET",
-                    color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.50,
-                    normalizedY: 0.50,
-                    description: "Deep stabilizing ligaments of the spinal canal with vertebral arches resected.",
-                    surgicalPearl: "Verified Frank Netter publication-grade neurosurgical anatomy."
-                )
+                "Vertebral Artery Laceration: Lateral dissection > 12 mm from midline on the posterior C1 arch risks catastrophic V3 artery laceration.",
+                "Craniocervical Instability: Excessive resection of alar ligaments or transverse band creates fatal atlanto-axial dislocation."
             ]
         case .plate002:
             return [
-                SurgicalCallout(
-                    id: "plate_002_1",
-                    title: "Neonatal Ventricular Access Device ",
-                    structureType: "OPERATIVE TARGET",
-                    color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.50,
-                    normalizedY: 0.50,
-                    description: "External ventricular drain and subcutaneous reservoir placement in a neonate with open cranial sutures.",
-                    surgicalPearl: "Verified Frank Netter publication-grade neurosurgical anatomy."
-                )
+                "Superior Sagittal Sinus Puncture: Puncturing fontanelle at the midline lacerates the sagittal sinus, causing fatal neonatal hemorrhage.",
+                "Ventricular Traversal Beyond 4 cm: Excessive catheter insertion depth penetrates basal ganglia, thalamus, or contralateral ependyma."
             ]
         case .plate003:
             return [
-                SurgicalCallout(
-                    id: "plate_003_1",
-                    title: "Midline Suboccipital Craniectomy & ",
-                    structureType: "OPERATIVE TARGET",
-                    color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.50,
-                    normalizedY: 0.50,
-                    description: "Direct operative view into the posterior fossa through a midline suboccipital craniectomy with dural opening under surgical microscope magni",
-                    surgicalPearl: "Verified Frank Netter publication-grade neurosurgical anatomy."
-                )
+                "PICA Perforator Infarction: Coagulation or avulsion of tortuous PICA tonsillomedullary loops causes fatal lateral medullary (Wallenberg) infarct.",
+                "Foramen Magnum Crowding: Inadequate caudal craniectomy leaves an osseous ring compressing edematous cerebellar tonsils into the medulla."
             ]
         case .plate004:
             return [
-                SurgicalCallout(
-                    id: "plate_004_1",
-                    title: "Right Retrosigmoid Cerebellopontine",
-                    structureType: "OPERATIVE TARGET",
-                    color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.50,
-                    normalizedY: 0.50,
-                    description: "Operative microsurgical view into the right cerebellopontine angle through a retrosigmoid / retromastoid craniectomy.",
-                    surgicalPearl: "Verified Frank Netter publication-grade neurosurgical anatomy."
-                )
+                "Petrosal Vein (Dandy) Avulsion: Abrupt cerebellar retraction tears bridging petrosal vein at superior petrosal sinus, causing massive bleeding.",
+                "Facial Nerve Traction Neuropraxia: Excessive medial retraction against acoustic complex causes permanent postoperative Bell's facial palsy."
             ]
         case .plate005:
             return [
-                SurgicalCallout(
-                    id: "plate_005_1",
-                    title: "Two-Piece Fronto-Temporal Orbitozyg",
-                    structureType: "OPERATIVE TARGET",
-                    color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.50,
-                    normalizedY: 0.50,
-                    description: "3-part exploded osteological plate showing the cranium and its two detached bone pieces (pterional flap and one-piece orbitozygomatic bar).",
-                    surgicalPearl: "Verified Frank Netter publication-grade neurosurgical anatomy."
-                )
+                "Orbital Periorbita Violation: Piercing the periorbital sheath causes orbital fat herniation, obscuring the field and causing globe injury.",
+                "TMJ Disruption & Malocclusion: Osteotomies placed too posteriorly violate articular eminence and temporomandibular joint, causing chronic trismus."
             ]
         case .plate006:
             return [
-                SurgicalCallout(
-                    id: "plate_006_1",
-                    title: "Right Far-Lateral Transcondylar App",
-                    structureType: "OPERATIVE TARGET",
-                    color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.50,
-                    normalizedY: 0.50,
-                    description: "Microsurgical operative view of the right craniocervical junction during a far-lateral transcondylar approach with mobilization of the V3 ve",
-                    surgicalPearl: "Verified Frank Netter publication-grade neurosurgical anatomy."
-                )
+                "V3 Vertebral Artery Thrombosis: Aggressive manipulation of mobilized V3 segment causes intimal dissection, occlusion, or cerebellar stroke.",
+                "Excessive Occipital Condylectomy: Resecting > 50% of the occipital condyle destabilizes the craniocervical junction, necessitating occipitocervical fusion."
             ]
         case .plate007:
             return [
-                SurgicalCallout(
-                    id: "plate_007_1",
-                    title: "Lumbar Lateral Recess Stenosis vs. ",
-                    structureType: "OPERATIVE TARGET",
-                    color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.50,
-                    normalizedY: 0.50,
-                    description: "Side-by-side comparative axial cross-sections at L4–L5 contrasting a normal, patent lumbar canal with severe lateral recess (subarticular) s",
-                    surgicalPearl: "Verified Frank Netter publication-grade neurosurgical anatomy."
-                )
+                "Complete Facetectomy Instability: Resecting > 50% of the pars and superior articular process creates iatrogenic spondylolisthesis.",
+                "Dural Laceration in Stenotic Gutter: Blindly biting under hypertrophic ligamentum flavum without plane separation causes large CSF durotomy."
             ]
         case .plate008:
             return [
-                SurgicalCallout(
-                    id: "plate_008_1",
-                    title: "Left Pterional Transsylvian Approac",
-                    structureType: "OPERATIVE TARGET",
-                    color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.50,
-                    normalizedY: 0.50,
-                    description: "Direct 1:1 surface-texture modernization of NeuroCall Plate 1 (`plate_aneurysm`), preserving 100% of the exact perspective, vascular geometr",
-                    surgicalPearl: "Verified Frank Netter publication-grade neurosurgical anatomy."
-                )
+                "Anterior Choroidal Artery Occlusion: Inadvertently incorporating the AChA into the aneurysm clip causes posterior limb internal capsule infarction and hemiplegia.",
+                "Premature Aneurysm Rupture: Dissecting aneurysm sac prior to securing proximal ICA control causes catastrophic intraoperative hemorrhage."
             ]
         case .plate009:
             return [
-                SurgicalCallout(
-                    id: "plate_009_1",
-                    title: "Splitting of Distal Anterior Sylvia",
-                    structureType: "OPERATIVE TARGET",
-                    color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.50,
-                    normalizedY: 0.50,
-                    description: "Microsurgical opening of the superficial and deep Sylvian cisterns between the frontal and temporal opercula.",
-                    surgicalPearl: "Verified Frank Netter publication-grade neurosurgical anatomy."
-                )
+                "Superficial Sylvian Vein Thrombosis: Coagulating or stretching superficial Sylvian veins leads to severe frontal/temporal venous infarction and aphasia.",
+                "Middle Cerebral Artery Perforator Injury: Stray micro-knife cuts in the distal fissure sever M2 lenticulostriate or insular perforating branches."
             ]
         case .plate010:
             return [
-                SurgicalCallout(
-                    id: "plate_010_1",
-                    title: "Positioning & 3-Pin Mayfield Fixation",
-                    structureType: "OPERATIVE POSITIONING & CLAMP VECTORS",
-                    color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.17,
-                    normalizedY: 0.45,
-                    description: "Panel 1 demonstrates park-bench / modified lateral positioning with military chin-tuck (>= 2 fingerbreadths from sternum preserving jugular venous return), 10°–15° contralateral head rotation, and vertex tilted downward. Three-pin Mayfield clamp applied with single contralateral frontal pin and dual rocker-arm pins placed high on the parietal bone, leaving the retroauricular incision and suboccipital quadrant 100% pin-free.",
-                    surgicalPearl: "Avoid jugular compression: strict preservation of internal jugular outflow prevents posterior fossa venous engorgement and acute intraoperative cerebellar swelling."
-                ),
-                SurgicalCallout(
-                    id: "plate_010_2",
-                    title: "Asterion & Keyhole Craniectomy Window",
-                    structureType: "OSTEOLOGICAL LANDMARKS & CRANIECTOMY",
-                    color: ObsidianTheme.neonCyan,
-                    normalizedX: 0.50,
-                    normalizedY: 0.55,
-                    description: "Panel 2 demonstrates 3D osteological skull anatomy and the circular 2.5–3.0 cm keyhole suboccipital craniectomy window. The initial burr hole is placed 5 mm inferior-medial to the asterion (confluence of lambdoid, parietomastoid, and occipitomastoid sutures), unroofing the inferior margin of the transverse sinus and posterior margin of the sigmoid sinus.",
-                    surgicalPearl: "The asterion directly overlies the transverse-sigmoid junction in only ~60% of cases. Placing the burr hole inferior-medial to asterion ensures safe entry into posterior fossa without lacerating venous sinuses."
-                ),
-                SurgicalCallout(
-                    id: "plate_010_3",
-                    title: "Dural Opening & CPA Microsurgical Anatomy",
-                    structureType: "MICROSURGICAL OPERATIVE CORRIDOR",
-                    color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.83,
-                    normalizedY: 0.45,
-                    description: "Panel 3 illustrates the operative microsurgical view into the right cerebellopontine angle through a C-shaped dural flap reflected anteriorly over the sigmoid sinus. Arachnoid opening of the lateral cerebellomedullary cistern / cisterna magna releases CSF, facilitating spontaneous gravity cerebellar relaxation without rigid mechanical retractor blades.",
-                    surgicalPearl: "Never retract against an unrelaxed cerebellum: immediate CSF aspiration from cisterna magna opens an expansive, bloodless corridor to CN V, VII/VIII into porus acusticus, AICA meatal loop, and lower cranial nerves (IX–XI)."
-                )
+                "Jugular Venous Kinking: Excessive chin-tuck (< 2 fingerbreadths) kinks internal jugular vein, causing sudden cerebellar venous engorgement.",
+                "Transverse-Sigmoid Sinus Tear: Placing initial burr hole directly over the asterion punctures the transverse-sigmoid angle in 40% of cases."
             ]
         case .plate011:
             return [
