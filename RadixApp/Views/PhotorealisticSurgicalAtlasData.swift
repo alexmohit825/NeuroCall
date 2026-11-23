@@ -1025,76 +1025,8 @@ extension SurgicalPlateType {
 
         case .plate091:
             return [
-                SurgicalCallout(
-                    id: "plate_091_1",
-                    title: "Safe Corpectomy Trough (14 - 16 mm)",
-                    structureType: "BONE DECOMPRESSION CORRIDOR",
-                    color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.18,
-                    normalizedY: 0.55,
-                    description: "Strict 14 - 16 mm wide transverse corpectomy trough cored out through the C6 vertebral body between the bilateral medial uncinate crests.",
-                    surgicalPearl: "The medial uncinate crests define the absolute lateral safety boundary; staying strictly medial guarantees protection of the vertebral artery in the foramen transversarium."
-                ),
-                SurgicalCallout(
-                    id: "plate_091_2",
-                    title: "C6 Retrovertebral Myelomalacia",
-                    structureType: "DIAGNOSTIC PATHOLOGY",
-                    color: ObsidianTheme.neonRose,
-                    normalizedX: 0.18,
-                    normalizedY: 0.22,
-                    description: "Sagittal and axial T2 MRI demonstrating marked retrovertebral thecal sac narrowing behind C6 with hyperintense intrinsic cord signal change (myelomalacia).",
-                    surgicalPearl: "Multilevel or retrovertebral disease spanning two disc spaces behind a single vertebral body is the canonical indication for corpectomy rather than multi-level ACDF."
-                ),
-                SurgicalCallout(
-                    id: "plate_091_3",
-                    title: "Caspar Distraction Mechanics (C5 to C7)",
-                    structureType: "CORRIDOR STABILIZATION",
-                    color: ObsidianTheme.neonCyan,
-                    normalizedX: 0.50,
-                    normalizedY: 0.22,
-                    description: "Slender 2.5 mm vertical threaded Caspar distraction pins anchored in the midline anterior vertebral bodies of C5 and C7 across the corpectomy defect.",
-                    surgicalPearl: "Parallel Caspar distraction restores native cervical lordosis and opens the corpectomy window for safe instrumentation and cage insertion."
-                ),
-                SurgicalCallout(
-                    id: "plate_091_4",
-                    title: "Unroofed Thecal Sac Dura (C5 to C7)",
-                    structureType: "EXPANSIVE SPINAL DECOMPRESSION",
-                    color: ObsidianTheme.neonCyan,
-                    normalizedX: 0.50,
-                    normalizedY: 0.50,
-                    description: "Continuous exposure of pristine, glistening blue-white thecal sac dura extending from the inferior endplate of C5 to the superior endplate of C7 following posterior cortical shell and PLL removal.",
-                    surgicalPearl: "Thin the posterior cortical shell of C6 to an eggshell with a diamond burr before elevating with micro-curettes; never exert downward force onto the myelopathic cord."
-                ),
-                SurgicalCallout(
-                    id: "plate_091_5",
-                    title: "Preserved Apophyseal Endplates",
-                    structureType: "STRUCTURAL FUSION SEAT",
-                    color: ObsidianTheme.neonEmerald,
-                    normalizedX: 0.50,
-                    normalizedY: 0.62,
-                    description: "Carefully prepared cartilaginous endplates at C5 inferiorly and C7 superiorly, decorticated to vascular bone while strictly preserving the dense cortical apophyseal rings.",
-                    surgicalPearl: "Preserving the peripheral cortical apophyseal rings resists cage subsidence into cancellous bone under physiologic axial loading."
-                ),
-                SurgicalCallout(
-                    id: "plate_091_6",
-                    title: "Expandable Porous Titanium Strut",
-                    structureType: "ANTERIOR COLUMN RECONSTRUCTION",
-                    color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.82,
-                    normalizedY: 0.45,
-                    description: "Telescoping 3D-printed porous titanium corpectomy cage expanded in-situ against C5 and C7 endplates, densely packed with autologous cancellous bone matrix.",
-                    surgicalPearl: "Expand the cage under direct visualization and lateral fluoroscopy until firm endplate contact is achieved, restoring anatomical lordosis without over-distraction."
-                ),
-                SurgicalCallout(
-                    id: "plate_091_7",
-                    title: "Bridging Locking Plate & 5 mm Rule",
-                    structureType: "RIGID ANTERIOR NEUTRALIZATION",
-                    color: ObsidianTheme.neonEmerald,
-                    normalizedX: 0.82,
-                    normalizedY: 0.32,
-                    description: "Low-profile titanium cervical plate bridging C5 to C7 with 4 flush locking screws, maintaining strict >= 5 mm clearance from intact adjacent discs (C4-C5 and C7-T1).",
-                    surgicalPearl: "Always neutralize a corpectomy strut with a rigid anterior plate; unplated corpectomy struts suffer high rates of kickout, construct displacement, and airway compromise."
-                )
+                "Vertebral Artery Laceration: Lateral corpectomy drilling beyond the uncinate processes tears the V2 vertebral artery; preserve uncinate lateral walls as shields.",
+                "Endplate Subsidence: Over-aggressive endplate decortication into cancellous bone causes cage subsidence and progressive cervical kyphosis."
             ]
         case .plate092:
             return [
@@ -1171,76 +1103,8 @@ extension SurgicalPlateType {
             ]
         case .plate093:
             return [
-                SurgicalCallout(
-                    id: "plate_093_1",
-                    title: "Right MCA (M1) Occlusion",
-                    structureType: "DIAGNOSTIC CTA VASCULAR CUTOFF",
-                    color: ObsidianTheme.neonRose,
-                    normalizedX: 0.09,
-                    normalizedY: 0.30,
-                    description: "Maximum intensity projection (MIP) CTA demonstrating an abrupt cutoff of the right middle cerebral artery at the M1 origin with absence of distal Sylvian branch opacification.",
-                    surgicalPearl: "Contrast cutoff at the M1 segment indicates large vessel occlusion (LVO) carrying severe morbidity without urgent endovascular recanalization."
-                ),
-                SurgicalCallout(
-                    id: "plate_093_2",
-                    title: "Ischemic Penumbra Mismatch Profile",
-                    structureType: "CT PERFUSION TARGET",
-                    color: ObsidianTheme.neonEmerald,
-                    normalizedX: 0.23,
-                    normalizedY: 0.30,
-                    description: "Automated CT perfusion map showing a small core of irreversible infarct (red, CBF < 30%) surrounded by a massive salvageable ischemic penumbra (green, Tmax > 6.0 s).",
-                    surgicalPearl: "Significant core-to-penumbra mismatch confirms salvageable brain tissue, extending the mechanical thrombectomy therapeutic window up to 24 hours."
-                ),
-                SurgicalCallout(
-                    id: "plate_093_3",
-                    title: "8F Balloon Guide Catheter (Cervical ICA)",
-                    structureType: "ENDOVASCULAR ACCESS ROADMAP",
-                    color: ObsidianTheme.neonCyan,
-                    normalizedX: 0.25,
-                    normalizedY: 0.65,
-                    description: "Right transfemoral or transradial access with an 8F balloon guide catheter tracked through the aortic arch and seated securely in the high cervical internal carotid artery.",
-                    surgicalPearl: "A high-cervical BGC position maximizes proximal support for tracking intermediate catheters and ensures reliable flow arrest during retrieval."
-                ),
-                SurgicalCallout(
-                    id: "plate_093_4",
-                    title: "Contact Aspiration Catheter (at Clot Face)",
-                    structureType: "INTERMEDIATE ASPIRATION",
-                    color: ObsidianTheme.neonCyan,
-                    normalizedX: 0.42,
-                    normalizedY: 0.45,
-                    description: "Large-bore 0.068-inch intermediate aspiration catheter tracked over a microcatheter and wedged directly against the proximal face of the M1 thromboembolus.",
-                    surgicalPearl: "Direct engagement of the catheter tip against the clot maximizes vacuum transmission and anchors the thrombus during stent-retriever withdrawal."
-                ),
-                SurgicalCallout(
-                    id: "plate_093_5",
-                    title: "Deployed Nitinol Stent-Retriever Mesh",
-                    structureType: "THROMBUS ENTRAPMENT",
-                    color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.54,
-                    normalizedY: 0.42,
-                    description: "Laser-cut self-expanding nitinol stent-retriever deployed across the M1 thrombus, with its diamond-mesh struts embedding securely into the fibrin clot matrix.",
-                    surgicalPearl: "Allowing a 3- to 5-minute integration dwell time allows stent struts to fully integrate into tough, fibrin-rich thromboemboli."
-                ),
-                SurgicalCallout(
-                    id: "plate_093_6",
-                    title: "BGC Flow Arrest & Suction Ingestion",
-                    structureType: "COMBINED CLOT INGESTION",
-                    color: ObsidianTheme.neonPurple,
-                    normalizedX: 0.72,
-                    normalizedY: 0.32,
-                    description: "Temporary balloon inflation in the cervical ICA creates flow reversal under high-vacuum syringe aspiration as the stent-retriever and captured thrombus are retracted en bloc into the aspiration catheter.",
-                    surgicalPearl: "Balloon flow reversal suppresses forward blood pressure, preventing clot fragmentation into downstream M2 branches or the anterior cerebral artery."
-                ),
-                SurgicalCallout(
-                    id: "plate_093_7",
-                    title: "Complete Recanalization (TICI 3)",
-                    structureType: "FINAL ANGIOGRAPHIC SUCCESS",
-                    color: ObsidianTheme.neonEmerald,
-                    normalizedX: 0.88,
-                    normalizedY: 0.65,
-                    description: "Post-thrombectomy cerebral DSA demonstrating complete TICI 3 reperfusion with pristine restoration of M1, superior/inferior M2 divisions, and lush peripheral cortical branch filling.",
-                    surgicalPearl: "First-pass complete TICI 3 recanalization represents the premier prognostic metric for achieving 90-day functional independence (mRS 0-2)."
-                )
+                "Distal Vessel Perforation: Advancing micro-guidewire or stent beyond occluded segment risks arterial rupture and catastrophic subarachnoid hemorrhage.",
+                "Distal Clot Fragmentation: Withdrawing stent without proximal balloon flow arrest allows clot fragments to embolize into unaffected anterior cerebral territories."
             ]
         case .plate094:
             return [
@@ -1327,66 +1191,8 @@ extension SurgicalPlateType {
             ]
         case .plate097:
             return [
-                SurgicalCallout(
-                    id: "plate_097_1",
-                    title: "Anderson & D'Alonzo Type II Fracture",
-                    structureType: "HIGH CERVICAL TRAUMA",
-                    color: ObsidianTheme.neonRose,
-                    normalizedX: 0.18,
-                    normalizedY: 0.28,
-                    description: "Acute, non-comminuted Type II fracture through the waist/base of the odontoid process on sagittal CT bone window, demonstrating an intact posterior cortical hinge.",
-                    surgicalPearl: "Intact transverse atlantal ligament (TAL) and non-comminuted waist fracture are mandatory prerequisites for direct anterior lag screw osteosynthesis."
-                ),
-                SurgicalCallout(
-                    id: "plate_097_2",
-                    title: "Transoral AP & Lateral Fluoroscopy",
-                    structureType: "SURGICAL POSITIONING",
-                    color: ObsidianTheme.neonCyan,
-                    normalizedX: 0.18,
-                    normalizedY: 0.68,
-                    description: "Supine positioning with radiolucent bite block holding mouth open, coupled with dual C-arm fluoroscopy axes monitoring real-time transoral AP and lateral trajectories.",
-                    surgicalPearl: "Simultaneous open-mouth AP and lateral fluoroscopy are non-negotiable to track guide wire depth and prevent rotational screw deviation."
-                ),
-                SurgicalCallout(
-                    id: "plate_097_3",
-                    title: "Anterior Retropharyngeal Exposure",
-                    structureType: "SMITH-ROBINSON CORRIDOR",
-                    color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.50,
-                    normalizedY: 0.35,
-                    description: "Retropharyngeal corridor created through a low C5-C6 skin crease, retracting the visceral column medially and the carotid sheath laterally to access the high cervical spine.",
-                    surgicalPearl: "A low skin incision provides the shallow, steep cranial trajectory angle needed to dock along the anterior-inferior margin of the C2 body."
-                ),
-                SurgicalCallout(
-                    id: "plate_097_4",
-                    title: "Anterior-Inferior C2 Entry Point",
-                    structureType: "LANDMARKING & ANCHOR",
-                    color: ObsidianTheme.neonPurple,
-                    normalizedX: 0.50,
-                    normalizedY: 0.55,
-                    description: "Cannulated guide sleeve docked precisely at the midline anterior-inferior lip of C2, with dashed vector aimed steeply toward the posterior-superior apical tip of the dens.",
-                    surgicalPearl: "Docking strictly at the anterior-inferior C2 edge prevents anterior cortical breakout while preserving the adjacent C2-C3 intervertebral disc."
-                ),
-                SurgicalCallout(
-                    id: "plate_097_5",
-                    title: "Partially Threaded Cannulated Lag Screw",
-                    structureType: "BIOMECHANICAL COMPRESSION",
-                    color: ObsidianTheme.neonCyan,
-                    normalizedX: 0.78,
-                    normalizedY: 0.48,
-                    description: "A 4.0 mm partially threaded cannulated titanium lag screw traversing the C2 body, with smooth shank spanning the fracture line and threads engaging exclusively in the distal dens.",
-                    surgicalPearl: "All screw threads must completely cross the fracture line into the apical fragment to exert dynamic lag compression against the unthreaded shaft."
-                ),
-                SurgicalCallout(
-                    id: "plate_097_6",
-                    title: "Apical Cortical Tip Purchase & Reduction",
-                    structureType: "RIGID OSTEOSYNTHESIS",
-                    color: ObsidianTheme.neonEmerald,
-                    normalizedX: 0.88,
-                    normalizedY: 0.28,
-                    description: "Postoperative lateral fluoroscopy and 3D bone cutaway confirming 100% anatomical fracture closure and rigid screw thread engagement in the apical cortex of the odontoid.",
-                    surgicalPearl: "Engage the dense apical cortex for maximum pullout strength without protruding into the foramen magnum or violating the tectorial membrane."
-                )
+                "Posterior Cortex Penetration: Steering guide wire or drill too far posteriorly penetrates the spinal canal, injuring the cervicomedullary junction.",
+                "Apical Over-Penetration: Driving screw beyond the apex of the dens risks piercing the alar ligament and puncturing the atlanto-occipital dura."
             ]
         case .plate098:
             return [
@@ -1395,139 +1201,13 @@ extension SurgicalPlateType {
             ]
         case .plate099:
             return [
-                SurgicalCallout(
-                    id: "plate_099_1",
-                    title: "Severe Cervicothoracic Kyphosis",
-                    structureType: "RIGID CHIN-ON-CHEST DEFORMITY",
-                    color: ObsidianTheme.neonRose,
-                    normalizedX: 0.12,
-                    normalizedY: 0.28,
-                    description: "Preoperative standing full-spine radiograph demonstrating severe fixed cervicothoracic flexion deformity with chin approaching the upper chest and marked loss of horizontal gaze.",
-                    surgicalPearl: "Marked negative Chin-Brow Vertical Angle (CBVA > 35°) causes complete loss of horizontal gaze and severe swallowing impairment."
-                ),
-                SurgicalCallout(
-                    id: "plate_099_2",
-                    title: "Restored Horizontal Gaze & Lordosis",
-                    structureType: "SAGITTAL REALIGNMENT",
-                    color: ObsidianTheme.neonCyan,
-                    normalizedX: 0.42,
-                    normalizedY: 0.22,
-                    description: "Postoperative standing radiograph showing full restoration of horizontal gaze (CBVA 0°-10°) and physiologic lordosis following C7 closed-wedge osteotomy.",
-                    surgicalPearl: "Closing-wedge osteotomy at C7 restores horizontal gaze (CBVA 0°-10°) and neutralizes cervical sagittal vertical axis (cSVA < 2 cm)."
-                ),
-                SurgicalCallout(
-                    id: "plate_099_3",
-                    title: "Cervicothoracic Screw-Rod Fixation",
-                    structureType: "MULTI-SEGMENT POSTERIOR CONSTRUCT",
-                    color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.38,
-                    normalizedY: 0.38,
-                    description: "Rigid posterior instrumentation spanning from C3-C5 lateral masses to T2-T4 thoracic pedicle screws, providing permanent structural neutralization.",
-                    surgicalPearl: "Spanning fixation from mid-cervical lateral masses (C3-C5) to upper thoracic pedicles (T2-T4) protects against junctional pullout."
-                ),
-                SurgicalCallout(
-                    id: "plate_099_4",
-                    title: "Unroofed Midline Dural Tube",
-                    structureType: "WIDE DECOMPRESSIVE LAMINECTOMY",
-                    color: ObsidianTheme.neonPurple,
-                    normalizedX: 0.72,
-                    normalizedY: 0.30,
-                    description: "Posterior operative view showing a complete C7 laminectomy with the pristine glistening slate-blue thecal sac and spinal cord continuous and completely unroofed in the midline.",
-                    surgicalPearl: "A complete C7 laminectomy with total visualization of the glistening midline thecal tube is mandatory prior to wedge approximation."
-                ),
-                SurgicalCallout(
-                    id: "plate_099_5",
-                    title: "Bilateral Decompressed C8 Nerve Roots",
-                    structureType: "NEURAL FORAMINAL PRESERVATION",
-                    color: ObsidianTheme.neonCyan,
-                    normalizedX: 0.82,
-                    normalizedY: 0.45,
-                    description: "Bilateral C8 nerve roots visualized emerging from the thecal sac and coursing through widely decompressed lateral neuroforamina with zero impingement.",
-                    surgicalPearl: "Prophylactic bilateral C8 unroofing eliminates impingement and kinking across the closing osteotomy, preserving hand intrinsic motor function."
-                ),
-                SurgicalCallout(
-                    id: "plate_099_6",
-                    title: "Closed Bone Approximation",
-                    structureType: "BIOMECHANICAL THREE-COLUMN FULCRUM",
-                    color: ObsidianTheme.neonEmerald,
-                    normalizedX: 0.72,
-                    normalizedY: 0.65,
-                    description: "Direct bone-to-bone contact of the superior and inferior C7 osteotomy cuts around the anterior cortical fulcrum, producing acute focal lordotic realignment.",
-                    surgicalPearl: "Direct bone-to-bone contact of the superior and inferior C7 osteotomy cuts produces 30°-35° of rigid lordotic correction."
-                )
+                "C8 Nerve Root Impingement: Failure to perform generous foraminotomy before closing osteotomy traps C8 root, causing permanent hand intrinsic paralysis.",
+                "Vertebral Artery Injury: Ensure preoperative CTA confirms C7 does not harbor an anomalous entering vertebral artery before pedicle resection."
             ]
         case .plate100:
             return [
-                SurgicalCallout(
-                    id: "plate_100_1",
-                    title: "Anterior-to-Psoas (ATP) Window",
-                    structureType: "RETROPERITONEAL ANATOMY",
-                    color: ObsidianTheme.neonRose,
-                    normalizedX: 0.22,
-                    normalizedY: 0.38,
-                    description: "Axial anatomical cross-section at L3-L4 demonstrating the bare, fat-filled interval between the anterior border of the psoas major and the great vessels.",
-                    surgicalPearl: "The bare triangular fat corridor between the anterior psoas margin and the left great vessels permits natural access without muscular splitting."
-                ),
-                SurgicalCallout(
-                    id: "plate_100_2",
-                    title: "Great Vessels & Mobilization",
-                    structureType: "VASCULAR BOUNDARY",
-                    color: ObsidianTheme.neonCyan,
-                    normalizedX: 0.10,
-                    normalizedY: 0.52,
-                    description: "Abdominal aorta and left common iliac vessels bordering the medial margin of the corridor, protected under direct illuminated visualization.",
-                    surgicalPearl: "Gently mobilize the left common iliac vein and sympathetic trunk medially; avoid monopolar cautery along the anterior vertebral body."
-                ),
-                SurgicalCallout(
-                    id: "plate_100_3",
-                    title: "Gentle Posterior Psoas Retraction",
-                    structureType: "PLEXUS PRESERVATION",
-                    color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.55,
-                    normalizedY: 0.25,
-                    description: "High-magnification surgical field showing the posterior retractor blade gently displacing the psoas major muscle en-bloc without muscle fiber splitting.",
-                    surgicalPearl: "The posterior blade retracts the psoas muscle en-bloc posteriorly, completely protecting the lumbosacral plexus from neuropraxia."
-                ),
-                SurgicalCallout(
-                    id: "plate_100_4",
-                    title: "Contralateral Annular Release",
-                    structureType: "LIGAMENTOUS REALIGNMENT",
-                    color: ObsidianTheme.neonPurple,
-                    normalizedX: 0.58,
-                    normalizedY: 0.60,
-                    description: "Complete division of the contralateral annulus fibrosus releasing tight lateral tethering and allowing symmetric intervertebral distraction.",
-                    surgicalPearl: "Complete release of the contralateral annulus under direct vision allows parallel endplate distraction and restores coronal and sagittal balance."
-                ),
-                SurgicalCallout(
-                    id: "plate_100_5",
-                    title: "Hyperlordotic Interbody Cage",
-                    structureType: "ANTERIOR COLUMN RECONSTRUCTION",
-                    color: ObsidianTheme.neonEmerald,
-                    normalizedX: 0.78,
-                    normalizedY: 0.32,
-                    description: "Wide-footprint 3D porous titanium hyperlordotic interbody cage (12°-15°) restoring segmental lordosis and expanding the anterior column.",
-                    surgicalPearl: "Porous titanium hyperlordotic cages (12°-15°) restore segmental lumbar lordosis while optimizing bony ingrowth across the disc space."
-                ),
-                SurgicalCallout(
-                    id: "plate_100_6",
-                    title: "Bilateral Ring Apophysis Seating",
-                    structureType: "BIOMECHANICAL SUPPORT",
-                    color: ObsidianTheme.neonCyan,
-                    normalizedX: 0.78,
-                    normalizedY: 0.55,
-                    description: "Cage footprint spanning across the entire transverse diameter of L3 and L4, resting squarely on the dense cortical bone of both ring apophyses.",
-                    surgicalPearl: "Spanning both dense cortical ring apophyses maximizes biomechanical load-bearing and prevents graft subsidence into the cancellous bone."
-                ),
-                SurgicalCallout(
-                    id: "plate_100_7",
-                    title: "Indirect Foraminal Decompression",
-                    structureType: "RADIOGRAPHIC VERIFICATION",
-                    color: ObsidianTheme.neonEmerald,
-                    normalizedX: 0.90,
-                    normalizedY: 0.38,
-                    description: "Postoperative lateral lumbar radiograph confirming marked enlargement of the L3-L4 neuroforamen and unkinking of the ligamentum flavum.",
-                    surgicalPearl: "Restoring collapsed disc height unwrinkles the ligamentum flavum, expanding neuroforaminal area by >30% without direct canal violation."
-                )
+                "Iliac Vessel Laceration: Stray traction or un-cushioned retractor blade pressure against the common iliac vein causes catastrophic retroperitoneal hemorrhage.",
+                "Sympathetic Trunk Disruption: Cautery along the anterolateral vertebral body risks damaging the sympathetic chain, causing lower extremity temperature asymmetry."
             ]
         case .plate101:
             return [
