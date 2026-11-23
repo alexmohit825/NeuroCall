@@ -398,12 +398,16 @@ class FullAppStudioHandler(http.server.SimpleHTTPRequestHandler):
         self.send_header("Access-Control-Allow-Headers", "Content-Type")
         self.end_headers()
 
+class ThreadingServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
+    daemon_threads = True
+    allow_reuse_address = True
+
 if __name__ == "__main__":
-    socketserver.TCPServer.allow_reuse_address = True
-    print(f"Starting NeuroCall Full App Studio Server on port {PORT}...")
-    with socketserver.TCPServer(("", PORT), FullAppStudioHandler) as httpd:
-        print(f"Serving at http://localhost:{PORT}/")
+    print(f"Starting Multi-Threaded NeuroCall Full App Studio Server on port {PORT}...")
+    with ThreadingServer(("", PORT), FullAppStudioHandler) as httpd:
+        print(f"Serving at http://localhost:{PORT}/ (Multi-Threaded Concurrent Engine)")
         try:
             httpd.serve_forever()
         except KeyboardInterrupt:
             print("\nShutting down server.")
+            sys.exit(0)

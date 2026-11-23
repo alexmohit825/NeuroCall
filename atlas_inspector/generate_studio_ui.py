@@ -1168,13 +1168,11 @@ function switchAtlasMode(mode) {{
   document.getElementById(`subtab-atlas-${{mode}}`).classList.add('active');
   document.getElementById(`atlas-panel-${{mode}}`).classList.add('active');
 
-  if (mode === 'sorter') // Restore saved slide size if present
-try {{
-  const savedSize = localStorage.getItem('neurocall_slide_size');
-  if (savedSize) setSlideSize(savedSize);
-}} catch(e) {{}}
-renderSlideSorter();
-  else renderAtlas();
+  if (mode === 'sorter') {{
+    renderSlideSorter();
+  }} else {{
+    renderAtlas();
+  }}
 }}
 
 // 2 AM Crisis Sub-Tabs
@@ -2197,6 +2195,10 @@ function renderCalculators() {{
 }}
 
 // Initial Render
+try {{
+  const savedSize = localStorage.getItem('neurocall_slide_size');
+  if (savedSize) setSlideSize(savedSize);
+}} catch(e) {{}}
 renderSlideSorter();
 renderAtlas();
 renderCrisis();
