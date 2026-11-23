@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NeuroCall Full App Studio — Interactive Local Visual Inspector & Code Editor</title>
+<title>NeuroCall Full App Studio — Interactive Visual Desktop Inspector</title>
 <style>
   :root {
     --bg-dark: #07090e;
@@ -41,6 +41,21 @@
   .section-container { display: none; max-width: 1540px; margin: 0 auto; }
   .section-container.active { display: flex; flex-direction: column; gap: 20px; }
 
+  /* Sub-tab Toolbar */
+  .sub-nav-bar {
+    display: flex; gap: 8px; flex-wrap: wrap; align-items: center; background: #0c111c;
+    padding: 10px 14px; border-radius: 12px; border: 1px solid #1f283d;
+  }
+  .sub-tab-btn {
+    background: #131b28; border: 1px solid #243047; border-radius: 8px;
+    padding: 7px 14px; color: #94a3b8; font-size: 12px; font-weight: 700; cursor: pointer; transition: 0.15s;
+  }
+  .sub-tab-btn:hover { background: #1b2638; color: #fff; }
+  .sub-tab-btn.active { background: #00e5ff; color: #000; border-color: #00e5ff; font-weight: 800; }
+
+  .sub-content-panel { display: none; flex-direction: column; gap: 18px; }
+  .sub-content-panel.active { display: flex; }
+
   /* Cards & Controls */
   .grid-2col { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
   @media (max-width: 1100px) { .grid-2col { grid-template-columns: 1fr; } }
@@ -58,6 +73,7 @@
   .badge-cyan { background: rgba(0,229,255,0.15); color: var(--accent-cyan); border: 1px solid rgba(0,229,255,0.3); }
   .badge-amber { background: rgba(245,158,11,0.15); color: var(--accent-amber); border: 1px solid rgba(245,158,11,0.3); }
   .badge-purple { background: rgba(168,85,247,0.15); color: var(--accent-purple); border: 1px solid rgba(168,85,247,0.3); }
+  .badge-green { background: rgba(16,185,129,0.15); color: var(--accent-green); border: 1px solid rgba(16,185,129,0.3); }
 
   /* Side-by-side Image + Form Grid */
   .media-card-grid { display: grid; grid-template-columns: 340px 1fr; gap: 18px; }
@@ -127,24 +143,35 @@
     font-size: 8px; font-weight: 900; color: #fff; text-shadow: 0 0 2px #000;
   }
   .pin-marker:active { cursor: grabbing; transform: translate(-50%, -50%) scale(1.2); }
+
+  /* Brainstem Elevator Styles */
+  .elevator-board {
+    background: #090d15; border: 1px solid #1e2638; border-radius: 14px; padding: 18px;
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .elevator-stage {
+    background: #111723; border: 1px solid #202b3f; border-radius: 10px; padding: 12px 16px;
+    display: flex; justify-content: space-between; align-items: center; gap: 12px;
+  }
+  .elevator-stage.active { border-color: var(--accent-cyan); background: #152238; }
 </style>
 </head>
 <body>
 
-<div id="toast">Changes Saved!</div>
+<div id="toast">Saved to Swift!</div>
 
 <header>
   <div class="header-top">
     <div>
       <h1>🧠 NeuroCall Full App Studio</h1>
-      <div class="header-desc">Dr. Mohit: Live visual inspection and two-way code editing across all 5 clinical pillars. All changes write directly to Swift codebase.</div>
+      <div class="header-desc">Dr. Mohit: Complete desktop interactive viewer across all clinical modules and sub-tabs matching the official app.</div>
     </div>
   </div>
 
   <div class="pillar-tabs">
     <button class="tab-btn active" onclick="switchPillar('atlas')">📖 1. Surgical Atlas (106 Plates)</button>
-    <button class="tab-btn" onclick="switchPillar('crisis')">🚨 2. 2 AM Crisis & ICP Ladders</button>
-    <button class="tab-btn" onclick="switchPillar('consults')">🩺 3. Frontline ER Consults (16 Modules)</button>
+    <button class="tab-btn" onclick="switchPillar('crisis')">🚨 2. 2 AM Crisis (5 Sub-Modules)</button>
+    <button class="tab-btn" onclick="switchPillar('consults')">🩺 3. Frontline ER Consults (Cranial, Spine, Brainstem)</button>
     <button class="tab-btn" onclick="switchPillar('procedures')">🎯 4. Bedside Hardware & Trajectories</button>
     <button class="tab-btn" onclick="switchPillar('calculators')">🔢 5. Calculators & Scoring</button>
   </div>
@@ -156,44 +183,95 @@
 <div id="pillar-atlas" class="section-container active">
   <div class="filter-bar">
     <input type="text" id="atlasSearch" class="edit-input" style="max-width: 320px;" placeholder="Search 106 plates by title or plate number..." oninput="renderAtlas()">
-    <span style="font-size:12px; color:#64748b;">💡 Drag any numbered circle on the canvas to reposition. 15px markers ensure zero anatomical obscuration.</span>
+    <span style="font-size:12px; color:#64748b;">💡 100% of your calibrated pin placements and title changes are preserved. Drag any numbered pin to inspect or adjust.</span>
   </div>
   <div id="atlasList" style="display:flex; flex-direction:column; gap:20px;"></div>
 </div>
 
 <!-- ========================================== -->
-<!-- 2. 2 AM CRISIS & ICP LADDERS               -->
+<!-- 2. 2 AM CRISIS (5 EXACT SUB-TABS)          -->
 <!-- ========================================== -->
 <div id="pillar-crisis" class="section-container">
-  <div style="background:#0d121d; border:1px solid #1e2638; border-radius:12px; padding:16px;">
-    <h2 style="font-size:16px; font-weight:800; color:#fff;">2 AM Crisis Cockpit & Operative Thresholds</h2>
-    <div style="font-size:12px; color:#94a3b8; margin-top:4px;">BTF Emergency Specifications, High-Contrast CT Plates, Herniation Resuscitation, and Reversal Cockpit</div>
+  <div class="sub-nav-bar">
+    <span style="font-size:12px; font-weight:800; color:#fff; margin-right:6px;">2 AM CRISIS SUB-MODULES:</span>
+    <button class="sub-tab-btn active" id="subtab-crisis-triage" onclick="switchCrisisSubTab('triage')">1. Acute Triage (4 CTs)</button>
+    <button class="sub-tab-btn" id="subtab-crisis-icp" onclick="switchCrisisSubTab('icp')">2. BTF ICP Ladder</button>
+    <button class="sub-tab-btn" id="subtab-crisis-reversal" onclick="switchCrisisSubTab('reversal')">3. Reversal Engine</button>
+    <button class="sub-tab-btn" id="subtab-crisis-orsetup" onclick="switchCrisisSubTab('orsetup')">4. OR Spec Sheets</button>
+    <button class="sub-tab-btn" id="subtab-crisis-checklists" onclick="switchCrisisSubTab('checklists')">5. OR Checklists</button>
   </div>
 
-  <div id="crisisThresholdGrid" class="grid-2col"></div>
-
-  <div style="background:#0d121d; border:1px solid #1e2638; border-radius:12px; padding:16px; margin-top:10px;">
-    <h3 style="font-size:15px; font-weight:800; color:#fff;">Acute Herniation Resuscitation & Pupillary Asymmetry</h3>
+  <!-- 2A. Acute Triage -->
+  <div id="crisis-panel-triage" class="sub-content-panel active">
+    <div style="background:#0d121d; border:1px solid #1e2638; border-radius:12px; padding:14px;">
+      <h2 style="font-size:15px; font-weight:800; color:#fff;">Acute Herniation & Emergency Operative Thresholds</h2>
+      <div style="font-size:12px; color:#94a3b8; margin-top:3px;">BTF Surgical Criteria, High-Contrast Emergency CT Plates, and Operative Procedures</div>
+    </div>
+    <div id="crisisThresholdGrid" class="grid-2col"></div>
   </div>
-  <div id="crisisChecklistGrid"></div>
 
-  <div style="background:#0d121d; border:1px solid #1e2638; border-radius:12px; padding:16px; margin-top:10px;">
-    <h3 style="font-size:15px; font-weight:800; color:#fff;">Anticoagulation Rapid Reversal Cockpit</h3>
+  <!-- 2B. BTF ICP Ladder -->
+  <div id="crisis-panel-icp" class="sub-content-panel">
+    <div style="background:#0d121d; border:1px solid #1e2638; border-radius:12px; padding:14px;">
+      <h2 style="font-size:15px; font-weight:800; color:#fff;">BTF Tiered Intracranial Pressure (ICP) Escalation Ladder</h2>
+      <div style="font-size:12px; color:#94a3b8; margin-top:3px;">Tier 0 to Tier 3 Stepwise Escalation, Target CPP (60-70 mmHg), Osmotherapy, and Barbiturate Rescue</div>
+    </div>
+    <div id="icpLadderGrid" style="display:flex; flex-direction:column; gap:16px;"></div>
   </div>
-  <div id="crisisReversalGrid" class="grid-2col"></div>
+
+  <!-- 2C. Reversal Engine -->
+  <div id="crisis-panel-reversal" class="sub-content-panel">
+    <div style="background:#0d121d; border:1px solid #1e2638; border-radius:12px; padding:14px;">
+      <h2 style="font-size:15px; font-weight:800; color:#fff;">Emergency Anticoagulant & Antiplatelet Rapid Reversal Engine</h2>
+      <div style="font-size:12px; color:#94a3b8; margin-top:3px;">Warfarin (4F-PCC + Vit K), DOACs (Andexxa / Kcentra), Dabigatran (Praxbind), Antiplatelets (Plts + DDAVP), Heparin (Protamine)</div>
+    </div>
+    <div id="reversalEngineGrid" style="display:flex; flex-direction:column; gap:16px;"></div>
+  </div>
+
+  <!-- 2D. OR Spec Sheets -->
+  <div id="crisis-panel-orsetup" class="sub-content-panel">
+    <div style="background:#0d121d; border:1px solid #1e2638; border-radius:12px; padding:14px;">
+      <h2 style="font-size:15px; font-weight:800; color:#fff;">OR Setup & Implant Spec-Sheets for Circulators, Scrubs & Reps</h2>
+      <div style="font-size:12px; color:#94a3b8; margin-top:3px;">Mayfield pin torques, screw diameters, drill footplates, dural patches, and programmable shunt valve settings</div>
+    </div>
+    <div id="orSetupGrid" style="display:flex; flex-direction:column; gap:16px;"></div>
+  </div>
+
+  <!-- 2E. Operative Checklists -->
+  <div id="crisis-panel-checklists" class="sub-content-panel">
+    <div style="background:#0d121d; border:1px solid #1e2638; border-radius:12px; padding:14px;">
+      <h2 style="font-size:15px; font-weight:800; color:#fff;">Operative Resuscitation & Emergency Checklists</h2>
+      <div style="font-size:12px; color:#94a3b8; margin-top:3px;">Pupillary Anisocoria Herniation Protocol, EVD Trajectory Checklist, and Trauma Craniectomy Checklist</div>
+    </div>
+    <div id="crisisChecklistGrid" style="display:flex; flex-direction:column; gap:16px;"></div>
+  </div>
 </div>
 
 <!-- ========================================== -->
-<!-- 3. FRONTLINE ER CONSULTS                   -->
+<!-- 3. ON-CALL ER CONSULTS SUITE               -->
 <!-- ========================================== -->
 <div id="pillar-consults" class="section-container">
-  <div class="filter-bar">
-    <button class="pill-filter active" id="filter-all" onclick="filterConsults('all')">All Modules (13)</button>
-    <button class="pill-filter" id="filter-cranial" onclick="filterConsults('cranial')">Cranial (7)</button>
-    <button class="pill-filter" id="filter-spine" onclick="filterConsults('spine')">Spine (6)</button>
-    <input type="text" id="consultSearch" class="edit-input" style="max-width: 280px; margin-left:auto;" placeholder="Search consults or keywords..." oninput="renderConsults()">
+  <div class="sub-nav-bar">
+    <span style="font-size:12px; font-weight:800; color:#fff; margin-right:6px;">CONSULT CATEGORIES:</span>
+    <button class="sub-tab-btn active" id="subtab-consult-cranial" onclick="switchConsultSubTab('cranial')">1. Cranial ER Consults (7)</button>
+    <button class="sub-tab-btn" id="subtab-consult-spine" onclick="switchConsultSubTab('spine')">2. Spine ER Consults (6)</button>
+    <button class="sub-tab-btn" id="subtab-consult-brainstem" onclick="switchConsultSubTab('brainstem')">3. Brainstem Reflex Ladder (Plum & Posner)</button>
+    <input type="text" id="consultSearch" class="edit-input" style="max-width: 240px; margin-left:auto; padding:5px 8px; font-size:12px;" placeholder="Search consults..." oninput="renderConsults()">
   </div>
-  <div id="consultsGrid" style="display:flex; flex-direction:column; gap:20px;"></div>
+
+  <!-- 3A & 3B. Cranial / Spine Consults -->
+  <div id="consult-panel-cases" class="sub-content-panel active">
+    <div id="consultsGrid" style="display:flex; flex-direction:column; gap:20px;"></div>
+  </div>
+
+  <!-- 3C. Brainstem Reflex Ladder -->
+  <div id="consult-panel-brainstem" class="sub-content-panel">
+    <div style="background:#0d121d; border:1px solid #1e2638; border-radius:12px; padding:14px;">
+      <h2 style="font-size:15px; font-weight:800; color:#fff;">Rostrocaudal Brainstem Deterioration & Consciousness Elevator</h2>
+      <div style="font-size:12px; color:#94a3b8; margin-top:3px;">Plum & Posner Transtentorial Herniation Architecture: Levels 0 (Intact) to 5 (Brain Death)</div>
+    </div>
+    <div id="brainstemElevatorBoard" class="elevator-board"></div>
+  </div>
 </div>
 
 <!-- ========================================== -->
@@ -218,7 +296,7 @@
 <div id="pillar-calculators" class="section-container">
   <div style="background:#0d121d; border:1px solid #1e2638; border-radius:12px; padding:16px;">
     <h2 style="font-size:16px; font-weight:800; color:#fff;">Neurosurgical Calculators & Clinical Scoring Engines</h2>
-    <div style="font-size:12px; color:#94a3b8; margin-top:4px;">Validated peer-reviewed formulas, point allocations, and clinical management cutoff thresholds.</div>
+    <div style="font-size:12px; color:#94a3b8; margin-top:4px;">Validated peer-reviewed formulas, point allocations, and clinical management cutoffs.</div>
   </div>
   <div id="calculatorsGrid" class="grid-2col"></div>
 </div>
@@ -4397,343 +4475,535 @@ const appData = {
         "image_file": "/plates/plate_ct_post_fossa.jpg"
       }
     ],
-    "checklists": [
+    "icp_tiers": [
       {
-        "id": "pupil_herniation",
-        "title": "Herniation Resuscitation & Pupillary Asymmetry Protocol",
-        "image_file": "/plates/plate_herniation_pupils.jpg",
-        "steps": [
-          "Immediately elevate head of bed to 30 degrees (promotes venous drainage)",
-          "Push Mannitol (1 g/kg IV bolus) or 3% Hypertonic Saline (250-500 mL bolus over 15 min)",
-          "Brief hyperventilation to PaCO2 30-35 mmHg as temporary bridge to OR only",
-          "Obtain urgent non-contrast Head CT or mobilize OR team directly if known lesion",
-          "Emergency bedside ventriculostomy (EVD) or decompressive hemicraniectomy"
-        ]
+        "tier": "Tier 0: Universal Baseline",
+        "subtitle": "Foundational Neuro-ICU Measures for all severe TBI",
+        "color": "neonGreen",
+        "interventions": [
+          "Elevate Head of Bed (HOB) 30\u00b0 with neutral neck alignment to maximize jugular venous return.",
+          "Ensure endotracheal tube ties and cervical collar are not compressing internal jugular veins.",
+          "Maintain normothermia (36.0\u00b0C \u2013 37.5\u00b0C); aggressively treat fevers with antipyretics and surface cooling.",
+          "Target PaCO2 35 \u2013 38 mmHg (eucapnia); avoid hyperventilation in first 24 hours.",
+          "Maintain MAP \u2265 80 mmHg to preserve CPP \u2265 60 mmHg; avoid hypotensive episodes (SBP < 100 mmHg).",
+          "Maintain serum sodium 135 \u2013 145 mEq/L; avoid hypotonic IV crystalloids (e.g., D5W, 0.45% NaCl)."
+        ],
+        "rationale": "Every 1\u00b0C increase in core temperature increases cerebral metabolic demand (CMRO2) by ~10%, triggering reactive cerebral vasodilation and intracranial volume expansion."
+      },
+      {
+        "tier": "Tier 1: Early ICP > 22 mmHg",
+        "subtitle": "Sedation deepening, osmotherapy, CSF drainage",
+        "color": "neonCyan",
+        "interventions": [
+          "Deepen sedation: Titrate Propofol or Dexmedetomidine; short trial of neuromuscular blockade.",
+          "Osmotherapy: Administer 3% Hypertonic Saline 250 mL IV bolus over 15 min OR Mannitol 20% 1 g/kg IV.",
+          "CSF Drainage: Open ventriculostomy (EVD) at 10 \u2013 15 cm H2O to drain 5 \u2013 10 mL CSF.",
+          "Neuromonitoring: Verify ICP transducer calibration and rule out waveform dampening or artifact.",
+          "Repeat Head CT: STAT non-contrast CT head to assess for progressive mass effect or delayed hematoma."
+        ],
+        "rationale": "Do not administer Mannitol if SBP < 90 mmHg or patient is hypovolemic; osmotic diuresis will drop MAP and collapse CPP, precipitating secondary brainstem ischemia."
+      },
+      {
+        "tier": "Tier 2: Sustained ICP > 22 mmHg",
+        "subtitle": "Paralytics, hyperosmolar targets, mild hyperventilation",
+        "color": "neonAmber",
+        "interventions": [
+          "Neuromuscular Blockade: Continuous Cisatracurium infusion titrated to 1-2 twitches on Train-of-Four.",
+          "Hyperosmolar Titration: Push serum sodium to 150 \u2013 155 mEq/L using continuous 3% NaCl (1 \u2013 2 mL/kg/hr).",
+          "Mild Hyperventilation: Temporarily target PaCO2 30 \u2013 35 mmHg ONLY with continuous jugular bulb (SjvO2) or brain tissue oxygen (PbtO2) monitoring.",
+          "Therapeutic Normothermia: Target 35.0\u00b0C \u2013 36.0\u00b0C via endovascular or advanced surface cooling.",
+          "MAP Optimization: Escalate vasopressors (Norepinephrine / Phenylephrine) to maintain CPP \u2265 60 \u2013 70 mmHg."
+        ],
+        "rationale": "Hyperventilation below PaCO2 30 mmHg causes severe cerebral vasoconstriction, cutting cerebral blood flow (CBF) and causing profound ischemic tissue hypoxia despite lower ICP numbers."
+      },
+      {
+        "tier": "Tier 3: Refractory Crisis",
+        "subtitle": "Decompressive hemicraniectomy vs Pentobarbital coma",
+        "color": "neonRed",
+        "interventions": [
+          "Surgical Decompression: Emergent Unilateral Decompressive Hemicraniectomy (\u226512 x 15 cm) with dural patch expansion OR Bifrontal Craniectomy.",
+          "High-Dose Barbiturate Coma: Pentobarbital bolus (10 mg/kg over 30 min) then 1 \u2013 3 mg/kg/hr titrated to burst suppression (3 \u2013 5 bursts/min) on continuous EEG.",
+          "Moderate Hypothermia (32\u00b0C \u2013 34\u00b0C): Salvage rescue only; slow rewarming (\u22640.25\u00b0C/hr) to avoid rebound cerebral edema.",
+          "Invasive Hemodynamic Monitoring: Arterial line + central line mandatory; prepare for high vasopressor requirements during barbiturate myocardial depression."
+        ],
+        "rationale": "Hemicraniectomy bone flaps MUST measure at least 12 x 15 cm. Small bone flaps cause mushroom herniation and venous strangulation against the rigid cut bone edges."
       }
     ],
     "reversals": [
       {
         "drug": "Warfarin (Coumadin)",
-        "mechanism": "Vitamin K Antagonist (Factors II, VII, IX, X)",
-        "agent": "4-Factor PCC (Kcentra) + Vitamin K 10mg IV",
-        "dose": "25-50 units/kg based on baseline INR",
-        "target": "Target INR \u2264 1.3 within 30 minutes",
-        "badgeColor": "red"
+        "target": "Target INR \u2264 1.3 within 30 min",
+        "firstLine": "4-Factor Prothrombin Complex Concentrate (4F-PCC / Kcentra) + Vitamin K 10 mg IV slow infusion over 30 min",
+        "dosing": "INR 2.0-3.9: 25 U/kg (max 2,500 U) | INR 4.0-6.0: 35 U/kg (max 3,500 U) | INR >6.0: 50 U/kg (max 5,000 U)",
+        "pearl": "Repeat INR at 30 minutes post-infusion. Vitamin K is mandatory because 4F-PCC half-life is only 6-8 hours while warfarin effect persists for days."
       },
       {
-        "drug": "Apixaban / Rivaroxaban (DOAC)",
-        "mechanism": "Direct Factor Xa Inhibitor",
-        "agent": "Andexanet Alfa (Andexxa) or 4F-PCC",
-        "dose": "High Dose: 800mg bolus + 8mg/min OR 4F-PCC 50 U/kg",
+        "drug": "Apixaban (Eliquis) / Rivaroxaban (Xarelto)",
         "target": "Immediate cessation of Factor Xa inhibition",
-        "badgeColor": "amber"
+        "firstLine": "Andexanet Alfa (Andexxa) OR 4-Factor PCC (Kcentra) 50 U/kg (max 5,000 U)",
+        "dosing": "Low Dose: 400 mg bolus (30 mg/min) + 4 mg/min infusion x 120 min | High Dose: 800 mg bolus + 8 mg/min x 120 min",
+        "pearl": "High-dose Andexxa indicated if last dose < 8h or unknown, or dose was Apixaban >5mg / Rivaroxaban >10mg. If Andexxa unavailable, give 4F-PCC 50 U/kg."
       },
       {
         "drug": "Dabigatran (Pradaxa)",
-        "mechanism": "Direct Thrombin Inhibitor",
-        "agent": "Idarucizumab (Praxbind)",
-        "dose": "5 g IV (two consecutive 2.5 g vials)",
-        "target": "Complete reversal of thrombin time in 15 min",
-        "badgeColor": "purple"
+        "target": "Complete normalization of Thrombin Time in 15 min",
+        "firstLine": "Idarucizumab (Praxbind) 5 g IV (two consecutive 2.5 g vials)",
+        "dosing": "5 g IV bolus (vial 1 followed immediately by vial 2; no infusion delay)",
+        "pearl": "Humanized monoclonal antibody fragment with 350x higher affinity for dabigatran than thrombin. If unavailable, use 4F-PCC 50 U/kg or emergent hemodialysis."
       },
       {
-        "drug": "Aspirin / Clopidogrel (Plavix)",
-        "mechanism": "Antiplatelet / P2Y12 Inhibitor",
-        "agent": "Platelet Transfusion + DDAVP",
-        "dose": "1-2 Single Donor Apheresis Units + DDAVP 0.3 mcg/kg IV",
-        "target": "Restore primary platelet plug aggregation",
-        "badgeColor": "cyan"
+        "drug": "Antiplatelets (Aspirin, Clopidogrel / Plavix, Ticagrelor)",
+        "target": "Restoration of primary platelet aggregation plug",
+        "firstLine": "Platelet Transfusion + DDAVP (Desmopressin)",
+        "dosing": "1-2 Single-Donor Apheresis Units (or 6-pack pooled) + DDAVP 0.3 mcg/kg IV in 50 mL saline over 20 min",
+        "pearl": "PATCH trial cautioned against routine platelet transfusion in spontaneous ICH on aspirin alone; however in traumatic ICH or urgent neurosurgery, platelets + DDAVP are standard."
+      },
+      {
+        "drug": "Heparin & Low Molecular Weight Heparin (LMWH / Lovenox)",
+        "target": "Neutralization of unfractionated heparin and anti-Xa inhibition",
+        "firstLine": "Protamine Sulfate IV",
+        "dosing": "UFH: 1 mg per 100 units heparin given in last 2-3 hours (max 50 mg) | Enoxaparin <8h: 1 mg protamine per 1 mg enoxaparin | Enoxaparin 8-12h: 0.5 mg per 1 mg",
+        "pearl": "Infuse slowly (\u22645 mg/min) to prevent severe anaphylactoid hypotension, pulmonary vasoconstriction, and catastrophic bradycardia."
+      }
+    ],
+    "or_specs": [
+      {
+        "procedure": "Emergent Trauma Craniectomy / Craniotomy",
+        "positioning": "Supine on gel horseshoe or 3-pin Mayfield (Torque: 60 lbs; pin avoidance: temporal muscle & thin squama).",
+        "drill": "High-speed electric/pneumatic drill, 14 mm perforator with auto-clutch, footplate craniotome bit.",
+        "hemostasis": "Bipolar forceps (irrigation line attached, setting 25-35), Surgicel Fibrillar (x3), Floseal/Surgiflo (2 kits), Gelita-Spon, Bone Wax.",
+        "duralPatch": "3x3 inch bovine pericardium (DuraGuard) or DuraGen onlay + 4-0 Nurolon braided retention sutures.",
+        "closure": "0.6 mm dynamic titanium cranial mesh + 4 mm self-drilling cross-pin screws; 10 Fr Blake/JP subgaleal drain to gravity."
+      },
+      {
+        "procedure": "Goel-Harms C1\u2013C2 Posterior Cervical Fusion",
+        "positioning": "Prone on Jackson table with chest rolls; 3-pin Mayfield with rocker arm inverted (military chin tuck, cross-table fluoro clearance).",
+        "drill": "3.5 mm polyaxial screws (C1 Lateral Mass: 28 mm & 30 mm; C2 Pedicle/Pars: 26 mm & 28 mm).",
+        "hemostasis": "C2 epidural venous plexus bleeding: bipolar coagulation, Surgicel Nu-Knit packing, thrombin-soaked gelfoam.",
+        "duralPatch": "Torx T15 / T20 star-shaped set-screw drivers with 5.0 Nm torque-limiting handle.",
+        "closure": "Demineralized bone matrix (DBM) putty + autologous local spinous process bone graft chips."
+      },
+      {
+        "procedure": "L4\u2013L5 TLIF Interbody Fusion",
+        "positioning": "Prone on radiolucent Jackson spinal table (Wilson frame or flat radiolucent top).",
+        "drill": "Four 6.5 mm x 45 mm (or 7.5 mm) pedicle screws + two 5.5 mm titanium rods.",
+        "hemostasis": "McCulloch retractor frame, Scoville nerve root retractor, bayoneted disc rongeurs, bone graft funnel.",
+        "duralPatch": "Porous 3D-printed titanium or PEEK curved banana cage (Heights: 9 mm, 10 mm, 11 mm; 4-8\u00b0 lordosis).",
+        "closure": "Recombinant BMP-2 (Infuse small kit) or DBM putty + autologous local facet bone."
+      },
+      {
+        "procedure": "Emergency Bedside Ventriculostomy (EVD) Kit",
+        "positioning": "Kocher's point (11 cm posterior from nasion, 3 cm lateral from midline).",
+        "drill": "Hand twist drill with 5.5 mm bit and safety depth stop collar set to 1.0 cm.",
+        "hemostasis": "Medial canthus in coronal plane; tragus in sagittal plane (Never advance > 7.0 cm; stop at 5.5-6.5 cm).",
+        "duralPatch": "8.5 Fr or 9 Fr barium-impregnated silver/antibiotic ventriculostomy catheter with metallic stylet.",
+        "closure": "External drainage system with laser zero level referenced to Tragus (Foramen of Monro)."
+      },
+      {
+        "procedure": "Programmable Shunt Valve Sizing & Reprogramming Guide",
+        "positioning": "Medtronic Strata II: Settings 0.5 (very low) to 2.5 (high). Requires Strata hand programmer magnet; affected by 1.5T/3T MRI (Verify post-MRI).",
+        "drill": "Codman Certas Plus: Settings 1 (36 mmH2O) to 8 (238 mmH2O). MRI conditional to 3.0 Tesla; setting does NOT alter in magnetic field.",
+        "hemostasis": "Sophysa Polaris: Micro-magnets with magnetic locking. MRI stable up to 3 Tesla.",
+        "duralPatch": "Miethke proGAV 2.0: Gravitational ball-in-cone valve. Range 0 to 20 cmH2O. MRI conditional up to 3T without unintentional resetting.",
+        "closure": "Check abdominal pseudocyst via abdominal ultrasound before surgical distal revision."
+      }
+    ],
+    "checklists": [
+      {
+        "title": "Acute Herniation Resuscitation & Pupillary Asymmetry Protocol",
+        "image_file": "/plates/plate_herniation_pupils.jpg",
+        "steps": [
+          "Immediately elevate head of bed to 30 degrees (promotes jugular venous drainage).",
+          "Push Mannitol (1 g/kg IV bolus) or 3% Hypertonic Saline (250-500 mL bolus over 15 min).",
+          "Brief hyperventilation to PaCO2 30-35 mmHg as temporary bridge to OR only.",
+          "Obtain urgent non-contrast Head CT or mobilize OR team directly if known surgical lesion.",
+          "Emergency bedside ventriculostomy (EVD) or decompressive hemicraniectomy."
+        ]
+      },
+      {
+        "title": "Emergency Bedside EVD Trajectory Checklist",
+        "image_file": "/plates/plate_bedside_evd.jpg",
+        "steps": [
+          "Verify Kocher's point landmark: 1 cm anterior to coronal suture, 2.5-3.0 cm lateral to midline.",
+          "Set twist drill safety stop collar strictly to 1.0 cm before perforating outer skull cortex.",
+          "Perforate dura with 18G needle; puncture straight without stripping dural attachments.",
+          "Aim catheter trajectory toward ipsilateral medial canthus (coronal) and external auditory meatus (sagittal).",
+          "Stop advancement upon CSF flash at 4.5-5.5 cm; never advance beyond 6.5 cm from outer cortex."
+        ]
+      },
+      {
+        "title": "Trauma Decompressive Craniectomy Operative Checklist",
+        "image_file": "/plates/plate_ct_sdh.jpg",
+        "steps": [
+          "Question mark (reverse-hockey stick) trauma incision starting at zygomatic arch (<1 cm anterior to tragus).",
+          "Elevate myocutaneous flap forward preserving superficial temporal artery and frontal branch of facial nerve.",
+          "Perform generous hemicraniectomy at least 12 x 15 cm; decompress down to middle cranial fossa floor.",
+          "Open dura in stellate or C-shaped fashion with base toward superior sagittal sinus.",
+          "Evacuate subdural/epidural hematoma, achieve meticulous hemostasis, perform expansile duraplasty."
+        ]
       }
     ]
   },
-  "consults": [
-    {
-      "category": "cranial",
-      "case": "aneurysmalSAH",
-      "id": "sah",
-      "shortTitle": "Aneurysmal SAH",
-      "title": "Aneurysmal Subarachnoid Hemorrhage (SAH)",
-      "assetImageName": "plate_cranial_sah_aneurysm",
-      "image_file": "/plates/plate_cranial_sah_aneurysm.jpg",
-      "acuityLabel": "CRITICAL EMERGENCY (<24H SECURING)",
-      "imagingPearl": "Star-shaped hyperdense acute blood in suprasellar/ambient cisterns & Sylvian fissures. Modified Fisher 3. Dilated temporal horns reflect acute hydrocephalus.",
-      "operativePlan": "Emergent EVD placement + Catheter DSA & Aneurysm Coiling or Clipping within 24 hours",
-      "clinicalTriad": [
-        "Sudden-onset explosive 'worst headache of life' (thunderclap headache)",
-        "Meningismus (nuchal rigidity, photophobia, Kernig/Brudzinski signs)",
-        "Transient loss of consciousness or focal CN III palsy (PCom aneurysm)"
-      ],
-      "pitfalls": [
-        "Uncontrolled systolic hypertension precipitating catastrophic re-rupture (70% mortality)",
-        "Over-draining EVD below 10 cm H2O, causing transmural pressure gradient spike and rebleeding",
-        "Holding nimodipine for mild asymptomatic blood pressure drop without attending discussion"
-      ]
-    },
-    {
-      "category": "cranial",
-      "case": "epiduralHematoma",
-      "id": "edh",
-      "shortTitle": "Epidural (EDH)",
-      "title": "Acute Epidural Hematoma (EDH)",
-      "assetImageName": "plate_ct_edh",
-      "image_file": "/plates/plate_ct_edh.jpg",
-      "acuityLabel": "STAT OR MANDATE (>30 CC / COMA)",
-      "imagingPearl": "Biconvex / lenticular hyperdensity confined by cranial sutures. MMA arterial laceration with skull fracture. 'Swirl sign' indicates active extravasation.",
-      "operativePlan": "Emergent Trauma Craniotomy, MMA Coagulation, and Hemispheric Evacuation",
-      "clinicalTriad": [
-        "Classic 'lucid interval' following traumatic loss of consciousness",
-        "Rapid neurological deterioration into coma with ipsilateral blown pupil",
-        "Contralateral hemiparesis (Kernohan notch phenomenon if false localizing)"
-      ],
-      "pitfalls": [
-        "Delaying the OR for secondary imaging in a deteriorating patient with pupillary asymmetry",
-        "Failing to place dural tenting/hitch sutures to the inner table, allowing postoperative rebleeding",
-        "Missing a contralateral subdural or epidural hematoma that expands after rapid decompression"
-      ]
-    },
-    {
-      "category": "cranial",
-      "case": "subduralHematoma",
-      "id": "sdh",
-      "shortTitle": "Subdural (SDH)",
-      "title": "Acute Subdural Hematoma (SDH)",
-      "assetImageName": "plate_ct_sdh",
-      "image_file": "/plates/plate_ct_sdh.jpg",
-      "acuityLabel": "STAT OR MANDATE (>10 MM / SHIFT >5 MM)",
-      "imagingPearl": "Crescentic extra-axial hyperdensity crossing cranial sutures over the cerebral convexity. Bridging cortical vein rupture with hemispheric mass effect.",
-      "operativePlan": "Emergent 12x15 cm Decompressive Hemicraniectomy and Expansile Duraplasty",
-      "clinicalTriad": [
-        "Progressive obtundation following high-energy trauma or elderly ground-level fall",
-        "Unilateral sluggish or fixed dilated pupil indicating uncal herniation",
-        "Contralateral motor weakness and Cushing triad (hypertension, bradycardia, irregular respirations)"
-      ],
-      "pitfalls": [
-        "Performing a small, restricted 'keyhole' craniotomy leading to brain strangulation through bone edges",
-        "Aggressive hyperventilation inducing severe cerebral vasoconstriction and secondary ischemia",
-        "Failure to identify and immediately reverse oral anticoagulation before skin incision"
-      ]
-    },
-    {
-      "category": "cranial",
-      "case": "intracerebralHemorrhage",
-      "id": "ich",
-      "shortTitle": "Intracerebral (ICH)",
-      "title": "Acute Intracerebral Hemorrhage (ICH)",
-      "assetImageName": "plate_cranial_ich_lobar",
-      "image_file": "/plates/plate_cranial_ich_lobar.jpg",
-      "acuityLabel": "EMERGENT SBP 140 & CRANIOTOMY IF >30 CC",
-      "imagingPearl": "Hyperdense parenchymal hematoma with hypodense perihematomal edema rim. Posterior fossa cerebellar ICH >3cm compressing 4th ventricle mandates STAT evacuation.",
-      "operativePlan": "STAT Suboccipital Decompression (Posterior Fossa) or MIS Clot Evacuation (Lobar)",
-      "clinicalTriad": [
-        "Acute focal neurological deficit during exertion with severe hypertension",
-        "Decreased level of consciousness and nausea/vomiting",
-        "Posterior fossa: acute ataxia, gaze palsy, occipital headache, rapid coma"
-      ],
-      "pitfalls": [
-        "PERFORMING LUMBAR PUNCTURE IN POSTERIOR FOSSA ICH (causes immediate fatal tonsillar coning)",
-        "Allowing systolic blood pressure to remain >160 mmHg during the first 6 critical hours",
-        "Delaying cerebellar evacuation while waiting for the patient to 'wake up'"
-      ]
-    },
-    {
-      "category": "cranial",
-      "case": "vpShuntObstruction",
-      "id": "shunt_obs",
-      "shortTitle": "Proximal Shunt (CT)",
-      "title": "Proximal Shunt Obstruction: Head CT",
-      "assetImageName": "plate_cranial_vp_shunt",
-      "image_file": "/plates/plate_cranial_vp_shunt.jpg",
-      "acuityLabel": "URGENT SHUNT TAP & REVISION",
-      "imagingPearl": "Marked enlargement of lateral ventricles compared to baseline prior scan. Periventricular halo reflects transependymal CSF resorption.",
-      "operativePlan": "Urgent Shunt Tap & Operative Catheter Revision via Kocher's Point",
-      "clinicalTriad": [
-        "Morning headache, projectile nausea/vomiting, and increasing lethargy",
-        "Sunsetting eyes or abducens (CN VI) palsy from elevated ICP",
-        "Subcutaneous fluid collection along the shunt tubing tract"
-      ],
-      "pitfalls": [
-        "Dismissing ventricles as 'normal size' without comparing to baseline prior slit-ventricle CT",
-        "Non-sterile shunt tap technique introducing bacterial colonization into the central nervous system",
-        "Pumping the shunt reservoir forcefully, which can suck choroid plexus permanently into catheter holes"
-      ]
-    },
-    {
-      "category": "cranial",
-      "case": "vpShuntDistal",
-      "id": "shunt_distal",
-      "shortTitle": "Distal Shunt (Pseudocyst)",
-      "title": "Distal Shunt Failure: Peritoneal Pseudocyst",
-      "assetImageName": "plate_cranial_shunt_distal",
-      "image_file": "/plates/plate_cranial_shunt_distal.jpg",
-      "acuityLabel": "URGENT ABDOMINAL CT & DISTAL REVISION",
-      "imagingPearl": "Contrast-enhanced abdominal CT demonstrates the coiled distal peritoneal catheter tip terminating within a well-circumscribed, non-enhancing fluid pseudocyst displacing bowel.",
-      "operativePlan": "Laparoscopic Peritoneal Shunt Revision / Pseudocyst Drainage or Conversion to VA Shunt",
-      "clinicalTriad": [
-        "Abdominal pain, distension, or palpable cystic mass along tubing tract",
-        "Persistent headache and lethargy with elevated ICP symptoms",
-        "Elevated opening pressure on reservoir tap (>25 cm H2O) with free refill"
-      ],
-      "pitfalls": [
-        "Replacing the proximal ventricular catheter when the primary pathology is peritoneal pseudocyst encapsulation",
-        "Failing to send CSF for low-virulence indolent bacterial cultures (e.g. Cutibacterium acnes)",
-        "Re-implanting the distal catheter into the same quadrant without resolving the inflammatory pseudocyst"
-      ]
-    },
-    {
-      "category": "cranial",
-      "case": "shuntProxVsDistal",
-      "id": "shunt_prox_dist",
-      "shortTitle": "Prox vs Distal Matrix",
-      "title": "VP Shunt Failure: Proximal vs Distal Differentiation Matrix",
-      "assetImageName": "plate_cranial_shunt_prox_distal",
-      "image_file": "/plates/plate_cranial_shunt_prox_distal.jpg",
-      "acuityLabel": "DIAGNOSTIC TAP & DIFFERENTIAL",
-      "imagingPearl": "Proximal failure shows slow/no tap refill and normal opening pressure; distal failure shows rapid refill, high opening pressure (>25 cm H2O), or abdominal pseudocyst.",
-      "operativePlan": "Targeted Proximal Ventricular or Distal Peritoneal Laparoscopic Revision",
-      "clinicalTriad": [
-        "Proximal: Flat, non-refilling reservoir; severe lethargy; slit vs dilated ventricles",
-        "Distal: Tense or rapidly rebounding reservoir; elevated opening pressure (>25 cm H2O)",
-        "Abdominal tenderness, distension, or palpable pseudocyst mass"
-      ],
-      "pitfalls": [
-        "Replacing the ventricular catheter when the actual failure is a distal peritoneal pseudocyst",
-        "Missing an asymptomatic catheter disconnection on plain radiographs at the clavicle or rib cage",
-        "Over-aspirating a proximal catheter and causing intraventricular hemorrhage from choroid plexus avulsion"
-      ]
-    },
-    {
-      "category": "spine",
-      "case": "jumpedFacets",
-      "id": "jumped_facets",
-      "shortTitle": "Jumped Facets",
-      "title": "Jumped / Locked Cervical Facets (C5-C6 Dislocation)",
-      "assetImageName": "plate_spine_jumped_facets",
-      "image_file": "/plates/plate_spine_jumped_facets.jpg",
-      "acuityLabel": "EMERGENT CLOSED REDUCTION OR ACDF",
-      "imagingPearl": "Sagittal CT/MRI shows >50% anterolisthesis (bilateral locked facets) or ~25% (unilateral), perched articular processes, wide interspinous gap (PLC rupture), and focal cord edema.",
-      "operativePlan": "Emergent Gardner-Wells Closed Traction vs ACDF Open Reduction & Plating",
-      "clinicalTriad": [
-        "High-energy flexion-distraction injury with severe cervical pain and rigid torticollis",
-        "Acute sensory level (e.g., C5 deltoid vs C6 wrist extensor weakness)",
-        "Anterior cord syndrome or incomplete quadriplegia (variable sacral sparing)"
-      ],
-      "pitfalls": [
-        "ATTEMPTING CLOSED REDUCTION ON AN OBTUNDED PATIENT WITHOUT PRE-REDUCTION MRI (can crush herniated disc into cord and cause permanent quadriplegia)",
-        "Continuing closed traction despite neurological deterioration or overdistraction (>10 mm widening)",
-        "Placing Gardner-Wells tongs too low or anterior, causing skull penetration or pin slippage"
-      ]
-    },
-    {
-      "category": "spine",
-      "case": "cordCompressionTumor",
-      "id": "tumor_cord_comp",
-      "shortTitle": "Tumor Cord Comp",
-      "title": "Epidural Spinal Cord Compression from Tumor (ESCC)",
-      "assetImageName": "plate_spine_tumor_compression",
-      "image_file": "/plates/plate_spine_tumor_compression.jpg",
-      "acuityLabel": "STAT DEXAMETHASONE & SURGICAL SEPARATION",
-      "imagingPearl": "Sagittal and axial T2/T1+C MRI demonstrates metastatic vertebral body destruction and epidural tumor mass invading the spinal canal. Bilsky Grade 3 reflects complete CSF effacement and cord distortion.",
-      "operativePlan": "Stat IV Dexamethasone + Direct Circumferential Separation Surgery & Posterolateral Fusion",
-      "clinicalTriad": [
-        "Progressive localized nocturnal spine pain worsening when recumbent",
-        "Bilateral progressive lower extremity weakness and sensory ataxia",
-        "Late autonomic bowel/bladder dysfunction indicating advanced myelopathy"
-      ],
-      "pitfalls": [
-        "Withholding high-dose intravenous dexamethasone while waiting for scheduled MRI imaging",
-        "Failing to recognize mechanical spinal instability (SINS >= 13) and treating with radiation alone, leading to sudden vertebral collapse",
-        "Attempting anterior resection in poor-prognosis patients when posterolateral separation surgery suffices"
-      ]
-    },
-    {
-      "category": "spine",
-      "case": "burstFracture",
-      "id": "burst_fracture",
-      "shortTitle": "Burst Fracture",
-      "title": "Thoracolumbar Burst Fracture with Canal Retropulsion",
-      "assetImageName": "plate_spine_burst_fracture",
-      "image_file": "/plates/plate_spine_burst_fracture.jpg",
-      "acuityLabel": "TLICS >= 5: OPERATIVE STABILIZATION",
-      "imagingPearl": "CT shows Denis anterior and middle column comminution, posterosuperior vertebral fragment retropulsed into spinal canal with >60% stenosis, and splaying of pedicles on axial view.",
-      "operativePlan": "Posterior Instrumented Fusion (1-2 above/below) + Transpedicular Fragment Reduction",
-      "clinicalTriad": [
-        "Axial loading or high-speed collision with localized thoracolumbar tenderness",
-        "Palpable gap or step-off at interspinous process indicating PLC disruption",
-        "Conus medullaris or cauda equina motor/sensory deficit (or neurologically intact)"
-      ],
-      "pitfalls": [
-        "Underestimating posterior ligamentous complex (PLC) disruption on CT alone (MRI required if indeterminate)",
-        "Treating TLICS >= 5 burst fractures non-operatively leading to progressive kyphotic deformity and late myelopathy",
-        "Failing to log-roll and clear the entire spinal axis (10-15% incidence of non-contiguous secondary fractures)"
-      ]
-    },
-    {
-      "category": "spine",
-      "case": "caudaEquina",
-      "id": "cauda_equina",
-      "shortTitle": "Cauda Equina",
-      "title": "Cauda Equina Syndrome (CES) from Lumbar Disc Extrusion",
-      "assetImageName": "plate_spine_cauda_equina",
-      "image_file": "/plates/plate_spine_cauda_equina.jpg",
-      "acuityLabel": "STAT SURGICAL DECOMPRESSION (<24-48H)",
-      "imagingPearl": "Sagittal and axial T2 MRI demonstrates massive central/subarticular extruded disc herniation (L4-L5) completely filling the canal and obliterating all descending cauda equina nerve roots.",
-      "operativePlan": "STAT Wide Lumbar Laminectomy, Flavectomy, and Discectomy (<24-48h)",
-      "clinicalTriad": [
-        "Saddle anesthesia over the perineum and buttocks (S3-S5 dermatomes)",
-        "Urinary retention with overflow incontinence (Post-void residual > 200 cc)",
-        "Lax anal sphincter tone and absent bulbocavernosus reflex"
-      ],
-      "pitfalls": [
-        "Discharging a patient with severe back pain without measuring post-void residual bladder volume",
-        "Delaying operative decompression past the 48-hour window, resulting in permanent neurogenic bladder and erectile dysfunction",
-        "Forceful retraction of ischemic cauda equina rootlets causing irreversible iatrogenic neurological deficit"
-      ]
-    },
-    {
-      "category": "spine",
-      "case": "csfLeakSpine",
-      "id": "csf_leak_spine",
-      "shortTitle": "Post-Op CSF Leak",
-      "title": "Management of Postoperative Spinal CSF Leak / Pseudomeningocele",
-      "assetImageName": "plate_spine_csf_leak",
-      "image_file": "/plates/plate_spine_csf_leak.jpg",
-      "acuityLabel": "STEPWISE DIVERSION VS RE-EXPLORATION",
-      "imagingPearl": "Sagittal T2 MRI reveals large hyperintense dorsal subcutaneous fluid collection (pseudomeningocele) tracking through laminectomy defect and communicating with the intrathecal space.",
-      "operativePlan": "Lumbar Subarachnoid Drain (10-15 cc/hr) vs Operative Re-exploration with Primary Dural Repair",
-      "clinicalTriad": [
-        "Clear fluid draining through surgical wound margins or fluctuant dorsal mass",
-        "Positional orthostatic headache worsening on standing and relieved when flat",
-        "Nausea, tinnitus, or neck stiffness with positive beta-2 transferrin test"
-      ],
-      "pitfalls": [
-        "PLACING SUBFASCIAL CLOSED-SUCTION DRAINS TO ACTIVE NEGATIVE PRESSURE (creates continuous suction pulling CSF and nerve roots through dural defect)",
-        "Over-draining lumbar subarachnoid drain (>200 cc/day) precipitating intracranial subdural hematoma or tonsillar herniation",
-        "Dismissing clear fluid drainage as a 'seroma' without testing for beta-2 transferrin, leading to bacterial meningitis"
-      ]
-    },
-    {
-      "category": "spine",
-      "case": "odontoidFracture",
-      "id": "odontoid_fracture",
-      "shortTitle": "Odontoid Fx",
-      "title": "Anderson & D'Alonzo Odontoid Fractures (Types I, II, III)",
-      "assetImageName": "plate_spine_odontoid_classification",
-      "image_file": "/plates/plate_spine_odontoid_classification.jpg",
-      "acuityLabel": "TYPE II: HIGH NONUNION RISK (45-70%) \u2014 SURGERY VS COLLAR",
-      "imagingPearl": "Thin-cut CT cervical spine (sag/cor): Type I (tip), Type II (waist watershed), Type III (body). Measure translation (>5 mm) & angulation (>10\u00b0). Stat CTA to rule out vertebral artery injury.",
-      "operativePlan": "Type I/III: Rigid Miami J Collar (8-12w) vs Type II: Anterior Odontoid Screw or Posterior C1-C2 Harms Fusion",
-      "clinicalTriad": [
-        "Severe high cervical pain & C2 occipital neuralgia after trauma or elderly ground-level fall",
-        "Guarded posture with severely restricted, painful cervical rotation",
-        "Myelopathy signs (brisk reflexes, Hoffman's) if posterior dens displacement"
-      ],
-      "pitfalls": [
-        "HALO VEST IN ELDERLY: High morbidity & mortality in geriatric patients; prefer surgical fixation or rigid Miami J collar.",
-        "CONSERVATIVE CARE FOR DISPLACED TYPE II: Nonunion rate exceeds 65-80% without surgery if displaced >5 mm or age \u226565.",
-        "ANTERIOR SCREW WITH RUPTURED TRANSVERSE LIGAMENT: Leads to construct failure; mandates posterior C1-C2 fusion instead."
-      ]
-    }
-  ],
+  "consults": {
+    "cranial": [
+      {
+        "category": "cranial",
+        "case": "aneurysmalSAH",
+        "id": "sah",
+        "shortTitle": "Aneurysmal SAH",
+        "title": "Aneurysmal Subarachnoid Hemorrhage (SAH)",
+        "assetImageName": "plate_cranial_sah_aneurysm",
+        "image_file": "/plates/plate_cranial_sah_aneurysm.jpg",
+        "acuityLabel": "CRITICAL EMERGENCY (<24H SECURING)",
+        "imagingPearl": "Hyperdense cisternal blood in basal cisterns and Sylvian fissures. CTA/DSA reveals aneurysm morphology and neck geometry.",
+        "operativePlan": "Urgent endovascular coiling or microsurgical clipping within 24 hours to prevent rerupture (highest risk in first 24h). Maintain SBP < 140 mmHg prior to securing.",
+        "clinicalTriad": [
+          "Sudden-onset explosive 'worst headache of life' (thunderclap headache)",
+          "Meningismus (nuchal rigidity, photophobia, Kernig/Brudzinski signs)",
+          "Transient loss of consciousness or focal CN III palsy (PCom aneurysm)"
+        ],
+        "pitfalls": [
+          "Allowing SBP to spike above 140 mmHg prior to aneurysm securing, risking fatal rerupture",
+          "Treating headache as migraine without non-contrast head CT and LP for xanthochromia if CT negative",
+          "Inducing triple-H therapy or hypervolemia before securing the aneurysm dome"
+        ]
+      },
+      {
+        "category": "cranial",
+        "case": "epiduralHematoma",
+        "id": "edh",
+        "shortTitle": "Epidural (EDH)",
+        "title": "Acute Epidural Hematoma (EDH)",
+        "assetImageName": "plate_ct_edh",
+        "image_file": "/plates/plate_ct_edh.jpg",
+        "acuityLabel": "STAT OR MANDATE (>30 CC / COMA)",
+        "imagingPearl": "Biconvex / lenticular hyperdensity confined by cranial sutures. MMA arterial laceration with skull fracture. 'Swirl sign' indicates active extravasation.",
+        "operativePlan": "Emergent Trauma Craniotomy, MMA Coagulation, and Hemispheric Evacuation",
+        "clinicalTriad": [
+          "Classic 'lucid interval' following traumatic loss of consciousness",
+          "Rapid neurological deterioration into coma with ipsilateral blown pupil",
+          "Contralateral hemiparesis (Kernohan notch phenomenon if false localizing)"
+        ],
+        "pitfalls": [
+          "Delaying the OR for secondary imaging in a deteriorating patient with pupillary asymmetry",
+          "Failing to place dural tenting/hitch sutures to the inner table, allowing postoperative rebleeding",
+          "Missing a contralateral subdural or epidural hematoma that expands after rapid decompression"
+        ]
+      },
+      {
+        "category": "cranial",
+        "case": "subduralHematoma",
+        "id": "sdh",
+        "shortTitle": "Subdural (SDH)",
+        "title": "Acute Subdural Hematoma (SDH)",
+        "assetImageName": "plate_ct_sdh",
+        "image_file": "/plates/plate_ct_sdh.jpg",
+        "acuityLabel": "STAT OR MANDATE (>10 MM / SHIFT >5 MM)",
+        "imagingPearl": "Crescentic extra-axial hyperdensity crossing cranial sutures over the cerebral convexity. Bridging cortical vein rupture with hemispheric mass effect.",
+        "operativePlan": "Emergent 12x15 cm Decompressive Hemicraniectomy and Expansile Duraplasty",
+        "clinicalTriad": [
+          "Progressive obtundation following high-energy trauma or elderly ground-level fall",
+          "Unilateral sluggish or fixed dilated pupil indicating uncal herniation",
+          "Contralateral motor weakness and Cushing triad (hypertension, bradycardia, irregular respirations)"
+        ],
+        "pitfalls": [
+          "Performing a small, restricted 'keyhole' craniotomy leading to brain strangulation through bone edges",
+          "Aggressive hyperventilation inducing severe cerebral vasoconstriction and secondary ischemia",
+          "Failure to identify and immediately reverse oral anticoagulation before skin incision"
+        ]
+      },
+      {
+        "category": "cranial",
+        "case": "intracerebralHemorrhage",
+        "id": "ich",
+        "shortTitle": "Intracerebral (ICH)",
+        "title": "Acute Intracerebral Hemorrhage (ICH)",
+        "assetImageName": "plate_cranial_ich_lobar",
+        "image_file": "/plates/plate_cranial_ich_lobar.jpg",
+        "acuityLabel": "EMERGENT SBP 140 & CRANIOTOMY IF >30 CC",
+        "imagingPearl": "Hyperdense parenchymal hematoma with hypodense perihematomal edema rim. Posterior fossa cerebellar ICH >3cm compressing 4th ventricle mandates STAT evacuation.",
+        "operativePlan": "STAT Suboccipital Decompression (Posterior Fossa) or MIS Clot Evacuation (Lobar)",
+        "clinicalTriad": [
+          "Acute focal neurological deficit during exertion with severe hypertension",
+          "Decreased level of consciousness and nausea/vomiting",
+          "Posterior fossa: acute ataxia, gaze palsy, occipital headache, rapid coma"
+        ],
+        "pitfalls": [
+          "PERFORMING LUMBAR PUNCTURE IN POSTERIOR FOSSA ICH (causes immediate fatal tonsillar coning)",
+          "Allowing systolic blood pressure to remain >160 mmHg during the first 6 critical hours",
+          "Delaying cerebellar evacuation while waiting for the patient to 'wake up'"
+        ]
+      },
+      {
+        "category": "cranial",
+        "case": "vpShuntObstruction",
+        "id": "shunt_obs",
+        "shortTitle": "Proximal Shunt (CT)",
+        "title": "Proximal Shunt Obstruction: Head CT",
+        "assetImageName": "plate_cranial_vp_shunt",
+        "image_file": "/plates/plate_cranial_vp_shunt.jpg",
+        "acuityLabel": "URGENT SHUNT TAP & REVISION",
+        "imagingPearl": "Marked enlargement of lateral ventricles compared to baseline prior scan. Periventricular halo reflects transependymal CSF resorption.",
+        "operativePlan": "Urgent Shunt Tap & Operative Catheter Revision via Kocher's Point",
+        "clinicalTriad": [
+          "Morning headache, projectile nausea/vomiting, and increasing lethargy",
+          "Sunsetting eyes or abducens (CN VI) palsy from elevated ICP",
+          "Subcutaneous fluid collection along the shunt tubing tract"
+        ],
+        "pitfalls": [
+          "Dismissing ventricles as 'normal size' without comparing to baseline prior slit-ventricle CT",
+          "Non-sterile shunt tap technique introducing bacterial colonization into the central nervous system",
+          "Pumping the shunt reservoir forcefully, which can suck choroid plexus permanently into catheter holes"
+        ]
+      },
+      {
+        "category": "cranial",
+        "case": "vpShuntDistal",
+        "id": "shunt_distal",
+        "shortTitle": "Distal Shunt (Pseudocyst)",
+        "title": "Distal Shunt Failure: Peritoneal Pseudocyst",
+        "assetImageName": "plate_cranial_shunt_distal",
+        "image_file": "/plates/plate_cranial_shunt_distal.jpg",
+        "acuityLabel": "URGENT ABDOMINAL CT & DISTAL REVISION",
+        "imagingPearl": "Contrast-enhanced abdominal CT demonstrates the coiled distal peritoneal catheter tip terminating within a well-circumscribed, non-enhancing fluid pseudocyst displacing bowel.",
+        "operativePlan": "Laparoscopic Peritoneal Shunt Revision / Pseudocyst Drainage or Conversion to VA Shunt",
+        "clinicalTriad": [
+          "Abdominal pain, distension, or palpable cystic mass along tubing tract",
+          "Persistent headache and lethargy with elevated ICP symptoms",
+          "Elevated opening pressure on reservoir tap (>25 cm H2O) with free refill"
+        ],
+        "pitfalls": [
+          "Replacing the proximal ventricular catheter when the primary pathology is peritoneal pseudocyst encapsulation",
+          "Failing to send CSF for low-virulence indolent bacterial cultures (e.g. Cutibacterium acnes)",
+          "Re-implanting the distal catheter into the same quadrant without resolving the inflammatory pseudocyst"
+        ]
+      },
+      {
+        "category": "cranial",
+        "case": "shuntProxVsDistal",
+        "id": "shunt_prox_dist",
+        "shortTitle": "Prox vs Distal Matrix",
+        "title": "VP Shunt Failure: Proximal vs Distal Differentiation Matrix",
+        "assetImageName": "plate_cranial_shunt_prox_distal",
+        "image_file": "/plates/plate_cranial_shunt_prox_distal.jpg",
+        "acuityLabel": "DIAGNOSTIC TAP & DIFFERENTIAL",
+        "imagingPearl": "Proximal failure shows slow/no tap refill and normal opening pressure; distal failure shows rapid refill, high opening pressure (>25 cm H2O), or abdominal pseudocyst.",
+        "operativePlan": "Targeted Proximal Ventricular or Distal Peritoneal Laparoscopic Revision",
+        "clinicalTriad": [
+          "Proximal: Flat, non-refilling reservoir; severe lethargy; slit vs dilated ventricles",
+          "Distal: Tense or rapidly rebounding reservoir; elevated opening pressure (>25 cm H2O)",
+          "Abdominal tenderness, distension, or palpable pseudocyst mass"
+        ],
+        "pitfalls": [
+          "Replacing the ventricular catheter when the actual failure is a distal peritoneal pseudocyst",
+          "Missing an asymptomatic catheter disconnection on plain radiographs at the clavicle or rib cage",
+          "Over-aspirating a proximal catheter and causing intraventricular hemorrhage from choroid plexus avulsion"
+        ]
+      }
+    ],
+    "spine": [
+      {
+        "category": "spine",
+        "case": "jumpedFacets",
+        "id": "jumped_facets",
+        "shortTitle": "Jumped Facets",
+        "title": "Jumped / Locked Cervical Facets (C5-C6 Dislocation)",
+        "assetImageName": "plate_spine_jumped_facets",
+        "image_file": "/plates/plate_spine_jumped_facets.jpg",
+        "acuityLabel": "EMERGENT CLOSED REDUCTION OR ACDF",
+        "imagingPearl": "Sagittal CT/MRI shows >50% anterolisthesis (bilateral locked facets) or ~25% (unilateral), perched articular processes, wide interspinous gap (PLC rupture), and focal cord edema.",
+        "operativePlan": "Emergent Gardner-Wells Closed Traction vs ACDF Open Reduction & Plating",
+        "clinicalTriad": [
+          "High-energy flexion-distraction injury with severe cervical pain and rigid torticollis",
+          "Acute sensory level (e.g., C5 deltoid vs C6 wrist extensor weakness)",
+          "Anterior cord syndrome or incomplete quadriplegia (variable sacral sparing)"
+        ],
+        "pitfalls": [
+          "ATTEMPTING CLOSED REDUCTION ON AN OBTUNDED PATIENT WITHOUT PRE-REDUCTION MRI (can crush herniated disc into cord and cause permanent quadriplegia)",
+          "Continuing closed traction despite neurological deterioration or overdistraction (>10 mm widening)",
+          "Placing Gardner-Wells tongs too low or anterior, causing skull penetration or pin slippage"
+        ]
+      },
+      {
+        "category": "spine",
+        "case": "cordCompressionTumor",
+        "id": "tumor_cord_comp",
+        "shortTitle": "Tumor Cord Comp",
+        "title": "Epidural Spinal Cord Compression from Tumor (ESCC)",
+        "assetImageName": "plate_spine_tumor_compression",
+        "image_file": "/plates/plate_spine_tumor_compression.jpg",
+        "acuityLabel": "STAT DEXAMETHASONE & SURGICAL SEPARATION",
+        "imagingPearl": "Sagittal and axial T2/T1+C MRI demonstrates metastatic vertebral body destruction and epidural tumor mass invading the spinal canal. Bilsky Grade 3 reflects complete CSF effacement and cord distortion.",
+        "operativePlan": "Stat IV Dexamethasone + Direct Circumferential Separation Surgery & Posterolateral Fusion",
+        "clinicalTriad": [
+          "Progressive localized nocturnal spine pain worsening when recumbent",
+          "Bilateral progressive lower extremity weakness and sensory ataxia",
+          "Late autonomic bowel/bladder dysfunction indicating advanced myelopathy"
+        ],
+        "pitfalls": [
+          "Withholding high-dose intravenous dexamethasone while waiting for scheduled MRI imaging",
+          "Failing to recognize mechanical spinal instability (SINS >= 13) and treating with radiation alone, leading to sudden vertebral collapse",
+          "Attempting anterior resection in poor-prognosis patients when posterolateral separation surgery suffices"
+        ]
+      },
+      {
+        "category": "spine",
+        "case": "burstFracture",
+        "id": "burst_fracture",
+        "shortTitle": "Burst Fracture",
+        "title": "Thoracolumbar Burst Fracture with Canal Retropulsion",
+        "assetImageName": "plate_spine_burst_fracture",
+        "image_file": "/plates/plate_spine_burst_fracture.jpg",
+        "acuityLabel": "TLICS >= 5: OPERATIVE STABILIZATION",
+        "imagingPearl": "CT shows Denis anterior and middle column comminution, posterosuperior vertebral fragment retropulsed into spinal canal with >60% stenosis, and splaying of pedicles on axial view.",
+        "operativePlan": "Posterior Instrumented Fusion (1-2 above/below) + Transpedicular Fragment Reduction",
+        "clinicalTriad": [
+          "Axial loading or high-speed collision with localized thoracolumbar tenderness",
+          "Palpable gap or step-off at interspinous process indicating PLC disruption",
+          "Conus medullaris or cauda equina motor/sensory deficit (or neurologically intact)"
+        ],
+        "pitfalls": [
+          "Underestimating posterior ligamentous complex (PLC) disruption on CT alone (MRI required if indeterminate)",
+          "Treating TLICS >= 5 burst fractures non-operatively leading to progressive kyphotic deformity and late myelopathy",
+          "Failing to log-roll and clear the entire spinal axis (10-15% incidence of non-contiguous secondary fractures)"
+        ]
+      },
+      {
+        "category": "spine",
+        "case": "caudaEquina",
+        "id": "cauda_equina",
+        "shortTitle": "Cauda Equina",
+        "title": "Cauda Equina Syndrome (CES) from Lumbar Disc Extrusion",
+        "assetImageName": "plate_spine_cauda_equina",
+        "image_file": "/plates/plate_spine_cauda_equina.jpg",
+        "acuityLabel": "STAT SURGICAL DECOMPRESSION (<24-48H)",
+        "imagingPearl": "Sagittal and axial T2 MRI demonstrates massive central/subarticular extruded disc herniation (L4-L5) completely filling the canal and obliterating all descending cauda equina nerve roots.",
+        "operativePlan": "STAT Wide Lumbar Laminectomy, Flavectomy, and Discectomy (<24-48h)",
+        "clinicalTriad": [
+          "Saddle anesthesia over the perineum and buttocks (S3-S5 dermatomes)",
+          "Urinary retention with overflow incontinence (Post-void residual > 200 cc)",
+          "Lax anal sphincter tone and absent bulbocavernosus reflex"
+        ],
+        "pitfalls": [
+          "Discharging a patient with severe back pain without measuring post-void residual bladder volume",
+          "Delaying operative decompression past the 48-hour window, resulting in permanent neurogenic bladder and erectile dysfunction",
+          "Forceful retraction of ischemic cauda equina rootlets causing irreversible iatrogenic neurological deficit"
+        ]
+      },
+      {
+        "category": "spine",
+        "case": "csfLeakSpine",
+        "id": "csf_leak_spine",
+        "shortTitle": "Post-Op CSF Leak",
+        "title": "Management of Postoperative Spinal CSF Leak / Pseudomeningocele",
+        "assetImageName": "plate_spine_csf_leak",
+        "image_file": "/plates/plate_spine_csf_leak.jpg",
+        "acuityLabel": "STEPWISE DIVERSION VS RE-EXPLORATION",
+        "imagingPearl": "Sagittal T2 MRI reveals large hyperintense dorsal subcutaneous fluid collection (pseudomeningocele) tracking through laminectomy defect and communicating with the intrathecal space.",
+        "operativePlan": "Lumbar Subarachnoid Drain (10-15 cc/hr) vs Operative Re-exploration with Primary Dural Repair",
+        "clinicalTriad": [
+          "Clear fluid draining through surgical wound margins or fluctuant dorsal mass",
+          "Positional orthostatic headache worsening on standing and relieved when flat",
+          "Nausea, tinnitus, or neck stiffness with positive beta-2 transferrin test"
+        ],
+        "pitfalls": [
+          "PLACING SUBFASCIAL CLOSED-SUCTION DRAINS TO ACTIVE NEGATIVE PRESSURE (creates continuous suction pulling CSF and nerve roots through dural defect)",
+          "Over-draining lumbar subarachnoid drain (>200 cc/day) precipitating intracranial subdural hematoma or tonsillar herniation",
+          "Dismissing clear fluid drainage as a 'seroma' without testing for beta-2 transferrin, leading to bacterial meningitis"
+        ]
+      },
+      {
+        "category": "spine",
+        "case": "odontoidFracture",
+        "id": "odontoid_fracture",
+        "shortTitle": "Odontoid Fx",
+        "title": "Anderson & D'Alonzo Odontoid Fractures (Types I, II, III)",
+        "assetImageName": "plate_spine_odontoid_classification",
+        "image_file": "/plates/plate_spine_odontoid_classification.jpg",
+        "acuityLabel": "TYPE II: HIGH NONUNION RISK (45-70%) \u2014 SURGERY VS COLLAR",
+        "imagingPearl": "Thin-cut CT cervical spine (sag/cor): Type I (tip), Type II (waist watershed), Type III (body). Measure translation (>5 mm) & angulation (>10\u00b0). Stat CTA to rule out vertebral artery injury.",
+        "operativePlan": "Type I/III: Rigid Miami J Collar (8-12w) vs Type II: Anterior Odontoid Screw or Posterior C1-C2 Harms Fusion",
+        "clinicalTriad": [
+          "Severe high cervical pain & C2 occipital neuralgia after trauma or elderly ground-level fall",
+          "Guarded posture with severely restricted, painful cervical rotation",
+          "Myelopathy signs (brisk reflexes, Hoffman's) if posterior dens displacement"
+        ],
+        "pitfalls": [
+          "HALO VEST IN ELDERLY: High morbidity & mortality in geriatric patients; prefer surgical fixation or rigid Miami J collar.",
+          "CONSERVATIVE CARE FOR DISPLACED TYPE II: Nonunion rate exceeds 65-80% without surgery if displaced >5 mm or age \u226565.",
+          "ANTERIOR SCREW WITH RUPTURED TRANSVERSE LIGAMENT: Leads to construct failure; mandates posterior C1-C2 fusion instead."
+        ]
+      }
+    ],
+    "brainstem": [
+      {
+        "level": 0,
+        "name": "0. Intact Consciousness",
+        "anatomicalLevel": "Cortex & Diencephalon (Intact)",
+        "reflexTrigger": "Normal Consciousness / Wakefulness",
+        "pupils": "Round, regular, reactive to light (3-4 mm). Intact bilateral light reflex.",
+        "motor": "Purposeful, commands-following or purposeful withdrawal.",
+        "respiration": "Eupnea (normal rhythm, rate 12-16/min).",
+        "status": "NORMAL CONSCIOUSNESS",
+        "color": "neonGreen"
+      },
+      {
+        "level": 1,
+        "name": "1. Diencephalic Stage",
+        "anatomicalLevel": "Thalamus / Hypothalamus (Compression)",
+        "reflexTrigger": "Pupillary Dilation / Sympathetic",
+        "pupils": "Small (1-2 mm) reactive 'diencephalic' pupils (loss of descending sympathetic tone).",
+        "motor": "Bilateral paratonic rigidity or Decorticate Posturing (flexion of arms, extension of legs).",
+        "respiration": "Cheyne-Stokes Respiration (waxing-waning tidal volume with interspersed apnea).",
+        "status": "EARLY CENTRAL HERNIATION",
+        "color": "neonCyan"
+      },
+      {
+        "level": 2,
+        "name": "2. Midbrain (Upper Brainstem) Stage",
+        "anatomicalLevel": "Tectum & Edinger-Westphal Nucleus (CN III)",
+        "reflexTrigger": "Pupillary Light Reflex (CN II / III)",
+        "pupils": "Midposition (4-6 mm), irregular, fixed to light. Oculocephalic (doll's eyes) impaired.",
+        "motor": "Decerebrate Posturing (extension, adduction, and internal rotation of upper extremities).",
+        "respiration": "Central Neurogenic Hyperventilation (sustained, rapid, deep hyperpnea 25-40/min).",
+        "status": "CRITICAL MIDBRAIN COMPRESSION",
+        "color": "neonAmber"
+      },
+      {
+        "level": 3,
+        "name": "3. Pontine (Middle Brainstem) Stage",
+        "anatomicalLevel": "Basis Pontis & PPRF (CN V, VII, VIII)",
+        "reflexTrigger": "Corneal & Oculocephalic Reflexes",
+        "pupils": "Pinpoint (<1 mm) or small fixed. Loss of corneal reflex and cold caloric oculovestibular response.",
+        "motor": "Flaccid or weak decerebrate posturing; bilateral Babinski signs.",
+        "respiration": "Apneustic Breathing (prolonged inspiratory pauses of 2-3 sec followed by brief exhalation) or cluster breathing.",
+        "status": "SEVERE PONTINE DECOMPENSATION",
+        "color": "neonAmber"
+      },
+      {
+        "level": 4,
+        "name": "4. Upper Medullary Stage",
+        "anatomicalLevel": "Upper Medulla (Nucleus Ambiguus / Solitarius, CN IX, X)",
+        "reflexTrigger": "Gag & Carinal Cough Reflexes",
+        "pupils": "Fixed and dilated (6-8 mm) or midposition fixed.",
+        "motor": "Completely flaccid tone; no motor response to painful stimuli.",
+        "respiration": "Ataxic Breathing (Biot's respiration: irregular, completely chaotic breaths with variable pauses).",
+        "status": "IMPENDING CONING / APNEA",
+        "color": "neonRed"
+      },
+      {
+        "level": 5,
+        "name": "5. Terminal Medullary Stage (Brain Death)",
+        "anatomicalLevel": "Ventral Respiratory Group & Foramen Magnum (Tonsillar Coning)",
+        "reflexTrigger": "Apnea / Loss of all Brainstem Reflexes",
+        "pupils": "Fixed, dilated, unreactive bilateral pupils (mydriasis).",
+        "motor": "No motor response; total flaccidity (triple flexion spinal reflex may persist).",
+        "respiration": "Apnea (complete absence of spontaneous respiratory drive upon PaCO2 challenge \u226560 mmHg).",
+        "status": "BRAIN DEATH (TONSILLAR HERNIATION)",
+        "color": "neonRed"
+      }
+    ]
+  },
   "procedures": [
     {
       "id": "evd",
@@ -4958,6 +5228,33 @@ function switchPillar(pillarId) {
 
   event.currentTarget.classList.add('active');
   document.getElementById(`pillar-${pillarId}`).classList.add('active');
+}
+
+// 2 AM Crisis Sub-Tabs
+function switchCrisisSubTab(tabId) {
+  document.querySelectorAll('[id^="subtab-crisis-"]').forEach(btn => btn.classList.remove('active'));
+  document.querySelectorAll('[id^="crisis-panel-"]').forEach(panel => panel.classList.remove('active'));
+
+  document.getElementById(`subtab-crisis-${tabId}`).classList.add('active');
+  document.getElementById(`crisis-panel-${tabId}`).classList.add('active');
+}
+
+// Consults Sub-Tabs
+let currentConsultCategory = 'cranial';
+function switchConsultSubTab(tabId) {
+  document.querySelectorAll('[id^="subtab-consult-"]').forEach(btn => btn.classList.remove('active'));
+  document.getElementById(`subtab-consult-${tabId}`).classList.add('active');
+
+  if (tabId === 'brainstem') {
+    document.getElementById('consult-panel-cases').classList.remove('active');
+    document.getElementById('consult-panel-brainstem').classList.add('active');
+    renderBrainstemElevator();
+  } else {
+    document.getElementById('consult-panel-brainstem').classList.remove('active');
+    document.getElementById('consult-panel-cases').classList.add('active');
+    currentConsultCategory = tabId;
+    renderConsults();
+  }
 }
 
 // ==========================================
@@ -5260,12 +5557,12 @@ async function savePlateToSwift(pNum) {
 }
 
 // ==========================================
-// 2. CRISIS RENDER
+// 2. 2 AM CRISIS RENDER
 // ==========================================
 function renderCrisis() {
+  // 2A. Acute Triage
   const tGrid = document.getElementById('crisisThresholdGrid');
   tGrid.innerHTML = '';
-
   appData.crisis.thresholds.forEach((spec, idx) => {
     const card = document.createElement('div');
     card.className = 'studio-card';
@@ -5311,57 +5608,109 @@ function renderCrisis() {
     tGrid.appendChild(card);
   });
 
-  // Checklists (Herniation Pupils)
-  const cGrid = document.getElementById('crisisChecklistGrid');
-  cGrid.innerHTML = '';
-  appData.crisis.checklists.forEach((cl, idx) => {
+  // 2B. BTF ICP Ladder
+  const icpGrid = document.getElementById('icpLadderGrid');
+  icpGrid.innerHTML = '';
+  appData.crisis.icp_tiers.forEach(tier => {
+    const card = document.createElement('div');
+    card.className = 'studio-card';
+    const itemsHtml = tier.interventions.map(it => `<li style="margin-left:18px; margin-bottom:4px; font-size:12px; color:#f1f5f9;">${it}</li>`).join('');
+    card.innerHTML = `
+      <div class="card-header">
+        <div>
+          <span class="card-title" style="color:#00e5ff;">${tier.tier}</span>
+          <div style="font-size:12px; color:#94a3b8; margin-top:2px;">${tier.subtitle}</div>
+        </div>
+        <span class="badge badge-cyan">BTF PROTOCOL</span>
+      </div>
+      <div style="background:#090d15; padding:12px; border-radius:10px; border:1px solid #1e2638;">
+        <div style="font-size:11px; font-weight:800; color:#00e5ff; margin-bottom:6px;">MANDATORY STEPWISE INTERVENTIONS:</div>
+        <ul>${itemsHtml}</ul>
+      </div>
+      <div style="font-size:11px; color:#f59e0b; background:rgba(245,158,11,0.08); padding:8px 12px; border-radius:8px; border:1px solid rgba(245,158,11,0.2);">
+        <strong>Clinical Rationale / Hazard Pearl:</strong> ${tier.rationale}
+      </div>
+    `;
+    icpGrid.appendChild(card);
+  });
+
+  // 2C. Reversal Engine
+  const revGrid = document.getElementById('reversalEngineGrid');
+  revGrid.innerHTML = '';
+  appData.crisis.reversals.forEach(rev => {
+    const card = document.createElement('div');
+    card.className = 'studio-card';
+    card.innerHTML = `
+      <div class="card-header">
+        <div>
+          <span class="card-title" style="color:#fff;">${rev.drug}</span>
+          <div style="font-size:12px; color:#00e5ff; font-weight:700; margin-top:2px;">Target: ${rev.target}</div>
+        </div>
+        <span class="badge badge-purple">REVERSAL PROTOCOL</span>
+      </div>
+      <div style="background:#090d15; padding:12px; border-radius:10px; border:1px solid #1e2638; display:flex; flex-direction:column; gap:6px;">
+        <div><strong style="color:#f43f5e;">First-Line Reversal Agent:</strong> <span style="color:#fff;">${rev.firstLine}</span></div>
+        <div><strong style="color:#00e5ff;">Weight/INR Dosing Protocol:</strong> <span style="color:#cbd5e1;">${rev.dosing}</span></div>
+      </div>
+      <div style="font-size:11px; color:#94a3b8; background:rgba(148,163,184,0.06); padding:8px 12px; border-radius:8px; border:1px solid #1e2638;">
+        <strong>Clinical Pharmacokinetics Pearl:</strong> ${rev.pearl}
+      </div>
+    `;
+    revGrid.appendChild(card);
+  });
+
+  // 2D. OR Spec Sheets
+  const orGrid = document.getElementById('orSetupGrid');
+  orGrid.innerHTML = '';
+  appData.crisis.or_specs.forEach(spec => {
+    const card = document.createElement('div');
+    card.className = 'studio-card';
+    card.innerHTML = `
+      <div class="card-header">
+        <span class="card-title" style="color:#f59e0b;">${spec.procedure}</span>
+        <span class="badge badge-amber">OR SETUP SPEC</span>
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; background:#090d15; padding:12px; border-radius:10px; border:1px solid #1e2638;">
+        <div><strong style="color:#00e5ff; font-size:11px;">PATIENT POSITIONING & MAYFIELD:</strong><div style="font-size:12px; color:#cbd5e1; margin-top:2px;">${spec.positioning}</div></div>
+        <div><strong style="color:#00e5ff; font-size:11px;">DRILLS, SCREWS & HARDWARE:</strong><div style="font-size:12px; color:#cbd5e1; margin-top:2px;">${spec.drill}</div></div>
+        <div><strong style="color:#00e5ff; font-size:11px;">HEMOSTASIS & RETRACTORS:</strong><div style="font-size:12px; color:#cbd5e1; margin-top:2px;">${spec.hemostasis}</div></div>
+        <div><strong style="color:#00e5ff; font-size:11px;">DURAL PATCH & BIOLOGICS:</strong><div style="font-size:12px; color:#cbd5e1; margin-top:2px;">${spec.duralPatch}</div></div>
+      </div>
+      <div style="font-size:11px; color:#94a3b8;"><strong style="color:#fff;">Closure / Drains:</strong> ${spec.closure}</div>
+    `;
+    orGrid.appendChild(card);
+  });
+
+  // 2E. Checklists
+  const clGrid = document.getElementById('crisisChecklistGrid');
+  clGrid.innerHTML = '';
+  appData.crisis.checklists.forEach(cl => {
     const card = document.createElement('div');
     card.className = 'studio-card';
     const stepsHtml = cl.steps.map((st, i) => `
-      <div style="display:flex; gap:8px; align-items:center;">
-        <span style="color:#00e5ff; font-weight:800;">${i+1}.</span>
-        <input type="text" class="edit-input" value="${st}" onchange="cl.steps[${i}] = this.value">
+      <div style="display:flex; gap:8px; align-items:flex-start; margin-bottom:4px;">
+        <span style="color:#00e5ff; font-weight:800; font-size:12px;">${i+1}.</span>
+        <span style="color:#f1f5f9; font-size:12px;">${st}</span>
       </div>
     `).join('');
 
     card.innerHTML = `
       <div class="card-header">
         <span class="card-title">${cl.title}</span>
-        <span class="badge badge-amber">CRITICAL RESUSCITATION</span>
+        <span class="badge badge-red">CRITICAL CHECKLIST</span>
       </div>
       <div class="media-card-grid">
         <div class="viewport-container">
           <img src="${cl.image_file}" alt="${cl.title}">
-          <div class="viewport-caption">Pupillary Light Reflex & Herniation Anisocoria</div>
+          <div class="viewport-caption">Reference Diagnostic Plate</div>
         </div>
-        <div style="display:flex; flex-direction:column; gap:10px;">
-          <div class="field-label">Resuscitation Stepwise Actions:</div>
+        <div style="display:flex; flex-direction:column; gap:8px; background:#090d15; padding:12px; border-radius:10px; border:1px solid #1e2638;">
+          <div class="field-label" style="color:#00e5ff;">Action Steps:</div>
           ${stepsHtml}
-          <button class="save-btn" onclick="saveCrisisChecklist('${cl.id}', ${idx})">💾 Save Checklist to Swift</button>
         </div>
       </div>
     `;
-    cGrid.appendChild(card);
-  });
-
-  // Reversals
-  const rGrid = document.getElementById('crisisReversalGrid');
-  rGrid.innerHTML = '';
-  appData.crisis.reversals.forEach(rev => {
-    const card = document.createElement('div');
-    card.className = 'studio-card';
-    card.innerHTML = `
-      <div class="card-header">
-        <span class="card-title">${rev.drug}</span>
-        <span class="badge badge-purple">${rev.agent}</span>
-      </div>
-      <div style="font-size:12px; color:#94a3b8;">${rev.mechanism}</div>
-      <div style="background:#090d15; padding:10px; border-radius:8px; border:1px solid #1e2638; display:flex; flex-direction:column; gap:4px;">
-        <div><strong style="color:#fff;">Dose:</strong> ${rev.dose}</div>
-        <div><strong style="color:#00e5ff;">Target:</strong> ${rev.target}</div>
-      </div>
-    `;
-    rGrid.appendChild(card);
+    clGrid.appendChild(card);
   });
 }
 
@@ -5379,42 +5728,17 @@ async function saveCrisisSpec(specId, idx) {
   } catch (e) { alert("Connection error: " + e); }
 }
 
-async function saveCrisisChecklist(clId, idx) {
-  const cl = appData.crisis.checklists[idx];
-  try {
-    const res = await fetch("/api/save-crisis", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ checklists: [cl] })
-    });
-    const data = await res.json();
-    if (data.status === "ok") showToast(`Herniation checklist saved to Swift!`);
-    else alert("Error: " + data.message);
-  } catch (e) { alert("Connection error: " + e); }
-}
-
 // ==========================================
-// 3. ER CONSULTS RENDER
+// 3. ER CONSULTS & BRAINSTEM RENDER
 // ==========================================
-let currentConsultCategory = 'all';
-
-function filterConsults(cat) {
-  currentConsultCategory = cat;
-  document.getElementById('filter-all').classList.toggle('active', cat === 'all');
-  document.getElementById('filter-cranial').classList.toggle('active', cat === 'cranial');
-  document.getElementById('filter-spine').classList.toggle('active', cat === 'spine');
-  renderConsults();
-}
-
 function renderConsults() {
   const grid = document.getElementById('consultsGrid');
   const search = document.getElementById('consultSearch').value.toLowerCase();
   grid.innerHTML = '';
 
-  const filtered = appData.consults.filter(c => {
-    const matchCat = (currentConsultCategory === 'all') || (c.category === currentConsultCategory);
-    const matchSearch = c.title.toLowerCase().includes(search) || c.case.toLowerCase().includes(search) || c.shortTitle.toLowerCase().includes(search);
-    return matchCat && matchSearch;
+  const list = currentConsultCategory === 'cranial' ? appData.consults.cranial : appData.consults.spine;
+  const filtered = list.filter(c => {
+    return c.title.toLowerCase().includes(search) || c.case.toLowerCase().includes(search) || c.shortTitle.toLowerCase().includes(search);
   });
 
   filtered.forEach(c => {
@@ -5435,7 +5759,7 @@ function renderConsults() {
       <div class="card-header">
         <div>
           <span class="card-title">${c.title}</span>
-          <div style="font-size:11px; color:#64748b; margin-top:2px;">Enum Case: .${c.case} | Category: ${c.category.toUpperCase()}</div>
+          <div style="font-size:11px; color:#64748b; margin-top:2px;">Case: .${c.case} | Category: ${c.category.toUpperCase()}</div>
         </div>
         <span class="badge badge-red">${c.acuityLabel || 'EMERGENCY'}</span>
       </div>
@@ -5444,7 +5768,7 @@ function renderConsults() {
         <div>
           <div class="viewport-container">
             <img src="${c.image_file}" alt="${c.title}" title="Click to view full size">
-            <div class="viewport-caption">Authentic Clinical Radiological Plate (${c.assetImageName})</div>
+            <div class="viewport-caption">Clinical Scan Plate (${c.assetImageName})</div>
           </div>
           ${triadHtml ? `<div style="background:#090d15; padding:10px; border-radius:8px; border:1px solid #1e2638; margin-top:10px; font-size:11px; color:#94a3b8;"><div style="font-weight:800; color:#00e5ff; margin-bottom:4px;">CLINICAL TRIAD / PRESENTATION:</div><ul>${triadHtml}</ul></div>` : ''}
         </div>
@@ -5495,7 +5819,8 @@ function renderConsults() {
 }
 
 function deleteConsultPitfall(cCase, idx) {
-  const c = appData.consults.find(x => x.case === cCase);
+  const list = currentConsultCategory === 'cranial' ? appData.consults.cranial : appData.consults.spine;
+  const c = list.find(x => x.case === cCase);
   if (c) {
     c.pitfalls.splice(idx, 1);
     renderConsults();
@@ -5503,7 +5828,8 @@ function deleteConsultPitfall(cCase, idx) {
 }
 
 function addConsultPitfall(cCase) {
-  const c = appData.consults.find(x => x.case === cCase);
+  const list = currentConsultCategory === 'cranial' ? appData.consults.cranial : appData.consults.spine;
+  const c = list.find(x => x.case === cCase);
   if (c) {
     c.pitfalls.push("Catastrophic Pitfall: ");
     renderConsults();
@@ -5511,7 +5837,8 @@ function addConsultPitfall(cCase) {
 }
 
 async function saveConsultToSwift(cCase) {
-  const c = appData.consults.find(x => x.case === cCase);
+  const list = currentConsultCategory === 'cranial' ? appData.consults.cranial : appData.consults.spine;
+  const c = list.find(x => x.case === cCase);
   if (!c) return;
 
   try {
@@ -5524,6 +5851,40 @@ async function saveConsultToSwift(cCase) {
     if (data.status === "ok") showToast(`Consult ${c.shortTitle} saved directly to Swift!`);
     else alert("Error: " + data.message);
   } catch (e) { alert("Connection error: " + e); }
+}
+
+// Brainstem Elevator Render
+function renderBrainstemElevator() {
+  const board = document.getElementById('brainstemElevatorBoard');
+  board.innerHTML = '';
+
+  appData.consults.brainstem.forEach(st => {
+    const stageDiv = document.createElement('div');
+    stageDiv.className = 'elevator-stage';
+    stageDiv.innerHTML = `
+      <div style="display:flex; flex-direction:column; gap:4px; max-width:280px;">
+        <div style="font-size:14px; font-weight:800; color:#fff;">${st.name}</div>
+        <div style="font-size:11px; color:#00e5ff;">${st.anatomicalLevel}</div>
+        <div style="font-size:10px; color:#94a3b8;">Trigger: ${st.reflexTrigger}</div>
+        <span class="badge badge-${st.color.includes('Red') ? 'red' : (st.color.includes('Green') ? 'green' : 'cyan')}" style="width:fit-content; margin-top:4px;">${st.status}</span>
+      </div>
+      <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; flex:1; background:#080c14; padding:10px 14px; border-radius:8px; border:1px solid #1a2336;">
+        <div>
+          <div style="font-size:10px; font-weight:800; color:#94a3b8;">👁️ PUPILLARY LIGHT REFLEX:</div>
+          <div style="font-size:11px; color:#cbd5e1; margin-top:2px;">${st.pupils}</div>
+        </div>
+        <div>
+          <div style="font-size:10px; font-weight:800; color:#94a3b8;">🏃 MOTOR POSTURING:</div>
+          <div style="font-size:11px; color:#cbd5e1; margin-top:2px;">${st.motor}</div>
+        </div>
+        <div>
+          <div style="font-size:10px; font-weight:800; color:#94a3b8;">🫁 RESPIRATORY PATTERN:</div>
+          <div style="font-size:11px; color:#cbd5e1; margin-top:2px;">${st.respiration}</div>
+        </div>
+      </div>
+    `;
+    board.appendChild(stageDiv);
+  });
 }
 
 // ==========================================
