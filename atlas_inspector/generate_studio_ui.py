@@ -95,7 +95,7 @@ for i in range(1, 107):
     elif 47 <= i <= 106:
         batch_tag = "Reviewed 047-106"
 
-    # Domain tag (Cranial first, Spine second, Pediatric third)
+    # Domain tag (Master 096 first, Cranial second, Spine third, Pediatric fourth)
     pediatric_plates = {"002", "043", "046", "095", "105"}
     spine_plates = {
         "001", "013", "014", "035", "047", "049", "088", "097",
@@ -103,9 +103,11 @@ for i in range(1, 107):
         "026", "036", "038", "048", "054", "058", "068", "072", "073", "078", "085", "094", "103",
         "011", "007", "037", "029", "028", "032", "083", "087", "100", "101", "106",
         "023", "024", "039", "071", "075", "081", "099", "102", "104",
-        "089", "090", "092", "096"
+        "089", "090", "092"
     }
-    if p_str in pediatric_plates:
+    if p_str == "096":
+        domain_tag = "Master"
+    elif p_str in pediatric_plates:
         domain_tag = "Pediatric"
     elif p_str in spine_plates:
         domain_tag = "Spine"
@@ -940,8 +942,9 @@ html_template = f"""<!DOCTYPE html>
     <div class="filter-bar" style="flex-wrap: wrap; gap: 8px;">
       <input type="text" id="sorterSearch" class="edit-input" style="max-width: 200px;" placeholder="Filter slides..." oninput="renderSlideSorter()">
       <button class="pill-filter active" id="filter-sorter-all" onclick="filterSorter('all')">All (106)</button>
+      <button class="pill-filter" id="filter-sorter-master" onclick="filterSorter('Master')">🌟 Master (1)</button>
       <button class="pill-filter" id="filter-sorter-cranial" onclick="filterSorter('Cranial')">🧠 Cranial (45)</button>
-      <button class="pill-filter" id="filter-sorter-spine" onclick="filterSorter('Spine')">🦴 Spine (56)</button>
+      <button class="pill-filter" id="filter-sorter-spine" onclick="filterSorter('Spine')">🦴 Spine (55)</button>
       <button class="pill-filter" id="filter-sorter-pediatric" onclick="filterSorter('Pediatric')">👶 Pediatric (5)</button>
       
       <!-- Slide Zoom Controls -->
@@ -1230,6 +1233,7 @@ function setSlideSize(size) {{
 function filterSorter(cat) {{
   currentSorterFilter = cat;
   document.getElementById('filter-sorter-all').classList.toggle('active', cat === 'all');
+  document.getElementById('filter-sorter-master').classList.toggle('active', cat === 'Master');
   document.getElementById('filter-sorter-cranial').classList.toggle('active', cat === 'Cranial');
   document.getElementById('filter-sorter-spine').classList.toggle('active', cat === 'Spine');
   document.getElementById('filter-sorter-pediatric').classList.toggle('active', cat === 'Pediatric');
@@ -1257,15 +1261,18 @@ function renderSlideSorter() {{
       lastDomain = p.domain;
       const div = document.createElement('div');
       div.className = 'slide-section-divider';
-      if (p.domain === 'Cranial') {{
+      if (p.domain === 'Master') {{
+        div.style.borderLeft = '4px solid #a855f7';
+        div.innerHTML = `<span style="color:#c084fc;">🌟 SECTION 1: THE NEUROCALL ATLAS (Plate 1)</span><span class="badge" style="background:rgba(168,85,247,0.25); color:#c084fc; border:1px solid #a855f7;">Master Overview</span>`;
+      }} else if (p.domain === 'Cranial') {{
         div.style.borderLeft = '4px solid #00e5ff';
-        div.innerHTML = `<span style="color:#00e5ff;">🧠 SECTION 1: CRANIAL & SKULL BASE PLATES (1 – 45)</span><span class="badge badge-cyan">45 Plates</span>`;
+        div.innerHTML = `<span style="color:#00e5ff;">🧠 SECTION 2: CRANIAL & SKULL BASE (Plates 2 – 46)</span><span class="badge badge-cyan">45 Plates</span>`;
       }} else if (p.domain === 'Spine') {{
         div.style.borderLeft = '4px solid #ffb300';
-        div.innerHTML = `<span style="color:#ffb300;">🦴 SECTION 2: SPINE & CVJ PLATES (46 – 101)</span><span class="badge badge-amber">56 Plates</span>`;
+        div.innerHTML = `<span style="color:#ffb300;">🦴 SECTION 3: SPINE & CVJ (Plates 47 – 101)</span><span class="badge badge-amber">55 Plates</span>`;
       }} else if (p.domain === 'Pediatric') {{
         div.style.borderLeft = '4px solid #f43f5e';
-        div.innerHTML = `<span style="color:#f43f5e;">👶 SECTION 3: PEDIATRIC NEUROSURGERY PLATES (102 – 106)</span><span class="badge" style="background:rgba(244,63,94,0.25); color:#f43f5e; border:1px solid #f43f5e;">5 Plates</span>`;
+        div.innerHTML = `<span style="color:#f43f5e;">👶 SECTION 4: PEDIATRIC NEUROSURGERY (Plates 102 – 106)</span><span class="badge" style="background:rgba(244,63,94,0.25); color:#f43f5e; border:1px solid #f43f5e;">5 Plates</span>`;
       }}
       grid.appendChild(div);
     }}
@@ -1276,11 +1283,13 @@ function renderSlideSorter() {{
     tile.dataset.plateNum = p.plate_num;
     tile.id = `slide-tile-${{p.plate_num}}`;
 
-    const domainBadge = p.domain === 'Cranial'
-      ? '<span class="badge badge-cyan" style="font-size:9px; padding:1px 4px;">Cranial</span>'
-      : (p.domain === 'Spine'
-          ? '<span class="badge badge-amber" style="font-size:9px; padding:1px 4px;">Spine</span>'
-          : '<span class="badge" style="background:rgba(244,63,94,0.25); color:#f43f5e; border:1px solid #f43f5e; font-size:9px; padding:1px 4px;">Pediatric</span>');
+    const domainBadge = p.domain === 'Master'
+      ? '<span class="badge" style="background:rgba(168,85,247,0.25); color:#c084fc; border:1px solid #a855f7; font-size:9px; padding:1px 4px;">Master</span>'
+      : (p.domain === 'Cranial'
+          ? '<span class="badge badge-cyan" style="font-size:9px; padding:1px 4px;">Cranial</span>'
+          : (p.domain === 'Spine'
+              ? '<span class="badge badge-amber" style="font-size:9px; padding:1px 4px;">Spine</span>'
+              : '<span class="badge" style="background:rgba(244,63,94,0.25); color:#f43f5e; border:1px solid #f43f5e; font-size:9px; padding:1px 4px;">Pediatric</span>'));
 
     tile.innerHTML = `
       <div style="display:flex; justify-content:space-between; align-items:center;">

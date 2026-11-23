@@ -6,9 +6,9 @@ import SwiftUI
 // Deep micro-zoom (1.0x to 4.0x), interactive pinned callouts, danger zone overlays, and tactical protocols.
 
 public struct PhotorealisticSurgicalAtlasView: View {
-    @State private var selectedDomain: AtlasDomain = .cranial
+    @State private var selectedDomain: AtlasDomain = .master
     @State private var selectedSubSection: AtlasSubSection? = nil
-    @State private var selectedPlate: SurgicalPlateType = .plate017
+    @State private var selectedPlate: SurgicalPlateType = .plate096
     @State private var zoomScale: CGFloat = 1.0
     @State private var lastZoomScale: CGFloat = 1.0
     @State private var dragOffset: CGSize = .zero
@@ -649,14 +649,16 @@ public struct PhotorealisticSurgicalAtlasView: View {
 
 // MARK: - Data Models
 public enum AtlasDomain: String, CaseIterable, Identifiable {
+    case master = "🌟 ATLAS MASTER (1)"
     case cranial = "🧠 CRANIAL & SKULL BASE (45)"
-    case spine = "🦴 SPINE & CVJ (56)"
+    case spine = "🦴 SPINE & CVJ (55)"
     case pediatric = "👶 PEDIATRIC NEUROSURGERY (5)"
     
     public var id: String { rawValue }
     
     public var shortTitle: String {
         switch self {
+        case .master: return "🌟 ATLAS"
         case .cranial: return "🧠 CRANIAL"
         case .spine: return "🦴 SPINE"
         case .pediatric: return "👶 PEDIATRIC"
@@ -669,6 +671,8 @@ public enum AtlasDomain: String, CaseIterable, Identifiable {
     
     public var subSections: [AtlasSubSection] {
         switch self {
+        case .master:
+            return [.masterCorridors]
         case .cranial:
             return [.anteriorSkullBase, .convexityTrauma, .posteriorFossa, .vascularVentricular]
         case .spine:
@@ -684,6 +688,9 @@ public enum AtlasDomain: String, CaseIterable, Identifiable {
 }
 
 public enum AtlasSubSection: String, CaseIterable, Identifiable {
+    // Atlas Master (1 sub-section)
+    case masterCorridors = "360° Master Corridors"
+
     // Cranial (4 sub-sections)
     case anteriorSkullBase = "Anterior Skull Base"
     case convexityTrauma = "Convexity & Trauma"
@@ -705,6 +712,8 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
     
     public var domain: AtlasDomain {
         switch self {
+        case .masterCorridors:
+            return .master
         case .anteriorSkullBase, .convexityTrauma, .posteriorFossa, .vascularVentricular:
             return .cranial
         case .craniovertebral, .cervical, .thoracicOncology, .lumbarMIS, .deformitySalvage, .peripheralNerve:
@@ -716,6 +725,7 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
     
     public var iconName: String {
         switch self {
+        case .masterCorridors: return "star.circle.fill"
         case .anteriorSkullBase: return "eye.circle.fill"
         case .convexityTrauma: return "brain.head.profile"
         case .posteriorFossa: return "circle.grid.cross.fill"
@@ -732,6 +742,8 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
     
     public var plates: [SurgicalPlateType] {
         switch self {
+        case .masterCorridors:
+            return [.plate096]
         case .anteriorSkullBase:
             return [.plate017, .plate009, .plate012, .plate008, .plate005, .plate033, .plate030, .plate055, .plate059, .plate066, .plate074, .plate084]
         case .convexityTrauma:
@@ -751,7 +763,7 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
         case .deformitySalvage:
             return [.plate023, .plate024, .plate039, .plate071, .plate075, .plate081, .plate099, .plate102, .plate104]
         case .peripheralNerve:
-            return [.plate089, .plate090, .plate092, .plate096]
+            return [.plate089, .plate090, .plate092]
         case .pediatricNeurosurgery:
             return [.plate002, .plate043, .plate046, .plate095, .plate105]
         }
@@ -760,14 +772,17 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
 
 public enum AtlasCategory: String, CaseIterable {
     case all = "All Plates (106)"
+    case master = "NeuroCall Atlas (1)"
     case cranial = "Cranial & Skull Base (45)"
-    case spine = "Spine & CVJ (56)"
+    case spine = "Spine & CVJ (55)"
     case pediatric = "Pediatric Neurosurgery (5)"
 
     public var filteredPlates: [SurgicalPlateType] {
         switch self {
         case .all:
-            return AtlasDomain.cranial.plates + AtlasDomain.spine.plates + AtlasDomain.pediatric.plates
+            return AtlasDomain.master.plates + AtlasDomain.cranial.plates + AtlasDomain.spine.plates + AtlasDomain.pediatric.plates
+        case .master:
+            return AtlasDomain.master.plates
         case .cranial:
             return AtlasDomain.cranial.plates
         case .spine:

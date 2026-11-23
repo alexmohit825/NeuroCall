@@ -282,8 +282,9 @@
     <div class="filter-bar" style="flex-wrap: wrap; gap: 8px;">
       <input type="text" id="sorterSearch" class="edit-input" style="max-width: 200px;" placeholder="Filter slides..." oninput="renderSlideSorter()">
       <button class="pill-filter active" id="filter-sorter-all" onclick="filterSorter('all')">All (106)</button>
+      <button class="pill-filter" id="filter-sorter-master" onclick="filterSorter('Master')">🌟 Master (1)</button>
       <button class="pill-filter" id="filter-sorter-cranial" onclick="filterSorter('Cranial')">🧠 Cranial (45)</button>
-      <button class="pill-filter" id="filter-sorter-spine" onclick="filterSorter('Spine')">🦴 Spine (56)</button>
+      <button class="pill-filter" id="filter-sorter-spine" onclick="filterSorter('Spine')">🦴 Spine (55)</button>
       <button class="pill-filter" id="filter-sorter-pediatric" onclick="filterSorter('Pediatric')">👶 Pediatric (5)</button>
       
       <!-- Slide Zoom Controls -->
@@ -468,6 +469,16 @@
 <script>
 const appData = {
   "atlas": [
+    {
+      "plate_num": "096",
+      "title": "The NeuroCall Surgical Atlas: 360\u00b0 Master Corridors \u2014 Cranial Skull Base, Spinal Reconstruction & Functional Neural Pathways",
+      "batch_tag": "Reviewed 047-106",
+      "domain": "Master",
+      "image_file": "/plates/plate_096.jpg",
+      "pins": [],
+      "steps": [],
+      "hazards": []
+    },
     {
       "plate_num": "017",
       "title": "Left Pterional (Frontotemporal) Craniotomy Bone Window & Sphenoid Ridge (3D Master)",
@@ -4515,16 +4526,6 @@ const appData = {
       "hazards": []
     },
     {
-      "plate_num": "096",
-      "title": "The NeuroCall Surgical Atlas: 360\u00b0 Master Corridors \u2014 Cranial Skull Base, Spinal Reconstruction & Functional Neural Pathways",
-      "batch_tag": "Reviewed 047-106",
-      "domain": "Spine",
-      "image_file": "/plates/plate_096.jpg",
-      "pins": [],
-      "steps": [],
-      "hazards": []
-    },
-    {
       "plate_num": "002",
       "title": "Neonatal Ventricular Access Device / EVD via Open Anterior Fontanelle",
       "batch_tag": "Dr. Mohit Calibrated (001-025)",
@@ -5589,6 +5590,7 @@ function setSlideSize(size) {
 function filterSorter(cat) {
   currentSorterFilter = cat;
   document.getElementById('filter-sorter-all').classList.toggle('active', cat === 'all');
+  document.getElementById('filter-sorter-master').classList.toggle('active', cat === 'Master');
   document.getElementById('filter-sorter-cranial').classList.toggle('active', cat === 'Cranial');
   document.getElementById('filter-sorter-spine').classList.toggle('active', cat === 'Spine');
   document.getElementById('filter-sorter-pediatric').classList.toggle('active', cat === 'Pediatric');
@@ -5616,15 +5618,18 @@ function renderSlideSorter() {
       lastDomain = p.domain;
       const div = document.createElement('div');
       div.className = 'slide-section-divider';
-      if (p.domain === 'Cranial') {
+      if (p.domain === 'Master') {
+        div.style.borderLeft = '4px solid #a855f7';
+        div.innerHTML = `<span style="color:#c084fc;">🌟 SECTION 1: THE NEUROCALL ATLAS (Plate 1)</span><span class="badge" style="background:rgba(168,85,247,0.25); color:#c084fc; border:1px solid #a855f7;">Master Overview</span>`;
+      } else if (p.domain === 'Cranial') {
         div.style.borderLeft = '4px solid #00e5ff';
-        div.innerHTML = `<span style="color:#00e5ff;">🧠 SECTION 1: CRANIAL & SKULL BASE PLATES (1 – 45)</span><span class="badge badge-cyan">45 Plates</span>`;
+        div.innerHTML = `<span style="color:#00e5ff;">🧠 SECTION 2: CRANIAL & SKULL BASE (Plates 2 – 46)</span><span class="badge badge-cyan">45 Plates</span>`;
       } else if (p.domain === 'Spine') {
         div.style.borderLeft = '4px solid #ffb300';
-        div.innerHTML = `<span style="color:#ffb300;">🦴 SECTION 2: SPINE & CVJ PLATES (46 – 101)</span><span class="badge badge-amber">56 Plates</span>`;
+        div.innerHTML = `<span style="color:#ffb300;">🦴 SECTION 3: SPINE & CVJ (Plates 47 – 101)</span><span class="badge badge-amber">55 Plates</span>`;
       } else if (p.domain === 'Pediatric') {
         div.style.borderLeft = '4px solid #f43f5e';
-        div.innerHTML = `<span style="color:#f43f5e;">👶 SECTION 3: PEDIATRIC NEUROSURGERY PLATES (102 – 106)</span><span class="badge" style="background:rgba(244,63,94,0.25); color:#f43f5e; border:1px solid #f43f5e;">5 Plates</span>`;
+        div.innerHTML = `<span style="color:#f43f5e;">👶 SECTION 4: PEDIATRIC NEUROSURGERY (Plates 102 – 106)</span><span class="badge" style="background:rgba(244,63,94,0.25); color:#f43f5e; border:1px solid #f43f5e;">5 Plates</span>`;
       }
       grid.appendChild(div);
     }
@@ -5635,11 +5640,13 @@ function renderSlideSorter() {
     tile.dataset.plateNum = p.plate_num;
     tile.id = `slide-tile-${p.plate_num}`;
 
-    const domainBadge = p.domain === 'Cranial'
-      ? '<span class="badge badge-cyan" style="font-size:9px; padding:1px 4px;">Cranial</span>'
-      : (p.domain === 'Spine'
-          ? '<span class="badge badge-amber" style="font-size:9px; padding:1px 4px;">Spine</span>'
-          : '<span class="badge" style="background:rgba(244,63,94,0.25); color:#f43f5e; border:1px solid #f43f5e; font-size:9px; padding:1px 4px;">Pediatric</span>');
+    const domainBadge = p.domain === 'Master'
+      ? '<span class="badge" style="background:rgba(168,85,247,0.25); color:#c084fc; border:1px solid #a855f7; font-size:9px; padding:1px 4px;">Master</span>'
+      : (p.domain === 'Cranial'
+          ? '<span class="badge badge-cyan" style="font-size:9px; padding:1px 4px;">Cranial</span>'
+          : (p.domain === 'Spine'
+              ? '<span class="badge badge-amber" style="font-size:9px; padding:1px 4px;">Spine</span>'
+              : '<span class="badge" style="background:rgba(244,63,94,0.25); color:#f43f5e; border:1px solid #f43f5e; font-size:9px; padding:1px 4px;">Pediatric</span>'));
 
     tile.innerHTML = `
       <div style="display:flex; justify-content:space-between; align-items:center;">
