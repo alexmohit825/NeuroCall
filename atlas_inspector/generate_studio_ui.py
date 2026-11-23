@@ -2,18 +2,26 @@ import json
 import re
 import os
 
-swift_path = r"C:\Users\mohal\Documents\antigravity\Radix\RadixApp\Views\PhotorealisticSurgicalAtlasData.swift"
-with open(swift_path, "r", encoding="utf-8") as f:
-    text = f.read()
+data_path = r"C:\Users\mohal\Documents\antigravity\Radix\RadixApp\Views\PhotorealisticSurgicalAtlasData.swift"
+view_path = r"C:\Users\mohal\Documents\antigravity\Radix\RadixApp\Views\PhotorealisticSurgicalAtlasView.swift"
 
-sec_c = text[text.find("public var callouts: [SurgicalCallout]"):text.find("public var steps: [ApproachSequentialStep]")]
-sec_s = text[text.find("public var steps: [ApproachSequentialStep]"):text.find("public var catastrophicHazards: [String]")]
-sec_h = text[text.find("public var catastrophicHazards: [String]")]
+with open(data_path, "r", encoding="utf-8") as f:
+    data_text = f.read()
 
+with open(view_path, "r", encoding="utf-8") as f:
+    view_text = f.read()
+
+sec_c = data_text[data_text.find("public var callouts: [SurgicalCallout]"):data_text.find("public var steps: [ApproachSequentialStep]")]
+sec_s = data_text[data_text.find("public var steps: [ApproachSequentialStep]"):data_text.find("public var catastrophicHazards: [String]")]
+sec_h = data_text[data_text.find("public var catastrophicHazards: [String]")]
+
+# Extract titles from PhotorealisticSurgicalAtlasView.swift
 titles_map = {}
-enum_m = re.search(r"public var title: String \{(.*?)\n    \}", text, re.DOTALL)
-if enum_m:
-    for m in re.finditer(r'case \.plate(\d+):\s*return "(.*?)"', enum_m.group(1)):
+t_start = view_text.find("public var title: String {")
+if t_start != -1:
+    ic_start = view_text.find("public var iconName: String {", t_start)
+    t_sec = view_text[t_start:ic_start] if ic_start != -1 else view_text[t_start:]
+    for m in re.finditer(r'case \.plate(\d+):\s*return "(.*?)"', t_sec):
         titles_map[m.group(1)] = m.group(2)
 
 plates_data = []
@@ -34,12 +42,16 @@ for i in range(1, 107):
             desc_m = re.search(r'description:\s*"(.*?)"', cb)
             pearl_m = re.search(r'surgicalPearl:\s*"(.*?)"', cb)
             
+            raw_color = color_m.group(1).replace("ObsidianTheme.", "").replace("Color.", "").strip() if color_m else "neonAmber"
+            if raw_color == "red": raw_color = "neonRed"
+            if raw_color == "purple": raw_color = "neonPurple"
+
             pins.append({
                 "id": f"pin_{p_str}_{idx+1}",
                 "num": idx + 1,
                 "title": title_m.group(1) if title_m else "Landmark",
                 "structureType": type_m.group(1) if type_m else "ANATOMICAL LANDMARK",
-                "color": color_m.group(1).replace("ObsidianTheme.", "").replace("Color.", "") if color_m else "neonAmber",
+                "color": raw_color,
                 "x": float(x_m.group(1)) if x_m else 0.5,
                 "y": float(y_m.group(1)) if y_m else 0.5,
                 "description": desc_m.group(1) if desc_m else "",
@@ -64,634 +76,565 @@ for i in range(1, 107):
     hazards = []
     if h_match:
         h_strings = re.findall(r'"(.*?)"', h_match.group(1))
-        hazards = [h for h in h_strings if h.strip()]
+        hazards = [h.strip() for h in h_strings if h.strip()]
 
     plate_title = titles_map.get(p_str, f"Plate {p_str}")
-    if plate_title == f"Plate {p_str}" and pins:
-        plate_title = f"Plate {p_str}: {pins[0]['title']}"
 
     batch_tag = "Catalog Core"
-    if 1 <= i <= 42:
-        batch_tag = "Master Calibrated (001-042)"
-    elif p_str in ["087", "058", "086", "088", "089"]:
-        batch_tag = "Batch 4 Streamlined"
+    if 1 <= i <= 25:
+        batch_tag = "Dr. Mohit Calibrated (001-025)"
+    elif 26 <= i <= 46:
+        batch_tag = "Reviewed 026-046"
+    elif 47 <= i <= 106:
+        batch_tag = "Pending 047-106"
 
     plates_data.append({
         "plate_num": p_str,
         "title": plate_title,
-        "image_file": f"plates/plate_{p_str}.jpg",
         "batch_tag": batch_tag,
+        "image_file": f"/plates/plate_{p_str}.jpg",
         "pins": pins,
         "steps": steps,
         "hazards": hazards
     })
 
-html_content = """<!DOCTYPE html>
+plates_json = json.dumps(plates_data, indent=2)
+
+html_template = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NeuroCall Atlas Studio — Visual Drag-and-Drop Pin Calibration</title>
+<title>NeuroCall Atlas Studio — Visual Drag-and-Drop & Text Editor</title>
 <style>
-  :root {
-    --bg-dark: #070a12;
-    --card-bg: #0f172a;
-    --card-border: #1e293b;
-    --accent-cyan: #00e5ff;
+  :root {{
+    --bg-dark: #07090e;
+    --card-bg: #0f141c;
+    --border-color: #1e2638;
+    --text-primary: #f8fafc;
+    --text-secondary: #94a3b8;
     --accent-amber: #f59e0b;
+    --accent-cyan: #00e5ff;
     --accent-rose: #f43f5e;
     --accent-green: #10b981;
-    --text-main: #f8fafc;
-    --text-muted: #94a3b8;
-  }
-  body {
-    background-color: var(--bg-dark);
-    color: var(--text-main);
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    margin: 0;
-    padding: 20px;
-    user-select: none;
-  }
-  .header {
-    max-width: 1480px;
-    margin: 0 auto 20px auto;
-    padding-bottom: 16px;
-    border-bottom: 1px solid var(--card-border);
-  }
-  .header h1 {
-    margin: 0 0 6px 0;
-    font-size: 26px;
-    font-weight: 800;
-    color: #fff;
-    letter-spacing: -0.5px;
-  }
-  .header p {
-    margin: 0;
-    color: var(--text-muted);
-    font-size: 13.5px;
-    line-height: 1.5;
-  }
-  .controls {
-    max-width: 1480px;
-    margin: 0 auto 20px auto;
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-    align-items: center;
-  }
-  .search-box {
-    flex: 1;
-    min-width: 260px;
-    padding: 10px 16px;
-    border-radius: 8px;
-    border: 1px solid var(--card-border);
-    background: var(--card-bg);
-    color: #fff;
-    font-size: 13.5px;
-  }
-  .filter-btn {
-    background: var(--card-bg);
-    border: 1px solid var(--card-border);
-    color: var(--text-muted);
-    padding: 8px 14px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 12.5px;
-    font-weight: 700;
-  }
-  .filter-btn.active, .filter-btn:hover {
-    background: #1e293b;
-    color: #fff;
-    border-color: var(--accent-cyan);
-  }
-  .toast {
-    position: fixed;
-    top: 24px;
-    right: 24px;
-    background: #10b981;
-    color: #000;
-    padding: 12px 24px;
-    border-radius: 8px;
-    font-weight: 800;
-    font-size: 14px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.8);
-    display: none;
-    z-index: 9999;
-    animation: fadeIn 0.2s;
-  }
-  .plate-grid {
-    max-width: 1480px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
-  }
-  .plate-card {
-    background: var(--card-bg);
-    border: 1px solid var(--card-border);
-    border-radius: 16px;
-    padding: 20px;
-    display: grid;
-    grid-template-columns: 1.15fr 0.85fr;
-    gap: 24px;
-    align-items: start;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-  }
-  @media (max-width: 1100px) {
-    .plate-card {
-      grid-template-columns: 1fr;
-    }
-  }
-  .image-wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-  .image-canvas-container {
-    position: relative;
-    width: 100%;
-    border-radius: 12px;
-    overflow: hidden;
-    background: #000;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.6);
-    cursor: crosshair;
-  }
-  .plate-img {
-    width: 100%;
-    height: auto;
-    display: block;
-    pointer-events: none;
-    user-select: none;
-  }
-  .pin-marker {
+  }}
+  * {{ box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }}
+  body {{ background: var(--bg-dark); color: var(--text-primary); padding: 20px; }}
+  header {{
+    max-width: 1540px; margin: 0 auto 16px auto;
+    background: #0d121d; border: 1px solid var(--border-color); border-radius: 12px; padding: 16px 20px;
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+  }}
+  h1 {{ font-size: 20px; font-weight: 800; color: #fff; display: flex; align-items: center; gap: 8px; }}
+  .header-desc {{ font-size: 12px; color: var(--text-secondary); margin-top: 4px; }}
+  .toolbar {{ display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }}
+  .search-box {{
+    background: #161f30; border: 1px solid #2d3b55; border-radius: 8px;
+    padding: 7px 12px; color: #fff; font-size: 13px; min-width: 260px;
+  }}
+  .filter-btn {{
+    background: #161f30; border: 1px solid #2d3b55; border-radius: 8px;
+    padding: 6px 12px; color: #94a3b8; font-size: 12px; font-weight: 600; cursor: pointer; transition: 0.15s;
+  }}
+  .filter-btn.active, .filter-btn:hover {{ background: var(--accent-cyan); color: #000; border-color: var(--accent-cyan); }}
+  .main-grid {{ display: flex; flex-direction: column; gap: 24px; max-width: 1540px; margin: 0 auto; }}
+  .plate-card {{
+    background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 14px;
+    display: grid; grid-template-columns: 680px 1fr; gap: 20px; padding: 18px;
+  }}
+  @media (max-width: 1200px) {{ .plate-card {{ grid-template-columns: 1fr; }} }}
+  .image-wrapper {{ display: flex; flex-direction: column; gap: 10px; }}
+  .image-canvas-container {{
+    position: relative; width: 100%; border-radius: 10px; overflow: hidden;
+    background: #000; border: 1px solid #2d3b55; user-select: none;
+  }}
+  .plate-img {{ width: 100%; height: auto; display: block; }}
+  
+  /* Compact 15px Numbered Circles (~50% smaller) */
+  .pin-marker {{
     position: absolute;
-    width: 28px;
-    height: 28px;
+    width: 15px;
+    height: 15px;
     transform: translate(-50%, -50%);
     border-radius: 50%;
     color: #000;
-    font-size: 12px;
+    font-size: 8.5px;
     font-weight: 900;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 0 14px rgba(0,0,0,0.9), 0 0 10px currentColor;
-    border: 2px solid #fff;
+    box-shadow: 0 0 8px rgba(0,0,0,0.85), 0 0 5px currentColor;
+    border: 1.5px solid #fff;
     cursor: grab;
     z-index: 100;
-    transition: box-shadow 0.15s;
-  }
-  .pin-marker:active {
+    transition: box-shadow 0.15s, transform 0.1s;
+  }}
+  .pin-marker:active {{
     cursor: grabbing;
-    transform: translate(-50%, -50%) scale(1.35);
+    transform: translate(-50%, -50%) scale(1.4);
     z-index: 200;
-    box-shadow: 0 0 20px #00e5ff;
-  }
-  .action-toolbar {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    align-items: center;
-    background: #090e1a;
-    padding: 10px 14px;
-    border-radius: 10px;
-    border: 1px solid var(--card-border);
-  }
-  .btn-action {
-    background: #1e293b;
-    border: 1px solid #334155;
-    color: #fff;
-    padding: 7px 14px;
-    border-radius: 6px;
-    font-size: 12px;
-    font-weight: 700;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    transition: all 0.15s;
-  }
-  .btn-action:hover {
-    background: #334155;
-  }
-  .btn-save {
-    background: #059669;
-    border-color: #10b981;
-    color: #fff;
-    margin-left: auto;
-    font-weight: 800;
-  }
-  .btn-save:hover {
-    background: #10b981;
-    color: #000;
-  }
-  .btn-danger {
-    background: rgba(244, 63, 94, 0.15);
-    border-color: rgba(244, 63, 94, 0.4);
-    color: #fda4af;
-  }
-  .btn-danger:hover {
-    background: #f43f5e;
-    color: #fff;
-  }
-  .details-container {
-    display: flex;
-    flex-direction: column;
-    user-select: text;
-  }
-  .card-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 6px;
-  }
-  .plate-num {
-    font-size: 13.5px;
-    font-weight: 800;
-    color: var(--accent-cyan);
-    letter-spacing: 0.5px;
-  }
-  .tag-badge {
-    font-size: 10.5px;
-    font-weight: 700;
-    padding: 3px 8px;
-    border-radius: 6px;
-    background: rgba(16, 185, 129, 0.15);
-    color: var(--accent-green);
-    border: 1px solid rgba(16, 185, 129, 0.3);
-  }
-  .plate-title {
-    font-size: 18px;
-    font-weight: 800;
-    color: #fff;
-    margin: 0 0 14px 0;
-    line-height: 1.3;
-  }
-  .pins-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-bottom: 14px;
-  }
-  .pin-item {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    border-radius: 8px;
-    padding: 10px 12px;
-    border-left: 4px solid var(--accent-cyan);
-  }
-  .pin-title-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 4px;
-  }
-  .pin-name {
-    font-size: 12.5px;
-    font-weight: 700;
-    color: #fff;
-  }
-  .coord-pill {
-    font-size: 10px;
-    font-family: monospace;
-    color: #38bdf8;
-    background: rgba(56, 189, 248, 0.12);
-    padding: 2px 6px;
-    border-radius: 4px;
-    margin-left: 6px;
-  }
-  .pin-type {
-    font-size: 9.5px;
-    color: var(--accent-amber);
-    font-weight: 700;
-    text-transform: uppercase;
-  }
-  .btn-delete-pin {
-    background: none;
-    border: none;
-    color: #94a3b8;
-    cursor: pointer;
-    font-size: 14px;
-    padding: 2px 6px;
-    border-radius: 4px;
-    transition: all 0.15s;
-  }
-  .btn-delete-pin:hover {
-    color: #f43f5e;
-    background: rgba(244, 63, 94, 0.15);
-  }
-  .pin-desc {
-    font-size: 11.5px;
-    color: var(--text-muted);
-    line-height: 1.4;
-    margin: 0 0 4px 0;
-  }
-  .pin-pearl {
-    font-size: 11px;
-    color: var(--accent-cyan);
-    font-style: italic;
-    margin: 0;
-    line-height: 1.35;
-  }
-  .steps-box, .hazards-box {
-    margin-top: 10px;
-    background: #1e293b;
-    border-radius: 8px;
-    padding: 10px 12px;
-  }
-  .box-title {
-    font-size: 10.5px;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-bottom: 6px;
-  }
-  .step-text {
-    font-size: 11px;
-    color: #cbd5e1;
-    margin-bottom: 4px;
-    line-height: 1.35;
-  }
-  .hazard-text {
-    font-size: 11px;
-    color: #fda4af;
-    margin-bottom: 4px;
-    line-height: 1.35;
-  }
+    box-shadow: 0 0 16px #00e5ff;
+  }}
+
+  .action-toolbar {{ display: flex; gap: 8px; }}
+  .btn-action {{
+    flex: 1; padding: 8px 12px; border-radius: 8px; font-size: 12px; font-weight: 700;
+    border: 1px solid #334155; background: #1e293b; color: #f8fafc; cursor: pointer; transition: 0.15s;
+  }}
+  .btn-action:hover {{ background: #334155; }}
+  .btn-save {{ background: #0284c7; border-color: #0284c7; color: #fff; }}
+  .btn-save:hover {{ background: #0369a1; }}
+  .btn-danger {{ background: #7f1d1d; border-color: #991b1b; color: #fecaca; }}
+  .btn-danger:hover {{ background: #991b1b; }}
+  .details-container {{ display: flex; flex-direction: column; gap: 12px; overflow-y: auto; max-height: 800px; padding-right: 6px; }}
+  .card-top {{ display: flex; justify-content: space-between; align-items: center; }}
+  .plate-num {{ font-size: 11px; font-weight: 900; letter-spacing: 1.5px; color: var(--accent-amber); }}
+  .tag-badge {{ font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 6px; background: #1e293b; color: #94a3b8; }}
+  
+  .title-input-row {{ display: flex; gap: 8px; align-items: center; }}
+  .title-input {{
+    flex: 1; font-size: 16px; font-weight: 800; background: #161f30; color: #fff;
+    border: 1px solid #2d3b55; border-radius: 6px; padding: 6px 10px;
+  }}
+  .title-input:focus {{ outline: none; border-color: var(--accent-cyan); }}
+
+  .section-header-row {{ display: flex; justify-content: space-between; align-items: center; margin-top: 4px; }}
+  .section-label {{ font-size: 11px; font-weight: 800; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; }}
+
+  .pins-list {{ display: flex; flex-direction: column; gap: 8px; }}
+  .pin-item {{
+    background: #141b27; border: 1px solid #253047; border-left: 4px solid #fff;
+    border-radius: 8px; padding: 10px; display: flex; flex-direction: column; gap: 6px;
+  }}
+  .pin-title-row {{ display: flex; justify-content: space-between; align-items: center; gap: 8px; }}
+  .pin-edit-title {{ font-size: 12px; font-weight: 800; background: #1c2638; color: #fff; border: 1px solid #3b4c68; border-radius: 4px; padding: 3px 6px; flex: 1; }}
+  .pin-edit-type {{ font-size: 9.5px; font-weight: 700; background: #1c2638; color: var(--accent-cyan); border: 1px solid #3b4c68; border-radius: 4px; padding: 3px 6px; width: 140px; }}
+  .pin-edit-desc {{ font-size: 11px; background: #1c2638; color: #cbd5e1; border: 1px solid #3b4c68; border-radius: 4px; padding: 4px 6px; height: 38px; width: 100%; }}
+  .pin-edit-pearl {{ font-size: 10.5px; background: #1c2638; color: var(--accent-amber); border: 1px solid #3b4c68; border-radius: 4px; padding: 3px 6px; width: 100%; }}
+  .btn-delete-pin {{
+    background: transparent; border: none; color: #ef4444; font-size: 13px; cursor: pointer; padding: 2px 6px; border-radius: 4px;
+  }}
+  .btn-delete-pin:hover {{ background: #7f1d1d; }}
+
+  .steps-box, .hazards-box {{
+    background: #141b27; border: 1px solid #253047; border-radius: 8px; padding: 10px;
+    display: flex; flex-direction: column; gap: 8px;
+  }}
+  .box-title {{ font-size: 11px; font-weight: 900; letter-spacing: 0.8px; text-transform: uppercase; display: flex; justify-content: space-between; align-items: center; }}
+  .step-row {{ display: flex; gap: 8px; align-items: flex-start; }}
+  .step-title-input {{ width: 160px; font-size: 11px; font-weight: 700; background: #1c2638; color: #fff; border: 1px solid #3b4c68; border-radius: 4px; padding: 3px 6px; }}
+  .step-detail-input {{ flex: 1; font-size: 11px; background: #1c2638; color: #cbd5e1; border: 1px solid #3b4c68; border-radius: 4px; padding: 3px 6px; height: 40px; }}
+  .hazard-row {{ display: flex; gap: 8px; align-items: flex-start; }}
+  .hazard-input {{ flex: 1; font-size: 11px; background: #1c2638; color: #fda4af; border: 1px solid #3b4c68; border-radius: 4px; padding: 3px 6px; height: 36px; }}
+  .btn-mini-delete {{ background: #7f1d1d; border: 1px solid #991b1b; color: #fecaca; border-radius: 4px; padding: 3px 6px; cursor: pointer; font-size: 10px; }}
+  .btn-mini-add {{ background: #1e293b; border: 1px solid #334155; color: #94a3b8; border-radius: 4px; padding: 3px 8px; cursor: pointer; font-size: 10px; font-weight: 700; }}
+  .btn-mini-add:hover {{ background: #334155; color: #fff; }}
+
+  .toast {{
+    position: fixed; bottom: 24px; right: 24px; background: #0284c7; color: #fff;
+    padding: 12px 20px; border-radius: 8px; font-size: 13px; font-weight: 700;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.4); display: none; z-index: 1000;
+  }}
 </style>
 </head>
 <body>
 
-<div id="toast" class="toast">✅ Saved to Swift!</div>
+<header>
+  <div>
+    <h1>NeuroCall Surgical Atlas Studio</h1>
+    <div class="header-desc">
+      Dr. Mohit: Drag pins on artwork, edit text boxes & titles directly, or delete empty sections. Click <strong>"Save Changes to Swift"</strong> per plate.
+    </div>
+  </div>
+  <div class="toolbar">
+    <input type="text" id="searchInput" class="search-box" placeholder="Search plates, landmarks, pathology..." oninput="renderPlates()">
+    <button class="filter-btn active" onclick="setFilter('ALL', this)">All (106)</button>
+    <button class="filter-btn" onclick="setFilter('Dr. Mohit Calibrated (001-025)', this)">Calibrated (001-025)</button>
+    <button class="filter-btn" onclick="setFilter('Reviewed 026-046', this)">Plates 026-046</button>
+    <button class="filter-btn" onclick="setFilter('Pending 047-106', this)">Pending 047-106</button>
+  </div>
+</header>
 
-<div class="header">
-  <h1>NeuroCall Atlas Studio — Interactive Pin Calibration & Purge</h1>
-  <p>Dr. Mohit: <strong>Click and drag any pin directly on the artwork</strong> to place it onto the exact anatomical landmark. Click <strong>🗑️</strong> to delete any pin that doesn't make sense, or <strong>"Clear All Pins"</strong> to wipe the plate completely clean. When satisfied, click <strong>"Save Changes to Swift"</strong> to write the exact coordinates directly to code!</p>
-</div>
-
-<div class="controls">
-  <input type="text" id="searchInput" class="search-box" placeholder="Search by Plate # (e.g. 001, 010, 031, 087), procedure name, or keyword..." onkeyup="filterPlates()">
-  <button class="filter-btn active" onclick="setFilter('ALL', this)">All 106 Plates</button>
-  <button class="filter-btn" onclick="setFilter('Master Calibrated (001-042)', this)">Plates 001–042</button>
-  <button class="filter-btn" onclick="setFilter('Batch 4 Streamlined', this)">Batch 4 (086–089, 058)</button>
-</div>
-
-<div class="plate-grid" id="plateGrid">
-</div>
+<div class="main-grid" id="plateGrid"></div>
+<div class="toast" id="toast"></div>
 
 <script>
-let plates = """ + json.dumps(plates_data) + """;
+let plates = {plates_json};
 let currentFilter = 'ALL';
-let activeDrag = null;
+let activeDropPlate = null;
 
-function getColorHex(colorName) {
-  if (colorName.includes('Cyan')) return '#00e5ff';
-  if (colorName.includes('Amber')) return '#f59e0b';
-  if (colorName.includes('Rose') || colorName.includes('Red')) return '#f43f5e';
-  if (colorName.includes('Green') || colorName.includes('Emerald')) return '#10b981';
-  if (colorName.includes('Purple') || colorName.includes('Blue')) return '#8b5cf6';
-  return '#00e5ff';
-}
+function getColorHex(colorName) {{
+  const map = {{
+    'neonAmber': '#f59e0b',
+    'neonCyan': '#00e5ff',
+    'neonRose': '#f43f5e',
+    'neonGreen': '#10b981',
+    'neonEmerald': '#059669',
+    'neonPurple': '#a855f7',
+    'neonRed': '#ef4444',
+    'neonBlue': '#3b82f6'
+  }};
+  return map[colorName] || '#00e5ff';
+}}
 
-function showToast(msg) {
+function showToast(msg) {{
   const t = document.getElementById('toast');
   t.textContent = msg;
   t.style.display = 'block';
-  setTimeout(() => { t.style.display = 'none'; }, 2200);
-}
+  setTimeout(() => {{ t.style.display = 'none'; }}, 2500);
+}}
 
-function renderPlates() {
+function renderPlates() {{
   const grid = document.getElementById('plateGrid');
   const search = document.getElementById('searchInput').value.toLowerCase();
   grid.innerHTML = '';
 
-  const filtered = plates.filter(p => {
+  const filtered = plates.filter(p => {{
     const matchesFilter = currentFilter === 'ALL' || p.batch_tag === currentFilter;
     const matchesSearch = p.plate_num.includes(search) || 
                           p.title.toLowerCase().includes(search) || 
                           p.pins.some(pin => pin.title.toLowerCase().includes(search) || pin.description.toLowerCase().includes(search));
     return matchesFilter && matchesSearch;
-  });
+  }});
 
-  filtered.forEach(p => {
+  filtered.forEach(p => {{
     const card = document.createElement('div');
     card.className = 'plate-card';
-    card.id = `plate-card-${p.plate_num}`;
+    card.id = `plate-card-${{p.plate_num}}`;
 
-    // Markers on image
-    let pinMarkersHtml = p.pins.map((pin, idx) => {
+    // Markers on image (compact 15px)
+    let pinMarkersHtml = p.pins.map((pin, idx) => {{
       const hex = getColorHex(pin.color);
-      return `<div class="pin-marker" id="marker-${p.plate_num}-${idx}" 
-                   style="left: ${pin.x * 100}%; top: ${pin.y * 100}%; background: ${hex};" 
-                   onmousedown="startPinDrag(event, '${p.plate_num}', ${idx})" 
-                   title="Pin ${idx+1}: ${pin.title} (Drag to reposition)">${idx+1}</div>`;
-    }).join('');
+      return `<div class="pin-marker" id="marker-${{p.plate_num}}-${{idx}}" 
+                   style="left: ${{pin.x * 100}}%; top: ${{pin.y * 100}}%; background: ${{hex}};" 
+                   onmousedown="startPinDrag(event, '${{p.plate_num}}', ${{idx}})" 
+                   title="Pin ${{idx+1}}: ${{pin.title}} (Drag to reposition)">${{idx+1}}</div>`;
+    }}).join('');
 
     // Pins list
-    let pinsListHtml = p.pins.length === 0 ? '<div style="color: #64748b; font-size: 12px; font-style: italic; padding: 10px;">Zero pins on this plate (100% clean image). Click "+ Drop Pin" to add a landmark if needed.</div>' : p.pins.map((pin, idx) => {
+    let pinsListHtml = p.pins.length === 0 ? '<div style="color: #64748b; font-size: 11px; font-style: italic; padding: 6px;">Zero pins on this plate (100% clean image). Click "+ Drop Pin" to place a landmark.</div>' : p.pins.map((pin, idx) => {{
       const hex = getColorHex(pin.color);
       return `
-        <div class="pin-item" id="item-${p.plate_num}-${idx}" style="border-left-color: ${hex}">
+        <div class="pin-item" id="item-${{p.plate_num}}-${{idx}}" style="border-left-color: ${{hex}}">
           <div class="pin-title-row">
-            <div>
-              <span class="pin-name">Pin ${idx+1}: ${pin.title}</span>
-              <span class="coord-pill" id="coord-${p.plate_num}-${idx}">X:${(pin.x*100).toFixed(1)}% Y:${(pin.y*100).toFixed(1)}%</span>
-            </div>
-            <div style="display:flex; align-items:center; gap:6px;">
-              <span class="pin-type">${pin.structureType}</span>
-              <button class="btn-delete-pin" onclick="deletePin('${p.plate_num}', ${idx})" title="Delete this pin">🗑️</button>
-            </div>
+            <span style="font-size:11px; font-weight:900; color:#fff;">#${{idx+1}}</span>
+            <input type="text" class="pin-edit-title" value="${{pin.title}}" onchange="updatePinTitle('${{p.plate_num}}', ${{idx}}, this.value)" placeholder="Landmark Title" />
+            <input type="text" class="pin-edit-type" value="${{pin.structureType}}" onchange="updatePinType('${{p.plate_num}}', ${{idx}}, this.value)" placeholder="STRUCTURE TYPE" />
+            <span class="coord-pill" id="coord-${{p.plate_num}}-${{idx}}" style="font-size:10px; color:#94a3b8; font-family:monospace;">X:${{(pin.x*100).toFixed(1)}}% Y:${{(pin.y*100).toFixed(1)}}%</span>
+            <button class="btn-delete-pin" onclick="deletePin('${{p.plate_num}}', ${{idx}})" title="Delete this pin">🗑️</button>
           </div>
-          <p class="pin-desc">${pin.description}</p>
-          ${pin.surgicalPearl ? `<p class="pin-pearl">★ Pearl: ${pin.surgicalPearl}</p>` : ''}
+          <textarea class="pin-edit-desc" onchange="updatePinDesc('${{p.plate_num}}', ${{idx}}, this.value)" placeholder="Landmark anatomic description...">${{pin.description}}</textarea>
+          <input type="text" class="pin-edit-pearl" value="${{pin.surgicalPearl || ''}}" onchange="updatePinPearl('${{p.plate_num}}', ${{idx}}, this.value)" placeholder="★ Surgical Pearl (optional)" />
         </div>
       `;
-    }).join('');
+    }}).join('');
 
-    let stepsHtml = p.steps.map(s => `
-      <div class="step-text"><strong>Step ${s.step}: ${s.title}</strong> — ${s.detail}</div>
-    `).join('');
+    // Steps HTML (only if steps exist, or allow add)
+    let stepsContentHtml = '';
+    if (p.steps && p.steps.length > 0) {{
+      const stepItems = p.steps.map((s, idx) => `
+        <div class="step-row">
+          <span style="font-size:11px; font-weight:bold; color:var(--accent-cyan); width:18px;">${{s.step}}.</span>
+          <input type="text" class="step-title-input" value="${{s.title}}" onchange="updateStepTitle('${{p.plate_num}}', ${{idx}}, this.value)" placeholder="Step Title" />
+          <textarea class="step-detail-input" onchange="updateStepDetail('${{p.plate_num}}', ${{idx}}, this.value)" placeholder="Dissection details...">${{s.detail}}</textarea>
+          <button class="btn-mini-delete" onclick="deleteStep('${{p.plate_num}}', ${{idx}})">🗑️</button>
+        </div>
+      `).join('');
+      stepsContentHtml = `
+        <div class="steps-box">
+          <div class="box-title" style="color: var(--accent-cyan);">
+            <span>Dissection Sequence (${{p.steps.length}} Steps)</span>
+            <div style="display:flex; gap:6px;">
+              <button class="btn-mini-add" onclick="addStep('${{p.plate_num}}')">＋ Add Step</button>
+              <button class="btn-mini-delete" onclick="clearAllSteps('${{p.plate_num}}')">🚫 Clear Section</button>
+            </div>
+          </div>
+          ${{stepItems}}
+        </div>
+      `;
+    }} else {{
+      stepsContentHtml = `
+        <div style="display:flex; justify-content:space-between; align-items:center; background:#101726; padding:8px 12px; border-radius:6px; border:1px dashed #23314d;">
+          <span style="font-size:11px; color:#64748b; font-style:italic;">Dissection sequence: (Section removed / blank)</span>
+          <button class="btn-mini-add" onclick="addStep('${{p.plate_num}}')">＋ Add Dissection Sequence</button>
+        </div>
+      `;
+    }}
 
-    let hazardsHtml = p.hazards.map(h => `
-      <div class="hazard-text">⚠️ ${h}</div>
-    `).join('');
+    // Hazards HTML (only if hazards exist, or allow add)
+    let hazardsContentHtml = '';
+    if (p.hazards && p.hazards.length > 0) {{
+      const hazardItems = p.hazards.map((h, idx) => `
+        <div class="hazard-row">
+          <span style="font-size:11px; color:var(--accent-rose);">⚠️</span>
+          <textarea class="hazard-input" onchange="updateHazard('${{p.plate_num}}', ${{idx}}, this.value)" placeholder="Catastrophic hazard description...">${{h}}</textarea>
+          <button class="btn-mini-delete" onclick="deleteHazard('${{p.plate_num}}', ${{idx}})">🗑️</button>
+        </div>
+      `).join('');
+      hazardsContentHtml = `
+        <div class="hazards-box">
+          <div class="box-title" style="color: var(--accent-rose);">
+            <span>Catastrophic Hazards (${{p.hazards.length}} Hazards)</span>
+            <div style="display:flex; gap:6px;">
+              <button class="btn-mini-add" onclick="addHazard('${{p.plate_num}}')">＋ Add Hazard</button>
+              <button class="btn-mini-delete" onclick="clearAllHazards('${{p.plate_num}}')">🚫 Clear Section</button>
+            </div>
+          </div>
+          ${{hazardItems}}
+        </div>
+      `;
+    }} else {{
+      hazardsContentHtml = `
+        <div style="display:flex; justify-content:space-between; align-items:center; background:#101726; padding:8px 12px; border-radius:6px; border:1px dashed #23314d;">
+          <span style="font-size:11px; color:#64748b; font-style:italic;">Catastrophic hazards: (Section removed / blank)</span>
+          <button class="btn-mini-add" onclick="addHazard('${{p.plate_num}}')">＋ Add Operative Hazard</button>
+        </div>
+      `;
+    }}
 
     card.innerHTML = `
       <div class="image-wrapper">
-        <div class="image-canvas-container" id="canvas-${p.plate_num}" onclick="handleCanvasClick(event, '${p.plate_num}')">
-          <img src="${p.image_file}" class="plate-img" alt="${p.title}" loading="lazy">
-          ${pinMarkersHtml}
+        <div class="image-canvas-container" id="canvas-${{p.plate_num}}" onclick="handleCanvasClick(event, '${{p.plate_num}}')">
+          <img src="${{p.image_file}}" class="plate-img" alt="${{p.title}}" loading="lazy">
+          ${{pinMarkersHtml}}
         </div>
         <div class="action-toolbar">
-          <button class="btn-action" onclick="enableDropMode('${p.plate_num}')">＋ Drop Pin</button>
-          <button class="btn-action btn-danger" onclick="clearAllPins('${p.plate_num}')">🚫 Clear All Pins</button>
-          <button class="btn-action btn-save" onclick="savePlate('${p.plate_num}')">💾 Save Changes to Swift</button>
+          <button class="btn-action" onclick="enableDropMode('${{p.plate_num}}')">＋ Drop Pin</button>
+          <button class="btn-action btn-danger" onclick="clearAllPins('${{p.plate_num}}')">🚫 Clear All Pins</button>
+          <button class="btn-action btn-save" onclick="savePlate('${{p.plate_num}}')">💾 Save Changes to Swift</button>
         </div>
       </div>
       <div class="details-container">
         <div class="card-top">
-          <span class="plate-num">PLATE ${p.plate_num}</span>
-          <span class="tag-badge">${p.batch_tag}</span>
+          <span class="plate-num">PLATE ${{p.plate_num}}</span>
+          <span class="tag-badge">${{p.batch_tag}}</span>
         </div>
-        <div class="plate-title">${p.title}</div>
-        <div style="font-size: 11px; font-weight: 800; color: #94a3b8; margin-bottom: 8px; text-transform: uppercase;">
-          Interactive Callout Pins (${p.pins.length} Pins — Drag on artwork or delete below):
+        <div class="title-input-row">
+          <input type="text" class="title-input" value="${{p.title}}" onchange="updatePlateTitle('${{p.plate_num}}', this.value)" placeholder="Plate Title" />
         </div>
-        <div class="pins-list" id="pins-list-${p.plate_num}">${pinsListHtml}</div>
+        <div class="section-header-row">
+          <span class="section-label">Interactive Landmarks (${{p.pins.length}} Pins — Drag on image):</span>
+        </div>
+        <div class="pins-list" id="pins-list-${{p.plate_num}}">${{pinsListHtml}}</div>
         
-        <div class="steps-box">
-          <div class="box-title" style="color: var(--accent-cyan);">Dissection Sequence:</div>
-          ${stepsHtml}
-        </div>
-
-        <div class="hazards-box">
-          <div class="box-title" style="color: var(--accent-rose);">Catastrophic Operative Hazards:</div>
-          ${hazardsHtml}
-        </div>
+        ${{stepsContentHtml}}
+        ${{hazardsContentHtml}}
       </div>
     `;
     grid.appendChild(card);
-  });
-}
+  }});
+}}
 
-// Drag & Drop logic
-function startPinDrag(e, plateNum, pinIndex) {
+// Pin Dragging
+function startPinDrag(e, plateNum, pinIndex) {{
   e.preventDefault();
   e.stopPropagation();
   const plate = plates.find(p => p.plate_num === plateNum);
-  const container = document.getElementById(`canvas-${plateNum}`);
-  const marker = document.getElementById(`marker-${plateNum}-${pinIndex}`);
-  const coordPill = document.getElementById(`coord-${plateNum}-${pinIndex}`);
+  const container = document.getElementById(`canvas-${{plateNum}}`);
+  const marker = document.getElementById(`marker-${{plateNum}}-${{pinIndex}}`);
+  const coordPill = document.getElementById(`coord-${{plateNum}}-${{pinIndex}}`);
 
-  function onMouseMove(moveEvent) {
+  function onMouseMove(moveEvent) {{
     const rect = container.getBoundingClientRect();
     let x = (moveEvent.clientX - rect.left) / rect.width;
     let y = (moveEvent.clientY - rect.top) / rect.height;
-    x = Math.max(0.04, Math.min(0.96, x));
-    y = Math.max(0.04, Math.min(0.96, y));
+    x = Math.max(0.01, Math.min(0.99, x));
+    y = Math.max(0.01, Math.min(0.99, y));
 
-    marker.style.left = `${x * 100}%`;
-    marker.style.top = `${y * 100}%`;
-    if (coordPill) {
-      coordPill.textContent = `X:${(x*100).toFixed(1)}% Y:${(y*100).toFixed(1)}%`;
-    }
+    marker.style.left = `${{x * 100}}%`;
+    marker.style.top = `${{y * 100}}%`;
+    if (coordPill) coordPill.textContent = `X:${{(x*100).toFixed(1)}}% Y:${{(y*100).toFixed(1)}}%`;
+
     plate.pins[pinIndex].x = x;
     plate.pins[pinIndex].y = y;
-  }
+  }}
 
-  function onMouseUp() {
+  function onMouseUp() {{
     window.removeEventListener('mousemove', onMouseMove);
     window.removeEventListener('mouseup', onMouseUp);
-  }
+    showToast(`📍 Repositioned Pin #${{pinIndex+1}}. Click 'Save Changes' to write to Swift.`);
+  }}
 
   window.addEventListener('mousemove', onMouseMove);
   window.addEventListener('mouseup', onMouseUp);
-}
+}}
 
-// Delete a single pin
-function deletePin(plateNum, pinIndex) {
+// Update Helpers
+function updatePlateTitle(plateNum, val) {{
+  const plate = plates.find(p => p.plate_num === plateNum);
+  if (plate) {{ plate.title = val; showToast(`✏️ Updated title for Plate ${{plateNum}}`); }}
+}}
+function updatePinTitle(plateNum, idx, val) {{
+  const plate = plates.find(p => p.plate_num === plateNum);
+  if (plate && plate.pins[idx]) plate.pins[idx].title = val;
+}}
+function updatePinType(plateNum, idx, val) {{
+  const plate = plates.find(p => p.plate_num === plateNum);
+  if (plate && plate.pins[idx]) plate.pins[idx].structureType = val;
+}}
+function updatePinDesc(plateNum, idx, val) {{
+  const plate = plates.find(p => p.plate_num === plateNum);
+  if (plate && plate.pins[idx]) plate.pins[idx].description = val;
+}}
+function updatePinPearl(plateNum, idx, val) {{
+  const plate = plates.find(p => p.plate_num === plateNum);
+  if (plate && plate.pins[idx]) plate.pins[idx].surgicalPearl = val;
+}}
+function deletePin(plateNum, pinIndex) {{
   const plate = plates.find(p => p.plate_num === plateNum);
   if (!plate) return;
   plate.pins.splice(pinIndex, 1);
   renderPlates();
-  showToast(`🗑️ Removed pin from Plate ${plateNum}. Click 'Save' to commit to Swift.`);
-}
-
-// Clear all pins for a plate
-function clearAllPins(plateNum) {
+  showToast(`🗑️ Removed pin from Plate ${{plateNum}}. Click 'Save' to commit.`);
+}}
+function clearAllPins(plateNum) {{
   const plate = plates.find(p => p.plate_num === plateNum);
   if (!plate) return;
+  if (!confirm(`Clear all pins from Plate ${{plateNum}}?`)) return;
   plate.pins = [];
   renderPlates();
-  showToast(`🚫 Wiped all pins from Plate ${plateNum}. Click 'Save' to commit.`);
-}
+  showToast(`🚫 Cleared all pins from Plate ${{plateNum}}!`);
+}}
 
-// Drop a new pin
-let dropModePlate = null;
-function enableDropMode(plateNum) {
-  dropModePlate = plateNum;
-  showToast(`Click anywhere on the image of Plate ${plateNum} to place the new pin.`);
-}
+// Steps Helpers
+function updateStepTitle(plateNum, idx, val) {{
+  const plate = plates.find(p => p.plate_num === plateNum);
+  if (plate && plate.steps[idx]) plate.steps[idx].title = val;
+}}
+function updateStepDetail(plateNum, idx, val) {{
+  const plate = plates.find(p => p.plate_num === plateNum);
+  if (plate && plate.steps[idx]) plate.steps[idx].detail = val;
+}}
+function deleteStep(plateNum, idx) {{
+  const plate = plates.find(p => p.plate_num === plateNum);
+  if (!plate) return;
+  plate.steps.splice(idx, 1);
+  plate.steps.forEach((s, i) => s.step = i + 1);
+  renderPlates();
+  showToast(`🗑️ Deleted step from Plate ${{plateNum}}`);
+}}
+function clearAllSteps(plateNum) {{
+  const plate = plates.find(p => p.plate_num === plateNum);
+  if (!plate) return;
+  plate.steps = [];
+  renderPlates();
+  showToast(`🚫 Cleared dissection steps from Plate ${{plateNum}}`);
+}}
+function addStep(plateNum) {{
+  const plate = plates.find(p => p.plate_num === plateNum);
+  if (!plate) return;
+  if (!plate.steps) plate.steps = [];
+  plate.steps.push({{
+    step: plate.steps.length + 1,
+    title: "New Dissection Step",
+    detail: "Enter surgical corridor / exposure details here."
+  }});
+  renderPlates();
+  showToast(`＋ Added Step ${{plate.steps.length}} to Plate ${{plateNum}}`);
+}}
 
-function handleCanvasClick(e, plateNum) {
-  if (dropModePlate !== plateNum) return;
-  const container = document.getElementById(`canvas-${plateNum}`);
+// Hazards Helpers
+function updateHazard(plateNum, idx, val) {{
+  const plate = plates.find(p => p.plate_num === plateNum);
+  if (plate && plate.hazards) plate.hazards[idx] = val;
+}}
+function deleteHazard(plateNum, idx) {{
+  const plate = plates.find(p => p.plate_num === plateNum);
+  if (!plate) return;
+  plate.hazards.splice(idx, 1);
+  renderPlates();
+  showToast(`🗑️ Deleted hazard from Plate ${{plateNum}}`);
+}}
+function clearAllHazards(plateNum) {{
+  const plate = plates.find(p => p.plate_num === plateNum);
+  if (!plate) return;
+  plate.hazards = [];
+  renderPlates();
+  showToast(`🚫 Cleared hazards from Plate ${{plateNum}}`);
+}}
+function addHazard(plateNum) {{
+  const plate = plates.find(p => p.plate_num === plateNum);
+  if (!plate) return;
+  if (!plate.hazards) plate.hazards = [];
+  plate.hazards.push("MAJOR CATASTROPHIC PITFALL: Enter hazard description here.");
+  renderPlates();
+  showToast(`＋ Added hazard to Plate ${{plateNum}}`);
+}}
+
+// Drop Pin
+function enableDropMode(plateNum) {{
+  activeDropPlate = plateNum;
+  showToast(`🎯 Click anywhere on Plate ${{plateNum}} artwork to drop a new pin.`);
+}}
+function handleCanvasClick(e, plateNum) {{
+  if (activeDropPlate !== plateNum) return;
+  activeDropPlate = null;
+  const container = document.getElementById(`canvas-${{plateNum}}`);
   const rect = container.getBoundingClientRect();
-  let x = (e.clientX - rect.left) / rect.width;
-  let y = (e.clientY - rect.top) / rect.height;
-  x = Math.max(0.04, Math.min(0.96, x));
-  y = Math.max(0.04, Math.min(0.96, y));
+  const x = Math.max(0.01, Math.min(0.99, (e.clientX - rect.left) / rect.width));
+  const y = Math.max(0.01, Math.min(0.99, (e.clientY - rect.top) / rect.height));
+  const title = prompt("Enter Landmark Title:", "Anatomical Target");
+  if (!title) return;
 
   const plate = plates.find(p => p.plate_num === plateNum);
-  const pinTitle = prompt("Enter Landmark / Pin Title:", "Anatomical Target");
-  if (!pinTitle) {
-    dropModePlate = null;
-    return;
-  }
-
-  plate.pins.push({
-    id: `pin_${plateNum}_${plate.pins.length + 1}`,
+  plate.pins.push({{
+    id: `pin_${{plateNum}}_${{plate.pins.length + 1}}`,
     num: plate.pins.length + 1,
-    title: pinTitle,
-    structureType: "OPERATIVE TARGET",
+    title: title,
+    structureType: "SURGICAL TARGET",
     color: "neonCyan",
     x: x,
     y: y,
-    description: "Operative landmark identified on visual review.",
-    surgicalPearl: "Maintain precise anatomical orientation."
-  });
-
-  dropModePlate = null;
+    description: "Verified anatomical target.",
+    surgicalPearl: ""
+  }});
   renderPlates();
-  showToast(`✅ Dropped new pin on Plate ${plateNum}!`);
-}
+  showToast(`✅ Dropped new pin on Plate ${{plateNum}}!`);
+}}
 
-// Save plate back to Swift
-async function savePlate(plateNum) {
+// Save to Swift
+async function savePlate(plateNum) {{
   const plate = plates.find(p => p.plate_num === plateNum);
   if (!plate) return;
 
-  try {
-    const res = await fetch('/api/save-plate', {
+  try {{
+    const res = await fetch('/api/save-plate', {{
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
+      headers: {{ 'Content-Type': 'application/json' }},
+      body: JSON.stringify({{
         plate_num: plateNum,
-        pins: plate.pins
-      })
-    });
+        title: plate.title,
+        pins: plate.pins,
+        steps: plate.steps,
+        hazards: plate.hazards
+      }})
+    }});
     const result = await res.json();
-    if (result.status === 'success') {
-      showToast(`✅ Plate ${plateNum} (${plate.pins.length} pins) saved directly to Swift!`);
-    } else {
+    if (result.status === 'ok') {{
+      showToast(`💾 Plate ${{plateNum}} saved directly to Swift code!`);
+    }} else {{
       alert("Error saving: " + result.message);
-    }
-  } catch (err) {
-    alert("Connection error to studio server: " + err);
-  }
-}
+    }}
+  }} catch (err) {{
+    alert("Connection error to server: " + err);
+  }}
+}}
 
-function setFilter(filter, btn) {
+function setFilter(filter, btn) {{
   currentFilter = filter;
   document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
   renderPlates();
-}
+}}
 
-function filterPlates() {
-  renderPlates();
-}
-
+// Initial render
 renderPlates();
 </script>
-
 </body>
-</html>
-"""
+</html>"""
 
 output_path = r"C:\Users\mohal\Documents\antigravity\Radix\atlas_inspector\index.html"
 with open(output_path, "w", encoding="utf-8") as f:
-    f.write(html_content)
+    f.write(html_template)
 
-print("Atlas Studio interactive drag-and-drop UI generated successfully!")
+print("Atlas Studio interactive drag-and-drop & text editor UI generated successfully!")

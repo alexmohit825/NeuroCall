@@ -111,9 +111,11 @@ public struct PhotorealisticSurgicalAtlasView: View {
                         .transition(.scale.combined(with: .opacity))
                 }
                 
-                // Tactical Operational Protocol Card
-                approachTacticalSummaryCard
-                    .padding(.horizontal, 14)
+                // Tactical Operational Protocol Card (completely hidden if both steps and hazards are empty)
+                if !selectedPlate.steps.isEmpty || !selectedPlate.catastrophicHazards.isEmpty {
+                    approachTacticalSummaryCard
+                        .padding(.horizontal, 14)
+                }
                 
                 Spacer(minLength: 40)
             }
@@ -585,54 +587,58 @@ public struct PhotorealisticSurgicalAtlasView: View {
                 Spacer()
             }
             
-            // 4 Sequential Steps
-            VStack(spacing: 8) {
-                ForEach(selectedPlate.steps, id: \.stepNumber) { step in
-                    HStack(alignment: .top, spacing: 10) {
-                        Text("\(step.stepNumber)")
-                            .font(.system(size: 11, weight: .black))
-                            .foregroundColor(ObsidianTheme.neonCyan)
-                            .frame(width: 20, height: 20)
-                            .background(ObsidianTheme.neonCyan.opacity(0.15))
-                            .clipShape(Circle())
-                        
-                        VStack(alignment: .leading, spacing: 2) {
-                            Text(step.title)
-                                .font(.system(size: 12, weight: .bold))
-                                .foregroundColor(ObsidianTheme.textPrimary)
-                            Text(step.detail)
-                                .font(.system(size: 11, weight: .regular))
-                                .foregroundColor(ObsidianTheme.textSecondary)
+            // Sequential Dissection Steps (completely omitted if empty)
+            if !selectedPlate.steps.isEmpty {
+                VStack(spacing: 8) {
+                    ForEach(selectedPlate.steps, id: \.stepNumber) { step in
+                        HStack(alignment: .top, spacing: 10) {
+                            Text("\(step.stepNumber)")
+                                .font(.system(size: 11, weight: .black))
+                                .foregroundColor(ObsidianTheme.neonCyan)
+                                .frame(width: 20, height: 20)
+                                .background(ObsidianTheme.neonCyan.opacity(0.15))
+                                .clipShape(Circle())
+                            
+                            VStack(alignment: .leading, spacing: 2) {
+                                Text(step.title)
+                                    .font(.system(size: 12, weight: .bold))
+                                    .foregroundColor(ObsidianTheme.textPrimary)
+                                Text(step.detail)
+                                    .font(.system(size: 11, weight: .regular))
+                                    .foregroundColor(ObsidianTheme.textSecondary)
+                            }
                         }
                     }
                 }
             }
             
-            // Dangerous Pitfalls Callout Box
-            VStack(alignment: .leading, spacing: 6) {
-                HStack(spacing: 4) {
-                    Image(systemName: "exclamationmark.octagon.fill")
-                        .font(.system(size: 11))
-                        .foregroundColor(ObsidianTheme.neonRose)
-                    Text("MAJOR CATASTROPHIC PITFALLS:")
-                        .font(.system(size: 10, weight: .black))
-                        .foregroundColor(ObsidianTheme.neonRose)
-                }
-                
-                ForEach(selectedPlate.catastrophicHazards, id: \.self) { hazard in
-                    HStack(alignment: .top, spacing: 6) {
-                        Circle().fill(ObsidianTheme.neonRose).frame(width: 4, height: 4).padding(.top, 5)
-                        Text(hazard)
-                            .font(.system(size: 11, weight: .medium))
-                            .foregroundColor(ObsidianTheme.textSecondary)
+            // Dangerous Pitfalls Callout Box (completely omitted if empty)
+            if !selectedPlate.catastrophicHazards.isEmpty {
+                VStack(alignment: .leading, spacing: 6) {
+                    HStack(spacing: 4) {
+                        Image(systemName: "exclamationmark.octagon.fill")
+                            .font(.system(size: 11))
+                            .foregroundColor(ObsidianTheme.neonRose)
+                        Text("MAJOR CATASTROPHIC PITFALLS:")
+                            .font(.system(size: 10, weight: .black))
+                            .foregroundColor(ObsidianTheme.neonRose)
+                    }
+                    
+                    ForEach(selectedPlate.catastrophicHazards, id: \.self) { hazard in
+                        HStack(alignment: .top, spacing: 6) {
+                            Circle().fill(ObsidianTheme.neonRose).frame(width: 4, height: 4).padding(.top, 5)
+                            Text(hazard)
+                                .font(.system(size: 11, weight: .medium))
+                                .foregroundColor(ObsidianTheme.textSecondary)
+                        }
                     }
                 }
+                .padding(10)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(ObsidianTheme.neonRose.opacity(0.08))
+                .cornerRadius(8)
+                .overlay(RoundedRectangle(cornerRadius: 8).stroke(ObsidianTheme.neonRose.opacity(0.25), lineWidth: 1))
             }
-            .padding(10)
-            .frame(maxWidth: .infinity, alignment: .leading)
-            .background(ObsidianTheme.neonRose.opacity(0.08))
-            .cornerRadius(8)
-            .overlay(RoundedRectangle(cornerRadius: 8).stroke(ObsidianTheme.neonRose.opacity(0.25), lineWidth: 1))
         }
         .padding(14)
         .background(ObsidianTheme.surfaceElevated)
@@ -1021,24 +1027,24 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate025: return "25: ATL vs SelAH"
         case .plate026: return "26: Costotransversectomy"
         case .plate027: return "27: MIPS Tubular ICH"
-        case .plate028: return "28: LLIF Transpsoas"
-        case .plate029: return "29: TLIF Corridor"
+        case .plate028: return "28: LLIF"
+        case .plate029: return "29: TLIF"
         case .plate030: return "30: Endonasal Sellar"
-        case .plate031: return "31: Posterior C7-T1"
-        case .plate032: return "32: 360 Lumbar Fusion"
-        case .plate033: return "33: Supraorbital Eyebrow"
+        case .plate031: return "31: CT Junction Neural Anatomy"
+        case .plate032: return "32: Lumbar Interbody Fusion"
+        case .plate033: return "33: Supraorbital Crani"
         case .plate034: return "34: Jumped Facets"
         case .plate035: return "35: Odontoid Fractures"
-        case .plate036: return "36: Burst Fracture"
-        case .plate037: return "37: Cauda Equina"
-        case .plate038: return "38: MESCC Bilsky 3"
-        case .plate039: return "39: Pseudomeningocele"
-        case .plate040: return "40: Aneurysmal SAH"
+        case .plate036: return "36: TL Burst Fracture"
+        case .plate037: return "37: Cauda Equina (HNP)"
+        case .plate038: return "38: Thoracic Spinal Met."
+        case .plate039: return "39: Postop Pseudomeningocele"
+        case .plate040: return "40: A Comm Aneurysm Rupture"
         case .plate041: return "41: Ganglionic ICH & IVH"
-        case .plate042: return "42: Cervical Myelopathy"
-        case .plate043: return "43: Pediatric AARS"
-        case .plate044: return "44: Hangman's C2"
-        case .plate045: return "45: Herniation Types"
+        case .plate042: return "42: Cervical Spondylitic Myelopathy"
+        case .plate043: return "43: Pediatric Rotatory Subluxation"
+        case .plate044: return "44: Hangman's Fracture"
+        case .plate045: return "45: Brain Herniation Syndromes"
         case .plate046: return "46: Spinal Dysraphism"
         case .plate047: return "47: Retro-Odontoid"
         case .plate048: return "48: Spinal Dural AVF"
@@ -1130,27 +1136,27 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate023: return "Ponte Posterior Column Osteotomy — Open Wedge vs. Closed Lordotic Correction"
         case .plate024: return "Pedicle Subtraction Osteotomy (PSO) / 3-Column Osteotomy"
         case .plate025: return "Anterior Temporal Lobectomy (ATL) vs. Selective Amygdalohippocampectomy (SelAH)"
-        case .plate026: return "Thoracic Costotransversectomy — Posterolateral Extrapleural Approach (Two-Panel 3D & Axial Master)"
+        case .plate026: return "Costotransversectomy"
         case .plate027: return "Minimally Invasive Parafascicular Surgery (MIPS) — Trans-Sulcal Tubular ICH Evacuation"
-        case .plate028: return "Lateral Lumbar Interbody Fusion (LLIF / XLIF) — Transpsoas Retroperitoneal Corridor"
-        case .plate029: return "Transforaminal Lumbar Interbody Fusion (TLIF) — Modernized Operative Overview"
+        case .plate028: return "LLIF"
+        case .plate029: return "TLIF"
         case .plate030: return "Endoscopic Endonasal Sellar Corridor — Skull Base Landmarks & Microvascular Relationships"
-        case .plate031: return "Posterior Cervical (C7–T1) Decompression & Stabilization"
-        case .plate032: return "360° Comprehensive Lumbar Interbody Fusion Approaches (ALIF / OLIF / LLIF / TLIF / PLIF)"
-        case .plate033: return "Supraorbital Eyebrow Keyhole Craniotomy"
+        case .plate031: return "CT Junction Neural Anatomy"
+        case .plate032: return "Lumbar Interbody Fusion"
+        case .plate033: return "Supraorbital Crani"
         case .plate034: return "Bilateral Jumped / Locked Cervical Facets (C6–C7) — Diagnostic & Pathoanatomical Correlation"
-        case .plate035: return "Anderson & D'Alonzo Odontoid Fractures Classification & Management Strategy"
-        case .plate036: return "Acute Thoracolumbar Burst Fracture & Canal Retropulsion"
-        case .plate037: return "Cauda Equina Syndrome — Massive Lumbar Disc Extrusion"
-        case .plate038: return "Metastatic Epidural Spinal Cord Compression (MESCC — Bilsky Grade 3)"
-        case .plate039: return "Postoperative Lumbar Pseudomeningocele & Microsurgical Dural Repair"
-        case .plate040: return "Acute Aneurysmal Subarachnoid Hemorrhage (SAH) & Acute Hydrocephalus"
+        case .plate035: return "Odontoid Fractures"
+        case .plate036: return "TL Burst Fracture"
+        case .plate037: return "Cauda Equina Syndrome (HNP)"
+        case .plate038: return "Thoracic Spinal Met."
+        case .plate039: return "Postop Pseudomeningocele"
+        case .plate040: return "A Comm Aneurysm Rupture"
         case .plate041: return "Hypertensive Ganglionic Intracerebral Hemorrhage (ICH) & Intraventricular Extension (IVH)"
-        case .plate042: return "Cervical Spondylotic Myelopathy (CSM) & Multilevel Canal Stenosis"
-        case .plate043: return "Pediatric Atlantoaxial Rotatory Subluxation (AARS) & Fielding Classification"
-        case .plate044: return "Hangman's Fracture (Traumatic C2 Spondylolisthesis) & Levine-Edwards Classification"
-        case .plate045: return "The 4 Classical Brain Herniation Syndromes"
-        case .plate046: return "Lumbosacral Spinal Dysraphism & Tethered Cord Spectrum"
+        case .plate042: return "Cervical Spondylitic Myelopathy"
+        case .plate043: return "Pediatric Rotatory Subluxation"
+        case .plate044: return "Hangman's Fracture"
+        case .plate045: return "Brain Herniation Syndromes"
+        case .plate046: return "Spinal Dysraphism"
         case .plate047: return "C1–C2 Retro-Odontoid Pseudotumor (Pannus) & Goel-Harms Fixation"
         case .plate048: return "Spinal Dural Arteriovenous Fistula (sDAVF) & Microsurgical Clip Ligation"
         case .plate049: return "Jefferson Fracture of the Atlas (C1) & The Rule of Spence"
