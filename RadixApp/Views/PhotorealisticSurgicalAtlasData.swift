@@ -132,133 +132,53 @@ extension SurgicalPlateType {
             ]
         case .plate021:
             return [
-                SurgicalCallout(
-                    id: "plate_021_1",
-                    title: "Decompressive Frontotemporoparietal",
-                    structureType: "OPERATIVE TARGET",
-                    color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.50,
-                    normalizedY: 0.50,
-                    description: "Large trauma/stroke frontotemporoparietal hemicraniectomy with reflected myocutaneous scalp flap, peripheral bone tack-up holes, and waterti",
-                    surgicalPearl: "Verified Frank Netter publication-grade neurosurgical anatomy."
-                )
+                "Brain Herniation Over Bone Edges: Craniectomy < 12 cm allows edematous brain to strangulate over sharp bone rims, causing hemorrhagic venous infarction.",
+                "Sagittal Sinus Laceration: Carrying superior osteotomy too close to midline (< 2 cm) tears superior sagittal sinus, causing uncontrollable venous bleeding."
             ]
         case .plate022:
             return [
-                SurgicalCallout(
-                    id: "plate_022_1",
-                    title: "Pineal Region Tumor & Supracerebell",
-                    structureType: "OPERATIVE TARGET",
-                    color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.50,
-                    normalizedY: 0.50,
-                    description: "Midsagittal anatomical and surgical corridor master illustrating a pineal region mass in the quadrigeminal cistern and the three classic sur",
-                    surgicalPearl: "Verified Frank Netter publication-grade neurosurgical anatomy."
-                )
+                "Deep Venous Confluence Occlusion: Coagulating or stretching internal cerebral veins or Vein of Galen causes fatal bilateral thalamic and midbrain infarction.",
+                "Air Embolism in Sitting Position: Operating in sitting posture risks fatal venous air embolism if transverse sinus or bridging petrosal veins tear."
             ]
         case .plate023:
             return [
-                SurgicalCallout(
-                    id: "plate_023_1",
-                    title: "Smith-Petersen (SPO) & Ponte Poster",
-                    structureType: "OPERATIVE TARGET",
-                    color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.50,
-                    normalizedY: 0.50,
-                    description: "Two-stage lateral biomechanical and osteological comparison of a Schwab Grade 2 Posterior Column Osteotomy (Smith-Petersen / Ponte Osteotomy",
-                    surgicalPearl: "Verified Frank Netter publication-grade neurosurgical anatomy."
-                )
+                "Foraminal Nerve Root Impingement: Closing the posterior column osteotomy narrows neural foramen; failure to generously unroof exiting root causes severe radiculopathy.",
+                "Dural Tear in Buckled Canal: Closing posterior wedge causes dura to fold and buckle; ensure dura does not get pinched between cut bony surfaces."
             ]
         case .plate024:
             return [
-                SurgicalCallout(
-                    id: "plate_024_1",
-                    title: "Three-Column Pedicle Subtraction Os",
-                    structureType: "OPERATIVE TARGET",
-                    color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.50,
-                    normalizedY: 0.50,
-                    description: "Two-stage lateral biomechanical and osteological comparison of a Schwab Grade 3 Three-Column Pedicle Subtraction Osteotomy (PSO) across a 3-",
-                    surgicalPearl: "Verified Frank Netter publication-grade neurosurgical anatomy."
-                )
+                "Anterior Column Hinge Disruption: Breaking through the anterior vertebral wall during wedge closing causes catastrophic sagittal shear translation and cord transection.",
+                "Massive Epidural Hemorrhage: Exiting through pedicle walls tears lateral Batson venous plexus; pack bone wax and hemostatic matrix before closing."
             ]
         case .plate025:
             return [
-                SurgicalCallout(
-                    id: "plate_025_1",
-                    title: "Anterior Temporal Lobectomy (ATL) v",
-                    structureType: "OPERATIVE TARGET",
-                    color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.50,
-                    normalizedY: 0.50,
-                    description: "4-part 2x2 comparative neurosurgical epilepsy atlas plate contrasting Anterior Temporal Lobectomy (ATL, left column) with Selective Amygdalo",
-                    surgicalPearl: "Verified Frank Netter publication-grade neurosurgical anatomy."
-                )
+                "Wernicke Aphasia: Resecting > 3.5 cm of dominant lateral temporal lobe destroys posterior superior temporal gyrus, causing permanent receptive language loss.",
+                "Brainstem Infarction: Violating the arachnoid of the ambient cistern during mesial hippocampal dissection injures posterior cerebral artery perforators to midbrain."
             ]
         case .plate026:
             return [
-                SurgicalCallout(
-                    id: "plate_026_1",
-                    title: "Thoracic Costotransversectomy — Pos",
-                    structureType: "OPERATIVE TARGET",
-                    color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.50,
-                    normalizedY: 0.50,
-                    description: "Dual-panel comprehensive spine atlas plate depicting a completed Right-Sided Thoracic Costotransversectomy (posterolateral extrapleural corr",
-                    surgicalPearl: "Verified Frank Netter publication-grade neurosurgical anatomy."
-                )
+                "Pleural Violation & Pneumothorax: Stray dissection during rib head mobilization lacerates parietal pleura; inspect for air leaks and repair immediately.",
+                "Segmental Radicular Artery Tear: Dissecting near the intervertebral foramen risks tearing the artery of Adamkiewicz (T8-L1), causing anterior spinal artery ischemia."
             ]
         case .plate027:
             return [
-                SurgicalCallout(
-                    id: "plate_027_1",
-                    title: "Minimally Invasive Parafascicular S",
-                    structureType: "OPERATIVE TARGET",
-                    color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.50,
-                    normalizedY: 0.50,
-                    description: "Three-panel master neurosurgical atlas plate illustrating Minimally Invasive Parafascicular Surgery (MIPS) for deep subcortical/basal gangli",
-                    surgicalPearl: "Verified Frank Netter publication-grade neurosurgical anatomy."
-                )
+                "Tract Transection Neurological Deficit: Advancing tubular port across rather than parallel to white matter tracts permanently severs corticospinal motor fibers.",
+                "Secondary Hematoma Cavity Re-Bleeding: Vigorous scraping of the cavity periphery pulls on friable lenticulostriate arterioles, causing acute recurrent hemorrhage."
             ]
         case .plate028:
             return [
-                SurgicalCallout(
-                    id: "plate_028_1",
-                    title: "Lateral Lumbar Interbody Fusion (LL",
-                    structureType: "OPERATIVE TARGET",
-                    color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.50,
-                    normalizedY: 0.50,
-                    description: "Publication-grade anatomical atlas plate depicting the surgical transpsoas retroperitoneal corridor for Lateral Lumbar Interbody Fusion (LLI",
-                    surgicalPearl: "Verified Frank Netter publication-grade neurosurgical anatomy."
-                )
+                "Femoral Nerve Lumbar Plexus Palsy: Retractor blade excursion into posterior 2/3 of psoas pinches the femoral nerve trunk, causing permanent quadriceps paralysis.",
+                "Great Vessel Laceration: Straying anterior to the anterior longitudinal ligament tears the abdominal aorta or IVC, causing catastrophic exsanguination."
             ]
         case .plate029:
             return [
-                SurgicalCallout(
-                    id: "plate_029_1",
-                    title: "Transforaminal Lumbar Interbody Fus",
-                    structureType: "OPERATIVE TARGET",
-                    color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.50,
-                    normalizedY: 0.50,
-                    description: "Modernized multi-panel educational atlas plate illustrating Transforaminal Lumbar Interbody Fusion (TLIF).",
-                    surgicalPearl: "Verified Frank Netter publication-grade neurosurgical anatomy."
-                )
+                "Exiting Nerve Root Traction Injury: Passing instruments into Kambin's triangle without unroofing superior foramen tears or stretches the exiting nerve root.",
+                "Cage Retropulsion into Spinal Canal: Inadequate posterior rod compression allows interbody spacer to back out into the thecal sac postoperatively."
             ]
         case .plate030:
             return [
-                SurgicalCallout(
-                    id: "plate_030_1",
-                    title: "Endoscopic Endonasal Sellar Corrido",
-                    structureType: "OPERATIVE TARGET",
-                    color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.50,
-                    normalizedY: 0.50,
-                    description: "Four-quadrant endoscopic transsphenoidal skull base master plate illustrating anatomical landmarks and neurovascular relationships for pitui",
-                    surgicalPearl: "Verified Frank Netter publication-grade neurosurgical anatomy."
-                )
+                "Internal Carotid Artery Rupture: Stray drilling beyond the medial optico-carotid recess or sellar boundary lacerates cavernous ICA, causing catastrophic fatal hemorrhage.",
+                "Postoperative CSF Fistula & Meningitis: Failure to achieve watertight multilayer reconstruction of diaphragm sellae breach leads to CSF rhinorrhea and meningitis."
             ]
         case .plate031:
             return [
