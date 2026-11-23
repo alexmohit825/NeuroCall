@@ -39,7 +39,7 @@ public struct ZoomablePlateImageView: View {
     }
     
     private var isZoomed: Bool {
-        scale > 1.05
+        scale > 1.05 || offset != .zero
     }
     
     private func resetZoom() {

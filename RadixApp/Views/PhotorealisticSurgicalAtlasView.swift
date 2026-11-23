@@ -405,7 +405,7 @@ public struct PhotorealisticSurgicalAtlasView: View {
                     .clipShape(Circle())
             }
             
-            if zoomScale > 1.05 {
+            if zoomScale > 1.05 || dragOffset != .zero {
                 Button(action: {
                     withAnimation(.spring()) {
                         zoomScale = 1.0
@@ -723,7 +723,7 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
         case .convexityTrauma:
             return [.plate018, .plate016, .plate019, .plate021, .plate025, .plate045, .plate069, .plate070]
         case .posteriorFossa:
-            return [.plate010, .plate020, .plate004, .plate003, .plate006, .plate022, .plate052, .plate057, .plate077, .plate082]
+            return [.plate010, .plate004, .plate003, .plate006, .plate022, .plate052, .plate057, .plate077, .plate082]
         case .vascularVentricular:
             return [.plate002, .plate027, .plate040, .plate041, .plate051, .plate053, .plate056, .plate060, .plate061, .plate062, .plate063, .plate065, .plate067, .plate079, .plate086, .plate093]
         case .craniovertebral:
@@ -1005,7 +1005,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate007: return "07: Lateral Recess"
         case .plate008: return "08: PComA Aneurysm"
         case .plate009: return "09: Distal Sylvian Split"
-        case .plate010: return "10: Retromastoid Mayfield"
+        case .plate010: return "10: Retromastoid SOC"
         case .plate011: return "11: Disc Annular Tear"
         case .plate012: return "12: Pterional Fissure"
         case .plate013: return "13: Chiari I Duraplasty"
@@ -1116,7 +1116,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate007: return "Lumbar Lateral Recess Stenosis vs. Normal Spine (Axial Comparison)"
         case .plate008: return "Left Pterional Transsylvian Approach & PComA Aneurysm Clipping (1:1 Modernized Master)"
         case .plate009: return "Splitting of Distal Anterior Sylvian Fissure (Microsurgical Corridor)"
-        case .plate010: return "Retromastoid / Retrosigmoid Positioning, 3-Pin Mayfield Fixation & Surface Landmarks"
+        case .plate010: return "Retromastoid / Retrosigmoid Keyhole Suboccipital Craniectomy (SOC)"
         case .plate011: return "Lumbar Disc Degeneration & Posterior Annular Tear (Axial + Sagittal View)"
         case .plate012: return "Left Pterional Craniotomy & Sylvian Fissure Opercular Exposure (1:1 Modernized Master)"
         case .plate013: return "Chiari I Malformation Suboccipital Decompression & Expansile Patch Duraplasty (1:1 Modernized Master)"

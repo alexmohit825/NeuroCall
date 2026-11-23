@@ -150,13 +150,33 @@ extension SurgicalPlateType {
             return [
                 SurgicalCallout(
                     id: "plate_010_1",
-                    title: "Retromastoid / Retrosigmoid Positio",
-                    structureType: "OPERATIVE TARGET",
+                    title: "Positioning & 3-Pin Mayfield Fixation",
+                    structureType: "OPERATIVE POSITIONING & CLAMP VECTORS",
                     color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.17,
+                    normalizedY: 0.45,
+                    description: "Panel 1 demonstrates park-bench / modified lateral positioning with military chin-tuck (>= 2 fingerbreadths from sternum preserving jugular venous return), 10°–15° contralateral head rotation, and vertex tilted downward. Three-pin Mayfield clamp applied with single contralateral frontal pin and dual rocker-arm pins placed high on the parietal bone, leaving the retroauricular incision and suboccipital quadrant 100% pin-free.",
+                    surgicalPearl: "Avoid jugular compression: strict preservation of internal jugular outflow prevents posterior fossa venous engorgement and acute intraoperative cerebellar swelling."
+                ),
+                SurgicalCallout(
+                    id: "plate_010_2",
+                    title: "Asterion & Keyhole Craniectomy Window",
+                    structureType: "OSTEOLOGICAL LANDMARKS & CRANIECTOMY",
+                    color: ObsidianTheme.neonCyan,
                     normalizedX: 0.50,
-                    normalizedY: 0.50,
-                    description: "Lateral cranial positioning in a 3-point Mayfield skull clamp illustrating the osteological and dural venous sinus landmarks for a retromast",
-                    surgicalPearl: "Verified Frank Netter publication-grade neurosurgical anatomy."
+                    normalizedY: 0.55,
+                    description: "Panel 2 demonstrates 3D osteological skull anatomy and the circular 2.5–3.0 cm keyhole suboccipital craniectomy window. The initial burr hole is placed 5 mm inferior-medial to the asterion (confluence of lambdoid, parietomastoid, and occipitomastoid sutures), unroofing the inferior margin of the transverse sinus and posterior margin of the sigmoid sinus.",
+                    surgicalPearl: "The asterion directly overlies the transverse-sigmoid junction in only ~60% of cases. Placing the burr hole inferior-medial to asterion ensures safe entry into posterior fossa without lacerating venous sinuses."
+                ),
+                SurgicalCallout(
+                    id: "plate_010_3",
+                    title: "Dural Opening & CPA Microsurgical Anatomy",
+                    structureType: "MICROSURGICAL OPERATIVE CORRIDOR",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.83,
+                    normalizedY: 0.45,
+                    description: "Panel 3 illustrates the operative microsurgical view into the right cerebellopontine angle through a C-shaped dural flap reflected anteriorly over the sigmoid sinus. Arachnoid opening of the lateral cerebellomedullary cistern / cisterna magna releases CSF, facilitating spontaneous gravity cerebellar relaxation without rigid mechanical retractor blades.",
+                    surgicalPearl: "Never retract against an unrelaxed cerebellum: immediate CSF aspiration from cisterna magna opens an expansive, bloodless corridor to CN V, VII/VIII into porus acusticus, AICA meatal loop, and lower cranial nerves (IX–XI)."
                 )
             ]
         case .plate011:
