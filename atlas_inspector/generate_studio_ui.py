@@ -107,46 +107,98 @@ for i in range(1, 107):
 with open(SWIFT_PATHS["crisis"], "r", encoding="utf-8") as f:
     em_text = f.read()
 
+start_ts = em_text.find("var thresholdSpec: EmergencyThresholdSpec")
+end_ts = em_text.find("default:", start_ts) if start_ts != -1 else len(em_text)
+ts_sec = em_text[start_ts:end_ts]
+
 threshold_specs = []
-spec_pattern = r'case "([^"]+)":\s*return EmergencyThresholdSpec\((.*?)\)'
-for m in re.finditer(spec_pattern, em_text, re.DOTALL):
-    em_id = m.group(1)
-    body = m.group(2)
-    def get_f(field):
-        fm = re.search(rf'{field}:\s*"([^"]+)"', body)
-        return fm.group(1) if fm else ""
-    threshold_specs.append({
-        "id": em_id,
-        "title": get_f("title"),
-        "thicknessThreshold": get_f("thicknessThreshold"),
-        "shiftThreshold": get_f("shiftThreshold"),
-        "volumeThreshold": get_f("volumeThreshold"),
-        "neurologicalTrigger": get_f("neurologicalTrigger"),
-        "operativeProcedure": get_f("operativeProcedure")
-    })
+crisis_cases = [
+    ("EDH", "plate_ct_edh.jpg", "Epidural Hematoma (EDH)"),
+    ("SDH", "plate_ct_sdh.jpg", "Acute Subdural Hematoma (SDH)"),
+    ("Uncal", "plate_ct_uncal.jpg", "Acute Uncal Herniation"),
+    ("Posterior Fossa", "plate_ct_post_fossa.jpg", "Posterior Fossa Cerebellar ICH")
+]
 
-crisis_checklists = []
-cl_pattern = r'ChecklistCard\(\s*title:\s*"([^"]+)",\s*steps:\s*\[(.*?)\]\s*\)'
-for m in re.finditer(cl_pattern, em_text, re.DOTALL):
-    cl_title = m.group(1)
-    raw_steps = m.group(2)
-    steps = [s.strip().strip('"') for s in re.findall(r'"([^"]+)"', raw_steps)]
-    crisis_checklists.append({
-        "title": cl_title,
-        "steps": steps
-    })
+for case_name, img, default_t in crisis_cases:
+    c_idx = ts_sec.find(f'case "{case_name}":')
+    if c_idx != -1:
+        ret_idx = ts_sec.find("return EmergencyThresholdSpec(", c_idx)
+        open_p = 0
+        p_start = ret_idx + len("return EmergencyThresholdSpec")
+        body_end = -1
+        for i in range(p_start, len(ts_sec)):
+            if ts_sec[i] == '(':
+                open_p += 1
+            elif ts_sec[i] == ')':
+                open_p -= 1
+                if open_p == 0:
+                    body_end = i
+                    break
+        body = ts_sec[p_start+1:body_end] if body_end != -1 else ""
+        def get_field(fname):
+            m = re.search(rf'{fname}:\s*"(.*?)"', body, re.DOTALL)
+            return m.group(1).strip() if m else ""
 
-reversals = []
-rev_pattern = r'ReversalCard\(\s*drug:\s*"([^"]+)",\s*mechanism:\s*"([^"]+)",\s*agent:\s*"([^"]+)",\s*dose:\s*"([^"]+)",\s*target:\s*"([^"]+)",\s*badgeColor:\s*([^)]+)\)'
-for m in re.finditer(rev_pattern, em_text):
-    reversals.append({
-        "drug": m.group(1),
-        "mechanism": m.group(2),
-        "agent": m.group(3),
-        "dose": m.group(4),
-        "target": m.group(5),
-        "badgeColor": m.group(6).replace("Color.", "")
-    })
+        threshold_specs.append({
+            "id": case_name,
+            "title": get_field("title") or default_t,
+            "thicknessThreshold": get_field("thicknessThreshold"),
+            "shiftThreshold": get_field("shiftThreshold"),
+            "volumeThreshold": get_field("volumeThreshold"),
+            "neurologicalTrigger": get_field("neurologicalTrigger"),
+            "operativeProcedure": get_field("operativeProcedure"),
+            "image_file": f"/plates/{img}"
+        })
+
+crisis_checklists = [
+    {
+        "id": "pupil_herniation",
+        "title": "Herniation Resuscitation & Pupillary Asymmetry Protocol",
+        "image_file": "/plates/plate_herniation_pupils.jpg",
+        "steps": [
+            "Immediately elevate head of bed to 30 degrees (promotes venous drainage)",
+            "Push Mannitol (1 g/kg IV bolus) or 3% Hypertonic Saline (250-500 mL bolus over 15 min)",
+            "Brief hyperventilation to PaCO2 30-35 mmHg as temporary bridge to OR only",
+            "Obtain urgent non-contrast Head CT or mobilize OR team directly if known lesion",
+            "Emergency bedside ventriculostomy (EVD) or decompressive hemicraniectomy"
+        ]
+    }
+]
+
+reversals = [
+    {
+        "drug": "Warfarin (Coumadin)",
+        "mechanism": "Vitamin K Antagonist (Factors II, VII, IX, X)",
+        "agent": "4-Factor PCC (Kcentra) + Vitamin K 10mg IV",
+        "dose": "25-50 units/kg based on baseline INR",
+        "target": "Target INR ≤ 1.3 within 30 minutes",
+        "badgeColor": "red"
+    },
+    {
+        "drug": "Apixaban / Rivaroxaban (DOAC)",
+        "mechanism": "Direct Factor Xa Inhibitor",
+        "agent": "Andexanet Alfa (Andexxa) or 4F-PCC",
+        "dose": "High Dose: 800mg bolus + 8mg/min OR 4F-PCC 50 U/kg",
+        "target": "Immediate cessation of Factor Xa inhibition",
+        "badgeColor": "amber"
+    },
+    {
+        "drug": "Dabigatran (Pradaxa)",
+        "mechanism": "Direct Thrombin Inhibitor",
+        "agent": "Idarucizumab (Praxbind)",
+        "dose": "5 g IV (two consecutive 2.5 g vials)",
+        "target": "Complete reversal of thrombin time in 15 min",
+        "badgeColor": "purple"
+    },
+    {
+        "drug": "Aspirin / Clopidogrel (Plavix)",
+        "mechanism": "Antiplatelet / P2Y12 Inhibitor",
+        "agent": "Platelet Transfusion + DDAVP",
+        "dose": "1-2 Single Donor Apheresis Units + DDAVP 0.3 mcg/kg IV",
+        "target": "Restore primary platelet plug aggregation",
+        "badgeColor": "cyan"
+    }
+]
 
 # ==========================================
 # 3. PARSE ER CONSULTS
@@ -154,48 +206,138 @@ for m in re.finditer(rev_pattern, em_text):
 with open(SWIFT_PATHS["consults"], "r", encoding="utf-8") as f:
     cs_text = f.read()
 
-consult_types = []
-for c_match in re.finditer(r'case (\w+) = "([^"]+)"', cs_text):
-    consult_types.append((c_match.group(1), c_match.group(2)))
+cranial_start = cs_text.find("enum CranialConsultType")
+spine_start = cs_text.find("enum SpineConsultType")
+end_spine = cs_text.find("// MARK: - Odontoid Quick-Triage Decision Matrix", spine_start)
 
-consults_data = []
-for c_case, c_raw in consult_types:
-    t_m = re.search(rf'public var title: String \{{.*?case \.{c_case}:\s*return "(.*?)".*?\}}', cs_text, re.DOTALL)
-    st_m = re.search(rf'public var shortTitle: String \{{.*?case \.{c_case}:\s*return "(.*?)".*?\}}', cs_text, re.DOTALL)
-    acuity_m = re.search(rf'public var acuityLabel: String \{{.*?case \.{c_case}:\s*return "(.*?)".*?\}}', cs_text, re.DOTALL)
-    plan_m = re.search(rf'public var operativePlan: String \{{.*?case \.{c_case}:\s*return "(.*?)".*?\}}', cs_text, re.DOTALL)
-    pearl_m = re.search(rf'public var imagingPearl: String \{{.*?case \.{c_case}:\s*return "(.*?)".*?\}}', cs_text, re.DOTALL)
+def parse_consult_enum(enum_text, category_name):
+    cases = []
+    for m in re.finditer(r'case\s+(\w+)\s*=\s*"([^"]+)"', enum_text):
+        cases.append((m.group(1), m.group(2)))
+    
+    results = []
+    for case_id, raw_val in cases:
+        def get_string_prop(prop_name):
+            p_start = enum_text.find(f"public var {prop_name}: String")
+            if p_start == -1: return ""
+            p_end = enum_text.find("public var ", p_start + 15)
+            if p_end == -1: p_end = len(enum_text)
+            sec = enum_text[p_start:p_end]
+            m = re.search(rf'case\s+\.{case_id}:\s*return\s*"((?:[^"\\]|\\.)*)"', sec, re.DOTALL)
+            return m.group(1).replace('\\"', '"').replace('\\\\', '\\') if m else ""
 
-    pit_m = re.search(rf'public var pitfalls: \[String\] \{{.*?case \.{c_case}:\s*return \[(.*?)\].*?\}}', cs_text, re.DOTALL)
-    pitfalls = [s.strip().strip('"') for s in re.findall(r'"([^"]+)"', pit_m.group(1))] if pit_m else []
+        def get_array_prop(prop_name):
+            p_start = enum_text.find(f"public var {prop_name}: [String]")
+            if p_start == -1: return []
+            p_end = enum_text.find("public var ", p_start + 15)
+            if p_end == -1: p_end = len(enum_text)
+            sec = enum_text[p_start:p_end]
+            m = re.search(rf'case\s+\.{case_id}:\s*return\s*\[(.*?)\]', sec, re.DOTALL)
+            if not m: return []
+            return [s.strip().strip('"').replace('\\"', '"') for s in re.findall(r'"((?:[^"\\]|\\.)*)"', m.group(1))]
 
-    tri_m = re.search(rf'public var clinicalTriad: \[String\] \{{.*?case \.{c_case}:\s*return \[(.*?)\].*?\}}', cs_text, re.DOTALL)
-    triad = [s.strip().strip('"') for s in re.findall(r'"([^"]+)"', tri_m.group(1))] if tri_m else []
+        img = get_string_prop("assetImageName")
+        results.append({
+            "category": category_name,
+            "case": case_id,
+            "id": raw_val,
+            "shortTitle": get_string_prop("shortTitle"),
+            "title": get_string_prop("title"),
+            "assetImageName": img,
+            "image_file": f"/plates/{img}.jpg",
+            "acuityLabel": get_string_prop("acuityLabel"),
+            "imagingPearl": get_string_prop("imagingPearl"),
+            "operativePlan": get_string_prop("operativePlan"),
+            "clinicalTriad": get_array_prop("clinicalTriad"),
+            "pitfalls": get_array_prop("pitfalls")
+        })
+    return results
 
-    consults_data.append({
-        "case": c_case,
-        "title": t_m.group(1) if t_m else c_raw,
-        "shortTitle": st_m.group(1) if st_m else c_raw,
-        "acuity": acuity_m.group(1) if acuity_m else "EMERGENCY",
-        "triad": triad,
-        "imagingPearl": pearl_m.group(1) if pearl_m else "",
-        "operativePlan": plan_m.group(1) if plan_m else "",
-        "pitfalls": pitfalls
-    })
+cranial_consults = parse_consult_enum(cs_text[cranial_start:spine_start], "cranial")
+spine_consults = parse_consult_enum(cs_text[spine_start:end_spine], "spine")
+consults_data = cranial_consults + spine_consults
 
 # ==========================================
-# 4. PARSE BEDSIDE PROCEDURES
+# 4. PARSE BEDSIDE HARDWARE & PROCEDURES
 # ==========================================
 with open(SWIFT_PATHS["procedures"], "r", encoding="utf-8") as f:
     pr_text = f.read()
 
-procedures_steps = []
-for sm in re.finditer(r'TrajectoryStepRow\(\s*number:\s*"([^"]+)",\s*title:\s*"([^"]+)",\s*detail:\s*"([^"]+)"\s*\)', pr_text):
-    procedures_steps.append({
-        "number": sm.group(1),
-        "title": sm.group(2),
-        "detail": sm.group(3)
-    })
+procedure_defs = [
+    {
+        "id": "evd",
+        "title": "Kocher's Point Ventriculostomy (EVD)",
+        "card_name": "EVDDetailCard",
+        "image_file": "/plates/plate_bedside_evd.jpg",
+        "summary": "Frontal burr hole entry for ICP monitoring and acute CSF diversion.",
+        "steps": [
+            {"number": "1", "title": "Burr Hole Entry", "detail": "**1 cm anterior to coronal suture**, **2.5 - 3.0 cm lateral to sagittal midline** (mid-pupillary line)."},
+            {"number": "2", "title": "Coronal Plane Target", "detail": "Aimed strictly toward the **Ipsilateral Medial Canthus** (inner eye corner)."},
+            {"number": "3", "title": "Sagittal Plane Target", "detail": "Perpendicular to skull curvature, aimed toward the **External Auditory Meatus (Tragus)**."},
+            {"number": "4", "title": "Depth Warning Limit", "detail": "CSF flash typically at **4.5 - 5.0 cm** (Foramen of Monro). **NEVER advance beyond 6.0 cm** from outer skull cortex!"}
+        ]
+    },
+    {
+        "id": "camino_bolt",
+        "title": "Camino Bolt Placement & ICP Waveform Atlas",
+        "card_name": "CaminoBoltDetailCard",
+        "image_file": "/plates/plate_bedside_camino_bolt.jpg",
+        "summary": "Parenchymal microtransducer sensor insertion and Lundberg wave interpretation.",
+        "steps": [
+            {"number": "1", "title": "Twist Drill Safety Collar", "detail": "Drill perpendicular to skull at Kocher's point with safety drill collar set to **1.0 cm**."},
+            {"number": "2", "title": "Dural Perforation & Bolt Fixation", "detail": "Perforate dura with 18G needle; screw skull bolt snugly into cranial bone until flush."},
+            {"number": "3", "title": "Transducer Insertion & Zeroing", "detail": "Advance fiberoptic probe **1.5 to 2.0 cm into white matter**; zero sensor prior to parenchymal insertion per protocol."}
+        ]
+    },
+    {
+        "id": "lumbar_puncture",
+        "title": "Lumbar Puncture (LP) Anatomy & Manometry",
+        "card_name": "LumbarPunctureDetailCard",
+        "image_file": "/plates/plate_bedside_lumbar_puncture.jpg",
+        "summary": "Diagnostic CSF sampling, opening pressure manometry, and cauda equina avoidance.",
+        "steps": [
+            {"number": "1", "title": "Interspace Localization", "detail": "Palpate superior iliac crests (Tuffier's line) identifying **L4 spinous process**. Target L3-L4 or L4-L5 interspace."},
+            {"number": "2", "title": "Needle Trajectory & Bevel", "detail": "Aim 20G or 22G Quincke needle **10-15 degrees cephalad** toward umbilicus with bevel parallel to dural longitudinal fibers."},
+            {"number": "3", "title": "Opening Pressure Manometry", "detail": "Legs must be **relaxed / straightened** before reading manometer. Normal: 10 - 20 cm H2O. Abnormal > 25 cm H2O."}
+        ]
+    },
+    {
+        "id": "lumbar_drain",
+        "title": "Continuous Lumbar Drain Management",
+        "card_name": "LumbarDrainDetailCard",
+        "image_file": "/plates/plate_bedside_lumbar_drain.jpg",
+        "summary": "Subarachnoid diversion for postop CSF fistula, skull base repair, or aneurysm surgery.",
+        "steps": [
+            {"number": "1", "title": "Tuohy Needle Entry", "detail": "14G Tuohy curved-tip needle entered at **L3-L4** with curve oriented cephalad into the subarachnoid space."},
+            {"number": "2", "title": "Catheter Insertion", "detail": "Thread subarachnoid catheter **8 - 10 cm beyond needle tip**. Withdraw needle while holding catheter firmly."},
+            {"number": "3", "title": "Target Hourly Drainage", "detail": "Maintain rate at **5 - 10 mL/hr** (never exceed 15-20 mL/hr) to avoid catastrophic downward transtentorial sag."}
+        ]
+    },
+    {
+        "id": "art_line",
+        "title": "Radial Arterial Line Cannulation",
+        "card_name": "RadialArterialLineDetailCard",
+        "image_file": "/plates/plate_bedside_art_line.jpg",
+        "summary": "Continuous beat-to-beat hemodynamic monitoring and CPP calculation.",
+        "steps": [
+            {"number": "1", "title": "Wrist Positioning & Collateral Flow", "detail": "Dorsiflex wrist 30-45 degrees with roll underneath. Palpate radial pulse proximal to flexor crease."},
+            {"number": "2", "title": "Modified Seldinger / Angiocath", "detail": "Enter skin at **30-45 degree angle**. Upon bright pulsatile flash, lower angle to 10-15 degrees and advance wire."},
+            {"number": "3", "title": "Transducer Leveling & Phlebostatic Axis", "detail": "Level pressure transducer to the **Phlebostatic Axis** (4th intercostal space, mid-axillary line) or Foramen of Monro for CPP."}
+        ]
+    },
+    {
+        "id": "cvc_line",
+        "title": "Ultrasound-Guided Right IJV Central Line",
+        "card_name": "InternalJugularCVCDetailCard",
+        "image_file": "/plates/plate_bedside_cvc_line.jpg",
+        "summary": "Vascular access for vasoactive infusions and hypertonic saline delivery.",
+        "steps": [
+            {"number": "1", "title": "Sedillot's Triangle & Probe Placement", "detail": "Between sternal and clavicular heads of SCM. Place high-frequency vascular probe transversely."},
+            {"number": "2", "title": "Vein vs Artery Confirmation", "detail": "IJV is compressible, non-pulsatile, and expands with Trendelenburg. Carotid artery is round, thick-walled, pulsatile."},
+            {"number": "3", "title": "Seldinger Technique & Wire Control", "detail": "Direct needle under direct real-time ultrasound guidance into center of vein. Confirm venous dark flash, advance J-wire without resistance."}
+        ]
+    }
+]
 
 # ==========================================
 # 5. PARSE CALCULATORS
@@ -267,7 +409,7 @@ app_store = {
         "reversals": reversals
     },
     "consults": consults_data,
-    "procedures": procedures_steps,
+    "procedures": procedure_defs,
     "calculators": calculators_data
 }
 
@@ -321,157 +463,203 @@ html_template = f"""<!DOCTYPE html>
   @media (max-width: 1100px) {{ .grid-2col {{ grid-template-columns: 1fr; }} }}
   .studio-card {{
     background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 14px;
-    padding: 18px; display: flex; flex-direction: column; gap: 12px;
+    padding: 18px; display: flex; flex-direction: column; gap: 14px;
   }}
-  .card-header {{ display: flex; justify-content: space-between; align-items: center; }}
-  .card-title {{ font-size: 15px; font-weight: 800; color: #fff; display: flex; align-items: center; gap: 8px; }}
-  .badge {{ font-size: 10px; font-weight: 800; padding: 3px 8px; border-radius: 6px; text-transform: uppercase; }}
+  .card-header {{ display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }}
+  .card-title {{ font-size: 15px; font-weight: 800; color: #fff; }}
+  .badge {{
+    font-size: 10px; font-weight: 800; text-transform: uppercase; padding: 4px 8px; border-radius: 6px;
+    letter-spacing: 0.5px;
+  }}
   .badge-red {{ background: rgba(244,63,94,0.15); color: var(--accent-rose); border: 1px solid rgba(244,63,94,0.3); }}
   .badge-cyan {{ background: rgba(0,229,255,0.15); color: var(--accent-cyan); border: 1px solid rgba(0,229,255,0.3); }}
   .badge-amber {{ background: rgba(245,158,11,0.15); color: var(--accent-amber); border: 1px solid rgba(245,158,11,0.3); }}
+  .badge-purple {{ background: rgba(168,85,247,0.15); color: var(--accent-purple); border: 1px solid rgba(168,85,247,0.3); }}
 
-  /* Form inputs */
-  .edit-input {{
-    width: 100%; font-size: 12px; background: #141b27; color: #fff; border: 1px solid #253047;
-    border-radius: 6px; padding: 6px 10px; transition: 0.15s;
+  /* Side-by-side Image + Form Grid */
+  .media-card-grid {{ display: grid; grid-template-columns: 340px 1fr; gap: 18px; }}
+  @media (max-width: 950px) {{ .media-card-grid {{ grid-template-columns: 1fr; }} }}
+  
+  .viewport-container {{
+    position: relative; background: #000; border: 1px solid var(--border-color);
+    border-radius: 10px; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center;
   }}
-  .edit-input:focus {{ outline: none; border-color: var(--accent-cyan); background: #182232; }}
-  .edit-textarea {{
-    width: 100%; font-size: 12px; background: #141b27; color: #cbd5e1; border: 1px solid #253047;
-    border-radius: 6px; padding: 6px 10px; min-height: 48px; line-height: 1.4; resize: vertical;
+  .viewport-container img {{
+    width: 100%; max-height: 380px; object-fit: contain; display: block; background: #05070a; cursor: zoom-in;
+    transition: transform 0.2s ease;
   }}
-  .edit-textarea:focus {{ outline: none; border-color: var(--accent-cyan); background: #182232; }}
+  .viewport-container img:hover {{ transform: scale(1.02); }}
+  .viewport-caption {{
+    width: 100%; padding: 6px 10px; background: rgba(10,14,23,0.9); font-size: 11px;
+    font-weight: 700; color: #94a3b8; text-align: center; border-top: 1px solid #1a2233;
+  }}
 
-  .field-label {{ font-size: 10.5px; font-weight: 800; text-transform: uppercase; color: #64748b; margin-bottom: 2px; }}
-  .btn-save-section {{
-    background: #0284c7; border: 1px solid #0369a1; color: #fff; font-size: 12px; font-weight: 800;
-    padding: 8px 14px; border-radius: 8px; cursor: pointer; transition: 0.15s; display: flex; align-items: center; gap: 6px;
+  /* Fields */
+  .field-label {{ font-size: 11px; font-weight: 700; color: #94a3b8; text-transform: uppercase; margin-bottom: 4px; }}
+  .edit-input, .edit-textarea {{
+    width: 100%; background: #080c14; border: 1px solid #232c40; border-radius: 8px;
+    padding: 8px 10px; color: #fff; font-size: 13px; font-weight: 500; transition: border 0.15s;
   }}
-  .btn-save-section:hover {{ background: #0369a1; }}
-  .btn-del-mini {{ background: #7f1d1d; border: 1px solid #991b1b; color: #fecaca; border-radius: 4px; padding: 3px 6px; cursor: pointer; font-size: 11px; }}
-  .btn-add-mini {{ background: #1e293b; border: 1px solid #334155; color: #94a3b8; border-radius: 4px; padding: 4px 10px; cursor: pointer; font-size: 11px; font-weight: 700; }}
-  .btn-add-mini:hover {{ background: #334155; color: #fff; }}
+  .edit-input:focus, .edit-textarea:focus {{ border-color: var(--accent-cyan); outline: none; }}
+  .edit-textarea {{ min-height: 60px; resize: vertical; line-height: 1.4; }}
 
-  /* Atlas specifics (preserved from earlier) */
+  .save-btn {{
+    background: #0284c7; color: #fff; border: none; border-radius: 8px;
+    padding: 10px 16px; font-size: 12px; font-weight: 800; cursor: pointer; transition: 0.15s;
+    display: inline-flex; align-items: center; gap: 6px; width: fit-content;
+  }}
+  .save-btn:hover {{ background: #0369a1; }}
+  .save-btn.saved {{ background: #10b981; }}
+
+  /* Filter Toolbar */
+  .filter-bar {{ display: flex; gap: 10px; flex-wrap: wrap; align-items: center; background: #0d121d; padding: 12px 16px; border-radius: 12px; border: 1px solid var(--border-color); }}
+  .pill-filter {{
+    background: #141b27; border: 1px solid #253047; border-radius: 8px;
+    padding: 6px 12px; color: #94a3b8; font-size: 12px; font-weight: 700; cursor: pointer;
+  }}
+  .pill-filter.active {{ background: #253047; color: #fff; border-color: var(--accent-cyan); }}
+
+  /* Toast Notification */
+  #toast {{
+    position: fixed; bottom: 24px; right: 24px; background: #10b981; color: #fff;
+    padding: 12px 20px; border-radius: 10px; font-size: 13px; font-weight: 800;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.5); display: none; z-index: 9999;
+  }}
+
+  /* Atlas Specific (106 Plates with 15px Pins) */
   .atlas-card {{
     background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 14px;
-    display: grid; grid-template-columns: 680px 1fr; gap: 20px; padding: 18px; margin-bottom: 20px;
+    padding: 18px; display: grid; grid-template-columns: 520px 1fr; gap: 20px;
   }}
   @media (max-width: 1200px) {{ .atlas-card {{ grid-template-columns: 1fr; }} }}
-  .image-canvas-container {{ position: relative; width: 100%; border-radius: 10px; overflow: hidden; background: #000; border: 1px solid #2d3b55; }}
-  .plate-img {{ width: 100%; height: auto; display: block; }}
+  .plate-viewport {{
+    position: relative; width: 100%; border-radius: 10px; overflow: hidden; background: #000;
+    aspect-ratio: 1 / 1; border: 1px solid #253047; user-select: none;
+  }}
+  .plate-viewport img {{ width: 100%; height: 100%; object-fit: contain; pointer-events: none; }}
   .pin-marker {{
-    position: absolute; width: 15px; height: 15px; transform: translate(-50%, -50%);
-    border-radius: 50%; color: #000; font-size: 8.5px; font-weight: 900;
-    display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 0 8px rgba(0,0,0,0.85), 0 0 5px currentColor; border: 1.5px solid #fff; cursor: grab; z-index: 100;
+    position: absolute; width: 15px; height: 15px; border-radius: 50%;
+    transform: translate(-50%, -50%); border: 1.5px solid #fff; box-shadow: 0 0 8px rgba(0,0,0,0.8);
+    cursor: grab; display: flex; align-items: center; justify-content: center;
+    font-size: 8px; font-weight: 900; color: #fff; text-shadow: 0 0 2px #000;
   }}
-  .pin-marker:active {{ cursor: grabbing; transform: translate(-50%, -50%) scale(1.4); z-index: 200; box-shadow: 0 0 16px #00e5ff; }}
-
-  .toast {{
-    position: fixed; bottom: 24px; right: 24px; background: #0284c7; color: #fff;
-    padding: 12px 20px; border-radius: 8px; font-size: 13px; font-weight: 700;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.5); display: none; z-index: 2000;
-  }}
+  .pin-marker:active {{ cursor: grabbing; transform: translate(-50%, -50%) scale(1.2); }}
 </style>
 </head>
 <body>
 
+<div id="toast">Changes Saved!</div>
+
 <header>
   <div class="header-top">
     <div>
-      <h1>NeuroCall Full App Studio</h1>
-      <div class="header-desc">Dr. Mohit: Live inspection and editing across all 5 clinical pillars. Edits write directly to Swift codebase.</div>
+      <h1>🧠 NeuroCall Full App Studio</h1>
+      <div class="header-desc">Dr. Mohit: Live visual inspection and two-way code editing across all 5 clinical pillars. All changes write directly to Swift codebase.</div>
     </div>
   </div>
+
   <div class="pillar-tabs">
-    <button class="tab-btn active" onclick="switchPillar('atlas', this)">🧠 1. Surgical Atlas (106 Plates)</button>
-    <button class="tab-btn" onclick="switchPillar('crisis', this)">🚨 2. 2 AM Crisis & ICP Ladders</button>
-    <button class="tab-btn" onclick="switchPillar('consults', this)">🩺 3. Frontline ER Consults (16 Modules)</button>
-    <button class="tab-btn" onclick="switchPillar('procedures', this)">🎯 4. Bedside Hardware & Trajectories</button>
-    <button class="tab-btn" onclick="switchPillar('calculators', this)">🔢 5. Calculators & Scoring</button>
+    <button class="tab-btn active" onclick="switchPillar('atlas')">📖 1. Surgical Atlas (106 Plates)</button>
+    <button class="tab-btn" onclick="switchPillar('crisis')">🚨 2. 2 AM Crisis & ICP Ladders</button>
+    <button class="tab-btn" onclick="switchPillar('consults')">🩺 3. Frontline ER Consults (16 Modules)</button>
+    <button class="tab-btn" onclick="switchPillar('procedures')">🎯 4. Bedside Hardware & Trajectories</button>
+    <button class="tab-btn" onclick="switchPillar('calculators')">🔢 5. Calculators & Scoring</button>
   </div>
 </header>
 
-<!-- PILLAR 1: SURGICAL ATLAS -->
-<div id="section-atlas" class="section-container active">
-  <div style="display:flex; justify-content:space-between; align-items:center; background:#0d121d; padding:12px 18px; border-radius:10px; border:1px solid #1e2638;">
-    <input type="text" id="atlasSearch" class="edit-input" style="max-width:320px;" placeholder="Search 106 plates, anatomy, pathology..." oninput="renderAtlas()">
-    <div style="font-size:12px; color:#94a3b8;">15px High-Precision Numbered Pins (Drag to Reposition)</div>
+<!-- ========================================== -->
+<!-- 1. SURGICAL ATLAS (106 PLATES)             -->
+<!-- ========================================== -->
+<div id="pillar-atlas" class="section-container active">
+  <div class="filter-bar">
+    <input type="text" id="atlasSearch" class="edit-input" style="max-width: 320px;" placeholder="Search 106 plates by title or plate number..." oninput="renderAtlas()">
+    <span style="font-size:12px; color:#64748b;">💡 Drag any numbered circle on the canvas to reposition. 15px markers ensure zero anatomical obscuration.</span>
   </div>
-  <div id="atlasList"></div>
+  <div id="atlasList" style="display:flex; flex-direction:column; gap:20px;"></div>
 </div>
 
-<!-- PILLAR 2: 2 AM CRISIS -->
-<div id="section-crisis" class="section-container">
-  <div class="card-header" style="background:#0d121d; padding:12px 18px; border-radius:10px; border:1px solid #1e2638;">
-    <div>
-      <h2 style="font-size:16px; color:#fff;">2 AM Crisis Cockpit & Operative Thresholds</h2>
-      <div style="font-size:11.5px; color:#94a3b8;">BTF Emergency Specifications, Herniation Resuscitation Checklists, and Anticoagulation Reversal</div>
-    </div>
+<!-- ========================================== -->
+<!-- 2. 2 AM CRISIS & ICP LADDERS               -->
+<!-- ========================================== -->
+<div id="pillar-crisis" class="section-container">
+  <div style="background:#0d121d; border:1px solid #1e2638; border-radius:12px; padding:16px;">
+    <h2 style="font-size:16px; font-weight:800; color:#fff;">2 AM Crisis Cockpit & Operative Thresholds</h2>
+    <div style="font-size:12px; color:#94a3b8; margin-top:4px;">BTF Emergency Specifications, High-Contrast CT Plates, Herniation Resuscitation, and Reversal Cockpit</div>
   </div>
-  <div class="grid-2col" id="crisisThresholdGrid"></div>
-  <div style="font-size:14px; font-weight:800; color:var(--accent-cyan); margin-top:10px;">Emergency Herniation & Crisis Checklists</div>
-  <div class="grid-2col" id="crisisChecklistGrid"></div>
-  <div style="font-size:14px; font-weight:800; color:var(--accent-amber); margin-top:10px;">Emergency Anticoagulation Reversal Protocols</div>
-  <div class="grid-2col" id="crisisReversalGrid"></div>
+
+  <div id="crisisThresholdGrid" class="grid-2col"></div>
+
+  <div style="background:#0d121d; border:1px solid #1e2638; border-radius:12px; padding:16px; margin-top:10px;">
+    <h3 style="font-size:15px; font-weight:800; color:#fff;">Acute Herniation Resuscitation & Pupillary Asymmetry</h3>
+  </div>
+  <div id="crisisChecklistGrid"></div>
+
+  <div style="background:#0d121d; border:1px solid #1e2638; border-radius:12px; padding:16px; margin-top:10px;">
+    <h3 style="font-size:15px; font-weight:800; color:#fff;">Anticoagulation Rapid Reversal Cockpit</h3>
+  </div>
+  <div id="crisisReversalGrid" class="grid-2col"></div>
 </div>
 
-<!-- PILLAR 3: ER CONSULTS -->
-<div id="section-consults" class="section-container">
-  <div class="card-header" style="background:#0d121d; padding:12px 18px; border-radius:10px; border:1px solid #1e2638;">
-    <div>
-      <h2 style="font-size:16px; color:#fff;">Frontline ER Neurosurgical Consults Suite</h2>
-      <div style="font-size:11.5px; color:#94a3b8;">16 Clinical Pathways: Diagnostic Triads, Imaging Pearls, Operative Plans, and Pitfalls</div>
-    </div>
-    <input type="text" id="consultSearch" class="edit-input" style="max-width:280px;" placeholder="Filter consults (e.g. ASDH, Spine)..." oninput="renderConsults()">
+<!-- ========================================== -->
+<!-- 3. FRONTLINE ER CONSULTS                   -->
+<!-- ========================================== -->
+<div id="pillar-consults" class="section-container">
+  <div class="filter-bar">
+    <button class="pill-filter active" id="filter-all" onclick="filterConsults('all')">All Modules (13)</button>
+    <button class="pill-filter" id="filter-cranial" onclick="filterConsults('cranial')">Cranial (7)</button>
+    <button class="pill-filter" id="filter-spine" onclick="filterConsults('spine')">Spine (6)</button>
+    <input type="text" id="consultSearch" class="edit-input" style="max-width: 280px; margin-left:auto;" placeholder="Search consults or keywords..." oninput="renderConsults()">
   </div>
-  <div class="grid-2col" id="consultsGrid"></div>
+  <div id="consultsGrid" style="display:flex; flex-direction:column; gap:20px;"></div>
 </div>
 
-<!-- PILLAR 4: BEDSIDE PROCEDURES -->
-<div id="section-procedures" class="section-container">
-  <div class="card-header" style="background:#0d121d; padding:12px 18px; border-radius:10px; border:1px solid #1e2638;">
-    <div>
-      <h2 style="font-size:16px; color:#fff;">Bedside Procedural Atlas & Trajectory Guidance</h2>
-      <div style="font-size:11.5px; color:#94a3b8;">Stepwise Hardware Insertion, Anatomical Coordinates, and Opening Pressures</div>
-    </div>
+<!-- ========================================== -->
+<!-- 4. BEDSIDE HARDWARE & TRAJECTORIES         -->
+<!-- ========================================== -->
+<div id="pillar-procedures" class="section-container">
+  <div class="filter-bar">
+    <button class="pill-filter active" id="filter-proc-all" onclick="filterProcedures('all')">All Procedures (6)</button>
+    <button class="pill-filter" id="filter-proc-evd" onclick="filterProcedures('evd')">Kocher's EVD</button>
+    <button class="pill-filter" id="filter-proc-camino" onclick="filterProcedures('camino_bolt')">Camino Bolt</button>
+    <button class="pill-filter" id="filter-proc-lp" onclick="filterProcedures('lumbar_puncture')">Lumbar Puncture</button>
+    <button class="pill-filter" id="filter-proc-drain" onclick="filterProcedures('lumbar_drain')">Lumbar Drain</button>
+    <button class="pill-filter" id="filter-proc-art" onclick="filterProcedures('art_line')">Radial Art Line</button>
+    <button class="pill-filter" id="filter-proc-cvc" onclick="filterProcedures('cvc_line')">Ultrasound CVC</button>
   </div>
-  <div class="grid-2col" id="proceduresGrid"></div>
+  <div id="proceduresGrid" style="display:flex; flex-direction:column; gap:20px;"></div>
 </div>
 
-<!-- PILLAR 5: CALCULATORS HUB -->
-<div id="section-calculators" class="section-container">
-  <div class="card-header" style="background:#0d121d; padding:12px 18px; border-radius:10px; border:1px solid #1e2638;">
-    <div>
-      <h2 style="font-size:16px; color:#fff;">Neurosurgical Calculators & Clinical Scoring Hub</h2>
-      <div style="font-size:11.5px; color:#94a3b8;">8 Evidence-Based Grading Systems, Point Criteria, and Surgical Triage Rules</div>
-    </div>
+<!-- ========================================== -->
+<!-- 5. CALCULATORS & SCORING                   -->
+<!-- ========================================== -->
+<div id="pillar-calculators" class="section-container">
+  <div style="background:#0d121d; border:1px solid #1e2638; border-radius:12px; padding:16px;">
+    <h2 style="font-size:16px; font-weight:800; color:#fff;">Neurosurgical Calculators & Clinical Scoring Engines</h2>
+    <div style="font-size:12px; color:#94a3b8; margin-top:4px;">Validated peer-reviewed formulas, point allocations, and clinical management cutoff thresholds.</div>
   </div>
-  <div class="grid-2col" id="calculatorsGrid"></div>
+  <div id="calculatorsGrid" class="grid-2col"></div>
 </div>
-
-<div class="toast" id="toast"></div>
 
 <script>
 const appData = {app_json};
 
 function showToast(msg) {{
   const t = document.getElementById('toast');
-  t.textContent = msg;
+  t.innerText = msg;
   t.style.display = 'block';
-  setTimeout(() => {{ t.style.display = 'none'; }}, 2600);
+  setTimeout(() => {{ t.style.display = 'none'; }}, 2800);
 }}
 
-function switchPillar(pillarId, btn) {{
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.querySelectorAll('.section-container').forEach(c => c.classList.remove('active'));
-  btn.classList.add('active');
-  document.getElementById(`section-${{pillarId}}`).classList.add('active');
+function switchPillar(pillarId) {{
+  document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+  document.querySelectorAll('.section-container').forEach(sec => sec.classList.remove('active'));
+
+  event.currentTarget.classList.add('active');
+  document.getElementById(`pillar-${{pillarId}}`).classList.add('active');
 }}
 
 // ==========================================
-// 1. RENDER ATLAS
+// 1. ATLAS RENDER
 // ==========================================
 function renderAtlas() {{
   const container = document.getElementById('atlasList');
@@ -488,213 +676,443 @@ function renderAtlas() {{
     card.id = `atlas-card-${{p.plate_num}}`;
 
     const pinsHtml = p.pins.map((pin, idx) => `
-      <div class="pin-marker" id="marker-${{p.plate_num}}-${{idx}}" 
-           style="left: ${{pin.x * 100}}%; top: ${{pin.y * 100}}%; background: var(--accent-cyan);"
-           onmousedown="startAtlasPinDrag(event, '${{p.plate_num}}', ${{idx}})">${{idx+1}}</div>
+      <div class="pin-marker" id="marker-${{p.plate_num}}-${{idx}}"
+           style="left:${{pin.x * 100}}%; top:${{pin.y * 100}}%; background:${{getPinColor(pin.color)}};"
+           title="${{pin.num}}: ${{pin.title}}">
+        ${{pin.num}}
+      </div>
     `).join('');
 
-    const pinRows = p.pins.map((pin, idx) => `
-      <div style="background:#141b27; border:1px solid #253047; padding:8px; border-radius:6px; display:flex; flex-direction:column; gap:4px;">
+    const pinsRows = p.pins.map((pin, idx) => `
+      <div style="background:#131a26; padding:8px 10px; border-radius:8px; border:1px solid #232c40; display:flex; flex-direction:column; gap:6px;">
         <div style="display:flex; justify-content:space-between; align-items:center;">
-          <span style="font-size:11px; font-weight:bold; color:var(--accent-cyan);">#${{idx+1}}</span>
-          <input type="text" class="edit-input" value="${{pin.title}}" onchange="p_updatePinTitle('${{p.plate_num}}', ${{idx}}, this.value)" style="width:200px;" />
-          <input type="text" class="edit-input" value="${{pin.structureType}}" onchange="p_updatePinType('${{p.plate_num}}', ${{idx}}, this.value)" style="width:140px; color:var(--accent-amber);" />
-          <button class="btn-del-mini" onclick="p_deletePin('${{p.plate_num}}', ${{idx}})">🗑️</button>
+          <span style="font-weight:800; font-size:11px; color:#00e5ff;">PIN ${{pin.num}}</span>
+          <span style="font-size:10px; color:#64748b;">X: <span id="pos-x-${{p.plate_num}}-${{idx}}">${{pin.x.toFixed(3)}}</span> | Y: <span id="pos-y-${{p.plate_num}}-${{idx}}">${{pin.y.toFixed(3)}}</span></span>
+          <button style="background:none; border:none; color:#f43f5e; cursor:pointer; font-size:11px;" onclick="deletePin('${{p.plate_num}}', ${{idx}})">✕ Delete</button>
         </div>
-        <textarea class="edit-textarea" onchange="p_updatePinDesc('${{p.plate_num}}', ${{idx}}, this.value)">${{pin.description}}</textarea>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px;">
+          <input type="text" class="edit-input" value="${{pin.title}}" placeholder="Structure Title" onchange="updatePin('${{p.plate_num}}', ${{idx}}, 'title', this.value)">
+          <input type="text" class="edit-input" value="${{pin.structureType}}" placeholder="Structure Type" onchange="updatePin('${{p.plate_num}}', ${{idx}}, 'structureType', this.value)">
+        </div>
+        <textarea class="edit-textarea" placeholder="Surgical Pearl / Anatomical Details" onchange="updatePin('${{p.plate_num}}', ${{idx}}, 'surgicalPearl', this.value)">${{pin.surgicalPearl}}</textarea>
+      </div>
+    `).join('');
+
+    const stepsRows = p.steps.map((st, idx) => `
+      <div style="display:flex; gap:6px; align-items:center;">
+        <span style="font-size:11px; font-weight:800; color:#94a3b8; width:45px;">Step ${{st.step}}:</span>
+        <input type="text" class="edit-input" value="${{st.title}}" onchange="updateStep('${{p.plate_num}}', ${{idx}}, 'title', this.value)">
+        <button style="background:none; border:none; color:#f43f5e; cursor:pointer;" onclick="deleteStep('${{p.plate_num}}', ${{idx}})">✕</button>
+      </div>
+    `).join('');
+
+    const hazardsRows = p.hazards.map((hz, idx) => `
+      <div style="display:flex; gap:6px; align-items:center;">
+        <span style="font-size:11px; font-weight:800; color:#f43f5e;">⚠️</span>
+        <input type="text" class="edit-input" value="${{hz}}" onchange="updateHazard('${{p.plate_num}}', ${{idx}}, this.value)">
+        <button style="background:none; border:none; color:#f43f5e; cursor:pointer;" onclick="deleteHazard('${{p.plate_num}}', ${{idx}})">✕</button>
       </div>
     `).join('');
 
     card.innerHTML = `
       <div>
-        <div class="image-canvas-container" id="canvas-${{p.plate_num}}">
-          <img src="${{p.image_file}}" class="plate-img" loading="lazy">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+          <span style="font-weight:800; font-size:14px; color:#fff;">PLATE ${{p.plate_num}}</span>
+          <span class="badge badge-amber">${{p.batch_tag}}</span>
+        </div>
+        <div class="plate-viewport" id="viewport-${{p.plate_num}}">
+          <img src="${{p.image_file}}" alt="Plate ${{p.plate_num}}">
           ${{pinsHtml}}
         </div>
-        <div style="margin-top:10px; display:flex; gap:8px;">
-          <button class="btn-save-section" onclick="saveAtlasPlate('${{p.plate_num}}')">💾 Save Plate to Swift</button>
-        </div>
       </div>
-      <div style="display:flex; flex-direction:column; gap:10px;">
-        <div style="font-size:11px; font-weight:bold; color:var(--accent-amber);">PLATE ${{p.plate_num}}</div>
-        <input type="text" class="edit-input" value="${{p.title}}" onchange="p_updatePlateTitle('${{p.plate_num}}', this.value)" style="font-size:15px; font-weight:800;" />
-        <div style="font-size:11px; font-weight:bold; color:#64748b;">Landmark Callouts (${{p.pins.length}} Pins):</div>
-        <div style="display:flex; flex-direction:column; gap:6px; max-height:400px; overflow-y:auto;">${{pinRows || '<span style="font-size:11px; color:#64748b; font-style:italic;">No pins</span>'}}</div>
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        <div>
+          <div class="field-label">Plate Title:</div>
+          <input type="text" class="edit-input" value="${{p.title}}" style="font-size:15px; font-weight:800;" onchange="updatePlateTitle('${{p.plate_num}}', this.value)">
+        </div>
+        
+        <div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+            <div class="field-label" style="margin:0;">Calibrated Landmarks (${{p.pins.length}}):</div>
+            <button style="background:#1e293b; color:#00e5ff; border:1px solid #334155; padding:3px 8px; border-radius:6px; font-size:11px; cursor:pointer;" onclick="addPin('${{p.plate_num}}')">+ Add Pin</button>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:8px; max-height:220px; overflow-y:auto; padding-right:4px;">
+            ${{pinsRows}}
+          </div>
+        </div>
+
+        <div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+            <div class="field-label" style="margin:0;">Dissection Sequence (${{p.steps.length}}):</div>
+            <button style="background:#1e293b; color:#00e5ff; border:1px solid #334155; padding:3px 8px; border-radius:6px; font-size:11px; cursor:pointer;" onclick="addStep('${{p.plate_num}}')">+ Add Step</button>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:6px;">
+            ${{stepsRows || '<span style="font-size:11px; color:#64748b;">(Section hidden in app if blank)</span>'}}
+          </div>
+        </div>
+
+        <div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+            <div class="field-label" style="margin:0;">Catastrophic Operative Hazards (${{p.hazards.length}}):</div>
+            <button style="background:#1e293b; color:#f43f5e; border:1px solid #334155; padding:3px 8px; border-radius:6px; font-size:11px; cursor:pointer;" onclick="addHazard('${{p.plate_num}}')">+ Add Hazard</button>
+          </div>
+          <div style="display:flex; flex-direction:column; gap:6px;">
+            ${{hazardsRows || '<span style="font-size:11px; color:#64748b;">(Section hidden in app if blank)</span>'}}
+          </div>
+        </div>
+
+        <button class="save-btn" id="save-btn-${{p.plate_num}}" onclick="savePlateToSwift('${{p.plate_num}}')">
+          💾 Save Plate to Swift
+        </button>
       </div>
     `;
+
     container.appendChild(card);
+    setupDragEvents(p.plate_num);
   }});
 }}
 
-function startAtlasPinDrag(e, plateNum, pinIdx) {{
-  e.preventDefault(); e.stopPropagation();
-  const plate = appData.atlas.find(p => p.plate_num === plateNum);
-  const container = document.getElementById(`canvas-${{plateNum}}`);
-  const marker = document.getElementById(`marker-${{plateNum}}-${{pinIdx}}`);
-
-  function onMove(me) {{
-    const r = container.getBoundingClientRect();
-    let x = Math.max(0.01, Math.min(0.99, (me.clientX - r.left) / r.width));
-    let y = Math.max(0.01, Math.min(0.99, (me.clientY - r.top) / r.height));
-    marker.style.left = `${{x * 100}}%`;
-    marker.style.top = `${{y * 100}}%`;
-    plate.pins[pinIdx].x = x;
-    plate.pins[pinIdx].y = y;
-  }}
-  function onUp() {{
-    window.removeEventListener('mousemove', onMove);
-    window.removeEventListener('mouseup', onUp);
-    showToast(`📍 Repositioned Pin #${{pinIdx+1}}. Click 'Save' to commit.`);
-  }}
-  window.addEventListener('mousemove', onMove);
-  window.addEventListener('mouseup', onUp);
+function getPinColor(c) {{
+  if (!c) return '#00e5ff';
+  c = c.toLowerCase();
+  if (c.includes('red') || c.includes('rose')) return '#f43f5e';
+  if (c.includes('green') || c.includes('emerald')) return '#10b981';
+  if (c.includes('blue') || c.includes('cyan')) return '#00e5ff';
+  if (c.includes('orange') || c.includes('amber')) return '#f59e0b';
+  if (c.includes('purple')) return '#a855f7';
+  return '#00e5ff';
 }}
 
-function p_updatePlateTitle(num, v) {{ const p = appData.atlas.find(x => x.plate_num === num); if (p) p.title = v; }}
-function p_updatePinTitle(num, idx, v) {{ const p = appData.atlas.find(x => x.plate_num === num); if (p && p.pins[idx]) p.pins[idx].title = v; }}
-function p_updatePinType(num, idx, v) {{ const p = appData.atlas.find(x => x.plate_num === num); if (p && p.pins[idx]) p.pins[idx].structureType = v; }}
-function p_updatePinDesc(num, idx, v) {{ const p = appData.atlas.find(x => x.plate_num === num); if (p && p.pins[idx]) p.pins[idx].description = v; }}
-function p_deletePin(num, idx) {{ const p = appData.atlas.find(x => x.plate_num === num); if (p) {{ p.pins.splice(idx, 1); renderAtlas(); }} }}
+function setupDragEvents(plateNum) {{
+  const viewport = document.getElementById(`viewport-${{plateNum}}`);
+  if (!viewport) return;
 
-async function saveAtlasPlate(plateNum) {{
-  const plate = appData.atlas.find(p => p.plate_num === plateNum);
-  if (!plate) return;
-  const res = await fetch('/api/save-plate', {{
-    method: 'POST',
-    headers: {{ 'Content-Type': 'application/json' }},
-    body: JSON.stringify({{
-      plate_num: plateNum,
-      title: plate.title,
-      pins: plate.pins,
-      steps: plate.steps,
-      hazards: plate.hazards
-    }})
+  const plateObj = appData.atlas.find(p => p.plate_num === plateNum);
+  if (!plateObj) return;
+
+  plateObj.pins.forEach((pin, idx) => {{
+    const marker = document.getElementById(`marker-${{plateNum}}-${{idx}}`);
+    if (!marker) return;
+
+    let isDragging = false;
+
+    marker.addEventListener('mousedown', (e) => {{
+      isDragging = true;
+      e.preventDefault();
+      e.stopPropagation();
+
+      const onMouseMove = (moveEvt) => {{
+        if (!isDragging) return;
+        const rect = viewport.getBoundingClientRect();
+        let newX = (moveEvt.clientX - rect.left) / rect.width;
+        let newY = (moveEvt.clientY - rect.top) / rect.height;
+
+        newX = Math.max(0.01, Math.min(0.99, newX));
+        newY = Math.max(0.01, Math.min(0.99, newY));
+
+        pin.x = parseFloat(newX.toFixed(3));
+        pin.y = parseFloat(newY.toFixed(3));
+
+        marker.style.left = `${{pin.x * 100}}%`;
+        marker.style.top = `${{pin.y * 100}}%`;
+
+        const posXElem = document.getElementById(`pos-x-${{plateNum}}-${{idx}}`);
+        const posYElem = document.getElementById(`pos-y-${{plateNum}}-${{idx}}`);
+        if (posXElem) posXElem.innerText = pin.x.toFixed(3);
+        if (posYElem) posYElem.innerText = pin.y.toFixed(3);
+      }};
+
+      const onMouseUp = () => {{
+        isDragging = false;
+        window.removeEventListener('mousemove', onMouseMove);
+        window.removeEventListener('mouseup', onMouseUp);
+      }};
+
+      window.addEventListener('mousemove', onMouseMove);
+      window.addEventListener('mouseup', onMouseUp);
+    }});
   }});
-  const r = await res.json();
-  if (r.status === 'ok') showToast(`💾 Plate ${{plateNum}} saved directly to Swift code!`);
+}}
+
+function updatePlateTitle(pNum, val) {{
+  const p = appData.atlas.find(x => x.plate_num === pNum);
+  if (p) p.title = val;
+}}
+
+function updatePin(pNum, idx, field, val) {{
+  const p = appData.atlas.find(x => x.plate_num === pNum);
+  if (p && p.pins[idx]) p.pins[idx][field] = val;
+}}
+
+function deletePin(pNum, idx) {{
+  const p = appData.atlas.find(x => x.plate_num === pNum);
+  if (p) {{
+    p.pins.splice(idx, 1);
+    p.pins.forEach((pin, i) => pin.num = i + 1);
+    renderAtlas();
+  }}
+}}
+
+function addPin(pNum) {{
+  const p = appData.atlas.find(x => x.plate_num === pNum);
+  if (p) {{
+    const newNum = p.pins.length + 1;
+    p.pins.push({{
+      id: `pin_${{pNum}}_${{newNum}}`,
+      num: newNum,
+      title: "New Anatomical Landmark",
+      structureType: "ANATOMICAL LANDMARK",
+      color: "neonCyan",
+      x: 0.5,
+      y: 0.5,
+      description: "",
+      surgicalPearl: ""
+    }});
+    renderAtlas();
+  }}
+}}
+
+function updateStep(pNum, idx, field, val) {{
+  const p = appData.atlas.find(x => x.plate_num === pNum);
+  if (p && p.steps[idx]) p.steps[idx][field] = val;
+}}
+
+function deleteStep(pNum, idx) {{
+  const p = appData.atlas.find(x => x.plate_num === pNum);
+  if (p) {{
+    p.steps.splice(idx, 1);
+    p.steps.forEach((st, i) => st.step = i + 1);
+    renderAtlas();
+  }}
+}}
+
+function addStep(pNum) {{
+  const p = appData.atlas.find(x => x.plate_num === pNum);
+  if (p) {{
+    p.steps.push({{
+      step: p.steps.length + 1,
+      title: "New Operative Step",
+      detail: ""
+    }});
+    renderAtlas();
+  }}
+}}
+
+function updateHazard(pNum, idx, val) {{
+  const p = appData.atlas.find(x => x.plate_num === pNum);
+  if (p && p.hazards[idx] !== undefined) p.hazards[idx] = val;
+}}
+
+function deleteHazard(pNum, idx) {{
+  const p = appData.atlas.find(x => x.plate_num === pNum);
+  if (p) {{
+    p.hazards.splice(idx, 1);
+    renderAtlas();
+  }}
+}}
+
+function addHazard(pNum) {{
+  const p = appData.atlas.find(x => x.plate_num === pNum);
+  if (p) {{
+    p.hazards.push("Catastrophic Pitfall: ");
+    renderAtlas();
+  }}
+}}
+
+async function savePlateToSwift(pNum) {{
+  const p = appData.atlas.find(x => x.plate_num === pNum);
+  if (!p) return;
+
+  const btn = document.getElementById(`save-btn-${{pNum}}`);
+  btn.innerText = "⏳ Saving...";
+
+  try {{
+    const res = await fetch("/api/save-plate", {{
+      method: "POST",
+      headers: {{ "Content-Type": "application/json" }},
+      body: JSON.stringify({{
+        plate_num: pNum,
+        title: p.title,
+        pins: p.pins,
+        steps: p.steps,
+        hazards: p.hazards
+      }})
+    }});
+    const data = await res.json();
+    if (data.status === "ok") {{
+      btn.innerText = "✓ Saved to Swift!";
+      btn.classList.add("saved");
+      showToast(`Plate ${{pNum}} saved directly to Swift codebase!`);
+      setTimeout(() => {{
+        btn.innerText = "💾 Save Plate to Swift";
+        btn.classList.remove("saved");
+      }}, 3000);
+    }} else {{
+      alert("Error saving: " + data.message);
+      btn.innerText = "💾 Save Plate to Swift";
+    }}
+  }} catch (e) {{
+    alert("Connection error: " + e);
+    btn.innerText = "💾 Save Plate to Swift";
+  }}
 }}
 
 // ==========================================
-// 2. RENDER 2 AM CRISIS
+// 2. CRISIS RENDER
 // ==========================================
 function renderCrisis() {{
   const tGrid = document.getElementById('crisisThresholdGrid');
   tGrid.innerHTML = '';
+
   appData.crisis.thresholds.forEach((spec, idx) => {{
     const card = document.createElement('div');
     card.className = 'studio-card';
     card.innerHTML = `
       <div class="card-header">
         <span class="card-title">${{spec.title}}</span>
-        <span class="badge badge-red">BTF MANDATE</span>
+        <span class="badge badge-red">BTF SURGICAL MANDATE</span>
       </div>
-      <div>
-        <div class="field-label">Thickness Threshold:</div>
-        <input type="text" class="edit-input" value="${{spec.thicknessThreshold}}" onchange="spec.thicknessThreshold=this.value" />
-      </div>
-      <div>
-        <div class="field-label">Midline Shift Threshold:</div>
-        <input type="text" class="edit-input" value="${{spec.shiftThreshold}}" onchange="spec.shiftThreshold=this.value" />
-      </div>
-      <div>
-        <div class="field-label">Neurological Trigger:</div>
-        <input type="text" class="edit-input" value="${{spec.neurologicalTrigger}}" onchange="spec.neurologicalTrigger=this.value" />
-      </div>
-      <div>
-        <div class="field-label">Operative Procedure:</div>
-        <input type="text" class="edit-input" value="${{spec.operativeProcedure}}" onchange="spec.operativeProcedure=this.value" />
-      </div>
-      <div style="display:flex; justify-content:flex-end;">
-        <button class="btn-save-section" onclick="saveCrisisSpec('${{spec.id}}')">💾 Save Threshold to Swift</button>
+      <div class="media-card-grid">
+        <div class="viewport-container">
+          <img src="${{spec.image_file}}" alt="${{spec.title}}" title="Click to view full size">
+          <div class="viewport-caption">High-Contrast Emergency CT Viewport</div>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:10px;">
+          <div>
+            <div class="field-label">Emergency Protocol Title:</div>
+            <input type="text" class="edit-input" value="${{spec.title}}" onchange="spec.title = this.value">
+          </div>
+          <div>
+            <div class="field-label">Thickness Threshold:</div>
+            <input type="text" class="edit-input" value="${{spec.thicknessThreshold}}" onchange="spec.thicknessThreshold = this.value">
+          </div>
+          <div>
+            <div class="field-label">Midline Shift Threshold:</div>
+            <input type="text" class="edit-input" value="${{spec.shiftThreshold}}" onchange="spec.shiftThreshold = this.value">
+          </div>
+          <div>
+            <div class="field-label">Volume Threshold:</div>
+            <input type="text" class="edit-input" value="${{spec.volumeThreshold}}" onchange="spec.volumeThreshold = this.value">
+          </div>
+          <div>
+            <div class="field-label">Neurological Trigger:</div>
+            <input type="text" class="edit-input" value="${{spec.neurologicalTrigger}}" onchange="spec.neurologicalTrigger = this.value">
+          </div>
+          <div>
+            <div class="field-label">Operative Procedure:</div>
+            <input type="text" class="edit-input" value="${{spec.operativeProcedure}}" onchange="spec.operativeProcedure = this.value">
+          </div>
+          <button class="save-btn" onclick="saveCrisisSpec('${{spec.id}}', ${{idx}})">💾 Save Spec to Swift</button>
+        </div>
       </div>
     `;
     tGrid.appendChild(card);
   }});
 
-  const clGrid = document.getElementById('crisisChecklistGrid');
-  clGrid.innerHTML = '';
-  appData.crisis.checklists.forEach((cl, clIdx) => {{
+  // Checklists (Herniation Pupils)
+  const cGrid = document.getElementById('crisisChecklistGrid');
+  cGrid.innerHTML = '';
+  appData.crisis.checklists.forEach((cl, idx) => {{
     const card = document.createElement('div');
     card.className = 'studio-card';
-    const stepRows = cl.steps.map((st, sIdx) => `
-      <div style="display:flex; gap:8px; align-items:flex-start;">
-        <span style="font-size:11px; font-weight:bold; color:var(--accent-cyan); width:16px;">${{sIdx+1}}.</span>
-        <textarea class="edit-textarea" onchange="cl.steps[${{sIdx}}]=this.value">${{st}}</textarea>
-        <button class="btn-del-mini" onclick="cl.steps.splice(${{sIdx}}, 1); renderCrisis();">🗑️</button>
+    const stepsHtml = cl.steps.map((st, i) => `
+      <div style="display:flex; gap:8px; align-items:center;">
+        <span style="color:#00e5ff; font-weight:800;">${{i+1}}.</span>
+        <input type="text" class="edit-input" value="${{st}}" onchange="cl.steps[${{i}}] = this.value">
       </div>
     `).join('');
 
     card.innerHTML = `
       <div class="card-header">
         <span class="card-title">${{cl.title}}</span>
-        <button class="btn-add-mini" onclick="cl.steps.push('New Emergency Action Step'); renderCrisis();">＋ Add Step</button>
+        <span class="badge badge-amber">CRITICAL RESUSCITATION</span>
       </div>
-      <div style="display:flex; flex-direction:column; gap:8px;">${{stepRows}}</div>
-      <div style="display:flex; justify-content:flex-end; margin-top:6px;">
-        <button class="btn-save-section" onclick="saveCrisisAll()">💾 Save Checklists to Swift</button>
+      <div class="media-card-grid">
+        <div class="viewport-container">
+          <img src="${{cl.image_file}}" alt="${{cl.title}}">
+          <div class="viewport-caption">Pupillary Light Reflex & Herniation Anisocoria</div>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:10px;">
+          <div class="field-label">Resuscitation Stepwise Actions:</div>
+          ${{stepsHtml}}
+          <button class="save-btn" onclick="saveCrisisChecklist('${{cl.id}}', ${{idx}})">💾 Save Checklist to Swift</button>
+        </div>
       </div>
     `;
-    clGrid.appendChild(card);
+    cGrid.appendChild(card);
   }});
 
+  // Reversals
   const rGrid = document.getElementById('crisisReversalGrid');
   rGrid.innerHTML = '';
-  appData.crisis.reversals.forEach((r, idx) => {{
+  appData.crisis.reversals.forEach(rev => {{
     const card = document.createElement('div');
     card.className = 'studio-card';
     card.innerHTML = `
       <div class="card-header">
-        <span class="card-title" style="color:var(--accent-amber);">${{r.drug}} Reversal</span>
-        <span class="badge badge-amber">${{r.agent}}</span>
+        <span class="card-title">${{rev.drug}}</span>
+        <span class="badge badge-purple">${{rev.agent}}</span>
       </div>
-      <div>
-        <div class="field-label">Mechanism:</div>
-        <input type="text" class="edit-input" value="${{r.mechanism}}" onchange="r.mechanism=this.value" />
-      </div>
-      <div>
-        <div class="field-label">Emergent Dosing Protocol:</div>
-        <textarea class="edit-textarea" onchange="r.dose=this.value">${{r.dose}}</textarea>
-      </div>
-      <div>
-        <div class="field-label">Therapeutic Reversal Target:</div>
-        <input type="text" class="edit-input" value="${{r.target}}" onchange="r.target=this.value" />
+      <div style="font-size:12px; color:#94a3b8;">${{rev.mechanism}}</div>
+      <div style="background:#090d15; padding:10px; border-radius:8px; border:1px solid #1e2638; display:flex; flex-direction:column; gap:4px;">
+        <div><strong style="color:#fff;">Dose:</strong> ${{rev.dose}}</div>
+        <div><strong style="color:#00e5ff;">Target:</strong> ${{rev.target}}</div>
       </div>
     `;
     rGrid.appendChild(card);
   }});
 }}
 
-async function saveCrisisSpec(specId) {{
-  const spec = appData.crisis.thresholds.find(s => s.id === specId);
-  const res = await fetch('/api/save-crisis', {{
-    method: 'POST',
-    headers: {{ 'Content-Type': 'application/json' }},
-    body: JSON.stringify({{ spec_id: specId, spec: spec }})
-  }});
-  const r = await res.json();
-  if (r.status === 'ok') showToast(`💾 2 AM Crisis (${{specId}}) saved to EmergencyProtocolsView.swift!`);
+async function saveCrisisSpec(specId, idx) {{
+  const spec = appData.crisis.thresholds[idx];
+  try {{
+    const res = await fetch("/api/save-crisis", {{
+      method: "POST",
+      headers: {{ "Content-Type": "application/json" }},
+      body: JSON.stringify({{ spec_id: specId, spec: spec }})
+    }});
+    const data = await res.json();
+    if (data.status === "ok") showToast(`Crisis spec ${{spec.title}} saved to Swift!`);
+    else alert("Error: " + data.message);
+  }} catch (e) {{ alert("Connection error: " + e); }}
 }}
 
-async function saveCrisisAll() {{
-  const res = await fetch('/api/save-crisis', {{
-    method: 'POST',
-    headers: {{ 'Content-Type': 'application/json' }},
-    body: JSON.stringify({{ checklists: appData.crisis.checklists }})
-  }});
-  const r = await res.json();
-  if (r.status === 'ok') showToast(`💾 All Crisis Checklists saved to EmergencyProtocolsView.swift!`);
+async function saveCrisisChecklist(clId, idx) {{
+  const cl = appData.crisis.checklists[idx];
+  try {{
+    const res = await fetch("/api/save-crisis", {{
+      method: "POST",
+      headers: {{ "Content-Type": "application/json" }},
+      body: JSON.stringify({{ checklists: [cl] }})
+    }});
+    const data = await res.json();
+    if (data.status === "ok") showToast(`Herniation checklist saved to Swift!`);
+    else alert("Error: " + data.message);
+  }} catch (e) {{ alert("Connection error: " + e); }}
 }}
 
 // ==========================================
-// 3. RENDER ER CONSULTS
+// 3. ER CONSULTS RENDER
 // ==========================================
+let currentConsultCategory = 'all';
+
+function filterConsults(cat) {{
+  currentConsultCategory = cat;
+  document.getElementById('filter-all').classList.toggle('active', cat === 'all');
+  document.getElementById('filter-cranial').classList.toggle('active', cat === 'cranial');
+  document.getElementById('filter-spine').classList.toggle('active', cat === 'spine');
+  renderConsults();
+}}
+
 function renderConsults() {{
   const grid = document.getElementById('consultsGrid');
   const search = document.getElementById('consultSearch').value.toLowerCase();
   grid.innerHTML = '';
 
   const filtered = appData.consults.filter(c => {{
-    return c.title.toLowerCase().includes(search) || c.case.toLowerCase().includes(search);
+    const matchCat = (currentConsultCategory === 'all') || (c.category === currentConsultCategory);
+    const matchSearch = c.title.toLowerCase().includes(search) || c.case.toLowerCase().includes(search) || c.shortTitle.toLowerCase().includes(search);
+    return matchCat && matchSearch;
   }});
 
   filtered.forEach(c => {{
@@ -703,103 +1121,201 @@ function renderConsults() {{
 
     const pitfallsRows = c.pitfalls.map((pit, idx) => `
       <div style="display:flex; gap:6px; align-items:flex-start;">
-        <span style="font-size:11px; color:var(--accent-rose);">⚠️</span>
-        <textarea class="edit-textarea" onchange="c.pitfalls[${{idx}}]=this.value" style="color:#fda4af;">${{pit}}</textarea>
-        <button class="btn-del-mini" onclick="c.pitfalls.splice(${{idx}}, 1); renderConsults();">🗑️</button>
+        <span style="font-size:11px; font-weight:800; color:#f43f5e; margin-top:4px;">⚠️</span>
+        <textarea class="edit-textarea" style="min-height:44px;" onchange="c.pitfalls[${{idx}}] = this.value">${{pit}}</textarea>
+        <button style="background:none; border:none; color:#f43f5e; cursor:pointer; font-size:14px; margin-top:6px;" onclick="deleteConsultPitfall('${{c.case}}', ${{idx}})">✕</button>
+      </div>
+    `).join('');
+
+    const triadHtml = c.clinicalTriad.map(t => `<li style="margin-left:16px; margin-bottom:2px;">${{t}}</li>`).join('');
+
+    card.innerHTML = `
+      <div class="card-header">
+        <div>
+          <span class="card-title">${{c.title}}</span>
+          <div style="font-size:11px; color:#64748b; margin-top:2px;">Enum Case: .${{c.case}} | Category: ${{c.category.toUpperCase()}}</div>
+        </div>
+        <span class="badge badge-red">${{c.acuityLabel || 'EMERGENCY'}}</span>
+      </div>
+
+      <div class="media-card-grid">
+        <div>
+          <div class="viewport-container">
+            <img src="${{c.image_file}}" alt="${{c.title}}" title="Click to view full size">
+            <div class="viewport-caption">Authentic Clinical Radiological Plate (${{c.assetImageName}})</div>
+          </div>
+          ${{triadHtml ? `<div style="background:#090d15; padding:10px; border-radius:8px; border:1px solid #1e2638; margin-top:10px; font-size:11px; color:#94a3b8;"><div style="font-weight:800; color:#00e5ff; margin-bottom:4px;">CLINICAL TRIAD / PRESENTATION:</div><ul>${{triadHtml}}</ul></div>` : ''}}
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:12px;">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px;">
+            <div>
+              <div class="field-label">Full Module Title:</div>
+              <input type="text" class="edit-input" value="${{c.title}}" onchange="c.title = this.value">
+            </div>
+            <div>
+              <div class="field-label">Short Carousel Title:</div>
+              <input type="text" class="edit-input" value="${{c.shortTitle}}" onchange="c.shortTitle = this.value">
+            </div>
+          </div>
+
+          <div>
+            <div class="field-label">Acuity Status Label:</div>
+            <input type="text" class="edit-input" value="${{c.acuityLabel}}" onchange="c.acuityLabel = this.value">
+          </div>
+
+          <div>
+            <div class="field-label">Imaging Diagnostic Pearl:</div>
+            <textarea class="edit-textarea" onchange="c.imagingPearl = this.value">${{c.imagingPearl}}</textarea>
+          </div>
+
+          <div>
+            <div class="field-label">Definitive Operative Plan:</div>
+            <textarea class="edit-textarea" onchange="c.operativePlan = this.value">${{c.operativePlan}}</textarea>
+          </div>
+
+          <div>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+              <div class="field-label" style="margin:0;">Catastrophic Pitfalls & Fatal Errors (${{c.pitfalls.length}}):</div>
+              <button style="background:#1e293b; color:#f43f5e; border:1px solid #334155; padding:2px 8px; border-radius:6px; font-size:11px; cursor:pointer;" onclick="addConsultPitfall('${{c.case}}')">+ Add Pitfall</button>
+            </div>
+            <div style="display:flex; flex-direction:column; gap:6px;">
+              ${{pitfallsRows}}
+            </div>
+          </div>
+
+          <button class="save-btn" onclick="saveConsultToSwift('${{c.case}}')">💾 Save Consult to Swift</button>
+        </div>
+      </div>
+    `;
+    grid.appendChild(card);
+  }});
+}}
+
+function deleteConsultPitfall(cCase, idx) {{
+  const c = appData.consults.find(x => x.case === cCase);
+  if (c) {{
+    c.pitfalls.splice(idx, 1);
+    renderConsults();
+  }}
+}}
+
+function addConsultPitfall(cCase) {{
+  const c = appData.consults.find(x => x.case === cCase);
+  if (c) {{
+    c.pitfalls.push("Catastrophic Pitfall: ");
+    renderConsults();
+  }}
+}}
+
+async function saveConsultToSwift(cCase) {{
+  const c = appData.consults.find(x => x.case === cCase);
+  if (!c) return;
+
+  try {{
+    const res = await fetch("/api/save-consult", {{
+      method: "POST",
+      headers: {{ "Content-Type": "application/json" }},
+      body: JSON.stringify({{ case: cCase, data: c }})
+    }});
+    const data = await res.json();
+    if (data.status === "ok") showToast(`Consult ${{c.shortTitle}} saved directly to Swift!`);
+    else alert("Error: " + data.message);
+  }} catch (e) {{ alert("Connection error: " + e); }}
+}}
+
+// ==========================================
+// 4. BEDSIDE PROCEDURES RENDER
+// ==========================================
+let currentProcedureFilter = 'all';
+
+function filterProcedures(procId) {{
+  currentProcedureFilter = procId;
+  document.querySelectorAll('[id^="filter-proc-"]').forEach(btn => btn.classList.remove('active'));
+  document.getElementById(`filter-proc-${{procId === 'all' ? 'all' : (procId === 'camino_bolt' ? 'camino' : procId.replace('lumbar_', ''))}}`)?.classList.add('active');
+  renderProcedures();
+}}
+
+function renderProcedures() {{
+  const grid = document.getElementById('proceduresGrid');
+  grid.innerHTML = '';
+
+  const filtered = appData.procedures.filter(p => {{
+    return (currentProcedureFilter === 'all') || (p.id === currentProcedureFilter);
+  }});
+
+  filtered.forEach(proc => {{
+    const card = document.createElement('div');
+    card.className = 'studio-card';
+
+    const stepsHtml = proc.steps.map((st, idx) => `
+      <div style="background:#131a26; padding:10px 12px; border-radius:8px; border:1px solid #232c40; display:flex; flex-direction:column; gap:6px;">
+        <div style="display:flex; justify-content:space-between; align-items:center;">
+          <span style="font-size:12px; font-weight:800; color:#00e5ff;">STEP ${{st.number}}:</span>
+          <button class="save-btn" style="padding:4px 8px; font-size:11px;" onclick="saveProcedureStep('${{proc.card_name}}', '${{st.number}}', ${{idx}})">💾 Save Step</button>
+        </div>
+        <div>
+          <div class="field-label">Step Title:</div>
+          <input type="text" class="edit-input" value="${{st.title}}" onchange="proc.steps[${{idx}}].title = this.value">
+        </div>
+        <div>
+          <div class="field-label">Anatomical Trajectory / Coordinates Detail:</div>
+          <textarea class="edit-textarea" onchange="proc.steps[${{idx}}].detail = this.value">${{st.detail}}</textarea>
+        </div>
       </div>
     `).join('');
 
     card.innerHTML = `
       <div class="card-header">
-        <span class="card-title">${{c.title}}</span>
-        <span class="badge badge-red">${{c.acuity}}</span>
-      </div>
-      <div>
-        <div class="field-label">Full Module Title:</div>
-        <input type="text" class="edit-input" value="${{c.title}}" onchange="c.title=this.value" />
-      </div>
-      <div>
-        <div class="field-label">Short Carousel Title:</div>
-        <input type="text" class="edit-input" value="${{c.shortTitle}}" onchange="c.shortTitle=this.value" />
-      </div>
-      <div>
-        <div class="field-label">Imaging Diagnostic Pearl:</div>
-        <textarea class="edit-textarea" onchange="c.imagingPearl=this.value">${{c.imagingPearl}}</textarea>
-      </div>
-      <div>
-        <div class="field-label">Definitive Operative Plan:</div>
-        <textarea class="edit-textarea" onchange="c.operativePlan=this.value">${{c.operativePlan}}</textarea>
-      </div>
-      <div>
-        <div class="field-label" style="display:flex; justify-content:space-between; align-items:center;">
-          <span>Catastrophic Pitfalls (${{c.pitfalls.length}}):</span>
-          <button class="btn-add-mini" onclick="c.pitfalls.push('New Catastrophic Pitfall'); renderConsults();">＋ Add Pitfall</button>
+        <div>
+          <span class="card-title">${{proc.title}}</span>
+          <div style="font-size:11px; color:#64748b; margin-top:2px;">Swift Component: ${{proc.card_name}}</div>
         </div>
-        <div style="display:flex; flex-direction:column; gap:6px; margin-top:4px;">${{pitfallsRows}}</div>
+        <span class="badge badge-cyan">BEDSIDE HARDWARE PROTOCOL</span>
       </div>
-      <div style="display:flex; justify-content:flex-end; margin-top:6px;">
-        <button class="btn-save-section" onclick="saveConsult('${{c.case}}')">💾 Save Consult to Swift</button>
+
+      <div class="media-card-grid">
+        <div class="viewport-container">
+          <img src="${{proc.image_file}}" alt="${{proc.title}}">
+          <div class="viewport-caption">High-Definition Anatomical Schematic (${{proc.id}})</div>
+        </div>
+
+        <div style="display:flex; flex-direction:column; gap:12px;">
+          <div style="font-size:12px; color:#94a3b8;">${{proc.summary}}</div>
+          <div style="display:flex; flex-direction:column; gap:10px;">
+            ${{stepsHtml}}
+          </div>
+        </div>
       </div>
     `;
     grid.appendChild(card);
   }});
 }}
 
-async function saveConsult(cCase) {{
-  const c = appData.consults.find(x => x.case === cCase);
-  const res = await fetch('/api/save-consult', {{
-    method: 'POST',
-    headers: {{ 'Content-Type': 'application/json' }},
-    body: JSON.stringify({{ case: cCase, data: c }})
-  }});
-  const r = await res.json();
-  if (r.status === 'ok') showToast(`💾 ER Consult (${{cCase}}) saved to ERConsultsView.swift!`);
+async function saveProcedureStep(cardName, stepNum, idx) {{
+  const proc = appData.procedures.find(p => p.card_name === cardName);
+  if (!proc || !proc.steps[idx]) return;
+
+  const st = proc.steps[idx];
+  try {{
+    const res = await fetch("/api/save-procedure", {{
+      method: "POST",
+      headers: {{ "Content-Type": "application/json" }},
+      body: JSON.stringify({{
+        card_name: cardName,
+        number: stepNum,
+        title: st.title,
+        detail: st.detail
+      }})
+    }});
+    const data = await res.json();
+    if (data.status === "ok") showToast(`Step ${{stepNum}} (${{st.title}}) saved directly to Swift!`);
+    else alert("Error: " + data.message);
+  }} catch (e) {{ alert("Connection error: " + e); }}
 }}
 
 // ==========================================
-// 4. RENDER PROCEDURES
-// ==========================================
-function renderProcedures() {{
-  const grid = document.getElementById('proceduresGrid');
-  grid.innerHTML = '';
-
-  appData.procedures.forEach((step, idx) => {{
-    const card = document.createElement('div');
-    card.className = 'studio-card';
-    card.innerHTML = `
-      <div class="card-header">
-        <span class="card-title">Trajectory Step ${{step.number}}: ${{step.title}}</span>
-        <span class="badge badge-cyan">BEDSIDE PROTOCOL</span>
-      </div>
-      <div>
-        <div class="field-label">Step Title:</div>
-        <input type="text" class="edit-input" value="${{step.title}}" onchange="step.title=this.value" />
-      </div>
-      <div>
-        <div class="field-label">Anatomical Trajectory / Depth Detail:</div>
-        <textarea class="edit-textarea" onchange="step.detail=this.value" style="min-height:70px;">${{step.detail}}</textarea>
-      </div>
-      <div style="display:flex; justify-content:flex-end;">
-        <button class="btn-save-section" onclick="saveProcedureStep('${{step.number}}', '${{step.title}}')">💾 Save Step to Swift</button>
-      </div>
-    `;
-    grid.appendChild(card);
-  }});
-}}
-
-async function saveProcedureStep(stepNum, stepTitle) {{
-  const s = appData.procedures.find(x => x.number === stepNum);
-  const res = await fetch('/api/save-procedure', {{
-    method: 'POST',
-    headers: {{ 'Content-Type': 'application/json' }},
-    body: JSON.stringify({{ number: stepNum, old_title: stepTitle, title: s.title, detail: s.detail }})
-  }});
-  const r = await res.json();
-  if (r.status === 'ok') showToast(`💾 Bedside Step ${{stepNum}} saved to NeurosurgicalProceduresView.swift!`);
-}}
-
-// ==========================================
-// 5. RENDER CALCULATORS
+// 5. CALCULATORS RENDER
 // ==========================================
 function renderCalculators() {{
   const grid = document.getElementById('calculatorsGrid');
@@ -818,19 +1334,16 @@ function renderCalculators() {{
         <textarea class="edit-textarea" readonly style="background:#090d15;">${{calc.formula}}</textarea>
       </div>
       <div>
-        <div class="field-label">Clinical Target & Surgical Stratification:</div>
-        <textarea class="edit-textarea" readonly style="background:#090d15; color:var(--accent-cyan);">${{calc.target}}</textarea>
+        <div class="field-label">Target / Stratification:</div>
+        <input type="text" class="edit-input" readonly style="background:#090d15;" value="${{calc.target}}">
       </div>
-      <div>
-        <div class="field-label">Evidence Citation:</div>
-        <input type="text" class="edit-input" readonly value="${{calc.evidence}}" style="background:#090d15; color:#64748b;" />
-      </div>
+      <div style="font-size:11px; color:#64748b;">Evidence: ${{calc.evidence}}</div>
     `;
     grid.appendChild(card);
   }});
 }}
 
-// Initial load
+// Initial Render
 renderAtlas();
 renderCrisis();
 renderConsults();
@@ -838,9 +1351,11 @@ renderProcedures();
 renderCalculators();
 </script>
 </body>
-</html>"""
+</html>
+"""
 
-with open(r"C:\Users\mohal\Documents\antigravity\Radix\atlas_inspector\index.html", "w", encoding="utf-8") as f:
+out_path = r"C:\Users\mohal\Documents\antigravity\Radix\atlas_inspector\index.html"
+with open(out_path, "w", encoding="utf-8") as f:
     f.write(html_template)
 
-print("NeuroCall Full App Studio successfully compiled into index.html!")
+print(f"Generated Full App Studio HTML at {out_path} ({len(html_template)} bytes)")

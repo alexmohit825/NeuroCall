@@ -699,7 +699,7 @@ public enum CranialConsultType: String, CaseIterable {
     public var imagingPearl: String {
         switch self {
         case .aneurysmalSAH:
-            return "Star-shaped hyperdense acute blood in suprasellar/ambient cisterns & Sylvian fissures. Modified Fisher 3. Dilated temporal horns reflect acute hydrocephalus."
+            return "Hyperdense cisternal blood in basal cisterns and Sylvian fissures. CTA/DSA reveals aneurysm morphology and neck geometry."
         case .epiduralHematoma:
             return "Biconvex / lenticular hyperdensity confined by cranial sutures. MMA arterial laceration with skull fracture. 'Swirl sign' indicates active extravasation."
         case .subduralHematoma:
@@ -820,9 +820,9 @@ public enum CranialConsultType: String, CaseIterable {
         switch self {
         case .aneurysmalSAH:
             return [
-                "Uncontrolled systolic hypertension precipitating catastrophic re-rupture (70% mortality)",
-                "Over-draining EVD below 10 cm H2O, causing transmural pressure gradient spike and rebleeding",
-                "Holding nimodipine for mild asymptomatic blood pressure drop without attending discussion"
+                "Allowing SBP to spike above 140 mmHg prior to aneurysm securing, risking fatal rerupture",
+                "Treating headache as migraine without non-contrast head CT and LP for xanthochromia if CT negative",
+                "Inducing triple-H therapy or hypervolemia before securing the aneurysm dome"
             ]
         case .epiduralHematoma:
             return [
@@ -865,7 +865,7 @@ public enum CranialConsultType: String, CaseIterable {
     
     public var operativePlan: String {
         switch self {
-        case .aneurysmalSAH: return "Emergent EVD placement + Catheter DSA & Aneurysm Coiling or Clipping within 24 hours"
+        case .aneurysmalSAH: return "Urgent endovascular coiling or microsurgical clipping within 24 hours to prevent rerupture (highest risk in first 24h). Maintain SBP < 140 mmHg prior to securing."
         case .epiduralHematoma: return "Emergent Trauma Craniotomy, MMA Coagulation, and Hemispheric Evacuation"
         case .subduralHematoma: return "Emergent 12x15 cm Decompressive Hemicraniectomy and Expansile Duraplasty"
         case .intracerebralHemorrhage: return "STAT Suboccipital Decompression (Posterior Fossa) or MIS Clot Evacuation (Lobar)"

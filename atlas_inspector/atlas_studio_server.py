@@ -17,9 +17,10 @@ SWIFT_PATHS = {
     "calculators": r"C:\Users\mohal\Documents\antigravity\Radix\RadixApp\Views\NeurosurgeryCalculatorsView.swift"
 }
 
-# 1. Update Atlas Plates
+# ==========================================
+# 1. UPDATE ATLAS PLATES (106 PLATES)
+# ==========================================
 def update_swift_plate_all(plate_num, title, pins, steps, hazards):
-    # Update Data
     with open(SWIFT_PATHS["atlas_data"], "r", encoding="utf-8") as f:
         content = f.read()
 
@@ -136,7 +137,7 @@ def update_swift_plate_all(plate_num, title, pins, steps, hazards):
     with open(SWIFT_PATHS["atlas_data"], "w", encoding="utf-8") as f:
         f.write(updated_data)
 
-    # Line-by-line update for PhotorealisticSurgicalAtlasView.swift (Title)
+    # Update Title in PhotorealisticSurgicalAtlasView.swift
     if title:
         with open(SWIFT_PATHS["atlas_view"], "r", encoding="utf-8") as f:
             lines = f.readlines()
@@ -167,25 +168,39 @@ def update_swift_plate_all(plate_num, title, pins, steps, hazards):
 
     print(f"[Studio] Plate {plate_num} saved to Swift.")
 
-# 2. Update 2 AM Crisis
+# ==========================================
+# 2. UPDATE 2 AM CRISIS
+# ==========================================
 def update_swift_crisis(spec_id, spec_data, checklists, reversals):
     with open(SWIFT_PATHS["crisis"], "r", encoding="utf-8") as f:
         text = f.read()
 
     # Update Threshold Spec if provided
     if spec_id and spec_data:
-        pattern = rf'case "{spec_id}":\s*return EmergencyThresholdSpec\((.*?)\)'
-        m = re.search(pattern, text, re.DOTALL)
-        if m:
-            t_title = spec_data.get("title", "").replace('"', '\\"')
-            t_thick = spec_data.get("thicknessThreshold", "").replace('"', '\\"')
-            t_shift = spec_data.get("shiftThreshold", "").replace('"', '\\"')
-            t_vol = spec_data.get("volumeThreshold", "").replace('"', '\\"')
-            t_trig = spec_data.get("neurologicalTrigger", "").replace('"', '\\"')
-            t_op = spec_data.get("operativeProcedure", "").replace('"', '\\"')
+        c_idx = text.find(f'case "{spec_id}":')
+        if c_idx != -1:
+            ret_idx = text.find("return EmergencyThresholdSpec(", c_idx)
+            if ret_idx != -1:
+                open_p = 0
+                p_start = ret_idx + len("return EmergencyThresholdSpec")
+                body_end = -1
+                for i in range(p_start, len(text)):
+                    if text[i] == '(':
+                        open_p += 1
+                    elif text[i] == ')':
+                        open_p -= 1
+                        if open_p == 0:
+                            body_end = i
+                            break
+                if body_end != -1:
+                    t_title = spec_data.get("title", "").replace('\\', '\\\\').replace('"', '\\"')
+                    t_thick = spec_data.get("thicknessThreshold", "").replace('\\', '\\\\').replace('"', '\\"')
+                    t_shift = spec_data.get("shiftThreshold", "").replace('\\', '\\\\').replace('"', '\\"')
+                    t_vol = spec_data.get("volumeThreshold", "").replace('\\', '\\\\').replace('"', '\\"')
+                    t_trig = spec_data.get("neurologicalTrigger", "").replace('\\', '\\\\').replace('"', '\\"')
+                    t_op = spec_data.get("operativeProcedure", "").replace('\\', '\\\\').replace('"', '\\"')
 
-            new_spec = f"""case "{spec_id}":
-            return EmergencyThresholdSpec(
+                    new_spec = f"""return EmergencyThresholdSpec(
                 title: "{t_title}",
                 thicknessThreshold: "{t_thick}",
                 shiftThreshold: "{t_shift}",
@@ -193,7 +208,7 @@ def update_swift_crisis(spec_id, spec_data, checklists, reversals):
                 neurologicalTrigger: "{t_trig}",
                 operativeProcedure: "{t_op}"
             )"""
-            text = text[:m.start()] + new_spec + text[m.end():]
+                    text = text[:ret_idx] + new_spec + text[body_end+1:]
 
     # Update Checklists if provided
     if checklists:
@@ -203,7 +218,7 @@ def update_swift_crisis(spec_id, spec_data, checklists, reversals):
             pattern = rf'ChecklistCard\(\s*title:\s*"{re.escape(cl_title)}",\s*steps:\s*\[(.*?)\]\s*\)'
             m = re.search(pattern, text, re.DOTALL)
             if m:
-                steps_formatted = ",\n                    ".join([f'"{s.replace(chr(34), chr(92)+chr(34))}"' for s in cl_steps])
+                steps_formatted = ",\n                    ".join([f'"{s.replace(chr(92), chr(92)+chr(92)).replace(chr(34), chr(92)+chr(34))}"' for s in cl_steps])
                 new_card = f"""ChecklistCard(
                     title: "{cl_title}",
                     steps: [
@@ -213,57 +228,103 @@ def update_swift_crisis(spec_id, spec_data, checklists, reversals):
 
     with open(SWIFT_PATHS["crisis"], "w", encoding="utf-8") as f:
         f.write(text)
-    print(f"[Studio] 2 AM Crisis updated in Swift.")
+    print(f"[Studio] 2 AM Crisis spec {spec_id} updated in Swift.")
 
-# 3. Update ER Consult
+# ==========================================
+# 3. UPDATE ER CONSULTS
+# ==========================================
+def update_consult_prop(text, prop_name, case_id, new_val):
+    p_decl = f"public var {prop_name}: String {{"
+    start = text.find(p_decl)
+    if start == -1: return text
+    end = text.find("public var ", start + 20)
+    if end == -1: end = text.find("}\n\n", start + 20)
+    sec = text[start:end]
+    
+    pattern = rf'(case\s+\.{case_id}:\s*return\s*)"((?:[^"\\]|\\.)*)"'
+    escaped = new_val.replace('\\', '\\\\').replace('"', '\\"')
+    sec_new, count = re.subn(pattern, lambda m: f'{m.group(1)}"{escaped}"', sec, count=1)
+    if count > 0:
+        return text[:start] + sec_new + text[end:]
+    return text
+
+def update_consult_pitfalls(text, case_id, pitfalls_list):
+    p_decl = "public var pitfalls: [String] {"
+    start = text.find(p_decl)
+    if start == -1: return text
+    end = text.find("public var ", start + 20)
+    if end == -1: end = text.find("}\n\n", start + 20)
+    sec = text[start:end]
+    
+    c_idx = sec.find(f"case .{case_id}:")
+    if c_idx == -1: return text
+    ret_idx = sec.find("return [", c_idx)
+    if ret_idx == -1: return text
+    close_bracket = sec.find("]", ret_idx)
+    if close_bracket == -1: return text
+    
+    formatted_pitfalls = ",\n                ".join([f'"{p.replace(chr(92), chr(92)+chr(92)).replace(chr(34), chr(92)+chr(34))}"' for p in pitfalls_list])
+    new_return = f"return [\n                {formatted_pitfalls}\n            ]"
+    sec_new = sec[:ret_idx] + new_return + sec[close_bracket+1:]
+    return text[:start] + sec_new + text[end:]
+
 def update_swift_consult(consult_case, data):
     with open(SWIFT_PATHS["consults"], "r", encoding="utf-8") as f:
         text = f.read()
 
-    title = data.get("title", "").replace('"', '\\"')
-    short_title = data.get("shortTitle", "").replace('"', '\\"')
-    acuity = data.get("acuity", "EMERGENCY").replace('"', '\\"')
-    imaging_pearl = data.get("imagingPearl", "").replace('"', '\\"')
-    operative_plan = data.get("operativePlan", "").replace('"', '\\"')
-    pitfalls = data.get("pitfalls", [])
-
-    # Update Title
-    text = re.sub(rf'(public var title: String \{{.*?case \.{consult_case}:\s*return )"[^"]+"', rf'\1"{title}"', text, flags=re.DOTALL)
-    # Update ShortTitle
-    text = re.sub(rf'(public var shortTitle: String \{{.*?case \.{consult_case}:\s*return )"[^"]+"', rf'\1"{short_title}"', text, flags=re.DOTALL)
-    # Update Acuity
-    text = re.sub(rf'(public var acuityLabel: String \{{.*?case \.{consult_case}:\s*return )"[^"]+"', rf'\1"{acuity}"', text, flags=re.DOTALL)
-    # Update Imaging Pearl
-    text = re.sub(rf'(public var imagingPearl: String \{{.*?case \.{consult_case}:\s*return )"[^"]+"', rf'\1"{imaging_pearl}"', text, flags=re.DOTALL)
-    # Update Operative Plan
-    text = re.sub(rf'(public var operativePlan: String \{{.*?case \.{consult_case}:\s*return )"[^"]+"', rf'\1"{operative_plan}"', text, flags=re.DOTALL)
-
-    # Update Pitfalls if provided
-    if pitfalls:
-        p_joined = ",\n                ".join([f'"{p.replace(chr(34), chr(92)+chr(34))}"' for p in pitfalls])
-        pattern = rf'(public var pitfalls: \[String\] \{{.*?case \.{consult_case}:\s*return )\[(.*?)\]'
-        m = re.search(pattern, text, re.DOTALL)
-        if m:
-            text = text[:m.start(2)] + f"[\n                {p_joined}\n            ]" + text[m.end(2)+1:]
+    if "title" in data:
+        text = update_consult_prop(text, "title", consult_case, data["title"])
+    if "shortTitle" in data:
+        text = update_consult_prop(text, "shortTitle", consult_case, data["shortTitle"])
+    if "acuityLabel" in data:
+        text = update_consult_prop(text, "acuityLabel", consult_case, data["acuityLabel"])
+    if "imagingPearl" in data:
+        text = update_consult_prop(text, "imagingPearl", consult_case, data["imagingPearl"])
+    if "operativePlan" in data:
+        text = update_consult_prop(text, "operativePlan", consult_case, data["operativePlan"])
+    if "pitfalls" in data and isinstance(data["pitfalls"], list):
+        text = update_consult_pitfalls(text, consult_case, data["pitfalls"])
 
     with open(SWIFT_PATHS["consults"], "w", encoding="utf-8") as f:
         f.write(text)
-    print(f"[Studio] Consult {consult_case} updated in Swift.")
+    print(f"[Studio] ER Consult {consult_case} updated in Swift.")
 
-# 4. Update Procedure Trajectory Step
-def update_swift_procedure_step(step_number, old_title, new_title, new_detail):
+# ==========================================
+# 4. UPDATE BEDSIDE PROCEDURES
+# ==========================================
+def update_swift_procedure_step(card_name, step_number, new_title, new_detail):
     with open(SWIFT_PATHS["procedures"], "r", encoding="utf-8") as f:
         text = f.read()
 
-    pattern = rf'TrajectoryStepRow\(\s*number:\s*"{step_number}",\s*title:\s*"[^"]*",\s*detail:\s*"[^"]*"\s*\)'
-    new_code = f"""TrajectoryStepRow(number: "{step_number}", title: "{new_title.replace('"', '\\"')}", detail: "{new_detail.replace('"', '\\"')}")"""
-    text = re.sub(pattern, new_code, text, count=1)
+    c_idx = text.find(f"struct {card_name}")
+    if c_idx == -1:
+        # Fallback search across whole file if card_name not found
+        block = text
+        start_replace = 0
+        end_replace = len(text)
+    else:
+        c_end = text.find("struct ", c_idx + 20)
+        if c_end == -1: c_end = len(text)
+        block = text[c_idx:c_end]
+        start_replace = c_idx
+        end_replace = c_end
 
-    with open(SWIFT_PATHS["procedures"], "w", encoding="utf-8") as f:
-        f.write(text)
-    print(f"[Studio] Bedside Procedure Step {step_number} updated in Swift.")
+    pattern = rf'(TrajectoryStepRow\(\s*number:\s*"{step_number}",\s*title:\s*)"((?:[^"\\]|\\.)*)"(\s*,\s*detail:\s*)"((?:[^"\\]|\\.)*)"(\s*\))'
+    esc_title = new_title.replace('\\', '\\\\').replace('"', '\\"')
+    esc_detail = new_detail.replace('\\', '\\\\').replace('"', '\\"')
 
-# HTTP Request Handler
+    new_block, count = re.subn(pattern, lambda m: f'{m.group(1)}"{esc_title}"{m.group(3)}"{esc_detail}"{m.group(5)}', block, count=1)
+    if count > 0:
+        text = text[:start_replace] + new_block + text[end_replace:]
+        with open(SWIFT_PATHS["procedures"], "w", encoding="utf-8") as f:
+            f.write(text)
+        print(f"[Studio] Bedside Procedure {card_name} Step {step_number} updated in Swift.")
+    else:
+        print(f"[Studio Warning] Procedure step not matched for {card_name} Step {step_number}")
+
+# ==========================================
+# HTTP SERVER & API ROUTING
+# ==========================================
 class FullAppStudioHandler(http.server.SimpleHTTPRequestHandler):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, directory=BASE_DIR, **kwargs)
@@ -298,11 +359,11 @@ class FullAppStudioHandler(http.server.SimpleHTTPRequestHandler):
                 res = {"status": "ok", "section": "consults", "id": consult_case}
 
             elif self.path == "/api/save-procedure":
-                step_num = data.get("number")
-                old_title = data.get("old_title", "")
+                card_name = data.get("card_name", "EVDDetailCard")
+                step_num = str(data.get("number", "1"))
                 new_title = data.get("title", "")
                 new_detail = data.get("detail", "")
-                update_swift_procedure_step(step_num, old_title, new_title, new_detail)
+                update_swift_procedure_step(card_name, step_num, new_title, new_detail)
                 res = {"status": "ok", "section": "procedures", "id": step_num}
 
             else:
@@ -331,13 +392,10 @@ class FullAppStudioHandler(http.server.SimpleHTTPRequestHandler):
 
 if __name__ == "__main__":
     socketserver.TCPServer.allow_reuse_address = True
+    print(f"Starting NeuroCall Full App Studio Server on port {PORT}...")
     with socketserver.TCPServer(("", PORT), FullAppStudioHandler) as httpd:
-        print(f"=======================================================")
-        print(f"🚀 NeuroCall Full App Studio Server Running on Port {PORT}")
-        print(f"👉 Local URL: http://localhost:{PORT}/")
-        print(f"=======================================================")
+        print(f"Serving at http://localhost:{PORT}/")
         try:
             httpd.serve_forever()
         except KeyboardInterrupt:
             print("\nShutting down server.")
-            httpd.server_close()
