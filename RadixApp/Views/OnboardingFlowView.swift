@@ -22,7 +22,7 @@ public struct OnboardingFlowView: View {
                         Image(systemName: "cross.fill")
                             .font(.system(size: 11, weight: .black))
                             .foregroundColor(.cyan)
-                        Text("TREPHINE • RESIDENT CALL COMPANION")
+                        Text("NEUROCALL • RESIDENT CALL COMPANION")
                             .font(.system(size: 11, weight: .black, design: .rounded))
                             .tracking(1.2)
                             .foregroundColor(.white.opacity(0.85))
