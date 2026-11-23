@@ -710,6 +710,7 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
         case .thoracicOncology: return "shield.lefthalf.filled"
         case .lumbarMIS: return "square.stack.3d.down.right.fill"
         case .deformitySalvage: return "arrow.triangle.merge"
+        case .peripheralNerve: return "hand.raised.fill"
         }
     }
     

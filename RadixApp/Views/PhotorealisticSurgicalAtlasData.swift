@@ -4787,89 +4787,17 @@ case .plate059:
             ]
         case .plate054:
             return [
-                SurgicalCallout(
-                    id: "plate_054_1",
-                    title: "The Sato Axial Classification",
-                    structureType: "AXIAL CT & MRI SPECTRUM",
-                    color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.18,
-                    normalizedY: 0.42,
-                    description: "Progression from Type I (Lateral capsular), Type II (Extended interlaminar), Type III (Diffuse laminar), to Type IV/V (Fused nodular beak). In Type V, massive bilateral cauliflower ossification meets in the midline, pinching the cord into a thin transverse crescent with >60% canal compromise.",
-                    surgicalPearl: "Type IV and V have high incidence of dural ossification (tram-track sign); attempting circumferential dissection without thinning will tear the dura."
-                ),
-                SurgicalCallout(
-                    id: "plate_054_2",
-                    title: "The Floating Island / Thin-Shell Technique",
-                    structureType: "MICROSURGICAL PROTOCOL",
-                    color: Color.green,
-                    normalizedX: 0.88,
-                    normalizedY: 0.45,
-                    description: "Bilateral pedicle troughs are cut down to the inner cortex with an ultrasonic bone scalpel. The central ossified mass is thinned to a translucent paper-thin shell with a diamond burr and left floating on pulsating dura, avoiding violent peeling from adherent dura.",
-                    surgicalPearl: "The floating shell expands outward with restored CSF pulsation; dissecting fused bone off ossified dura is unnecessary and causes giant pseudomeningoceles."
-                ),
-                SurgicalCallout(
-                    id: "plate_054_3",
-                    title: "Zero-Plunging Under-Shelf Mandate",
-                    structureType: "CRITICAL SAFETY ZONE",
-                    color: Color.red,
-                    normalizedX: 0.88,
-                    normalizedY: 0.22,
-                    description: "Strict prohibition against inserting Kerrison rongeur footplates underneath the ossified ligament shelf. The thoracic canal has zero reserve volume; sliding any footplate under the shelf exerts immediate focal compression onto the ischemic thoracic cord.",
-                    surgicalPearl: "All bone resection must be strictly extra-cavitary (from superficial to deep) using diamond burrs or ultrasonic aspirators until the bone is eggshell thin."
-                ),
-                SurgicalCallout(
-                    id: "plate_054_4",
-                    title: "Sagittal Patterns & Compressive Myelomalacia",
-                    structureType: "LONGITUDINAL MORPHOLOGY",
-                    color: Color.blue,
-                    normalizedX: 0.52,
-                    normalizedY: 0.32,
-                    description: "Sagittal categorization into Circumscribed (focal T10–T11 beak), Continuous (multi-level bridge), and Intermittent (skip lesions). The focal hyperintense T2 intramedullary signal at the apex denotes severe ischemic myelopathy.",
-                    surgicalPearl: "The lower thoracic junction (T10–L1) experiences maximum mechanical torque, making it the most frequent and severe site of symptomatic T-OLF."
-                )
+                ApproachSequentialStep(stepNumber: 1, title: "Posterior Thoracic Exposure & Level Localization", detail: "Prone position on Jackson table with Wilson frame. Midline incision centered over the thoracic OLF level under fluoroscopic guidance. Subperiosteal dissection of paraspinal muscles laterally to the facet joints, preserving facet capsules outside the decompression zone."),
+                ApproachSequentialStep(stepNumber: 2, title: "Bilateral Lateral Trough Drilling", detail: "Using an ultrasonic bone scalpel or 3-mm diamond burr under continuous saline irrigation, drill bilateral longitudinal troughs at the medial junction of the pedicles and laminas down to the inner cortex, isolating the ossified laminar bridge."),
+                ApproachSequentialStep(stepNumber: 3, title: "Floating Island Thin-Shell Technique", detail: "Thin the central ossified mass to a translucent paper-thin shell using a diamond burr. Strictly avoid inserting Kerrison footplates beneath the ossified shelf to prevent spinal cord impingement."),
+                ApproachSequentialStep(stepNumber: 4, title: "Dural Decompression & Hemostasis", detail: "Allow the eggshell-thinned ossified ligament to float free on the expanding, pulsating dural sac. If dural ossification is present (tram-track sign), leave the adherent bone island floating. Apply Gelfoam and Surgicel.")
             ]
         case .plate053:
-            return [
-                SurgicalCallout(
-                    id: "plate_053_1",
-                    title: "The DESH Sign & Callosal Angle < 90°",
-                    structureType: "CORONAL MRI HALLMARK",
-                    color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.42,
-                    normalizedY: 0.24,
-                    description: "Disproportionately Enlarged Subarachnoid Space Hydrocephalus (DESH) is characterized by cavernous Sylvian fissures, severe parasagittal high-convexity sulcal crowding ('vertex crowding'), and an acute callosal angle < 90° (measuring 68° vs. > 110° in ex-vacuo atrophy).",
-                    surgicalPearl: "DESH has >80% positive predictive value for shunt responsiveness; diffuse cortical sulcal enlargement across the vertex signifies Alzheimer atrophy, where shunting confers zero benefit and high subdural risk."
-                ),
-                SurgicalCallout(
-                    id: "plate_053_2",
-                    title: "The Evans Index (> 0.30)",
-                    structureType: "AXIAL VENTRICULOMEGALY CALIPER",
-                    color: Color.blue,
-                    normalizedX: 0.16,
-                    normalizedY: 0.28,
-                    description: "Ratio of the maximum frontal horn transverse diameter (48 mm) to the maximum inner biparietal skull diameter at the same axial level (137 mm), yielding an Evans Index of 0.35 (> 0.30 threshold). Faint periventricular halos represent transependymal CSF resorption.",
-                    surgicalPearl: "The Evans Index is a mandatory screening metric for ventriculomegaly, but must always be paired with coronal DESH to prevent shunting patients with neurodegenerative cortical atrophy."
-                ),
-                SurgicalCallout(
-                    id: "plate_053_3",
-                    title: "Kocher's Point Frontal Trajectory",
-                    structureType: "BURR HOLE ENTRY SITE",
-                    color: Color.green,
-                    normalizedX: 0.74,
-                    normalizedY: 0.16,
-                    description: "Right frontal burr hole located 1 cm anterior to the coronal suture and 2.5–3.0 cm lateral to midline in the mid-pupillary line. Trajectory perpendicular to cranial curvature aimed towards the medial canthus of the ipsilateral eye and external auditory meatus.",
-                    surgicalPearl: "Never plunge beyond 5.5–6.0 cm from the outer cortex; the ventricular catheter tip must remain cleanly inside the frontal horn anterior to the foramen of Monro."
-                ),
-                SurgicalCallout(
-                    id: "plate_053_4",
-                    title: "Programmable Valve & Gravitational Anti-Siphon Unit",
-                    structureType: "RETROAURICULAR HARDWARE",
-                    color: Color.orange,
-                    normalizedX: 0.94,
-                    normalizedY: 0.28,
-                    description: "Adjustable differential-pressure valve (Codman Hakim / Strata) coupled in series with an inline gravitational anti-siphon unit containing vertical tantalum weight balls that engage automatically when the patient stands.",
-                    surgicalPearl: "The gravitational unit prevents posture-dependent low-pressure over-drainage, virtually eliminating the 15–20% historical risk of chronic subdural hematomas in elderly NPH patients."
-                )
+            return [ 
+                ApproachSequentialStep(stepNumber: 1, title: "Supine Positioning & Sterile Prep", detail: "Supine position with head rotated 30–45° to the left, exposing the right frontal, retroauricular, and abdominal surgical fields in a single sterile prep."),
+                ApproachSequentialStep(stepNumber: 2, title: "Kocher's Point Burr Hole & Ventricular Cannulation", detail: "Right frontal incision at Kocher's point (1 cm anterior to coronal suture, 3 cm lateral to midline). Drill burr hole, coagulate dura, and pass ventricular catheter with stylet aimed toward the ipsilateral medial canthus and EAM to a depth of 5.0–5.5 cm."),
+                ApproachSequentialStep(stepNumber: 3, title: "Valve Seating & Subcutaneous Tunneling", detail: "Make a retroauricular pocket for the programmable valve with gravitational anti-siphon unit. Tunnel the distal catheter subcutaneously from head to abdomen using a malleable passer."),
+                ApproachSequentialStep(stepNumber: 4, title: "Peritoneal Insertion & Verification", detail: "Perform mini-laparotomy (paramedian or periumbilical), incise the posterior rectus sheath and peritoneum, insert the distal catheter under direct vision, confirm active CSF dripping, and close in layers.")
             ]
         case .plate052:
             return [
@@ -5534,89 +5462,17 @@ case .plate059:
             ]
         case .plate054:
             return [
-                SurgicalCallout(
-                    id: "plate_054_1",
-                    title: "The Sato Axial Classification",
-                    structureType: "AXIAL CT & MRI SPECTRUM",
-                    color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.18,
-                    normalizedY: 0.42,
-                    description: "Progression from Type I (Lateral capsular), Type II (Extended interlaminar), Type III (Diffuse laminar), to Type IV/V (Fused nodular beak). In Type V, massive bilateral cauliflower ossification meets in the midline, pinching the cord into a thin transverse crescent with >60% canal compromise.",
-                    surgicalPearl: "Type IV and V have high incidence of dural ossification (tram-track sign); attempting circumferential dissection without thinning will tear the dura."
-                ),
-                SurgicalCallout(
-                    id: "plate_054_2",
-                    title: "The Floating Island / Thin-Shell Technique",
-                    structureType: "MICROSURGICAL PROTOCOL",
-                    color: Color.green,
-                    normalizedX: 0.88,
-                    normalizedY: 0.45,
-                    description: "Bilateral pedicle troughs are cut down to the inner cortex with an ultrasonic bone scalpel. The central ossified mass is thinned to a translucent paper-thin shell with a diamond burr and left floating on pulsating dura, avoiding violent peeling from adherent dura.",
-                    surgicalPearl: "The floating shell expands outward with restored CSF pulsation; dissecting fused bone off ossified dura is unnecessary and causes giant pseudomeningoceles."
-                ),
-                SurgicalCallout(
-                    id: "plate_054_3",
-                    title: "Zero-Plunging Under-Shelf Mandate",
-                    structureType: "CRITICAL SAFETY ZONE",
-                    color: Color.red,
-                    normalizedX: 0.88,
-                    normalizedY: 0.22,
-                    description: "Strict prohibition against inserting Kerrison rongeur footplates underneath the ossified ligament shelf. The thoracic canal has zero reserve volume; sliding any footplate under the shelf exerts immediate focal compression onto the ischemic thoracic cord.",
-                    surgicalPearl: "All bone resection must be strictly extra-cavitary (from superficial to deep) using diamond burrs or ultrasonic aspirators until the bone is eggshell thin."
-                ),
-                SurgicalCallout(
-                    id: "plate_054_4",
-                    title: "Sagittal Patterns & Compressive Myelomalacia",
-                    structureType: "LONGITUDINAL MORPHOLOGY",
-                    color: Color.blue,
-                    normalizedX: 0.52,
-                    normalizedY: 0.32,
-                    description: "Sagittal categorization into Circumscribed (focal T10–T11 beak), Continuous (multi-level bridge), and Intermittent (skip lesions). The focal hyperintense T2 intramedullary signal at the apex denotes severe ischemic myelopathy.",
-                    surgicalPearl: "The lower thoracic junction (T10–L1) experiences maximum mechanical torque, making it the most frequent and severe site of symptomatic T-OLF."
-                )
+                "UNDER-SHELF KERRISON PLUNGING & CORD CONTUSION: Inserting a Kerrison rongeur footplate beneath an ossified ligament shelf in a stenotic thoracic canal causes instantaneous, catastrophic spinal cord compression and paraplegia. All bone resection must be strictly extra-cavitary from superficial to deep using diamond burrs.",
+                "DURAL TEAR & GIANT PSEUDOMENINGOCELE: Forcefully peeling ossified ligamentum flavum from fused dura (tram-track sign) causes massive dural lacerations that are difficult to repair in the thoracic canal. Utilize the floating-island technique instead.",
+                "POSTOPERATIVE EPIDURAL HEMATOMA: Inadequate hemostasis in the epidural venous plexus beneath the decompressed lamina leads to rapid postoperative compression. Meticulously coagulate bleeding with bipolar and apply thrombin-soaked gelatin sponges before closure.",
+                "SEGMENTAL INSTABILITY & KYPHOTIC DEFORMITY: Excessive lateral drilling beyond the medial half of the thoracic facet joints compromises posterior column integrity and precipitates progressive post-laminectomy kyphosis. Preserve the lateral facet architecture or perform instrumented fusion."
             ]
         case .plate053:
             return [
-                SurgicalCallout(
-                    id: "plate_053_1",
-                    title: "The DESH Sign & Callosal Angle < 90°",
-                    structureType: "CORONAL MRI HALLMARK",
-                    color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.42,
-                    normalizedY: 0.24,
-                    description: "Disproportionately Enlarged Subarachnoid Space Hydrocephalus (DESH) is characterized by cavernous Sylvian fissures, severe parasagittal high-convexity sulcal crowding ('vertex crowding'), and an acute callosal angle < 90° (measuring 68° vs. > 110° in ex-vacuo atrophy).",
-                    surgicalPearl: "DESH has >80% positive predictive value for shunt responsiveness; diffuse cortical sulcal enlargement across the vertex signifies Alzheimer atrophy, where shunting confers zero benefit and high subdural risk."
-                ),
-                SurgicalCallout(
-                    id: "plate_053_2",
-                    title: "The Evans Index (> 0.30)",
-                    structureType: "AXIAL VENTRICULOMEGALY CALIPER",
-                    color: Color.blue,
-                    normalizedX: 0.16,
-                    normalizedY: 0.28,
-                    description: "Ratio of the maximum frontal horn transverse diameter (48 mm) to the maximum inner biparietal skull diameter at the same axial level (137 mm), yielding an Evans Index of 0.35 (> 0.30 threshold). Faint periventricular halos represent transependymal CSF resorption.",
-                    surgicalPearl: "The Evans Index is a mandatory screening metric for ventriculomegaly, but must always be paired with coronal DESH to prevent shunting patients with neurodegenerative cortical atrophy."
-                ),
-                SurgicalCallout(
-                    id: "plate_053_3",
-                    title: "Kocher's Point Frontal Trajectory",
-                    structureType: "BURR HOLE ENTRY SITE",
-                    color: Color.green,
-                    normalizedX: 0.74,
-                    normalizedY: 0.16,
-                    description: "Right frontal burr hole located 1 cm anterior to the coronal suture and 2.5–3.0 cm lateral to midline in the mid-pupillary line. Trajectory perpendicular to cranial curvature aimed towards the medial canthus of the ipsilateral eye and external auditory meatus.",
-                    surgicalPearl: "Never plunge beyond 5.5–6.0 cm from the outer cortex; the ventricular catheter tip must remain cleanly inside the frontal horn anterior to the foramen of Monro."
-                ),
-                SurgicalCallout(
-                    id: "plate_053_4",
-                    title: "Programmable Valve & Gravitational Anti-Siphon Unit",
-                    structureType: "RETROAURICULAR HARDWARE",
-                    color: Color.orange,
-                    normalizedX: 0.94,
-                    normalizedY: 0.28,
-                    description: "Adjustable differential-pressure valve (Codman Hakim / Strata) coupled in series with an inline gravitational anti-siphon unit containing vertical tantalum weight balls that engage automatically when the patient stands.",
-                    surgicalPearl: "The gravitational unit prevents posture-dependent low-pressure over-drainage, virtually eliminating the 15–20% historical risk of chronic subdural hematomas in elderly NPH patients."
-                )
+                "POSTURE-DEPENDENT OVER-DRAINAGE & SUBDURAL HEMATOMA: Siphoning effect in upright posture can cause excessive ventricular collapse and tearing of bridging veins, leading to acute-on-chronic subdural hematomas in elderly NPH patients. Always utilize an inline gravitational anti-siphon unit.",
+                "VENTRICULAR CATHETER MISPLACEMENT & BASAL GANGLIA INFARCTION: Passing the ventricular catheter too deeply (>6 cm) or off-angle can penetrate the thalamus, internal capsule, or midbrain. Adhere strictly to the Kocher's point trajectory vectors.",
+                "DISTAL CATHETER BOWEL PERFORATION: Blind trocar or needle insertion into the peritoneal cavity risks visceral puncture. Always perform minilaparotomy with direct visual verification of peritoneal entry.",
+                "SHUNT INFECTION & COLONIZATION: Contamination with skin flora (Staphylococcus epidermidis) leads to ventriculitis and valve obstruction. Maintain strict aseptic technique, minimize glove-to-catheter contact, and utilize antibiotic-impregnated tubing."
             ]
         case .plate052:
             return [
