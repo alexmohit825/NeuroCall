@@ -184,156 +184,468 @@ extension SurgicalPlateType {
             return [
                 SurgicalCallout(
                     id: "plate_031_1",
-                    title: "Posterior Cervical (C7–T1) Decompre",
+                    title: "Lateral C2–T1 Root Hierarchy",
+                    structureType: "ANATOMICAL LANDMARK",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.28,
+                    normalizedY: 0.32,
+                    description: "Numbered cervical roots C1–C8 and T1 emerging relative to pedicles and neural foramina; note C8 exits between C7 and T1."
+                ),
+                SurgicalCallout(
+                    id: "plate_031_2",
+                    title: "C7–T1 Laminectomy Defect",
+                    structureType: "SURGICAL CORRIDOR",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.72,
+                    normalizedY: 0.34,
+                    description: "Midline posterior bone removal unroofing the lower cervical thecal sac with preservation of facet integrity for stabilization."
+                ),
+                SurgicalCallout(
+                    id: "plate_031_3",
+                    title: "Unroofed C8 Foraminotomy",
                     structureType: "OPERATIVE TARGET",
                     color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.50,
-                    normalizedY: 0.50,
-                    description: "Dual-panel cervical spine atlas plate illustrating C2–T1 root anatomy alongside posterior C7–T1 laminectomy, C8 nerve root decompression, an",
-                    surgicalPearl: "Verified Frank Netter publication-grade neurosurgical anatomy."
+                    normalizedX: 0.68,
+                    normalizedY: 0.70,
+                    description: "Unroofing of medial 50% of the C7–T1 facet joint to fully decompress the exiting C8 nerve root as it passes under the C7 pedicle."
+                ),
+                SurgicalCallout(
+                    id: "plate_031_4",
+                    title: "C7 Pedicle & T1 Mass Screws",
+                    structureType: "INSTRUMENTATION",
+                    color: ObsidianTheme.neonGreen,
+                    normalizedX: 0.32,
+                    normalizedY: 0.74,
+                    description: "Transition instrumentation utilizing lateral mass screws at C6/C7 and pedicle screw fixation at T1 to resist cervicothoracic shear."
                 )
             ]
         case .plate032:
             return [
                 SurgicalCallout(
                     id: "plate_032_1",
-                    title: "360° Comprehensive Lumbar Interbody",
-                    structureType: "OPERATIVE TARGET",
+                    title: "Anterior Retroperitoneal (ALIF)",
+                    structureType: "SURGICAL CORRIDOR",
                     color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.50,
-                    normalizedY: 0.50,
-                    description: "Tri-panel anatomical and biomechanical reference plate comparing all 360° surgical corridors into the lumbar intervertebral disc space.",
-                    surgicalPearl: "Verified Frank Netter publication-grade neurosurgical anatomy."
+                    normalizedX: 0.25,
+                    normalizedY: 0.30,
+                    description: "Ventral trajectory between common iliac vessels for L5–S1 and left retroperitoneal corridor for L4–L5 providing widest cage footprint."
+                ),
+                SurgicalCallout(
+                    id: "plate_032_2",
+                    title: "Oblique / Pre-Psoas (OLIF/ATP)",
+                    structureType: "SURGICAL CORRIDOR",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.74,
+                    normalizedY: 0.32,
+                    description: "Anterolateral corridor anterior to the psoas muscle and lateral to aorta/iliac vessels, avoiding lumbar plexus injury."
+                ),
+                SurgicalCallout(
+                    id: "plate_032_3",
+                    title: "Direct Lateral Transpsoas (LLIF)",
+                    structureType: "SURGICAL CORRIDOR",
+                    color: ObsidianTheme.neonGreen,
+                    normalizedX: 0.26,
+                    normalizedY: 0.72,
+                    description: "Orthogonal lateral transpsoas trajectory spanning dense cortical apophyseal rings with real-time neuromonitoring of lumbosacral plexus."
+                ),
+                SurgicalCallout(
+                    id: "plate_032_4",
+                    title: "Posterolateral Kambin & TLIF",
+                    structureType: "OPERATIVE TARGET",
+                    color: ObsidianTheme.neonRed,
+                    normalizedX: 0.75,
+                    normalizedY: 0.70,
+                    description: "Posterior corridors through Kambin's triangle (endoscopic) or transforaminal facetectomy allowing direct neural decompression and cage placement."
                 )
             ]
         case .plate033:
             return [
                 SurgicalCallout(
                     id: "plate_033_1",
-                    title: "Supraorbital Eyebrow Keyhole Cranio",
-                    structureType: "OPERATIVE TARGET",
+                    title: "MacCarty's Keypoint Burr Hole",
+                    structureType: "ANATOMICAL LANDMARK",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.28,
+                    normalizedY: 0.30,
+                    description: "Burr hole placed along anterior temporal line directly behind frontozygomatic suture, exposing both anterior fossa and orbital dura."
+                ),
+                SurgicalCallout(
+                    id: "plate_033_2",
+                    title: "Subfrontal Keyhole Osteotomy",
+                    structureType: "SURGICAL CORRIDOR",
                     color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.50,
-                    normalizedY: 0.50,
-                    description: "Master 3D cranial osteology plate demonstrating the precise bone window, burr hole placement, and surgical landmarks for the Supraorbital Ey",
-                    surgicalPearl: "Verified Frank Netter publication-grade neurosurgical anatomy."
+                    normalizedX: 0.72,
+                    normalizedY: 0.32,
+                    description: "Mini-craniotomy bone flap (~20x15 mm) flush with superior orbital rim and orbital roof to minimize frontal lobe retraction."
+                ),
+                SurgicalCallout(
+                    id: "plate_033_3",
+                    title: "Supraorbital Notch & Nerve",
+                    structureType: "CRITICAL STRUCTURE",
+                    color: ObsidianTheme.neonRed,
+                    normalizedX: 0.30,
+                    normalizedY: 0.72,
+                    description: "Supraorbital neurovascular bundle exiting the supraorbital notch/foramen; protected and preserved during medial periorbital mobilization."
+                ),
+                SurgicalCallout(
+                    id: "plate_033_4",
+                    title: "Frontal Dural Window",
+                    structureType: "OPERATIVE TARGET",
+                    color: ObsidianTheme.neonGreen,
+                    normalizedX: 0.74,
+                    normalizedY: 0.70,
+                    description: "Curvilinear dural incision hinged inferiorly along orbital rim, granting subfrontal corridor to chiasmatic cistern and ACom complex."
                 )
             ]
         case .plate034:
             return [
                 SurgicalCallout(
                     id: "plate_034_1",
-                    title: "Bilateral Jumped / Locked Cervical ",
-                    structureType: "OPERATIVE TARGET",
+                    title: "Locked C6–C7 Facet Dislocation",
+                    structureType: "PATHOLOGY / LESION",
+                    color: ObsidianTheme.neonRed,
+                    normalizedX: 0.26,
+                    normalizedY: 0.30,
+                    description: "Parasagittal CT and dissection view showing C6 inferior articular facet perched and locked anterior to C7 superior articular process."
+                ),
+                SurgicalCallout(
+                    id: "plate_034_2",
+                    title: "Severe Anterolisthesis & Kyphosis",
+                    structureType: "BIOMECHANICAL FAILURE",
                     color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.50,
-                    normalizedY: 0.50,
-                    description: "Four-panel master atlas plate correlating authentic diagnostic radiology (CT & MRI) with high-detail Netter-style pathoanatomical dissection",
-                    surgicalPearl: "Verified Frank Netter publication-grade neurosurgical anatomy."
+                    normalizedX: 0.74,
+                    normalizedY: 0.32,
+                    description: "50% anterior translation with acute traumatic kyphosis reflecting complete disruption of anterior and posterior ligamentous complexes."
+                ),
+                SurgicalCallout(
+                    id: "plate_034_3",
+                    title: "Intramedullary Cord Contusion / Edema",
+                    structureType: "CRITICAL HAZARD",
+                    color: ObsidianTheme.neonRed,
+                    normalizedX: 0.28,
+                    normalizedY: 0.72,
+                    description: "High-intensity sagittal T2 cord signal pinched between posterosuperior C7 vertebral body and displaced C6 posterior arch."
+                ),
+                SurgicalCallout(
+                    id: "plate_034_4",
+                    title: "Disrupted Posterior Ligament Complex",
+                    structureType: "ANATOMICAL LANDMARK",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.72,
+                    normalizedY: 0.70,
+                    description: "Gross widening of C6–C7 interspinous distance indicating complete rupture of supraspinous, interspinous, and ligamentum flavum fibers."
                 )
             ]
         case .plate035:
             return [
                 SurgicalCallout(
                     id: "plate_035_1",
-                    title: "Anderson & D'Alonzo Odontoid Fractu",
+                    title: "Type I Apical / Alar Avulsion",
+                    structureType: "PATHOLOGY / LESION",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.26,
+                    normalizedY: 0.30,
+                    description: "Oblique avulsion fracture of dens tip above transverse ligament; inherently stable with 95-100% union in rigid cervical orthosis."
+                ),
+                SurgicalCallout(
+                    id: "plate_035_2",
+                    title: "Type II Dens Waist Watershed Fracture",
                     structureType: "OPERATIVE TARGET",
+                    color: ObsidianTheme.neonRed,
+                    normalizedX: 0.74,
+                    normalizedY: 0.32,
+                    description: "Transverse fracture through hypovascular waist of the dens; high nonunion risk (45-70%) requiring anterior screw or posterior C1-C2 fusion."
+                ),
+                SurgicalCallout(
+                    id: "plate_035_3",
+                    title: "Type III C2 Body Extension",
+                    structureType: "PATHOLOGY / LESION",
                     color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.50,
-                    normalizedY: 0.50,
-                    description: "Master neurosurgical spine trauma decision plate detailing the anatomical classification, vascular watershed biomechanics, union rates, and ",
-                    surgicalPearl: "Verified Frank Netter publication-grade neurosurgical anatomy."
+                    normalizedX: 0.28,
+                    normalizedY: 0.72,
+                    description: "Fracture line extending deep into cancellous body of the axis; high surface area with 85-93% union rate in rigid orthosis/halo."
+                ),
+                SurgicalCallout(
+                    id: "plate_035_4",
+                    title: "C1–C2 Motion Preservation Biomechanics",
+                    structureType: "ANATOMICAL LANDMARK",
+                    color: ObsidianTheme.neonGreen,
+                    normalizedX: 0.72,
+                    normalizedY: 0.70,
+                    description: "Anterior odontoid screw preserves 50% of normal cervical rotation; posterior Harms C1 lateral mass / C2 pedicle fusion sacrifices rotation for union."
                 )
             ]
         case .plate036:
             return [
                 SurgicalCallout(
                     id: "plate_036_1",
-                    title: "Acute Thoracolumbar Burst Fracture ",
-                    structureType: "OPERATIVE TARGET",
+                    title: "Centrifugal Burst Retropulsion",
+                    structureType: "PATHOLOGY / LESION",
+                    color: ObsidianTheme.neonRed,
+                    normalizedX: 0.26,
+                    normalizedY: 0.30,
+                    description: "Axial CT demonstrating comminuted middle-column failure with posterosuperior cortical fragment retropulsed >50% into spinal canal."
+                ),
+                SurgicalCallout(
+                    id: "plate_036_2",
+                    title: "Traumatic Kyphosis & Height Loss",
+                    structureType: "BIOMECHANICAL FAILURE",
                     color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.50,
-                    normalizedY: 0.50,
-                    description: "Four-panel master atlas plate correlating authentic diagnostic CT imaging (axial and sagittal bone windows) with 3D Frank Netter-style sagit",
-                    surgicalPearl: "Verified Frank Netter publication-grade neurosurgical anatomy."
+                    normalizedX: 0.74,
+                    normalizedY: 0.32,
+                    description: "Sagittal reconstruction showing 45% anterior column collapse and focal traumatic angulation at the thoracolumbar junction (T12-L1)."
+                ),
+                SurgicalCallout(
+                    id: "plate_036_3",
+                    title: "Conus / Cauda Compression",
+                    structureType: "CRITICAL HAZARD",
+                    color: ObsidianTheme.neonRed,
+                    normalizedX: 0.28,
+                    normalizedY: 0.72,
+                    description: "Sagittal 3D correlation illustrating retropulsed bone fragment compressing and tenting the thecal sac / conus against posterior lamina."
+                ),
+                SurgicalCallout(
+                    id: "plate_036_4",
+                    title: "Pedicle Splaying & Laminar Split",
+                    structureType: "ANATOMICAL LANDMARK",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.72,
+                    normalizedY: 0.70,
+                    description: "Bilateral splaying of pedicles with longitudinal greenstick split of posterior lamina indicating middle and posterior column involvement."
                 )
             ]
         case .plate037:
             return [
                 SurgicalCallout(
                     id: "plate_037_1",
-                    title: "Cauda Equina Syndrome — Massive Lum",
+                    title: "Massive Extruded Disc Sequestrum",
+                    structureType: "PATHOLOGY / LESION",
+                    color: ObsidianTheme.neonRed,
+                    normalizedX: 0.26,
+                    normalizedY: 0.30,
+                    description: "Diagnostic sagittal T2 MRI demonstrating huge extruded disc fragment filling >80% of spinal canal with complete CSF block at L4–L5."
+                ),
+                SurgicalCallout(
+                    id: "plate_037_2",
+                    title: "Compressed Cauda Equina Roots",
+                    structureType: "CRITICAL HAZARD",
+                    color: ObsidianTheme.neonRed,
+                    normalizedX: 0.74,
+                    normalizedY: 0.32,
+                    description: "Axial cross-section showing cauda equina nerve rootlets flattened into an ischemic crescentic band against posterior lamina."
+                ),
+                SurgicalCallout(
+                    id: "plate_037_3",
+                    title: "Annular Defect & Ruptured PLL",
                     structureType: "OPERATIVE TARGET",
                     color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.50,
-                    normalizedY: 0.50,
-                    description: "Tri-panel master neurosurgical atlas plate correlating authentic diagnostic Sagittal T2 MRI with 3D Frank Netter-style sagittal and axial pa",
-                    surgicalPearl: "Verified Frank Netter publication-grade neurosurgical anatomy."
+                    normalizedX: 0.28,
+                    normalizedY: 0.72,
+                    description: "3D midsagittal cutaway illustrating intervertebral disc origin through disrupted posterior annulus and elevated/torn posterior longitudinal ligament."
+                ),
+                SurgicalCallout(
+                    id: "plate_037_4",
+                    title: "Intact Endplates & Vertebral Bodies",
+                    structureType: "ANATOMICAL LANDMARK",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.72,
+                    normalizedY: 0.70,
+                    description: "Well-preserved L4 and L5 cancellous bone and cortical endplates differentiating primary disc extrusion from infectious/neoplastic collapse."
                 )
             ]
         case .plate038:
             return [
                 SurgicalCallout(
                     id: "plate_038_1",
-                    title: "Metastatic Epidural Spinal Cord Com",
-                    structureType: "OPERATIVE TARGET",
+                    title: "T8 Pathologic Fracture & Height Loss",
+                    structureType: "PATHOLOGY / LESION",
                     color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.50,
-                    normalizedY: 0.50,
-                    description: "Tri-panel master neurosurgical atlas plate correlating authentic diagnostic Sagittal T2 MRI with 3D Frank Netter-style sagittal and axial pa",
-                    surgicalPearl: "Verified Frank Netter publication-grade neurosurgical anatomy."
+                    normalizedX: 0.26,
+                    normalizedY: 0.30,
+                    description: "Osteolytic metastatic tumor destroying cancellous bone with anterior column collapse and focal pathologic kyphosis on sagittal MRI."
+                ),
+                SurgicalCallout(
+                    id: "plate_038_2",
+                    title: "Circumferential Cord Compression (Bilsky 3)",
+                    structureType: "CRITICAL HAZARD",
+                    color: ObsidianTheme.neonRed,
+                    normalizedX: 0.74,
+                    normalizedY: 0.32,
+                    description: "Complete obliteration of subarachnoid space with circumferential cord indentation and intrinsic T2-hyperintense intramedullary cord edema."
+                ),
+                SurgicalCallout(
+                    id: "plate_038_3",
+                    title: "Pedicle & Epidural Tumor Infiltration",
+                    structureType: "OPERATIVE TARGET",
+                    color: ObsidianTheme.neonRed,
+                    normalizedX: 0.28,
+                    normalizedY: 0.72,
+                    description: "Transverse cutaway showing tumor expansion through left pedicle and into epidural space creating a 180° dorsal and ventral cord pincer."
+                ),
+                SurgicalCallout(
+                    id: "plate_038_4",
+                    title: "Spared Contiguous Vertebrae (T7/T9)",
+                    structureType: "ANATOMICAL LANDMARK",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.72,
+                    normalizedY: 0.70,
+                    description: "Healthy adjacent vertebrae providing solid pedicle purchase for multi-level rigid posterior stabilization and separation surgery."
                 )
             ]
         case .plate039:
             return [
                 SurgicalCallout(
                     id: "plate_039_1",
-                    title: "Postoperative Lumbar Pseudomeningoc",
+                    title: "Dural Tear Fistula Defect",
                     structureType: "OPERATIVE TARGET",
+                    color: ObsidianTheme.neonRed,
+                    normalizedX: 0.26,
+                    normalizedY: 0.30,
+                    description: "Linear or stellate laceration in posterior lumbar thecal sac allowing pressurized CSF egress into surrounding dead space."
+                ),
+                SurgicalCallout(
+                    id: "plate_039_2",
+                    title: "Subcutaneous Fluid Collection (MRI)",
+                    structureType: "PATHOLOGY / LESION",
                     color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.50,
-                    normalizedY: 0.50,
-                    description: "Four-panel master neurosurgical atlas plate correlating authentic diagnostic T2 MRI (sagittal and axial) with 3D Frank Netter-style sagittal",
-                    surgicalPearl: "Verified Frank Netter publication-grade neurosurgical anatomy."
+                    normalizedX: 0.74,
+                    normalizedY: 0.32,
+                    description: "High-contrast sagittal T2 MRI showing large, non-enhancing hyperintense CSF collection dissecting through lumbodorsal fascia."
+                ),
+                SurgicalCallout(
+                    id: "plate_039_3",
+                    title: "Encapsulated Pseudocyst Wall",
+                    structureType: "ANATOMICAL LANDMARK",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.28,
+                    normalizedY: 0.72,
+                    description: "Fibrous pseudo-epithelial capsule forming the wall of pseudomeningocele lacking true arachnoid/ependymal lining."
+                ),
+                SurgicalCallout(
+                    id: "plate_039_4",
+                    title: "Multilayer Watertight Reconstruction",
+                    structureType: "SURGICAL TECHNIQUE",
+                    color: ObsidianTheme.neonGreen,
+                    normalizedX: 0.72,
+                    normalizedY: 0.70,
+                    description: "Primary continuous 4-0/5-0 monofilament dural suture reinforced with collagen matrix onlay patch and hydrogel/fibrin polymer sealant."
                 )
             ]
         case .plate040:
             return [
                 SurgicalCallout(
                     id: "plate_040_1",
-                    title: "Acute Aneurysmal Subarachnoid Hemor",
+                    title: "Star of Death Cisternal Cast (Head CT)",
+                    structureType: "PATHOLOGY / LESION",
+                    color: ObsidianTheme.neonRed,
+                    normalizedX: 0.26,
+                    normalizedY: 0.30,
+                    description: "Non-contrast head CT showing dense hyperdense acute blood filling basal cisterns, Sylvian fissures, and ambient cisterns in classic star pattern."
+                ),
+                SurgicalCallout(
+                    id: "plate_040_2",
+                    title: "ACom Aneurysm Rupture Site",
                     structureType: "OPERATIVE TARGET",
+                    color: ObsidianTheme.neonRed,
+                    normalizedX: 0.74,
+                    normalizedY: 0.32,
+                    description: "3D skull base dissection showing irregular saccular anterior communicating artery aneurysm at A1-A2 junction with crimson clot on fundus."
+                ),
+                SurgicalCallout(
+                    id: "plate_040_3",
+                    title: "Biventricular Hydrocephalus",
+                    structureType: "CRITICAL HAZARD",
                     color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.50,
-                    normalizedY: 0.50,
-                    description: "Tri-panel master neurosurgical atlas plate correlating authentic diagnostic Axial Non-Contrast Head CT with 3D Frank Netter-style Circle of ",
-                    surgicalPearl: "Verified Frank Netter publication-grade neurosurgical anatomy."
+                    normalizedX: 0.28,
+                    normalizedY: 0.72,
+                    description: "Ballooned temporal horns and rounded frontal horn angles caused by dense cisternal clot obstructing arachnoid villi and CSF outflow."
+                ),
+                SurgicalCallout(
+                    id: "plate_040_4",
+                    title: "Circle of Willis Cisternal Anatomy",
+                    structureType: "ANATOMICAL LANDMARK",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.72,
+                    normalizedY: 0.70,
+                    description: "Preserved bilateral ICA bifurcations, M1/M2 Sylvian trunks, and basilar apex defining corridors for microsurgical clipping or coiling."
                 )
             ]
         case .plate041:
             return [
                 SurgicalCallout(
                     id: "plate_041_1",
-                    title: "Hypertensive Ganglionic Intracerebr",
+                    title: "Putaminal ICH & Perilesional Edema",
+                    structureType: "PATHOLOGY / LESION",
+                    color: ObsidianTheme.neonRed,
+                    normalizedX: 0.26,
+                    normalizedY: 0.30,
+                    description: "Hyperdense parenchymal hematoma in putamen/external capsule from ruptured Charcot-Bouchard microaneurysms on lenticulostriate perforators."
+                ),
+                SurgicalCallout(
+                    id: "plate_041_2",
+                    title: "Intraventricular Hemorrhage Cast (IVH)",
+                    structureType: "CRITICAL HAZARD",
+                    color: ObsidianTheme.neonRed,
+                    normalizedX: 0.74,
+                    normalizedY: 0.32,
+                    description: "Trans-ependymal rupture causing dense cast of frontal horn, third ventricle, and dependent clot sedimentation in occipital horns."
+                ),
+                SurgicalCallout(
+                    id: "plate_041_3",
+                    title: "Internal Capsule Displacement",
+                    structureType: "ANATOMICAL LANDMARK",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.28,
+                    normalizedY: 0.72,
+                    description: "Posterior limb of internal capsule compressed and shifted medially by hematoma, explaining contralateral dense hemiplegia."
+                ),
+                SurgicalCallout(
+                    id: "plate_041_4",
+                    title: "Foramina of Monro Outflow Obstruction",
                     structureType: "OPERATIVE TARGET",
                     color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.50,
-                    normalizedY: 0.50,
-                    description: "Tri-panel master neurosurgical atlas plate correlating authentic diagnostic Axial Non-Contrast Head CT with 3D Frank Netter-style axial basa",
-                    surgicalPearl: "Verified Frank Netter publication-grade neurosurgical anatomy."
+                    normalizedX: 0.72,
+                    normalizedY: 0.70,
+                    description: "Obstructive hydrocephalus at Monro-third ventricle interface with ballooning of lateral ventricles requiring urgent ventricular drainage."
                 )
             ]
         case .plate042:
             return [
                 SurgicalCallout(
                     id: "plate_042_1",
-                    title: "Cervical Spondylotic Myelopathy (CS",
-                    structureType: "OPERATIVE TARGET",
+                    title: "Multilevel Retrolisthesis & Disc Bars",
+                    structureType: "PATHOLOGY / LESION",
                     color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.50,
-                    normalizedY: 0.50,
-                    description: "Tri-panel master neurosurgical atlas plate correlating authentic diagnostic High-Resolution Sagittal T2 Cervical MRI with 3D Frank Netter-st",
-                    surgicalPearl: "Verified Frank Netter publication-grade neurosurgical anatomy."
+                    normalizedX: 0.26,
+                    normalizedY: 0.30,
+                    description: "Sagittal T2 MRI demonstrating broad-based disc-osteophyte bars across C3-C7 narrowing anteroposterior canal diameter to <10 mm."
+                ),
+                SurgicalCallout(
+                    id: "plate_042_2",
+                    title: "Ligamentum Flavum Pincer Buckling",
+                    structureType: "ANATOMICAL LANDMARK",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.74,
+                    normalizedY: 0.32,
+                    description: "Hypertrophied, folded dorsal ligamentum flavum creating dynamic spinal cord compression during cervical extension."
+                ),
+                SurgicalCallout(
+                    id: "plate_042_3",
+                    title: "Intramedullary Myelomalacia T2 Signal",
+                    structureType: "CRITICAL HAZARD",
+                    color: ObsidianTheme.neonRed,
+                    normalizedX: 0.28,
+                    normalizedY: 0.72,
+                    description: "Focal intramedullary high T2 signal at C4–C5 and C5–C6 reflecting irreversible ischemic injury, gliosis, and loss of anterior horn cells."
+                ),
+                SurgicalCallout(
+                    id: "plate_042_4",
+                    title: "Boomerang Cord Decompression Corridor",
+                    structureType: "OPERATIVE TARGET",
+                    color: ObsidianTheme.neonGreen,
+                    normalizedX: 0.72,
+                    normalizedY: 0.70,
+                    description: "Transverse cutaway showing severe lateral and circumferential cord compression with preserved transverse foramina for vertebral arteries."
                 )
             ]
         case .plate043:
@@ -2848,75 +3160,75 @@ case .plate059:
             ]
         case .plate031:
             return [
-                ApproachSequentialStep(stepNumber: 1, title: "Surgical Exposure", detail: "Expose landmarks and secure sterile operative corridor."),
-                ApproachSequentialStep(stepNumber: 2, title: "Microsurgical Dissection", detail: "Perform precise decompression / reconstruction under magnification."),
-                ApproachSequentialStep(stepNumber: 3, title: "Hemostasis & Closure", detail: "Verify watertight dural integrity and layered anatomical closure.")
+                ApproachSequentialStep(stepNumber: 1, title: "Subperiosteal Exposure", detail: "Midline exposure of C6 through T2 posterior elements with lateral subperiosteal dissection to facet borders."),
+                ApproachSequentialStep(stepNumber: 2, title: "Laminectomy & Foraminotomy", detail: "High-speed burr troughs along medial aspect of lateral masses, elevating C7-T1 laminas and completing C8 foraminotomy."),
+                ApproachSequentialStep(stepNumber: 3, title: "Instrumented Stabilization", detail: "Placement of lateral mass and pedicle screws connected via contoured rods across cervicothoracic junction.")
             ]
         case .plate032:
             return [
-                ApproachSequentialStep(stepNumber: 1, title: "Surgical Exposure", detail: "Expose landmarks and secure sterile operative corridor."),
-                ApproachSequentialStep(stepNumber: 2, title: "Microsurgical Dissection", detail: "Perform precise decompression / reconstruction under magnification."),
-                ApproachSequentialStep(stepNumber: 3, title: "Hemostasis & Closure", detail: "Verify watertight dural integrity and layered anatomical closure.")
+                ApproachSequentialStep(stepNumber: 1, title: "Vector Alignment & Retroperitoneal Access", detail: "Establish targeted anatomical corridor (anterior, oblique, or transpsoas) with neuromonitoring and vessel mobilization."),
+                ApproachSequentialStep(stepNumber: 2, title: "Comprehensive Disc Resection & Prep", detail: "Complete annulotomy, disc clearance, and thorough endplate preparation preserving dense subchondral bone."),
+                ApproachSequentialStep(stepNumber: 3, title: "Interbody Reconstruction & Crown", detail: "Deploy lordotic interbody spacer packed with biologics spanning apophyseal rings, supplemented by posterior fixation.")
             ]
         case .plate033:
             return [
-                ApproachSequentialStep(stepNumber: 1, title: "Surgical Exposure", detail: "Expose landmarks and secure sterile operative corridor."),
-                ApproachSequentialStep(stepNumber: 2, title: "Microsurgical Dissection", detail: "Perform precise decompression / reconstruction under magnification."),
-                ApproachSequentialStep(stepNumber: 3, title: "Hemostasis & Closure", detail: "Verify watertight dural integrity and layered anatomical closure.")
+                ApproachSequentialStep(stepNumber: 1, title: "Superciliary Incision & Burr Hole", detail: "Curvilinear incision through eyebrow lateral to supraorbital notch; placement of burr hole at MacCarty's keypoint."),
+                ApproachSequentialStep(stepNumber: 2, title: "Basal Mini-Craniotomy", detail: "Perform ~20x15 mm osteotomy flush with orbital roof; flatten inner orbital rim with diamond burr for flat trajectory."),
+                ApproachSequentialStep(stepNumber: 3, title: "Dural Opening & Cisternal Release", detail: "Open dura in C-shape based toward orbit; release CSF from optico-carotid cisterns to achieve brain relaxation without fixed retractors.")
             ]
         case .plate034:
             return [
-                ApproachSequentialStep(stepNumber: 1, title: "Surgical Exposure", detail: "Expose landmarks and secure sterile operative corridor."),
-                ApproachSequentialStep(stepNumber: 2, title: "Microsurgical Dissection", detail: "Perform precise decompression / reconstruction under magnification."),
-                ApproachSequentialStep(stepNumber: 3, title: "Hemostasis & Closure", detail: "Verify watertight dural integrity and layered anatomical closure.")
+                ApproachSequentialStep(stepNumber: 1, title: "Emergent Neurological & Radiographic Triage", detail: "Assess ASIA neurological status; obtain emergent MRI to rule out retropulsed herniated disc before attempting reduction."),
+                ApproachSequentialStep(stepNumber: 2, title: "Closed Cranial Traction vs. Open Reduction", detail: "Perform cautious awake serial Gardner-Wells tong traction; if disc herniation is present, proceed to emergent anterior discectomy first."),
+                ApproachSequentialStep(stepNumber: 3, title: "360° Realignment & Instrumented Fusion", detail: "Complete reduction of locked facets, anterior cervical decompression/fusion (ACDF), and posterior stabilization if PLC is grossly torn.")
             ]
         case .plate035:
             return [
-                ApproachSequentialStep(stepNumber: 1, title: "Surgical Exposure", detail: "Expose landmarks and secure sterile operative corridor."),
-                ApproachSequentialStep(stepNumber: 2, title: "Microsurgical Dissection", detail: "Perform precise decompression / reconstruction under magnification."),
-                ApproachSequentialStep(stepNumber: 3, title: "Hemostasis & Closure", detail: "Verify watertight dural integrity and layered anatomical closure.")
+                ApproachSequentialStep(stepNumber: 1, title: "Classification & Risk Stratification", detail: "Classify fracture on thin-cut CT; evaluate age (>50y), fracture gap (>1mm), translation (>5mm), and angulation (>10°)."),
+                ApproachSequentialStep(stepNumber: 2, title: "Approach Selection (Anterior vs. Posterior)", detail: "Select anterior screw for acute Type II with intact transverse ligament; select posterior C1-C2 fusion for comminution, osteopenia, or nonunion."),
+                ApproachSequentialStep(stepNumber: 3, title: "Surgical Fixation & Alignment", detail: "Execute bicortical lag screw fixation under dual biplanar fluoroscopy or Harms posterior instrumented polyaxial screw-rod construction.")
             ]
         case .plate036:
             return [
-                ApproachSequentialStep(stepNumber: 1, title: "Surgical Exposure", detail: "Expose landmarks and secure sterile operative corridor."),
-                ApproachSequentialStep(stepNumber: 2, title: "Microsurgical Dissection", detail: "Perform precise decompression / reconstruction under magnification."),
-                ApproachSequentialStep(stepNumber: 3, title: "Hemostasis & Closure", detail: "Verify watertight dural integrity and layered anatomical closure.")
+                ApproachSequentialStep(stepNumber: 1, title: "Canal Decompression & Indirect Reduction", detail: "Ligamentotaxis via intraoperative distraction and lordosis restoring vertebral height and pulling retropulsed fragments from canal."),
+                ApproachSequentialStep(stepNumber: 2, title: "Direct Decompression (if needed)", detail: "Perform transpedicular or posterolateral decompression if ligamentotaxis fails to relieve high-grade neurological deficits."),
+                ApproachSequentialStep(stepNumber: 3, title: "Multi-Segment Posterior Instrumentation", detail: "Place pedicle screws two levels above and two below the fracture, or include index vertebra fracture screws to resist kyphotic collapse.")
             ]
         case .plate037:
             return [
-                ApproachSequentialStep(stepNumber: 1, title: "Surgical Exposure", detail: "Expose landmarks and secure sterile operative corridor."),
-                ApproachSequentialStep(stepNumber: 2, title: "Microsurgical Dissection", detail: "Perform precise decompression / reconstruction under magnification."),
-                ApproachSequentialStep(stepNumber: 3, title: "Hemostasis & Closure", detail: "Verify watertight dural integrity and layered anatomical closure.")
+                ApproachSequentialStep(stepNumber: 1, title: "Emergent Decompressive Laminotomy", detail: "Wide bilateral laminotomies or midline laminectomy with undercut medial facetectomies to visualize dural margins."),
+                ApproachSequentialStep(stepNumber: 2, title: "Gentle Neural Mobilization", detail: "Carefully mobilize the tightly compressed, edematous thecal sac without excessive retraction to identify the sequestrum shoulder."),
+                ApproachSequentialStep(stepNumber: 3, title: "Fragment Extraction & Disc Clearance", detail: "Extract massive extruded fragment using pituitaries and nerve hooks; thoroughly irrigate and inspect subligamentous space.")
             ]
         case .plate038:
             return [
-                ApproachSequentialStep(stepNumber: 1, title: "Surgical Exposure", detail: "Expose landmarks and secure sterile operative corridor."),
-                ApproachSequentialStep(stepNumber: 2, title: "Microsurgical Dissection", detail: "Perform precise decompression / reconstruction under magnification."),
-                ApproachSequentialStep(stepNumber: 3, title: "Hemostasis & Closure", detail: "Verify watertight dural integrity and layered anatomical closure.")
+                ApproachSequentialStep(stepNumber: 1, title: "Oncologic Separation Surgery", detail: "Perform circumferential epidural decompression removing 2-3 mm of tumor from thecal sac to create a safe margin for stereotactic radiosurgery (SRS)."),
+                ApproachSequentialStep(stepNumber: 2, title: "Transpedicular / Posterolateral Decompression", detail: "Unroof spinal canal via laminectomy and transpedicular approach to access retrovertebral epidural disease."),
+                ApproachSequentialStep(stepNumber: 3, title: "Rigid Multi-Segment Instrumented Fixation", detail: "Place cement-augmented or standard pedicle screws two levels above and below the osteolytic level to restore spinal stability (SINS).")
             ]
         case .plate039:
             return [
-                ApproachSequentialStep(stepNumber: 1, title: "Surgical Exposure", detail: "Expose landmarks and secure sterile operative corridor."),
-                ApproachSequentialStep(stepNumber: 2, title: "Microsurgical Dissection", detail: "Perform precise decompression / reconstruction under magnification."),
-                ApproachSequentialStep(stepNumber: 3, title: "Hemostasis & Closure", detail: "Verify watertight dural integrity and layered anatomical closure.")
+                ApproachSequentialStep(stepNumber: 1, title: "Exposure & Fistula Tracking", detail: "Re-open prior incision under loupe/microscope magnification; trace fluid tract through fascia down to the exact dural defect."),
+                ApproachSequentialStep(stepNumber: 2, title: "Fistula Debridement & Primary Closure", detail: "Free adhesions from nerve rootlets; execute primary watertight running locked 4-0 or 5-0 monofilament suture repair."),
+                ApproachSequentialStep(stepNumber: 3, title: "Multilayer Patching & Dead Space Closure", detail: "Apply collagen onlay patch, cover with PEG or fibrin hydrogel sealant, and perform watertight myofascial layered closure over subfascial drain.")
             ]
         case .plate040:
             return [
-                ApproachSequentialStep(stepNumber: 1, title: "Surgical Exposure", detail: "Expose landmarks and secure sterile operative corridor."),
-                ApproachSequentialStep(stepNumber: 2, title: "Microsurgical Dissection", detail: "Perform precise decompression / reconstruction under magnification."),
-                ApproachSequentialStep(stepNumber: 3, title: "Hemostasis & Closure", detail: "Verify watertight dural integrity and layered anatomical closure.")
+                ApproachSequentialStep(stepNumber: 1, title: "Emergent EVD & ICP Control", detail: "Place right Kocher's point external ventricular drain (EVD) to relieve acute hydrocephalus and monitor ICP before definitive securing."),
+                ApproachSequentialStep(stepNumber: 2, title: "Aneurysm Morphology Assessment & Securing", detail: "Perform emergent CTA / catheter DSA; secure ruptured aneurysm via endovascular coiling/flow diversion or pterional microsurgical clipping."),
+                ApproachSequentialStep(stepNumber: 3, title: "Triple-H Prophylaxis & Vasospasm Surveillance", detail: "Maintain euvolemia, normotension, and initiate nimodipine; monitor with daily transcranial Doppler (TCD) for delayed cerebral ischemia (DCI).")
             ]
         case .plate041:
             return [
-                ApproachSequentialStep(stepNumber: 1, title: "Surgical Exposure", detail: "Expose landmarks and secure sterile operative corridor."),
-                ApproachSequentialStep(stepNumber: 2, title: "Microsurgical Dissection", detail: "Perform precise decompression / reconstruction under magnification."),
-                ApproachSequentialStep(stepNumber: 3, title: "Hemostasis & Closure", detail: "Verify watertight dural integrity and layered anatomical closure.")
+                ApproachSequentialStep(stepNumber: 1, title: "Aggressive BP Lowering & Coagulopathy Reversal", detail: "Rapidly target SBP 130-140 mmHg with IV nicardipine/labetalol; immediately reverse anticoagulation (PCC for warfarin, andexanet/idarucizumab for DOACs)."),
+                ApproachSequentialStep(stepNumber: 2, title: "External Ventricular Drainage & Clot Clearance", detail: "Place stereotactic EVD into lateral ventricle; consider intraventricular thrombolysis (alteplase/tPA) to accelerate blood clearance (CLEAR-IVH trial)."),
+                ApproachSequentialStep(stepNumber: 3, title: "Minimally Invasive ICH Evacuation (MIS)", detail: "Perform tubular retractor or stereotactic endoscopic hematoma aspiration (ENRICH trial protocol) for select ganglionic/lobar hemorrhages.")
             ]
         case .plate042:
             return [
-                ApproachSequentialStep(stepNumber: 1, title: "Surgical Exposure", detail: "Expose landmarks and secure sterile operative corridor."),
-                ApproachSequentialStep(stepNumber: 2, title: "Microsurgical Dissection", detail: "Perform precise decompression / reconstruction under magnification."),
-                ApproachSequentialStep(stepNumber: 3, title: "Hemostasis & Closure", detail: "Verify watertight dural integrity and layered anatomical closure.")
+                ApproachSequentialStep(stepNumber: 1, title: "Surgical Corridor Selection (Anterior vs. Posterior)", detail: "Evaluate sagittal alignment; lordotic alignment allows posterior laminoplasty/laminectomy; kyphotic alignment requires anterior corpectomy/discectomy."),
+                ApproachSequentialStep(stepNumber: 2, title: "Circumferential Decompression", detail: "Perform multilevel anterior decompression or posterior open-door laminoplasty (Hirabayashi) maintaining canal width >14 mm."),
+                ApproachSequentialStep(stepNumber: 3, title: "Reconstruction & Sagittal Alignment", detail: "Re-establish cervical lordosis via lordotic cages and plate instrumentation, or posterior lateral mass screw-rod fixation.")
             ]
         case .plate043:
             return [
@@ -3614,63 +3926,63 @@ case .plate059:
             ]
         case .plate031:
             return [
-                "Preserve critical neurovascular boundaries and perforating vessels.",
-                "Verify rigid construct alignment and complete decompression before closure."
+                SurgicalCriticalHazard(hazard: "C8 Nerve Root Traction", mitigation: "Avoid excessive lateral retraction on exiting root during disc fragment retrieval or osteophyte resection.", severity: .critical),
+                SurgicalCriticalHazard(hazard: "Vertebral Artery & Canal Breach", mitigation: "Direct lateral mass screws 20-30° lateral and superior; confirm T1 pedicle trajectory with intraoperative fluoroscopy.", severity: .critical)
             ]
         case .plate032:
             return [
-                "Preserve critical neurovascular boundaries and perforating vessels.",
-                "Verify rigid construct alignment and complete decompression before closure."
+                SurgicalCriticalHazard(hazard: "Major Vascular Laceration (Iliac / Vena Cava)", mitigation: "Carefully mobilize and retract vessels with blunt instruments; maintain vigilant awareness of iliolumbar vein at L4–L5.", severity: .critical),
+                SurgicalCriticalHazard(hazard: "Lumbar Plexus / Femoral Nerve Neuropraxia", mitigation: "Enforce safe transpsoas corridor within anterior half of disc space; restrict retractor time to <20 minutes with neuromonitoring.", severity: .critical)
             ]
         case .plate033:
             return [
-                "Preserve critical neurovascular boundaries and perforating vessels.",
-                "Verify rigid construct alignment and complete decompression before closure."
+                SurgicalCriticalHazard(hazard: "Frontal Sinus Breach", mitigation: "Verify frontal sinus lateral extent on preoperative 3D CT; if breached, cranialise, mucosalize, and seal with vascularized pericranium.", severity: .high),
+                SurgicalCriticalHazard(hazard: "Supraorbital Nerve / Frontalis Branch Paresis", mitigation: "Keep eyebrow incision strictly within hair follicle margin and stay lateral to supraorbital notch; avoid excessive traction on orbicularis oculi.", severity: .high)
             ]
         case .plate034:
             return [
-                "Preserve critical neurovascular boundaries and perforating vessels.",
-                "Verify rigid construct alignment and complete decompression before closure."
+                SurgicalCriticalHazard(hazard: "Catastrophic Cord Herniation on Traction", mitigation: "Never attempt closed reduction without MRI exclusion of traumatic disc extrusion; extruded disc can be dragged into cord during reduction.", severity: .critical),
+                SurgicalCriticalHazard(hazard: "Vertebral Artery Occlusion / Dissection", mitigation: "Obtain CTA/MRA; monitor for posterior inferior cerebellar artery (PICA) or brainstem ischemia from facet subluxation trauma.", severity: .critical)
             ]
         case .plate035:
             return [
-                "Preserve critical neurovascular boundaries and perforating vessels.",
-                "Verify rigid construct alignment and complete decompression before closure."
+                SurgicalCriticalHazard(hazard: "Transverse Ligament Incompetence", mitigation: "Check MRI for transverse atlantal ligament disruption; anterior screw is contraindicated if ligament is torn (requires C1-C2 fusion).", severity: .critical),
+                SurgicalCriticalHazard(hazard: "Screw Cut-Out / Esophageal Perforation", mitigation: "Ensure trajectory anchors in dense apical cortex; maintain gentle blunt retraction on esophagus and hypopharynx during anterior approach.", severity: .critical)
             ]
         case .plate036:
             return [
-                "Preserve critical neurovascular boundaries and perforating vessels.",
-                "Verify rigid construct alignment and complete decompression before closure."
+                SurgicalCriticalHazard(hazard: "Conus Medullaris / Root Impingement on Tamp", mitigation: "Never attempt blind anterior fragment impaction from posterior approach; direct bone tamp under direct endoscopic or ultrasound vision.", severity: .critical),
+                SurgicalCriticalHazard(hazard: "Loss of Reduction & Implant Failure", mitigation: "Assess anterior column support; if Load Sharing Classification score >6, supplement with anterior/lateral corpectomy or cage reconstruction.", severity: .high)
             ]
         case .plate037:
             return [
-                "Preserve critical neurovascular boundaries and perforating vessels.",
-                "Verify rigid construct alignment and complete decompression before closure."
+                SurgicalCriticalHazard(hazard: "Ischemic Root Injury from Over-Retraction", mitigation: "Do not vigorously retract a severely tense, ischemic thecal sac; widen bone resection (facet undercut) rather than forcing root retraction.", severity: .critical),
+                SurgicalCriticalHazard(hazard: "Dural Tear in Stretched Thin Dura", mitigation: "Dissect plane between disc fragment and dural sac with micro-dissectors; repair any dural laceration with 4-0/5-0 sutures and fibrin onlay.", severity: .high)
             ]
         case .plate038:
             return [
-                "Preserve critical neurovascular boundaries and perforating vessels.",
-                "Verify rigid construct alignment and complete decompression before closure."
+                SurgicalCriticalHazard(hazard: "Massive Tumor Hemorrhage", mitigation: "Obtain preoperative angiography/embolization for hypervascular metastases (e.g. renal cell, thyroid); prepare cell-saver and bipolar cautery.", severity: .critical),
+                SurgicalCriticalHazard(hazard: "Spinal Instability Post-Decompression", mitigation: "Calculate SINS score; never decompress without instrumentation when middle/posterior columns or facet complexes are compromised.", severity: .high)
             ]
         case .plate039:
             return [
-                "Preserve critical neurovascular boundaries and perforating vessels.",
-                "Verify rigid construct alignment and complete decompression before closure."
+                SurgicalCriticalHazard(hazard: "Cauda Equina Nerve Rootlet Entrapment", mitigation: "Inspect the fistula mouth; ensure herniated nerve rootlets are gently reduced into thecal sac before placing suture bites.", severity: .critical),
+                SurgicalCriticalHazard(hazard: "Persistent CSF Leak & Wound Dehiscence", mitigation: "Perform Valsalva test to 30 cmH2O under irrigation; ensure tension-free, watertight fascial closure and consider temporary lumbar drain.", severity: .high)
             ]
         case .plate040:
             return [
-                "Preserve critical neurovascular boundaries and perforating vessels.",
-                "Verify rigid construct alignment and complete decompression before closure."
+                SurgicalCriticalHazard(hazard: "Aneurysm Re-rupture During EVD Placement", mitigation: "Avoid precipitous CSF decompression; drain CSF slowly and maintain transmural pressure gradient across aneurysm wall.", severity: .critical),
+                SurgicalCriticalHazard(hazard: "Delayed Cerebral Ischemia (Vasospasm)", mitigation: "Administer oral nimodipine for 21 days; treat refractory symptomatic vasospasm promptly with endovascular intra-arterial vasodilators or angioplasty.", severity: .critical)
             ]
         case .plate041:
             return [
-                "Preserve critical neurovascular boundaries and perforating vessels.",
-                "Verify rigid construct alignment and complete decompression before closure."
+                SurgicalCriticalHazard(hazard: "Hematoma Expansion / Active Re-bleeding", mitigation: "Enforce strict blood pressure control (<140 mmHg) within first 6 hours; monitor for 'spot sign' on CTA indicating active contrast extravasation.", severity: .critical),
+                SurgicalCriticalHazard(hazard: "Ventricular Catheter Obstruction by Clot", mitigation: "Maintain continuous EVD patency; flush sterilely or use intraventricular thrombolytics if catheter occludes with dense thrombus.", severity: .high)
             ]
         case .plate042:
             return [
-                "Preserve critical neurovascular boundaries and perforating vessels.",
-                "Verify rigid construct alignment and complete decompression before closure."
+                SurgicalCriticalHazard(hazard: "C5 Nerve Root Palsy", mitigation: "Limit excessive posterior cord drift; perform prophylactic C4-C5 foraminotomies and avoid hyper-lordotic over-correction during posterior decompression.", severity: .critical),
+                SurgicalCriticalHazard(hazard: "Vertebral Artery Injury During Uncinate Resection", mitigation: "Stay within medial 15 mm of uncinate process; keep high-speed diamond burr lateral to uncovertebral joint guided by preoperative CTA.", severity: .critical)
             ]
         case .plate043:
             return [
