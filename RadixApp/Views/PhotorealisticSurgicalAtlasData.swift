@@ -2915,43 +2915,43 @@ case .plate031:
             return [
                 SurgicalCallout(
                     id: "plate_089_1",
-                    title: "Diagnostic Imaging & Five Entrapment Zones",
-                    structureType: "ULTRASOUND, T2 MRI & ANATOMICAL CORRIDORS",
-                    color: Color.red,
+                    title: "Five Ulnar Compression Zones",
+                    structureType: "PATHOLOGY / LESION",
+                    color: ObsidianTheme.neonAmber,
                     normalizedX: 0.16,
                     normalizedY: 0.35,
-                    description: "Panel 1 presents preoperative neuroimaging and anatomical entrapment topography. Transverse high-frequency ultrasound confirms focal hypoechoic swelling of the ulnar nerve seated in the retrocondylar groove (cross-sectional area CSA = 14 mm², normal < 9 mm²). Axial T2 MRI confirms marked hyperintense edema. Diagram 1B maps the canonical 5 compression zones: (1) Arcade of Struthers (~8 cm proximal); (2) Medial Intermuscular Septum; (3) Retrocondylar Groove of Medial Epicondyle; (4) Osborne's Ligament; and (5) Deep Aponeurosis between humeral and ulnar heads of FCU. Diagram 1C maps the curved retro-epicondylar incision and tracks the anterior and posterior branches of the Medial Antebrachial Cutaneous Nerve (MACN).",
-                    surgicalPearl: "Always identify and mobilize the anterior and posterior branches of the MACN traversing anterior to the medial epicondyle; accidental transection produces disabling, painful neuromas."
+                    description: "Arcade of Struthers, medial intermuscular septum, retrocondylar groove, Osborne's ligament, and deep FCU aponeurosis.",
+                    surgicalPearl: "Always excise 2–3 cm of medial intermuscular septum when transposing; failure to excise septum creates severe secondary kinking."
                 ),
                 SurgicalCallout(
                     id: "plate_089_2",
-                    title: "In-Situ Decompression & FCU Motor Branch Sparing",
-                    structureType: "RETROCONDYLAR GROOVE DECOMPRESSION & INTERNAL NEUROLYSIS",
-                    color: ObsidianTheme.neonAmber,
+                    title: "In-Situ Neurolysis & FCU Motor Branch",
+                    structureType: "ANATOMICAL LANDMARK",
+                    color: ObsidianTheme.neonCyan,
                     normalizedX: 0.50,
-                    normalizedY: 0.50,
-                    description: "Panel 2 demonstrates deep operative release of the right ulnar nerve resting in-situ behind the Medial Epicondyle. The Arcade of Struthers is released, and a 2 cm window of the rigid medial intermuscular septum is resected to prevent bowstringing upon transposition. Osborne's ligament is longitudinally divided to unroof the retrocondylar groove, and the distal FCU aponeurosis is opened. The primary motor branch to the FCU arises from the medial/posterior aspect of the ulnar nerve and plunges directly into the deep FCU belly; internal neurolysis is performed proximally along the main trunk for 2–3 cm to provide complete slack for transposition.",
-                    surgicalPearl: "Resect at least a 2 cm segment of the medial intermuscular septum rather than a simple slit; simple division leaves a sharp fibrous band that kinks and strangulates the nerve upon anterior transposition."
+                    normalizedY: 0.35,
+                    description: "Complete epineurial unroofing from retrocondylar groove distally, carefully sparing first motor branch to flexor carpi ulnaris.",
+                    surgicalPearl: "Use intraneural micro-dissection to mobilize FCU motor branch proximally; gains 2–3 cm of transposition slack without sacrificing fibers."
                 ),
                 SurgicalCallout(
                     id: "plate_089_3",
-                    title: "True Submuscular Transposition (Learmonth Procedure)",
-                    structureType: "DEEP BRACHIALIS BED & TRANSVERSE TENDON REPAIR",
-                    color: Color.green,
-                    normalizedX: 0.82,
-                    normalizedY: 0.50,
-                    description: "Panel 3 illustrates definitive submuscular anterior transposition. The ulnar nerve is transposed anterior to the Medial Epicondyle in a gentle, unkinked vector. Proximally in the arm, the nerve rests upon the anterior muscular surface of the Brachialis ('Deep Brachialis Bed'). Distally in the forearm, the nerve passes deep to the elevated common flexor-pronator muscle origin, resting directly on the Flexor Digitorum Profundus (FDP). The common flexor-pronator tendon origin is re-approximated with transverse/oblique sutures directly back to the Medial Epicondyle, avoiding longitudinal muscle splitting and maintaining wide, unconstricted proximal and distal fascial tunnel openings.",
-                    surgicalPearl: "True submuscular transposition requires the nerve to lie deep to the entire flexor-pronator mass on brachialis and FDP with transverse tendon repair; burying the nerve inside an intramuscular split induces severe circumferential scarring and recurrent neuropathy."
+                    title: "Elevated Flexor-Pronator Muscular Bed",
+                    structureType: "SURGICAL CORRIDOR",
+                    color: ObsidianTheme.neonRose,
+                    normalizedX: 0.84,
+                    normalizedY: 0.35,
+                    description: "Z-lengthened detachment of flexor-pronator muscle origin from medial epicondyle, creating deep submuscular bed.",
+                    surgicalPearl: "Place transposed nerve directly on brachialis muscle belly beneath re-approximated flexor mass without any angulation."
                 ),
                 SurgicalCallout(
                     id: "plate_089_4",
-                    title: "Three Concise Resident Pearls",
-                    structureType: "PERIPHERAL NERVE SURGICAL HARBORS & PEARLS",
-                    color: Color.blue,
-                    normalizedX: 0.50,
-                    normalizedY: 0.90,
-                    description: "Bottom bar highlights three cardinal surgical rules: (1) Medial Septum Resection: Resect at least a 2 cm segment of the medial intermuscular septum; simple division leaves a rigid fibrous edge that kinks and strangulates the nerve upon anterior transposition; (2) FCU Motor Branch Internal Neurolysis: Separate the primary motor branch to the FCU proximally along the nerve trunk for 2–3 cm; this eliminates tension and allows the nerve to transpose anteriorly without tethering; and (3) MACN Branch Sparing: Carefully identify and protect the anterior and posterior branches of the medial antebrachial cutaneous nerve (MACN) traversing the incision; accidental transection produces disabling, painful neuromas.",
-                    surgicalPearl: "After tendon re-attachment, pass a right-angle clamp or fingertip alongside the nerve at both the proximal and distal tunnel openings to verify absolute freedom from constriction during full elbow extension and flexion."
+                    title: "Medial Antebrachial Cutaneous Nerve (MACN)",
+                    structureType: "CRITICAL STRUCTURE",
+                    color: ObsidianTheme.neonGreen,
+                    normalizedX: 0.84,
+                    normalizedY: 0.75,
+                    description: "Anterior and posterior branches of MACN crossing curved incision line; meticulously preserved to prevent painful neuroma.",
+                    surgicalPearl: "Transection of MACN branches produces an excruciating sensory neuroma along medial forearm; identify and mobilize both branches."
                 )
             ]
 
@@ -2959,43 +2959,43 @@ case .plate031:
             return [
                 SurgicalCallout(
                     id: "plate_088_1",
-                    title: "Diagnostic Imaging & Craniocervical Instability",
-                    structureType: "SAGITTAL CT/MRI & INSTABILITY METRICS",
-                    color: Color.red,
+                    title: "Craniocervical Instability Metrics (BDI/BAI)",
+                    structureType: "PATHOLOGY / DIAGNOSTIC",
+                    color: ObsidianTheme.neonAmber,
                     normalizedX: 0.16,
                     normalizedY: 0.35,
-                    description: "Panel 1 details preoperative imaging and quantitative instability metrics. Midsagittal CT and sagittal T2 MRI demonstrate basilar invagination, cranial settling of the odontoid into the foramen magnum with cervicomedullary junction compression, ischemic myelomalacia, and retro-odontoid soft-tissue pannus. Diagnostic criteria include: Basion-Dens Interval (BDI > 10 mm), Basion-Axial Interval (BAI > 10 mm), Powers Ratio (BC/OA > 1.0), Ranawat criterion (< 13 mm), and Redlund-Johnell distance (< 34 mm). Patient is positioned prone in a 3-pin Mayfield clamp in neutral functional gaze alignment (O–C2 angle ≈ 14°–16°).",
-                    surgicalPearl: "Functional neutral gaze alignment is critical: inadvertent hyperflexion causes acute airway compromise and extubation failure, while hyperextension produces severe, intractable dysphagia."
+                    description: "Basilar invagination with cranial settling and pannus compressing cervicomedullary junction (BDI > 10 mm, BAI > 10 mm).",
+                    surgicalPearl: "Lock skull in functional neutral gaze alignment (O-C2 angle 14°–16°); fixating in hyper-extension causes severe dysphagia and airway obstruction."
                 ),
                 SurgicalCallout(
                     id: "plate_088_2",
-                    title: "Suboccipital Decompression & V3 Protection",
-                    structureType: "FORAMEN MAGNUM DECOMPRESSION & VERTEBRAL ARTERY",
-                    color: ObsidianTheme.neonAmber,
+                    title: "Suboccipital Craniectomy & C1 Arch Resection",
+                    structureType: "SURGICAL CORRIDOR",
+                    color: ObsidianTheme.neonCyan,
                     normalizedX: 0.50,
-                    normalizedY: 0.50,
-                    description: "Panel 2 demonstrates suboccipital craniectomy (≈ 2.5–3.0 cm wide) beneath the inion keel and C1 posterior arch resection (laminectomy stumps preserved). Bilateral horizontal V3 vertebral artery segments are dissected, mobilized, and protected in the condylar groove along the superior border of the C1 lateral mass, cushioned with cottonoids. Preserved C2 lamina and pars, and C3–C4 lateral masses provide subaxial bony anchors.",
-                    surgicalPearl: "Never dissect greater than 12 mm lateral to the midline along the superior margin of the C1 arch; staying within this medial safe corridor completely protects the horizontal V3 vertebral artery loop."
+                    normalizedY: 0.35,
+                    description: "2.5–3.0 cm wide suboccipital decompression and C1 posterior arch removal unroofing foramen magnum and relieving brainstem compression.",
+                    surgicalPearl: "Stay strictly within medial 12 mm on superior border of C1 arch; lateral dissection risks lacerating V3 vertebral artery."
                 ),
                 SurgicalCallout(
                     id: "plate_088_3",
-                    title: "Rigid Occipitocervical Reconstruction (Occiput to C4)",
-                    structureType: "KEEL PLATE, POLYAXIAL SCREWS & DUAL ROD CONSTRUCT",
-                    color: Color.green,
-                    normalizedX: 0.82,
-                    normalizedY: 0.50,
-                    description: "Panel 3 illustrates definitive rigid instrumentation. An occipital keel plate is anchored into the thickened median keel with bicortical screws; its lateral wings house polyaxial screw heads that receive pre-contoured titanium rods (bent to 100°–105°). Anchors include bilateral C1 lateral mass screws (Harms technique), bilateral C2 pedicle screws, and bilateral C3–C4 lateral mass screws (Magerl trajectory). A transverse cross-link connector triangulates the construct over a dense morcellized onlay bone graft fusion bed.",
-                    surgicalPearl: "Occipital keel screw purchase is greatest in the thickened midline keel below the inion (10–15 mm bone depth); the lateral occipital squama is paper-thin (< 3 mm) and offers minimal pullout resistance."
+                    title: "V3 Vertebral Artery Sulcus Arteriosus",
+                    structureType: "VASCULAR BOUNDARY",
+                    color: ObsidianTheme.neonRose,
+                    normalizedX: 0.84,
+                    normalizedY: 0.35,
+                    description: "Vertebral artery V3 loop coursing horizontally along dorsal C1 ring groove before piercing atlanto-occipital membrane.",
+                    surgicalPearl: "Subperiosteally dissect superior C1 ring from medial to lateral, maintaining bone between dissector and sulcus arteriosus."
                 ),
                 SurgicalCallout(
                     id: "plate_088_4",
-                    title: "Three Concise Resident Pearls",
-                    structureType: "SURGICAL HARBORS & BIOMECHANICAL PEARLS",
-                    color: Color.blue,
-                    normalizedX: 0.50,
-                    normalizedY: 0.90,
-                    description: "Bottom bar highlights three cardinal surgical principles: (1) Midline Occipital Keel Thickness: Always anchor occipital screws strictly in the midline keel below the inion where bone thickness reaches 10–15 mm; lateral squama carries extreme risk of screw pullout; (2) Functional Neutral Alignment: Lock construct in neutral functional gaze (O–C2 angle 14°–16°) to avoid airway obstruction or severe dysphagia; and (3) Vertebral Artery (V3) Safety Corridor: Stay within medial 12 mm of C1 posterior arch midline to prevent catastrophic laceration of horizontal V3 loop.",
-                    surgicalPearl: "Always decorticate the occipital squama and cervical posterior elements thoroughly before laying down copious morcellized autograft/allograft; rigid instrumentation without solid biological arthrodesis inevitably fails."
+                    title: "Midline Occipital Keel Plate & C1-C4 Screws",
+                    structureType: "RECONSTRUCTION",
+                    color: ObsidianTheme.neonGreen,
+                    normalizedX: 0.84,
+                    normalizedY: 0.75,
+                    description: "Thick midline occipital keel plate (12–15 mm cortical purchase) connected via contoured rods to C1 lateral mass and C2-C4 screws.",
+                    surgicalPearl: "Midline occipital keel provides dense bicortical bone up to 15 mm thick; lateral occipital bone thins to <4 mm with poor purchase."
                 )
             ]
 
@@ -3003,43 +3003,43 @@ case .plate031:
             return [
                 SurgicalCallout(
                     id: "plate_087_1",
-                    title: "Diagnostic Imaging & Retroperitoneal Exposure",
-                    structureType: "LATERAL RADIOGRAPH, T2 MRI & RETROPERITONEAL CORRIDOR",
-                    color: Color.red,
+                    title: "Left Paramedian Retroperitoneal Exposure",
+                    structureType: "SURGICAL CORRIDOR",
+                    color: ObsidianTheme.neonCyan,
                     normalizedX: 0.16,
                     normalizedY: 0.35,
-                    description: "Panel 1 illustrates preoperative imaging and the left paramedian retroperitoneal corridor. Standing lateral radiograph and sagittal/axial T2 MRI demonstrate severe L5–S1 disc collapse, loss of lumbosacral lordosis, Modic type II changes, and secondary foraminal stenosis. Surgical exposure utilizes a left paramedian skin incision, opening of the anterior rectus sheath, medial mobilization of the rectus abdominis muscle, division of the transversalis fascia, and sweeping of the retroperitoneal peritoneal sac and left ureter medially to reach the prevertebral plane.",
-                    surgicalPearl: "Sweep the retroperitoneum gently from lateral to medial with moist sponges; the left ureter remains adherent to the posterior peritoneum and is safely mobilized out of the surgical corridor."
+                    description: "Transversalis fascia divided and peritoneal sac mobilized medially, retracting ureter safely with posterior peritoneum.",
+                    surgicalPearl: "Keep the ureter attached to the swept posterior peritoneum; never dissect ureter free to avoid devascularization."
                 ),
                 SurgicalCallout(
                     id: "plate_087_2",
-                    title: "Vascular Bifurcation & Hypogastric Plexus Anatomy",
-                    structureType: "BIFURCATION TRIANGLE, VENOUS MOBILIZATION & NERVE SPARING",
-                    color: ObsidianTheme.neonAmber,
+                    title: "Aortic Bifurcation & Common Iliac Confluence",
+                    structureType: "VASCULAR BOUNDARY",
+                    color: ObsidianTheme.neonRose,
                     normalizedX: 0.50,
-                    normalizedY: 0.50,
-                    description: "Panel 2 demonstrates exposure of the vascular bifurcation triangle over L5–S1. The aortic bifurcation into right and left common iliac arteries occurs at L4–L5; the left common iliac vein is mobilized medially across the disc space. Middle sacral artery and vein are identified, clipped, and divided at the sacral promontory. The superior hypogastric plexus is carefully spared using blunt, gentle prevertebral spreading with zero monopolar electrocautery.",
-                    surgicalPearl: "Never use monopolar cautery over the sacral promontory or anterior L5–S1 disc; thermal damage to the superior hypogastric plexus causes permanent retrograde ejaculation in males."
+                    normalizedY: 0.35,
+                    description: "Bifurcation triangle over L5–S1. Left common iliac vein mobilized medially; middle sacral vessels clipped and divided.",
+                    surgicalPearl: "Strictly avoid monopolar electrocautery over promontory; thermal spread to superior hypogastric plexus causes retrograde ejaculation."
                 ),
                 SurgicalCallout(
                     id: "plate_087_3",
-                    title: "Complete Discectomy & Hyperlordotic Reconstruction",
-                    structureType: "ANNULOTOMY, ENDPLATE PREPARATION & POROUS TITANIUM CAGE",
-                    color: Color.green,
-                    normalizedX: 0.82,
-                    normalizedY: 0.50,
-                    description: "Panel 3 illustrates disc resection and lordotic reconstruction. A complete anterior annulotomy and discectomy are performed back to an intact posterior longitudinal ligament (PLL). Endplates are decorticated to bleeding subchondral bone while strictly preserving the dense anterior cortical apophyseal rings of L5 and S1. A 15°–20° hyperlordotic porous titanium cage packed with bone graft is inserted and secured with integrated divergent superior L5 and inferior S1 titanium bone screws, restoring lordosis and foraminal height.",
-                    surgicalPearl: "Seat the hyperlordotic cage flush with the anterior cortical apophyseal rings of L5 and S1; placing the cage too far posteriorly risks subsidence into soft cancellous bone and catastrophic PLL violation."
+                    title: "Total Discectomy & ALL Division",
+                    structureType: "OPERATIVE TARGET",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.84,
+                    normalizedY: 0.35,
+                    description: "Complete annulotomy, anterior longitudinal ligament release, and endplate clearance preserving subchondral bone.",
+                    surgicalPearl: "Resect anterior longitudinal ligament and release posterior annulus completely to allow full expansion of hyperlordotic cage."
                 ),
                 SurgicalCallout(
                     id: "plate_087_4",
-                    title: "Three Concise Resident Pearls",
-                    structureType: "ANTERIOR LUMBAR SURGICAL HARBORS & PEARLS",
-                    color: Color.blue,
-                    normalizedX: 0.50,
-                    normalizedY: 0.90,
-                    description: "Bottom bar highlights three cardinal ALIF rules: (1) Hypogastric Plexus Preservation: Avoid all monopolar electrocautery at the sacral promontory; blunt spread prevents autonomic nerve injury; (2) Left Common Iliac Vein Mobilization: Gently mobilize the vein from lateral to medial, avoiding over-retraction and anticipating the ascending iliolumbar vein takeoff at L5; and (3) Cortical Apophyseal Ring Purchase: Seat cage flush on dense anterior cortical rim to resist subsidence and avoid posterior thecal sac compromise.",
-                    surgicalPearl: "Mobilize the left common iliac vein only as much as necessary to visualize the disc space; excessive retraction against the pelvic brim risks deep venous thrombosis or tearing the iliolumbar branch."
+                    title: "Hyperlordotic Cage & Divergent Fixation",
+                    structureType: "RECONSTRUCTION",
+                    color: ObsidianTheme.neonGreen,
+                    normalizedX: 0.84,
+                    normalizedY: 0.75,
+                    description: "Wide-footprint lordotic PEEK/titanium cage seated on dense peripheral apophyseal ring with integrated locking screws.",
+                    surgicalPearl: "Engage the dense anterior apophyseal ring of S1; never countersink past the cortical edge to prevent subsidence."
                 )
             ]
 
@@ -3047,43 +3047,43 @@ case .plate031:
             return [
                 SurgicalCallout(
                     id: "plate_086_1",
-                    title: "Diagnostic MRI & Kocher's Point Trajectory",
-                    structureType: "TRIVENTRICULAR HYDROCEPHALUS & ENDOSCOPIC CORRIDOR",
-                    color: Color.red,
+                    title: "Kocher's Point Stereotactic Trajectory",
+                    structureType: "SURGICAL CORRIDOR",
+                    color: ObsidianTheme.neonCyan,
                     normalizedX: 0.16,
                     normalizedY: 0.35,
-                    description: "Panel 1 details preoperative neuroimaging and endoscopic planning. Midsagittal and axial T2 MRI reveal severe non-communicating hydrocephalus from congenital aqueductal stenosis: massively dilated lateral and third ventricles with a collapsed fourth ventricle, marked thinning and downward ballooning of the third ventricular floor (tuber cinereum) into a widely patent prepontine cistern, and transependymal CSF resorption around the frontal horns. The trajectory arc enters at Kocher's Point (1 cm anterior to coronal suture, 2.5–3.0 cm lateral to midline in mid-pupillary line) angled toward the medial canthus and external auditory canal, traversing the frontal horn into the foramen of Monro.",
-                    surgicalPearl: "Kocher's point trajectory must be strictly planned to align the endoscope parallel to the clivus; entering too far anteriorly forces the scope against the fornix, while entering too far laterally prevents access to the third ventricular floor."
+                    description: "Entry 2.5 cm lateral to midline and 1 cm anterior to coronal suture, angled toward ipsilateral foramen of Monro and mammillary bodies.",
+                    surgicalPearl: "Coronal trajectory passes through Monro without shearing anterior column of fornix, avoiding permanent anterograde amnesia."
                 ),
                 SurgicalCallout(
                     id: "plate_086_2",
-                    title: "High-Definition Endoscopic Anatomy",
-                    structureType: "FORAMEN OF MONRO & THIRD VENTRICULAR FLOOR LANDMARKS",
+                    title: "Foramen of Monro & Venous Landmarks",
+                    structureType: "ENDOSCOPIC LANDMARK",
                     color: ObsidianTheme.neonAmber,
                     normalizedX: 0.50,
-                    normalizedY: 0.50,
-                    description: "Panel 2 demonstrates 0° rigid neuroendoscopy across two sequential corridors. View A (Foramen of Monro): Identifies the glistening white Column of the Fornix forming the anterior-superior arch (strictly protected from traction), the Thalamostriate Vein and anterior septal vein converging at the Venous Angle, and the Choroid Plexus tuft entering the foramen. View B (Third Ventricular Floor): Identifies the deep Infundibular Recess at 12 o'clock, paired rounded white Mammillary Bodies at 6 o'clock, bilateral Lateral Hypothalamic Walls, the thin translucent Tuber Cinereum (the safe premamillary fenestration target), and the prominent dark vascular shadow of the Pulsatile Basilar Artery Apex visible through the floor.",
-                    surgicalPearl: "The golden rule of ETV is the Premamillary Target: always fenestrate the tuber cinereum in the midline, exactly halfway between the infundibular recess anteriorly and the mammillary bodies posteriorly; never fenestrate posteriorly where the basilar tip resides."
+                    normalizedY: 0.35,
+                    description: "Choroid plexus entering foramen of Monro with junction of thalamostriate vein and anterior septal vein confirming orientation.",
+                    surgicalPearl: "Choroid plexus always leads to foramen of Monro; use it as your infallible guide in distorted or asymmetric ventricles."
                 ),
                 SurgicalCallout(
                     id: "plate_086_3",
-                    title: "Fogarty Balloon Fenestration & Prepontine Cistern",
-                    structureType: "BLUNT BALLOON DILATATION & LILIEQUIST'S MEMBRANE OPENING",
-                    color: Color.green,
-                    normalizedX: 0.82,
-                    normalizedY: 0.50,
-                    description: "Panel 3 illustrates the fenestration sequence and prepontine cistern view. (A) Blunt Puncture & Balloon Dilation: A 3-French Fogarty catheter introduced through the working channel bluntly perforates the tuber cinereum, followed by gentle saline balloon expansion to create a 4–5 mm stoma. (B) Completed ETV Stoma: Wide circular ventriculostomy with smooth edges demonstrating vigorous, cyclic CSF pulsation synchronous with the cardiac cycle ('ETV Pulse Wave'). (C) Prepontine Cistern Inspection: Direct visualization through the stoma confirms sharp division of Liliequist's Membrane, uncovering the patent Basilar Artery Bifurcation and P1 branches resting safely deep in the cistern, the Abducens Nerve (CN VI) tracking toward Dorello's canal, and the smooth Clival Dural Surface.",
-                    surgicalPearl: "Creating a stoma in the ventricular floor is only half the operation; you must verify that Liliequist's membrane beneath the floor is widely fenestrated, otherwise CSF remains trapped in the interpeduncular space."
+                    title: "Premamillary Tuber Cinereum Target Zone",
+                    structureType: "OPERATIVE TARGET",
+                    color: ObsidianTheme.neonRose,
+                    normalizedX: 0.84,
+                    normalizedY: 0.35,
+                    description: "Translucent attenuated floor of third ventricle situated midway between infundibular recess anteriorly and mammillary bodies posteriorly.",
+                    surgicalPearl: "Target attenuated premamillary membrane strictly in midline; perforating lateral to mammillary bodies damages CN III or hypothalamus."
                 ),
                 SurgicalCallout(
                     id: "plate_086_4",
-                    title: "Three Concise Resident Pearls",
-                    structureType: "NEUROENDOSCOPIC SAFETY & HAZARD AVOIDANCE",
-                    color: Color.blue,
-                    normalizedX: 0.50,
-                    normalizedY: 0.90,
-                    description: "Bottom bar highlights three mandatory neuroendoscopic rules: (1) Premamillary Landmark Rule: Always fenestrate the tuber cinereum midway between infundibular recess and mammillary bodies; never posteriorly near the basilar tip; (2) Blunt Balloon Dilatation: Never use monopolar or bipolar electrocautery to burn the third ventricular floor; use blunt mechanical puncture and gentle Fogarty balloon expansion to prevent catastrophic basilar artery rupture; and (3) Liliequist's Membrane Division: Verify that Liliequist's membrane is widely opened into the prepontine cistern to ensure long-term ETV patency.",
-                    surgicalPearl: "Sudden bradycardia or hypertension during third ventricular endoscopy indicates intracranial pressure spike from irrigation outflow obstruction; immediately pause irrigation, open the outflow stopcock, and ensure free passive drainage."
+                    title: "Fogarty Balloon Dilation & Basilar Apex",
+                    structureType: "SURGICAL TECHNIQUE",
+                    color: ObsidianTheme.neonGreen,
+                    normalizedX: 0.84,
+                    normalizedY: 0.75,
+                    description: "3 Fr Fogarty balloon catheter dilated with fluid creating a 4-5 mm stoma into prepontine cistern, visualizing basilar artery.",
+                    surgicalPearl: "Inspect basilar apex and clivus beneath floor before balloon inflation; ensure balloon tip is completely free of basilar perforators."
                 )
             ]
 
@@ -4277,43 +4277,43 @@ case .plate059:
             return [
                 SurgicalCallout(
                     id: "plate_058_1",
-                    title: "Cervicothoracic Spondylodiscitis & Multi-Segment Epidural Spread",
-                    structureType: "CONTRAST-ENHANCED T1 MRI",
-                    color: Color.red,
-                    normalizedX: 0.15,
+                    title: "Spondylodiscitis Epicenter & Marrow Edema",
+                    structureType: "PATHOLOGY / LESION",
+                    color: ObsidianTheme.neonAmber,
+                    normalizedX: 0.22,
                     normalizedY: 0.35,
-                    description: "Mid-thoracic disc space collapse, endplate erosions, and inflammatory bone marrow edema. Extensive ventral and dorsal epidural mass tracks continuously over multiple segments, causing high-grade circumferential cord effacement.",
-                    surgicalPearl: "Whole-spine MRI screening is mandatory in all suspected SEA patients; up to 20% harbor synchronous non-contiguous skip lesions elsewhere in the neuraxis."
+                    description: "Severe endplate destruction and disc collapse on sagittal MRI with purulent PLL rupture into ventral epidural space.",
+                    surgicalPearl: "Identify whether infection is mature liquid pus (surgical emergency) vs. vascularized phlegmon (potential medical candidate)."
                 ),
                 SurgicalCallout(
                     id: "plate_058_2",
-                    title: "Phlegmon vs. Mature Liquid Abscess Triad",
-                    structureType: "DIAGNOSTIC PATHOLOGY CORRELATION",
-                    color: ObsidianTheme.neonAmber,
-                    normalizedX: 0.25,
-                    normalizedY: 0.25,
-                    description: "Early vascularized phlegmon demonstrates homogeneous, solid enhancement without an evacuatable pus collection. Mature abscess forms an irregular, hypervascular enhancing rim encapsulating a central necrotic, non-enhancing purulent core.",
-                    surgicalPearl: "Solid phlegmon in neurologically intact patients can be managed non-operatively with targeted culture-directed intravenous antibiotics, whereas mature liquid abscess with neural deficit demands emergent surgical drainage."
+                    title: "Circumferential Thecal Sac Compression",
+                    structureType: "CRITICAL HAZARD",
+                    color: ObsidianTheme.neonRose,
+                    normalizedX: 0.50,
+                    normalizedY: 0.35,
+                    description: "Dense epidural pus obliterating subarachnoid space with central T2-hyperintense intramedullary cord edema.",
+                    surgicalPearl: "SEA can spread skip-levels over 5–10 segments via Batson's valveless plexus; complete whole-spine contrast MRI is mandatory."
                 ),
                 SurgicalCallout(
                     id: "plate_058_3",
-                    title: "Batson's Plexus & Epidural Space Infection Vector",
-                    structureType: "ANATOMICAL INFECTION DISSEMINATION",
-                    color: Color.blue,
-                    normalizedX: 0.48,
-                    normalizedY: 0.45,
-                    description: "Hematogenous seeding traverses the valveless vertebral venous plexus of Batson, disseminating into the dorsal and ventral epidural fat spaces. Disc necrosis bursts through the PLL, creating circumferential inflammatory compression.",
-                    surgicalPearl: "The dorsal epidural space contains abundant loose, vascularized adipose tissue, permitting unobstructed rostral-caudal infection migration across several vertebral levels."
+                    title: "Targeted Laminectomy & Pus Evacuation",
+                    structureType: "SURGICAL CORRIDOR",
+                    color: ObsidianTheme.neonCyan,
+                    normalizedX: 0.78,
+                    normalizedY: 0.35,
+                    description: "Focused unroofing at maximum compression epicenter, aspirating liquid purulence and debriding dorsal granulation tissue.",
+                    surgicalPearl: "Avoid wide multi-level laminectomies in septic patients with spondylodiscitis to prevent acute postoperative kyphotic collapse."
                 ),
                 SurgicalCallout(
                     id: "plate_058_4",
-                    title: "Catheter-Directed Epidural Lavage & Hardware Sparing",
-                    structureType: "MINIMALLY INVASIVE EVACUATION TECHNIQUE",
-                    color: Color.green,
-                    normalizedX: 0.82,
-                    normalizedY: 0.40,
-                    description: "Through a targeted single- or two-level laminectomy, frank purulence is evacuated. A soft pediatric feeding/silastic catheter is threaded into the un-laminectomized rostral/caudal canal for gentle pulsed antibiotic saline irrigation, completely decompressing the dural sac.",
-                    surgicalPearl: "Avoid routine instrumentation in frank purulence unless gross biomechanical instability or kyphotic collapse is present; bacterial biofilm on titanium hardware causes persistent, recalcitrant infection."
+                    title: "Catheter-Directed Epidural Saline Lavage",
+                    structureType: "SURGICAL TECHNIQUE",
+                    color: ObsidianTheme.neonGreen,
+                    normalizedX: 0.78,
+                    normalizedY: 0.75,
+                    description: "Passage of soft 5-8 Fr pediatric feeding tube cephalad and caudad in epidural space for gentle pulsed saline irrigation.",
+                    surgicalPearl: "Never force the lavage catheter against resistance; resistance indicates solid granulation or dural adhesion—forcing tears dura."
                 )
             ]
         case .plate057:
@@ -5004,38 +5004,30 @@ case .plate031:
             ]
         case .plate089:
             return [
-                ApproachSequentialStep(stepNumber: 1, title: "Diagnostic Ultrasound/MRI & Patient Positioning", detail: "Confirm cubital tunnel compression (ulnar nerve CSA > 10 mm²). Position patient supine with arm abducted 90° on an armboard and forearm supinated. Mark a curved 10–12 cm retro-epicondylar incision centered between the medial epicondyle and olecranon."),
-                ApproachSequentialStep(stepNumber: 2, title: "Superficial Dissection & MACN Branch Protection", detail: "Incise skin and carefully dissect subcutaneous tissue under magnification. Identify and protect the anterior and posterior branches of the medial antebrachial cutaneous nerve (MACN) traversing anterior and distal to the medial epicondyle."),
-                ApproachSequentialStep(stepNumber: 3, title: "In-Situ Decompression & Five-Zone Release", detail: "Expose the ulnar nerve in the retrocondylar groove. Release the Arcade of Struthers proximally and sharply excise a 2 cm segment of the medial intermuscular septum. Divide Osborne's ligament longitudinally and unroof the deep aponeurosis between the humeral and ulnar heads of the FCU."),
-                ApproachSequentialStep(stepNumber: 4, title: "FCU Motor Branch Internal Neurolysis", detail: "Identify the first motor branch to the FCU entering its deep belly. Perform meticulous internal neurolysis, separating the motor branch proximally along the main ulnar trunk for 2–3 cm to eliminate tension and provide slack for transposition."),
-                ApproachSequentialStep(stepNumber: 5, title: "Submuscular Transposition & Transverse Tendon Repair", detail: "Elevate the common flexor-pronator muscle origin from the medial epicondyle with a step-cut/Z-plasty. Transpose the ulnar nerve anteriorly into a deep bed on the brachialis and FDP. Re-approximate the tendon origin with transverse/oblique sutures, verifying wide, unconstricted proximal and distal tunnel openings.")
+                ApproachSequentialStep(stepNumber: 1, title: "Curved Retro-Epicondylar Exposure & MACN Preservation", detail: "Incise midway between medial epicondyle and olecranon; identify and protect crossing anterior/posterior MACN branches."),
+                ApproachSequentialStep(stepNumber: 2, title: "Comprehensive Release of 5 Entrapment Sites", detail: "Divide Osborne's ligament, unroof retrocondylar groove, release Arcade of Struthers, and resect medial septum window."),
+                ApproachSequentialStep(stepNumber: 3, title: "Submuscular Bed Creation & Transposition", detail: "Elevate flexor-pronator mass, place ulnar nerve in straight line on brachialis, and loosely repair flexor mass with 3-0 vicryl.")
             ]
 
         case .plate088:
             return [
-                ApproachSequentialStep(stepNumber: 1, title: "Preoperative Instability Workup & Skull Clamp Positioning", detail: "Measure craniocervical junction instability metrics (BDI, BAI, Powers ratio, Ranawat, Redlund-Johnell). Secure the patient prone in a 3-pin Mayfield skull clamp with the head and neck locked in functional neutral gaze alignment (O–C2 angle ≈ 14°–16°)."),
-                ApproachSequentialStep(stepNumber: 2, title: "Midline Suboccipital & Upper Cervical Exposure", detail: "Perform a midline incision from the inion to C4 spinous process. Dissect subperiosteally in the avascular midline raphe to expose the external occipital protuberance, foramen magnum rim, C1 posterior arch, C2 lamina/pars, and C3–C4 lateral masses."),
-                ApproachSequentialStep(stepNumber: 3, title: "Suboccipital Craniectomy & C1 Laminectomy Decompression", detail: "Resect a 2.5–3.0 cm wide suboccipital bone window beneath the keel and resect the central posterior arch of C1. Identify and preserve the bilateral V3 vertebral artery segments in the condylar groove, strictly respecting the medial 12 mm safe zone."),
-                ApproachSequentialStep(stepNumber: 4, title: "Rigid Screw Fixation (Occiput, C1, C2, C3–C4)", detail: "Affix an occipital keel plate into the thickened median keel with bicortical screws. Place bilateral C1 lateral mass screws (Harms technique), C2 pedicle screws, and C3–C4 lateral mass screws (Magerl trajectory) under fluoroscopic guidance."),
-                ApproachSequentialStep(stepNumber: 5, title: "Rod Contouring, Triangulation Cross-Link & Arthrodesis", detail: "Bend bilateral titanium rods to 100°–105° to fit the occipitocervical angle. Lock rods into occipital plate screw heads and cervical screw heads. Install a transverse cross-link connector bar, thoroughly decorticate all dorsal bony beds, and apply morcellized onlay bone graft.")
+                ApproachSequentialStep(stepNumber: 1, title: "Neutral Mayfield Concorde Positioning & Exposure", detail: "Lock head in neutral alignment (O-C2 angle 15°); expose midline subocciput down to C4 spinous process."),
+                ApproachSequentialStep(stepNumber: 2, title: "Foramen Magnum Craniectomy & C1 Laminectomy", detail: "Resect 2.5 cm suboccipital bone and C1 posterior arch, dissecting medial to V3 groove to decompress brainstem."),
+                ApproachSequentialStep(stepNumber: 3, title: "Triangulated Rigid Arthrodesis", detail: "Place midline occipital keel plate, C1 lateral mass screws, C2 pedicle/pars screws, contour rods, and decorticate for onlay autograft.")
             ]
 
         case .plate087:
             return [
-                ApproachSequentialStep(stepNumber: 1, title: "Patient Positioning & Retroperitoneal Paramedian Incision", detail: "Position the patient supine on a radiolucent operative table with a small bump under the sacrum. Make a left lower quadrant longitudinal paramedian or transverse Pfannenstiel-type incision centered over the L5–S1 disc level under fluoroscopic localization."),
-                ApproachSequentialStep(stepNumber: 2, title: "Abdominal Wall Exposure & Retroperitoneal Plane Mobilization", detail: "Divide the anterior rectus sheath and retract the rectus abdominis muscle medially. Divide the transversalis fascia to enter the retroperitoneal space. Using blunt sponge dissection, sweep the peritoneal sac and left ureter medially off the psoas muscle and retroperitoneal wall."),
-                ApproachSequentialStep(stepNumber: 3, title: "Vascular Bifurcation Exposure & Hypogastric Plexus Sparing", detail: "Identify the aortic bifurcation and common iliac vessels. Ligate and divide the middle sacral vessels over the sacral promontory. Gently mobilize the left common iliac vein laterally to medially across L5–S1, anticipating any iliolumbar vein takeoff. Preserve the superior hypogastric plexus using blunt dissection with zero monopolar electrocautery."),
-                ApproachSequentialStep(stepNumber: 4, title: "Complete Anterior Discectomy & Endplate Preparation", detail: "Perform a complete box annulotomy across the L5–S1 interspace. Evacuate the disc material completely back to the intact posterior longitudinal ligament (PLL). Scrape cartilaginous endplates down to bleeding subchondral bone while strictly preserving the dense anterior cortical apophyseal rings of L5 and S1."),
-                ApproachSequentialStep(stepNumber: 5, title: "Hyperlordotic Cage Insertion & Divergent Screw Fixation", detail: "Trial the interbody space to determine lordotic angle (15°–20°) and footprint height. Pack an integrated porous titanium hyperlordotic cage with bone graft, insert flush with the anterior cortical rim, and drive integrated divergent superior L5 and inferior S1 titanium anchor screws.")
+                ApproachSequentialStep(stepNumber: 1, title: "Retroperitoneal Access & Peritoneal Sweep", detail: "Left lower quadrant paramedian incision; divide anterior rectus sheath, mobilize rectus medially, and sweep peritoneal envelope."),
+                ApproachSequentialStep(stepNumber: 2, title: "Vascular Mobilization & Bifurcation Triangle", detail: "Ligate middle sacral vessels; gently mobilize left common iliac vein laterally to expose L5–S1 disc space."),
+                ApproachSequentialStep(stepNumber: 3, title: "Discectomy & Lordotic Reconstruction", detail: "Perform complete discectomy, endplate decortication, deploy hyperlordotic cage, and anchor divergent locking screws.")
             ]
 
         case .plate086:
             return [
-                ApproachSequentialStep(stepNumber: 1, title: "Preoperative MRI Review & Trajectory Planning", detail: "Examine midsagittal/axial T2 and CISS/FIESTA MRI to confirm non-communicating hydrocephalus (aqueductal stenosis) with triventricular enlargement, downward bowing of the tuber cinereum, and a patent prepontine space (>3 mm clearance between dorsum sellae/basilar apex and clivus). Calculate ETV Success Score (ETVSS)."),
-                ApproachSequentialStep(stepNumber: 2, title: "Patient Positioning & Kocher's Point Burr Hole", detail: "Position patient supine with head neutral or slightly flexed 15° on a doughnut headrest. Mark Kocher's Point 1 cm anterior to coronal suture and 2.5–3.0 cm lateral to midline in the mid-pupillary line. Perform a linear 3 cm incision and 14 mm burr hole; coagulate and open the dura in a cruciate fashion."),
-                ApproachSequentialStep(stepNumber: 3, title: "Ventricular Cannulation & Foramen of Monro Traversal", detail: "Cannulate the right lateral ventricle frontal horn using a peel-away introducer sheath aimed toward the medial canthus and external auditory canal. Introduce a 0° rigid neuroendoscope under continuous warm Ringer's irrigation. Identify choroid plexus, thalamostriate vein, and the column of the fornix; pass gently through the foramen of Monro into the third ventricle without touching the fornix."),
-                ApproachSequentialStep(stepNumber: 4, title: "Third Ventricle Floor Inspection & Landmark Identification", detail: "Lower the scope into the third ventricle. Identify the infundibular recess anteriorly (12 o'clock), paired mammillary bodies posteriorly (6 o'clock), and bilateral hypothalamic walls. Visualize the bluish, translucent tuber cinereum and identify the pulsatile shadow of the basilar artery apex beneath it."),
-                ApproachSequentialStep(stepNumber: 5, title: "Blunt Fogarty Balloon Fenestration & Liliequist's Membrane Division", detail: "Introduce a 3F Fogarty catheter or Decq blunt probe. Puncture the tuber cinereum strictly in the midline midway between infundibulum and mammillary bodies. Inflate the balloon with saline to expand the stoma to 4–5 mm. Advance the scope through the stoma, sharply open Liliequist's membrane with micro-forceps, and verify patent flow around the basilar bifurcation and clivus.")
+                ApproachSequentialStep(stepNumber: 1, title: "Kocher's Point Entry & Ventricular Access", detail: "Place burr hole 1 cm anterior to coronal suture; cannulate lateral ventricle with peeling sheath along trajectory to Monro."),
+                ApproachSequentialStep(stepNumber: 2, title: "Third Ventricle Navigation & Floor Inspection", detail: "Advance 0° neuroendoscope through foramen of Monro into third ventricle; identify mammillary bodies and tuber cinereum."),
+                ApproachSequentialStep(stepNumber: 3, title: "Premamillary Stoma Creation & Basilar Apex Inspection", detail: "Perforate thin premamillary membrane with blunt probe, dilate with 3 Fr Fogarty balloon to 5 mm, and fenestrate Liliequist's membrane.")
             ]
 
         case .plate085:
@@ -5288,10 +5280,9 @@ case .plate059:
             ]
         case .plate058:
             return [
-                ApproachSequentialStep(stepNumber: 1, title: "Emergent Diagnostic Workup & Broad-Spectrum Antibiotic Cover", detail: "Urgent whole-spine contrast-enhanced MRI (T1 post-gadolinium and T2/STIR). Obtain blood cultures immediately (2 sets from separate sites). Initiate empiric broad-spectrum intravenous coverage (vancomycin plus 3rd/4th generation cephalosporin) immediately after cultures or upon skin incision."),
-                ApproachSequentialStep(stepNumber: 2, title: "Targeted Posterior Laminectomy & Purulence Identification", detail: "Prone positioning on Jackson table with chest bolsters to minimize epidural venous pressure. Perform a targeted laminectomy at the epicenter of maximal cord compression or purulent burden. Carefully excise ligamentum flavum to expose the dorsal epidural space without durotomy."),
-                ApproachSequentialStep(stepNumber: 3, title: "Gentle Pus Evacuation & Deep Gram Stain / Cultures", detail: "Aspirate thick purulent fluid collection with gentle Frazier suction; collect generous samples directly into aerobic, anaerobic, fungal, and acid-fast culture vials. Dissect inflammatory granulation tissue off the glistening thecal sac, keeping the dura strictly un-incised to prevent iatrogenic subdural empyema."),
-                ApproachSequentialStep(stepNumber: 4, title: "Catheter-Directed Multi-Level Lavage & Closed-Suction Drainage", detail: "Pass a soft silastic or pediatric feeding catheter (6–8 Fr) gently into the anterior and posterior epidural spaces above and below the laminectomy window. Copiously irrigate with warm saline until returns are crystal clear. Verify vigorous restored dural pulsations. Place a multi-perforated closed-suction drain in the epidural space and close fascia in layers.")
+                ApproachSequentialStep(stepNumber: 1, title: "Focused Epicenter Laminectomy", detail: "Perform targeted single- or two-level unroofing at maximum compression site, aspirating pus for immediate microbiology."),
+                ApproachSequentialStep(stepNumber: 2, title: "Catheter Epidural Clearance", detail: "Pass soft pediatric feeding catheter cephalad and caudad under direct vision, gently irrigating multi-segment skip collections."),
+                ApproachSequentialStep(stepNumber: 3, title: "Debridement & Hardware Sparing", detail: "Debride infected dorsal granulation tissue while preserving stabilizing facets; place subfascial closed suction drains.")
             ]
         case .plate057:
             return [
@@ -5697,34 +5688,26 @@ case .plate031:
             ]
         case .plate089:
             return [
-                "IATROGENIC ULNAR NERVE KINKING & CONDUCTION BLOCK VIA INADEQUATE SEPTAL RESECTION: Omitting the 2 cm medial intermuscular septum resection causes the transposed nerve to bowstring across a razor-sharp fibrous edge as it travels anteriorly, precipitating acute postoperative conduction block or permanent intrinsic hand atrophy.",
-                "PAINFUL INTRACTABLE NEUROMA VIA TRANSECTION OF MACN BRANCHES: Careless superficial dissection anterior or distal to the medial epicondyle transects the branches of the medial antebrachial cutaneous nerve, resulting in an exquisitely painful, disabling neuroma in the operative scar.",
-                "LOSS OF MEDIAL HAND GRIP VIA AVULSION OF FCU MOTOR BRANCH: Forcing anterior transposition without dissecting the first motor branch to the FCU proximally tears the motor branch at its root, causing denervation of the FCU and medial flexor digitorum profundus with clawing and weakened grasp.",
-                "RECURRENT ENTRAPMENT VIA INTRAMUSCULAR TROUGH SCARRING: Slitting the flexor-pronator muscle belly and burying the nerve within muscle tissue (intramuscular transposition) induces severe circumferential perineural fibrosis; a true submuscular bed on brachialis and FDP with transverse tendon repair is mandatory."
+                "Medial Septum Kinking / Bowstringing: Failure to excise medial intermuscular septum causes acute compressive ischemia of anteriorly transposed nerve.",
+                "MACN Neuroma Formation: Inadvertently dividing cutaneous branches during superficial flap elevation causes incapacitating dysesthesias."
             ]
 
         case .plate088:
             return [
-                "CATASTROPHIC VERTEBRAL ARTERY (V3) LACERATION & POSTERIOR CIRCULATION STROKE: Dissecting aggressively along the superior border of C1 lateral to the 12 mm safe zone or rogue lateral mass drill plunging into the condylar groove lacerates the horizontal V3 loop. Rapid arterial exsanguination in deep suboccipital musculature obscures visualization and risks cerebellar/brainstem infarction or death; maintain strict subperiosteal dissection within 12 mm of the midline.",
-                "FATAL BRAINSTEM COMPRESSION / QUADRIPLEGIA VIA FIXATION IN DEFORMITY: Instrumenting the craniocervical junction without adequate reduction or locking the construct in severe extension/flexion leads to brainstem kinking or acute respiratory failure upon extubation. Always lock the Mayfield clamp and construct in verified functional neutral gaze alignment (O–C2 angle 14°–16°).",
-                "TRANSVERSE SINUS / TORCULAR PLUNGING VIA SUPERIOR KEEL SCREWS: Drilling or placing occipital keel screws above the superior nuchal line or drifting away from the median keel into thin squama can penetrate the transverse sinus or torcular Herophili with massive intracranial hemorrhage. Direct bicortical screws strictly in the thick midline keel below the inion.",
-                "HYPOGLOSSAL NERVE (CN XII) INJURY VIA ANTERIOR C1 SCREW PENETRATION: Bicortical over-penetration of the anterior cortex of the C1 lateral mass risks injuring the exiting hypoglossal nerve in the anterior soft tissues or hypoglossal canal, causing ipsilateral tongue paralysis and severe dysarthria. C1 lateral mass screws should purchase only the anterior cortex under bicortical fluoroscopic control."
+                "V3 Vertebral Artery Laceration: Stray drilling lateral to C1 sulcus arteriosus causes massive arterial bleeding and cerebellar/brainstem stroke.",
+                "Hypopharyngeal Obstruction / Dysphagia: Fixing occipitocervical construct in excessive flexion kinks pharynx, requiring prolonged tracheostomy."
             ]
 
         case .plate087:
             return [
-                "CATASTROPHIC LEFT COMMON ILIAC VEIN AVULSION & EXSANGUINATING PELVIC HEMORRHAGE: Over-zealous lateral retraction or avulsion of the ascending iliolumbar vein during venous mobilization produces massive retroperitoneal bleeding in a confined pelvic corridor. The vein wall is paper-thin and tethered; always identify, clip, and divide the iliolumbar vein before mobilizing the left common iliac vein.",
-                "PERMANENT RETROGRADE EJACULATION VIA MONOPOLAR CAUTERY OF HYPOGASTRIC PLEXUS: Using monopolar cautery anterior to the L5–S1 disc space destroys the postganglionic sympathetic fibers of the superior hypogastric plexus, causing permanent internal urethral sphincter incompetence and retrograde ejaculation. Prevertebral tissues must be separated with blunt sponge dissection.",
-                "CATASTROPHIC URETERAL LACERATION VIA INCORRECT RETROPERITONEAL PLANE: Straying anterior to the retroperitoneal fascia or failing to sweep the ureter medially with the peritoneal sac can result in transection, devascularization, or thermal injury to the left ureter, causing occult postoperative retroperitoneal urinoma or sepsis.",
-                "GREAT VESSEL LACERATION & ACUTE EMBOLISM VIA OVER-PENETRATING S1 ANCHOR SCREWS: Divergent inferior screws directed too steeply or cage undersizing can pierce the anterior cortex outside the safe corridor or migrate, impinging the iliac vessels. Verify screw trajectory and length under multi-planar fluoroscopy before final tightening."
+                "Left Common Iliac Vein Laceration: Aggressive vein retraction or unclipped iliolumbar branches cause catastrophic retroperitoneal venous hemorrhage.",
+                "Retrograde Ejaculation via Hypogastric Plexus Injury: Using monopolar electrocautery or over-stretching prevertebral plexus paralyzes bladder neck sphincter."
             ]
 
         case .plate086:
             return [
-                "CATASTROPHIC BASILAR ARTERY RUPTURE & FATAL SUBARACHNOID HEMORRHAGE: Fenestrating the third ventricular floor too far posteriorly near the mammillary bodies or using sharp/cautery instruments risks tearing the basilar artery bifurcation or P1 branches. Intraventricular arterial hemorrhage in a closed skull causes instant intracranial hypertension, brainstem herniation, and death; fenestration must be strictly premamillary and performed with blunt balloon dilation.",
-                "PERMANENT ANTEROGRADE AMNESIA (KORSAKOFF SYNDROME) VIA FORNICEAL CONTUSION: Forcing the rigid endoscope or working sheath against the anterior-superior margin of the foramen of Monro contuses or lacerates the column of the fornix. Bilateral or severe unilateral forniceal injury results in irreversible loss of short-term memory formation. The fornix must remain untouched throughout the procedure.",
-                "HYPOTHALAMIC CRISIS, DIABETES INSIPIDUS & POIKILOTHERMIA VIA ANTERIOR DEVIATION: Fenestrating too far anteriorly violates the infundibular recess, pituitary stalk, or anterior hypothalamic nuclei. This causes acute postoperative diabetes insipidus, adipsia, hypernatremia, and severe autonomic thermal dysregulation. The stoma must stay posterior to the infundibular recess.",
-                "PERSISTENT HYDROCEPHALUS VIA INTACT LILIEQUIST'S MEMBRANE: Creating a fenestration in the tuber cinereum without inspecting through the stoma and dividing Liliequist's membrane traps CSF in the interpeduncular space, preventing egress into the prepontine and basal subarachnoid pathways. This results in early ETV failure requiring secondary revision or shunt placement."
+                "Basilar Artery Apex / Perforator Rupture: Blind perforation through opaque ventricular floor risks puncture of an elevated, ectatic basilar apex.",
+                "Hypothalamic / Forniceal Contusion: Shearing forniceal pillars or lateral hypothalamic walls during scope manipulation causes autonomic storm and memory loss."
             ]
 
         case .plate085:
@@ -5943,10 +5926,8 @@ case .plate059:
             ]
         case .plate058:
             return [
-                "ACCIDENTAL DUROTOMY & IATROGENIC PURULENT MENINGITIS: The dura adjacent to an epidural abscess is severely inflamed, hyperemic, and friable. Tearing the dura introduces virulent bacteria (MRSA, gram-negative rods) into the subarachnoid space, converting an extradural infection into fulminant bacterial meningitis and subdural empyema. Dissect strictly with non-traumatic instruments and repair any defect immediately with a muscle patch and fibrin sealant.",
-                "EXTENSIVE MULTI-LEVEL LAMINECTOMY & IATROGENIC POST-SURGICAL KYPHOSIS: Performing multi-level complete laminectomies across 4–6 thoracic segments in the setting of discitis/osteomyelitis destroys posterior tension band stability, leading to severe progressive post-laminectomy kyphosis and delayed cord compression. Utilize targeted skip laminectomies with catheter-directed irrigation to preserve facet joints and spinous processes.",
-                "DELAYED SURGICAL DECOMPRESSION & IRREVERSIBLE ISCHEMIC PARAPLEGIA: Spinal cord injury in SEA is dual-mechanism: mechanical compression plus septic thrombophlebitis of spinal veins and anterior spinal artery ischemia. Patients progressing from radicular pain to motor weakness must be operated on emergently within 24 hours of deficit onset; delaying surgery beyond 24–36 hours yields a <10% recovery rate.",
-                "PREMATURE INSTRUMENTATION IN GROSS PURULENCE & BIOFILM RECALCITRANCE: Placing pedicle screws and rods directly into an active, uncontrolled purulent epidural collection leads to rapid bacterial colonization, irreversible glycocalyx biofilm formation, and hardware loosening. Reserve posterior instrumentation for cases with documented mechanical instability or after adequate infection clearance."
+                "Dural Laceration in Inflamed Field: Friable, septic dura tears easily; never forcefully traction adherent epidural phlegmon from thecal sac.",
+                "Post-Infection Kyphotic Collapse: Destructive discitis with multi-level facetectomies precipitates progressive cord compression; preserve posterior columns."
             ]
         case .plate057:
             return [
