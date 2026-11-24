@@ -171,6 +171,15 @@
     box-shadow: 0 4px 16px rgba(0,229,255,0.25);
   }
   .slide-tile.dragging { opacity: 0.4; cursor: grabbing; }
+  .slide-tile.selected {
+    border: 2.5px solid #ffb300;
+    background: #172033;
+    box-shadow: 0 0 14px rgba(255, 179, 0, 0.45);
+  }
+  .slide-tile.cut-pending {
+    opacity: 0.45;
+    border: 2px dashed #f43f5e;
+  }
   .slide-tile.drag-over-before { border-left: 4px solid var(--accent-cyan); }
   .slide-tile.drag-over-after { border-right: 4px solid var(--accent-cyan); }
   .slide-thumb {
@@ -298,11 +307,14 @@
       </div>
 
       <span id="sorterMoveCountBadge" class="badge badge-cyan" style="margin-left:auto;">108 Slides • Order Locked</span>
+      <button class="pill-filter" style="border-color:#ffb300; color:#ffb300;" onclick="cutSelectedSlides()" title="Cut selected slides (Ctrl+X)">✂️ Cut</button>
+      <button class="pill-filter" style="border-color:#00e5ff; color:#00e5ff;" onclick="copySelectedSlides()" title="Copy selected slides (Ctrl+C)">📋 Copy</button>
+      <button class="pill-filter" id="paste-slides-btn" style="border-color:#a855f7; color:#c084fc;" onclick="pasteSelectedSlides('after')" title="Paste after selected slide (Ctrl+V)">📥 Paste</button>
       <button class="pill-filter" style="border-color:#f43f5e; color:#f43f5e;" onclick="resetSlideOrder()">🔄 Reset Order</button>
       <button class="save-btn" id="save-order-btn" style="background: linear-gradient(135deg, #10b981, #059669); color: #fff; font-weight: 800; padding: 7px 14px; border: 1px solid #34d399; box-shadow: 0 0 12px rgba(16,185,129,0.35);" onclick="saveSlideOrderToSwift()">🔒 Lock &amp; Save Order</button>
     </div>
     <div style="font-size:12px; color:#94a3b8; background:#0c111c; padding:8px 14px; border-radius:8px; border:1px solid #1f283d;">
-      💡 <strong>Drag-and-Drop Reordering:</strong> Click and drag any slide thumbnail with the mouse to move it anywhere in the sequence. Visual insertion markers show exact landing spot.
+      💡 <strong>PowerPoint Slide Sorter Controls:</strong> <strong>Click</strong> to select (<strong>Ctrl+Click</strong> multi-select, <strong>Shift+Click</strong> range), <strong>Ctrl+X</strong> (Cut) / <strong>Ctrl+C</strong> (Copy) / <strong>Ctrl+V</strong> (Paste after target), or <strong>Drag &amp; Drop</strong>. <strong>Double-click</strong> thumbnail to zoom. Click <strong>🔒 Lock &amp; Save Order</strong> when done.
     </div>
     <div id="slideSorterGrid" class="slide-sorter-grid"></div>
   </div>
@@ -528,61 +540,390 @@ const appData = {
       "hazards": []
     },
     {
-      "plate_num": "009",
-      "title": "Splitting of Distal Anterior Sylvian Fissure (Microsurgical Corridor)",
+      "plate_num": "016",
+      "title": "Right Subtemporal / Temporal Craniotomy & Middle Meningeal Artery (1:1 Text-Scrubbed Master)",
       "batch_tag": "Dr. Mohit Calibrated (001-025)",
       "domain": "Cranial",
-      "image_file": "/plates/plate_009.jpg",
+      "image_file": "/plates/plate_016.jpg",
       "pins": [
         {
-          "id": "pin_009_1",
+          "id": "pin_016_1",
           "num": 1,
-          "title": "Superficial Sylvian Venous Complex",
-          "structureType": "VENOUS PRESERVATION",
-          "color": "neonCyan",
-          "x": 0.664,
-          "y": 0.386,
-          "description": "PRESERVED SYLVIAN VEINS: Dark-blue superficial Sylvian veins mobilized carefully toward the temporal operculum.",
-          "surgicalPearl": "Dissect fissure strictly on the frontal side of the superficial Sylvian veins; keeping veins on the temporal lobe preserves main venous outflow."
-        },
-        {
-          "id": "pin_009_2",
-          "num": 2,
-          "title": "Arachnoid Trabeculae Dissection",
-          "structureType": "MICROSURGICAL SHARP RELEASE",
+          "title": "Temporal Craniotomy Flush to Zygoma",
+          "structureType": "SUBTEMPORAL BONE WINDOW",
           "color": "neonAmber",
-          "x": 0.617,
-          "y": 0.603,
-          "description": "TENSE ARACHNOID BANDS: Micro-scissors dividing stretched translucent arachnoid trabeculae under continuous micro-suction tension.",
-          "surgicalPearl": "Keep micro-knife cutting edge facing away from brain parenchyma; tension applied by micro-suction tip exposes avascular arachnoid webs."
+          "x": 0.326,
+          "y": 0.505,
+          "description": "MIDDLE FOSSA BASAL ACCESS: Right temporal craniotomy drilled flush to the superior border of zygomatic arch and middle fossa floor.",
+          "surgicalPearl": "Drilling craniectomy flush to the temporal floor eliminates brain retraction during subtemporal approaches to petrous apex."
         },
         {
-          "id": "pin_009_3",
+          "id": "pin_016_2",
+          "num": 2,
+          "title": "Middle Meningeal Artery (MMA) Anterior Trunk",
+          "structureType": "EPIDURAL ARTERIAL ARCHITECTURE",
+          "color": "neonRose",
+          "x": 0.52,
+          "y": 0.4,
+          "description": "ANTERIOR MENINGEAL ARTERIAL DIVISION: Crimson anterior trunk of MMA traversing anterior temporal dura toward sphenoid ridge.",
+          "surgicalPearl": "Coagulate and divide anterior MMA branches early along the skull base floor to gain epidural hemostasis and dural mobilization."
+        },
+        {
+          "id": "pin_016_3",
           "num": 3,
-          "title": "Deep Carotid Cistern Floor",
-          "structureType": "DEEP ANATOMICAL CORRIDOR",
-          "color": "neonEmerald",
-          "x": 0.508,
-          "y": 0.433,
-          "description": "CAROTID-OPTIC FLOOR: Pearly-white optic nerve (CN II) and pink ICA pulsations visible in the deep, relaxed cisternal corridor.",
-          "surgicalPearl": "Opening the deep chiasmatic cisterns releases intracranial CSF, dropping brain tension throughout both opercular banks."
+          "title": "MMA Posterior Squamosal Trunk",
+          "structureType": "POSTERIOR ARTERIAL DIVISION",
+          "color": "neonCyan",
+          "x": 0.427,
+          "y": 0.436,
+          "description": "POSTERIOR MENINGEAL RAMUS: Posterior branch of MMA running across squamosal temporal dura toward parietal convexity.",
+          "surgicalPearl": "Bipolar cautery of posterior MMA branches prevents troublesome epidural hematoma accumulation beneath the craniotomy rim."
         }
       ],
       "steps": [
         {
           "step": 1,
-          "title": "Opercular Exposure & Arachnoid Tensing",
-          "detail": "Expose frontal and temporal opercula under microscope; apply gentle counter-traction with cottonoids and fenestrated suction tip."
+          "title": "Question-Mark Incision & Zygomatic Flush Craniotomy",
+          "detail": "Curvilinear temporal skin incision; elevate temporal bone flap flush to the superior border of the zygomatic arch and middle fossa floor."
         },
         {
           "step": 2,
-          "title": "Sharp Sylvian Arachnoid Division",
-          "detail": "Divide arachnoid trabeculae sharply with micro-scissors strictly on frontal side of superficial Sylvian veins, mobilizing veins temporally."
+          "title": "Middle Meningeal Artery Coagulation",
+          "detail": "Identify and bipolar coagulate anterior and posterior divisions of MMA along the skull base floor to secure epidural hemostasis."
         },
         {
           "step": 3,
-          "title": "Deep Cisternal Unroofing & Vascular Exposure",
-          "detail": "Progress from distal fissure to proximal carotid cistern; open deep arachnoid membranes to expose M1, ICA bifurcation, and optic nerve."
+          "title": "Subtemporal Extradural Elevation",
+          "detail": "Gently elevate temporal dura extradurally toward foramen spinosum and petrous ridge, identifying and preserving the GSPN."
+        }
+      ],
+      "hazards": []
+    },
+    {
+      "plate_num": "019",
+      "title": "Left Parietal Craniotomy Window & Dural Venous Tributaries (3D Master)",
+      "batch_tag": "Dr. Mohit Calibrated (001-025)",
+      "domain": "Cranial",
+      "image_file": "/plates/plate_019.jpg",
+      "pins": [],
+      "steps": [
+        {
+          "step": 1,
+          "title": "Horseshoe Scalp Flap & Parietal Craniotomy",
+          "detail": "Mark horseshoe scalp incision; perform parietal craniotomy centered behind coronal suture with medial burr holes placed over sagittal sinus."
+        },
+        {
+          "step": 2,
+          "title": "Epidural Tack-Up & U-Shaped Dural Opening",
+          "detail": "Place peripheral dural stay sutures; incise dura in a U-shaped flap hinged on superior sagittal sinus, preserving bridging cortical veins."
+        },
+        {
+          "step": 3,
+          "title": "Cortical Mapping & Transsulcal Approach",
+          "detail": "Map somatosensory cortex and vein of Trolard; enter chosen cortical sulcus under microscope to access subcortical pathology."
+        }
+      ],
+      "hazards": []
+    },
+    {
+      "plate_num": "018",
+      "title": "Bifrontal Craniotomy 3D Skull Model & Anterior Cranial Fossa Corridor",
+      "batch_tag": "Dr. Mohit Calibrated (001-025)",
+      "domain": "Cranial",
+      "image_file": "/plates/plate_018.jpg",
+      "pins": [
+        {
+          "id": "pin_018_1",
+          "num": 1,
+          "title": "Bifrontal Calvarial Craniotomy",
+          "structureType": "SYMMETRICAL ANTERIOR EXPOSURE",
+          "color": "neonRose",
+          "x": 0.552,
+          "y": 0.078,
+          "description": "MIDLINE BILATERAL BONE FLAP: Symmetrical craniotomy crossing midline directly above supraorbital rims, exposing both frontal poles.",
+          "surgicalPearl": "Keep inferior osteotomy cut within 5 mm of the skull base floor to maximize subfrontal access with minimal brain retraction."
+        },
+        {
+          "id": "pin_018_2",
+          "num": 2,
+          "title": "Interhemispheric Longitudinal Fissure",
+          "structureType": "MIDLINE SUBCORTICAL CORRIDOR",
+          "color": "neonEmerald",
+          "x": 0.478,
+          "y": 0.218,
+          "description": "MIDLINE TRANSFALCINE CORRIDOR: Avascular plane between medial frontal lobes leading to corpus callosum and anterior communicating complex.",
+          "surgicalPearl": "Rely on midline interhemispheric gravity dissection; avoid bilateral frontal lobe retraction to prevent catastrophic abulia."
+        }
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "title": "Coronal Incision & Bifrontal Calvarial Window",
+          "detail": "Bicoronal scalp flap; elevate symmetrical bilateral frontal bone flap crossing midline within 5 mm of supraorbital rims."
+        },
+        {
+          "step": 2,
+          "title": "Frontal Sinus Exenteration & Cranialization",
+          "detail": "Completely drill away posterior wall of frontal sinuses; exenterate all sinus mucosa, pack nasofrontal ducts, and seal with pericranial flap."
+        },
+        {
+          "step": 3,
+          "title": "Superior Sagittal Sinus Ligation & Subfrontal Access",
+          "detail": "Ligate and divide rostral sagittal sinus at crista galli; gently retract both frontal lobes to open panoramic subfrontal corridor."
+        }
+      ],
+      "hazards": []
+    },
+    {
+      "plate_num": "033",
+      "title": "Supraorbital Crani",
+      "batch_tag": "Reviewed 026-046",
+      "domain": "Cranial",
+      "image_file": "/plates/plate_033.jpg",
+      "pins": [],
+      "steps": [
+        {
+          "step": 1,
+          "title": "Superciliary Incision & Burr Hole",
+          "detail": "Curvilinear incision through eyebrow lateral to supraorbital notch; placement of burr hole at MacCarty's keypoint."
+        },
+        {
+          "step": 2,
+          "title": "Basal Mini-Craniotomy",
+          "detail": "Perform ~20x15 mm osteotomy flush with orbital roof; flatten inner orbital rim with diamond burr for flat trajectory."
+        },
+        {
+          "step": 3,
+          "title": "Dural Opening & Cisternal Release",
+          "detail": "Open dura in C-shape based toward orbit; release CSF from optico-carotid cisterns to achieve brain relaxation without fixed retractors."
+        }
+      ],
+      "hazards": []
+    },
+    {
+      "plate_num": "005",
+      "title": "Two-Piece Fronto-Temporal Orbitozygomatic (FT-OZO) Craniotomy",
+      "batch_tag": "Dr. Mohit Calibrated (001-025)",
+      "domain": "Cranial",
+      "image_file": "/plates/plate_005.jpg",
+      "pins": [
+        {
+          "id": "pin_005_1",
+          "num": 1,
+          "title": "Host Fronto-Temporal Defect",
+          "structureType": "ORBITAL & SPHENOID BONY EXPOSURE",
+          "color": "neonRose",
+          "x": 0.191,
+          "y": 0.204,
+          "description": "RADICAL SKULL BASE DEFECT: Anterolateral view showing unroofed superior and lateral orbit, sphenoid ridge, and exposed temporal dura.",
+          "surgicalPearl": "Unroofing the orbit and flattening the sphenoid ridge provides a low, flat trajectory to the interpeduncular and basilar cisterns."
+        },
+        {
+          "id": "pin_005_2",
+          "num": 2,
+          "title": "Detached Pterional Bone Flap",
+          "structureType": "BONE PIECE 1: CALVARIAL FLAP",
+          "color": "neonAmber",
+          "x": 0.82,
+          "y": 0.632,
+          "description": "FIRST BONE SEGMENT: Standard frontotemporal craniotomy bone flap removed cleanly prior to osteotomies of the orbital bar.",
+          "surgicalPearl": "Removing the calvarial flap as a separate first piece allows direct visual intracranial protection of the dura during orbital cuts."
+        },
+        {
+          "id": "pin_005_3",
+          "num": 3,
+          "title": "One-Piece Orbitozygomatic Bar",
+          "structureType": "BONE PIECE 2: ORBITOZYGOMATIC STRUT",
+          "color": "neonCyan",
+          "x": 0.811,
+          "y": 0.24,
+          "description": "SECOND BONE SEGMENT: Single-piece resected superior and lateral orbital rims, orbital roof, and full zygomatic arch.",
+          "surgicalPearl": "Protect the orbital periorbita with a moist malleable retractor; violating periorbita causes orbital fat herniation and severe visual field obstruction."
+        },
+        {
+          "id": "pin_005_4",
+          "num": 4,
+          "title": "Intact TMJ & Articular Eminence",
+          "structureType": "ANATOMICAL PRESERVATION BOUNDARY",
+          "color": "neonEmerald",
+          "x": 0.115,
+          "y": 0.502,
+          "description": "CRANIOFACIAL ARTICULATION: Preserved temporomandibular joint capsule and articular eminence directly posterior to the zygomatic osteotomy.",
+          "surgicalPearl": "Place the posterior zygomatic osteotomy immediately anterior to the articular eminence; violating TMJ capsule causes severe trismus and pain."
+        }
+      ],
+      "steps": [],
+      "hazards": []
+    },
+    {
+      "plate_num": "010",
+      "title": "Retromastoid / Retrosigmoid Keyhole Suboccipital Craniectomy (SOC)",
+      "batch_tag": "Dr. Mohit Calibrated (001-025)",
+      "domain": "Cranial",
+      "image_file": "/plates/plate_010.jpg",
+      "pins": [
+        {
+          "id": "pin_010_1",
+          "num": 1,
+          "title": "3-Pin Mayfield Skull Fixation",
+          "structureType": "RIGID CRANIAL STABILIZATION",
+          "color": "neonRose",
+          "x": 0.2,
+          "y": 0.56,
+          "description": "MILITARY CHIN-TUCK SETUP: Single anterior pin and dual posterior rocker pins, with neck flexed maintaining 2-finger jugular clearance.",
+          "surgicalPearl": "Maintain >= 2 fingerbreadths between chin and sternum; excessive flexion compresses internal jugular veins, causing venous infarction."
+        },
+        {
+          "id": "pin_010_2",
+          "num": 2,
+          "title": "Asterion & Cranial Sutures",
+          "structureType": "SURFACE OSTEOLOGICAL LANDMARK",
+          "color": "neonAmber",
+          "x": 0.52,
+          "y": 0.588,
+          "description": "SURFACE SUTURE CONFLUENCE: Junction of lambdoid, parietomastoid, and occipitomastoid sutures overlying the transverse-sigmoid angle.",
+          "surgicalPearl": "Asterion overlies transverse-sigmoid junction in only 60% of cases; in 40% it sits directly over transverse sinus. Always drill inferior-medial."
+        },
+        {
+          "id": "pin_010_3",
+          "num": 3,
+          "title": "Transverse-Sigmoid Sinus Junction",
+          "structureType": "VITAL VENOUS SINUS CORRIDOR",
+          "color": "neonCyan",
+          "x": 0.65,
+          "y": 0.49,
+          "description": "VENOUS ANGLE BOUNDARY: Blue dural sinuses showing horizontal transverse sinus turning into descending sigmoid sinus behind mastoid.",
+          "surgicalPearl": "Expose the inferior edge of transverse and posterior edge of sigmoid sinus to maximize viewing angle without sinus laceration."
+        },
+        {
+          "id": "pin_010_4",
+          "num": 4,
+          "title": "Strategic Burr Hole & Craniectomy Window",
+          "structureType": "PLANNED CRANIECTOMY WINDOW",
+          "color": "neonEmerald",
+          "x": 0.6,
+          "y": 0.769,
+          "description": "KEYHOLE BURR HOLE: Initial burr hole placed 5 mm inferior-medial to asterion, opening directly into posterior fossa with zero sinus tear.",
+          "surgicalPearl": "Drill initial burr hole strictly inferior-medial to asterion; dissect dura carefully off bone before expanding craniectomy rim."
+        }
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "title": "3-Pin Fixation in Military Chin-Tuck",
+          "detail": "Apply 3-pin Mayfield skull clamp; position neck flexed with 2-finger chin-to-sternum clearance and rotate head 15-20 degrees away."
+        },
+        {
+          "step": 2,
+          "title": "Surface Landmark Registration & Incision",
+          "detail": "Palpate mastoid tip, external occipital protuberance, and asterion; mark retroauricular curvilinear incision 1 cm medial to asterion."
+        },
+        {
+          "step": 3,
+          "title": "Keyhole Burr Hole & Sinus Skeletonization",
+          "detail": "Drill initial burr hole 5 mm inferior-medial to asterion; expand craniectomy rim to unroof edges of transverse and sigmoid sinuses."
+        }
+      ],
+      "hazards": []
+    },
+    {
+      "plate_num": "045",
+      "title": "Brain Herniation Syndromes",
+      "batch_tag": "Reviewed 026-046",
+      "domain": "Cranial",
+      "image_file": "/plates/plate_045.jpg",
+      "pins": [
+        {
+          "id": "pin_045_1",
+          "num": 1,
+          "title": "Subfalcine (Cingulate) Herniation",
+          "structureType": "DURAL NOTCH DISPLACEMENT",
+          "color": "neonAmber",
+          "x": 0.25,
+          "y": 0.25,
+          "description": "Cingulate gyrus wedged beneath the inferior free margin of the rigid falx cerebri. Compresses pericallosal and callosomarginal ACA branches, causing contralateral lower-extremity paresis.",
+          "surgicalPearl": "Often early and clinically silent until severe ACA ischemia ensues. High risk of converting to secondary uncal herniation."
+        },
+        {
+          "id": "pin_045_2",
+          "num": 2,
+          "title": "Uncal (Lateral Transtentorial) Herniation",
+          "structureType": "INCISURAL HERNIATION",
+          "color": "neonRed",
+          "x": 0.75,
+          "y": 0.25,
+          "description": "Medial temporal uncus herniates over the sharp tentorial edge. Compresses ipsilateral CN III (blown pupil), PCA (hemianopia), and contralateral cerebral peduncle (Kernohan's notch false localizing sign).",
+          "surgicalPearl": "Immediate neurosurgical emergency: demands osmotherapy bolus and emergent surgical decompression within minutes."
+        },
+        {
+          "id": "pin_045_3",
+          "num": 3,
+          "title": "Central Transtentorial (Duret Hemorrhages)",
+          "structureType": "ROSTROCAUDAL DISPLACEMENT",
+          "color": "neonPurple",
+          "x": 0.25,
+          "y": 0.75,
+          "description": "Bilateral downward displacement of diencephalon and midbrain. Mechanical traction shears basilar paramedian perforators, producing fatal Duret brainstem hemorrhages.",
+          "surgicalPearl": "Progressive rostrocaudal deterioration: small reactive pupils become midposition fixed; decorticate rigidity progresses to decerebrate posturing."
+        },
+        {
+          "id": "pin_045_4",
+          "num": 4,
+          "title": "Tonsillar Herniation ('Coning')",
+          "structureType": "FORAMEN MAGNUM CONING",
+          "color": "neonRed",
+          "x": 0.75,
+          "y": 0.75,
+          "description": "Cerebellar tonsils impacted > 5 mm through the foramen magnum, compressing the dorsal medulla oblongata (cardiorespiratory center). Causes Cushing's triad and sudden apnea.",
+          "surgicalPearl": "Lumbar puncture is STRICTLY CONTRAINDICATED in the presence of mass effect due to the catastrophic risk of precipitating fatal tonsillar coning."
+        }
+      ],
+      "steps": [
+        {
+          "step": 1,
+          "title": "Hyperosmolar Resuscitation",
+          "detail": ""
+        },
+        {
+          "step": 2,
+          "title": "Temporizing Hyperventilation Bridge",
+          "detail": "Brief controlled mechanical hyperventilation targeting PaCO2 30\u201335 mmHg to induce cerebral vasoconstriction. Strictly a temporizing bridge to immediate surgical theater."
+        },
+        {
+          "step": 3,
+          "title": "",
+          "detail": ""
+        },
+        {
+          "step": 4,
+          "title": "Emergent Decompressive Surgery",
+          "detail": ""
+        }
+      ],
+      "hazards": []
+    },
+    {
+      "plate_num": "021",
+      "title": "Decompressive Frontotemporoparietal Hemicraniectomy & Expansile Duroplasty",
+      "batch_tag": "Dr. Mohit Calibrated (001-025)",
+      "domain": "Cranial",
+      "image_file": "/plates/plate_021.jpg",
+      "pins": [],
+      "steps": [
+        {
+          "step": 1,
+          "title": "Trauma Question-Mark Scalp Incision",
+          "detail": "Make large reverse question-mark incision; elevate full-thickness myocutaneous scalp flap, exposing frontal, temporal, and parietal calvarium."
+        },
+        {
+          "step": 2,
+          "title": "Frontotemporoparietal Craniectomy",
+          "detail": "Drill craniectomy >= 12x15 cm crossing pterion; drill temporal bone flush to middle cranial fossa floor and zygomatic root to unroof uncus."
+        },
+        {
+          "step": 3,
+          "title": "Dural Opening & Expansile Patch Duroplasty",
+          "detail": "Open dura widely in stellate fashion; place circumferential tack-up sutures and suture expansive collagen/pericranial patch watertight."
         }
       ],
       "hazards": []
@@ -697,82 +1038,61 @@ const appData = {
       "hazards": []
     },
     {
-      "plate_num": "005",
-      "title": "Two-Piece Fronto-Temporal Orbitozygomatic (FT-OZO) Craniotomy",
+      "plate_num": "009",
+      "title": "Splitting of Distal Anterior Sylvian Fissure (Microsurgical Corridor)",
       "batch_tag": "Dr. Mohit Calibrated (001-025)",
       "domain": "Cranial",
-      "image_file": "/plates/plate_005.jpg",
+      "image_file": "/plates/plate_009.jpg",
       "pins": [
         {
-          "id": "pin_005_1",
+          "id": "pin_009_1",
           "num": 1,
-          "title": "Host Fronto-Temporal Defect",
-          "structureType": "ORBITAL & SPHENOID BONY EXPOSURE",
-          "color": "neonRose",
-          "x": 0.191,
-          "y": 0.204,
-          "description": "RADICAL SKULL BASE DEFECT: Anterolateral view showing unroofed superior and lateral orbit, sphenoid ridge, and exposed temporal dura.",
-          "surgicalPearl": "Unroofing the orbit and flattening the sphenoid ridge provides a low, flat trajectory to the interpeduncular and basilar cisterns."
-        },
-        {
-          "id": "pin_005_2",
-          "num": 2,
-          "title": "Detached Pterional Bone Flap",
-          "structureType": "BONE PIECE 1: CALVARIAL FLAP",
-          "color": "neonAmber",
-          "x": 0.82,
-          "y": 0.632,
-          "description": "FIRST BONE SEGMENT: Standard frontotemporal craniotomy bone flap removed cleanly prior to osteotomies of the orbital bar.",
-          "surgicalPearl": "Removing the calvarial flap as a separate first piece allows direct visual intracranial protection of the dura during orbital cuts."
-        },
-        {
-          "id": "pin_005_3",
-          "num": 3,
-          "title": "One-Piece Orbitozygomatic Bar",
-          "structureType": "BONE PIECE 2: ORBITOZYGOMATIC STRUT",
+          "title": "Superficial Sylvian Venous Complex",
+          "structureType": "VENOUS PRESERVATION",
           "color": "neonCyan",
-          "x": 0.811,
-          "y": 0.24,
-          "description": "SECOND BONE SEGMENT: Single-piece resected superior and lateral orbital rims, orbital roof, and full zygomatic arch.",
-          "surgicalPearl": "Protect the orbital periorbita with a moist malleable retractor; violating periorbita causes orbital fat herniation and severe visual field obstruction."
+          "x": 0.664,
+          "y": 0.386,
+          "description": "PRESERVED SYLVIAN VEINS: Dark-blue superficial Sylvian veins mobilized carefully toward the temporal operculum.",
+          "surgicalPearl": "Dissect fissure strictly on the frontal side of the superficial Sylvian veins; keeping veins on the temporal lobe preserves main venous outflow."
         },
         {
-          "id": "pin_005_4",
-          "num": 4,
-          "title": "Intact TMJ & Articular Eminence",
-          "structureType": "ANATOMICAL PRESERVATION BOUNDARY",
+          "id": "pin_009_2",
+          "num": 2,
+          "title": "Arachnoid Trabeculae Dissection",
+          "structureType": "MICROSURGICAL SHARP RELEASE",
+          "color": "neonAmber",
+          "x": 0.617,
+          "y": 0.603,
+          "description": "TENSE ARACHNOID BANDS: Micro-scissors dividing stretched translucent arachnoid trabeculae under continuous micro-suction tension.",
+          "surgicalPearl": "Keep micro-knife cutting edge facing away from brain parenchyma; tension applied by micro-suction tip exposes avascular arachnoid webs."
+        },
+        {
+          "id": "pin_009_3",
+          "num": 3,
+          "title": "Deep Carotid Cistern Floor",
+          "structureType": "DEEP ANATOMICAL CORRIDOR",
           "color": "neonEmerald",
-          "x": 0.115,
-          "y": 0.502,
-          "description": "CRANIOFACIAL ARTICULATION: Preserved temporomandibular joint capsule and articular eminence directly posterior to the zygomatic osteotomy.",
-          "surgicalPearl": "Place the posterior zygomatic osteotomy immediately anterior to the articular eminence; violating TMJ capsule causes severe trismus and pain."
+          "x": 0.508,
+          "y": 0.433,
+          "description": "CAROTID-OPTIC FLOOR: Pearly-white optic nerve (CN II) and pink ICA pulsations visible in the deep, relaxed cisternal corridor.",
+          "surgicalPearl": "Opening the deep chiasmatic cisterns releases intracranial CSF, dropping brain tension throughout both opercular banks."
         }
       ],
-      "steps": [],
-      "hazards": []
-    },
-    {
-      "plate_num": "033",
-      "title": "Supraorbital Crani",
-      "batch_tag": "Reviewed 026-046",
-      "domain": "Cranial",
-      "image_file": "/plates/plate_033.jpg",
-      "pins": [],
       "steps": [
         {
           "step": 1,
-          "title": "Superciliary Incision & Burr Hole",
-          "detail": "Curvilinear incision through eyebrow lateral to supraorbital notch; placement of burr hole at MacCarty's keypoint."
+          "title": "Opercular Exposure & Arachnoid Tensing",
+          "detail": "Expose frontal and temporal opercula under microscope; apply gentle counter-traction with cottonoids and fenestrated suction tip."
         },
         {
           "step": 2,
-          "title": "Basal Mini-Craniotomy",
-          "detail": "Perform ~20x15 mm osteotomy flush with orbital roof; flatten inner orbital rim with diamond burr for flat trajectory."
+          "title": "Sharp Sylvian Arachnoid Division",
+          "detail": "Divide arachnoid trabeculae sharply with micro-scissors strictly on frontal side of superficial Sylvian veins, mobilizing veins temporally."
         },
         {
           "step": 3,
-          "title": "Dural Opening & Cisternal Release",
-          "detail": "Open dura in C-shape based toward orbit; release CSF from optico-carotid cisterns to achieve brain relaxation without fixed retractors."
+          "title": "Deep Cisternal Unroofing & Vascular Exposure",
+          "detail": "Progress from distal fissure to proximal carotid cistern; open deep arachnoid membranes to expose M1, ICA bifurcation, and optic nerve."
         }
       ],
       "hazards": []
@@ -1076,167 +1396,6 @@ const appData = {
       "hazards": []
     },
     {
-      "plate_num": "018",
-      "title": "Bifrontal Craniotomy 3D Skull Model & Anterior Cranial Fossa Corridor",
-      "batch_tag": "Dr. Mohit Calibrated (001-025)",
-      "domain": "Cranial",
-      "image_file": "/plates/plate_018.jpg",
-      "pins": [
-        {
-          "id": "pin_018_1",
-          "num": 1,
-          "title": "Bifrontal Calvarial Craniotomy",
-          "structureType": "SYMMETRICAL ANTERIOR EXPOSURE",
-          "color": "neonRose",
-          "x": 0.552,
-          "y": 0.078,
-          "description": "MIDLINE BILATERAL BONE FLAP: Symmetrical craniotomy crossing midline directly above supraorbital rims, exposing both frontal poles.",
-          "surgicalPearl": "Keep inferior osteotomy cut within 5 mm of the skull base floor to maximize subfrontal access with minimal brain retraction."
-        },
-        {
-          "id": "pin_018_2",
-          "num": 2,
-          "title": "Interhemispheric Longitudinal Fissure",
-          "structureType": "MIDLINE SUBCORTICAL CORRIDOR",
-          "color": "neonEmerald",
-          "x": 0.478,
-          "y": 0.218,
-          "description": "MIDLINE TRANSFALCINE CORRIDOR: Avascular plane between medial frontal lobes leading to corpus callosum and anterior communicating complex.",
-          "surgicalPearl": "Rely on midline interhemispheric gravity dissection; avoid bilateral frontal lobe retraction to prevent catastrophic abulia."
-        }
-      ],
-      "steps": [
-        {
-          "step": 1,
-          "title": "Coronal Incision & Bifrontal Calvarial Window",
-          "detail": "Bicoronal scalp flap; elevate symmetrical bilateral frontal bone flap crossing midline within 5 mm of supraorbital rims."
-        },
-        {
-          "step": 2,
-          "title": "Frontal Sinus Exenteration & Cranialization",
-          "detail": "Completely drill away posterior wall of frontal sinuses; exenterate all sinus mucosa, pack nasofrontal ducts, and seal with pericranial flap."
-        },
-        {
-          "step": 3,
-          "title": "Superior Sagittal Sinus Ligation & Subfrontal Access",
-          "detail": "Ligate and divide rostral sagittal sinus at crista galli; gently retract both frontal lobes to open panoramic subfrontal corridor."
-        }
-      ],
-      "hazards": []
-    },
-    {
-      "plate_num": "016",
-      "title": "Right Subtemporal / Temporal Craniotomy & Middle Meningeal Artery (1:1 Text-Scrubbed Master)",
-      "batch_tag": "Dr. Mohit Calibrated (001-025)",
-      "domain": "Cranial",
-      "image_file": "/plates/plate_016.jpg",
-      "pins": [
-        {
-          "id": "pin_016_1",
-          "num": 1,
-          "title": "Temporal Craniotomy Flush to Zygoma",
-          "structureType": "SUBTEMPORAL BONE WINDOW",
-          "color": "neonAmber",
-          "x": 0.326,
-          "y": 0.505,
-          "description": "MIDDLE FOSSA BASAL ACCESS: Right temporal craniotomy drilled flush to the superior border of zygomatic arch and middle fossa floor.",
-          "surgicalPearl": "Drilling craniectomy flush to the temporal floor eliminates brain retraction during subtemporal approaches to petrous apex."
-        },
-        {
-          "id": "pin_016_2",
-          "num": 2,
-          "title": "Middle Meningeal Artery (MMA) Anterior Trunk",
-          "structureType": "EPIDURAL ARTERIAL ARCHITECTURE",
-          "color": "neonRose",
-          "x": 0.52,
-          "y": 0.4,
-          "description": "ANTERIOR MENINGEAL ARTERIAL DIVISION: Crimson anterior trunk of MMA traversing anterior temporal dura toward sphenoid ridge.",
-          "surgicalPearl": "Coagulate and divide anterior MMA branches early along the skull base floor to gain epidural hemostasis and dural mobilization."
-        },
-        {
-          "id": "pin_016_3",
-          "num": 3,
-          "title": "MMA Posterior Squamosal Trunk",
-          "structureType": "POSTERIOR ARTERIAL DIVISION",
-          "color": "neonCyan",
-          "x": 0.427,
-          "y": 0.436,
-          "description": "POSTERIOR MENINGEAL RAMUS: Posterior branch of MMA running across squamosal temporal dura toward parietal convexity.",
-          "surgicalPearl": "Bipolar cautery of posterior MMA branches prevents troublesome epidural hematoma accumulation beneath the craniotomy rim."
-        }
-      ],
-      "steps": [
-        {
-          "step": 1,
-          "title": "Question-Mark Incision & Zygomatic Flush Craniotomy",
-          "detail": "Curvilinear temporal skin incision; elevate temporal bone flap flush to the superior border of the zygomatic arch and middle fossa floor."
-        },
-        {
-          "step": 2,
-          "title": "Middle Meningeal Artery Coagulation",
-          "detail": "Identify and bipolar coagulate anterior and posterior divisions of MMA along the skull base floor to secure epidural hemostasis."
-        },
-        {
-          "step": 3,
-          "title": "Subtemporal Extradural Elevation",
-          "detail": "Gently elevate temporal dura extradurally toward foramen spinosum and petrous ridge, identifying and preserving the GSPN."
-        }
-      ],
-      "hazards": []
-    },
-    {
-      "plate_num": "019",
-      "title": "Left Parietal Craniotomy Window & Dural Venous Tributaries (3D Master)",
-      "batch_tag": "Dr. Mohit Calibrated (001-025)",
-      "domain": "Cranial",
-      "image_file": "/plates/plate_019.jpg",
-      "pins": [],
-      "steps": [
-        {
-          "step": 1,
-          "title": "Horseshoe Scalp Flap & Parietal Craniotomy",
-          "detail": "Mark horseshoe scalp incision; perform parietal craniotomy centered behind coronal suture with medial burr holes placed over sagittal sinus."
-        },
-        {
-          "step": 2,
-          "title": "Epidural Tack-Up & U-Shaped Dural Opening",
-          "detail": "Place peripheral dural stay sutures; incise dura in a U-shaped flap hinged on superior sagittal sinus, preserving bridging cortical veins."
-        },
-        {
-          "step": 3,
-          "title": "Cortical Mapping & Transsulcal Approach",
-          "detail": "Map somatosensory cortex and vein of Trolard; enter chosen cortical sulcus under microscope to access subcortical pathology."
-        }
-      ],
-      "hazards": []
-    },
-    {
-      "plate_num": "021",
-      "title": "Decompressive Frontotemporoparietal Hemicraniectomy & Expansile Duroplasty",
-      "batch_tag": "Dr. Mohit Calibrated (001-025)",
-      "domain": "Cranial",
-      "image_file": "/plates/plate_021.jpg",
-      "pins": [],
-      "steps": [
-        {
-          "step": 1,
-          "title": "Trauma Question-Mark Scalp Incision",
-          "detail": "Make large reverse question-mark incision; elevate full-thickness myocutaneous scalp flap, exposing frontal, temporal, and parietal calvarium."
-        },
-        {
-          "step": 2,
-          "title": "Frontotemporoparietal Craniectomy",
-          "detail": "Drill craniectomy >= 12x15 cm crossing pterion; drill temporal bone flush to middle cranial fossa floor and zygomatic root to unroof uncus."
-        },
-        {
-          "step": 3,
-          "title": "Dural Opening & Expansile Patch Duroplasty",
-          "detail": "Open dura widely in stellate fashion; place circumferential tack-up sutures and suture expansive collagen/pericranial patch watertight."
-        }
-      ],
-      "hazards": []
-    },
-    {
       "plate_num": "025",
       "title": "Anterior Temporal Lobectomy (ATL) vs. Selective Amygdalohippocampectomy (SelAH)",
       "batch_tag": "Dr. Mohit Calibrated (001-025)",
@@ -1302,82 +1461,6 @@ const appData = {
         {
           "step": 3,
           "title": "",
-          "detail": ""
-        }
-      ],
-      "hazards": []
-    },
-    {
-      "plate_num": "045",
-      "title": "Brain Herniation Syndromes",
-      "batch_tag": "Reviewed 026-046",
-      "domain": "Cranial",
-      "image_file": "/plates/plate_045.jpg",
-      "pins": [
-        {
-          "id": "pin_045_1",
-          "num": 1,
-          "title": "Subfalcine (Cingulate) Herniation",
-          "structureType": "DURAL NOTCH DISPLACEMENT",
-          "color": "neonAmber",
-          "x": 0.25,
-          "y": 0.25,
-          "description": "Cingulate gyrus wedged beneath the inferior free margin of the rigid falx cerebri. Compresses pericallosal and callosomarginal ACA branches, causing contralateral lower-extremity paresis.",
-          "surgicalPearl": "Often early and clinically silent until severe ACA ischemia ensues. High risk of converting to secondary uncal herniation."
-        },
-        {
-          "id": "pin_045_2",
-          "num": 2,
-          "title": "Uncal (Lateral Transtentorial) Herniation",
-          "structureType": "INCISURAL HERNIATION",
-          "color": "neonRed",
-          "x": 0.75,
-          "y": 0.25,
-          "description": "Medial temporal uncus herniates over the sharp tentorial edge. Compresses ipsilateral CN III (blown pupil), PCA (hemianopia), and contralateral cerebral peduncle (Kernohan's notch false localizing sign).",
-          "surgicalPearl": "Immediate neurosurgical emergency: demands osmotherapy bolus and emergent surgical decompression within minutes."
-        },
-        {
-          "id": "pin_045_3",
-          "num": 3,
-          "title": "Central Transtentorial (Duret Hemorrhages)",
-          "structureType": "ROSTROCAUDAL DISPLACEMENT",
-          "color": "neonPurple",
-          "x": 0.25,
-          "y": 0.75,
-          "description": "Bilateral downward displacement of diencephalon and midbrain. Mechanical traction shears basilar paramedian perforators, producing fatal Duret brainstem hemorrhages.",
-          "surgicalPearl": "Progressive rostrocaudal deterioration: small reactive pupils become midposition fixed; decorticate rigidity progresses to decerebrate posturing."
-        },
-        {
-          "id": "pin_045_4",
-          "num": 4,
-          "title": "Tonsillar Herniation ('Coning')",
-          "structureType": "FORAMEN MAGNUM CONING",
-          "color": "neonRed",
-          "x": 0.75,
-          "y": 0.75,
-          "description": "Cerebellar tonsils impacted > 5 mm through the foramen magnum, compressing the dorsal medulla oblongata (cardiorespiratory center). Causes Cushing's triad and sudden apnea.",
-          "surgicalPearl": "Lumbar puncture is STRICTLY CONTRAINDICATED in the presence of mass effect due to the catastrophic risk of precipitating fatal tonsillar coning."
-        }
-      ],
-      "steps": [
-        {
-          "step": 1,
-          "title": "Hyperosmolar Resuscitation",
-          "detail": ""
-        },
-        {
-          "step": 2,
-          "title": "Temporizing Hyperventilation Bridge",
-          "detail": "Brief controlled mechanical hyperventilation targeting PaCO2 30\u201335 mmHg to induce cerebral vasoconstriction. Strictly a temporizing bridge to immediate surgical theater."
-        },
-        {
-          "step": 3,
-          "title": "",
-          "detail": ""
-        },
-        {
-          "step": 4,
-          "title": "Emergent Decompressive Surgery",
           "detail": ""
         }
       ],
@@ -1491,77 +1574,6 @@ const appData = {
         }
       ],
       "steps": [],
-      "hazards": []
-    },
-    {
-      "plate_num": "010",
-      "title": "Retromastoid / Retrosigmoid Keyhole Suboccipital Craniectomy (SOC)",
-      "batch_tag": "Dr. Mohit Calibrated (001-025)",
-      "domain": "Cranial",
-      "image_file": "/plates/plate_010.jpg",
-      "pins": [
-        {
-          "id": "pin_010_1",
-          "num": 1,
-          "title": "3-Pin Mayfield Skull Fixation",
-          "structureType": "RIGID CRANIAL STABILIZATION",
-          "color": "neonRose",
-          "x": 0.2,
-          "y": 0.56,
-          "description": "MILITARY CHIN-TUCK SETUP: Single anterior pin and dual posterior rocker pins, with neck flexed maintaining 2-finger jugular clearance.",
-          "surgicalPearl": "Maintain >= 2 fingerbreadths between chin and sternum; excessive flexion compresses internal jugular veins, causing venous infarction."
-        },
-        {
-          "id": "pin_010_2",
-          "num": 2,
-          "title": "Asterion & Cranial Sutures",
-          "structureType": "SURFACE OSTEOLOGICAL LANDMARK",
-          "color": "neonAmber",
-          "x": 0.52,
-          "y": 0.588,
-          "description": "SURFACE SUTURE CONFLUENCE: Junction of lambdoid, parietomastoid, and occipitomastoid sutures overlying the transverse-sigmoid angle.",
-          "surgicalPearl": "Asterion overlies transverse-sigmoid junction in only 60% of cases; in 40% it sits directly over transverse sinus. Always drill inferior-medial."
-        },
-        {
-          "id": "pin_010_3",
-          "num": 3,
-          "title": "Transverse-Sigmoid Sinus Junction",
-          "structureType": "VITAL VENOUS SINUS CORRIDOR",
-          "color": "neonCyan",
-          "x": 0.65,
-          "y": 0.49,
-          "description": "VENOUS ANGLE BOUNDARY: Blue dural sinuses showing horizontal transverse sinus turning into descending sigmoid sinus behind mastoid.",
-          "surgicalPearl": "Expose the inferior edge of transverse and posterior edge of sigmoid sinus to maximize viewing angle without sinus laceration."
-        },
-        {
-          "id": "pin_010_4",
-          "num": 4,
-          "title": "Strategic Burr Hole & Craniectomy Window",
-          "structureType": "PLANNED CRANIECTOMY WINDOW",
-          "color": "neonEmerald",
-          "x": 0.6,
-          "y": 0.769,
-          "description": "KEYHOLE BURR HOLE: Initial burr hole placed 5 mm inferior-medial to asterion, opening directly into posterior fossa with zero sinus tear.",
-          "surgicalPearl": "Drill initial burr hole strictly inferior-medial to asterion; dissect dura carefully off bone before expanding craniectomy rim."
-        }
-      ],
-      "steps": [
-        {
-          "step": 1,
-          "title": "3-Pin Fixation in Military Chin-Tuck",
-          "detail": "Apply 3-pin Mayfield skull clamp; position neck flexed with 2-finger chin-to-sternum clearance and rotate head 15-20 degrees away."
-        },
-        {
-          "step": 2,
-          "title": "Surface Landmark Registration & Incision",
-          "detail": "Palpate mastoid tip, external occipital protuberance, and asterion; mark retroauricular curvilinear incision 1 cm medial to asterion."
-        },
-        {
-          "step": 3,
-          "title": "Keyhole Burr Hole & Sinus Skeletonization",
-          "detail": "Drill initial burr hole 5 mm inferior-medial to asterion; expand craniectomy rim to unroof edges of transverse and sigmoid sinuses."
-        }
-      ],
       "hazards": []
     },
     {
@@ -5587,6 +5599,124 @@ function switchConsultSubTab(tabId) {
 let currentSorterFilter = 'all';
 let draggedPlateNum = null;
 let reorderCount = 0;
+let selectedSlideIndices = new Set();
+let lastSelectedSlideIndex = null;
+let slideClipboard = null; // { mode: 'cut' | 'copy', indices: [...], items: [...] }
+
+function selectSlideTile(actualIndex, e) {
+  if (e && (e.ctrlKey || e.metaKey)) {
+    if (selectedSlideIndices.has(actualIndex)) {
+      selectedSlideIndices.delete(actualIndex);
+    } else {
+      selectedSlideIndices.add(actualIndex);
+    }
+    lastSelectedSlideIndex = actualIndex;
+  } else if (e && e.shiftKey && lastSelectedSlideIndex !== null) {
+    const start = Math.min(lastSelectedSlideIndex, actualIndex);
+    const end = Math.max(lastSelectedSlideIndex, actualIndex);
+    selectedSlideIndices.clear();
+    for (let k = start; k <= end; k++) selectedSlideIndices.add(k);
+  } else {
+    selectedSlideIndices.clear();
+    selectedSlideIndices.add(actualIndex);
+    lastSelectedSlideIndex = actualIndex;
+  }
+  renderSlideSorter();
+}
+
+function cutSelectedSlides() {
+  if (selectedSlideIndices.size === 0) {
+    showToast("Select one or more slides first (Click / Ctrl+Click / Shift+Click).");
+    return;
+  }
+  const indices = Array.from(selectedSlideIndices).sort((a, b) => a - b);
+  slideClipboard = {
+    mode: 'cut',
+    indices: indices,
+    items: indices.map(i => appData.atlas[i])
+  };
+  showToast(`✂️ Cut ${indices.length} slide(s) to clipboard. Click target slide and press Ctrl+V (or Paste).`);
+  renderSlideSorter();
+}
+
+function copySelectedSlides() {
+  if (selectedSlideIndices.size === 0) {
+    showToast("Select one or more slides first (Click / Ctrl+Click / Shift+Click).");
+    return;
+  }
+  const indices = Array.from(selectedSlideIndices).sort((a, b) => a - b);
+  slideClipboard = {
+    mode: 'copy',
+    indices: indices,
+    items: indices.map(i => JSON.parse(JSON.stringify(appData.atlas[i])))
+  };
+  showToast(`📋 Copied ${indices.length} slide(s) to clipboard. Click target slide and press Ctrl+V (or Paste).`);
+  renderSlideSorter();
+}
+
+function pasteSelectedSlides(position = 'after') {
+  if (!slideClipboard || slideClipboard.items.length === 0) {
+    showToast("Clipboard is empty. Select a slide and press Ctrl+X (Cut) or Ctrl+C (Copy) first.");
+    return;
+  }
+  let targetIdx = lastSelectedSlideIndex !== null ? lastSelectedSlideIndex : (appData.atlas.length - 1);
+  let insertAt = position === 'before' ? targetIdx : targetIdx + 1;
+
+  if (slideClipboard.mode === 'cut') {
+    const cutSet = new Set(slideClipboard.indices);
+    // Adjust insertAt by counting how many cut items were strictly before insertAt
+    let shift = 0;
+    for (const ci of slideClipboard.indices) {
+      if (ci < insertAt) shift++;
+    }
+    const remaining = appData.atlas.filter((_, idx) => !cutSet.has(idx));
+    const adjustedInsertAt = Math.max(0, Math.min(remaining.length, insertAt - shift));
+    const movedItems = slideClipboard.items;
+    remaining.splice(adjustedInsertAt, 0, ...movedItems);
+    appData.atlas = remaining;
+
+    selectedSlideIndices.clear();
+    for (let k = 0; k < movedItems.length; k++) {
+      selectedSlideIndices.add(adjustedInsertAt + k);
+    }
+    lastSelectedSlideIndex = adjustedInsertAt;
+    slideClipboard = null;
+    reorderCount += movedItems.length;
+    showToast(`📥 Moved ${movedItems.length} slide(s)! Click "🔒 Lock & Save Order" to save.`);
+  } else {
+    const copiedItems = slideClipboard.items.map(item => JSON.parse(JSON.stringify(item)));
+    appData.atlas.splice(insertAt, 0, ...copiedItems);
+    selectedSlideIndices.clear();
+    for (let k = 0; k < copiedItems.length; k++) {
+      selectedSlideIndices.add(insertAt + k);
+    }
+    lastSelectedSlideIndex = insertAt;
+    reorderCount += copiedItems.length;
+    showToast(`📥 Pasted ${copiedItems.length} slide copy(ies)! Click "🔒 Lock & Save Order" to save.`);
+  }
+
+  document.getElementById('sorterMoveCountBadge').innerText = `⚠️ ${reorderCount} Unsaved Move(s) — Click Lock & Save Order`;
+  document.getElementById('sorterMoveCountBadge').className = 'badge badge-amber';
+  renderSlideSorter();
+}
+
+document.addEventListener('keydown', (e) => {
+  const sorterPanel = document.getElementById('atlas-panel-sorter');
+  if (!sorterPanel || !sorterPanel.classList.contains('active')) return;
+  const activeTag = document.activeElement ? document.activeElement.tagName.toLowerCase() : '';
+  if (activeTag === 'input' || activeTag === 'textarea') return;
+
+  if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'x') {
+    e.preventDefault();
+    cutSelectedSlides();
+  } else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'c') {
+    e.preventDefault();
+    copySelectedSlides();
+  } else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'v') {
+    e.preventDefault();
+    pasteSelectedSlides('after');
+  }
+});
 
 function setSlideSize(size) {
   document.documentElement.style.setProperty('--slide-size', size + 'px');
@@ -5629,7 +5759,7 @@ function renderSlideSorter() {
   let lastDomain = null;
 
   filtered.forEach((p, displayIndex) => {
-    const actualIndex = appData.atlas.findIndex(x => x.plate_num === p.plate_num);
+    const actualIndex = appData.atlas.indexOf(p);
 
     // Section Dividers when viewing presentation flow without search filter
     if (currentSorterFilter === 'all' && !search && p.domain !== lastDomain) {
@@ -5651,9 +5781,16 @@ function renderSlideSorter() {
 
     const tile = document.createElement('div');
     tile.className = 'slide-tile';
+    if (selectedSlideIndices.has(actualIndex)) tile.classList.add('selected');
+    if (slideClipboard && slideClipboard.mode === 'cut' && slideClipboard.indices.includes(actualIndex)) tile.classList.add('cut-pending');
     tile.draggable = true;
     tile.dataset.plateNum = p.plate_num;
-    tile.id = `slide-tile-${p.plate_num}`;
+    tile.dataset.actualIndex = actualIndex;
+    tile.id = `slide-tile-${actualIndex}`;
+    tile.onclick = (e) => {
+      if (e.target.tagName.toLowerCase() === 'button') return;
+      selectSlideTile(actualIndex, e);
+    };
 
     const domainBadge = p.domain === 'Cranial'
       ? '<span class="badge badge-cyan" style="font-size:9px; padding:1px 4px;">Cranial</span>'
@@ -5666,7 +5803,7 @@ function renderSlideSorter() {
         <span style="font-size:10px; font-weight:900; color:#00e5ff;">#${actualIndex + 1}</span>
         ${domainBadge}
       </div>
-      <div class="slide-thumb" onclick="openLightbox('${p.image_file}', 'Plate ${p.plate_num}: ${p.title.replace(/'/g, "\'") }')">
+      <div class="slide-thumb" ondblclick="openLightbox('${p.image_file}', 'Plate ${p.plate_num}: ${p.title.replace(/'/g, "\'") }')">
         <img src="${p.image_file}" alt="Plate ${p.plate_num}" loading="lazy">
         <span class="slide-badge-seq">#${actualIndex + 1}</span>
         <span class="slide-badge-orig">P-${p.plate_num}</span>

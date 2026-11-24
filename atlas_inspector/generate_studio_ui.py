@@ -829,6 +829,15 @@ html_template = f"""<!DOCTYPE html>
     box-shadow: 0 4px 16px rgba(0,229,255,0.25);
   }}
   .slide-tile.dragging {{ opacity: 0.4; cursor: grabbing; }}
+  .slide-tile.selected {{
+    border: 2.5px solid #ffb300;
+    background: #172033;
+    box-shadow: 0 0 14px rgba(255, 179, 0, 0.45);
+  }}
+  .slide-tile.cut-pending {{
+    opacity: 0.45;
+    border: 2px dashed #f43f5e;
+  }}
   .slide-tile.drag-over-before {{ border-left: 4px solid var(--accent-cyan); }}
   .slide-tile.drag-over-after {{ border-right: 4px solid var(--accent-cyan); }}
   .slide-thumb {{
@@ -956,11 +965,14 @@ html_template = f"""<!DOCTYPE html>
       </div>
 
       <span id="sorterMoveCountBadge" class="badge badge-cyan" style="margin-left:auto;">108 Slides • Order Locked</span>
+      <button class="pill-filter" style="border-color:#ffb300; color:#ffb300;" onclick="cutSelectedSlides()" title="Cut selected slides (Ctrl+X)">✂️ Cut</button>
+      <button class="pill-filter" style="border-color:#00e5ff; color:#00e5ff;" onclick="copySelectedSlides()" title="Copy selected slides (Ctrl+C)">📋 Copy</button>
+      <button class="pill-filter" id="paste-slides-btn" style="border-color:#a855f7; color:#c084fc;" onclick="pasteSelectedSlides('after')" title="Paste after selected slide (Ctrl+V)">📥 Paste</button>
       <button class="pill-filter" style="border-color:#f43f5e; color:#f43f5e;" onclick="resetSlideOrder()">🔄 Reset Order</button>
       <button class="save-btn" id="save-order-btn" style="background: linear-gradient(135deg, #10b981, #059669); color: #fff; font-weight: 800; padding: 7px 14px; border: 1px solid #34d399; box-shadow: 0 0 12px rgba(16,185,129,0.35);" onclick="saveSlideOrderToSwift()">🔒 Lock &amp; Save Order</button>
     </div>
     <div style="font-size:12px; color:#94a3b8; background:#0c111c; padding:8px 14px; border-radius:8px; border:1px solid #1f283d;">
-      💡 <strong>Drag-and-Drop Reordering:</strong> Click and drag any slide thumbnail with the mouse to move it anywhere in the sequence. Visual insertion markers show exact landing spot.
+      💡 <strong>PowerPoint Slide Sorter Controls:</strong> <strong>Click</strong> to select (<strong>Ctrl+Click</strong> multi-select, <strong>Shift+Click</strong> range), <strong>Ctrl+X</strong> (Cut) / <strong>Ctrl+C</strong> (Copy) / <strong>Ctrl+V</strong> (Paste after target), or <strong>Drag &amp; Drop</strong>. <strong>Double-click</strong> thumbnail to zoom. Click <strong>🔒 Lock &amp; Save Order</strong> when done.
     </div>
     <div id="slideSorterGrid" class="slide-sorter-grid"></div>
   </div>
@@ -1208,6 +1220,124 @@ function switchConsultSubTab(tabId) {{
 let currentSorterFilter = 'all';
 let draggedPlateNum = null;
 let reorderCount = 0;
+let selectedSlideIndices = new Set();
+let lastSelectedSlideIndex = null;
+let slideClipboard = null; // {{ mode: 'cut' | 'copy', indices: [...], items: [...] }}
+
+function selectSlideTile(actualIndex, e) {{
+  if (e && (e.ctrlKey || e.metaKey)) {{
+    if (selectedSlideIndices.has(actualIndex)) {{
+      selectedSlideIndices.delete(actualIndex);
+    }} else {{
+      selectedSlideIndices.add(actualIndex);
+    }}
+    lastSelectedSlideIndex = actualIndex;
+  }} else if (e && e.shiftKey && lastSelectedSlideIndex !== null) {{
+    const start = Math.min(lastSelectedSlideIndex, actualIndex);
+    const end = Math.max(lastSelectedSlideIndex, actualIndex);
+    selectedSlideIndices.clear();
+    for (let k = start; k <= end; k++) selectedSlideIndices.add(k);
+  }} else {{
+    selectedSlideIndices.clear();
+    selectedSlideIndices.add(actualIndex);
+    lastSelectedSlideIndex = actualIndex;
+  }}
+  renderSlideSorter();
+}}
+
+function cutSelectedSlides() {{
+  if (selectedSlideIndices.size === 0) {{
+    showToast("Select one or more slides first (Click / Ctrl+Click / Shift+Click).");
+    return;
+  }}
+  const indices = Array.from(selectedSlideIndices).sort((a, b) => a - b);
+  slideClipboard = {{
+    mode: 'cut',
+    indices: indices,
+    items: indices.map(i => appData.atlas[i])
+  }};
+  showToast(`✂️ Cut ${{indices.length}} slide(s) to clipboard. Click target slide and press Ctrl+V (or Paste).`);
+  renderSlideSorter();
+}}
+
+function copySelectedSlides() {{
+  if (selectedSlideIndices.size === 0) {{
+    showToast("Select one or more slides first (Click / Ctrl+Click / Shift+Click).");
+    return;
+  }}
+  const indices = Array.from(selectedSlideIndices).sort((a, b) => a - b);
+  slideClipboard = {{
+    mode: 'copy',
+    indices: indices,
+    items: indices.map(i => JSON.parse(JSON.stringify(appData.atlas[i])))
+  }};
+  showToast(`📋 Copied ${{indices.length}} slide(s) to clipboard. Click target slide and press Ctrl+V (or Paste).`);
+  renderSlideSorter();
+}}
+
+function pasteSelectedSlides(position = 'after') {{
+  if (!slideClipboard || slideClipboard.items.length === 0) {{
+    showToast("Clipboard is empty. Select a slide and press Ctrl+X (Cut) or Ctrl+C (Copy) first.");
+    return;
+  }}
+  let targetIdx = lastSelectedSlideIndex !== null ? lastSelectedSlideIndex : (appData.atlas.length - 1);
+  let insertAt = position === 'before' ? targetIdx : targetIdx + 1;
+
+  if (slideClipboard.mode === 'cut') {{
+    const cutSet = new Set(slideClipboard.indices);
+    // Adjust insertAt by counting how many cut items were strictly before insertAt
+    let shift = 0;
+    for (const ci of slideClipboard.indices) {{
+      if (ci < insertAt) shift++;
+    }}
+    const remaining = appData.atlas.filter((_, idx) => !cutSet.has(idx));
+    const adjustedInsertAt = Math.max(0, Math.min(remaining.length, insertAt - shift));
+    const movedItems = slideClipboard.items;
+    remaining.splice(adjustedInsertAt, 0, ...movedItems);
+    appData.atlas = remaining;
+
+    selectedSlideIndices.clear();
+    for (let k = 0; k < movedItems.length; k++) {{
+      selectedSlideIndices.add(adjustedInsertAt + k);
+    }}
+    lastSelectedSlideIndex = adjustedInsertAt;
+    slideClipboard = null;
+    reorderCount += movedItems.length;
+    showToast(`📥 Moved ${{movedItems.length}} slide(s)! Click "🔒 Lock & Save Order" to save.`);
+  }} else {{
+    const copiedItems = slideClipboard.items.map(item => JSON.parse(JSON.stringify(item)));
+    appData.atlas.splice(insertAt, 0, ...copiedItems);
+    selectedSlideIndices.clear();
+    for (let k = 0; k < copiedItems.length; k++) {{
+      selectedSlideIndices.add(insertAt + k);
+    }}
+    lastSelectedSlideIndex = insertAt;
+    reorderCount += copiedItems.length;
+    showToast(`📥 Pasted ${{copiedItems.length}} slide copy(ies)! Click "🔒 Lock & Save Order" to save.`);
+  }}
+
+  document.getElementById('sorterMoveCountBadge').innerText = `⚠️ ${{reorderCount}} Unsaved Move(s) — Click Lock & Save Order`;
+  document.getElementById('sorterMoveCountBadge').className = 'badge badge-amber';
+  renderSlideSorter();
+}}
+
+document.addEventListener('keydown', (e) => {{
+  const sorterPanel = document.getElementById('atlas-panel-sorter');
+  if (!sorterPanel || !sorterPanel.classList.contains('active')) return;
+  const activeTag = document.activeElement ? document.activeElement.tagName.toLowerCase() : '';
+  if (activeTag === 'input' || activeTag === 'textarea') return;
+
+  if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'x') {{
+    e.preventDefault();
+    cutSelectedSlides();
+  }} else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'c') {{
+    e.preventDefault();
+    copySelectedSlides();
+  }} else if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'v') {{
+    e.preventDefault();
+    pasteSelectedSlides('after');
+  }}
+}});
 
 function setSlideSize(size) {{
   document.documentElement.style.setProperty('--slide-size', size + 'px');
@@ -1250,7 +1380,7 @@ function renderSlideSorter() {{
   let lastDomain = null;
 
   filtered.forEach((p, displayIndex) => {{
-    const actualIndex = appData.atlas.findIndex(x => x.plate_num === p.plate_num);
+    const actualIndex = appData.atlas.indexOf(p);
 
     // Section Dividers when viewing presentation flow without search filter
     if (currentSorterFilter === 'all' && !search && p.domain !== lastDomain) {{
@@ -1272,9 +1402,16 @@ function renderSlideSorter() {{
 
     const tile = document.createElement('div');
     tile.className = 'slide-tile';
+    if (selectedSlideIndices.has(actualIndex)) tile.classList.add('selected');
+    if (slideClipboard && slideClipboard.mode === 'cut' && slideClipboard.indices.includes(actualIndex)) tile.classList.add('cut-pending');
     tile.draggable = true;
     tile.dataset.plateNum = p.plate_num;
-    tile.id = `slide-tile-${{p.plate_num}}`;
+    tile.dataset.actualIndex = actualIndex;
+    tile.id = `slide-tile-${{actualIndex}}`;
+    tile.onclick = (e) => {{
+      if (e.target.tagName.toLowerCase() === 'button') return;
+      selectSlideTile(actualIndex, e);
+    }};
 
     const domainBadge = p.domain === 'Cranial'
       ? '<span class="badge badge-cyan" style="font-size:9px; padding:1px 4px;">Cranial</span>'
@@ -1287,7 +1424,7 @@ function renderSlideSorter() {{
         <span style="font-size:10px; font-weight:900; color:#00e5ff;">#${{actualIndex + 1}}</span>
         ${{domainBadge}}
       </div>
-      <div class="slide-thumb" onclick="openLightbox('${{p.image_file}}', 'Plate ${{p.plate_num}}: ${{p.title.replace(/'/g, "\\'") }}')">
+      <div class="slide-thumb" ondblclick="openLightbox('${{p.image_file}}', 'Plate ${{p.plate_num}}: ${{p.title.replace(/'/g, "\\'") }}')">
         <img src="${{p.image_file}}" alt="Plate ${{p.plate_num}}" loading="lazy">
         <span class="slide-badge-seq">#${{actualIndex + 1}}</span>
         <span class="slide-badge-orig">P-${{p.plate_num}}</span>
