@@ -279,7 +279,7 @@
 
   <!-- 1A. PowerPoint Slide Sorter View -->
   <div id="atlas-panel-sorter" class="sub-content-panel active">
-    <div class="filter-bar" style="flex-wrap: wrap; gap: 8px;">
+    <div class="filter-bar" style="flex-wrap: wrap; gap: 8px; position: sticky; top: 0; z-index: 40; background: #0c111c; padding: 10px 12px; border-radius: 10px; border: 1px solid #1e293b; box-shadow: 0 8px 24px rgba(0,0,0,0.6);">
       <input type="text" id="sorterSearch" class="edit-input" style="max-width: 200px;" placeholder="Filter slides..." oninput="renderSlideSorter()">
       <button class="pill-filter active" id="filter-sorter-all" onclick="filterSorter('all')">All (108)</button>
       <button class="pill-filter" id="filter-sorter-cranial" onclick="filterSorter('Cranial')">🧠 Cranial (46)</button>
@@ -297,9 +297,9 @@
         <button class="pill-filter" id="preset-large" style="padding:1px 5px; font-size:9px;" onclick="setSlideSize(200)">Large</button>
       </div>
 
-      <span id="sorterMoveCountBadge" class="badge badge-cyan" style="margin-left:auto;">106 Slides Ready</span>
+      <span id="sorterMoveCountBadge" class="badge badge-cyan" style="margin-left:auto;">108 Slides • Order Locked</span>
       <button class="pill-filter" style="border-color:#f43f5e; color:#f43f5e;" onclick="resetSlideOrder()">🔄 Reset Order</button>
-      <button class="save-btn" id="save-order-btn" onclick="saveSlideOrderToSwift()">💾 Save Plate Order to Swift</button>
+      <button class="save-btn" id="save-order-btn" style="background: linear-gradient(135deg, #10b981, #059669); color: #fff; font-weight: 800; padding: 7px 14px; border: 1px solid #34d399; box-shadow: 0 0 12px rgba(16,185,129,0.35);" onclick="saveSlideOrderToSwift()">🔒 Lock &amp; Save Order</button>
     </div>
     <div style="font-size:12px; color:#94a3b8; background:#0c111c; padding:8px 14px; border-radius:8px; border:1px solid #1f283d;">
       💡 <strong>Drag-and-Drop Reordering:</strong> Click and drag any slide thumbnail with the mouse to move it anywhere in the sequence. Visual insertion markers show exact landing spot.
@@ -5708,10 +5708,11 @@ function renderSlideSorter() {
     tile.addEventListener('drop', (e) => {
       e.preventDefault();
       tile.classList.remove('drag-over-before', 'drag-over-after');
+      const srcNum = e.dataTransfer.getData('text/plain') || draggedPlateNum;
       const targetPlateNum = p.plate_num;
-      if (!draggedPlateNum || draggedPlateNum === targetPlateNum) return;
+      if (!srcNum || srcNum === targetPlateNum) return;
 
-      const fromIdx = appData.atlas.findIndex(x => x.plate_num === draggedPlateNum);
+      const fromIdx = appData.atlas.findIndex(x => x.plate_num === srcNum);
       const toIdx = appData.atlas.findIndex(x => x.plate_num === targetPlateNum);
       if (fromIdx === -1 || toIdx === -1) return;
 
@@ -5724,9 +5725,9 @@ function renderSlideSorter() {
       appData.atlas.splice(finalIdx, 0, movedItem);
 
       reorderCount++;
-      document.getElementById('sorterMoveCountBadge').innerText = `${reorderCount} Move(s) Made • New Order Ready`;
+      document.getElementById('sorterMoveCountBadge').innerText = `⚠️ ${reorderCount} Unsaved Move(s) — Click Lock & Save Order`;
       document.getElementById('sorterMoveCountBadge').className = 'badge badge-amber';
-      showToast(`Moved Plate ${draggedPlateNum} to position #${finalIdx + 1}!`);
+      showToast(`Moved Plate ${srcNum} to position #${finalIdx + 1}! Click "Lock & Save Order" to save.`);
 
       renderSlideSorter();
     });
@@ -5756,7 +5757,7 @@ function resetSlideOrder() {
 async function saveSlideOrderToSwift() {
   const orderedNums = appData.atlas.map(p => p.plate_num);
   const btn = document.getElementById('save-order-btn');
-  btn.innerText = "⏳ Saving Order...";
+  btn.innerText = "⏳ Locking & Saving Order...";
 
   try {
     const res = await fetch("/api/save-plate-order", {
@@ -5766,11 +5767,14 @@ async function saveSlideOrderToSwift() {
     });
     const data = await res.json();
     if (data.status === "ok") {
-      btn.innerText = "✓ Plate Order Saved!";
+      reorderCount = 0;
+      document.getElementById('sorterMoveCountBadge').innerText = `🔒 Order Locked & Saved (${orderedNums.length} Plates)`;
+      document.getElementById('sorterMoveCountBadge').className = 'badge badge-cyan';
+      btn.innerText = "✓ Order Locked & Saved!";
       btn.classList.add("saved");
-      showToast(`Custom order of all 106 plates saved successfully!`);
+      showToast(`Locked & saved custom order of all ${orderedNums.length} plates to disk & Swift!`);
       setTimeout(() => {
-        btn.innerText = "💾 Save Plate Reorder to Swift";
+        btn.innerText = "🔒 Lock & Save Order";
         btn.classList.remove("saved");
       }, 3000);
     } else {

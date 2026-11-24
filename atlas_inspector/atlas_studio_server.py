@@ -4,6 +4,7 @@ import json
 import re
 import os
 import sys
+import subprocess
 
 PORT = 8085
 BASE_DIR = r"C:\Users\mohal\Documents\antigravity\Radix\atlas_inspector"
@@ -371,7 +372,31 @@ class FullAppStudioHandler(http.server.SimpleHTTPRequestHandler):
                 order_path = os.path.join(BASE_DIR, "plate_order.json")
                 with open(order_path, "w", encoding="utf-8") as f:
                     json.dump({"order": ordered_nums, "count": len(ordered_nums)}, f, indent=2)
-                print(f"[Studio] Saved custom plate order ({len(ordered_nums)} plates) to {order_path}")
+                
+                # Update Swift allOrderedPlates directly so Swift side-to-side flow matches 100%
+                with open(SWIFT_PATHS["atlas_view"], "r", encoding="utf-8") as f:
+                    view_code = f.read()
+                swift_list = ", ".join([f".plate{str(n).zfill(3)}" for n in ordered_nums])
+                new_block = f"""    // MARK: - Custom Saved Presentation Order
+    private var allOrderedPlates: [SurgicalPlateType] {{
+        return [{swift_list}]
+    }}
+    // MARK: - End Custom Saved Presentation Order"""
+                view_code_new, n_rep = re.subn(
+                    r"    // MARK: - Custom Saved Presentation Order.*?// MARK: - End Custom Saved Presentation Order",
+                    new_block,
+                    view_code,
+                    flags=re.DOTALL
+                )
+                if n_rep > 0:
+                    with open(SWIFT_PATHS["atlas_view"], "w", encoding="utf-8") as f:
+                        f.write(view_code_new)
+                    print(f"[Studio] Locked custom order ({len(ordered_nums)} plates) into PhotorealisticSurgicalAtlasView.swift")
+
+                # Regenerate index.html so browser reload preserves the exact saved order
+                gen_script = os.path.join(BASE_DIR, "generate_studio_ui.py")
+                subprocess.run([sys.executable, gen_script], check=True)
+                print(f"[Studio] Regenerated index.html with locked plate order ({len(ordered_nums)} plates)")
                 res = {"status": "ok", "section": "plate-order", "count": len(ordered_nums)}
 
             else:
