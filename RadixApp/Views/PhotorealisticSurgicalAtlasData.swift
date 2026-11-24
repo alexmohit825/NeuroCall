@@ -395,7 +395,7 @@ extension SurgicalPlateType {
                     structureType: "RIGID CRANIAL STABILIZATION",
                     color: ObsidianTheme.neonRose,
                     normalizedX: 0.200,
-                    normalizedY: 0.400,
+                    normalizedY: 0.560,
                     description: "MILITARY CHIN-TUCK SETUP: Single anterior pin and dual posterior rocker pins, with neck flexed maintaining 2-finger jugular clearance.",
                     surgicalPearl: "Maintain >= 2 fingerbreadths between chin and sternum; excessive flexion compresses internal jugular veins, causing venous infarction."
                 ),
@@ -405,7 +405,7 @@ extension SurgicalPlateType {
                     structureType: "SURFACE OSTEOLOGICAL LANDMARK",
                     color: ObsidianTheme.neonAmber,
                     normalizedX: 0.520,
-                    normalizedY: 0.420,
+                    normalizedY: 0.588,
                     description: "SURFACE SUTURE CONFLUENCE: Junction of lambdoid, parietomastoid, and occipitomastoid sutures overlying the transverse-sigmoid angle.",
                     surgicalPearl: "Asterion overlies transverse-sigmoid junction in only 60% of cases; in 40% it sits directly over transverse sinus. Always drill inferior-medial."
                 ),
@@ -415,7 +415,7 @@ extension SurgicalPlateType {
                     structureType: "VITAL VENOUS SINUS CORRIDOR",
                     color: ObsidianTheme.neonCyan,
                     normalizedX: 0.650,
-                    normalizedY: 0.350,
+                    normalizedY: 0.490,
                     description: "VENOUS ANGLE BOUNDARY: Blue dural sinuses showing horizontal transverse sinus turning into descending sigmoid sinus behind mastoid.",
                     surgicalPearl: "Expose the inferior edge of transverse and posterior edge of sigmoid sinus to maximize viewing angle without sinus laceration."
                 ),
@@ -425,7 +425,7 @@ extension SurgicalPlateType {
                     structureType: "PLANNED CRANIECTOMY WINDOW",
                     color: ObsidianTheme.neonEmerald,
                     normalizedX: 0.600,
-                    normalizedY: 0.550,
+                    normalizedY: 0.769,
                     description: "KEYHOLE BURR HOLE: Initial burr hole placed 5 mm inferior-medial to asterion, opening directly into posterior fossa with zero sinus tear.",
                     surgicalPearl: "Drill initial burr hole strictly inferior-medial to asterion; dissect dura carefully off bone before expanding craniectomy rim."
                 )
@@ -663,7 +663,7 @@ case .plate011:
                     structureType: "SURFACE OSTEOLOGICAL TARGET",
                     color: ObsidianTheme.neonAmber,
                     normalizedX: 0.191,
-                    normalizedY: 0.296,
+                    normalizedY: 0.414,
                     description: "SUTURE INTERSECTION: Confluence of lambdoid, parietomastoid, and occipitomastoid sutures marking lateral posterior fossa entrance.",
                     surgicalPearl: "Asterion overlies transverse-sigmoid junction in 60% of skulls; in 40% it sits on transverse sinus. Place burr hole 5 mm inferior-medial."
                 ),
@@ -673,7 +673,7 @@ case .plate011:
                     structureType: "CRANIAL KEYHOLE DEFECT",
                     color: ObsidianTheme.neonRose,
                     normalizedX: 0.496,
-                    normalizedY: 0.399,
+                    normalizedY: 0.558,
                     description: "SURGICAL BONE WINDOW: Beveled 2.5-3.0 cm craniectomy defect exposing posterior fossa dura immediately behind the sigmoid sinus.",
                     surgicalPearl: "Wax any exposed mastoid air cells immediately with bone wax to eliminate postoperative CSF rhinorrhea via eustachian tube."
                 )

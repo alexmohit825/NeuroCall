@@ -374,30 +374,6 @@ struct AtlasCardContainer: View {
                     .cornerRadius(10)
                 }
             }
-            
-            // Attending Pimping Pearls Banner
-            VStack(alignment: .leading, spacing: 8) {
-                HStack(spacing: 6) {
-                    Image(systemName: "lightbulb.fill")
-                        .foregroundColor(.orange)
-                    Text("ROUNDING PEARLS & ATTENDING PIMPING QUESTIONS:")
-                        .font(.system(size: 10, weight: .black))
-                        .foregroundColor(.orange)
-                }
-                
-                ForEach(pimpingPearls, id: \.self) { pearl in
-                    HStack(alignment: .top, spacing: 6) {
-                        Text("•")
-                            .font(.system(size: 14, weight: .bold))
-                            .foregroundColor(.orange)
-                        Text(pearl)
-                            .font(.system(size: 11, weight: .medium))
-                            .foregroundColor(Color(red: 0.2, green: 0.25, blue: 0.35))
-                    }
-                }
-            }
-            .padding(12)
-            .background(RoundedRectangle(cornerRadius: 12).fill(Color.orange.opacity(0.08)))
         }
         .padding(18)
         .background(Color.white)

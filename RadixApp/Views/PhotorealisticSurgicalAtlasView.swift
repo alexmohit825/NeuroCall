@@ -6,7 +6,7 @@ import SwiftUI
 // Deep micro-zoom (1.0x to 4.0x), interactive pinned callouts, danger zone overlays, and tactical protocols.
 
 public struct PhotorealisticSurgicalAtlasView: View {
-    @State private var selectedDomain: AtlasDomain = .master
+    @State private var selectedDomain: AtlasDomain = .cranial
     @State private var selectedSubSection: AtlasSubSection? = nil
     @State private var selectedPlate: SurgicalPlateType = .plate096
     @State private var zoomScale: CGFloat = 1.0
@@ -19,6 +19,10 @@ public struct PhotorealisticSurgicalAtlasView: View {
     
     public init() {}
     
+    private var allOrderedPlates: [SurgicalPlateType] {
+        AtlasDomain.allCases.flatMap { $0.plates }
+    }
+    
     private var currentFilteredPlates: [SurgicalPlateType] {
         if let sub = selectedSubSection {
             return sub.plates
@@ -28,16 +32,21 @@ public struct PhotorealisticSurgicalAtlasView: View {
     }
     
     private func selectAdjacentPlate(direction: Int) {
-        let plates = currentFilteredPlates
+        let plates = allOrderedPlates
         guard !plates.isEmpty, let idx = plates.firstIndex(of: selectedPlate) else { return }
         let nextIdx = (idx + direction + plates.count) % plates.count
+        let nextPlate = plates[nextIdx]
         HapticManager.impact(style: .light)
         withAnimation(.easeInOut(duration: 0.22)) {
-            selectedPlate = plates[nextIdx]
+            selectedPlate = nextPlate
+            selectedDomain = nextPlate.domain
+            if selectedSubSection != nil {
+                selectedSubSection = nextPlate.subSection
+            }
             zoomScale = 1.0
             dragOffset = .zero
             lastDragOffset = .zero
-            selectedCallout = plates[nextIdx].callouts.first
+            selectedCallout = nextPlate.callouts.first
         }
     }
     
@@ -141,8 +150,8 @@ public struct PhotorealisticSurgicalAtlasView: View {
                         .foregroundColor(ObsidianTheme.neonAmber)
                 }
                 Spacer()
-                if let idx = currentFilteredPlates.firstIndex(of: selectedPlate) {
-                    Text("\(selectedPlate.domain.shortTitle) • \(idx + 1)/\(currentFilteredPlates.count) ◀ ▶")
+                if let idx = allOrderedPlates.firstIndex(of: selectedPlate) {
+                    Text("\(selectedPlate.domain.shortTitle) • \(idx + 1)/\(allOrderedPlates.count) ◀ ▶")
                         .font(.system(size: 10, weight: .bold, design: .monospaced))
                         .foregroundColor(ObsidianTheme.neonCyan)
                         .padding(.horizontal, 8)
@@ -221,7 +230,7 @@ public struct PhotorealisticSurgicalAtlasView: View {
                         HStack(spacing: 5) {
                             Image(systemName: "square.grid.2x2.fill")
                                 .font(.system(size: 10, weight: .bold))
-                            Text("All \(selectedDomain == .cranial ? "Cranial" : "Spine") (\(selectedDomain.plateCount))")
+                            Text("All \(selectedDomain == .cranial ? "Cranial" : (selectedDomain == .spine ? "Spine" : "Pediatric")) (\(selectedDomain.plateCount))")
                                 .font(.system(size: 11, weight: .bold))
                         }
                         .padding(.horizontal, 12)
@@ -340,8 +349,8 @@ public struct PhotorealisticSurgicalAtlasView: View {
             }
             
             VStack(spacing: 2) {
-                if let idx = currentFilteredPlates.firstIndex(of: selectedPlate) {
-                    Text("PLATE \(idx + 1) OF \(currentFilteredPlates.count)")
+                if let idx = allOrderedPlates.firstIndex(of: selectedPlate) {
+                    Text("PLATE \(idx + 1) OF \(allOrderedPlates.count)")
                         .font(.system(size: 12, weight: .black, design: .monospaced))
                         .foregroundColor(ObsidianTheme.textPrimary)
                 }
@@ -374,7 +383,7 @@ public struct PhotorealisticSurgicalAtlasView: View {
         HStack {
             VStack(alignment: .leading, spacing: 2) {
                 HStack(spacing: 4) {
-                    Text(selectedPlate.domain == .cranial ? "CRANIAL" : "SPINE")
+                    Text(selectedPlate.domain.shortTitle)
                         .font(.system(size: 8, weight: .black))
                         .foregroundColor(ObsidianTheme.neonAmber)
                     Text("•")
@@ -556,16 +565,6 @@ public struct PhotorealisticSurgicalAtlasView: View {
                 .font(.system(size: 12, weight: .regular))
                 .foregroundColor(ObsidianTheme.textSecondary)
                 .lineSpacing(2)
-            
-            HStack(spacing: 4) {
-                Image(systemName: "bolt.shield.fill")
-                    .font(.system(size: 10))
-                    .foregroundColor(ObsidianTheme.neonAmber)
-                Text("SURGICAL PEARL: " + callout.surgicalPearl)
-                    .font(.system(size: 11, weight: .semibold))
-                    .foregroundColor(ObsidianTheme.neonAmber)
-            }
-            .padding(.top, 2)
         }
         .padding(12)
         .background(ObsidianTheme.surfaceElevated)
@@ -649,16 +648,14 @@ public struct PhotorealisticSurgicalAtlasView: View {
 
 // MARK: - Data Models
 public enum AtlasDomain: String, CaseIterable, Identifiable {
-    case master = "🌟 ATLAS MASTER (1)"
-    case cranial = "🧠 CRANIAL & SKULL BASE (45)"
-    case spine = "🦴 SPINE & CVJ (55)"
+    case cranial = "🧠 CRANIAL & SKULL BASE (46)"
+    case spine = "🦴 SPINE & CVJ (57)"
     case pediatric = "👶 PEDIATRIC NEUROSURGERY (5)"
     
     public var id: String { rawValue }
     
     public var shortTitle: String {
         switch self {
-        case .master: return "🌟 ATLAS"
         case .cranial: return "🧠 CRANIAL"
         case .spine: return "🦴 SPINE"
         case .pediatric: return "👶 PEDIATRIC"
@@ -671,8 +668,6 @@ public enum AtlasDomain: String, CaseIterable, Identifiable {
     
     public var subSections: [AtlasSubSection] {
         switch self {
-        case .master:
-            return [.masterCorridors]
         case .cranial:
             return [.anteriorSkullBase, .convexityTrauma, .posteriorFossa, .vascularVentricular]
         case .spine:
@@ -688,10 +683,7 @@ public enum AtlasDomain: String, CaseIterable, Identifiable {
 }
 
 public enum AtlasSubSection: String, CaseIterable, Identifiable {
-    // Atlas Master (1 sub-section)
-    case masterCorridors = "360° Master Corridors"
-
-    // Cranial (4 sub-sections)
+    // Cranial (4 sub-sections, Master 096 is #1 in Anterior Skull Base)
     case anteriorSkullBase = "Anterior Skull Base"
     case convexityTrauma = "Convexity & Trauma"
     case posteriorFossa = "Posterior Fossa"
@@ -712,8 +704,6 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
     
     public var domain: AtlasDomain {
         switch self {
-        case .masterCorridors:
-            return .master
         case .anteriorSkullBase, .convexityTrauma, .posteriorFossa, .vascularVentricular:
             return .cranial
         case .craniovertebral, .cervical, .thoracicOncology, .lumbarMIS, .deformitySalvage, .peripheralNerve:
@@ -725,7 +715,6 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
     
     public var iconName: String {
         switch self {
-        case .masterCorridors: return "star.circle.fill"
         case .anteriorSkullBase: return "eye.circle.fill"
         case .convexityTrauma: return "brain.head.profile"
         case .posteriorFossa: return "circle.grid.cross.fill"
@@ -742,10 +731,8 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
     
     public var plates: [SurgicalPlateType] {
         switch self {
-        case .masterCorridors:
-            return [.plate096]
         case .anteriorSkullBase:
-            return [.plate017, .plate009, .plate012, .plate008, .plate005, .plate033, .plate030, .plate055, .plate059, .plate066, .plate074, .plate084]
+            return [.plate096, .plate017, .plate009, .plate012, .plate008, .plate005, .plate033, .plate030, .plate055, .plate059, .plate066, .plate074, .plate084]
         case .convexityTrauma:
             return [.plate018, .plate016, .plate019, .plate021, .plate025, .plate045, .plate069, .plate070]
         case .posteriorFossa:
@@ -755,7 +742,7 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
         case .craniovertebral:
             return [.plate001, .plate013, .plate014, .plate035, .plate047, .plate049, .plate088, .plate097]
         case .cervical:
-            return [.plate015, .plate031, .plate034, .plate042, .plate044, .plate050, .plate064, .plate076, .plate080, .plate091, .plate098]
+            return [.plate015, .plate107, .plate108, .plate031, .plate034, .plate042, .plate044, .plate050, .plate064, .plate076, .plate080, .plate091, .plate098]
         case .thoracicOncology:
             return [.plate026, .plate036, .plate038, .plate048, .plate054, .plate058, .plate068, .plate072, .plate073, .plate078, .plate085, .plate094, .plate103]
         case .lumbarMIS:
@@ -771,18 +758,15 @@ public enum AtlasSubSection: String, CaseIterable, Identifiable {
 }
 
 public enum AtlasCategory: String, CaseIterable {
-    case all = "All Plates (106)"
-    case master = "NeuroCall Atlas (1)"
-    case cranial = "Cranial & Skull Base (45)"
-    case spine = "Spine & CVJ (55)"
+    case all = "All Plates (108)"
+    case cranial = "Cranial & Skull Base (46)"
+    case spine = "Spine & CVJ (57)"
     case pediatric = "Pediatric Neurosurgery (5)"
 
     public var filteredPlates: [SurgicalPlateType] {
         switch self {
         case .all:
-            return AtlasDomain.master.plates + AtlasDomain.cranial.plates + AtlasDomain.spine.plates + AtlasDomain.pediatric.plates
-        case .master:
-            return AtlasDomain.master.plates
+            return AtlasDomain.cranial.plates + AtlasDomain.spine.plates + AtlasDomain.pediatric.plates
         case .cranial:
             return AtlasDomain.cranial.plates
         case .spine:
@@ -899,6 +883,8 @@ public enum SurgicalPlateType: String, CaseIterable {
     case plate104 = "plate_104_proximal_junctional_failure_revision"
     case plate105 = "plate_105_split_cord_malformation_spur_resection"
     case plate106 = "plate_106_minimally_invasive_si_joint_arthrodesis"
+    case plate107 = "plate_107_acdf_discectomy_foraminotomy"
+    case plate108 = "plate_108_acdf_interbody_plating"
 
     public var subSection: AtlasSubSection {
         for section in AtlasSubSection.allCases {
@@ -1021,6 +1007,8 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate104: return 104
         case .plate105: return 105
         case .plate106: return 106
+        case .plate107: return 107
+        case .plate108: return 108
         }
     }
 
@@ -1044,7 +1032,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate012: return "12: Pterional Fissure"
         case .plate013: return "13: Chiari I Duraplasty"
         case .plate014: return "14: Goel-Harms C1-C2"
-        case .plate015: return "15: ACDF Corridor"
+        case .plate015: return "15: ACDF Corridor & MRI"
         case .plate016: return "16: Temporal MMA Map"
         case .plate017: return "17: Pterional Bone"
         case .plate018: return "18: Bifrontal 3D"
@@ -1136,6 +1124,8 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate104: return "104: PJF Revision to T2"
         case .plate105: return "105: SCM Spur Resection"
         case .plate106: return "106: SI Joint Arthrodesis"
+        case .plate107: return "107: ACDF Discectomy & PLL"
+        case .plate108: return "108: ACDF Cage & Plating"
         }
     }
 
@@ -1155,7 +1145,7 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate012: return "Left Pterional Craniotomy & Sylvian Fissure Opercular Exposure (1:1 Modernized Master)"
         case .plate013: return "Chiari I Malformation Suboccipital Decompression & Expansile Patch Duraplasty (1:1 Modernized Master)"
         case .plate014: return "Posterior C1–C2 Goel-Harms Screw-Rod Fixation Construct (1:1 Modernized Master)"
-        case .plate015: return "Anterior Cervical Discectomy & Fusion (ACDF) — Smith-Robinson Corridor, Uncinate Decompression & Anterior Plating"
+        case .plate015: return "Anterior Cervical Discectomy & Fusion (ACDF) — Diagnostic MRI & Smith-Robinson Corridor"
         case .plate016: return "Right Subtemporal / Temporal Craniotomy & Middle Meningeal Artery (1:1 Text-Scrubbed Master)"
         case .plate017: return "Left Pterional (Frontotemporal) Craniotomy Bone Window & Sphenoid Ridge (3D Master)"
         case .plate018: return "Bifrontal Craniotomy 3D Skull Model & Anterior Cranial Fossa Corridor"
@@ -1247,6 +1237,8 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate104: return "Proximal Junctional Failure: Definitive Revision Reconstruction — UIV+1 Fracture Collapse, Cranial Extension to T2 & Spinopelvic Multi-Rod Reconstruction"
         case .plate105: return "Split Cord Malformation: Spur Resection & Dural Reconstruction — Pang Type I Diastematomyelia, Extradural Bony Spur Drillout & Single-Tube Duraplasty"
         case .plate106: return "Minimally Invasive Sacroiliac Joint Arthrodesis — Lateral Transiliac Corridor, Triangular Implants & Threaded Porous Compression Screws (iFuse TORQ)"
+        case .plate107: return "Anterior Cervical Discectomy & Fusion (ACDF) — Operative Exposure, Discectomy, PLL & Foraminotomy"
+        case .plate108: return "Anterior Cervical Discectomy & Fusion (ACDF) — Interbody Cage & Anterior Cervical Plating"
         }
     }
 
@@ -1358,6 +1350,8 @@ public enum SurgicalPlateType: String, CaseIterable {
         case .plate104: return "arrow.up.and.line.horizontal.and.arrow.down"
         case .plate105: return "scissors"
         case .plate106: return "bolt.horizontal.fill"
+        case .plate107: return "arrow.up.and.down.circle.fill"
+        case .plate108: return "arrow.up.and.down.circle.fill"
         }
     }
 
