@@ -21,15 +21,15 @@ public struct PhotorealisticSurgicalAtlasView: View {
     
     // MARK: - Custom Saved Presentation Order
     private var allOrderedPlates: [SurgicalPlateType] {
-        return [.plate096, .plate017, .plate016, .plate019, .plate018, .plate033, .plate005, .plate010, .plate045, .plate021, .plate012, .plate008, .plate009, .plate030, .plate055, .plate059, .plate066, .plate074, .plate084, .plate025, .plate069, .plate070, .plate004, .plate003, .plate006, .plate020, .plate022, .plate052, .plate057, .plate077, .plate082, .plate027, .plate040, .plate041, .plate051, .plate053, .plate056, .plate060, .plate061, .plate062, .plate063, .plate065, .plate067, .plate079, .plate086, .plate093, .plate001, .plate013, .plate014, .plate035, .plate047, .plate049, .plate088, .plate097, .plate015, .plate107, .plate108, .plate031, .plate034, .plate042, .plate044, .plate050, .plate064, .plate076, .plate080, .plate091, .plate098, .plate026, .plate036, .plate038, .plate048, .plate054, .plate058, .plate068, .plate072, .plate073, .plate078, .plate085, .plate094, .plate103, .plate011, .plate007, .plate037, .plate029, .plate028, .plate032, .plate083, .plate087, .plate100, .plate101, .plate106, .plate023, .plate024, .plate039, .plate071, .plate075, .plate081, .plate099, .plate102, .plate104, .plate089, .plate090, .plate092, .plate002, .plate043, .plate046, .plate095, .plate105]
+        return [.plate096, .plate017, .plate016, .plate019, .plate018, .plate033, .plate005, .plate010, .plate045, .plate021, .plate041, .plate027, .plate051, .plate012, .plate009, .plate008, .plate025, .plate070, .plate030, .plate059, .plate074, .plate069, .plate055, .plate066, .plate020, .plate004, .plate052, .plate057, .plate003, .plate082, .plate077, .plate040, .plate061, .plate062, .plate063, .plate084, .plate056, .plate006, .plate067, .plate060, .plate086, .plate065, .plate022, .plate079, .plate093, .plate053, .plate031, .plate001, .plate035, .plate097, .plate049, .plate044, .plate014, .plate034, .plate107, .plate013, .plate047, .plate088, .plate042, .plate015, .plate108, .plate050, .plate091, .plate076, .plate064, .plate080, .plate098, .plate026, .plate036, .plate038, .plate048, .plate054, .plate058, .plate068, .plate072, .plate073, .plate078, .plate094, .plate103, .plate011, .plate007, .plate037, .plate032, .plate029, .plate028, .plate087, .plate100, .plate101, .plate106, .plate083, .plate023, .plate024, .plate071, .plate075, .plate081, .plate099, .plate102, .plate104, .plate039, .plate085, .plate089, .plate090, .plate092, .plate002, .plate043, .plate046, .plate095, .plate105]
     }
     // MARK: - End Custom Saved Presentation Order
     
     private var currentFilteredPlates: [SurgicalPlateType] {
         if let sub = selectedSubSection {
-            return sub.plates
+            return allOrderedPlates.filter { $0.subSection == sub }
         } else {
-            return selectedDomain.plates
+            return allOrderedPlates.filter { $0.domain == selectedDomain }
         }
     }
     
