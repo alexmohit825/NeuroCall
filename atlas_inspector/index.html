@@ -166,6 +166,17 @@
     display: flex; flex-direction: column; gap: 4px; cursor: grab; user-select: none;
     transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s; position: relative;
   }
+  .slide-tile.simplified-highlight {
+    border: 2px solid #10b981;
+    box-shadow: 0 0 16px rgba(16, 185, 129, 0.45);
+    background: #0a1f1a;
+  }
+  .slide-badge-simplified {
+    position: absolute; bottom: 4px; left: 4px;
+    background: #10b981; color: #04120e; font-size: 9px; font-weight: 900;
+    padding: 2px 5px; border-radius: 4px; letter-spacing: 0.4px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.6);
+  }
   .slide-tile:hover {
     transform: translateY(-2px); border-color: var(--accent-cyan);
     box-shadow: 0 4px 16px rgba(0,229,255,0.25);
@@ -1345,8 +1356,8 @@ const appData = {
           "title": "3D Synthetic DTI Tractography & Language Networks",
           "structureType": "SYNTHETIC NEUROIMAGING & TRACTOGRAPHY",
           "color": "neonRed",
-          "x": 0.16,
-          "y": 0.5,
+          "x": 0.283,
+          "y": 0.222,
           "description": "Panel A exhibits synthetic axial and coronal T1-contrast scans of a left frontal-opercular glioblastoma (WHO Grade 4) with ring enhancement and central necrosis. The 3D DTI tractography reconstruction maps the surrounding critical white matter tracts: Corticospinal Tract (CST) descending vertically in royal blue, Arcuate Fasciculus (AF) / SLF II\u2013III looping in magenta/crimson, Inferior Fronto-Occipital Fasciculus (IFOF) in dark violet, and Uncinate Fasciculus (UF) in green. Inset details DES stimulation endpoints (AF = repetition errors; IFOF = semantic paraphasias; CST = motor arrest).",
           "surgicalPearl": "Subcortical language organization is dual-stream: the dorsal stream (AF/SLF) subserves phonological processing and repetition, while the ventral stream (IFOF) subserves semantic comprehension. Preserving both streams is required to prevent permanent postoperative aphasia."
         },
@@ -1357,7 +1368,7 @@ const appData = {
           "structureType": "OPERATIVE MAPPING & PERISYLVIAN ANATOMY",
           "color": "neonAmber",
           "x": 0.5,
-          "y": 0.38,
+          "y": 0.716,
           "description": "Panel B depicts the awake asleep-awake-asleep field with regional scalp block and the patient alert performing DO-80 naming tasks. An Ojemann bipolar probe (60 Hz, 1.5\u20133.5 mA) stimulates perisylvian gyri under ECoG monitoring. Numbered sterile tags mark critical landmarks: [1] Speech arrest (Broca area / IFG), [2] Semantic paraphasia / anomia (Wernicke / STG), [3] Phonological paraphasia (supramarginal gyrus), [4] Contralateral hand motor arrest (precentral motor strip), and [5]/[6] Negative silent cortex marking the safe subpial corticotomy corridor.",
           "surgicalPearl": "Direct electrical stimulation (DES) remains the gold standard for defining eloquent brain. A 1 cm functional margin around positive language sites prevents permanent postoperative language deficits."
         },
@@ -1367,21 +1378,10 @@ const appData = {
           "title": "16\u00d7 Subcortical DES, 5-ALA Fluorescence & Tract Sparing",
           "structureType": "SUBCORTICAL DISSECTION & WHITE MATTER PRESERVATION",
           "color": "neonBlue",
-          "x": 0.82,
-          "y": 0.38,
+          "x": 0.764,
+          "y": 0.17,
           "description": "Panel C illustrates the cavity under 405 nm violet-blue illumination. The glioblastoma core exhibits intense ruby-magenta Protoporphyrin IX (PpIX) fluorescence debulked by CUSA. A subcortical monopolar ball-tip probe actively stimulates deep cavity walls, identifying the glistening striated white fiber bundles of the Arcuate Fasciculus on the deep lateral wall and the Corticospinal Tract (CST) on the posterior-medial floor, defining the functional boundary of supratotal resection.",
           "surgicalPearl": "5-ALA fluorescence visualizes tumor tissue beyond MRI gadolinium margins, but fluorescence must always be subordinated to subcortical stimulation: when a positive motor or language response occurs, tumor resection must halt regardless of residual pink fluorescence."
-        },
-        {
-          "id": "pin_070_4",
-          "num": 4,
-          "title": "Intraoperative Seizure Abort & WHO Grade 4 Neuropathology",
-          "structureType": "SEIZURE EMERGENCY PROTOCOL & NEUROPATHOLOGY",
-          "color": "neonGreen",
-          "x": 0.217,
-          "y": 0.947,
-          "description": "Lower panels: Inset 1 details the Seizure Abort Protocol: immediate cold/iced Ringer's irrigation (4\u201310\u00b0C) directly onto the cortex to terminate after-discharges and electrographic seizures, backed by IV levetiracetam and propofol rescue. Inset 2 demonstrates diagnostic WHO Grade 4 Glioblastoma neuropathology on H&E (40\u00d7): marked nuclear pleomorphism/cellular atypia, florid microvascular glomeruloid endothelial proliferation, and diagnostic pseudopalisading necrosis.",
-          "surgicalPearl": "Iced Ringer's solution must be immediately available at the scrub table before the stimulator touches the brain. Cold irrigation terminates >95% of stimulation-induced seizures without requiring intravenous anticonvulsants or general anesthesia induction."
         }
       ],
       "steps": [],
@@ -1557,8 +1557,8 @@ const appData = {
           "title": "3D Contrast MRI & Sindou Classification Matrix",
           "structureType": "NEUROIMAGING & SSS INVASION MATRIX",
           "color": "neonRed",
-          "x": 0.174,
-          "y": 0.142,
+          "x": 0.191,
+          "y": 0.16,
           "description": "Panel A exhibits pre- and post-operative 3T contrast MRI of a spherical middle-third parasagittal/falcine meningioma compressing the rolandic cortex and invading the superior sagittal sinus (SSS). Complete Simpson resection with patent SSS on post-op imaging. The bottom matrix details the Sindou Classification (Types I through VI) defining the surgical strategy: from outer dural coagulation (Type I) and lateral wall repair with patch duraplasty (Types II\u2013IV) to saphenous bypass (Type V) or en-bloc sinus resection (Type VI).",
           "surgicalPearl": "The Sindou Classification dictates the limits of safe oncological resection. Invasion of the lateral wall (Types II\u2013IV) permits complete Simpson Grade I resection when paired with meticulous autologous patch reconstruction, avoiding sinus sacrifice."
         },
@@ -1568,32 +1568,10 @@ const appData = {
           "title": "SSS-Crossing Craniotomy & Rolandic Bridging Vein Sparing",
           "structureType": "SURGICAL EXPOSURE & VENOUS TOPOGRAPHY",
           "color": "neonAmber",
-          "x": 0.5,
-          "y": 0.38,
+          "x": 0.546,
+          "y": 0.652,
           "description": "Panel B demonstrates surgical planning and exposure: (1) Vertex topography illustrating 4 burr holes straddling the midline SSS for safe dural peeling without sinus tear; (2) D-shaped dural flap hinged medially along the SSS. The large operative field reveals the central rolandic vein and vein of Trolard meticulously skeletonized and preserved as they enter the lateral lacunae, alongside devascularization of middle meningeal artery branches along the convexity.",
           "surgicalPearl": "Never sacrifice dominant rolandic bridging veins in the middle or posterior third of the SSS. Occluding or tearing the central rolandic vein triggers devastating hemorrhagic infarction of the motor cortex with permanent contralateral hemiplegia."
-        },
-        {
-          "id": "pin_069_3",
-          "num": 3,
-          "title": "16\u00d7 Cavitation, Falx Resection & Triangular SSS Wall Repair",
-          "structureType": "MICROSURGICAL RESECTION & SINUS RECONSTRUCTION",
-          "color": "neonBlue",
-          "x": 0.82,
-          "y": 0.38,
-          "description": "Panel C details the 5 sequential stages: (1) CUSA internal debulking collapsing the tumor capsule away from the motor cortex arachnoid plane; (2) Falx cerebri resection down to the inferior sagittal sinus; (3) Cross-sectional delineation of the triangular SSS lumen (superior wall, invaded lateral wall, medial falcine wall); (4) Reconstruction of the lateral wall defect using an autologous pericranial patch sewn watertight with continuous 7-0 monofilament; (5) Patent, laminar sinus flow confirmed via green ICG videoangiography and micro-Doppler.",
-          "surgicalPearl": "Maintain continuous lumen patency during lateral wall resection by using temporary micro-clips and placing continuous 7-0 monofilament sutures through healthy dural margins. Confirm absence of intraluminal thrombus before tying the final knot."
-        },
-        {
-          "id": "pin_069_4",
-          "num": 4,
-          "title": "Bridging Vein Rule & Venous Air Embolism Protocol",
-          "structureType": "CRITICAL SAFETY & ANESTHETIC PROTOCOLS",
-          "color": "neonGreen",
-          "x": 0.114,
-          "y": 0.952,
-          "description": "Lower panels detail essential safety guidelines: (1) Bridging Vein Safety Rule explicitly warning against sacrificing rolandic drainage to prevent malignant cerebral swelling and hemiplegia; (2) Venous Air Embolism (VAE) Protocol detailing 15\u00b0 head elevation, temporary intraoperative PEEP elevation (+5\u201310 cm H2O) during sinus opening, Surgiflo/Gelfoam packing with gentle pressure, and low-power bipolar hemostasis.",
-          "surgicalPearl": "Elevating PEEP (+5\u201310 cm H2O) immediately prior to opening the SSS increases venous pressure, converting negative sinus pressure to positive pressure and preventing lethal venous air embolism (VAE)."
         }
       ],
       "steps": [],
@@ -2200,8 +2178,8 @@ const appData = {
           "title": "Catheter DSA Angioarchitecture & M1 Lenticulostriate Anatomy",
           "structureType": "ANGIOGRAPHY & BRANCHING CLASSIFICATION",
           "color": "neonRed",
-          "x": 0.17,
-          "y": 0.38,
+          "x": 0.294,
+          "y": 0.21,
           "description": "Right internal carotid catheter DSA (lateral/oblique view) displaying the horizontal sphenoidal M1 trunk, fine candle-flame lateral lenticulostriate perforating arteries (LsA) arising from the dorsal aspect of M1, and a saccular aneurysm at the MCA bifurcation (limen insulae) dividing into superior (frontal) and inferior (temporal) M2 trunks.",
           "surgicalPearl": "Preoperative 4-vessel angiography or high-resolution 3D rotational DSA is mandatory to identify early branching (e.g. early anterior temporal artery mimicking bifurcation) and to map the relationship of the lateral lenticulostriate arteries, which supply the posterior limb of the internal capsule."
         },
@@ -2211,8 +2189,8 @@ const appData = {
           "title": "Right Pterional Transsylvian Exposure & Distal-to-Proximal Corridor",
           "structureType": "MICROSURGICAL OPERATIVE CORRIDOR",
           "color": "neonAmber",
-          "x": 0.5,
-          "y": 0.38,
+          "x": 0.791,
+          "y": 0.152,
           "description": "Right frontotemporal pterional craniotomy with sphenoid ridge drilled flat to the meningo-orbital band. Frontal and temporal opercula are gently separated with self-retaining retractor blades across the Sylvian fissure. Superficial Sylvian veins are preserved on the temporal bank. A temporary clip is placed on the horizontal M1 trunk for proximal hemodynamic control during bifurcation dissection.",
           "surgicalPearl": "The distal-to-proximal transsylvian approach traces M2 opercular branches retrograde down to the bifurcation, which minimizes frontal lobe retraction. Always apply temporary clips on M1 only after identifying and sparing all dorsal lenticulostriate perforators."
         },
@@ -2222,21 +2200,10 @@ const appData = {
           "title": "16\u00d7 Multi-Clip Tandem Reconstruction & Sac Incision",
           "structureType": "TANDEM CLIP RECONSTRUCTION & EXCLUSION",
           "color": "neonBlue",
-          "x": 0.82,
-          "y": 0.38,
+          "x": 0.483,
+          "y": 0.62,
           "description": "High-magnification (16\u00d7) view of the MCA bifurcation. A complex, broad-based aneurysm neck is reconstructed using multiple interlocking titanium Yasargil/Sugita clips applied in tandem. The excluded aneurysm sac is sharply incised and decompressed, proving complete flow obliteration. Both superior M2 (frontal motor) and inferior M2 (temporal language) trunks remain widely patent.",
           "surgicalPearl": "In broad-necked MCA aneurysms, a single straight clip risks dog-ear residual or stenosis of the daughter trunks. Applying a tandem or fenestrated clip construct reconstructs the native arterial carina. Puncturing or incising the dome confirms complete exclusion before releasing temporary clips."
-        },
-        {
-          "id": "pin_062_4",
-          "num": 4,
-          "title": "Intraoperative ICG Videoangiography & Micro-Doppler Verification",
-          "structureType": "FLOW PATENCY & EXCLUSION CONFIRMATION",
-          "color": "neonGreen",
-          "x": 0.5,
-          "y": 0.88,
-          "description": "Dual-modality flow verification: Inset 1 (ICG videoangiography) confirms complete exclusion of the aneurysm sac (jet black non-filling void) with robust fluorescent green filling in M1, lenticulostriates, and both M2 daughter branches. Inset 2 (Micro-Doppler) confirms high-velocity laminar flow in both Superior M2 (Vmean = 28 cm/s) and Inferior M2 (Vmean = 32 cm/s).",
-          "surgicalPearl": "Micro-Doppler flow measurement (>20 cm/s in both M2 branches) provides instant verification that clip blades have not kinked or narrowed either outflow trunk. Stenosis of the superior M2 causes contralateral hand/face weakness and motor aphasia; stenosis of the inferior M2 causes Wernicke aphasia and superior quadrantanopia."
         }
       ],
       "steps": [],
@@ -3761,8 +3728,8 @@ const appData = {
           "title": "3D Multi-Modal MRI, Eden Classification & Corridor Biomechanics",
           "structureType": "NEUROIMAGING & AXIAL RESECTION VECTOR",
           "color": "red",
-          "x": 0.16,
-          "y": 0.5,
+          "x": 0.753,
+          "y": 0.13,
           "description": "Panel A illustrates multi-planar 3T MRI of an Eden Type II/III thoracic dumbbell schwannoma showing intradural cord compression with CSF capping, foraminal waist widening, and paravertebral soft-tissue extension. The axial cross-section demonstrates the costotransversectomy corridor: resection of the transverse process, rib head, proximal 3\u20135 cm rib, pedicle, and lateral vertebral body, creating a 180\u00b0 posterolateral trajectory directly to the lateral thecal sac and posterior mediastinum with zero spinal cord retraction. Inset details Eden Types I through IV.",
           "surgicalPearl": "The costotransversectomy corridor eliminates the need for thoracic spinal cord retraction. Resecting the proximal rib head and pedicle converts a deep, high-risk traction corridor into a flat, tangential working trajectory."
         },
@@ -3772,32 +3739,10 @@ const appData = {
           "title": "Posterolateral Exposure, Extrapleural Corridor & Dumbbell Lobes",
           "structureType": "OPERATIVE FIELD & TRIPLE-COMPARTMENT TOPOGRAPHY",
           "color": "neonAmber",
-          "x": 0.5,
-          "y": 0.38,
+          "x": 0.558,
+          "y": 0.634,
           "description": "Panel B reveals the deep operative exposure from rostral T1 to caudal T3. Bilateral pedicle screws with rods provide rigid biomechanical stabilization. The lobulated yellow-tan dumbbell tumor is cleanly differentiated into three continuous compartments: intradural (spinal canal), foraminal, and extraforaminal thoracic (paravertebral). Parietal pleura is mobilized extrapleurally and protected with moist gauze. The intercostal neurovascular bundle (vein, artery, nerve) tracks along the rib margin into the neural foramen next to the costal stump (3\u20135 cm rib resection).",
           "surgicalPearl": "Always dissect in the extrapleural plane. Gentle blunt mobilization of the parietal pleura with a moist sponge avoids pleural laceration and prevents postoperative pneumothorax or hemothorax."
-        },
-        {
-          "id": "pin_068_3",
-          "num": 3,
-          "title": "5-Step Resection, Watertight Dural Repair & Arthrodesis",
-          "structureType": "16\u00d7 MICROSURGICAL NARRATIVE & COLUMN RECONSTRUCTION",
-          "color": "blue",
-          "x": 0.82,
-          "y": 0.38,
-          "description": "Panel C details the 5 sequential operative stages: (1) Thecal sac durotomy & intradural arachnoid dissection, sacrificing the non-functional dorsal root of origin while sparing ventral rootlets; (2) CUSA internal debulking of foraminal and extrapleural tumor; (3) En-bloc capsule delivery with spontaneous cord re-expansion; (4) Watertight running dural closure reinforced with an onlay collagen matrix patch and fibrin glue to prevent CSF-pleural fistula; (5) Column reconstruction with anterior expandable/mesh titanium cage and rigid posterior screw-rod arthrodesis.",
-          "surgicalPearl": "Watertight dural repair reinforced with collagen matrix and fibrin sealant is mandatory. Negative intrathoracic pleural pressure creates a powerful siphon effect that can turn even a pinhole dural tear into an intractable, life-threatening CSF-pleural fistula."
-        },
-        {
-          "id": "pin_068_4",
-          "num": 4,
-          "title": "Artery of Adamkiewicz, Schwannoma Pathology & Pleural Protocol",
-          "structureType": "VASCULAR SAFETY, PATHOLOGY & PLEURAL TESTING",
-          "color": "green",
-          "x": 0.5,
-          "y": 0.88,
-          "description": "Lower insets: Inset 1 maps the Great Anterior Radiculomedullary Artery of Adamkiewicz (T9\u2013L2, typically left-sided), emphasizing the rule to avoid coagulating lower thoracic intercostal arteries near the foramen without proving absence of ASA supply. Inset 2 (H&E 40\u00d7) shows WHO Grade I schwannoma with Antoni A spindle cells forming palisading Verocay bodies and loose Antoni B myxoid tissue. Inset 3 illustrates the saline immersion air-leak test with positive-pressure recruitment (Valsalva) to confirm zero pleural leak.",
-          "surgicalPearl": "Always perform a saline immersion test under positive-pressure lung recruitment (Valsalva to 30 cm H2O) before closure. If bubbles appear, place a chest tube under direct vision through the surgical corridor."
         }
       ],
       "steps": [
@@ -3842,8 +3787,8 @@ const appData = {
           "title": "Brain MRI Signs of SIH & Lateral Decubitus DSM",
           "structureType": "NEUROIMAGING & DYNAMIC MYELOGRAPHY",
           "color": "neonRed",
-          "x": 0.16,
-          "y": 0.5,
+          "x": 0.268,
+          "y": 0.158,
           "description": "Panel A contrasts the classic cranial 'SEEPS' signs of spontaneous intracranial hypotension (diffuse pachymeningeal enhancement, tonsillar descent/pseudo-Chiari, flattened pons, effaced prepontine cistern, and engorged venous sinuses) with the definitive spinal diagnostic modality: lateral decubitus Digital Subtraction Myelography (DSM). The DSM captures an immediate contrast jet from the nerve root sleeve opacifying an undulating paraspinal/intercostal vein draining into the azygos system, with ZERO extradural CSF leak.",
           "surgicalPearl": "CSF-venous fistulas (Schievink Type 3) NEVER produce an epidural fluid collection on spine MRI. Routine supine spine MRIs are completely normal; definitive diagnosis requires rapid, high-frame-rate lateral decubitus CT myelography or DSM with the leak-side dependent."
         },
@@ -3853,8 +3798,8 @@ const appData = {
           "title": "Aberrant Arachnoid Granulation & Transvenous Coiling",
           "structureType": "MICRO-ANATOMY & ENDOVASCULAR EMBOLIZATION",
           "color": "neonAmber",
-          "x": 0.5,
-          "y": 0.38,
+          "x": 0.758,
+          "y": 0.158,
           "description": "Panel B reveals the microscopic patho-anatomy: an aberrant, hypertrophied spinal arachnoid granulation herniating directly through the dural root sleeve into an adjacent radicular/paraspinal vein at the neural foramen, shunting CSF into Batson's and azygos venous plexuses. The lower panel illustrates transvenous endovascular embolization via femoral/jugular access navigating the azygos vein and posterior intercostal vein, deploying platinum micro-coils and a liquid embolic cast (Onyx/Squid) to occlude the fistulous dural junction.",
           "surgicalPearl": "Transvenous embolization is a safe, minimally invasive first-line curative option. The key is occluding the exact dural junction of the draining vein with micro-coils and liquid embolic without allowing material to reflux into anterior or posterior spinal cord medullary veins."
         },
@@ -3864,21 +3809,10 @@ const appData = {
           "title": "16\u00d7 Microsurgical Clip Ligation & Resection",
           "structureType": "MICROSURGICAL LIGATION & POST-OP RESOLUTION",
           "color": "neonBlue",
-          "x": 0.82,
-          "y": 0.38,
+          "x": 0.478,
+          "y": 0.651,
           "description": "Panel C depicts the 16\u00d7 microsurgical field via a targeted unilateral hemilaminectomy. The dorsal root ganglion (DRG) and dural root sleeve are exposed, and the engorged fistulous vein is selectively clipped at its dural takeoff using a titanium microvascular clip and sharply divided distal to the clip, permanently obliterating the shunt while preserving the nerve root. Inset verifies complete post-op MRI resolution of brainstem sagging, tonsillar herniation, and pachymeningeal enhancement.",
           "surgicalPearl": "Microsurgical clip ligation provides a 100% immediate cure for CVF. Meticulously dissect the draining vein off the nerve root sleeve, apply the microvascular clip flush against the dural cuff, and divide the vein distally to eliminate any possibility of recanalization."
-        },
-        {
-          "id": "pin_072_4",
-          "num": 4,
-          "title": "Schievink Classification & Rebound Intracranial Hypertension",
-          "structureType": "CSF LEAK TAXONOMY & POST-OP COMPLICATIONS",
-          "color": "neonGreen",
-          "x": 0.49,
-          "y": 0.811,
-          "description": "Lower panels: Inset 1 contrasts Schievink Type 1 (ventral spur tear), Type 2 (ruptured meningeal diverticulum), and Type 3 (CSF-venous fistula, zero extradural fluid). Inset 2 outlines the Rebound Intracranial Hypertension (RIH) Protocol: over 50% of successfully closed CVFs develop severe post-closure intracranial hypertension due to restored CSF volume and reset venous resistance, presenting with paradoxical supine headache and papilledema requiring acetazolamide.",
-          "surgicalPearl": "Warn patients before treatment about Rebound Intracranial Hypertension (RIH). When the fistula is sealed, their chronically elevated CSF production causes acute intracranial pressure spikes; initiating Diamox (acetazolamide) early prevents papilledema and intractable headache."
         }
       ],
       "steps": [],
@@ -5779,8 +5713,11 @@ function renderSlideSorter() {
       grid.appendChild(div);
     }
 
+    const SIMPLIFIED_SET = new Set(['070','069','062','079','015','072','078','075','085','089','076','068']);
+    const isSimplified = SIMPLIFIED_SET.has(p.plate_num);
     const tile = document.createElement('div');
     tile.className = 'slide-tile';
+    if (isSimplified) tile.classList.add('simplified-highlight');
     if (selectedSlideIndices.has(actualIndex)) tile.classList.add('selected');
     if (slideClipboard && slideClipboard.mode === 'cut' && slideClipboard.indices.includes(actualIndex)) tile.classList.add('cut-pending');
     tile.draggable = true;
@@ -5803,10 +5740,10 @@ function renderSlideSorter() {
         <span style="font-size:10px; font-weight:900; color:#00e5ff;">#${actualIndex + 1}</span>
         ${domainBadge}
       </div>
-      <div class="slide-thumb" ondblclick="openLightbox('${p.image_file}', 'Plate ${p.plate_num}: ${p.title.replace(/'/g, "\'") }')">
-        <img src="${p.image_file}" alt="Plate ${p.plate_num}" loading="lazy">
+      <div class="slide-thumb" ondblclick="openLightbox('${p.image_file}?v=103', 'Plate #${actualIndex + 1}: ${p.title.replace(/'/g, "\'") }')">
+        <img src="${p.image_file}?v=103" alt="Plate #${actualIndex + 1}" loading="lazy">
         <span class="slide-badge-seq">#${actualIndex + 1}</span>
-        <span class="slide-badge-orig">P-${p.plate_num}</span>
+        ${isSimplified ? '<span class="slide-badge-simplified">✨ SIMPLIFIED</span>' : ''}
       </div>
       <div class="slide-title" title="${p.title}">${p.title}</div>
       <div style="display:flex; justify-content:space-between; align-items:center; margin-top:auto; font-size:9px; color:#64748b; border-top:1px solid #1a2436; padding-top:4px;">
@@ -5984,8 +5921,8 @@ function renderAtlas() {
           <span style="font-weight:800; font-size:14px; color:#fff;">PLATE ${p.plate_num}</span>
           <span class="badge badge-amber">${p.batch_tag}</span>
         </div>
-        <div class="plate-viewport" id="viewport-${p.plate_num}" onclick="openLightbox('${p.image_file}', 'Plate ${p.plate_num}: ${p.title.replace(/'/g, "\\'") }')">
-          <img src="${p.image_file}" alt="Plate ${p.plate_num}">
+        <div class="plate-viewport" id="viewport-${p.plate_num}" onclick="openLightbox('${p.image_file}?v=103', 'Plate ${p.plate_num}: ${p.title.replace(/'/g, "\\'") }')">
+          <img src="${p.image_file}?v=103" alt="Plate ${p.plate_num}">
           ${pinsHtml}
         </div>
       </div>
